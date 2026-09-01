@@ -23,8 +23,22 @@ No test framework or coverage threshold is configured. Treat `test_draft_simulat
 
 ## Commit & Pull Request Guidelines
 
-This checkout has no Git history from which to infer conventions. Use concise, imperative Conventional Commit subjects, for example `fix: preserve pack rotation in round two`. Keep commits focused. Pull requests should explain behavior changes, list verification commands and routes, link the relevant issue/specification, and include before/after screenshots for visible UI work. Call out regenerated files and external-data sources explicitly.
+Use concise, imperative Conventional Commit subjects, for example `fix: preserve pack rotation in round two`. Keep commits focused. Pull requests should explain behavior changes, list verification commands and routes, link the relevant issue/specification, and include before/after screenshots for visible UI work. Call out regenerated files and external-data sources explicitly.
 
 ## Security & Configuration
 
 Copy `.env.example` to `.env` for local settings. Never commit real Slack webhook URLs or other secrets. Keep `.env`, caches, and generated data changes out of unrelated patches.
+
+## Agent Skills
+
+### Issue Tracker
+
+Track specifications, decisions, and implementation work in GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage Labels
+
+Use the repository's five canonical workflow labels. See `docs/agents/triage-labels.md`.
+
+### Domain Docs
+
+This is a single-context repository. Read `CONTEXT.md` and relevant ADRs before changing domain behavior. See `docs/agents/domain.md`.
