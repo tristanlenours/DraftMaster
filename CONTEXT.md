@@ -23,3 +23,19 @@ _Avoid_: Expert draft, competitive draft, Certified Draft
 **Homologation**:
 The eligibility state of a Draft homologué. Enabling Coaching at any point irreversibly removes Homologation and converts the session into a Draft accompagné.
 _Avoid_: Ranked status, validation, Certification
+
+**Résultat verrouillé**:
+The immutable record created after all picks and unaided deck construction are complete. Homologation rewards are calculated before any retrospective assistance becomes available.
+_Avoid_: Saved deck, final screen
+
+**Analyse rétrospective**:
+Post-result Coaching that explains picks, color or archetype development, missed cards, and the final deck. It is available only after the Résultat verrouillé and does not affect Homologation.
+_Avoid_: Live Coaching, deckbuilding help
+
+**Score de deck**:
+The explainable evaluation of a Résultat verrouillé across five Axes de deck. For the first milestone, it is the only score used by the Wall of Records.
+_Avoid_: Draft score, match score, global score
+
+**Axes de deck**:
+The five dimensions of a Score de deck: Puissance, Synergie, Courbe, Mana, and Interaction.
+_Avoid_: Kiviat metrics, performance stats
