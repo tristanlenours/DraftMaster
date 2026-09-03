@@ -6,22 +6,30 @@
 
 **Tests** : obligatoires pour les règles métier conformément à la constitution. Pour chaque tranche, écrire le test, constater son échec pour la raison attendue, implémenter le minimum, puis refactoriser. Les cases ci-dessous restent décochées tant que le travail et sa vérification ne sont pas terminés.
 
-**Organisation** : fondations communes, puis trois parcours utilisateur par priorité. Les chemins sont relatifs à la racine du dépôt. Ce document planifie le travail ; il ne déclenche ni suppression, ni installation, ni publication.
+**Organisation** : préservation des données et reset, fondations communes, puis trois parcours utilisateur par priorité. Les chemins sont relatifs à la racine du dépôt. Ce document planifie le travail ; il ne déclenche ni suppression, ni installation, ni publication.
 
 ## Format et garde-fous
 
-- `T###` : identifiant séquentiel de tâche.
+- `T###` : identifiant stable attribué séquentiellement ; l’ordre d’exécution suit les dépendances, pas la valeur numérique.
 - `[P]` : travail possible en parallèle avec les tâches explicitement associées plus bas, après leurs prérequis ; fichiers distincts.
 - `[US1]`, `[US2]`, `[US3]` : rattachement au scénario de la spécification.
 - Aucun scoring, bot intelligent, écran, persistance, reprise ou multijoueur dans cette feature.
 - La suppression du runtime historique exige une PR de reset séparée, avec manifeste revu par un humain. Ne pas transformer une tâche de configuration en suppression implicite.
 - Une ambiguïté de contrat doit être résolue dans les documents sources avant de coder la règle concernée. L’approbation de la checklist ne remplace pas l’analyse de cohérence.
 
+## Phase 0 — Préserver les données puis réconcilier le reset
+
+**Objectif** : conserver la seule donnée historique requise avant de retirer le runtime legacy dans une PR séparée et récupérable.
+
+- [x] T013 Importer explicitement la révision historique documentée dans `data/cubes/titou_tribal/2026-02-24.1.json` et écrire `data/cubes/titou_tribal/README.md` : provenance, méthode, version, attribution et droits connus ; vérifier 545 instances, 543 impressions et 542 identités oracle, sans committer réponse brute ni images. Preuve : commit `28a35d9`, import explicite verrouillé par `scripts/import-historical-titou-snapshot.mjs`, empreinte brute `7810d999d8c349a7fba56ea61dc0e479950d952bd3134337ffb07b983b616ee6` et empreinte canonique `289f6c4a27b39bc4f6f1816827ab2cca1198bbb88e495063dedcb176c18aba39`.
+- [ ] T001 Consigner dans `specs/001-simulate-titou-draft/reset-readiness.md` la référence de la PR de reset, son manifeste et la preuve de fusion ou de réconciliation ; arrêter avant T002 si ce prérequis du plan n’est pas satisfait, sans supprimer de fichier dans cette tâche.
+
+**Point de contrôle** : le snapshot normalisé est publié avant la suppression ; la PR de reset est revue puis fusionnée ou explicitement réconciliée avec la branche de feature.
+
 ## Phase 1 — Installation du socle
 
 **Objectif** : préparer un package TypeScript unique, des contrôles reproductibles et une traçabilité explicite.
 
-- [ ] T001 Consigner dans `specs/001-simulate-titou-draft/reset-readiness.md` la référence de la PR de reset, son manifeste et la preuve de fusion ou de réconciliation ; arrêter avant T002 si ce prérequis du plan n’est pas satisfait, sans supprimer de fichier dans cette tâche.
 - [ ] T002 Configurer Node 24 LTS, ESM et TypeScript 6 strict à syntaxe effaçable dans `.node-version`, `package.json`, `package-lock.json` et `tsconfig.json` ; verrouiller les dépendances du plan, prévoir les formats Ajv requis et utiliser `tsc --noEmit` sans étape de build.
 - [ ] T003 [P] Configurer ESLint/typescript-eslint et Prettier dans `eslint.config.js`, `.prettierrc.json` et `.prettierignore`, avec imports ESM et formatage cohérent à deux espaces pour TypeScript.
 - [ ] T004 [P] Configurer Vitest, V8 et fast-check dans `vitest.config.ts`, avec suites unitaires/contrat/intégration/E2E, couverture incluant les sources non exercées et performance isolée des tests fonctionnels.
@@ -34,15 +42,14 @@
 
 **Objectif** : fournir des données validées, un hasard reproductible et des identifiants indépendants de la seed. Cette phase bloque les trois parcours.
 
-### Snapshot : contrat avant import
+### Snapshot : contrat et outillage de production
 
 - [ ] T007 [P] Écrire dans `tests/contract/cube-snapshot.test.ts` les cas de schéma strict et de validation sémantique : fichier vide/malformé, version/provenance invalides, refus à 359 instances, IDs dupliqués, indices incohérents, compteurs et digest altérés ; autoriser les impressions et cartes répétées, ainsi que des versions synthétiques Titou de 540 et 360 instances, sans leur imposer les comptes exacts du snapshot initial de 545.
 - [ ] T008 [P] Écrire dans `tests/unit/cubes/normalize-snapshot.test.ts` les cas de sélection du mainboard, exclusion des collections séparées, maintien des terrains de base présents, identité d’impression/illustration et IDs ordonnés ; couvrir réimport inchangé et révisions datées avec suffixe `.N`.
 - [ ] T009 Implémenter `src/cubes/validate-snapshot.ts`, `src/cubes/canonical-snapshot.ts` et `src/cubes/cube-snapshot.schema.json` depuis le contrat : Ajv strict 2020-12, formats, contrôles sémantiques et SHA-256 de la projection canonique RFC 8785, sans inclure date de récupération ni digest lui-même ; faire passer T007.
 - [ ] T010 Implémenter `src/cubes/normalize-snapshot.ts` pour produire le snapshot immuable et sa provenance sans réseau, sans dédupliquer les cartes ni injecter de terrains ; faire passer T008 et refuser la réécriture silencieuse d’une version différente.
 - [ ] T011 Écrire dans `tests/integration/import-cube.test.ts` les cas fetch/normalize/validate : une seule requête explicite avec user-agent, URL/date/hash conservés, erreurs d’entrée et absence de réseau pour normalisation/validation ; utiliser des réponses réseau simulées.
-- [ ] T012 Implémenter `src/cli/import-cube.ts` et `src/cubes/load-snapshot.ts`, puis raccorder `cube:fetch`, `cube:normalize` et `cube:validate` dans `package.json` ; respecter les codes de sortie de `contracts/cli.md` et faire passer T011.
-- [ ] T013 Importer explicitement la révision historique documentée dans `data/cubes/titou_tribal/2026-02-24.1.json` et écrire `data/cubes/titou_tribal/README.md` : provenance, méthode, version, attribution et droits connus ; vérifier 545 instances, 543 impressions et 542 identités oracle, sans committer réponse brute ni images.
+- [ ] T012 Implémenter `src/cli/import-cube.ts` et `src/cubes/load-snapshot.ts`, puis raccorder `cube:fetch`, `cube:normalize` et `cube:validate` dans `package.json` ; respecter les codes de sortie de `contracts/cli.md`, faire passer T011 et vérifier que l’outillage de production reproduit le contenu fonctionnel et l’empreinte canonique du snapshot bootstrap T013.
 
 ### Hasard et identité : tests puis implémentation
 
@@ -141,7 +148,9 @@ Le rapport est nécessaire dès US1 pour respecter le contrat CLI. US3 ajoutera 
 ## Dépendances et ordre d’exécution
 
 ```text
-Analyse Spec Kit sans blocage + reset séparé réconcilié
+T013 : snapshot historique préservé
+  → T001 : reset séparé fusionné ou réconcilié
+  → Analyse Spec Kit sans blocage
   → Phase 1 : configuration
   → Phase 2 : snapshot + RNG + identité + contrats
   → US1 : moteur + politiques + simulation + rapport/CLI
@@ -152,8 +161,9 @@ Analyse Spec Kit sans blocage + reset séparé réconcilié
 
 US2 dépend du moteur/journal US1. US3 vérifie le rapport livré en US1 et exploite le replay US2. Les tests d’acceptation sont isolables, mais ces dépendances ne permettent pas de livrer les trois parcours en parallèle.
 
-- Phase 1 : T001 → T002 → T003/T004 → T005 → T006.
-- Phase 2 : T007/T008 → T009 → T010 → T011 → T012 → T013 ; T014 → T015 et T016 → T017 sont deux chaînes indépendantes de l’import ; terminer par T018.
+- Phase 0 : T013 → T001 ; ne pas commencer T002 avant la preuve de fusion ou de réconciliation du reset.
+- Phase 1 : T002 → T003/T004 → T005 → T006.
+- Phase 2 : T007/T008 → T009 → T010 → T011 → T012 ; T014 → T015 et T016 → T017 sont deux chaînes indépendantes de l’import ; terminer par T018.
 - US1 : T019 → T020 → T021/T022 → T023 ; T024 → T025 peut avancer séparément des transitions ; T023 et T025 → T026 → T027 ; T028 → T029 ; T030 → T031 attend T027 et T029 ; T032–T035 terminent la validation.
 - US2 : T036/T037 → T038 → T039 → T040 → T041 → T042 → T043.
 - US3 : T044/T045 → T046 ; T047 peut avancer séparément de ces tests ; T046 et T047 → T048 → T049 → T050 → T051.

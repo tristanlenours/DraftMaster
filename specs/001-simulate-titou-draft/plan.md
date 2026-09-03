@@ -96,7 +96,11 @@ src/
     └── simulate-draft.ts
 
 data/cubes/titou_tribal/
-└── 2026-02-24.1.json
+├── 2026-02-24.1.json
+└── README.md
+
+scripts/
+└── import-historical-titou-snapshot.mjs # bootstrap auditable avant reset
 
 tests/
 ├── unit/
@@ -114,14 +118,16 @@ tests/
 
 ## Delivery and Test Sequence
 
-1. Establish Node 24, npm lockfile, strict ESM TypeScript, formatting, linting, type checking, Vitest, coverage, and CI.
-2. Write failing contract tests for the cube snapshot, then implement explicit fetch, normalization, digest, and validation steps.
-3. Write golden tests for seed derivation, integer generation, and Fisher–Yates output.
-4. Implement the draft interface test-first: start, atomic round, rejection without mutation, rotation, pack completion, and session completion.
-5. Complete US1 test-first: random and scripted pick-policy adapters, simulation orchestration, report/invariants/functional projection, and the CLI end-to-end flow. Validate conservation and legal-transition properties before the MVP checkpoint.
-6. Complete US2: test determinism and projection rules, implement standalone replay, compare states at complete transition boundaries, and add the versioned reference draft and replay regression/property tests.
-7. Complete US3: independently audit reports, detect corruption, verify offline operation, and run SC-006 separately from functional tests; record evidence for human review.
-8. Finish cross-cutting CI, dependency and secret checks, clean-checkout verification, Spec Kit convergence and analysis, then Standards + Spec review and human PR approval. Follow the detailed dependencies and checkpoints in [tasks.md](./tasks.md).
+1. Bootstrap, verify and publish the minimal historical Titou snapshot before any legacy deletion.
+2. Merge or explicitly reconcile the separate, human-reviewed reset PR; record its manifest and evidence before implementation.
+3. Establish Node 24, npm lockfile, strict ESM TypeScript, formatting, linting, type checking, Vitest, coverage, and CI.
+4. Write failing contract tests for the cube snapshot, then implement explicit fetch, normalization, digest, validation and reproduction of the bootstrap snapshot.
+5. Write golden tests for seed derivation, integer generation, and Fisher–Yates output.
+6. Implement the draft interface test-first: start, atomic round, rejection without mutation, rotation, pack completion, and session completion.
+7. Complete US1 test-first: random and scripted pick-policy adapters, simulation orchestration, report/invariants/functional projection, and the CLI end-to-end flow. Validate conservation and legal-transition properties before the MVP checkpoint.
+8. Complete US2: test determinism and projection rules, implement standalone replay, compare states at complete transition boundaries, and add the versioned reference draft and replay regression/property tests.
+9. Complete US3: independently audit reports, detect corruption, verify offline operation, and run SC-006 separately from functional tests; record evidence for human review.
+10. Finish cross-cutting CI, dependency and secret checks, clean-checkout verification, Spec Kit convergence and analysis, then Standards + Spec review and human PR approval. Follow the detailed dependencies and checkpoints in [tasks.md](./tasks.md).
 
 ## Complexity Tracking
 

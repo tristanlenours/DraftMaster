@@ -74,7 +74,7 @@
 
 ## Greenfield sequencing
 
-**Decision**: Do not reuse the legacy JavaScript/Python runtime. Remove it in the separately tracked reset change, then rebase or reconcile this feature before implementation. Preserve Git, Spec Kit, constitution, domain documentation, agent guidance, research, and the normalized Titou snapshot.
+**Decision**: Do not reuse the legacy JavaScript/Python runtime. Before deletion, bootstrap and publish the minimal normalized Titou snapshot with a locked historical-response digest and a reproducible explicit script. Then remove the legacy runtime in the separately tracked reset change and rebase or reconcile this feature before implementation. Preserve Git, Spec Kit, constitution, domain documentation, agent guidance, research, the bootstrap script and the normalized Titou snapshot. The later test-first TypeScript importer must reproduce and validate this snapshot; it is not a prerequisite for preserving the data.
 
 **Rationale**: Separating destructive cleanup from domain implementation keeps review scope recoverable and makes the exact deletion manifest auditable.
 
