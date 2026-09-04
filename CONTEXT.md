@@ -39,3 +39,29 @@ _Avoid_: Draft score, match score, global score
 **Axes de deck**:
 The five dimensions of a Score de deck: Puissance, Synergie, Courbe, Mana, and Interaction.
 _Avoid_: Kiviat metrics, performance stats
+
+## Draft Sessions
+
+**Snapshot de cube**:
+An immutable, versioned copy of a cube list. Every Session de draft is tied to exactly one snapshot so its card pool remains reproducible.
+_Avoid_: Live cube, current cube list
+
+**Session de draft**:
+One identified execution of a draft using a fixed Snapshot de cube, seed, rules version, and participant configuration.
+_Avoid_: Game, run
+
+**Tour de draft**:
+The step in which every active seat chooses one card from its current booster before the remaining cards pass together.
+_Avoid_: Player turn, pick when referring to all seats
+
+**Journal de draft**:
+The self-contained, immutable record of a Session de draft, including its Snapshot de cube and ordered facts, sufficient to explain and reconstruct its functional state without an external source.
+_Avoid_: Debug log, activity log
+
+**Relecture de draft**:
+Reconstruction of a Session de draft from its Journal de draft using recorded choices, without asking participants to choose again.
+_Avoid_: Re-simulation when referring to recorded choices, session resume
+
+**Re-simulation de draft**:
+A new execution using the same functional inputs and versions to check that distribution and participant decisions are reproducible.
+_Avoid_: Relecture de draft when referring to recalculated choices
