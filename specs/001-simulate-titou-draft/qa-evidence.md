@@ -18,37 +18,38 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 | 2026-09-04 | `3798886` | Node 24.19.0, npm 11.19.0 | dépendances exactes, `tsc --noEmit`, exécution TypeScript native                                                                         | Réussi                    |
 | 2026-09-04 | `3e357d8` | Node 24.19.0              | Prettier, ESLint typé, Vitest/V8 et fast-check ; 2 tests de fondation                                                                    | Réussi — socle uniquement |
 | 2026-09-04 | `36381ac` | Node 24.19.0, npm 11.19.0 | `npm ci --dry-run --ignore-scripts --offline` puis `npm run check`                                                                       | Réussi — socle uniquement |
+| 2026-09-04 | `5b55beb` | Node 24.19.0, npm 11.19.0 | Validation Ajv, canonicalisation SHA-256 et normalisation ; `npm run check`, 24 tests, couverture V8 lignes 88,8 %                       | Réussi — snapshot local   |
 
 ## Matrice exigences, tests et preuves
 
-| Exigences                                                                                             | Preuves automatisées prévues                                                      | Tâches de validation                  | Statut      |
-| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| FR-001, FR-002, FR-003 — snapshot, provenance, validation                                             | Contrat de schéma, normalisation, import simulé, validation CLI                   | T007–T013, T031, T047                 | Prévu       |
-| FR-004, FR-005 — identité et entrées séparées                                                         | Tests d'identité, création de session et rapport                                  | T016–T020, T028–T031                  | Prévu       |
-| FR-006, FR-007, FR-008, FR-009, FR-010 — sièges, distribution, rotations et choix légaux sans scoring | Contrats moteur, tests de tours/rotation/politiques, propriétés de conservation   | T014–T015, T018–T027, T032–T034       | Prévu       |
-| FR-011 — déterminisme                                                                                 | Vecteurs RNG, doubles simulations, projection fonctionnelle, fixture de référence | T014–T015, T036, T038, T041–T043      | Prévu       |
-| FR-012, FR-013 — journal autonome, ordonné et détaillé                                                | Contrats moteur/rapport/relecture et audit indépendant                            | T018–T023, T028–T029, T037–T040, T044 | Prévu       |
-| FR-014, FR-015, FR-016 — rapport, fin exacte et refus après fin                                       | Tests de rapport, intégration complète, altérations et invariants                 | T021–T023, T026–T034, T044–T051       | Prévu       |
-| FR-017 — fonctionnement hors ligne                                                                    | Réseau interdit en import local, simulation et E2E                                | T011–T012, T031, T047                 | Prévu       |
-| FR-018 — exclusions du MVP                                                                            | Tests de politiques, documentation et revue de périmètre                          | T024, T035, T050, T054, T056–T057     | Prévu       |
-| FR-019 — versions moteur/politiques immuables                                                         | Refus des registres ou décisions incohérents, rapport et replay                   | T018, T024–T029, T037, T041, T044     | Prévu       |
-| SC-001, SC-002, SC-003, SC-004, SC-005 — résultat, conservation, atomicité et audit                   | Suites US1/US2/US3, tailles 545/540/360, rapport altéré                           | T019–T046, T050–T051                  | Non exécuté |
-| SC-006 — cinq mesures strictement sous 2 000 ms                                                       | Suite isolée suivant `performance-protocol.md`                                    | T048–T049, T051–T052                  | Non exécuté |
+| Exigences                                                                                             | Preuves automatisées prévues                                                      | Tâches de validation                  | Statut                                |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------- |
+| FR-001, FR-002, FR-003 — snapshot, provenance, validation                                             | Contrat de schéma, normalisation, import simulé, validation CLI                   | T007–T013, T031, T047                 | T007–T010 réussis ; import/CLI prévus |
+| FR-004, FR-005 — identité et entrées séparées                                                         | Tests d'identité, création de session et rapport                                  | T016–T020, T028–T031                  | Prévu                                 |
+| FR-006, FR-007, FR-008, FR-009, FR-010 — sièges, distribution, rotations et choix légaux sans scoring | Contrats moteur, tests de tours/rotation/politiques, propriétés de conservation   | T014–T015, T018–T027, T032–T034       | Prévu                                 |
+| FR-011 — déterminisme                                                                                 | Vecteurs RNG, doubles simulations, projection fonctionnelle, fixture de référence | T014–T015, T036, T038, T041–T043      | Prévu                                 |
+| FR-012, FR-013 — journal autonome, ordonné et détaillé                                                | Contrats moteur/rapport/relecture et audit indépendant                            | T018–T023, T028–T029, T037–T040, T044 | Prévu                                 |
+| FR-014, FR-015, FR-016 — rapport, fin exacte et refus après fin                                       | Tests de rapport, intégration complète, altérations et invariants                 | T021–T023, T026–T034, T044–T051       | Prévu                                 |
+| FR-017 — fonctionnement hors ligne                                                                    | Réseau interdit en import local, simulation et E2E                                | T011–T012, T031, T047                 | Prévu                                 |
+| FR-018 — exclusions du MVP                                                                            | Tests de politiques, documentation et revue de périmètre                          | T024, T035, T050, T054, T056–T057     | Prévu                                 |
+| FR-019 — versions moteur/politiques immuables                                                         | Refus des registres ou décisions incohérents, rapport et replay                   | T018, T024–T029, T037, T041, T044     | Prévu                                 |
+| SC-001, SC-002, SC-003, SC-004, SC-005 — résultat, conservation, atomicité et audit                   | Suites US1/US2/US3, tailles 545/540/360, rapport altéré                           | T019–T046, T050–T051                  | Non exécuté                           |
+| SC-006 — cinq mesures strictement sous 2 000 ms                                                       | Suite isolée suivant `performance-protocol.md`                                    | T048–T049, T051–T052                  | Non exécuté                           |
 
 ## Matrice des invariants bloquants
 
-| Invariant                                                                    | Tests attendus                                                               | Preuve à conserver                        | Statut |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------- | ------ |
-| Snapshot valide, instances uniques, index contigus et compteurs exacts       | `cube-snapshot.test.ts`, `normalize-snapshot.test.ts`, `import-cube.test.ts` | sorties des suites et digest du snapshot  | Prévu  |
-| 24 boosters de 15 sans remplacement ; N − 360 inutilisées                    | contrats moteur et intégration pour N = 545, 540 et 360                      | résultats par taille et seed              | Prévu  |
-| 45 tours, 360 choix, huit pools de 45                                        | rotation, simulation complète et propriétés                                  | compteurs et journal final                | Prévu  |
-| Chaque instance apparaît exactement une fois dans un pool ou les inutilisées | propriétés et audit indépendant                                              | seed/chemin de réduction en cas d'échec   | Prévu  |
-| Choix légal et tour atomique ; refus sans mutation                           | erreurs de domaine et propriété de conservation                              | code d'erreur, états avant/après          | Prévu  |
-| Passages gauche/droite/gauche et séquences d'événements continues            | tests rotation, replay et audit                                              | événements attendus/observés              | Prévu  |
-| Même entrée fonctionnelle, même résultat ; flux RNG indépendants             | vecteurs dorés, déterminisme et référence seed 42                            | versions, seed et digest fonctionnel      | Prévu  |
-| Snapshot embarqué et replay autonome sans réseau, RNG ni politique           | contrat et équivalence de replay                                             | journal sérialisé et résultat reconstruit | Prévu  |
-| Versions moteur/politiques fixées et cohérentes                              | contrats de session, choix, replay et rapport                                | descripteurs des huit sièges              | Prévu  |
-| Empreinte SHA-256 recalculable et corruption détectée                        | projection, intégrité et mutations ciblées                                   | digest attendu et recalculé               | Prévu  |
+| Invariant                                                                    | Tests attendus                                                               | Preuve à conserver                        | Statut                                           |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------ |
+| Snapshot valide, instances uniques, index contigus et compteurs exacts       | `cube-snapshot.test.ts`, `normalize-snapshot.test.ts`, `import-cube.test.ts` | sorties des suites et digest du snapshot  | Validation/normalisation réussies ; import prévu |
+| 24 boosters de 15 sans remplacement ; N − 360 inutilisées                    | contrats moteur et intégration pour N = 545, 540 et 360                      | résultats par taille et seed              | Prévu                                            |
+| 45 tours, 360 choix, huit pools de 45                                        | rotation, simulation complète et propriétés                                  | compteurs et journal final                | Prévu                                            |
+| Chaque instance apparaît exactement une fois dans un pool ou les inutilisées | propriétés et audit indépendant                                              | seed/chemin de réduction en cas d'échec   | Prévu                                            |
+| Choix légal et tour atomique ; refus sans mutation                           | erreurs de domaine et propriété de conservation                              | code d'erreur, états avant/après          | Prévu                                            |
+| Passages gauche/droite/gauche et séquences d'événements continues            | tests rotation, replay et audit                                              | événements attendus/observés              | Prévu                                            |
+| Même entrée fonctionnelle, même résultat ; flux RNG indépendants             | vecteurs dorés, déterminisme et référence seed 42                            | versions, seed et digest fonctionnel      | Prévu                                            |
+| Snapshot embarqué et replay autonome sans réseau, RNG ni politique           | contrat et équivalence de replay                                             | journal sérialisé et résultat reconstruit | Prévu                                            |
+| Versions moteur/politiques fixées et cohérentes                              | contrats de session, choix, replay et rapport                                | descripteurs des huit sièges              | Prévu                                            |
+| Empreinte SHA-256 recalculable et corruption détectée                        | projection, intégrité et mutations ciblées                                   | digest attendu et recalculé               | Prévu                                            |
 
 ## Commandes de validation
 
@@ -73,8 +74,8 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 
 ## Limites et risques connus
 
-- Le moteur, la CLI et les contrôles métier ne sont pas encore implémentés ; aucune exigence FR-001–FR-019 ni SC-001–SC-006 n'est déclarée validée ici.
-- La couverture actuelle affiche `0/0` car `src/` ne contient encore aucune instruction exécutable. Elle deviendra informative à mesure que le moteur sera ajouté.
+- Le moteur de draft, la CLI et les contrôles de simulation ne sont pas encore implémentés ; aucun critère SC-001–SC-006 n'est déclaré validé ici.
+- La couverture V8 du snapshot est diagnostique : 88,88 % des instructions, 79,1 % des branches, 96,77 % des fonctions et 88,8 % des lignes. Les branches restantes seront exercées selon le risque, pas pour atteindre un quota arbitraire.
 - Le test local a utilisé Node 24.19.0 alors que `.node-version` cible 24.20.0. La validation propre et la CI doivent consigner leur version exacte.
 - Aucun résultat du workflow GitHub, audit de dépendances/secrets, benchmark ou test multiplateforme n'est encore enregistré.
 - Lighthouse et QA visuelle ne s'appliquent pas à cette feature CLI ; accessibilité et interface graphique restent hors périmètre.
