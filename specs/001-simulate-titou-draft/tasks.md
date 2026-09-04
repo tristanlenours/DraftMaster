@@ -30,7 +30,7 @@
 
 **Objectif** : préparer un package TypeScript unique, des contrôles reproductibles et une traçabilité explicite.
 
-- [ ] T002 Configurer Node 24 LTS, ESM et TypeScript 6 strict à syntaxe effaçable dans `.node-version`, `package.json`, `package-lock.json` et `tsconfig.json` ; verrouiller les dépendances du plan, prévoir les formats Ajv requis et utiliser `tsc --noEmit` sans étape de build.
+- [x] T002 Configurer Node 24 LTS, ESM et TypeScript 6 strict à syntaxe effaçable dans `.node-version`, `package.json`, `package-lock.json` et `tsconfig.json` ; verrouiller les dépendances du plan, prévoir les formats Ajv requis et utiliser `tsc --noEmit` sans étape de build. Preuve : dépendances exactes résolues dans un lockfile v3, arbre contrôlé sous Node 24.19.0/npm 11.19.0, `tsc --noEmit` et exécution native de `src/index.ts` réussis ; `.node-version` cible Node 24.20.0 LTS et `.npmrc` refuse les moteurs incompatibles.
 - [ ] T003 [P] Configurer ESLint/typescript-eslint et Prettier dans `eslint.config.js`, `.prettierrc.json` et `.prettierignore`, avec imports ESM et formatage cohérent à deux espaces pour TypeScript.
 - [ ] T004 [P] Configurer Vitest, V8 et fast-check dans `vitest.config.ts`, avec suites unitaires/contrat/intégration/E2E, couverture incluant les sources non exercées et performance isolée des tests fonctionnels.
 - [ ] T005 Ajouter dans `package.json` les commandes de formatage, lint, types, tests, couverture et `check`, puis créer `.github/workflows/quality.yml` pour les exécuter avec `npm ci` sur Node 24 ; ne pas laisser une suite vide passer comme preuve de validation métier.
