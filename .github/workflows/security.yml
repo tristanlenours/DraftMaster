@@ -1,0 +1,54 @@
+﻿name: Security
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-audit:
+    name: Dependency Vulnerability Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Audit dependencies
+        run: |
+          npm audit --audit-level=high || {
+            echo "::error::High or critical vulnerability found in dependencies. Run 'npm audit' locally to inspect and fix."
+            exit 1
+          }
+
+  secret-detection:
+    name: Secret Leak Detection
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan repository for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          head: HEAD

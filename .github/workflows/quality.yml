@@ -15,16 +15,20 @@ concurrency:
 
 jobs:
   quality:
-    name: Format, lint, types, and tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    name: Matrix Quality Gate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: npm
@@ -32,5 +36,62 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Run quality gate
-        run: npm run check
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Validate snapshot integrity
+        run: npm run cube:validate -- --file data/cubes/titou_tribal/2026-02-24.1.json
+
+      - name: Run reference draft tests
+        run: npm run test:reference
+
+      - name: Run replay draft tests
+        run: npm run test:replay
+
+      - name: Run audit tests
+        run: npm run test:audit
+
+      - name: Run domain errors tests
+        run: npm run test:domain-errors
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Run test suite with coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
+
+  performance:
+    name: SC-006 Performance Benchmark (Isolated)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: quality
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run isolated performance benchmark
+        run: npm run test:performance
