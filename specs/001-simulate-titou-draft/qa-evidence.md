@@ -22,6 +22,7 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 | 2026-09-04 | `3c2a890` | Node 24.19.0, npm 11.19.0 | Import CLI TDD ; `npm run check`, 30 tests, couverture V8 lignes 82,23 % ; reproduction exacte de l’empreinte bootstrap                    | Réussi — import local     |
 | 2026-09-04 | `9bfd2f4` | Node 24.19.0, pure-rand 8.4.2 | RNG TDD ; 10 cas dédiés, vecteurs SHA-256/xoroshiro128plus, flux indépendants et Fisher–Yates ; `npm run check`, 40 tests             | Réussi — hasard versionné |
 | 2026-09-04 | `5ae37cc` | Node 24.19.0, crypto natif | Identité CLI TDD ; 9 cas dédiés, format 12 hex, collision, portée d’exécution et seed int32 indépendante ; `npm run check`, 49 tests | Réussi — identité locale  |
+| 2026-09-04 | `82a6369` | TypeScript 6 strict | Contrats du domaine : valeurs readonly, événements versionnés, configuration fixe, 22 erreurs stables et seam des politiques ; `npm run check`, 52 tests | Réussi — contrats internes |
 
 ## Matrice exigences, tests et preuves
 
@@ -31,7 +32,7 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 | FR-004, FR-005 — identité et entrées séparées                                                         | Tests d'identité, création de session et rapport                                  | T016–T020, T028–T031                  | Identité CLI réussie ; moteur prévu   |
 | FR-006, FR-007, FR-008, FR-009, FR-010 — sièges, distribution, rotations et choix légaux sans scoring | Contrats moteur, tests de tours/rotation/politiques, propriétés de conservation   | T014–T015, T018–T027, T032–T034       | Prévu                                 |
 | FR-011 — déterminisme                                                                                 | Vecteurs RNG, doubles simulations, projection fonctionnelle, fixture de référence | T014–T015, T036, T038, T041–T043      | Prévu                                 |
-| FR-012, FR-013 — journal autonome, ordonné et détaillé                                                | Contrats moteur/rapport/relecture et audit indépendant                            | T018–T023, T028–T029, T037–T040, T044 | Prévu                                 |
+| FR-012, FR-013 — journal autonome, ordonné et détaillé                                                | Contrats moteur/rapport/relecture et audit indépendant                            | T018–T023, T028–T029, T037–T040, T044 | Types/événements définis ; moteur prévu |
 | FR-014, FR-015, FR-016 — rapport, fin exacte et refus après fin                                       | Tests de rapport, intégration complète, altérations et invariants                 | T021–T023, T026–T034, T044–T051       | Prévu                                 |
 | FR-017 — fonctionnement hors ligne                                                                    | Réseau interdit en import local, simulation et E2E                                | T011–T012, T031, T047                 | Import local réussi ; simulation prévue |
 | FR-018 — exclusions du MVP                                                                            | Tests de politiques, documentation et revue de périmètre                          | T024, T035, T050, T054, T056–T057     | Prévu                                 |
@@ -78,7 +79,7 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 ## Limites et risques connus
 
 - Le moteur de draft et les contrôles de simulation ne sont pas encore implémentés ; aucun critère SC-001–SC-006 n'est déclaré validé ici.
-- La couverture V8 actuelle est diagnostique : 84,26 % des instructions, 78,27 % des branches, 93,22 % des fonctions et 84,04 % des lignes. Les modules RNG et identité atteignent respectivement 95,65 % et 94,11 % des lignes ; les branches restantes seront exercées selon le risque, pas pour atteindre un quota arbitraire.
+- La couverture V8 actuelle est diagnostique : 84,48 % des instructions, 78,36 % des branches, 93,44 % des fonctions et 84,26 % des lignes. Les modules RNG et identité atteignent respectivement 95,65 % et 94,11 % des lignes ; les branches restantes seront exercées selon le risque, pas pour atteindre un quota arbitraire.
 - Le 2026-09-04, une collecte live de l’URL historique a renvoyé exactement les mêmes 545 cartes normalisées, mais des octets bruts différents (`db187a0e…54b70c9` au lieu de `7810d999…16ee6`). L’empreinte brute reste donc une preuve de transport ponctuelle : la reproduction canonique automatisée utilise la provenance historique enregistrée, tandis que toute nouvelle collecte doit être revue avant création d’une version.
 - Le test local a utilisé Node 24.19.0 alors que `.node-version` cible 24.20.0. La validation propre et la CI doivent consigner leur version exacte.
 - Aucun résultat du workflow GitHub, audit de dépendances/secrets, benchmark ou test multiplateforme n'est encore enregistré.
