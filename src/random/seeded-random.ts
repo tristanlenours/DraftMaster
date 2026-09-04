@@ -6,6 +6,12 @@ import { xoroshiro128plus } from "pure-rand/generator/xoroshiro128plus";
 export type SeatNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type RandomStreamName = "distribution" | `policy:seat:${SeatNumber}`;
 
+export function getPolicyStreamName(
+  seatId: SeatNumber,
+): Extract<RandomStreamName, `policy:seat:${SeatNumber}`> {
+  return `policy:seat:${String(seatId)}` as Extract<RandomStreamName, `policy:seat:${SeatNumber}`>;
+}
+
 export interface RandomSystemMetadata {
   readonly algorithm: "xoroshiro128plus";
   readonly algorithmVersion: "1";

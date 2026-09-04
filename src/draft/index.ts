@@ -56,6 +56,7 @@ export function submitPickRound(
 }
 
 export type {
+  CardPickedEvent,
   DraftConfiguration,
   DraftEvent,
   DraftView,
