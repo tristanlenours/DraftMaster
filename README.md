@@ -1,38 +1,18 @@
-# 🎴 MTG Cube Draft & Tournament WebApp
+# DraftMaster
 
-Application web locale pour drafter le **Cube Peasant+ 360 cartes MTG Arena** en solo (avec bots) ou à 4 joueurs, construire son deck avec export direct vers MTG Arena, et gérer un tournoi suisse complet avec départages officiels.
+DraftMaster redémarre sur une base greenfield pour construire un moteur de draft Magic déterministe, auditable et testable. Le premier périmètre est un draft headless à huit sièges sur une version figée du cube Tribal Titou.
 
----
+La spécification et l’implémentation TypeScript sont développées sur la branche `001-simulate-titou-draft`. La branche principale conserve pour l’instant la constitution QA, le vocabulaire métier, la recherche, l’outillage agent et le snapshot historique nécessaire.
 
-## 🧙‍♂️ Fonctionnalités Clés
+## Données préservées
 
-1. **Coach de Draft Débutant (*Draft Helper*) :**
-   * **Indicateur de Puissance / Tier List** (Badge S / A / B / C / D).
-   * **Commentaires Pédagogiques** (explication du rôle stratégique et des synergies de chaque carte).
-   * **Toggles indépendants** activés par défaut (désactivables en un clic pour les joueurs experts).
-2. **Simulateur de Draft 4 Joueurs :**
-   * 3 boosters de 15 cartes (180 cartes draftées par session).
-   * 3 Bots IA intelligents prenant des décisions basées sur la force des cartes et leurs couleurs ouvertes.
-3. **Deckbuilder Visuel & Export MTG Arena :**
-   * Tri automatique par courbe de mana (CMC 1 à 6+).
-   * Calculateur automatique de terrains de base.
-   * **Bouton 1-clic : « Copier pour MTG Arena »**.
-4. **Gestionnaire de Tournoi Suisse :**
-   * 3 rondes générées automatiquement.
-   * Saisie des scores de matchs ou simulation rapide.
-   * Calcul des tiebreakers officiels : Points (3/1/0), Game Win % (GW%), Opponents' Match Win % (OMW%).
-   * Export du compte-rendu de tournoi au format Markdown.
-5. **Explorateur du Cube :**
-   * Recherche en direct parmi les 360 cartes avec leurs descriptions et notes de puissance.
+Le snapshot `data/cubes/titou_tribal/2026-02-24.1.json` contient 545 instances du mainboard CubeCobra historique. Sa provenance, ses empreintes et sa méthode de reproduction sont documentées dans `data/cubes/titou_tribal/README.md`.
 
----
+## Gouvernance
 
-## 🚀 Lancement Rapide
+- `CONTEXT.md` définit le vocabulaire métier canonique.
+- `.specify/memory/constitution.md` définit les exigences de qualité et de validation humaine.
+- `docs/` conserve les décisions, recherches et consignes de contribution.
+- `AGENTS.md` décrit les règles de travail applicables au dépôt.
 
-Ouvrez simplement `index.html` dans n'importe quel navigateur moderne, ou lancez le serveur local :
-
-```bash
-python server.py
-```
-
-L'application s'ouvrira automatiquement à l'adresse : **`http://localhost:8080`**.
+Le runtime legacy reste accessible dans l’historique Git antérieur au reset. Aucun runtime applicatif n’est disponible sur cette base tant que la première feature TypeScript n’a pas été fusionnée.
