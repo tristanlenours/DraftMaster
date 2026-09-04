@@ -30,7 +30,8 @@ npm --silent run simulate -- --cube data/cubes/titou_tribal/2026-02-24.1.json --
   - `0` : simulation terminée avec succès et rapport produit.
   - `2` : syntaxe de commande invalide (arguments non reconnus, format de seed non entier int32).
   - `3` : snapshot absent, illisible ou invalide selon le contrat de schéma / intégrité.
-  - `4` : erreur d'exécution applicative ou violation d'invariant.
+  - `4` : erreur d'exécution applicative (échec de politique, configuration invalide).
+  - `5` : violation d'invariant détectée lors de la construction du rapport terminal.
 
 ## Exemple d'utilisation programmatique (API publique)
 
@@ -112,6 +113,12 @@ const roundResult = submitPickRound(draft, {
 });
 if (!roundResult.ok) throw new Error(roundResult.error.message);
 draft = roundResult.value.draft;
+// 6. Rejouer une simulation à partir de son journal d'événements (US2)
+import { replayDraft } from "./src/index.ts";
+
+const replayResult = replayDraft(draft.journal);
+if (!replayResult.ok) throw new Error(replayResult.error.message);
+const replayedDraft = replayResult.value.draft;
 ```
 
 Pour simuler automatiquement l'intégralité des 45 tours à 8 sièges en une seule invocation :
@@ -126,20 +133,26 @@ const result = simulateDraft({
 });
 ```
 
-## Limites du MVP (US1)
+## Limites actuelles (US1–US3)
 
-Le MVP actuel se concentre exclusivement sur les fondations déterministes et la validation du moteur de draft :
-- **Bots aléatoires uniquement** : la sélection automatisée repose sur `seeded-random` (pure-rand xoroshiro128plus). Aucun bot intelligent, aucune évaluation de force de carte, ni heuristique de synergie tribale n'est inclus.
-- **Pas de scoring ou deckbuilding** : aucun calcul de score, courbe de mana, base de mana automatique ni construction de deck 40 cartes.
-- **Pas de reprise de session ni persistance** : les sessions sont éphémères en mémoire ; une session interrompue ne peut pas être reprise.
-- **Pas d'interface graphique (GUI) ni multijoueur** : le moteur fonctionne en mode headless par CLI ou par API de domaine.
+Cette première version se concentre exclusivement sur les fondations déterministes, la relecture et l'auditabilité du moteur de draft :
+- **Bots aléatoires uniquement** : la sélection automatisée repose sur `seeded-random` (pure-rand xoroshiro128plus). Aucun bot intelligent, aucune évaluation heuristique ni synergie tribale n'est inclus.
+- **Pas de scoring ou deckbuilding** : aucun calcul de score de deck, courbe de mana, base de mana automatique ni construction de deck 40 cartes.
+- **Pas de reprise interactive ni persistance** : les sessions sont éphémères en mémoire ; une session interrompue ne peut pas être reprise (mais un journal complet peut être rejoué à l'identique).
+- **Pas d'interface graphique (GUI) ni multijoueur** : le moteur fonctionne en mode headless par CLI ou par API de domaine TypeScript.
 
 ## Commandes de vérification
 
-- `npm run check` : vérification complète (Prettier, ESLint, `tsc --noEmit`, Vitest, couverture V8).
-- `npm run cube:validate` : validation d'un fichier snapshot selon le schéma JSON Schema Draft 2020-12 et intégrité canonique SHA-256.
-- `npm run cube:import` : import et reproduction d'un snapshot à partir de CubeCobra.
-- `npm --silent run simulate -- --seed 42` : exécution du simulateur de draft en CLI.
+- `npm run check` : vérification complète de la qualité (Prettier, ESLint, `tsc --noEmit`, Vitest, couverture V8).
+- `npm run test` : exécution de l'ensemble des suites de tests Vitest.
+- `npm run test:reference` : test de non-régression sur le tirage de référence figé seed 42 (US2).
+- `npm run test:replay` : tests de déterminisme, validation de flux d'événements et équivalence de replay (US2).
+- `npm run test:audit` : audit indépendant d'un rapport de draft sans helpers internes (US3).
+- `npm run test:domain-errors` : vérification des contrats d'erreur du domaine et atomicité des tours (US1/US3).
+- `npm run test:e2e` : tests de bout en bout de la CLI (modes offline, flux de sortie et codes 0 à 5).
+- `npm run test:performance` : protocole de performance SC-006 isolé (3 warmups + 5 runs mesurés < 2 000 ms).
+- `npm run cube:validate -- --file <chemin>` : validation de schéma (Draft 2020-12) et intégrité canonique SHA-256 d'un snapshot.
+- `npm --silent run simulate -- --seed 42` : simulation CLI d'un draft complet.
 
 ## Gouvernance
 

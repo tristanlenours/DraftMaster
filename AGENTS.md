@@ -6,13 +6,25 @@ DraftMaster is restarting from a greenfield baseline. Product vocabulary lives i
 
 ## Build, Test, and Development Commands
 
-There is currently no application runtime or package manifest on the reset baseline. Do not document commands before they exist.
+The TypeScript runtime on Node.js 24 LTS and npm is active. Available scripts:
 
+- `npm run check` — execute the complete quality gate: Prettier format check, ESLint, `tsc --noEmit`, Vitest test suite, and V8 coverage.
+- `npm run test` — run Vitest test suite.
+- `npm run test:coverage` — run Vitest test suite with V8 code coverage.
+- `npm run test:reference` — verify non-regression against the locked reference draft fixture (seed 42).
+- `npm run test:replay` — verify determinism, replay contract, and state reconstruction from journals.
+- `npm run test:audit` — independent draft report audit verifying full card and pick traceability without internal engine helpers.
+- `npm run test:domain-errors` — verify domain error contracts, atomicity, and rejection without mutation.
+- `npm run test:e2e` — end-to-end CLI execution, pure stdout JSON, structured stderr, and offline exit codes (0, 2, 3, 4, 5).
+- `npm run test:performance` — isolated SC-006 performance benchmark running 3 warmups + 5 fresh sessions under 2 000 ms.
+- `npm run cube:validate -- --file <path>` — validate cube snapshot schema (Draft 2020-12) and canonical RFC 8785 SHA-256 integrity.
+- `npm --silent run simulate -- --seed 42` — run the headless draft simulator CLI.
+- `npm run format` / `npm run format:check` — format / verify formatting across source, tests, config, and `.github/workflows/`.
+- `npm run lint` — lint source and tests with ESLint.
+- `npm run typecheck` — TypeScript typecheck with `tsc --noEmit`.
 - `node --check scripts/import-historical-titou-snapshot.mjs` — syntax-check the preserved importer.
 - `node scripts/import-historical-titou-snapshot.mjs` — explicitly reproduce the locked historical snapshot; this requires network access and rejects source drift.
 - `git diff --check` — detect whitespace errors before committing.
-
-Use the commands defined in the active `package.json` once the TypeScript foundation is merged.
 
 ## Coding Style & Naming Conventions
 
