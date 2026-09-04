@@ -25,6 +25,7 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 | 2026-09-04 | `82a6369` | TypeScript 6 strict | Contrats du domaine : valeurs readonly, événements versionnés, configuration fixe, 22 erreurs stables et seam des politiques ; `npm run check`, 52 tests | Réussi — contrats internes |
 | 2026-09-04 | `3d4a7b9` | Node 24.19.0, npm 11.19.0 | Création de session et distribution : 15 tests de contrat, N = 545/540/360, 24 boosters de 15, gel immuable ; `npm run check`, 67 tests | Réussi — création et distribution |
 | 2026-09-04 | `2d0c4c5` | Node 24.19.0, npm 11.19.0 | Tours atomiques et rotation : 12 tests unitaires, validation atomique des 8 décisions, rotation 45 tours gauche/droite/gauche, fin de session ; `npm run check`, 79 tests | Réussi — tours et rotation |
+| 2026-09-04 | `4c4571b` | Node 24.19.0, npm 11.19.0 | Politiques et orchestration : politiques seeded-random et scripted, simulation complète de draft à 8 sièges, 13 tests ajoutés (8 unitaires + 5 intégration) ; `npm run check`, 92 tests | Réussi — politiques et simulation |
 
 ## Matrice exigences, tests et preuves
 
