@@ -1,17 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  buildRawCubeFixture,
-  normalizationMetadata,
-  type SnapshotFixture,
-} from "../../fixtures/cube-fixtures.js";
-import { type CubeOperationResult, loadSnapshotNormalizationApi } from "../../helpers/cube-apis.js";
-
-const { normalizeSnapshot } = await loadSnapshotNormalizationApi();
+import { normalizeSnapshot } from "../../../src/cubes/normalize-snapshot.ts";
+import { buildRawCubeFixture, normalizationMetadata } from "../../fixtures/cube-fixtures.js";
 
 function expectNormalized(
-  result: CubeOperationResult<Readonly<SnapshotFixture>>,
-): Extract<typeof result, { ok: true }>["value"] {
+  result: ReturnType<typeof normalizeSnapshot>,
+): Extract<ReturnType<typeof normalizeSnapshot>, { ok: true }>["value"] {
   expect(result).toMatchObject({ ok: true });
   if (!result.ok) {
     throw new Error(`Expected normalization to succeed, received ${result.error.code}.`);

@@ -1,13 +1,11 @@
 import { describe, expect, it } from "vitest";
 
+import { validateSnapshot, validateSnapshotJson } from "../../src/cubes/validate-snapshot.ts";
 import {
   buildSyntheticSnapshot,
   loadInitialSnapshotFixture,
   refreshFixtureIntegrity,
 } from "../fixtures/cube-fixtures.js";
-import { loadSnapshotValidationApi } from "../helpers/cube-apis.js";
-
-const { validateSnapshot, validateSnapshotJson } = await loadSnapshotValidationApi();
 
 describe("cube snapshot contract", () => {
   it.each(["", "{"])("rejects empty or malformed JSON", (raw) => {
