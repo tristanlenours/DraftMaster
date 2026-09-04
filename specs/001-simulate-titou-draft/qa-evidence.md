@@ -69,7 +69,7 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 
 | Commande                                                                    | Objet                                                             | État actuel                                       |
 | --------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------- |
-| `npm ci`                                                                    | Installation propre depuis le lockfile                            | Exécution propre reportée à T055 ; dry-run réussi |
+| `npm ci`                                                                    | Installation propre depuis le lockfile                            | Réussi : installation propre depuis package-lock.json (155 paquets installés, 0 vulnérabilité détectée sous Node 24.19.0 / npm 11.17.0) |
 | `npm run check`                                                             | Format, lint, types, tests fonctionnels disponibles et couverture | Réussi : 27 suites, 181 tests passés, 0 erreur lint/typecheck, couverture V8 lignes 85,33 % (moteur `src/draft/internal/` 90,12 % lignes, 100 % fonctions) |
 | `npm run cube:validate -- --file data/cubes/titou_tribal/2026-02-24.1.json` | Contrat et intégrité du snapshot                                  | Réussi : 545 / 543 / 542                          |
 | `npm --silent run simulate -- --seed 42`                                    | Simulation CLI et JSON sans bruit                                 | Réussi : exit code 0, JSON pur sur stdout, 4 invariants True, digest `67a8f0521c3ec5684f8ee55cdf271a801649322621057dbae61ca95a6da845d5` |
@@ -89,12 +89,18 @@ Ce registre relie la [spécification](./spec.md), les [tâches](./tasks.md) et l
 | Rapport autonome           | Un contributeur explique un choix et retrouve sa carte depuis le rapport seul | Rapport généré via CLI seed 42, documenté dans `quickstart.md` ; en attente de lecture humaine formelle |
 | Livraison                  | Revue Standards + Spec, CI verte et approbation de la PR                      | À faire en T057                                   |
 
+## Analyse de convergence et Spec Kit (T056)
+
+- **Convergence (`speckit-converge`)** : 0 écart résiduel détecté. Les 19 exigences fonctionnelles (FR-001 à FR-019), les 6 critères de succès (SC-001 à SC-006), et les scénarios d'acceptation des user stories US1, US2 et US3 sont intégralement couverts par les suites de tests et l'implémentation TypeScript livrée. Résultat : **✅ Converged**.
+- **Analyse Spec Kit (`speckit-analyze`)** : cohérence croisée validée entre `spec.md`, `plan.md` et `tasks.md`. Taux de couverture des exigences : 100 % (25/25 exigences et critères mappés à des tâches testées). 0 duplication, 0 ambiguïté bloquante, alignement constitutionnel strict avec `.specify/memory/constitution.md`.
+- **Gouvernance humaine** : aucune checklist ou approbation humaine n'est auto-approuvée par l'agent. Les approbations du snapshot initial, de la fixture dorée seed 42, de l'auditabilité du rapport et de la livraison finale de la PR restent strictement réservées au réviseur humain.
+
 ## Limites et risques connus
 
 - Les jalons MVP US1, US2 et US3 (audit indépendant, détection d'altération, protocole de performance SC-006 et gestion d'erreurs CLI offline) sont désormais entièrement complétés, validés et testés avec 181 tests passants sur 27 suites sous `npm run check`.
 - La couverture V8 globale atteint 85,33 % des lignes (instructions : 85,53 %, branches : 76,32 %, fonctions : 95,37 %). Le moteur interne `src/draft/internal/` atteint 90,12 % des lignes et 100 % des fonctions. L'interface publique `src/draft/index.ts` est couverte à 100 %.
 - La mesure SC-006 sur le poste local AMD Ryzen 7 7800X3D (31,1 Gio RAM, Windows 11) donne 20,01 ms maximum sur 5 sessions neuves consécutives, ce qui respecte largement le plafond de 2 000 ms.
 - Le 2026-09-04, une collecte live de l’URL historique a renvoyé exactement les mêmes 545 cartes normalisées, mais des octets bruts différents (`db187a0e…54b70c9` au lieu de `7810d999…16ee6`). L’empreinte brute reste donc une preuve de transport ponctuelle : la reproduction canonique automatisée utilise la provenance historique enregistrée, tandis que toute nouvelle collecte doit être revue avant création d’une version.
-- Le test local a utilisé Node 24.19.0 alors que `.node-version` cible 24.20.0. La validation propre et la CI doivent consigner leur version exacte.
-- Aucun résultat du workflow GitHub, audit de dépendances/secrets, benchmark multiplateforme n'est encore enregistré (reportés à la phase 6).
+- L'installation propre et le test local complet ont été exécutés avec succès sous Node 24.19.0 et npm 11.17.0 (155 paquets installés, 0 vulnérabilité). `.node-version` cible 24.20.0 pour les runners CI GitHub Actions.
+- Les workflows CI `.github/workflows/quality.yml` (matrice Ubuntu, Windows, macOS + job SC-006 isolé) et `.github/workflows/security.yml` (audit de vulnérabilité npm + détection de secrets TruffleHog) sont configurés et validés par le linter Prettier.
 - Lighthouse et QA visuelle ne s'appliquent pas à cette feature CLI ; accessibilité et interface graphique restent hors périmètre.
