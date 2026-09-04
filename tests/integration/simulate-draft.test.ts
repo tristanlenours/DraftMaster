@@ -3,10 +3,15 @@ import { describe, expect, it } from "vitest";
 import { createScriptedPolicy } from "../../src/bots/scripted-policy.ts";
 import { createSeededRandomPolicy } from "../../src/bots/seeded-random-policy.ts";
 import type { PickPolicy } from "../../src/bots/pick-policy.ts";
-import { getDraftView, type CardPickedEvent, type SeatId } from "../../src/draft/index.ts";
-import { simulateDraft, type SimulateDraftInput } from "../../src/simulation/simulate-draft.ts";
 import { validateSnapshot } from "../../src/cubes/validate-snapshot.ts";
-import { loadInitialSnapshotFixture } from "../fixtures/cube-fixtures.ts";
+import {
+  buildDraftReport,
+  getDraftView,
+  type CardPickedEvent,
+  type SeatId,
+} from "../../src/draft/index.ts";
+import { simulateDraft, type SimulateDraftInput } from "../../src/simulation/simulate-draft.ts";
+import { buildSyntheticSnapshot, loadInitialSnapshotFixture } from "../fixtures/cube-fixtures.ts";
 
 function createValidInput(overrides: Partial<SimulateDraftInput> = {}): SimulateDraftInput {
   const validated = validateSnapshot(loadInitialSnapshotFixture());
@@ -168,4 +173,72 @@ describe("simulateDraft integration", () => {
     const viewAAfter = getDraftView(resultA.value.draft);
     expect(viewAAfter.seats[0]?.priorPool).toEqual(poolA0);
   });
+
+  it.each([545, 540, 360])(
+    "verifies distribution, directions, 360 picks, and final partition for N = %i",
+    (cardCount) => {
+      const validated =
+        cardCount === 545
+          ? validateSnapshot(loadInitialSnapshotFixture())
+          : validateSnapshot(buildSyntheticSnapshot(cardCount, `2026-02-24.${String(cardCount)}`));
+      if (!validated.ok) {
+        throw new Error(validated.error.message);
+      }
+      const snapshot = validated.value;
+
+      const input = createValidInput({
+        snapshot,
+        sessionId: "0c0e1a78c4d6",
+        seed: 42,
+      });
+
+      const result = simulateDraft(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+
+      const reportResult = buildDraftReport(result.value.draft);
+      expect(reportResult.ok).toBe(true);
+      if (!reportResult.ok) return;
+
+      const report = reportResult.value;
+
+      // 360 picks
+      expect(report.finalPools).toHaveLength(8);
+      let totalAssigned = 0;
+      for (const pool of report.finalPools) {
+        expect(pool.cardInstanceIds).toHaveLength(45);
+        totalAssigned += pool.cardInstanceIds.length;
+      }
+      expect(totalAssigned).toBe(360);
+
+      // Unused instances: N - 360
+      expect(report.unusedCardInstanceIds).toHaveLength(cardCount - 360);
+      if (cardCount === 360) {
+        expect(report.unusedCardInstanceIds).toEqual([]);
+      }
+
+      // Exact partition of all N cards: no extra instances, no lost instances
+      const allReportCards = [
+        ...report.finalPools.flatMap((p) => p.cardInstanceIds),
+        ...report.unusedCardInstanceIds,
+      ];
+      expect(allReportCards).toHaveLength(cardCount);
+      expect(new Set(allReportCards).size).toBe(cardCount);
+
+      const snapshotCardIds = new Set(snapshot.cards.map((c) => c.instanceId));
+      for (const id of allReportCards) {
+        expect(snapshotCardIds.has(id)).toBe(true);
+      }
+
+      // Verify booster passing directions in events
+      const passedEvents = report.events.filter((e) => e.type === "BoostersPassed");
+      expect(passedEvents).toHaveLength(42); // 14 passes per pack * 3 packs
+      for (const passEvent of passedEvents) {
+        const expectedDelta = passEvent.packNumber === 2 ? 7 : 1; // +7 mod 8 is -1 (right), +1 is left
+        for (const mov of passEvent.movements) {
+          expect((mov.fromSeatId + expectedDelta) % 8).toBe(mov.toSeatId);
+        }
+      }
+    },
+  );
 });
