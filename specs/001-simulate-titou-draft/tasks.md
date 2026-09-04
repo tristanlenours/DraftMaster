@@ -22,7 +22,7 @@
 **Objectif** : conserver la seule donnée historique requise avant de retirer le runtime legacy dans une PR séparée et récupérable.
 
 - [x] T013 Importer explicitement la révision historique documentée dans `data/cubes/titou_tribal/2026-02-24.1.json` et écrire `data/cubes/titou_tribal/README.md` : provenance, méthode, version, attribution et droits connus ; vérifier 545 instances, 543 impressions et 542 identités oracle, sans committer réponse brute ni images. Preuve : commit `28a35d9`, import explicite verrouillé par `scripts/import-historical-titou-snapshot.mjs`, empreinte brute `7810d999d8c349a7fba56ea61dc0e479950d952bd3134337ffb07b983b616ee6` et empreinte canonique `289f6c4a27b39bc4f6f1816827ab2cca1198bbb88e495063dedcb176c18aba39`.
-- [ ] T001 Consigner dans `specs/001-simulate-titou-draft/reset-readiness.md` la référence de la PR de reset, son manifeste et la preuve de fusion ou de réconciliation ; arrêter avant T002 si ce prérequis du plan n’est pas satisfait, sans supprimer de fichier dans cette tâche.
+- [x] T001 Consigner dans `specs/001-simulate-titou-draft/reset-readiness.md` la référence de la PR de reset, son manifeste et la preuve de fusion ou de réconciliation ; arrêter avant T002 si ce prérequis du plan n’est pas satisfait, sans supprimer de fichier dans cette tâche. Preuve : PR #67 fusionnée dans `main` au commit `8abe088cadc4929c5c3c61a032408ca2e3d1ef6c`, branche réconciliée par fast-forward et contrôles post-fusion consignés.
 
 **Point de contrôle** : le snapshot normalisé est publié avant la suppression ; la PR de reset est revue puis fusionnée ou explicitement réconciliée avec la branche de feature.
 
