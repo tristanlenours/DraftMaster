@@ -2,14 +2,15 @@
 
 ## Status
 
-**Pending human review and merge.** T001 remains incomplete and T002 must not start.
+**Complete.** PR #67 was human-merged on 2026-09-04 and the feature branch was reconciled by fast-forward. T002 may start.
 
 - Reset PR: [#67 — chore: reset legacy application](https://github.com/tristanlenours/DraftMaster/pull/67)
 - Reset branch: `codex/reset-greenfield`
 - Base commit: `1f50361`
 - Data-preservation commit in the reset PR: `7adfa0d`
 - Legacy-removal commit: `3b60302`
-- Manifest: [`docs/reset/greenfield-reset.md`](https://github.com/tristanlenours/DraftMaster/blob/codex/reset-greenfield/docs/reset/greenfield-reset.md)
+- Merge commit: `8abe088cadc4929c5c3c61a032408ca2e3d1ef6c`
+- Manifest: [`docs/reset/greenfield-reset.md`](https://github.com/tristanlenours/DraftMaster/blob/main/docs/reset/greenfield-reset.md)
 
 ## Preserved before deletion
 
@@ -34,8 +35,11 @@ The PR removes the legacy browser/Python entry points, generated Scryfall caches
 - source indexes contiguous from 0 through 544: passed;
 - legacy entry points absent from the reset branch tree: passed;
 - `git diff --check`: passed;
-- GitHub reports PR #67 as mergeable; no CI checks are currently configured on the reset baseline.
+- PR #67 human-merged into `main`: passed;
+- feature branch HEAD equals `origin/main` at merge commit `8abe088`: passed;
+- post-merge snapshot counts, contiguous indexes, importer syntax and legacy-entry-point absence: passed;
+- no CI checks were configured on the reset baseline; this limitation is addressed by T005.
 
 ## Completion gate
 
-After a human reviews and merges PR #67, reconcile `001-simulate-titou-draft` with updated `main`, rerun the checks above, record the merge commit here, then mark T001 complete. A merely open or approved PR is not proof of reconciliation.
+The gate is satisfied. Any later divergence from the reset manifest or snapshot integrity must fail the relevant setup/data task before domain implementation continues.

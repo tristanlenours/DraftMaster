@@ -86,6 +86,54 @@ The integration/replay suites also use explicitly synthetic Titou-version fixtur
 
 The initial `DraftStarted` event contains the complete normalized snapshot. Replay tests must deserialize the journal and reconstruct card/printing lookup, provenance and states with the original snapshot file inaccessible and all external reads, network, RNG and policies disabled. Missing or inconsistent embedded snapshots must fail rather than fall back to an external source. Re-simulation tests separately rerun bot decisions; replay uses recorded choices only. The larger self-contained report carries no images or raw external catalog.
 
+## Audit a report independently
+
+You can audit any generated report without external snapshot access, network connection, or bot re-execution:
+
+```powershell
+# 1. Load the standalone report
+$report = Get-Content -Raw -LiteralPath 'draft-report.json' | ConvertFrom-Json
+
+# 2. Inspect embedded snapshot and verify metadata versions
+Write-Host "Snapshot ID: $($report.snapshotId)"
+Write-Host "Engine Version: $($report.engineVersion)"
+Write-Host "Random System: $($report.randomSystem.algorithm) v$($report.randomSystem.algorithmVersion)"
+Write-Host "Functional Digest: $($report.functionalDigest)"
+
+# 3. Audit a specific card instance from the embedded snapshot
+$firstCard = $report.events[0].snapshot.cards[0]
+Write-Host "Card #0: $($firstCard.name) (Instance: $($firstCard.instanceId), Printing: $($firstCard.printingId))"
+
+# Check destination: player pool or unused collection
+$foundInPool = $report.finalPools | Where-Object { $_.cardInstanceIds -contains $firstCard.instanceId }
+if ($foundInPool) {
+  Write-Host "Card #0 was drafted into Seat $($foundInPool.seatId)'s pool"
+} elseif ($report.unusedCardInstanceIds -contains $firstCard.instanceId) {
+  Write-Host "Card #0 was left in the unused collection"
+}
+
+# 4. Audit a specific pick from the journal
+$firstPick = $report.events | Where-Object { $_.type -eq 'CardPicked' } | Select-Object -First 1
+$pickedCard = $report.events[0].snapshot.cards | Where-Object { $_.instanceId -eq $firstPick.cardInstanceId }
+Write-Host "Round 1 Pick: Seat $($firstPick.seatId) picked '$($pickedCard.name)' from Booster $($firstPick.boosterId) via $($firstPick.source.kind)"
+
+# 5. Check technical invariants
+$report.invariants | ForEach-Object {
+  Write-Host "Invariant $($_.code): $(if ($_.passed) { 'PASSED' } else { 'FAILED' }) (expected: $($_.expected), actual: $($_.actual))"
+}
+```
+
+Run the independent audit test suite:
+
+```powershell
+npm run test:audit
+```
+
+Expected: independent verification of 360 choices, 8 pools of 45, N − 360 unused instances, card printing info, and booster rotations across N = 545, 540, and 360 without importing `check-invariants.ts`.
+
+> [!NOTE]
+> Technical invariants, journal replay and functional digests confirm card conservation, deterministic reproducibility and process legality. They do not evaluate deck quality, strategic power or drafting synergy.
+
 ## Verify errors are atomic
 
 ```powershell
