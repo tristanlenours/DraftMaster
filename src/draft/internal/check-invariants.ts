@@ -1,4 +1,4 @@
-﻿import type { CardInstance } from "../../cubes/validate-snapshot.ts";
+import type { CardInstance } from "../../cubes/validate-snapshot.ts";
 import type { DraftInvariantResult, SeatPool } from "./types.ts";
 
 export function checkDraftInvariants(
@@ -21,9 +21,14 @@ export function checkDraftInvariants(
   const maxPoolSize =
     seatPools.length === 0 ? 0 : Math.max(...seatPools.map((p) => p.cardInstanceIds.length));
   const poolSizeConsistent = seatPools.length === 8 && minPoolSize === 45 && maxPoolSize === 45;
+  const actualPoolSize =
+    seatPools.length !== 8 ? seatPools.length : minPoolSize !== 45 ? minPoolSize : maxPoolSize;
 
   const conservationPassed =
-    allCards.length === totalSnapshotCards && totalDuplicates === 0 && allCardsBelongToSnapshot;
+    allCards.length === totalSnapshotCards &&
+    totalDuplicates === 0 &&
+    allCardsBelongToSnapshot &&
+    validSnapshotCardIds.size === totalSnapshotCards;
 
   return Object.freeze([
     Object.freeze({
@@ -36,7 +41,7 @@ export function checkDraftInvariants(
       code: "SEAT_POOL_SIZE",
       passed: poolSizeConsistent,
       expected: 45,
-      actual: minPoolSize,
+      actual: actualPoolSize,
     }),
     Object.freeze({
       code: "CARD_CONSERVATION",

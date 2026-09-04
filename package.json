@@ -18,7 +18,11 @@
     "lint": "eslint .",
     "simulate": "node src/cli/simulate-draft.ts",
     "test": "vitest run",
+    "test:audit": "vitest run tests/integration/report-audit.test.ts",
     "test:coverage": "vitest run --coverage",
+    "test:domain-errors": "vitest run tests/contract/draft-engine.test.ts tests/unit/draft/submit-pick-round.test.ts tests/unit/draft/report-integrity.test.ts",
+    "test:e2e": "vitest run tests/e2e/simulate-cli.test.ts tests/e2e/offline-and-errors.test.ts",
+    "test:performance": "vitest run --config vitest.performance.config.ts",
     "test:reference": "vitest run tests/integration/reference-draft.test.ts",
     "test:replay": "vitest run tests/contract/replay-draft.test.ts tests/integration/replay-equivalence.test.ts tests/integration/replay-properties.test.ts tests/integration/determinism.test.ts",
     "typecheck": "tsc --noEmit"

@@ -1,7 +1,8 @@
-﻿import { failure, success, type DraftError, type Result } from "./errors.ts";
+import { failure, success, type DraftError, type Result } from "./errors.ts";
 import { deepFreeze } from "./immutable.ts";
 import { checkDraftInvariants, allInvariantsPassed } from "./check-invariants.ts";
 import { calculateReportDigest, functionalProjection } from "./functional-projection.ts";
+import { replayDraftState } from "./replay-draft.ts";
 import type { DraftReport, DraftState } from "./types.ts";
 
 export function buildDraftReportState(
@@ -31,6 +32,34 @@ export function buildDraftReportState(
     return failure("INVARIANT_VIOLATION", "One or more draft invariants failed.", {
       invariants,
     });
+  }
+
+  // Replay journal to verify legality and event stream consistency
+  const replayResult = replayDraftState(draft.journal);
+  if (!replayResult.ok) {
+    return replayResult;
+  }
+  const replayed = replayResult.value;
+
+  const poolsMatch =
+    draft.seatPools.length === replayed.seatPools.length &&
+    draft.seatPools.every((p, i) => {
+      const rp = replayed.seatPools[i];
+      if (!rp) {
+        return false;
+      }
+      return (
+        p.seatId === rp.seatId &&
+        p.cardInstanceIds.length === rp.cardInstanceIds.length &&
+        p.cardInstanceIds.every((id, j) => id === rp.cardInstanceIds[j])
+      );
+    });
+  const unusedMatch =
+    draft.unusedCardInstanceIds.length === replayed.unusedCardInstanceIds.length &&
+    draft.unusedCardInstanceIds.every((id, i) => id === replayed.unusedCardInstanceIds[i]);
+
+  if (!poolsMatch || !unusedMatch) {
+    return failure("INVARIANT_VIOLATION", "Draft state pools do not match journal replay.");
   }
 
   const reportDraft: Omit<DraftReport, "functionalDigest"> = {
