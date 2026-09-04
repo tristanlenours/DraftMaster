@@ -2,6 +2,7 @@ import { buildDraftReportState } from "./internal/build-draft-report.ts";
 import { buildDraftView } from "./internal/draft-view.ts";
 import type { DraftError, Result } from "./internal/errors.ts";
 import { calculateReportDigest, functionalProjection } from "./internal/functional-projection.ts";
+import { replayDraftState } from "./internal/replay-draft.ts";
 import { startDraftState } from "./internal/start-draft.ts";
 import { submitPickRoundState } from "./internal/submit-pick-round.ts";
 import type {
@@ -60,6 +61,17 @@ export function submitPickRound(
 
 export function buildDraftReport(draft: Draft): Result<Readonly<DraftReport>, DraftError> {
   return buildDraftReportState(draft as unknown as Readonly<DraftState>);
+}
+
+export function replayDraft(events: readonly Readonly<DraftEvent>[]): Result<Draft, DraftError> {
+  const result = replayDraftState(events);
+  if (!result.ok) {
+    return result;
+  }
+  return {
+    ok: true,
+    value: result.value as unknown as Draft,
+  };
 }
 
 export { calculateReportDigest, functionalProjection };
