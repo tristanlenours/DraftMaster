@@ -66,13 +66,20 @@ export { calculateReportDigest, functionalProjection };
 export { DRAFT_CONFIGURATION } from "./internal/types.ts";
 
 export type {
+  Booster,
+  BoosterMovement,
+  BoostersDealtEvent,
+  BoostersPassedEvent,
   CardPickedEvent,
+  DraftCompletedEvent,
   DraftConfiguration,
   DraftEvent,
   DraftInvariantCode,
   DraftInvariantResult,
   DraftReport,
+  DraftStartedEvent,
   DraftView,
+  PackCompletedEvent,
   SeatDecision,
   SeatId,
   SeatPolicyDescriptor,
