@@ -1,9 +1,12 @@
+import { buildDraftReportState } from "./internal/build-draft-report.ts";
 import { buildDraftView } from "./internal/draft-view.ts";
 import type { DraftError, Result } from "./internal/errors.ts";
+import { calculateReportDigest, functionalProjection } from "./internal/functional-projection.ts";
 import { startDraftState } from "./internal/start-draft.ts";
 import { submitPickRoundState } from "./internal/submit-pick-round.ts";
 import type {
   DraftEvent,
+  DraftReport,
   DraftState,
   DraftView,
   StartDraftInput,
@@ -55,14 +58,25 @@ export function submitPickRound(
   };
 }
 
+export function buildDraftReport(draft: Draft): Result<Readonly<DraftReport>, DraftError> {
+  return buildDraftReportState(draft as unknown as Readonly<DraftState>);
+}
+
+export { calculateReportDigest, functionalProjection };
+export { DRAFT_CONFIGURATION } from "./internal/types.ts";
+
 export type {
   CardPickedEvent,
   DraftConfiguration,
   DraftEvent,
+  DraftInvariantCode,
+  DraftInvariantResult,
+  DraftReport,
   DraftView,
   SeatDecision,
   SeatId,
   SeatPolicyDescriptor,
+  SeatPool,
   StartDraftInput,
   SubmitPickRound,
 } from "./internal/types.ts";

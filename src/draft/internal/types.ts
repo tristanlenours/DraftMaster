@@ -196,3 +196,23 @@ export interface DraftTransition {
   readonly draft: Readonly<DraftState>;
   readonly appendedEvents: readonly Readonly<DraftEvent>[];
 }
+
+export interface DraftReport {
+  readonly schemaVersion: 1;
+  readonly sessionId: string;
+  readonly seed: number;
+  readonly startedAt: string;
+  readonly completedAt: string;
+  readonly engineVersion: string;
+  readonly randomSystem: Readonly<RandomSystemMetadata>;
+  readonly seatPolicies: readonly Readonly<SeatPolicyDescriptor>[];
+  readonly configuration: Readonly<DraftConfiguration>;
+  readonly snapshotId: string;
+  readonly snapshotCanonicalSha256: string;
+  readonly snapshotProvenance: Readonly<CubeSnapshot["source"]>;
+  readonly events: readonly Readonly<DraftEvent>[];
+  readonly finalPools: readonly Readonly<SeatPool>[];
+  readonly unusedCardInstanceIds: readonly string[];
+  readonly invariants: readonly Readonly<DraftInvariantResult>[];
+  readonly functionalDigest: string;
+}
