@@ -376,6 +376,10 @@ export class SoloDraftSession {
     const playerPool = poolIds.map((id) => this.getEnrichedCard(id));
 
     const direction: "left" | "right" = view.packNumber === 2 ? "right" : "left";
+    const incomingSeatId = direction === "left" ? 7 : 1;
+    const incomingProfile = this.seatProfiles[incomingSeatId];
+    const nextBoosterFromBotName =
+      incomingProfile?.botName ?? incomingProfile?.name ?? `Bot ${String(incomingSeatId)}`;
     const elapsedSeconds =
       this.status === "completed"
         ? this.totalDurationSeconds
@@ -394,6 +398,7 @@ export class SoloDraftSession {
       pickNumber: view.pickNumber,
       totalRounds: 45,
       direction,
+      nextBoosterFromBotName,
       currentBooster,
       playerPool,
       elapsedSeconds,
@@ -763,6 +768,7 @@ export class SoloDraftSession {
     input: SoloDeckBuildInput,
     options: {
       customReportsDir?: string;
+      reportsUrlPrefix?: string;
       customLeaderboardPath?: string;
       customAdminDraftsPath?: string;
     } = {},
@@ -960,8 +966,9 @@ export class SoloDraftSession {
     await writeFile(fullWalkthroughPath, walkthroughHtml, "utf8");
     await writeFile(fullBoostersPath, boostersHtml, "utf8");
 
-    const walkthroughUrl = `/${reportsDir}/${walkthroughFilename}`;
-    const boostersUrl = `/${reportsDir}/${boostersFilename}`;
+    const reportsUrlPrefix = options.reportsUrlPrefix ?? `/${reportsDir}`;
+    const walkthroughUrl = `${reportsUrlPrefix}/${walkthroughFilename}`;
+    const boostersUrl = `${reportsUrlPrefix}/${boostersFilename}`;
 
     // 6. Add to Leaderboard (Cloud Supabase + Local JSON Sync) ONLY if publishToLeaderboard is true
     const payload: Omit<LeaderboardEntry, "id" | "rank"> = {

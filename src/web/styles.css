@@ -4470,11 +4470,37 @@ body {
   display: block;
 }
 
+.card-zoom-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  background: rgba(5, 9, 16, 0.82);
+  color: #fff;
+  font-size: 1rem;
+  cursor: zoom-in;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.65);
+}
+
+.card-zoom-btn:hover,
+.card-zoom-btn:focus-visible {
+  background: rgba(37, 99, 235, 0.95);
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
 /* Floating Hover Image Popover (Card zoom on hover in French) */
 .card-popover {
   position: fixed;
   z-index: 10000;
-  pointer-events: none;
+  pointer-events: auto;
   width: 320px;
   max-width: calc(100vw - 32px);
   border-radius: var(--radius-md, 12px);
@@ -4493,28 +4519,22 @@ body {
   display: block;
 }
 
-.card-info-footer {
-  padding: 0.5rem 0.65rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-surface);
-}
-
-.card-name-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-cost-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+.card-popover-close {
+  display: grid;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: rgba(5, 9, 16, 0.9);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
 /* Pool Drawer */
@@ -7090,7 +7110,4 @@ body {
   background: rgba(74, 222, 128, 0.1);
   border: 1px solid rgba(74, 222, 128, 0.25);
 }
-
-
-
 

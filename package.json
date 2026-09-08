@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "npm run web",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:coverage && npm run reports:verify",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:coverage && npm run reports:verify && npm run test:browser",
     "cards:download-images": "node scripts/download-card-images.mjs",
     "cube:fetch": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts fetch",
     "cube:normalize": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts normalize",
@@ -33,6 +33,7 @@
     "simulate:html": "node --no-warnings --experimental-strip-types scripts/simulate-html-report.ts",
     "test": "vitest run",
     "test:audit": "vitest run tests/integration/report-audit.test.ts",
+    "test:browser": "playwright test",
     "test:coverage": "vitest run --coverage",
     "test:domain-errors": "vitest run tests/contract/draft-engine.test.ts tests/unit/draft/submit-pick-round.test.ts tests/unit/draft/report-integrity.test.ts",
     "test:e2e": "vitest run tests/e2e/simulate-cli.test.ts tests/e2e/offline-and-errors.test.ts",
@@ -50,6 +51,7 @@
     "pure-rand": "8.4.2"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@types/node": "24.13.3",
     "@vitest/coverage-v8": "4.1.11",
     "eslint": "10.9.1",

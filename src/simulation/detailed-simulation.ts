@@ -1,5 +1,6 @@
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
+import { MAX_POWER_SCORE } from "../cards/power-harmonizer.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
 import {
   getDraftView,
@@ -719,7 +720,7 @@ export function classifyCubeBombs(
       scoreB - scoreA || oracleIdA.localeCompare(oracleIdB),
   );
   const targetCount = Math.max(1, Math.ceil(ranked.length * 0.05));
-  const cutoffScore = ranked[targetCount - 1]?.[1] ?? 55;
+  const cutoffScore = ranked[targetCount - 1]?.[1] ?? MAX_POWER_SCORE;
   const oracleIds = new Set(
     ranked.filter(([, score]) => score >= cutoffScore).map(([oracleId]) => oracleId),
   );

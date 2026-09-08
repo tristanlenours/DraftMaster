@@ -4,6 +4,9 @@ export interface CreateRequestHandlerOptions {
   readonly sitePassword?: string;
   readonly authEnabled?: boolean;
   readonly isTestEnv?: boolean;
+  readonly reportsDirectory?: string;
+  readonly adminDraftsPath?: string;
+  readonly leaderboardPath?: string;
 }
 
 export function createRequestHandler(options?: CreateRequestHandlerOptions): RequestListener;

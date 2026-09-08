@@ -312,6 +312,9 @@ export function createRequestHandler(options = {}) {
     options.authEnabled !== undefined
       ? Boolean(options.authEnabled && sitePassword)
       : Boolean(sitePassword && !isTestEnv);
+  const handlerReportsDir = resolve(options.reportsDirectory ?? reportsDir);
+  const adminDraftsPath = options.adminDraftsPath;
+  const leaderboardPath = options.leaderboardPath;
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
@@ -498,7 +501,7 @@ export function createRequestHandler(options = {}) {
     // 1. Leaderboard (Cloud Supabase + Local Sync)
     if (pathname === "/api/leaderboard" && req.method === "GET") {
       try {
-        const list = await getUnifiedLeaderboard();
+        const list = await getUnifiedLeaderboard(leaderboardPath);
         sendJson(res, 200, { ok: true, entries: list });
       } catch (err) {
         sendJson(res, 500, { ok: false, error: err.message });
@@ -509,7 +512,7 @@ export function createRequestHandler(options = {}) {
     // 2. Draft Reports Directory
     if (pathname === "/api/reports" && req.method === "GET") {
       try {
-        const files = await readdir(reportsDir);
+        const files = await readdir(handlerReportsDir);
         const htmlReports = files
           .filter((f) => f.endsWith(".html"))
           .map((filename) => ({
@@ -527,7 +530,7 @@ export function createRequestHandler(options = {}) {
     // 2b. Admin Drafts List
     if (pathname === "/api/admin/drafts" && req.method === "GET") {
       try {
-        const drafts = await getAdminDrafts();
+        const drafts = await getAdminDrafts(adminDraftsPath);
         sendJson(res, 200, { ok: true, drafts });
       } catch (err) {
         sendJson(res, 500, { ok: false, error: err.message });
@@ -539,7 +542,7 @@ export function createRequestHandler(options = {}) {
     if (pathname.startsWith("/api/admin/drafts/") && req.method === "GET") {
       const draftId = pathname.slice("/api/admin/drafts/".length);
       try {
-        const draft = await getAdminDraftById(draftId);
+        const draft = await getAdminDraftById(draftId, adminDraftsPath);
         if (!draft) {
           sendJson(res, 404, { ok: false, error: "Draft non trouvé" });
           return;
@@ -626,6 +629,11 @@ export function createRequestHandler(options = {}) {
           maindeckCardInstanceIds: body.maindeckCardInstanceIds,
           basicLands: body.basicLands,
           publishToLeaderboard: Boolean(body.publishToLeaderboard),
+        }, {
+          customReportsDir: handlerReportsDir,
+          reportsUrlPrefix: "/reports",
+          customAdminDraftsPath: adminDraftsPath,
+          customLeaderboardPath: leaderboardPath,
         });
 
         sendJson(res, 200, { ok: true, result: finalResult });
@@ -650,7 +658,7 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
-        const publishResult = await session.publishToLeaderboard();
+        const publishResult = await session.publishToLeaderboard(leaderboardPath);
         sendJson(res, 200, { ok: true, result: publishResult });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
@@ -667,7 +675,7 @@ export function createRequestHandler(options = {}) {
     if (pathname.startsWith("/data/")) {
       filePath = join(rootDir, pathname);
     } else if (pathname.startsWith("/reports/")) {
-      filePath = join(rootDir, pathname);
+      filePath = join(handlerReportsDir, pathname.slice("/reports/".length));
     } else if (
       pathname === "/" ||
       pathname === "/index.html" ||

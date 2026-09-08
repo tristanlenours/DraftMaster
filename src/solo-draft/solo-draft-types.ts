@@ -43,6 +43,7 @@ export interface SoloDraftStateDto {
   readonly pickNumber: number;
   readonly totalRounds: 45;
   readonly direction: "left" | "right";
+  readonly nextBoosterFromBotName: string;
   readonly currentBooster: readonly EnrichedCard[];
   readonly playerPool: readonly EnrichedCard[];
   readonly elapsedSeconds: number;

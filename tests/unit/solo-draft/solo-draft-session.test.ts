@@ -46,6 +46,7 @@ describe("SoloDraftSession", () => {
     expect(state.roundIndex).toBe(0);
     expect(state.currentBooster.length).toBe(15);
     expect(state.playerPool.length).toBe(0);
+    expect(state).toMatchObject({ nextBoosterFromBotName: "TitouBot" });
 
     // Verify card pedagogical and language enrichment
     const sampleCard = state.currentBooster[0];
@@ -83,6 +84,27 @@ describe("SoloDraftSession", () => {
     expect(nextState.playerPool[0]?.instanceId).toBe(cardToPick.instanceId);
     expect(nextState.currentBooster.length).toBe(14);
     expect(nextState.lastPickedCard?.instanceId).toBe(cardToPick.instanceId);
+  });
+
+  it("identifies the bot feeding the next booster for each rotation direction", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "Tristan",
+      seed: 42,
+    });
+
+    expect(session.getStateDto()).toMatchObject({ nextBoosterFromBotName: "TitouBot" });
+
+    for (let round = 0; round < 15; round++) {
+      const state = session.getStateDto();
+      const firstCard = state.currentBooster[0];
+      if (!firstCard) throw new Error("Booster card missing");
+      session.makePick(firstCard.instanceId);
+    }
+
+    expect(session.getStateDto()).toMatchObject({
+      packNumber: 2,
+      nextBoosterFromBotName: "Big Nixos",
+    });
   });
 
   it("calculates optimal 17 basic lands matching colored spells", async () => {

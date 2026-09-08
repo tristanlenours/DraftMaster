@@ -213,7 +213,7 @@
             <div class="pillar-icon">⚖️</div>
             <h3 class="pillar-title">Rigueur Mathématique du Ranking</h3>
             <p class="pillar-desc">
-              Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 55) croise les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise compétitive pour refléter la valeur absolue réelle de chaque pièce.
+              Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 53, avec Black Lotus au plafond) croise les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise compétitive pour refléter la valeur absolue réelle de chaque pièce.
             </p>
           </div>
           <div class="pillar-card">
@@ -324,7 +324,7 @@
             <span class="stat-caption">Cartes Référencées</span>
           </div>
           <div class="stat-box">
-            <span class="stat-number">1 – 55</span>
+            <span class="stat-number">1 – 53</span>
             <span class="stat-caption">Échelle de Puissance</span>
           </div>
           <div class="stat-box">
@@ -1507,7 +1507,7 @@
               <span class="hud-pill pill-player" id="hud-player-badge">Tristan</span>
               <span class="hud-pill pill-pack" id="hud-pack-num">Pack 1 / 3</span>
               <span class="hud-pill pill-pick" id="hud-pick-num">Pick 1 / 15</span>
-              <span class="hud-pill pill-direction" id="hud-direction">⬅️ Tourne à Gauche</span>
+              <span class="hud-pill pill-direction" id="hud-direction">🥛 Nourri au bon lait de : TitouBot</span>
             </div>
             <div class="hud-right">
               <span class="hud-pill pill-homologated">🛡️ Homologué</span>
@@ -1525,7 +1525,9 @@
         <div class="arena-content-container">
           <div class="booster-header-banner">
             <h2 class="booster-title">Vos Cartes Disponibles</h2>
-            <p class="booster-hint">Cliquez sur une carte pour la sélectionner, ou double-cliquez pour la drafter directement.</p>
+            <p class="booster-hint">
+              Cliquez sur une carte pour la sélectionner, ou double-cliquez pour la drafter directement. La loupe 🔍 ouvre l’agrandissement.
+            </p>
           </div>
 
           <!-- Booster Grid -->
@@ -2157,6 +2159,14 @@
       style="display: none"
       aria-hidden="true"
     >
+      <button
+        class="card-popover-close"
+        id="card-hover-close-btn"
+        type="button"
+        aria-label="Fermer la carte agrandie"
+      >
+        ×
+      </button>
       <img id="popover-img" src="" alt="Aperçu de la carte" loading="eager" />
     </div>
 
@@ -2231,7 +2241,7 @@
                   <span class="hero-metric-label">Power Ranking</span>
                   <div class="hero-metric-val-wrap">
                     <span class="hero-metric-number" id="modal-hero-power-score">53</span>
-                    <span class="hero-metric-denom">/ 55</span>
+                    <span class="hero-metric-denom">/ 53</span>
                   </div>
                   <div class="hero-metric-bar">
                     <div

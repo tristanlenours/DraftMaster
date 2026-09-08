@@ -3,6 +3,7 @@ import type {
   InitialDealtBooster,
   EnrichedCard,
 } from "./detailed-simulation.ts";
+import { MAX_POWER_SCORE } from "../cards/power-harmonizer.ts";
 
 function escapeHtml(text: string | number | undefined | null): string {
   if (text === undefined || text === null || text === "") return "";
@@ -591,7 +592,7 @@ export function generateBoosterDistributionHtml(report: DetailedDraftReport): st
         <span class="stat-label">Bombes — Top 5 % du Cube</span>
         <span class="stat-number">${String(bombCount)}</span>
         <span class="stat-sub">${String(bombCount)} bombes distribuées &bull; ${averageBombsPerBooster.toFixed(2).replace(".", ",")} par booster &bull; ${String(boostersWithoutBomb)} boosters sans bombe</span>
-        <span class="stat-sub">Seuil ${String(report.bombDefinition.cutoffScore)}/55 &bull; ${String(report.bombDefinition.bombCardCount)} cartes éligibles sur ${String(report.bombDefinition.rankedUniqueCards)} identités uniques, égalités incluses</span>
+        <span class="stat-sub">Seuil ${String(report.bombDefinition.cutoffScore)}/${String(MAX_POWER_SCORE)} &bull; ${String(report.bombDefinition.bombCardCount)} cartes éligibles sur ${String(report.bombDefinition.rankedUniqueCards)} identités uniques, égalités incluses</span>
       </div>
 
       <div class="stat-card">

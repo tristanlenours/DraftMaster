@@ -1,14 +1,28 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 
 describe("Solo Draft Web API & Flow Integration", () => {
   let server: Server;
   let baseUrl: string;
+  let testStorageDir: string;
+  let workspaceAdminDraftsBefore: string;
 
   beforeAll(async () => {
-    const handler = createRequestHandler();
+    testStorageDir = await mkdtemp(join(tmpdir(), "draftmaster-solo-flow-"));
+    workspaceAdminDraftsBefore = await readFile(
+      resolve(process.cwd(), "data/admin-drafts.json"),
+      "utf8",
+    );
+    const handler = createRequestHandler({
+      reportsDirectory: join(testStorageDir, "reports"),
+      adminDraftsPath: join(testStorageDir, "admin-drafts.json"),
+      leaderboardPath: join(testStorageDir, "leaderboard.json"),
+    });
     server = createServer(handler);
     await new Promise<void>((resolve) => {
       server.listen(0, () => {
@@ -29,6 +43,7 @@ describe("Solo Draft Web API & Flow Integration", () => {
         }
       });
     });
+    await rm(testStorageDir, { recursive: true, force: true });
   });
 
   it("fetches the leaderboard list via GET /api/leaderboard", async () => {
@@ -163,5 +178,11 @@ describe("Solo Draft Web API & Flow Integration", () => {
     expect(myDraft?.seats.length).toBe(8);
     expect(myDraft?.seats[0]?.isBot).toBe(false);
     expect(myDraft?.seats[1]?.isBot).toBe(true);
+
+    const isolatedAdminDrafts = await readFile(join(testStorageDir, "admin-drafts.json"), "utf8");
+    expect(isolatedAdminDrafts).toContain("API Tester");
+    expect(await readFile(resolve(process.cwd(), "data/admin-drafts.json"), "utf8")).toBe(
+      workspaceAdminDraftsBefore,
+    );
   }, 20000);
 });

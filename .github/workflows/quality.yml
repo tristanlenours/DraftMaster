@@ -69,6 +69,9 @@ jobs:
       - name: Run test suite with coverage
         run: npm run test:coverage
 
+      - name: Verify generated reports
+        run: npm run reports:verify
+
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         if: matrix.os == 'ubuntu-latest'
@@ -76,6 +79,30 @@ jobs:
           name: coverage-report
           path: coverage/
           retention-days: 14
+
+  browser:
+    name: Browser Critical Journeys
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser critical journeys
+        run: npm run test:browser
 
   performance:
     name: SC-006 Performance Benchmark (Isolated)
