@@ -159,6 +159,8 @@ const elements = {
   viewDraft: document.getElementById("view-draft"),
   viewRecords: document.getElementById("view-records"),
   viewAdmin: document.getElementById("view-admin"),
+  viewMulti: document.getElementById("view-multi"),
+  viewTournaments: document.getElementById("view-tournaments"),
 
   // Navigation Links (Desktop)
   brandHomeBtn: document.getElementById("brand-home-btn"),
@@ -168,6 +170,8 @@ const elements = {
   navBtnBots: document.getElementById("nav-btn-bots"),
   navBtnDraft: document.getElementById("nav-btn-draft"),
   navBtnRecords: document.getElementById("nav-btn-records"),
+  navBtnMulti: document.getElementById("nav-btn-multi"),
+  navBtnTournaments: document.getElementById("nav-btn-tournaments"),
 
   // Navigation Links (Mobile Drawer)
   mobileMenuBtn: document.getElementById("mobile-menu-btn"),
@@ -179,12 +183,24 @@ const elements = {
   mobileNavBots: document.getElementById("mobile-nav-bots"),
   mobileNavDraft: document.getElementById("mobile-nav-draft"),
   mobileNavRecords: document.getElementById("mobile-nav-records"),
+  mobileNavMulti: document.getElementById("mobile-nav-multi"),
+  mobileNavTournaments: document.getElementById("mobile-nav-tournaments"),
 
   // Home CTA Buttons
   homeCtaDraft: document.getElementById("home-cta-draft"),
   homeCtaCubes: document.getElementById("home-cta-cubes"),
   homeCtaCards: document.getElementById("home-cta-cards"),
   homeCtaBots: document.getElementById("home-cta-bots"),
+  homeCtaMulti: document.getElementById("home-cta-multi"),
+  homeCtaTournaments: document.getElementById("home-cta-tournaments"),
+
+  // Teaser Interactive Elements
+  btnMultiVip: document.getElementById("btn-multi-vip"),
+  multiVipEmail: document.getElementById("multi-vip-email"),
+  multiVipFeedback: document.getElementById("multi-vip-feedback"),
+  btnTournamentsPilot: document.getElementById("btn-tournaments-pilot"),
+  tournamentsPilotContact: document.getElementById("tournaments-pilot-contact"),
+  tournamentsPilotFeedback: document.getElementById("tournaments-pilot-feedback"),
 
   // Deck Review Modal
   deckReviewBackdrop: document.getElementById("deck-review-backdrop"),
@@ -423,6 +439,8 @@ function navigateTo(viewName, cubeKey = null) {
   elements.navBtnBots?.classList.toggle("active", viewName === "bots");
   elements.navBtnDraft?.classList.toggle("active", viewName === "draft");
   elements.navBtnRecords?.classList.toggle("active", viewName === "records");
+  elements.navBtnMulti?.classList.toggle("active", viewName === "multi");
+  elements.navBtnTournaments?.classList.toggle("active", viewName === "tournaments");
 
   // Header active tabs (Mobile Drawer)
   elements.mobileNavHome?.classList.toggle("active", viewName === "home");
@@ -431,6 +449,8 @@ function navigateTo(viewName, cubeKey = null) {
   elements.mobileNavBots?.classList.toggle("active", viewName === "bots");
   elements.mobileNavDraft?.classList.toggle("active", viewName === "draft");
   elements.mobileNavRecords?.classList.toggle("active", viewName === "records");
+  elements.mobileNavMulti?.classList.toggle("active", viewName === "multi");
+  elements.mobileNavTournaments?.classList.toggle("active", viewName === "tournaments");
 
   // Show/Hide Views
   if (elements.viewHome) {
@@ -461,6 +481,14 @@ function navigateTo(viewName, cubeKey = null) {
     elements.viewAdmin.hidden = viewName !== "admin";
     elements.viewAdmin.style.display = viewName === "admin" ? "block" : "none";
   }
+  if (elements.viewMulti) {
+    elements.viewMulti.hidden = viewName !== "multi";
+    elements.viewMulti.style.display = viewName === "multi" ? "block" : "none";
+  }
+  if (elements.viewTournaments) {
+    elements.viewTournaments.hidden = viewName !== "tournaments";
+    elements.viewTournaments.style.display = viewName === "tournaments" ? "block" : "none";
+  }
 
   // URL routing
   let targetPath = "/";
@@ -470,6 +498,8 @@ function navigateTo(viewName, cubeKey = null) {
   else if (viewName === "draft") targetPath = "/draft";
   else if (viewName === "records") targetPath = "/records";
   else if (viewName === "admin") targetPath = "/admin";
+  else if (viewName === "multi") targetPath = "/multi";
+  else if (viewName === "tournaments") targetPath = "/tournaments";
 
   if (window.location.pathname !== targetPath) {
     window.history.pushState({ view: viewName, cube: cubeKey }, "", targetPath);
@@ -505,6 +535,10 @@ function initRouter() {
     initialView = "records";
   } else if (path === "/admin" || hash === "#admin") {
     initialView = "admin";
+  } else if (path === "/multi" || hash === "#multi") {
+    initialView = "multi";
+  } else if (path === "/tournaments" || hash === "#tournaments") {
+    initialView = "tournaments";
   }
 
   navigateTo(initialView, state.activeCubeKey);
@@ -517,6 +551,8 @@ function initRouter() {
     else if (p === "/draft") navigateTo("draft");
     else if (p === "/records") navigateTo("records");
     else if (p === "/admin") navigateTo("admin");
+    else if (p === "/multi") navigateTo("multi");
+    else if (p === "/tournaments") navigateTo("tournaments");
     else navigateTo("home");
   });
 }
@@ -549,6 +585,8 @@ function setupEventListeners() {
   elements.navBtnBots?.addEventListener("click", () => navigateTo("bots"));
   elements.navBtnDraft?.addEventListener("click", () => navigateTo("draft"));
   elements.navBtnRecords?.addEventListener("click", () => navigateTo("records"));
+  elements.navBtnMulti?.addEventListener("click", () => navigateTo("multi"));
+  elements.navBtnTournaments?.addEventListener("click", () => navigateTo("tournaments"));
 
   // SPA Navigation handlers (Mobile Drawer)
   elements.mobileMenuBtn?.addEventListener("click", () => toggleMobileNav());
@@ -577,6 +615,14 @@ function setupEventListeners() {
     navigateTo("records");
     closeMobileNav();
   });
+  elements.mobileNavMulti?.addEventListener("click", () => {
+    navigateTo("multi");
+    closeMobileNav();
+  });
+  elements.mobileNavTournaments?.addEventListener("click", () => {
+    navigateTo("tournaments");
+    closeMobileNav();
+  });
 
   // Close mobile drawer on Escape key
   document.addEventListener("keydown", (e) => {
@@ -589,6 +635,45 @@ function setupEventListeners() {
   elements.homeCtaCubes?.addEventListener("click", () => navigateTo("cubes"));
   elements.homeCtaCards?.addEventListener("click", () => navigateTo("cards"));
   elements.homeCtaBots?.addEventListener("click", () => navigateTo("bots"));
+  elements.homeCtaMulti?.addEventListener("click", () => navigateTo("multi"));
+  elements.homeCtaTournaments?.addEventListener("click", () => navigateTo("tournaments"));
+
+  // Teaser VIP / Pilot Submissions
+  elements.btnMultiVip?.addEventListener("click", () => {
+    const val = elements.multiVipEmail?.value?.trim();
+    if (!val) {
+      if (elements.multiVipFeedback) {
+        elements.multiVipFeedback.textContent = "Veuillez saisir votre pseudo Discord ou e-mail.";
+        elements.multiVipFeedback.style.color = "var(--accent-coral)";
+      }
+      return;
+    }
+    if (elements.multiVipFeedback) {
+      elements.multiVipFeedback.textContent = "✨ Inscription enregistrée ! Vous serez averti en priorité dès l'ouverture des pods alpha.";
+      elements.multiVipFeedback.style.color = "var(--accent-gold)";
+    }
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+    }
+  });
+
+  elements.btnTournamentsPilot?.addEventListener("click", () => {
+    const contact = elements.tournamentsPilotContact?.value?.trim();
+    if (!contact) {
+      if (elements.tournamentsPilotFeedback) {
+        elements.tournamentsPilotFeedback.textContent = "Veuillez renseigner votre association ou contact.";
+        elements.tournamentsPilotFeedback.style.color = "var(--accent-coral)";
+      }
+      return;
+    }
+    if (elements.tournamentsPilotFeedback) {
+      elements.tournamentsPilotFeedback.textContent = "🛡️ Candidature reçue ! Notre équipe prendra contact pour configurer votre premier tournoi test.";
+      elements.tournamentsPilotFeedback.style.color = "var(--tier-s)";
+    }
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+    }
+  });
 
   elements.deckReviewCloseBtn?.addEventListener("click", () => {
     if (elements.deckReviewBackdrop) elements.deckReviewBackdrop.hidden = true;

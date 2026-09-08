@@ -60,12 +60,13 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('class="brand-tagline"');
     });
 
-    it("declares desktop navigation tabs for all 6 primary SPA views", () => {
-      const views = ["home", "cubes", "cards", "bots", "draft", "records"];
+    it("declares desktop navigation tabs for all 8 SPA views (including multi and tournaments teasers)", () => {
+      const views = ["home", "cubes", "cards", "bots", "draft", "records", "multi", "tournaments"];
       for (const view of views) {
         expect(htmlContent).toContain(`id="nav-btn-${view}"`);
         expect(htmlContent).toContain(`data-view="${view}"`);
       }
+      expect(htmlContent).toContain('class="nav-badge-soon"');
     });
 
     it("declares mobile hamburger button with accessible ARIA contract and bars", () => {
@@ -79,18 +80,36 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(barMatches?.length).toBe(3);
     });
 
-    it("declares mobile navigation drawer with touch targets for all 6 views", () => {
+    it("declares mobile navigation drawer with touch targets for all 8 views", () => {
       expect(htmlContent).toContain('id="mobile-nav-drawer"');
       expect(htmlContent).toContain('class="mobile-nav-drawer"');
       expect(htmlContent).toContain('aria-label="Navigation mobile"');
 
-      const mobileViews = ["home", "cubes", "cards", "bots", "draft", "records"];
+      const mobileViews = [
+        "home",
+        "cubes",
+        "cards",
+        "bots",
+        "draft",
+        "records",
+        "multi",
+        "tournaments",
+      ];
       for (const view of mobileViews) {
         expect(htmlContent).toContain(`id="mobile-nav-${view}"`);
         expect(htmlContent).toContain(`data-view="${view}"`);
       }
 
       expect(htmlContent).toContain('id="mobile-nav-backdrop"');
+    });
+
+    it("declares dedicated teaser presentation views and home teaser cards for multi and tournaments", () => {
+      expect(htmlContent).toContain('id="view-multi"');
+      expect(htmlContent).toContain('id="view-tournaments"');
+      expect(htmlContent).toContain('class="home-teaser-section"');
+      expect(htmlContent).toContain('id="home-cta-multi"');
+      expect(htmlContent).toContain('id="home-cta-tournaments"');
+      expect(htmlContent).toContain('class="mystery-coming-soon-banner"');
     });
 
     it("declares both desktop tier matrix and mobile LimitedGrades tier container in view-cards", () => {
@@ -156,6 +175,14 @@ describe("Web Navigation & Mobile Target QA", () => {
         /@media\s*\(max-width:\s*768px\)\s*\{[\s\S]*?\.controls-bar-inner\s*\{[\s\S]*?display:\s*grid;/,
       );
     });
+
+    it("styles coming soon teaser elements (nav-badge-soon, home teasers, mystery banner)", () => {
+      expect(cssContent).toContain(".nav-badge-soon");
+      expect(cssContent).toContain(".home-teaser-section");
+      expect(cssContent).toContain(".home-teaser-card");
+      expect(cssContent).toContain(".mystery-coming-soon-banner");
+      expect(cssContent).toContain(".teaser-feature-card");
+    });
   });
 
   describe("Client Logic & Mobile Invariants", () => {
@@ -173,8 +200,17 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(jsContent).toContain("Escape");
     });
 
-    it("synchronizes active navigation state on both desktop tabs and mobile drawer items", () => {
-      const navKeys = ["Home", "Cubes", "Cards", "Bots", "Draft", "Records"];
+    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 8 views", () => {
+      const navKeys = [
+        "Home",
+        "Cubes",
+        "Cards",
+        "Bots",
+        "Draft",
+        "Records",
+        "Multi",
+        "Tournaments",
+      ];
       for (const key of navKeys) {
         expect(jsContent).toContain(`elements.navBtn${key}?.classList.toggle("active"`);
         expect(jsContent).toContain(`elements.mobileNav${key}?.classList.toggle("active"`);

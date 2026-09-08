@@ -61,6 +61,16 @@
             <span class="tab-icon">🏆</span>
             <span class="tab-label">Mur des Records</span>
           </button>
+          <button class="nav-tab-btn" data-view="multi" id="nav-btn-multi">
+            <span class="tab-icon">👥</span>
+            <span class="tab-label">Draft Multi</span>
+            <span class="nav-badge-soon">Soon</span>
+          </button>
+          <button class="nav-tab-btn" data-view="tournaments" id="nav-btn-tournaments">
+            <span class="tab-icon">🏟️</span>
+            <span class="tab-label">Tournois</span>
+            <span class="nav-badge-soon">Soon</span>
+          </button>
         </nav>
 
         <!-- Mobile Menu Toggle Button (Mobile <= 768px) -->
@@ -108,6 +118,14 @@
           <button class="mobile-nav-item" data-view="records" id="mobile-nav-records">
             <span class="mobile-nav-icon">🏆</span>
             <span class="mobile-nav-label">Mur des Records</span>
+          </button>
+          <button class="mobile-nav-item" data-view="multi" id="mobile-nav-multi">
+            <span class="mobile-nav-icon">👥</span>
+            <span class="mobile-nav-label">Draft Multi <span class="nav-badge-soon">Soon</span></span>
+          </button>
+          <button class="mobile-nav-item" data-view="tournaments" id="mobile-nav-tournaments">
+            <span class="mobile-nav-icon">🏟️</span>
+            <span class="mobile-nav-label">Tournois <span class="nav-badge-soon">Soon</span></span>
           </button>
         </div>
       </nav>
@@ -288,6 +306,44 @@
           <div class="stat-box">
             <span class="stat-number">100%</span>
             <span class="stat-caption">Pédagogique & Ouvert</span>
+          </div>
+        </div>
+
+        <!-- Teaser Section on Home: Prochainement dans l'Univers LMCDEU -->
+        <div class="home-teaser-section">
+          <div class="home-teaser-header">
+            <span class="teaser-kicker">🔮 FEUILLE DE ROUTE & NOUVELLES EXPÉRIENCES</span>
+            <h2 class="home-teaser-title">Bientôt dans le Cube Digital Extended Universe</h2>
+            <p class="home-teaser-desc">Deux révolutions majeures sont en cours de forgeage pour porter le plaisir de jeu à un niveau inédit.</p>
+          </div>
+          <div class="home-teaser-cards">
+            <!-- Teaser Card 1: Multi Draft -->
+            <div class="home-teaser-card" id="home-teaser-multi">
+              <div class="teaser-card-badge"><span class="pulse-dot-amber"></span><span>Bientôt • Temps Réel</span></div>
+              <div class="teaser-card-icon">👥</div>
+              <h3 class="teaser-card-title">Draft Multijoueur en Ligne</h3>
+              <p class="teaser-card-summary">Rassemblez jusqu'à 8 magiciens en direct autour de vos cubes favoris. Lobbies privés, timer synchronisé et complétion intelligente par bots si un joueur manque.</p>
+              <div class="teaser-card-meta">
+                <span>Pods 4 à 8</span>
+                <span>WebSockets</span>
+                <span>Pick Timer</span>
+              </div>
+              <button class="btn-teaser-action" id="home-cta-multi">Découvrir la vision ➔</button>
+            </div>
+
+            <!-- Teaser Card 2: Tournois -->
+            <div class="home-teaser-card" id="home-teaser-tournaments">
+              <div class="teaser-card-badge"><span class="pulse-dot-amber"></span><span>Bientôt • IRL & Online</span></div>
+              <div class="teaser-card-icon">🏟️</div>
+              <h3 class="teaser-card-title">Gestion de Tournois & Rondes Suisses</h3>
+              <p class="teaser-card-summary">L'arbitre numérique de vos soirées et tournois Cube. Inscriptions QR code, moteur d'appariements suisses officiel, saisie des scores et intégration dans le Panthéon.</p>
+              <div class="teaser-card-meta">
+                <span>Système Suisse</span>
+                <span>Rondes 50min</span>
+                <span>Tie-Breakers</span>
+              </div>
+              <button class="btn-teaser-action" id="home-cta-tournaments">Découvrir la vision ➔</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1866,6 +1922,180 @@
         </div>
       </div>
     </section><!-- /view-admin -->
+
+    <!-- ==========================================================================
+         VIEW 7: DRAFT MULTI (Teaser & Vision Produit)
+         ========================================================================== -->
+    <section class="app-view view-multi" id="view-multi" hidden style="display: none">
+      <div class="teaser-page-container">
+        <!-- Hero Banner with mysterious Coming Soon -->
+        <div class="teaser-page-hero">
+          <div class="teaser-status-badge">
+            <span class="pulse-dot-amber"></span>
+            <span>PROJET EN COURS DE FORGEAGE • PHASE ALPHA</span>
+          </div>
+          <h1 class="teaser-page-title">
+            <span class="gold-gradient">DRAFT MULTIJOUEUR</span>
+            <span class="white-text">EN TEMPS RÉEL</span>
+          </h1>
+          <p class="teaser-page-subtitle">
+            Partagez la magie du Cube en direct avec vos amis. Pods de 4 à 8 joueurs, rotation synchronisée et adrénaline pure à chaque ouverture de booster.
+          </p>
+          <div class="mystery-coming-soon-banner">
+            <span class="mystery-icon">⏳</span>
+            <span class="mystery-text">COMING SOON</span>
+            <span class="mystery-subtext">Lancement prévu prochainement sur LMCDEU</span>
+          </div>
+        </div>
+
+        <!-- Pillars / Teaser Features Grid -->
+        <div class="teaser-features-grid">
+          <div class="teaser-feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">Lobbies Privés & Salons d'Amis</h3>
+            <p class="feature-desc">
+              Créez une table en un clic et partagez un code d'accès sécurisé ou un lien direct à vos amis. Choisissez le Cube parmi les 4 collections de la communauté (Titou, Nico, Huge, Cédric) et personnalisez la taille du pod (4, 6 ou 8 magiciens).
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3 class="feature-title">Remplacement IA Transparent</h3>
+            <p class="feature-desc">
+              Une table incomplète ou un ami déconnecté ? Un Friend-Bot doté d'une personnalité stratégique distincte prend immédiatement le relais sans interrompre le rythme ni déséquilibrer la roue des choix.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h3 class="feature-title">Timer de Pick Synchronisé</h3>
+            <p class="feature-desc">
+              Retrouvez la véritable tension du draft sur table avec des fenêtres de sélection dynamiques (60s à 10s par pick), forçant des décisions instinctives et préservant un tempo fluide pour toute la table.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 class="feature-title">Rotation Parfaite des Boosters</h3>
+            <p class="feature-desc">
+              Synchronisation instantanée ultra-rapide via WebSockets : rotation horaire au pack 1, antihoraire au pack 2, horaire au pack 3, avec conservation stricte de chaque carte sans désynchronisation.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">💬</div>
+            <h3 class="feature-title">Tchat & Révélations Spectaculaires</h3>
+            <p class="feature-desc">
+              Canal de discussion en direct, célébration des cartes d'exception ouvertes et partage instantané de vos decks construits dès la fin du troisième pack.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3 class="feature-title">Passerelle Directe vers le Tournoi</h3>
+            <p class="feature-desc">
+              Une fois les 45 cartes sélectionnées et les decks de 23 cartes montés, lancez le tournoi entre joueurs en un clic sans ressaisie manuelle !
+            </p>
+          </div>
+        </div>
+
+        <!-- VIP Access Call to Action -->
+        <div class="teaser-cta-card">
+          <div class="cta-inner">
+            <span class="cta-badge">🌟 ACCÈS PRIVILÉGIÉ</span>
+            <h2 class="cta-title">Soyez le premier prévenu de l'ouverture des pods</h2>
+            <p class="cta-desc">Les premières sessions de test alpha fermée seront réservées aux membres de la communauté.</p>
+            <div class="cta-form-row">
+              <input type="email" id="multi-vip-email" placeholder="Entrez votre email ou pseudo Discord..." class="teaser-input" />
+              <button class="btn-teaser-submit" id="btn-multi-vip">Rejoindre la Liste VIP ✨</button>
+            </div>
+            <div class="teaser-feedback-msg" id="multi-vip-feedback" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /view-multi -->
+
+    <!-- ==========================================================================
+         VIEW 8: TOURNOIS IRL & ONLINE (Teaser & Vision Produit)
+         ========================================================================== -->
+    <section class="app-view view-tournaments" id="view-tournaments" hidden style="display: none">
+      <div class="teaser-page-container">
+        <!-- Hero Banner with mysterious Coming Soon -->
+        <div class="teaser-page-hero">
+          <div class="teaser-status-badge">
+            <span class="pulse-dot-amber"></span>
+            <span>LE COLISEE DES MAGICIENS • EN DÉVELOPPEMENT</span>
+          </div>
+          <h1 class="teaser-page-title">
+            <span class="gold-gradient">GESTION DE TOURNOIS</span>
+            <span class="white-text">IRL & EN LIGNE</span>
+          </h1>
+          <p class="teaser-page-subtitle">
+            L'arbitre numérique ultime de vos événements Cube. De la confirmation des inscriptions jusqu'au sacre final, organisez des compétitions impeccables et mémorables.
+          </p>
+          <div class="mystery-coming-soon-banner">
+            <span class="mystery-icon">⚔️</span>
+            <span class="mystery-text">COMING SOON</span>
+            <span class="mystery-subtext">Système d'appariements et d'arbitrage en préparation</span>
+          </div>
+        </div>
+
+        <!-- Pillars / Teaser Features Grid -->
+        <div class="teaser-features-grid">
+          <div class="teaser-feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Inscriptions Éclair & QR Code IRL</h3>
+            <p class="feature-desc">
+              Pour vos soirées autour d'une vraie table physique, les joueurs scannent un QR Code pour confirmer leur présence en 3 secondes. Pour les tournois en ligne, un lien d'invitation rassemble tous les inscrits dans le salon d'arbitrage.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">⚖️</div>
+            <h3 class="feature-title">Appariements Suisses Automatisés</h3>
+            <p class="feature-desc">
+              Algorithme officiel inspiré des règles DCI : chaque ronde apparie les joueurs ayant le même score (3-0 vs 3-0, 2-1 vs 2-1), en évitant strictement les doublons d'adversaires et en attribuant les numéros de table physique ou virtuelle.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h3 class="feature-title">Chronomètre de Ronde & 5 Tours Additionnels</h3>
+            <p class="feature-desc">
+              Minuteur global synchronisé de 50 minutes par ronde, signal sonore de fin de ronde et gestion intégrée des 5 tours additionnels (« End of Match ») pour sceller les égalités équitablement.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">📝</div>
+            <h3 class="feature-title">Saisie Rapide & Validation des Scores</h3>
+            <p class="feature-desc">
+              Interface tactile pour renseigner le score en un geste (2-0, 2-1, 1-1, 0-2). Double validation par les deux joueurs sur smartphone avec console d'arbitre pour corriger tout litige en direct.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">📐</div>
+            <h3 class="feature-title">Tie-Breakers Mathématiques (OMW%)</h3>
+            <p class="feature-desc">
+              Fini les classements litigieux : calcul automatique et transparent des départages officiels (Opponents' Match Win %, Game Win %, Opponents' Game Win %) affichés en direct après chaque ronde.
+            </p>
+          </div>
+          <div class="teaser-feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3 class="feature-title">Panthéon des Champions & Mur des Records</h3>
+            <p class="feature-desc">
+              À l'issue de la ronde finale, le deck vainqueur, les statistiques de parties et les exploits du champion sont archivés éternellement dans l'historique officiel de LMCDEU.
+            </p>
+          </div>
+        </div>
+
+        <!-- Organizer Pilot Call to Action -->
+        <div class="teaser-cta-card">
+          <div class="cta-inner">
+            <span class="cta-badge">🎯 ORGANISATEURS & CLUBS</span>
+            <h2 class="cta-title">Vous organisez des tournois de Cube IRL ou en ligne ?</h2>
+            <p class="cta-desc">Participez au programme pilote pour tester la plateforme en avant-première lors de vos soirées de jeu.</p>
+            <div class="cta-form-row">
+              <input type="text" id="tournaments-pilot-contact" placeholder="Votre nom, club ou ville..." class="teaser-input" />
+              <button class="btn-teaser-submit" id="btn-tournaments-pilot">Postuler au Programme Pilote 🚀</button>
+            </div>
+            <div class="teaser-feedback-msg" id="tournaments-pilot-feedback" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /view-tournaments -->
 
     <!-- Deck Review Modal for Leaderboard Entries -->
     <div class="modal-backdrop" id="deck-review-backdrop" hidden>
