@@ -97,3 +97,19 @@ Un écran ou panneau Admin permet de consulter l'historique de tous les drafts j
 **Acceptance Scenarios**:
 1. **Given** un draft terminé, **When** le serveur génère les rapports, **Then** les deux fichiers HTML existent sur le système de fichiers dans `reports/` et sont consultables sans erreur.
 2. **Given** le visualiseur 17Lands généré, **When** il est ouvert, **Then** le Siège 0 porte le nom saisi par le joueur humain.
+
+---
+
+### User Story 7 - Observabilité, Santé et Télémétrie Cloud (Priority: P2)
+Pour garantir la robustesse en production sur Railway et Supabase sans temps d'arrêt pour les joueurs :
+1. **Healthchecks applicatifs** : Endpoints `GET /health`, `GET /health/live` et `GET /health/ready` renvoyant le statut `ok`, le temps d'exécution (`uptimeSeconds`), l'horodatage ISO et la confirmation de l'état de la connexion Supabase (`supabaseConfigured`).
+2. **Déploiement Zero-Downtime** : Configuration du Healthcheck Path Railway sur `/health` pour valider la santé du conteneur avant bascule du trafic DNS/HTTP.
+3. **Journalisation structurée** : Traces `stdout`/`stderr` unifiées sans fuite de données privées (ni jetons d'authentification ni corps de requête sensibles), capturant les transitions clés : initialisation, synchronisation Supabase, sauvegarde de draft, finalisation de scores et erreurs système.
+4. **Surveillance d'infrastructure** : Monitoring des métriques hôte (CPU, RAM, Egress/Ingress) dans Railway Metrics et monitoring PostgreSQL (connexions, IOPS, tables, Realtime broadcast) dans Supabase Dashboard.
+5. **Résilience et déconnexion gracieuse** : L'état de santé reste positif et opérationnel en mode dégradé (fallback local JSON) si les identifiants Supabase sont absents ou temporairement inaccessibles.
+
+**Acceptance Scenarios**:
+1. **Given** le serveur web actif, **When** une requête `GET /health` (ou `/health/live`, `/health/ready`) est émise, **Then** le serveur répond `200 OK` avec un corps JSON valide contenant `status: "ok"`, `uptimeSeconds`, `timestamp` et `supabaseConfigured`.
+2. **Given** l'absence de variables Supabase, **When** `/health` est interrogé, **Then** le statut reste `200 OK` avec `supabaseConfigured: false` (résilience offline).
+3. **Given** un déploiement Railway, **When** le conteneur démarre, **Then** Railway utilise `/health` comme porte de passage avant d'activer le trafic public.
+

@@ -20,3 +20,10 @@
   - [x] 4.1 Exécuter la suite de tests complète (`npm run test`)
   - [x] 4.2 Exécuter le quality gate complet (`npm run check`)
   - [x] 4.3 Vérifier manuellement le parcours complet et l'enregistrement des rapports
+- [x] 5. Supabase Cloud, Effet Whaou & Télémétrie d'Exploitation
+  - [x] 5.1 Schéma PostgreSQL `supabase/schema.sql` (RLS, tables, profils seed et Realtime)
+  - [x] 5.2 Adaptateur `src/storage/cloud-leaderboard.ts` et client `src/storage/supabase-client.ts` avec résilience hors-ligne
+  - [x] 5.3 Sélecteur d'identité des 8 Magiciens, partage WhatsApp 1-clic et onglet Panthéon dans la web app
+  - [x] 5.4 Endpoints de santé et télémétrie (`GET /health`, `/health/live`, `/health/ready`) dans `scripts/serve-web.mjs`
+  - [x] 5.5 Configuration de déploiement et point d'entrée `start` dans `package.json` pour Railway
+
