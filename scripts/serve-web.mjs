@@ -8,7 +8,10 @@ import {
   getMagiciensProfilesWithStats,
   getDeckShareData,
 } from "../src/storage/cloud-leaderboard.ts";
-import { getPublicSupabaseConfig } from "../src/storage/supabase-client.ts";
+import {
+  getPublicSupabaseConfig,
+  isSupabaseConfigured,
+} from "../src/storage/supabase-client.ts";
 import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-drafts.ts";
 
 try {
@@ -82,6 +85,20 @@ export function createRequestHandler() {
     // ==========================================
     // API ENDPOINTS
     // ==========================================
+
+    // Healthchecks pour Railway et monitoring d'uptime
+    if (
+      (pathname === "/health" || pathname === "/health/live" || pathname === "/health/ready") &&
+      req.method === "GET"
+    ) {
+      sendJson(res, 200, {
+        status: "ok",
+        uptimeSeconds: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString(),
+        supabaseConfigured: isSupabaseConfigured(),
+      });
+      return;
+    }
 
     // 0. Configuration Supabase pour le frontend (Client Realtime)
     if (pathname === "/api/config/supabase" && req.method === "GET") {
