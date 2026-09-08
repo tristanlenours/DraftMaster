@@ -263,9 +263,33 @@ export function createRequestHandler() {
           sessionId: body.sessionId,
           maindeckCardInstanceIds: body.maindeckCardInstanceIds,
           basicLands: body.basicLands,
+          publishToLeaderboard: Boolean(body.publishToLeaderboard),
         });
 
         sendJson(res, 200, { ok: true, result: finalResult });
+      } catch (err) {
+        sendJson(res, 400, { ok: false, error: err.message });
+      }
+      return;
+    }
+
+    // 5b. Draft Publish (pour inscrire un draft d'entraînement après consultation)
+    if (pathname === "/api/draft/publish" && req.method === "POST") {
+      try {
+        const body = await readJsonBody(req);
+        if (!body.sessionId) {
+          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
+          return;
+        }
+
+        const session = activeSessions.get(body.sessionId);
+        if (!session) {
+          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
+          return;
+        }
+
+        const publishResult = await session.publishToLeaderboard();
+        sendJson(res, 200, { ok: true, result: publishResult });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
       }

@@ -173,6 +173,12 @@ export class SoloDraftController {
         this.openDeckShowcaseModal(this.lastResult);
       }
     });
+
+    // 10. Publish to Leaderboard toggle change
+    const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
+    publishToggle?.addEventListener("change", () => {
+      this.renderDeckbuilder();
+    });
   }
 
   startTimer() {
@@ -199,6 +205,9 @@ export class SoloDraftController {
     this.sessionId = null;
     this.selectedCardToPick = null;
     this.maindeckSpellIds.clear();
+
+    const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
+    if (publishToggle) publishToggle.checked = false;
 
     this.showStage("lobby");
   }
@@ -620,8 +629,11 @@ export class SoloDraftController {
 
     if (this.dom.validateDeckBtn) {
       this.dom.validateDeckBtn.disabled = spellCount !== 23;
+      const isPublish = Boolean(document.getElementById("publish-to-leaderboard-toggle")?.checked);
       if (spellCount === 23) {
-        this.dom.validateDeckBtn.innerHTML = "<span>🏆 Valider et Verrouiller mon Deck (23/23)</span>";
+        this.dom.validateDeckBtn.innerHTML = isPublish
+          ? "<span>🏆 Valider et Inscrire au Mur des Records (23/23)</span>"
+          : "<span>⚡ Évaluer mon Deck (Mode Entraînement) (23/23)</span>";
       } else if (spellCount < 23) {
         this.dom.validateDeckBtn.innerHTML = `<span>Ajoutez ${String(23 - spellCount)} carte(s) pour valider</span>`;
       } else {
@@ -704,9 +716,14 @@ export class SoloDraftController {
       return;
     }
 
+    const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
+    const isPublish = Boolean(publishToggle?.checked);
+
     this.stopTimer();
     this.dom.validateDeckBtn.disabled = true;
-    this.dom.validateDeckBtn.textContent = "Évaluation du Deck & Inscription au Mur des Records...";
+    this.dom.validateDeckBtn.textContent = isPublish
+      ? "Évaluation du Deck & Inscription au Mur des Records..."
+      : "Évaluation du Deck (Entraînement)...";
 
     try {
       const res = await fetch("/api/draft/deck", {
@@ -716,6 +733,7 @@ export class SoloDraftController {
           sessionId: this.sessionId,
           maindeckCardInstanceIds: Array.from(this.maindeckSpellIds),
           basicLands: this.basicLands,
+          publishToLeaderboard: isPublish,
         }),
       });
 
@@ -772,11 +790,61 @@ export class SoloDraftController {
     });
 
     // Time & Rank
+    const draftSec = rec?.draftDurationSeconds ?? this.draftDuration;
+    const totalSec = rec?.totalDurationSeconds ?? this.totalDuration;
     if (this.dom.resultChronoText) {
-      this.dom.resultChronoText.textContent = `Temps de draft : ${formatDuration(rec.draftDurationSeconds)} • Temps total : ${formatDuration(rec.totalDurationSeconds)}`;
+      this.dom.resultChronoText.textContent = `Temps de draft : ${formatDuration(draftSec)} • Temps total : ${formatDuration(totalSec)}`;
     }
-    if (this.dom.resultRankBadge) {
-      this.dom.resultRankBadge.textContent = rec.rank ? `Rang #${String(rec.rank)} au Mur des Records` : "Classé";
+
+    const rankBadge = document.getElementById("result-rank-badge");
+    const trainingBadge = document.getElementById("result-training-badge");
+    const publishTrainingBtn = document.getElementById("btn-publish-training-draft");
+
+    if (result.isPublished && rec) {
+      if (rankBadge) {
+        rankBadge.hidden = false;
+        rankBadge.textContent = rec.rank ? `Rang #${String(rec.rank)} au Mur des Records` : "Inscrit au Mur des Records";
+      }
+      if (trainingBadge) trainingBadge.hidden = true;
+      if (publishTrainingBtn) publishTrainingBtn.style.display = "none";
+    } else {
+      if (rankBadge) rankBadge.hidden = true;
+      if (trainingBadge) trainingBadge.hidden = false;
+      if (publishTrainingBtn) {
+        publishTrainingBtn.style.display = "inline-flex";
+        publishTrainingBtn.disabled = false;
+        publishTrainingBtn.innerHTML = "<span>🏆 Inscrire ce score au Mur des Records !</span>";
+        publishTrainingBtn.onclick = async () => {
+          publishTrainingBtn.disabled = true;
+          publishTrainingBtn.textContent = "Inscription en cours...";
+          try {
+            const pubRes = await fetch("/api/draft/publish", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sessionId: this.sessionId }),
+            });
+            const pubData = await pubRes.json();
+            if (!pubData.ok) throw new Error(pubData.error || "Erreur lors de l'inscription.");
+
+            publishTrainingBtn.style.display = "none";
+            if (trainingBadge) trainingBadge.hidden = true;
+            if (rankBadge) {
+              rankBadge.hidden = false;
+              rankBadge.textContent = pubData.result.entry.rank
+                ? `Rang #${String(pubData.result.entry.rank)} au Mur des Records`
+                : "Inscrit au Mur des Records";
+            }
+            if (this.dom.resultHighScoreBanner && pubData.result.isNewHighScore) {
+              this.dom.resultHighScoreBanner.hidden = false;
+            }
+            alert("🏆 Félicitations ! Votre score est officiellement inscrit au Mur des Records.");
+          } catch (pubErr) {
+            alert(`Erreur : ${pubErr.message}`);
+            publishTrainingBtn.disabled = false;
+            publishTrainingBtn.innerHTML = "<span>🏆 Inscrire ce score au Mur des Records !</span>";
+          }
+        };
+      }
     }
 
     // Strengths & Weaknesses

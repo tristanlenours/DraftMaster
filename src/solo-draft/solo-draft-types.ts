@@ -27,6 +27,7 @@ export interface SoloDeckBuildInput {
   readonly sessionId: string;
   readonly maindeckCardInstanceIds: readonly string[];
   readonly basicLands?: Partial<BasicLandCounts> | undefined;
+  readonly publishToLeaderboard?: boolean | undefined;
 }
 
 export interface SoloDraftStateDto {
@@ -91,7 +92,8 @@ export interface SoloDraftFinalResult {
   readonly playerName: string;
   readonly seed: number;
   readonly evaluation: FinalDeckSummary;
-  readonly leaderboardEntry: LeaderboardEntry;
+  readonly leaderboardEntry?: LeaderboardEntry | undefined;
+  readonly isPublished: boolean;
   readonly isNewHighScore: boolean;
   readonly reports: {
     readonly walkthroughPath: string;

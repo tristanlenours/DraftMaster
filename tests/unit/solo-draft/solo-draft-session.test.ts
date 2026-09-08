@@ -127,12 +127,13 @@ describe("SoloDraftSession", () => {
       }),
     ).rejects.toThrow(/exactly 23 cards/);
 
-    // Select exactly 23 cards
+    // Select exactly 23 cards and publish
     const chosen23 = deckState.playerPool.slice(0, 23).map((c) => c.instanceId);
     const finalResult = await session.buildDeckAndFinalize(
       {
         sessionId: session.sessionId,
         maindeckCardInstanceIds: chosen23,
+        publishToLeaderboard: true,
       },
       {
         customReportsDir: TEST_REPORTS_DIR,
@@ -143,10 +144,11 @@ describe("SoloDraftSession", () => {
 
     expect(session.status).toBe("completed");
     expect(finalResult.playerName).toBe("Tristan Champion");
+    expect(finalResult.isPublished).toBe(true);
     expect(finalResult.evaluation.overallScore).toBeGreaterThan(0);
     expect(finalResult.evaluation.overallScore).toBeLessThanOrEqual(100);
     expect(finalResult.evaluation.allMaindeck.length).toBe(40); // 23 spells + 17 lands
-    expect(finalResult.leaderboardEntry.rank).toBeDefined();
+    expect(finalResult.leaderboardEntry?.rank).toBeDefined();
 
     // Verify reports generated on disk
     const walkthroughStat = await stat(finalResult.reports.walkthroughPath);
@@ -156,5 +158,42 @@ describe("SoloDraftSession", () => {
     const boostersStat = await stat(finalResult.reports.boostersPath);
     expect(boostersStat.isFile()).toBe(true);
     expect(boostersStat.size).toBeGreaterThan(1000);
+  }, 15000);
+
+  it("does not publish to leaderboard in training mode (publishToLeaderboard: false)", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "Training Hero",
+      seed: 42,
+    });
+
+    for (let round = 0; round < 45; round++) {
+      const state = session.getStateDto();
+      const cardToPick = state.currentBooster[0];
+      if (!cardToPick) throw new Error("Booster card missing");
+      session.makePick(cardToPick.instanceId);
+    }
+
+    const deckState = session.getStateDto();
+    const chosen23 = deckState.playerPool.slice(0, 23).map((c) => c.instanceId);
+    const result = await session.buildDeckAndFinalize(
+      {
+        sessionId: session.sessionId,
+        maindeckCardInstanceIds: chosen23,
+        publishToLeaderboard: false,
+      },
+      {
+        customReportsDir: TEST_REPORTS_DIR,
+        customLeaderboardPath: TEST_LEADERBOARD_PATH,
+        customAdminDraftsPath: TEST_ADMIN_DRAFTS_PATH,
+      },
+    );
+
+    expect(result.isPublished).toBe(false);
+    expect(result.leaderboardEntry).toBeUndefined();
+
+    // Can publish later on demand
+    const published = await session.publishToLeaderboard(TEST_LEADERBOARD_PATH);
+    expect(published.entry.playerName).toBe("Training Hero");
+    expect(published.entry.rank).toBeDefined();
   }, 15000);
 });

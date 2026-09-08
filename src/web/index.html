@@ -1515,8 +1515,18 @@
         </div>
 
         <div class="deckbuilder-footer-cta">
+          <div class="deckbuilder-publish-box">
+            <label class="publish-checkbox-label" for="publish-to-leaderboard-toggle">
+              <input type="checkbox" id="publish-to-leaderboard-toggle" class="publish-checkbox" />
+              <span class="publish-switch"></span>
+              <div class="publish-label-text">
+                <span class="publish-title">🏆 Inscrire ce draft sur le Mur des Records</span>
+                <span class="publish-desc">Par défaut : <strong>DÉSACTIVÉ (Mode Entraînement)</strong>. Cochez cette case uniquement si vous souhaitez inscrire ce score au Panthéon des Magiciens.</span>
+              </div>
+            </label>
+          </div>
           <button class="btn-validate-deck-epic" id="draft-validate-deck-btn" disabled>
-            <span>🏆 Valider et Verrouiller mon Deck (23/23)</span>
+            <span>⚡ Évaluer mon Deck (Mode Entraînement) (23/23)</span>
           </button>
         </div>
       </div>
@@ -1543,6 +1553,7 @@
             </div>
             <div class="result-stats-row">
               <span class="stat-tag" id="result-rank-badge">Rang #1 au Mur des Records</span>
+              <span class="stat-tag tag-training" id="result-training-badge" hidden>🛡️ Mode Entraînement (Non publié)</span>
               <span class="stat-tag" id="result-chrono-text">Temps : 12m 30s</span>
             </div>
           </div>
@@ -1606,6 +1617,10 @@
         <div class="result-actions-card">
           <h3 class="actions-card-title">Traçabilité, Rapports & Classement</h3>
           <div class="result-buttons-row">
+            <button class="btn-action-hero primary-hero" id="btn-publish-training-draft" style="display: none; background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; border: none; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);">
+              <span class="btn-icon">🏆</span>
+              <span>Inscrire ce score au Mur des Records !</span>
+            </button>
             <button class="btn-action-hero primary-hero" id="btn-share-deck-showcase" style="background: linear-gradient(135deg, #d4af37, #f39c12); color: #000; font-weight: 800; border: none; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);">
               <span class="btn-icon">📱</span>
               <span>Partager mon Deck aux Magiciens 🌟</span>

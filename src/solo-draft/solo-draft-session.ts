@@ -66,6 +66,7 @@ import type {
   AdminDraftEntry,
   AdminDraftSeatSummary,
   BasicLandCounts,
+  LeaderboardEntry,
   SoloDeckBuildInput,
   SoloDraftFinalResult,
   SoloDraftStartInput,
@@ -94,6 +95,8 @@ export class SoloDraftSession {
   private readonly seatProfiles: readonly FriendProfile[];
   private readonly initialBoosters: InitialDealtBooster[] = [];
   private readonly seatStepsMap = new Map<SeatId, PickWalkthroughStep[]>();
+  private lastLeaderboardPayload: Omit<LeaderboardEntry, "id" | "rank"> | null = null;
+  private lastCustomLeaderboardPath?: string | undefined;
 
   public roundIndex = 0;
   public readonly startedAtTimestamp: number;
@@ -960,39 +963,51 @@ export class SoloDraftSession {
     const walkthroughUrl = `/${reportsDir}/${walkthroughFilename}`;
     const boostersUrl = `/${reportsDir}/${boostersFilename}`;
 
-    // 6. Add to Leaderboard (Cloud Supabase + Local JSON Sync)
-    const leaderboardResult = await saveUnifiedLeaderboardEntry(
-      {
-        playerName: this.playerName,
-        magicienSlug: this.magicienSlug,
-        sessionId: this.sessionId,
-        overallScore: humanDeckSummary.overallScore,
-        macroAxes: humanDeckSummary.macroAxes,
-        radar: humanDeckSummary.radar,
-        archetype: humanDeckSummary.archetype,
-        draftDurationSeconds: this.draftDurationSeconds,
-        totalDurationSeconds: this.totalDurationSeconds,
-        seed: this.seed,
-        cubeKey: this.cubeKey,
-        occurredAt: completedAt,
-        isHomologated: this.isHomologated,
-        reports: {
-          walkthroughUrl,
-          boostersUrl,
-        },
-        maindeckCards: maindeckSpells.map((c) => ({
-          instanceId: c.instanceId,
-          name: c.name,
-          cmc: c.cmc,
-          typeLine: c.typeLine,
-          colors: c.colors,
-          isLand: c.isLand,
-          imageUrl: c.imageUrl,
-        })),
-        basicLands,
+    // 6. Add to Leaderboard (Cloud Supabase + Local JSON Sync) ONLY if publishToLeaderboard is true
+    const payload: Omit<LeaderboardEntry, "id" | "rank"> = {
+      playerName: this.playerName,
+      magicienSlug: this.magicienSlug,
+      overallScore: humanDeckSummary.overallScore,
+      macroAxes: humanDeckSummary.macroAxes,
+      radar: humanDeckSummary.radar,
+      archetype: humanDeckSummary.archetype,
+      draftDurationSeconds: this.draftDurationSeconds,
+      totalDurationSeconds: this.totalDurationSeconds,
+      seed: this.seed,
+      cubeKey: this.cubeKey,
+      occurredAt: completedAt,
+      isHomologated: this.isHomologated,
+      reports: {
+        walkthroughUrl,
+        boostersUrl,
       },
-      options.customLeaderboardPath,
-    );
+      maindeckCards: maindeckSpells.map((c) => ({
+        instanceId: c.instanceId,
+        name: c.name,
+        cmc: c.cmc,
+        typeLine: c.typeLine,
+        colors: c.colors,
+        isLand: c.isLand,
+        imageUrl: c.imageUrl,
+      })),
+      basicLands,
+    };
+
+    this.lastLeaderboardPayload = payload;
+    this.lastCustomLeaderboardPath = options.customLeaderboardPath;
+
+    const shouldPublish = Boolean(input.publishToLeaderboard);
+    let leaderboardEntry: LeaderboardEntry | undefined;
+    let isNewHighScore = false;
+
+    if (shouldPublish) {
+      const leaderboardResult = await saveUnifiedLeaderboardEntry(
+        payload,
+        options.customLeaderboardPath,
+      );
+      leaderboardEntry = leaderboardResult.entry;
+      isNewHighScore = leaderboardResult.isNewHighScore;
+    }
 
     // 7. Save Admin Draft with all 8 seats (human + 7 bots)
     const adminSeats: AdminDraftSeatSummary[] = seatsSummary.map((s) => ({
@@ -1034,8 +1049,9 @@ export class SoloDraftSession {
       playerName: this.playerName,
       seed: this.seed,
       evaluation: humanDeckSummary,
-      leaderboardEntry: leaderboardResult.entry,
-      isNewHighScore: leaderboardResult.isNewHighScore,
+      leaderboardEntry,
+      isPublished: shouldPublish,
+      isNewHighScore,
       reports: {
         walkthroughPath: fullWalkthroughPath,
         boostersPath: fullBoostersPath,
@@ -1043,6 +1059,20 @@ export class SoloDraftSession {
         boostersUrl,
       },
     };
+  }
+
+  public async publishToLeaderboard(customPath?: string): Promise<{
+    readonly entry: LeaderboardEntry;
+    readonly isNewHighScore: boolean;
+  }> {
+    if (!this.lastLeaderboardPayload) {
+      throw new Error("Aucun résultat de draft disponible pour publication.");
+    }
+    const result = await saveUnifiedLeaderboardEntry(
+      this.lastLeaderboardPayload,
+      customPath ?? this.lastCustomLeaderboardPath,
+    );
+    return result;
   }
 
   private getEnrichedCard(instanceId: string): EnrichedCard {
