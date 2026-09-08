@@ -12,6 +12,7 @@ import type {
   PowerAxisAudit,
   StrategicPackageAudit,
 } from "./types.ts";
+import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
 
@@ -98,7 +99,7 @@ function mean(values: readonly number[], fallback = 0): number {
 }
 
 function normalizeStaticScore(score: number): number {
-  return clamp((score / 55) * 100);
+  return clamp((score / MAX_POWER_SCORE) * 100);
 }
 
 function estimateFastManaGain(card: CardEvaluationInput): number {

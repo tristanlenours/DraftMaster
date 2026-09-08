@@ -39,9 +39,9 @@ describe("power score calibration", () => {
     expect(predictions).toEqual([...predictions].sort((left, right) => left - right));
   });
 
-  it("keeps the calibrated scale within the Untapped 1 to 55 range", () => {
+  it("keeps the calibrated DraftMaster scale within the 1 to 53 range", () => {
     expect(roundPowerScore(-10)).toBe(1);
     expect(roundPowerScore(31.04)).toBe(31);
-    expect(roundPowerScore(80)).toBe(55);
+    expect(roundPowerScore(80)).toBe(53);
   });
 });

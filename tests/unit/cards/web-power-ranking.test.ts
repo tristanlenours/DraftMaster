@@ -22,8 +22,8 @@ describe("cube explorer power ranking", () => {
     expect(rankings["ancient-tomb"]).toMatchObject({ rank: 2, score: 31 });
   });
 
-  it("renders the 1 to 55 score on a percentage-width bar", () => {
-    expect(toPowerBarPercentage(55)).toBe(100);
-    expect(toPowerBarPercentage(31)).toBe(56);
+  it("renders the 1 to 53 score on a percentage-width bar", () => {
+    expect(toPowerBarPercentage(53)).toBe(100);
+    expect(toPowerBarPercentage(31)).toBe(58);
   });
 });

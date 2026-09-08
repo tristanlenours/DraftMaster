@@ -1,3 +1,5 @@
+import { MAX_POWER_SCORE, MIN_POWER_SCORE } from "./power-harmonizer.ts";
+
 export interface ScoreObservation {
   readonly score: number;
   readonly observedAt: number;
@@ -125,7 +127,7 @@ export function predictIsotonicScore(blocks: readonly IsotonicBlock[], input: nu
 }
 
 export function roundPowerScore(score: number): number {
-  return Math.round(Math.max(1, Math.min(55, score)) * 10) / 10;
+  return Math.round(Math.max(MIN_POWER_SCORE, Math.min(MAX_POWER_SCORE, score)) * 10) / 10;
 }
 
 export function fitRidgeRegression(

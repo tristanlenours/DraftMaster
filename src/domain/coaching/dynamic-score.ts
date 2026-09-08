@@ -6,6 +6,7 @@ import type {
   PackEvaluationContext,
 } from "./types.ts";
 import type { CardCatalog } from "../../cards/card-catalog.ts";
+import { MAX_POWER_SCORE, MIN_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import type { CubeMetaRegistry } from "../../cubes/cube-meta.ts";
 import { generateCoachingExplanation } from "./coaching-explainer.ts";
 
@@ -354,7 +355,7 @@ export function evaluateCard(
   if (isP1P1) {
     const dynamicP1P1 =
       cubeScoreModifier !== 0
-        ? Math.max(1, Math.min(55, card.staticScore + cubeScoreModifier))
+        ? Math.max(MIN_POWER_SCORE, Math.min(MAX_POWER_SCORE, card.staticScore + cubeScoreModifier))
         : card.staticScore;
     const breakdown: CoachingScoreBreakdown = {
       colorAffinityFactor: 1.0,
@@ -426,8 +427,11 @@ export function evaluateCard(
 
   // 4. Raw Dynamic Score with Cube and Synergy modifiers
   const rawDynamicScore = Math.max(
-    1,
-    Math.min(55, scoreAfterColor + manaFixingBonus + curveBonus + cubeScoreModifier + synergyBonus),
+    MIN_POWER_SCORE,
+    Math.min(
+      MAX_POWER_SCORE,
+      scoreAfterColor + manaFixingBonus + curveBonus + cubeScoreModifier + synergyBonus,
+    ),
   );
 
   // Round to 1 decimal place

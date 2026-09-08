@@ -6,6 +6,7 @@ const itemsDir = resolve(rootDir, 'data/cards/items');
 const rawPath = resolve(rootDir, 'data/cubes/nico_candyshop/cubecobra-raw.json');
 const nicoMetaPath = resolve(rootDir, 'data/cubes/nico_candyshop/cube-meta.json');
 const nicoCubePath = resolve(rootDir, 'data/cubes/nico_candyshop/cube.json');
+const MAX_POWER_SCORE = 53;
 
 export function cardNameToSlug(name) {
   return name
@@ -246,7 +247,7 @@ for (const entry of mainboard) {
     }
 
     const calculatedPowerScore = Math.min(
-      55,
+      MAX_POWER_SCORE,
       Math.max(1, Math.round(((elo - 900) / 14) * 10) / 10)
     );
 

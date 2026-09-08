@@ -116,6 +116,32 @@ describe("Dynamic Scoring Engine", () => {
     expect(evaluated.dynamicScore).toBeGreaterThan(35);
   });
 
+  it("caps contextual bonuses at Black Lotus' maximum power score", () => {
+    const blackLotusCeilingFixer: CardEvaluationInput = {
+      ...floodfarmVerge,
+      id: "black-lotus-ceiling-fixer",
+      name: "Black Lotus Ceiling Fixer",
+      staticScore: 53,
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 2,
+      pickNumber: 2,
+      offeredCards: [blackLotusCeilingFixer],
+      priorPool: [
+        { id: "w1", name: "White 1", staticScore: 30, colors: ["W"], cmc: 2 },
+        { id: "w2", name: "White 2", staticScore: 30, colors: ["W"], cmc: 2 },
+        { id: "w3", name: "White 3", staticScore: 30, colors: ["W"], cmc: 2 },
+        { id: "u1", name: "Blue 1", staticScore: 30, colors: ["U"], cmc: 2 },
+        { id: "u2", name: "Blue 2", staticScore: 30, colors: ["U"], cmc: 2 },
+        { id: "u3", name: "Blue 3", staticScore: 30, colors: ["U"], cmc: 2 },
+      ],
+    };
+
+    const evaluated = evaluateCard(blackLotusCeilingFixer, context);
+    expect(evaluated.breakdown.manaFixingBonus).toBeGreaterThan(0);
+    expect(evaluated.dynamicScore).toBe(53);
+  });
+
   it("preserves full value for colorless cards", () => {
     const context: PackEvaluationContext = {
       packNumber: 2,

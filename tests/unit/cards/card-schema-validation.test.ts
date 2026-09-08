@@ -100,5 +100,13 @@ describe("Individual Card Schema Validation", () => {
 
     const resultTier = validateCardDocumentJson(invalidTier);
     expect(resultTier.ok).toBe(false);
+
+    const overMaximumScore = JSON.parse(invalidTier) as {
+      cubeAnalyses: { nico_candyshop: { tier: string } };
+      powerScore: { score: number };
+    };
+    overMaximumScore.cubeAnalyses.nico_candyshop.tier = "S";
+    overMaximumScore.powerScore.score = 54;
+    expect(validateCardDocumentJson(JSON.stringify(overMaximumScore)).ok).toBe(false);
   });
 });

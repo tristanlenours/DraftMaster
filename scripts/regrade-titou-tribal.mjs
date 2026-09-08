@@ -6,6 +6,7 @@ const itemsDir = resolve(rootDir, 'data/cards/items');
 const rawPath = resolve(rootDir, 'data/cubes/titou_tribal/cubecobra-raw.json');
 const titouMetaPath = resolve(rootDir, 'data/cubes/titou_tribal/cube-meta.json');
 const titouCubePath = resolve(rootDir, 'data/cubes/titou_tribal/cube.json');
+const MAX_POWER_SCORE = 53;
 
 export function cardNameToSlug(name) {
   return name
@@ -200,7 +201,7 @@ for (let i = 0; i < titouCards.length; i++) {
     doc.name !== "Thalia's Lieutenant"
   ) {
     const harmonized = Math.min(
-      55,
+      MAX_POWER_SCORE,
       Math.max(1, Math.round(((elo - 900) / 14) * 10) / 10)
     );
     doc.powerScore.score = harmonized;
