@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "deduce",
+  "name": "Deduce",
+  "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
+  "scryfallId": "7cbb17af-e17e-438a-ad72-0c942e6706b6",
+  "manaCost": "{U}{1}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Draw a card. Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+  "keywords": [
+    "Investigate"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/normal.webp",
+    "localPath": "data/cards/images/deduce.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/normal.webp",
+  "powerScore": {
+    "score": 29.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1329,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1329).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "titou_peasant:peasant_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "cantrip"
+      ],
+      "scoreModifier": 6,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "PEASANT STAPLE",
+            "grade": "A",
+            "winrateOrScore": "56.4 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

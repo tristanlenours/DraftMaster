@@ -1,0 +1,3195 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "titou_arena_peasant_plus",
+  "name": "Titou's Arena Peasant Plus Cube",
+  "owner": "titou",
+  "coverImage": "data/cubes/titou_arena_peasant_plus/titouPeasant.jpg",
+  "activeSnapshotId": "titou_arena_peasant_plus@2026-09-08.1",
+  "cardCount": 360,
+  "powerTier": "peasant",
+  "pacing": "midrange_attrition",
+  "description": "Un cube Peasant Plus de 360 cartes MTG Arena combinant les meilleures communes et uncos du jeu avec les 10 Shocklands et fixers rares pour des affrontements fluides, interactifs et profondément synergiques.",
+  "fundamentalTurn": {
+    "targetTurn": 3.5,
+    "criticalWindow": "T3-T4",
+    "pacingDescription": "Format Peasant optimisé par des bilands parfaits (Shocklands fetchables par les Landscapes MH3). Le tour pivot se joue au T3-T4 où les synergies d’artefacts, de sacrifice, de tokens ou de food s’enchaînent avec une régularité remarquable.",
+    "deckExpectation": "Un deck équilibré doit stabiliser sa base de mana dès les premiers tours et développer des interactions à bas coût (abattages, cantrips, synergies d’artefacts) pour dominer les échanges au tour pivot T3/T4."
+  },
+  "technicalAxes": {
+    "speedIndex": 6.5,
+    "interactionDensityPercentage": 24.5,
+    "averageCmcEstimate": 2.6,
+    "fixingQuality": "shocks_checks",
+    "comboPotential": "minimal_fair_only"
+  },
+  "philosophy": "Le Titou Arena Peasant Plus Cube magnifie le meilleur du jeu Peasant MTG Arena. En associant une densité exceptionnelle d'interactions communes/unco aux 10 Shocklands rares et fixers incontournables (Fabled Passage, Mana Confluence), il élimine la frustration du mana screw et permet aux joueurs de bâtir des decks bicolores et tricolores aux synergies dignes du format Construit.",
+  "dominantMechanics": [
+    "Artifacts & Sacrifice",
+    "Food Engine",
+    "Tokens & Go-Wide",
+    "Recursion & Attrition",
+    "Tempo & Evasion",
+    "Shocklands & Landscapes"
+  ],
+  "fixingDensityPercentage": 8.9,
+  "archetypes": [
+    {
+      "id": "titou_peasant:azorius_tempo",
+      "name": "Azorius Tempo & Disruptive Fliers",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "category": "midrange",
+      "description": "Bêtes évasives et disruptives soutenues par des contresorts et du bounce économique.",
+      "gameplan": "Développer des menaces à bas coût (Sokka, fliers), perturber le tempo adverse et clore rapidement la partie.",
+      "keyCards": [
+        "427f8ef9-12b3-4fa0-b303-28153566b6dc",
+        "43c69d19-c06c-470a-bdba-a0335ff2d655",
+        "f1750962-a87c-49f6-b731-02ae971ac6ea"
+      ],
+      "supportCards": [
+        "6cb37ac1-dd11-4a8c-bca5-ef44d828059f"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:dimir_control",
+      "name": "Dimir Control & Draw-Two",
+      "primaryColors": [
+        "U",
+        "B"
+      ],
+      "category": "control",
+      "description": "Contrôle réactif d’attrition combinant pioche régulière, removals chirurgicaux et payoffs de pioche.",
+      "gameplan": "Neutraliser les premières menaces avec Cast Down et contre-sorts, rentabiliser Morbid Opportunist et Sneaky Snacker.",
+      "keyCards": [
+        "322f44f0-e6da-4ee0-b474-e7d5e9a461c5",
+        "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
+        "fc9ec820-4245-4a96-b009-5308a818ca58"
+      ],
+      "supportCards": [
+        "33ee23bc-6327-4a54-a704-dfd83be36bb5"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        14
+      ],
+      "recommendedRemovalCount": [
+        7,
+        10
+      ]
+    },
+    {
+      "id": "titou_peasant:rakdos_artifacts_sac",
+      "name": "Rakdos Artifacts & Sacrifice",
+      "primaryColors": [
+        "B",
+        "R"
+      ],
+      "category": "aggro",
+      "description": "Moteur de sacrifice d’artefacts infligeant des dégâts continus via drain et portée directe.",
+      "gameplan": "Générer des tokens et trésors, activer Oni-Cult Anvil et achever l’adversaire avec Marionette Apprentice et Improvised Club.",
+      "keyCards": [
+        "c018f072-8f6d-4835-a717-ed4ecba70d97",
+        "726d9d2c-736a-4852-9938-a0f50d8fd89f",
+        "43985bbc-a0f6-4812-984e-392bc8562633"
+      ],
+      "supportCards": [
+        "44b83535-fdbf-4307-bf53-ca20470a768d"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:gruul_stompy",
+      "name": "Gruul Stompy & Power Curve",
+      "primaryColors": [
+        "R",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Déploiement agressif de créatures surdimensionnées mettant sous pression constante la défense adverse.",
+      "gameplan": "Accélérer la courbe, poser des menaces imposantes dès le T3 et déborder les bloqueurs avec piétinement et burn.",
+      "keyCards": [
+        "9d14c7bd-7802-401c-b02b-c7f3c51b007f",
+        "ae3e5c80-6a6a-4781-a7b9-4d63357ffa3b",
+        "16052b52-ade1-406f-a06b-ce7ea607fb63"
+      ],
+      "supportCards": [
+        "e040a8e6-b90c-42d1-a1b1-771d954c61ab"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:selesnya_tokens",
+      "name": "Selesnya Go-Wide & Anthems",
+      "primaryColors": [
+        "G",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Production massive de jetons créatures amplifiés par des effets d’hymne et de synergies de plateau.",
+      "gameplan": "Multiplier les présences au sol dès les premiers tours, puis verrouiller la table avec des boosts globaux.",
+      "keyCards": [
+        "168d5711-4459-440f-8de4-aabffd47c44d",
+        "79d577a8-53c0-4220-bc0e-70764d72d5fd",
+        "f413a83d-a40d-434c-b20a-4c707c0527fa"
+      ],
+      "supportCards": [
+        "99720c65-be96-4220-8ed4-720660bf6928"
+      ],
+      "recommendedCreatureCount": [
+        15,
+        19
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:orzhov_recursion",
+      "name": "Orzhov Grind & Recursion",
+      "primaryColors": [
+        "W",
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Guerre d’usure et récursion de permanents à forte valeur pour épuiser toutes les réponses adverses.",
+      "gameplan": "Rentabiliser Ruthless Lawbringer et Sunpearl Kirin avec des effets de réanimation et de sacrifice tactique.",
+      "keyCards": [
+        "82b6a283-9897-4ce1-8de3-e7579cc9b75b",
+        "0b23d9aa-d4ed-4ccf-8810-4a4d11d6fb9c",
+        "73864fcc-1bde-4bc0-831e-2b93e546e417"
+      ],
+      "supportCards": [
+        "c9b7ea9c-3bcb-4538-aa25-cdb82a52037e"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "titou_peasant:golgari_food",
+      "name": "Golgari Food & Graveyard Value",
+      "primaryColors": [
+        "B",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Utilisation stratégique des jetons Nourriture comme ressources d’activation, couplée au cimetière.",
+      "gameplan": "Déposer Tough Cookie et Vinereap Mentor, engranger du card advantage et convertir la nourriture en victoires.",
+      "keyCards": [
+        "8a1a5862-c027-4c15-99a7-1795d0da96da",
+        "db649e15-24ca-4fd8-9f0b-f1df28c9c57d",
+        "975ec9a3-6f20-4177-8211-82526e092538"
+      ],
+      "supportCards": [
+        "2065cada-4078-41c4-9e06-2460d2a2e8ee"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:simic_tempo_ramp",
+      "name": "Simic Ramp & Combat Tricks",
+      "primaryColors": [
+        "G",
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Développement rapide de mana vers des menaces polyvalentes protégées par des sorts de protection.",
+      "gameplan": "Poser des accélérateurs, déployer des menaces 2-pour-1 et punir les réponses adverses avec Repulsive Mutation.",
+      "keyCards": [
+        "611bfaa6-b098-48d9-9e49-1e7dc8687f15",
+        "69501650-ed48-4ebf-9287-b0338c5bc5d5",
+        "20283c4a-f1f0-42f0-bc08-6da87474426b"
+      ],
+      "supportCards": [
+        "29cd8a7c-108a-43d1-af63-f603a27c24f2"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:izzet_artifacts",
+      "name": "Izzet Artifacts & Noncreature Spells",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Synergie dynamique entre créatures mécaniques, noncreature spells et génération de thopters.",
+      "gameplan": "Poser des artefacts tôt, déclencher Maverick Thopterist et clore par des attaques aériennes et du burn.",
+      "keyCards": [
+        "71ba6f1b-2fa6-4d4c-8778-f0765b1a5d8e",
+        "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "17039058-822d-409f-938c-b727a366ba63"
+      ],
+      "supportCards": [
+        "081bfd50-a436-463b-9d2c-5bc8a32b387c"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "titou_peasant:boros_game_objects",
+      "name": "Boros Aggro & Game Objects",
+      "primaryColors": [
+        "R",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Déferlement agressif créant un nombre massif d’objets de jeu (jetons, artefacts) exploités par Arabella.",
+      "gameplan": "Submerger le plateau de petites créatures et convertir la masse en dégâts directs dévastateurs.",
+      "keyCards": [
+        "7c4bbb1b-29c4-4e06-aed0-b361293a585b",
+        "42a9aeac-5b9c-4675-8c96-7c8ce7e9098c",
+        "45181cb8-2090-4471-ba90-e5a8f04d525f"
+      ],
+      "supportCards": [
+        "a3faf70d-c034-4692-9e92-1922029e3852"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 1,
+    "comboSynergyMultiplier": 1.2,
+    "fixingPriorityBonus": 2,
+    "curveStrictness": 2
+  },
+  "cardIndex": [
+    {
+      "slug": "bitter-triumph",
+      "name": "Bitter Triumph",
+      "oracleId": "776341cb-d2ec-423f-9250-92dc8bd8d503",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "blood-crypt",
+      "name": "Blood Crypt",
+      "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "brainstorm",
+      "name": "Brainstorm",
+      "oracleId": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "breeding-pool",
+      "name": "Breeding Pool",
+      "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "burst-lightning",
+      "name": "Burst Lightning",
+      "oracleId": "ac2086fe-98ee-4280-9c7c-c5c2d6548a8b",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "choco-comet",
+      "name": "Choco-Comet",
+      "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "chromatic-star",
+      "name": "Chromatic Star",
+      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "counterspell",
+      "name": "Counterspell",
+      "oracleId": "11111111-aaaa-4000-8000-000000000002",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "cryogen-relic",
+      "name": "Cryogen Relic",
+      "oracleId": "106e9c0d-67a2-4db7-97d9-03e1ea1b40b5",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "dark-deed",
+      "name": "Dark Deed",
+      "oracleId": "e98cd00c-b812-4c6a-81d4-e3f94b64fc58",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "deep-cavern-bat",
+      "name": "Deep-Cavern Bat",
+      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "dragon-s-rage-channeler",
+      "name": "Dragon's Rage Channeler",
+      "oracleId": "0c016ccc-a341-4b76-87ba-69c639d2746d",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "dubious-delicacy",
+      "name": "Dubious Delicacy",
+      "oracleId": "697b8045-0edb-4f7b-a933-4d41ec2b53d5",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "fabled-passage",
+      "name": "Fabled Passage",
+      "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "fell",
+      "name": "Fell",
+      "oracleId": "8f968470-ce00-43a3-95f5-2e3fe987be19",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "fell-the-profane",
+      "name": "Fell the Profane",
+      "oracleId": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "gert-and-old-lace-runaways",
+      "name": "Gert and Old Lace, Runaways",
+      "oracleId": "aaded61e-32c2-4e02-8557-3f8cd927a64e",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "godless-shrine",
+      "name": "Godless Shrine",
+      "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "hallowed-fountain",
+      "name": "Hallowed Fountain",
+      "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "lorien-revealed",
+      "name": "Lórien Revealed",
+      "oracleId": "66f28905-c7fc-4ada-8fa0-199626d9bedb",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "malevolent-rumble",
+      "name": "Malevolent Rumble",
+      "oracleId": "d30d8968-ec24-4155-97e2-28efd52c8810",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "mana-confluence",
+      "name": "Mana Confluence",
+      "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "mana-leak",
+      "name": "Mana Leak",
+      "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "mighty-mutanimals",
+      "name": "Mighty Mutanimals",
+      "oracleId": "fcdc7dfc-04b5-411a-ab49-282b9c2608e2",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "miscalculation",
+      "name": "Miscalculation",
+      "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "mischievous-mystic",
+      "name": "Mischievous Mystic",
+      "oracleId": "542831c6-6279-4977-9b29-0fb9c0ebf04d",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "mishra-s-bauble",
+      "name": "Mishra's Bauble",
+      "oracleId": "63afc3d1-7653-476e-838f-fc18d4a62a21",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "obliterating-bolt",
+      "name": "Obliterating Bolt",
+      "oracleId": "57fe941c-a830-4570-afe2-18f93c7a7b84",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "oliphaunt",
+      "name": "Oliphaunt",
+      "oracleId": "186b2256-4af3-48cb-96b0-b0e80a7ee6dc",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "ossification",
+      "name": "Ossification",
+      "oracleId": "e29bfd62-286f-4982-813f-7086573c333b",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "overgrown-tomb",
+      "name": "Overgrown Tomb",
+      "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "piggy-bank",
+      "name": "Piggy Bank",
+      "oracleId": "a13f4095-300b-434f-aa9a-3608aaae5163",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "preordain",
+      "name": "Preordain",
+      "oracleId": "11111111-aaaa-4000-8000-000000000009",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "remand",
+      "name": "Remand",
+      "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "reprieve",
+      "name": "Reprieve",
+      "oracleId": "f0449cbd-855c-4c20-a1f5-f76a395d8d39",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "sacred-foundry",
+      "name": "Sacred Foundry",
+      "oracleId": "45181cb8-2090-4471-ba90-e5a8f04d525f",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "steam-vents",
+      "name": "Steam Vents",
+      "oracleId": "17039058-822d-409f-938c-b727a366ba63",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "stock-up",
+      "name": "Stock Up",
+      "oracleId": "2251e34e-4ce8-4452-9dc6-d8cce8583996",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "stomping-ground",
+      "name": "Stomping Ground",
+      "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "summon-fenrir",
+      "name": "Summon: Fenrir",
+      "oracleId": "3509171e-8d7d-4e9e-97a1-58e6c7d225ed",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "temple-garden",
+      "name": "Temple Garden",
+      "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "the-witch-s-vanity",
+      "name": "The Witch's Vanity",
+      "oracleId": "ad2793f3-a36f-4a09-a38f-eb98ce0a2b79",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "torgal-a-fine-hound",
+      "name": "Torgal, A Fine Hound",
+      "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "troll-of-khazad-dum",
+      "name": "Troll of Khazad-dûm",
+      "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "watery-grave",
+      "name": "Watery Grave",
+      "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "tier": "S",
+      "fit": "staple",
+      "scoreModifier": 10
+    },
+    {
+      "slug": "aang-the-last-airbender",
+      "name": "Aang, the Last Airbender",
+      "oracleId": "70564c3a-858f-498e-8b92-acb3ca54ae7e",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "accursed-marauder",
+      "name": "Accursed Marauder",
+      "oracleId": "d8ad23a1-0b43-48ea-9fbe-d89b29194509",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "acquisitions-expert",
+      "name": "Acquisitions Expert",
+      "oracleId": "07e5f59e-3a98-4e01-a368-0be60e0463ba",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "anep-vizier-of-hazoret",
+      "name": "Anep, Vizier of Hazoret",
+      "oracleId": "0a73289f-0f0b-4316-be21-8edcbb08bd7c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "annex-sentry",
+      "name": "Annex Sentry",
+      "oracleId": "be31fa46-d5ac-4c85-9c19-3f0e2b1f223b",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "archfiend-of-sorrows",
+      "name": "Archfiend of Sorrows",
+      "oracleId": "fe84966e-0f0c-4df8-b61c-e9693492dfd8",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "armored-scrapgorger",
+      "name": "Armored Scrapgorger",
+      "oracleId": "0d3a4db2-df79-4946-8f87-b174cf9c293c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "behold-the-unspeakable",
+      "name": "Behold the Unspeakable",
+      "oracleId": "464372ef-0b16-4b8d-ba6f-fbf5c905c479",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "black-mage-s-rod",
+      "name": "Black Mage's Rod",
+      "oracleId": "909b3d90-5762-461b-b49a-004a9e72733d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "boomerang-basics",
+      "name": "Boomerang Basics",
+      "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "bothersome-noisemaker",
+      "name": "Bothersome Noisemaker",
+      "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "brawn-amadeus-cho",
+      "name": "Brawn, Amadeus Cho",
+      "oracleId": "19910a90-d334-4d99-89f2-cd81cea3c824",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "candy-grapple",
+      "name": "Candy Grapple",
+      "oracleId": "9588a7fd-bbe5-4a81-9a7e-d8e8f6c0537d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "case-of-the-gateway-express",
+      "name": "Case of the Gateway Express",
+      "oracleId": "42a9aeac-5b9c-4675-8c96-7c8ce7e9098c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "chupacabra-echo",
+      "name": "Chupacabra Echo",
+      "oracleId": "68c56db4-c97a-4c1b-a6f6-096392488e21",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "circuit-mender",
+      "name": "Circuit Mender",
+      "oracleId": "1665ca9f-176d-40f1-a4e9-42da4f1236e9",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "clarion-spirit",
+      "name": "Clarion Spirit",
+      "oracleId": "dec20b18-afe6-405e-b47d-a757a5645c63",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "codecracker-hound",
+      "name": "Codecracker Hound",
+      "oracleId": "ae791b61-5825-4987-a8c2-80813758d3f7",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "combat-thresher",
+      "name": "Combat Thresher",
+      "oracleId": "0c460bdd-460b-4312-9ed2-32f3809a7d36",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "cut-down",
+      "name": "Cut Down",
+      "oracleId": "1b30210d-10e9-4703-8967-032063bb4f26",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "cynette-jelly-drover",
+      "name": "Cynette, Jelly Drover",
+      "oracleId": "8170ddd6-c054-4851-bdc2-4d319b60ba41",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "dalkovan-packbeasts",
+      "name": "Dalkovan Packbeasts",
+      "oracleId": "cdd1a043-bd47-4197-be26-e2f7d3f1d209",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "dauntless-scrapbot",
+      "name": "Dauntless Scrapbot",
+      "oracleId": "b75ca527-4494-4957-b2e3-8c590df42e95",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "deadly-dispute",
+      "name": "Deadly Dispute",
+      "oracleId": "457af74a-02b3-4659-846d-63e482667f34",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "deduce",
+      "name": "Deduce",
+      "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "deem-inferior",
+      "name": "Deem Inferior",
+      "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "disruptive-stormbrood",
+      "name": "Disruptive Stormbrood",
+      "oracleId": "ec74ae5d-1284-443c-9842-18954f8cf5a8",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "dragoon-s-lance",
+      "name": "Dragoon's Lance",
+      "oracleId": "a66c35fc-d5db-4cfd-9b85-d70b001d83d3",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "eldrazi-repurposer",
+      "name": "Eldrazi Repurposer",
+      "oracleId": "ae3e5c80-6a6a-4781-a7b9-4d63357ffa3b",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "elektra-femme-fatale",
+      "name": "Elektra, Femme Fatale",
+      "oracleId": "75f2545d-cd31-4404-953f-1110f646228b",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "elite-interceptor",
+      "name": "Elite Interceptor",
+      "oracleId": "d97de156-5a6d-4dc6-953e-d4bad63cbad2",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "elspeth-s-nightmare",
+      "name": "Elspeth's Nightmare",
+      "oracleId": "ff768016-67f8-409e-8359-9ed05bcb46d2",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "environmental-scientist",
+      "name": "Environmental Scientist",
+      "oracleId": "f30aa897-7027-47e7-ae58-73cbc448c1f0",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "eusocial-engineering",
+      "name": "Eusocial Engineering",
+      "oracleId": "2f3f5a1c-8b88-4080-bd80-14db4d6c8c50",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "everything-pizza",
+      "name": "Everything Pizza",
+      "oracleId": "aa481983-8f1a-4519-9371-5e7edcd3274f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "experimental-synthesizer",
+      "name": "Experimental Synthesizer",
+      "oracleId": "11db299a-0918-46a3-b39b-16acc3f4e281",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "explosive-prodigy",
+      "name": "Explosive Prodigy",
+      "oracleId": "22d059fc-4e47-44b5-9e21-4a56f1dff6a7",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "expressive-iteration",
+      "name": "Expressive Iteration",
+      "oracleId": "c7aecca5-2f67-4245-ab2d-e723d8b23a67",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "fading-hope",
+      "name": "Fading Hope",
+      "oracleId": "64883ef2-c536-42e2-b52f-cfd1984fcdfd",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "faebloom-trick",
+      "name": "Faebloom Trick",
+      "oracleId": "903d114b-1899-4e67-bee3-af0673850388",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "feed-the-cycle",
+      "name": "Feed the Cycle",
+      "oracleId": "c338eedb-9b70-4b77-b5d6-8ea74b7bea3e",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "firebending-lesson",
+      "name": "Firebending Lesson",
+      "oracleId": "a9282f91-638e-414b-8b3d-9a99e30aec96",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "floodpits-drowner",
+      "name": "Floodpits Drowner",
+      "oracleId": "43c69d19-c06c-470a-bdba-a0335ff2d655",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "forecasting-fortune-teller",
+      "name": "Forecasting Fortune Teller",
+      "oracleId": "a5a05edd-2a30-414b-b766-f0651d5783f5",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "generous-ent",
+      "name": "Generous Ent",
+      "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "glacier-godmaw",
+      "name": "Glacier Godmaw",
+      "oracleId": "300e48df-7f7f-47ff-b450-8ba7bd1b1c67",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "glass-casket",
+      "name": "Glass Casket",
+      "oracleId": "d9167046-7908-4d16-8cc1-3eb02d1ba547",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "glimpse-the-impossible",
+      "name": "Glimpse the Impossible",
+      "oracleId": "7b70696e-b09e-4bc9-8438-d31075d78c0c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "gloryheath-lynx",
+      "name": "Gloryheath Lynx",
+      "oracleId": "28673657-f05f-4b0a-b80c-939773abdefb",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "gnashing-of-teeth",
+      "name": "Gnashing of Teeth",
+      "oracleId": "188a3f61-3f7c-450d-8ee7-e12ad13b86c6",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "goblin-plate-mail",
+      "name": "Goblin Plate Mail",
+      "oracleId": "eda99a16-6a7c-4f39-8a6b-a284e6afd3fc",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "gran-gran",
+      "name": "Gran-Gran",
+      "oracleId": "0259a9ed-0558-4183-b737-871ed5573c32",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "grim-bauble",
+      "name": "Grim Bauble",
+      "oracleId": "431d6a2b-e22c-4921-a5f1-dd672f764f78",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "hopeless-nightmare",
+      "name": "Hopeless Nightmare",
+      "oracleId": "5e63b69c-d901-4a01-8dfa-88e044856239",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "hunter-s-talent",
+      "name": "Hunter's Talent",
+      "oracleId": "a8a9b103-0cb8-4810-a2d7-42f6a10f80bd",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "invasion-submersible",
+      "name": "Invasion Submersible",
+      "oracleId": "97369152-3b85-4cf1-aeb9-b3a8f1c37611",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "iroh-s-demonstration",
+      "name": "Iroh's Demonstration",
+      "oracleId": "8dd2e73a-d1b4-4d26-857f-9eb8e384c8ff",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "ivora-insatiable-heir",
+      "name": "Ivora, Insatiable Heir",
+      "oracleId": "d847542b-7522-43ec-91b0-f0aba5d7dddd",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "journey-to-nowhere",
+      "name": "Journey to Nowhere",
+      "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "justice-vance-astrovik",
+      "name": "Justice, Vance Astrovik",
+      "oracleId": "184dba74-63ed-4820-9174-68adf26bfabf",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "ka-zar-of-the-savage-land",
+      "name": "Ka-Zar of the Savage Land",
+      "oracleId": "88eeb519-5782-4732-bd34-81d1ee6dbc8f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "kumano-faces-kakkazan",
+      "name": "Kumano Faces Kakkazan",
+      "oracleId": "535916f8-b51a-4414-8ab0-fdccdefd9433",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "large-bear",
+      "name": "Large Bear",
+      "oracleId": "73346137-3117-4dc3-b5a4-1aca1da54548",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "leonardo-leader-in-blue",
+      "name": "Leonardo, Leader in Blue",
+      "oracleId": "348c7e22-2179-41b8-a5d2-8dd488e7e66d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "lita-little-orphan-amphibian",
+      "name": "Lita, Little Orphan Amphibian",
+      "oracleId": "212fdb7c-1c7e-4eed-b1ed-bcc14a425da8",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "lively-dirge",
+      "name": "Lively Dirge",
+      "oracleId": "0b23d9aa-d4ed-4ccf-8810-4a4d11d6fb9c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "marionette-apprentice",
+      "name": "Marionette Apprentice",
+      "oracleId": "726d9d2c-736a-4852-9938-a0f50d8fd89f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "mechanized-ninja-cavalry",
+      "name": "Mechanized Ninja Cavalry",
+      "oracleId": "2db8dda3-8136-4cf2-ba2d-ecc344a36725",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "michelangelo-mutant-bff",
+      "name": "Michelangelo, Mutant BFF",
+      "oracleId": "fe1eb8b3-c605-4711-a057-ed3565bfe75c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "molten-gatekeeper",
+      "name": "Molten Gatekeeper",
+      "oracleId": "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "morbid-opportunist",
+      "name": "Morbid Opportunist",
+      "oracleId": "322f44f0-e6da-4ee0-b474-e7d5e9a461c5",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "mouser-foundry",
+      "name": "Mouser Foundry",
+      "oracleId": "404e958b-ead9-4ec7-b786-7b3d65e29967",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "noggle-robber",
+      "name": "Noggle Robber",
+      "oracleId": "a2f33166-6cfc-4dc5-8edc-088bf40f06b5",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "novice-inspector",
+      "name": "Novice Inspector",
+      "oracleId": "c206bdcb-d2c4-4bda-a979-6c0627ef8f73",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "nowhere-to-run",
+      "name": "Nowhere to Run",
+      "oracleId": "da82ca96-a613-4d00-9e6b-1fece4fc23d0",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "nurturing-pixie",
+      "name": "Nurturing Pixie",
+      "oracleId": "8ecd3743-7c32-41ce-9ac1-c8c855a47302",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "nyxborn-hydra",
+      "name": "Nyxborn Hydra",
+      "oracleId": "4d1b655f-05b8-4b82-9cb9-67660f570a9b",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "osseous-sticktwister",
+      "name": "Osseous Sticktwister",
+      "oracleId": "33c3a81a-6cea-48c9-b966-67084d96e74f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "pinecone-strike",
+      "name": "Pinecone Strike",
+      "oracleId": "961e3023-39ea-4141-99b6-738280a2815d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "pinnacle-monk",
+      "name": "Pinnacle Monk",
+      "oracleId": "f3d48efa-910a-4872-a5b1-a353c5dbce99",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "portable-hole",
+      "name": "Portable Hole",
+      "oracleId": "5e57a8cd-f4f0-40b2-84a0-e002751c0d40",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "prosperous-innkeeper",
+      "name": "Prosperous Innkeeper",
+      "oracleId": "da785227-cf8a-4d44-9e7c-fc909ea868f2",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "push-pull",
+      "name": "Push // Pull",
+      "oracleId": "7e050495-bed7-43b9-abce-866c61beb1da",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "refurbished-familiar",
+      "name": "Refurbished Familiar",
+      "oracleId": "009e1638-9055-4872-93e1-85841bce4648",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "rimekin-recluse",
+      "name": "Rimekin Recluse",
+      "oracleId": "ad99e430-e13f-4819-a2ee-bf3332ef517d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "rosie-cotton-of-south-lane",
+      "name": "Rosie Cotton of South Lane",
+      "oracleId": "168d5711-4459-440f-8de4-aabffd47c44d",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "samurai-s-katana",
+      "name": "Samurai's Katana",
+      "oracleId": "9b8b5812-73bd-453e-bdff-aad1fafa9226",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "savor",
+      "name": "Savor",
+      "oracleId": "dfc1dc36-0cc2-47cc-b0dd-1cc7c31057aa",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "sazh-s-chocobo",
+      "name": "Sazh's Chocobo",
+      "oracleId": "c2b082b4-5d9c-4125-b353-d1cf4f334720",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "scrapwork-mutt",
+      "name": "Scrapwork Mutt",
+      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "shambling-ghast",
+      "name": "Shambling Ghast",
+      "oracleId": "e5e6229a-3422-4afd-9a87-86daa2d31d3a",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "shocking-sharpshooter",
+      "name": "Shocking Sharpshooter",
+      "oracleId": "fbb7735f-ec91-4ed4-b735-d94a76e68a80",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "shoreline-looter",
+      "name": "Shoreline Looter",
+      "oracleId": "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "silverbluff-bridge",
+      "name": "Silverbluff Bridge",
+      "oracleId": "081bfd50-a436-463b-9d2c-5bc8a32b387c",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "snarl-song",
+      "name": "Snarl Song",
+      "oracleId": "3b6fb13b-f126-4697-90a1-64b14ffcecd6",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "sokenzan-smelter",
+      "name": "Sokenzan Smelter",
+      "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "sokka-lateral-strategist",
+      "name": "Sokka, Lateral Strategist",
+      "oracleId": "427f8ef9-12b3-4fa0-b303-28153566b6dc",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spell-snare",
+      "name": "Spell Snare",
+      "oracleId": "38877c68-b69b-4ee1-8e8f-5137a184a8f7",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spider-manifestation",
+      "name": "Spider Manifestation",
+      "oracleId": "8281f2b9-e81b-48da-812a-8713b2adf8ab",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spider-uk",
+      "name": "Spider-UK",
+      "oracleId": "ebf8d006-2997-431b-b4cb-9692741b45ca",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spinewoods-armadillo",
+      "name": "Spinewoods Armadillo",
+      "oracleId": "8c81f7b6-38e7-482b-afff-727074a23888",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spring-loaded-sawblades",
+      "name": "Spring-Loaded Sawblades",
+      "oracleId": "fa1ed9fa-5f77-4f7d-bab0-47c719cdc5bc",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "spyglass-siren",
+      "name": "Spyglass Siren",
+      "oracleId": "4ec9d9eb-14e2-47ea-88a2-d2394e363784",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "stump-stomp",
+      "name": "Stump Stomp",
+      "oracleId": "eb7b1284-0b2c-4b6a-a389-b2b932838083",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "sunpearl-kirin",
+      "name": "Sunpearl Kirin",
+      "oracleId": "f17b9356-a329-4f89-b690-afc2eaff4977",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "sutina-speaker-of-the-tajuru",
+      "name": "Sutina, Speaker of the Tajuru",
+      "oracleId": "91f410c5-4313-462f-8d21-da63988d919f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "swallowed-by-leviathan",
+      "name": "Swallowed by Leviathan",
+      "oracleId": "1a8185ed-636b-49ad-bf24-2ab02c7fb91e",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "terrapact-intimidator",
+      "name": "Terrapact Intimidator",
+      "oracleId": "c08e0958-8fa2-49c7-ab17-a70dfc1ef33a",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "the-bath-song",
+      "name": "The Bath Song",
+      "oracleId": "bc475376-54eb-4846-9cfc-5fa2e7908905",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "the-modern-age",
+      "name": "The Modern Age",
+      "oracleId": "a8995df6-99a7-41a7-bd3e-f34643b27947",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "the-mountain-king-s-return",
+      "name": "The Mountain-king's Return",
+      "oracleId": "32ad5b3e-92c0-45be-b2e4-6f1794552f36",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "third-path-iconoclast",
+      "name": "Third Path Iconoclast",
+      "oracleId": "f7156897-2b02-4ecd-868d-d4d59244e9ed",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "this-town-ain-t-big-enough",
+      "name": "This Town Ain't Big Enough",
+      "oracleId": "2550c2ae-834d-46e7-9ab4-d7bf7bfa6a78",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "thraben-charm",
+      "name": "Thraben Charm",
+      "oracleId": "7eccd10d-f224-4467-af25-f2b768993f9f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "thraben-inspector",
+      "name": "Thraben Inspector",
+      "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "tireless-provisioner",
+      "name": "Tireless Provisioner",
+      "oracleId": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "torch-the-tower",
+      "name": "Torch the Tower",
+      "oracleId": "10d33e95-3e5d-447e-ba4a-acd3c33b4045",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "torch-the-witness",
+      "name": "Torch the Witness",
+      "oracleId": "51473069-68dc-4e87-b345-d7cbcfdeea74",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "traveling-botanist",
+      "name": "Traveling Botanist",
+      "oracleId": "14934ab0-41ab-44f8-bb28-2b0457eb6f5f",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "trumpeting-herd",
+      "name": "Trumpeting Herd",
+      "oracleId": "69501650-ed48-4ebf-9287-b0338c5bc5d5",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "twinmaw-stormbrood",
+      "name": "Twinmaw Stormbrood",
+      "oracleId": "ff812a78-3fe7-47bc-9984-1c2380cff5b1",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "twinshot-sniper",
+      "name": "Twinshot Sniper",
+      "oracleId": "b72fd535-0051-4f59-9d99-75895f751006",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "vengeful-rebel",
+      "name": "Vengeful Rebel",
+      "oracleId": "273bf1a8-42a9-4db5-bd83-06db4cb5e5df",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "vibrant-outburst",
+      "name": "Vibrant Outburst",
+      "oracleId": "a0cbb1ba-73b1-4418-bbe3-5d1a02007c08",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "water-tribe-rallier",
+      "name": "Water Tribe Rallier",
+      "oracleId": "64acb083-a0a3-46ec-9c93-b2ac36878703",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "we-say-thee-nay",
+      "name": "We Say Thee Nay!",
+      "oracleId": "1abe8246-d2f9-407b-8c16-83da0a6b7de3",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "weftstalker-ardent",
+      "name": "Weftstalker Ardent",
+      "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "welcome-to-sweettooth",
+      "name": "Welcome to Sweettooth",
+      "oracleId": "9760c396-fc7d-41bc-8f03-5ee359eaec00",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "whirler-rogue",
+      "name": "Whirler Rogue",
+      "oracleId": "7060f2c8-fca0-4b7a-bddf-37682f434596",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "witch-enchanter",
+      "name": "Witch Enchanter",
+      "oracleId": "0355249a-8e4e-41db-9cea-1b901faffbe6",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "witchstalker-frenzy",
+      "name": "Witchstalker Frenzy",
+      "oracleId": "f46befcb-6a7f-4f5e-8634-393cbf4b3308",
+      "tier": "A",
+      "fit": "support",
+      "scoreModifier": 6
+    },
+    {
+      "slug": "agatha-s-champion",
+      "name": "Agatha's Champion",
+      "oracleId": "debdfab7-454f-4fec-9ee8-aa5b570ea7fb",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "airbending-lesson",
+      "name": "Airbending Lesson",
+      "oracleId": "e101b744-9175-4aa5-bf80-d6944359e538",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "alirios-enraptured",
+      "name": "Alirios, Enraptured",
+      "oracleId": "7dbf9e96-e61f-43db-8767-63a351cf4ef8",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "arabella-abandoned-doll",
+      "name": "Arabella, Abandoned Doll",
+      "oracleId": "7c4bbb1b-29c4-4e06-aed0-b361293a585b",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "atzocan-archer",
+      "name": "Atzocan Archer",
+      "oracleId": "aed10a6c-ef93-46a7-a5d7-c9cd2a4fd91a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "back-for-seconds",
+      "name": "Back for Seconds",
+      "oracleId": "ee3d21b9-58b4-480c-bae3-26de50f1a5c6",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "barbed-batterfist",
+      "name": "Barbed Batterfist",
+      "oracleId": "93c2b91d-7d4e-483c-a11f-4a525f881503",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "benevolent-river-spirit",
+      "name": "Benevolent River Spirit",
+      "oracleId": "12d91743-1ccb-4f2b-b2a9-1c2b34f7c8eb",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "biomechan-engineer",
+      "name": "Biomechan Engineer",
+      "oracleId": "b395925b-2456-454e-9262-3b55c9f2799a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "blacksmith-s-talent",
+      "name": "Blacksmith's Talent",
+      "oracleId": "9fdad42a-9db5-4d91-9e80-9d5ce19038b8",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bleeding-edge",
+      "name": "Bleeding Edge",
+      "oracleId": "308e551a-6d60-4a28-9e22-1181995ca068",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bloodsoaked-insight",
+      "name": "Bloodsoaked Insight",
+      "oracleId": "c52fc8a1-43c6-41f8-b010-03be7c89ef1d",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bloodtithe-harvester",
+      "name": "Bloodtithe Harvester",
+      "oracleId": "419a8ab2-cff6-4811-a559-8791c9bb3d8e",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bountiful-landscape",
+      "name": "Bountiful Landscape",
+      "oracleId": "2eb69a8f-9456-4852-b868-85ae609d3441",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bridgeworks-battle",
+      "name": "Bridgeworks Battle",
+      "oracleId": "9d581188-ce80-494e-bd38-f411e1f4efb5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "broodspinner",
+      "name": "Broodspinner",
+      "oracleId": "ad50214c-4d0e-4f95-9098-fd7d64dbf7f4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "builder-s-talent",
+      "name": "Builder's Talent",
+      "oracleId": "0b19082c-8f80-448b-9e1b-0f324a159409",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bullseye-death-dealer",
+      "name": "Bullseye, Death Dealer",
+      "oracleId": "10db57b4-f895-4514-b610-2252ba676353",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "bumi-s-feast-lecture",
+      "name": "Bumi's Feast Lecture",
+      "oracleId": "41f53bb5-8a62-4e6b-b9c3-5aa530a036bc",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "burn-burn-tree-and-fern",
+      "name": "Burn, Burn, Tree and Fern",
+      "oracleId": "a97d6c5c-1cff-442d-b535-fc8389160b0b",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "canyon-crab",
+      "name": "Canyon Crab",
+      "oracleId": "4681facf-21ca-4118-a827-0e3d4233d8e6",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "captain-america-living-legend",
+      "name": "Captain America, Living Legend",
+      "oracleId": "67aa946d-e694-494e-ba0c-44880d5bc03e",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "carrot-cake",
+      "name": "Carrot Cake",
+      "oracleId": "5fe3aabd-3271-41bf-ae50-f6efaba7c4ae",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "case-of-the-filched-falcon",
+      "name": "Case of the Filched Falcon",
+      "oracleId": "33b31fb0-71ce-408a-a256-2a5a3b085cb6",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "charging-strifeknight",
+      "name": "Charging Strifeknight",
+      "oracleId": "b0b9a7c1-f515-4627-a050-b595d6641611",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "citizen-s-crowbar",
+      "name": "Citizen's Crowbar",
+      "oracleId": "64c7e03d-ba38-4979-8889-9bf0e7b8c66e",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "clay-fired-bricks",
+      "name": "Clay-Fired Bricks",
+      "oracleId": "90e1bcef-53af-4c08-b713-bf10dfcbd577",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "contaminated-landscape",
+      "name": "Contaminated Landscape",
+      "oracleId": "28196fd9-00c9-4cd0-b603-0eec8511ec79",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "coruscation-mage",
+      "name": "Coruscation Mage",
+      "oracleId": "88bb91b5-2ccd-4ce9-8cd4-e54d63c12abf",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "cranial-ram",
+      "name": "Cranial Ram",
+      "oracleId": "e958b3c5-0666-4a99-a933-e5cb8b0da9da",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "cult-conscript",
+      "name": "Cult Conscript",
+      "oracleId": "e5762815-5fc3-4ae7-abee-69f27c5e4e90",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "damage-control-crew",
+      "name": "Damage Control Crew",
+      "oracleId": "c0f9e604-a8bf-4c7d-8480-487e8076e1d8",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "daredevil-s-billy-club",
+      "name": "Daredevil's Billy Club",
+      "oracleId": "654db13d-c7e4-4ee0-a87a-3635467f2f19",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "darkmoss-bridge",
+      "name": "Darkmoss Bridge",
+      "oracleId": "2065cada-4078-41c4-9e06-2460d2a2e8ee",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "daydream",
+      "name": "Daydream",
+      "oracleId": "094c4486-6cae-4268-850e-ff0082e5ad10",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "deceptive-landscape",
+      "name": "Deceptive Landscape",
+      "oracleId": "1831fe12-dbe0-437f-8fc8-f01bbb701fe1",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "defiled-crypt-cadaver-lab",
+      "name": "Defiled Crypt // Cadaver Lab",
+      "oracleId": "f97de425-c7ab-4688-8606-159370d179ee",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "delivery-moogle",
+      "name": "Delivery Moogle",
+      "oracleId": "60043b87-6008-4cfa-9d8f-6ee6e3f70766",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "down-down-to-goblin-town",
+      "name": "Down, Down to Goblin-town",
+      "oracleId": "e01860cd-0aa1-435a-9ef9-ee412bc458cd",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "dreadwing-scavenger",
+      "name": "Dreadwing Scavenger",
+      "oracleId": "bbfd0de0-3558-4833-bae4-8efae44b7fff",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "drossforge-bridge",
+      "name": "Drossforge Bridge",
+      "oracleId": "44b83535-fdbf-4307-bf53-ca20470a768d",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "drowner-of-truth",
+      "name": "Drowner of Truth",
+      "oracleId": "db19a27a-ee22-4931-ae3c-0ce21f456ea6",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "dundoolin-weaver",
+      "name": "Dundoolin Weaver",
+      "oracleId": "28564d10-bfc5-4beb-b0e2-b9aa5c03f740",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "eddymurk-crab",
+      "name": "Eddymurk Crab",
+      "oracleId": "3c345e24-1726-45ac-91ca-e348d1e7acfe",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "empyrean-eagle",
+      "name": "Empyrean Eagle",
+      "oracleId": "270d14b2-07bc-46bc-918f-658102265ccf",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "emrakul-s-messenger",
+      "name": "Emrakul's Messenger",
+      "oracleId": "f1409c9e-f0d9-49e1-b02e-d0f04a658331",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "end-of-the-hunt",
+      "name": "End of the Hunt",
+      "oracleId": "74b8182e-54be-444a-97b1-84fc5fd3c290",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "eomer-of-the-riddermark",
+      "name": "Éomer of the Riddermark",
+      "oracleId": "c07340bb-04b6-4a80-9999-727b8ab3534d",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "eviscerator-s-insight",
+      "name": "Eviscerator's Insight",
+      "oracleId": "81a398ee-e534-43b7-88fe-45155d6aba3a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "faerie-dreamthief",
+      "name": "Faerie Dreamthief",
+      "oracleId": "d6e68414-80cb-4e08-ae84-b084a3f4b6de",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "fear-of-isolation",
+      "name": "Fear of Isolation",
+      "oracleId": "0ee28549-5909-4372-8376-34010b7b6654",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "fell-gravship",
+      "name": "Fell Gravship",
+      "oracleId": "1a82be68-3b74-4dfc-9068-3abea61db709",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "foggy-swamp-spirit-keeper",
+      "name": "Foggy Swamp Spirit Keeper",
+      "oracleId": "faecfb8d-2f63-4b98-a842-b11448f0d538",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "foreboding-landscape",
+      "name": "Foreboding Landscape",
+      "oracleId": "bcfe1653-e602-4d38-abe7-bfcc7f203f9d",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "frodo-baggins",
+      "name": "Frodo Baggins",
+      "oracleId": "d4dd6edf-1e9e-46fa-92b5-5df9aa0e4338",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "fungal-infection",
+      "name": "Fungal Infection",
+      "oracleId": "04a8858e-9033-403e-9346-5a2ad1bdf680",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "getaway-glamer",
+      "name": "Getaway Glamer",
+      "oracleId": "98eac0f7-3f4d-46ef-9575-680c52e967cf",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "gingerbrute",
+      "name": "Gingerbrute",
+      "oracleId": "10b8d4c7-7553-4d76-b643-d98b80701e13",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "gladiolus-amicitia",
+      "name": "Gladiolus Amicitia",
+      "oracleId": "fb5a05d1-baa5-459d-a2e5-438f4a60b82f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "glamer-gifter",
+      "name": "Glamer Gifter",
+      "oracleId": "e67a820b-6249-478e-91db-9827e44aa60a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "glasswing-grace",
+      "name": "Glasswing Grace",
+      "oracleId": "3a3e8c9b-e458-4661-980d-0a84a4c2452b",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "go-nuts",
+      "name": "Go Nuts!",
+      "oracleId": "0efe1357-bfbb-42c0-9cc9-6a919d686c66",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "goliath-mass-manipulator",
+      "name": "Goliath, Mass Manipulator",
+      "oracleId": "d06d7065-27e5-4119-a226-6f6d990d72c7",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "gollum-the-abandoned",
+      "name": "Gollum the Abandoned",
+      "oracleId": "8d88facd-cf7e-498e-ab6b-6bd021316162",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "guac-marshmallow-pizza",
+      "name": "Guac & Marshmallow Pizza",
+      "oracleId": "d6d83a51-9d57-44a7-aae3-a96d43ec5ac8",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "halo-forager",
+      "name": "Halo Forager",
+      "oracleId": "210d1077-6e60-4f06-a8a4-10b842979ac5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "hard-evidence",
+      "name": "Hard Evidence",
+      "oracleId": "0728b195-2dfe-4d73-91ae-e658a97b0b9a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "heartfire-hero",
+      "name": "Heartfire Hero",
+      "oracleId": "49e1e202-37bf-46ed-93d1-1adb13726039",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "hero-of-the-dunes",
+      "name": "Hero of the Dunes",
+      "oracleId": "eb6f936e-8dba-49da-84fc-de240b11b8e4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "heroic-reinforcements",
+      "name": "Heroic Reinforcements",
+      "oracleId": "c442e8b0-a0a4-4839-8049-125b91b15c99",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "hivespine-wolverine",
+      "name": "Hivespine Wolverine",
+      "oracleId": "312be209-dba5-4e6c-938e-1287642f67d4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "hollow-marauder",
+      "name": "Hollow Marauder",
+      "oracleId": "1a4075f3-6c18-4cbe-99e0-f403dd78a7b0",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "honest-rutstein",
+      "name": "Honest Rutstein",
+      "oracleId": "439bf6d1-bd65-474b-a70c-7fdd446de4bb",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "hop-to-it",
+      "name": "Hop to It",
+      "oracleId": "e8a9350a-07c1-47ed-8c4f-88e4b3b17545",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "ignis-scientia",
+      "name": "Ignis Scientia",
+      "oracleId": "23320d55-80cb-4da3-a53c-8c75abdc8c8f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "improvised-club",
+      "name": "Improvised Club",
+      "oracleId": "20c705e3-4141-41f8-ad73-bf953f0e1ddd",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "joo-dee-one-of-many",
+      "name": "Joo Dee, One of Many",
+      "oracleId": "4601ed7b-716e-4c89-b733-1eeabe8bf5a2",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "kappa-tech-wrecker",
+      "name": "Kappa Tech-Wrecker",
+      "oracleId": "2bc92c16-cd1e-4c32-9102-4593d77a9a9f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "killmonger-scourge-of-wakanda",
+      "name": "Killmonger, Scourge of Wakanda",
+      "oracleId": "1c3ba54a-a8ef-4838-b3aa-cb6df827a619",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "legion-leadership",
+      "name": "Legion Leadership",
+      "oracleId": "ad225ec2-ff3a-48f6-81a7-dfdd1b75e1f7",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "magic-missile",
+      "name": "Magic Missile",
+      "oracleId": "e48b8d78-3f8b-4bf8-853a-76c435bc31f0",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "meltstrider-s-resolve",
+      "name": "Meltstrider's Resolve",
+      "oracleId": "6f9bc0c6-1792-4771-a839-95a22d9c699a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "metalhead",
+      "name": "Metalhead",
+      "oracleId": "7df45a2a-75bc-4343-8dad-3a642efd13ee",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "michiko-s-reign-of-truth",
+      "name": "Michiko's Reign of Truth",
+      "oracleId": "94794f7c-62e7-43c8-ba7f-ac5c0bc9a712",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "mindless-conscription",
+      "name": "Mindless Conscription",
+      "oracleId": "bf65e547-9d81-4f4b-8adb-46aee9088906",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "mirkwood-nurturer",
+      "name": "Mirkwood Nurturer",
+      "oracleId": "66630640-9605-44da-afdf-eb9d458d056f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "mistvault-bridge",
+      "name": "Mistvault Bridge",
+      "oracleId": "33ee23bc-6327-4a54-a704-dfd83be36bb5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "mobile-homestead",
+      "name": "Mobile Homestead",
+      "oracleId": "b71239fb-d7dc-4bac-b8aa-26b454409344",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "momo-playful-pet",
+      "name": "Momo, Playful Pet",
+      "oracleId": "85ee8ab6-8db5-45d7-85ae-64838771146a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "monstrous-rage",
+      "name": "Monstrous Rage",
+      "oracleId": "646a2371-54c0-4492-ac2f-20f109d6108c",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "norn-s-inquisitor",
+      "name": "Norn's Inquisitor",
+      "oracleId": "89a59a6d-e9d4-405c-8518-4da86dae30d1",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "novel-nunchaku",
+      "name": "Novel Nunchaku",
+      "oracleId": "6d819742-3d02-4d60-9b10-82caa49a9d49",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "oblivious-bookworm",
+      "name": "Oblivious Bookworm",
+      "oracleId": "300fd0a2-23e6-4da9-bfaa-ad626097d5b5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "okiba-reckoner-raid",
+      "name": "Okiba Reckoner Raid",
+      "oracleId": "54257132-c67a-4c19-bada-08e7025c2929",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "okoye-dora-milaje-leader",
+      "name": "Okoye, Dora Milaje Leader",
+      "oracleId": "6d397d26-7e52-47b2-9880-2c10e90cfba4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "oni-cult-anvil",
+      "name": "Oni-Cult Anvil",
+      "oracleId": "c018f072-8f6d-4835-a717-ed4ecba70d97",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "orzhov-enforcer",
+      "name": "Orzhov Enforcer",
+      "oracleId": "f60b879e-82b4-442d-a544-2349429fe4c9",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "painter-s-studio-defaced-gallery",
+      "name": "Painter's Studio // Defaced Gallery",
+      "oracleId": "2af01e09-f233-4675-89cd-470816471c62",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "patchwork-beastie",
+      "name": "Patchwork Beastie",
+      "oracleId": "6cf995e9-115a-4659-bace-9fbe75898b48",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "perilous-landscape",
+      "name": "Perilous Landscape",
+      "oracleId": "e2b472dd-047d-47eb-9ebb-df6aa4b52dd4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "plumecreed-escort",
+      "name": "Plumecreed Escort",
+      "oracleId": "04669a6f-6299-465b-a26e-6cae37cdc081",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "practiced-scrollsmith",
+      "name": "Practiced Scrollsmith",
+      "oracleId": "a02f9f42-4c3a-4a97-8667-68ba4617f193",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "propagator-drone",
+      "name": "Propagator Drone",
+      "oracleId": "9485db26-7e03-4a66-beeb-627a3bc6f367",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "protect-the-negotiators",
+      "name": "Protect the Negotiators",
+      "oracleId": "7ccd666a-0d56-4fe3-b16b-d035bf2ad420",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "punishing-punch",
+      "name": "Punishing Punch",
+      "oracleId": "454c4e8b-e417-4381-a931-6a11356ef64e",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "quina-qu-gourmet",
+      "name": "Quina, Qu Gourmet",
+      "oracleId": "2acb15bd-6c89-4ff3-ab32-beac67e9c88a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "rabbit-battery",
+      "name": "Rabbit Battery",
+      "oracleId": "c739e180-2f14-41ed-8e7e-50b7df985f35",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "rally-the-monastery",
+      "name": "Rally the Monastery",
+      "oracleId": "3f6101a5-3038-45b0-8302-b2e4127b9510",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "ravenous-squirrel",
+      "name": "Ravenous Squirrel",
+      "oracleId": "8fb48d65-406b-4231-83ea-9cf3bb8dff76",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "razortide-bridge",
+      "name": "Razortide Bridge",
+      "oracleId": "6cb37ac1-dd11-4a8c-bca5-ef44d828059f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "renegade-rallier",
+      "name": "Renegade Rallier",
+      "oracleId": "6fa07b6c-f01a-4416-b0fc-986b0fc4e412",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "rescue-pepper-potts",
+      "name": "Rescue, Pepper Potts",
+      "oracleId": "54917578-9493-499e-b200-51d5cf7978ff",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "retrofitted-transmogrant",
+      "name": "Retrofitted Transmogrant",
+      "oracleId": "058dae67-807e-4542-ae51-f2b1216ffaed",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "revitalizing-repast",
+      "name": "Revitalizing Repast",
+      "oracleId": "8dd6d060-d023-48a6-85cb-7a5521b6257b",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "ruin-lurker-bat",
+      "name": "Ruin-Lurker Bat",
+      "oracleId": "e6f379ad-96b1-46c3-bbc6-a8cb57156a7f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "rush-of-inspiration",
+      "name": "Rush of Inspiration",
+      "oracleId": "bbd569cc-bc21-46df-b8eb-5b5bcd8fe762",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "rustvale-bridge",
+      "name": "Rustvale Bridge",
+      "oracleId": "a3faf70d-c034-4692-9e92-1922029e3852",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "seething-landscape",
+      "name": "Seething Landscape",
+      "oracleId": "2d8635bd-ed96-4bb1-8718-6962a0eee3d5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "she-hulk-jade-defender",
+      "name": "She-Hulk, Jade Defender",
+      "oracleId": "bbd0a2a4-f81b-4a6b-bc4d-d7e53dc51333",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "sheltering-landscape",
+      "name": "Sheltering Landscape",
+      "oracleId": "5b932be0-4dac-41b9-9c59-f79e4cecc31a",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "shepherd-of-the-clouds",
+      "name": "Shepherd of the Clouds",
+      "oracleId": "c0535854-e4e7-43e4-bc5c-7cc95fb17929",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "shi-ar-soldier",
+      "name": "Shi'ar Soldier",
+      "oracleId": "f20ec8e2-d6e4-4707-9b86-107dbc09ac63",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "shuri-vibranium-technologist",
+      "name": "Shuri, Vibranium Technologist",
+      "oracleId": "94b2a7a6-9e9a-437f-9cde-111b1b02a68e",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "snarling-gorehound",
+      "name": "Snarling Gorehound",
+      "oracleId": "d2b1c5eb-06f0-4ec4-9446-791faac099a7",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "sneaky-snacker",
+      "name": "Sneaky Snacker",
+      "oracleId": "f255492e-4e12-48b4-9c19-8a2a2780a1b7",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "sourbread-auntie",
+      "name": "Sourbread Auntie",
+      "oracleId": "6b087ae1-1412-4dd9-9b96-3b45be52d386",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "spawn-gang-commander",
+      "name": "Spawn-Gang Commander",
+      "oracleId": "3641ceef-4f26-4647-ac12-c958524d68ca",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "splitskin-doll",
+      "name": "Splitskin Doll",
+      "oracleId": "934e2634-4b1c-4d92-b4d6-9241620f3770",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "stampeding-scurryfoot",
+      "name": "Stampeding Scurryfoot",
+      "oracleId": "7b860806-0118-40f8-861b-225a7c1cf151",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "starfield-shepherd",
+      "name": "Starfield Shepherd",
+      "oracleId": "42fa99ab-d35f-4439-ab00-fe99bad626ac",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "stature-size-shifter",
+      "name": "Stature, Size Shifter",
+      "oracleId": "bd49a05c-ed51-4d69-ab9b-11192442ec17",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "steadfast-unicorn",
+      "name": "Steadfast Unicorn",
+      "oracleId": "c823d38c-e73c-4e09-ab20-c5e7de1f1c64",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "stormkeld-vanguard",
+      "name": "Stormkeld Vanguard",
+      "oracleId": "8a31c49f-5b3f-4f84-a08e-58b30a6bff7c",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "strength-of-the-harvest",
+      "name": "Strength of the Harvest",
+      "oracleId": "1a8c996d-ca93-4c17-ace5-66ecd6b99317",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "strixhaven-skycoach",
+      "name": "Strixhaven Skycoach",
+      "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "stubborn-burrowfiend",
+      "name": "Stubborn Burrowfiend",
+      "oracleId": "24bc7bd5-f262-45a2-8e94-377fef2ba5d5",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "superior-foes-of-spider-man",
+      "name": "Superior Foes of Spider-Man",
+      "oracleId": "a6a7af21-e52c-4f7f-a57f-bd365d075966",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tanglepool-bridge",
+      "name": "Tanglepool Bridge",
+      "oracleId": "29cd8a7c-108a-43d1-af63-f603a27c24f2",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tannuk-memorial-ensign",
+      "name": "Tannuk, Memorial Ensign",
+      "oracleId": "76cb1912-3791-44b8-b594-b92dab21bafc",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "the-cave-of-two-lovers",
+      "name": "The Cave of Two Lovers",
+      "oracleId": "c2df54f1-a2db-4de3-bc96-5c07f4594752",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "the-duke-rebel-sentry",
+      "name": "The Duke, Rebel Sentry",
+      "oracleId": "1c55047d-badc-49bb-b791-e9759577e4eb",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "thopter-engineer",
+      "name": "Thopter Engineer",
+      "oracleId": "4ac53b34-20d2-4a53-bade-4f998fb6ae67",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "thought-stalker-warlock",
+      "name": "Thought-Stalker Warlock",
+      "oracleId": "25a63171-a1a0-4c61-ac61-49bb59fe83c1",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tinker-s-tote",
+      "name": "Tinker's Tote",
+      "oracleId": "cd1e6225-31b7-4a70-81ab-681abe860328",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tough-cookie",
+      "name": "Tough Cookie",
+      "oracleId": "8a1a5862-c027-4c15-99a7-1795d0da96da",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "town-greeter",
+      "name": "Town Greeter",
+      "oracleId": "9dc61ef6-da22-42a8-b348-dfd5722deadf",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tranquil-landscape",
+      "name": "Tranquil Landscape",
+      "oracleId": "d4eb65d5-99fd-4daf-b7d3-8ebf99ee9c61",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "true-ancestry",
+      "name": "True Ancestry",
+      "oracleId": "26c2dd96-07e7-4294-9431-96d5aeff3761",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "twisted-landscape",
+      "name": "Twisted Landscape",
+      "oracleId": "db659cae-2078-423e-a6ed-63898dbab87f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "tyvar-s-stand",
+      "name": "Tyvar's Stand",
+      "oracleId": "4247b667-a0a8-4995-97c7-622d20132f7d",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "umbral-collar-zealot",
+      "name": "Umbral Collar Zealot",
+      "oracleId": "12db6263-75c2-442f-a1a5-7af7915f8f9f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "under-the-skin",
+      "name": "Under the Skin",
+      "oracleId": "8e121178-e9e3-43a5-a174-ecbe47d759f9",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "uthros-psionicist",
+      "name": "Uthros Psionicist",
+      "oracleId": "7f51aede-fb86-4b7e-9027-2ba8be62b567",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "victor-timely-wily-tycoon",
+      "name": "Victor Timely, Wily Tycoon",
+      "oracleId": "2ad77eb7-9466-432f-87b4-e80e4b66e143",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "voldaren-epicure",
+      "name": "Voldaren Epicure",
+      "oracleId": "cef82674-1f61-407b-801b-a76a3803e598",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "wakandan-tusker",
+      "name": "Wakandan Tusker",
+      "oracleId": "9e8ffb63-1a7b-4ebe-839d-d5192522db65",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "wandertale-mentor",
+      "name": "Wandertale Mentor",
+      "oracleId": "9d14c7bd-7802-401c-b02b-c7f3c51b007f",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "waterlogged-teachings",
+      "name": "Waterlogged Teachings",
+      "oracleId": "e6ad1be9-f13d-4590-b3db-e2d0fff46f03",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "wreckage-wickerfolk",
+      "name": "Wreckage Wickerfolk",
+      "oracleId": "8ba5af76-2485-4fd6-bd2e-fe90d1f2691c",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 0
+    },
+    {
+      "slug": "arni-slays-the-troll",
+      "name": "Arni Slays the Troll",
+      "oracleId": "7cb47a7e-fe60-45a2-9c07-bd5c6ddca82d",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "captured-by-lagacs",
+      "name": "Captured by Lagacs",
+      "oracleId": "db1a29f9-1608-4502-a366-89048c2e9bda",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "cogwork-wrestler",
+      "name": "Cogwork Wrestler",
+      "oracleId": "db27e3f0-5750-4c4b-9da9-70c3ab627f9c",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "dune-drifter",
+      "name": "Dune Drifter",
+      "oracleId": "b32649cb-bf5c-45fa-86f0-8bf4e8555f06",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "focus-fire",
+      "name": "Focus Fire",
+      "oracleId": "6c4514be-fda7-45e8-83fe-04d49e2b932c",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "futurist-forge",
+      "name": "Futurist Forge",
+      "oracleId": "0e5f97b5-bb8c-4688-a141-5db4d4eeccf0",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "goldmire-bridge",
+      "name": "Goldmire Bridge",
+      "oracleId": "c9b7ea9c-3bcb-4538-aa25-cdb82a52037e",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "junkyard-genius",
+      "name": "Junkyard Genius",
+      "oracleId": "68d4d753-5e53-48a6-8ba2-56020893c239",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "maverick-thopterist",
+      "name": "Maverick Thopterist",
+      "oracleId": "71ba6f1b-2fa6-4d4c-8778-f0765b1a5d8e",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "on-the-job",
+      "name": "On the Job",
+      "oracleId": "e4733889-4d4c-4bf7-8a9b-fb5ad7a38395",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "pursue-the-past",
+      "name": "Pursue the Past",
+      "oracleId": "4384996f-aeaa-41ac-aa0e-12d72c887731",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "repulsive-mutation",
+      "name": "Repulsive Mutation",
+      "oracleId": "611bfaa6-b098-48d9-9e49-1e7dc8687f15",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "ruthless-lawbringer",
+      "name": "Ruthless Lawbringer",
+      "oracleId": "82b6a283-9897-4ce1-8de3-e7579cc9b75b",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "shattered-landscape",
+      "name": "Shattered Landscape",
+      "oracleId": "7fbad3f2-66f6-4e3a-b9e0-1ddbcd94d42a",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "silverquill-charm",
+      "name": "Silverquill Charm",
+      "oracleId": "d985b12e-2731-4ccf-9f51-90218b20b42a",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "slagwoods-bridge",
+      "name": "Slagwoods Bridge",
+      "oracleId": "e040a8e6-b90c-42d1-a1b1-771d954c61ab",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "snowslope-hunter",
+      "name": "Snowslope Hunter",
+      "oracleId": "fdf7f144-56e4-4f88-b81a-b85473922355",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "station-monitor",
+      "name": "Station Monitor",
+      "oracleId": "94e8791b-e72f-4aed-b761-826779337168",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "stickytongue-sentinel",
+      "name": "Stickytongue Sentinel",
+      "oracleId": "899f0931-4e9b-4fa8-9f6d-d13a7de05334",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "suppression-ray",
+      "name": "Suppression Ray",
+      "oracleId": "b592568b-11b0-4081-90a7-30cfb9c1ba80",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "thornglint-bridge",
+      "name": "Thornglint Bridge",
+      "oracleId": "99720c65-be96-4220-8ed4-720660bf6928",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "trash-the-town",
+      "name": "Trash the Town",
+      "oracleId": "b47f7f1e-2d81-4b1b-870d-4c1a4f020505",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "veteran-beastrider",
+      "name": "Veteran Beastrider",
+      "oracleId": "29f1484c-91b6-436a-a6be-3ab8b58c0fc1",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "vinereap-mentor",
+      "name": "Vinereap Mentor",
+      "oracleId": "db649e15-24ca-4fd8-9f0b-f1df28c9c57d",
+      "tier": "C",
+      "fit": "filler",
+      "scoreModifier": -5
+    },
+    {
+      "slug": "a-killer-among-us",
+      "name": "A Killer Among Us",
+      "oracleId": "79d577a8-53c0-4220-bc0e-70764d72d5fd",
+      "tier": "D",
+      "fit": "filler",
+      "scoreModifier": -10
+    }
+  ]
+}

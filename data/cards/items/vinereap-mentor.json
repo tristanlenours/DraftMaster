@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "vinereap-mentor",
+  "name": "Vinereap Mentor",
+  "oracleId": "db649e15-24ca-4fd8-9f0b-f1df28c9c57d",
+  "scryfallId": "29b615ba-45c4-42a1-8525-1535f0b55300",
+  "manaCost": "{G}{B}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Creature — Squirrel Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Squirrel",
+    "Druid"
+  ],
+  "oracleText": "When this creature enters or dies, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+  "keywords": [
+    "Food"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/29b615ba-45c4-42a1-8525-1535f0b55300/normal.webp",
+    "localPath": "data/cards/images/vinereap-mentor.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/29b615ba-45c4-42a1-8525-1535f0b55300/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/29b615ba-45c4-42a1-8525-1535f0b55300/normal.webp",
+  "powerScore": {
+    "score": 20.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1193,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1193).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "titou_peasant:golgari_food"
+      ],
+      "synergyTags": [
+        "lifegain",
+        "life-and-death-trigger-self",
+        "death-trigger-self"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "GOLGARI FOOD",
+            "grade": "C",
+            "winrateOrScore": "49.7 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

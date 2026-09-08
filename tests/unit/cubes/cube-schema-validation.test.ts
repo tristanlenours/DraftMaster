@@ -5,14 +5,14 @@ import { CubeRegistry, validateCubeDocumentJson } from "../../../src/cubes/cube-
 const rootDir = process.cwd();
 
 describe("Unified Cube Document Validation", () => {
-  it("loads and validates all 3 community cubes via CubeRegistry", async () => {
+  it("loads and validates all community cubes via CubeRegistry", async () => {
     const cubesBaseDir = resolve(rootDir, "data/cubes");
     const result = await CubeRegistry.loadAllCubes(cubesBaseDir);
 
     expect(result.ok).toBe(true);
     if (result.ok) {
       const registry = result.value;
-      expect(registry.size).toBe(4);
+      expect(registry.size).toBe(5);
 
       // 1. Nico Vintage Candyshop
       const nico = registry.getCube("nico_candyshop");
@@ -63,6 +63,19 @@ describe("Unified Cube Document Validation", () => {
       expect(cedric.philosophy).toContain("Strobinellus");
       expect(cedric.archetypes.length).toBeGreaterThanOrEqual(10);
       expect(cedric.cardIndex?.length).toBe(720);
+
+      // 5. Titou Arena Peasant Plus
+      const titouPeasant = registry.getCube("titou_arena_peasant_plus");
+      expect(titouPeasant).toBeDefined();
+      if (!titouPeasant) throw new Error("Titou Peasant cube missing");
+      expect(titouPeasant.powerTier).toBe("peasant");
+      expect(titouPeasant.pacing).toBe("midrange_attrition");
+      expect(titouPeasant.fundamentalTurn.targetTurn).toBe(3.5);
+      expect(titouPeasant.fundamentalTurn.criticalWindow).toBe("T3-T4");
+      expect(titouPeasant.technicalAxes.speedIndex).toBe(6.5);
+      expect(titouPeasant.philosophy).toContain("Titou Arena Peasant Plus");
+      expect(titouPeasant.archetypes.length).toBe(10);
+      expect(titouPeasant.cardIndex?.length).toBe(360);
     }
   });
 

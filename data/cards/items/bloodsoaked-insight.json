@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "bloodsoaked-insight",
+  "name": "Bloodsoaked Insight",
+  "oracleId": "c52fc8a1-43c6-41f8-b010-03be7c89ef1d",
+  "scryfallId": "0a08e0d2-1e60-47f5-9228-4c11a127089d",
+  "manaCost": "{B-R}{B-R}{5}",
+  "cmc": 7,
+  "colors": [
+    "B",
+    "R"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "This spell costs {1} less to cast for each 1 life your opponents have lost this turn.\nTarget opponent exiles the top three cards of their library. Until the end of your next turn, you may play those cards. If you cast a spell this way, mana of any type can be spent to cast it.\nThis land enters tapped.\n{T}: Add {B} or {R}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0a08e0d2-1e60-47f5-9228-4c11a127089d/normal.webp",
+    "localPath": "data/cards/images/bloodsoaked-insight.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0a08e0d2-1e60-47f5-9228-4c11a127089d/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0a08e0d2-1e60-47f5-9228-4c11a127089d/normal.webp",
+  "powerScore": {
+    "score": 25.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1265,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1265).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "titou_peasant:rakdos_artifacts_sac"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "single-target-instant-sorcery",
+        "mill-opponent"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "RAKDOS ARTIFACTS SAC",
+            "grade": "B",
+            "winrateOrScore": "53.2 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

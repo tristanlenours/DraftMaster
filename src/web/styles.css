@@ -2485,6 +2485,12 @@ body {
   border-color: rgba(16, 185, 129, 0.3);
 }
 
+.home-cube-badge.badge-peasant {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
 .home-cube-name {
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -2685,6 +2691,15 @@ body {
 .badge-pauper {
   background: rgba(16, 185, 129, 0.15);
   color: #34d399;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-peasant {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
   padding: 3px 8px;
   border-radius: var(--radius-xs);
   font-size: 0.75rem;
@@ -3268,7 +3283,7 @@ body {
 }
 
 /* ==========================================================================
-   VIEW 4: LES 7 BOTS DU DRAFT (Clones de la Table d'Amis)
+   VIEW 4: LES 8 BOTS DU DRAFT (La Table d'Amis)
    ========================================================================== */
 .view-bots {
   padding: 32px 20px 80px;

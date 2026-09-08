@@ -89,6 +89,16 @@ const cubeConfigs = [
       "En écartant le Power 9 au profit d'accélérateurs sélectifs (Mana Vault, Mox Diamond, Grim Monolith) et de bilands parfaits, " +
       "il permet des affrontements spectaculaires où le Tour Pivot (T3.5 - T4) récompense l'anticipation, les échanges 2-pour-1 et les synergies construites.",
   },
+  {
+    key: 'titou_arena_peasant_plus',
+    dir: 'data/cubes/titou_arena_peasant_plus',
+    description:
+      "Un cube Peasant Plus de 360 cartes MTG Arena combinant les meilleures communes et uncos du jeu avec les 10 Shocklands et fixers rares pour des affrontements fluides, interactifs et profondément synergiques.",
+    philosophy:
+      "Le Titou Arena Peasant Plus Cube magnifie le meilleur du jeu Peasant MTG Arena. " +
+      "En associant une densité exceptionnelle d'interactions communes/unco aux 10 Shocklands rares et fixers incontournables (Fabled Passage, Mana Confluence), " +
+      "il élimine la frustration du mana screw et permet aux joueurs de bâtir des decks bicolores et tricolores aux synergies dignes du format Construit.",
+  },
 ];
 
 for (const cfg of cubeConfigs) {

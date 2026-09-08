@@ -1,6 +1,7 @@
 // DraftMaster — Solo Draft Client Controller & State Machine
 
 import { formatDuration, getScoreGrade } from "./leaderboard.js";
+import { loadImageWithFallback } from "./card-image.js";
 
 // Local cache for French card translations & images
 const localFrenchCache = new Map();
@@ -47,6 +48,13 @@ function getSoloCardImage(card, isLarge = false) {
   if (card.localImagePath) return "/" + card.localImagePath;
   if (card.image?.localPath) return "/" + card.image.localPath;
   return card.imageUrl || "/data/cards/images/default.jpg";
+}
+
+function getSoloCardFallbackImage(card) {
+  return (
+    card?.imageUrl ||
+    `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(card?.name || "")}&format=image`
+  );
 }
 
 async function fetchFrenchCard(card, onUpdate) {
@@ -328,13 +336,12 @@ export class SoloDraftController {
     if (!this.dom.boosterGrid) return;
     this.dom.boosterGrid.innerHTML = session.currentBooster
       .map((card) => {
-        const imageSrc = getSoloCardImage(card);
         const displayName = card.frenchName || card.name;
 
         return `
           <div class="booster-card-item" data-instance-id="${card.instanceId}" role="button" tabindex="0">
             <div class="card-art-wrap">
-              <img src="${imageSrc}" alt="${escapeHtml(displayName)}" loading="lazy" class="booster-card-img" />
+              <img alt="${escapeHtml(displayName)}" loading="lazy" class="booster-card-img" />
             </div>
             <div class="card-info-footer">
               <span class="card-name-label">${escapeHtml(displayName)}</span>
@@ -349,6 +356,11 @@ export class SoloDraftController {
     this.dom.boosterGrid.querySelectorAll(".booster-card-item").forEach((el) => {
       const id = el.dataset.instanceId;
       const card = session.currentBooster.find((c) => c.instanceId === id);
+
+      const image = el.querySelector(".booster-card-img");
+      if (card && image) {
+        loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+      }
 
       el.addEventListener("click", () => {
         this.selectCardForPick(id);
@@ -436,11 +448,10 @@ export class SoloDraftController {
           if (cached.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
           if (cached.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
         }
-        const imageSrc = getSoloCardImage(card);
         const displayName = card.frenchName || card.name;
         return `
           <div class="pool-mini-card" data-instance-id="${card.instanceId}" role="button" tabindex="0" title="${escapeHtml(displayName)}">
-            <img src="${imageSrc}" alt="${escapeHtml(displayName)}" loading="lazy" />
+            <img alt="${escapeHtml(displayName)}" loading="lazy" />
           </div>
         `;
       })
@@ -450,6 +461,10 @@ export class SoloDraftController {
       const id = el.dataset.instanceId;
       const card = pool.find((c) => c.instanceId === id);
       if (card) {
+        const image = el.querySelector("img");
+        if (image) {
+          loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+        }
         el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
         el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
         el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
@@ -651,6 +666,10 @@ export class SoloDraftController {
         const id = el.dataset.instanceId;
         const card = this.playerPool.find((c) => c.instanceId === id);
         if (card) {
+          const image = el.querySelector(".deck-card-img");
+          if (image) {
+            loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+          }
           el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
           el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
           el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
@@ -674,6 +693,10 @@ export class SoloDraftController {
         const id = el.dataset.instanceId;
         const card = this.playerPool.find((c) => c.instanceId === id);
         if (card) {
+          const image = el.querySelector(".deck-card-img");
+          if (image) {
+            loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+          }
           el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
           el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
           el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
@@ -691,14 +714,13 @@ export class SoloDraftController {
   }
 
   createDeckCardItem(card, actionType, tooltip) {
-    const imageSrc = getSoloCardImage(card);
     const actionIcon = actionType === "remove" ? "➖" : "➕";
     const badgeClass = actionType === "remove" ? "btn-remove-card" : "btn-add-card";
     const displayName = card.frenchName || card.name;
 
     return `
       <div class="deck-card-item" data-instance-id="${card.instanceId}" title="${tooltip}">
-        <img src="${imageSrc}" alt="${escapeHtml(displayName)}" loading="lazy" class="deck-card-img" />
+        <img alt="${escapeHtml(displayName)}" loading="lazy" class="deck-card-img" />
         <button class="deck-action-overlay ${badgeClass}" aria-label="${tooltip}">
           ${actionIcon}
         </button>
@@ -969,11 +991,10 @@ export function openDeckShowcaseModal(resultOrDeck) {
 
   const cardsHtml = maindeckCards
     .map((c) => {
-      const imgSrc = getSoloCardImage(c);
       const name = c.frenchName || c.name || "Carte";
       return `
         <div class="deck-card-item" title="${escapeHtml(name)}">
-          <img src="${imgSrc}" alt="${escapeHtml(name)}" loading="lazy" class="deck-card-img" />
+          <img alt="${escapeHtml(name)}" loading="lazy" class="deck-card-img" />
           <div class="deck-card-footer">
             <span class="deck-card-name">${escapeHtml(name)}</span>
             <span class="deck-card-cmc">${String(c.cmc ?? 0)}</span>
@@ -1015,6 +1036,13 @@ export function openDeckShowcaseModal(resultOrDeck) {
       </div>
     </div>
   `;
+
+  body.querySelectorAll(".deck-card-img").forEach((image, index) => {
+    const card = maindeckCards[index];
+    if (card) {
+      loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+    }
+  });
 
   const copyBtn = document.getElementById("btn-copy-deck-link");
   copyBtn?.addEventListener("click", async () => {

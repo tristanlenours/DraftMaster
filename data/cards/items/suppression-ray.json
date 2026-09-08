@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "suppression-ray",
+  "name": "Suppression Ray",
+  "oracleId": "b592568b-11b0-4081-90a7-30cfb9c1ba80",
+  "scryfallId": "0cccd328-457a-48ab-97fb-4bc319db2e60",
+  "manaCost": "{W-U}{W-U}{3}",
+  "cmc": 5,
+  "colors": [
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "U",
+    "W"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Tap all creatures target player controls. You may pay any amount of {E}. If you do, choose up to that many creatures tapped this way. Put a stun counter on each of them. (If a permanent with a stun counter would become untapped, remove one from it instead.)\nThis land enters tapped.\n{T}: Add {W} or {U}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0cccd328-457a-48ab-97fb-4bc319db2e60/normal.webp",
+    "localPath": "data/cards/images/suppression-ray.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0cccd328-457a-48ab-97fb-4bc319db2e60/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0cccd328-457a-48ab-97fb-4bc319db2e60/normal.webp",
+  "powerScore": {
+    "score": 17.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1158,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1158).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 5.8,
+    "ceilingRating": 6.8,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "titou_peasant:azorius_tempo"
+      ],
+      "synergyTags": [
+        "counter-fuel-energy",
+        "remove-counters-player",
+        "remove-counters"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "W"
+            ],
+            "archetype": "AZORIUS TEMPO",
+            "grade": "C",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

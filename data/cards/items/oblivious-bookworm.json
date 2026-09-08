@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "oblivious-bookworm",
+  "name": "Oblivious Bookworm",
+  "oracleId": "300fd0a2-23e6-4da9-bfaa-ad626097d5b5",
+  "scryfallId": "9f328937-6585-4325-a1f2-95facab2c58a",
+  "manaCost": "{U}{G}",
+  "cmc": 2,
+  "colors": [
+    "G",
+    "U"
+  ],
+  "colorIdentity": [
+    "G",
+    "U"
+  ],
+  "typeLine": "Creature — Human Wizard",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Wizard"
+  ],
+  "oracleText": "At the beginning of your end step, you may draw a card. If you do, discard a card unless a permanent entered the battlefield face down under your control this turn or you turned a permanent face up this turn.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9f328937-6585-4325-a1f2-95facab2c58a/normal.webp",
+    "localPath": "data/cards/images/oblivious-bookworm.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9f328937-6585-4325-a1f2-95facab2c58a/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9f328937-6585-4325-a1f2-95facab2c58a/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1204,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1204).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "titou_peasant:simic_tempo_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "U"
+            ],
+            "archetype": "SIMIC TEMPO RAMP",
+            "grade": "B",
+            "winrateOrScore": "50.2 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

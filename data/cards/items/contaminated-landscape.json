@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "contaminated-landscape",
+  "name": "Contaminated Landscape",
+  "oracleId": "28196fd9-00c9-4cd0-b603-0eec8511ec79",
+  "scryfallId": "e2312c49-1627-47ad-8113-78a999a97d8d",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}: Add {C}.\n{T}, Sacrifice this land: Search your library for a basic Plains, Island, or Swamp card, put it onto the battlefield tapped, then shuffle.\nCycling {W}{U}{B} ({W}{U}{B}, Discard this card: Draw a card.)",
+  "keywords": [
+    "Cycling"
+  ],
+  "isLand": true,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e2312c49-1627-47ad-8113-78a999a97d8d/normal.webp",
+    "localPath": "data/cards/images/contaminated-landscape.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e2312c49-1627-47ad-8113-78a999a97d8d/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e2312c49-1627-47ad-8113-78a999a97d8d/normal.webp",
+  "powerScore": {
+    "score": 24,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1247,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1247).",
+    "roles": [
+      "mana_ramp",
+      "mana_fixing",
+      "card_advantage"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "titou_peasant:peasant_staple"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PEASANT STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.4 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

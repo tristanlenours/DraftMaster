@@ -56,4 +56,23 @@ describe("Cube Fundamental Turn & Technical Characteristics", () => {
       expect(meta.fundamentalTurn?.criticalWindow).toBe("T3-T5");
     }
   });
+
+  it("validates Titou's Arena Peasant Plus Cube meta with Turn 3.5 Fundamental Clock", async () => {
+    const filePath = resolve(rootDir, "data/cubes/titou_arena_peasant_plus/cube-meta.json");
+    const result = await CubeMetaRegistry.fromFile(filePath);
+    expect(result.ok).toBe(true);
+
+    if (result.ok) {
+      const { meta } = result.value;
+      expect(meta.powerTier).toBe("peasant");
+      expect(meta.pacing).toBe("midrange_attrition");
+      expect(meta.fundamentalTurn).toBeDefined();
+      expect(meta.fundamentalTurn?.targetTurn).toBe(3.5);
+      expect(meta.fundamentalTurn?.criticalWindow).toBe("T3-T4");
+      expect(meta.fundamentalTurn?.deckExpectation).toContain("T3/T4");
+      expect(meta.technicalAxes).toBeDefined();
+      expect(meta.technicalAxes?.speedIndex).toBe(6.5);
+      expect(meta.technicalAxes?.fixingQuality).toBe("shocks_checks");
+    }
+  });
 });

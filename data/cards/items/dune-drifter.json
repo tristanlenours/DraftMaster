@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "slug": "dune-drifter",
+  "name": "Dune Drifter",
+  "oracleId": "b32649cb-bf5c-45fa-86f0-8bf4e8555f06",
+  "scryfallId": "36185de4-55c2-4e5d-9bcc-ea12b7052728",
+  "manaCost": "{B}{W}{X}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "W"
+  ],
+  "typeLine": "Artifact — Vehicle",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [
+    "Vehicle"
+  ],
+  "oracleText": "When this Vehicle enters, return target artifact or creature card with mana value X or less from your graveyard to the battlefield.\nCrew 2 (Tap any number of creatures you control with total power 2 or more: This Vehicle becomes an artifact creature until end of turn.)",
+  "keywords": [
+    "Crew"
+  ],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/36185de4-55c2-4e5d-9bcc-ea12b7052728/normal.webp",
+    "localPath": "data/cards/images/dune-drifter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/36185de4-55c2-4e5d-9bcc-ea12b7052728/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/36185de4-55c2-4e5d-9bcc-ea12b7052728/normal.webp",
+  "powerScore": {
+    "score": 16.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1145,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1145).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.7,
+    "ceilingRating": 6.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "titou_peasant:orzhov_recursion"
+      ],
+      "synergyTags": [
+        "reanimate-artifact",
+        "recursion-artifact",
+        "recursion"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "W"
+            ],
+            "archetype": "ORZHOV RECURSION",
+            "grade": "C",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

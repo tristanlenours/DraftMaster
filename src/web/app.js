@@ -16,6 +16,7 @@ const CUBE_KEYS = {
   HUGUES: "hugues_pauper",
   TITOU: "titou_tribal",
   CEDRIC: "cedric_cube",
+  TITOU_PEASANT: "titou_arena_peasant_plus",
 };
 
 const CUBE_CONFIGS = {
@@ -42,6 +43,12 @@ const CUBE_CONFIGS = {
     name: "Cédric's High-Power Cube",
     author: "Cédric (@Strobinellus)",
     metaPath: "/data/cubes/cedric_cube/cube-meta.json",
+  },
+  [CUBE_KEYS.TITOU_PEASANT]: {
+    key: CUBE_KEYS.TITOU_PEASANT,
+    name: "Titou's Arena Peasant Plus Cube",
+    author: "Tristan (@eltitou007) / Jank Diver",
+    metaPath: "/data/cubes/titou_arena_peasant_plus/cube-meta.json",
   },
 };
 
@@ -872,31 +879,38 @@ function setupEventListeners() {
 // Load Cube Metadata & Master Catalog Data
 async function loadData() {
   try {
-    const [nicoRes, huguesRes, titouRes, cardsRes] = await Promise.all([
-      fetch(CUBE_CONFIGS[CUBE_KEYS.NICO].metaPath),
-      fetch(CUBE_CONFIGS[CUBE_KEYS.HUGUES].metaPath),
-      fetch(CUBE_CONFIGS[CUBE_KEYS.TITOU].metaPath),
-      fetch("/data/cards/master-cards.json"),
-    ]);
+    const metaFetches = Object.values(CUBE_CONFIGS).map(async (cfg) => {
+      try {
+        const res = await fetch(cfg.metaPath);
+        if (res.ok) state.cubesMeta[cfg.key] = await res.json();
+      } catch (err) {
+        console.warn(`Failed loading meta for ${cfg.key}:`, err);
+      }
+    });
 
-    if (nicoRes.ok) state.cubesMeta[CUBE_KEYS.NICO] = await nicoRes.json();
-    if (huguesRes.ok) state.cubesMeta[CUBE_KEYS.HUGUES] = await huguesRes.json();
-    if (titouRes.ok) state.cubesMeta[CUBE_KEYS.TITOU] = await titouRes.json();
-
-    if (cardsRes.ok) {
-      const data = await cardsRes.json();
-      state.cards = Object.values(data.cards || {});
-      // Hydrate state.cards from localFrenchCache
-      state.cards.forEach((card) => {
-        if (localFrenchCache.has(card.name)) {
-          const cached = localFrenchCache.get(card.name);
-          if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
-          if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
-          if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-          if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    const cardsFetch = (async () => {
+      try {
+        const cardsRes = await fetch("/data/cards/master-cards.json");
+        if (cardsRes.ok) {
+          const data = await cardsRes.json();
+          state.cards = Object.values(data.cards || {});
+          // Hydrate state.cards from localFrenchCache
+          state.cards.forEach((card) => {
+            if (localFrenchCache.has(card.name)) {
+              const cached = localFrenchCache.get(card.name);
+              if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
+              if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
+              if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
+              if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+            }
+          });
         }
-      });
-    }
+      } catch (err) {
+        console.warn("Failed loading master cards:", err);
+      }
+    })();
+
+    await Promise.all([...metaFetches, cardsFetch]);
   } catch (err) {
     console.warn("Network load failed; fallback to local data structure.", err);
   }

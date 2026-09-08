@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "propagator-drone",
+  "name": "Propagator Drone",
+  "oracleId": "9485db26-7e03-4a66-beeb-627a3bc6f367",
+  "scryfallId": "4f5b2d89-d641-4815-8e6c-5dba0d31419e",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Eldrazi Drone",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Eldrazi",
+    "Drone"
+  ],
+  "oracleText": "Devoid (This card has no color.)\nCreature tokens you control have evolve. (They have \"Whenever a creature you control enters, if it has greater power or toughness than this token, put a +1/+1 counter on this token.\" They see this creature enter.)\n{3}{G}: Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+  "keywords": [
+    "Devoid"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4f5b2d89-d641-4815-8e6c-5dba0d31419e/normal.webp",
+    "localPath": "data/cards/images/propagator-drone.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4f5b2d89-d641-4815-8e6c-5dba0d31419e/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4f5b2d89-d641-4815-8e6c-5dba0d31419e/normal.webp",
+  "powerScore": {
+    "score": 24.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1258,
+    "harmonizationDegree": "calibrated_high",
+    "confidence": 0.9,
+    "updatedAt": "2026-09-08T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_arena_peasant_plus"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: 1258).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "titou_arena_peasant_plus": {
+      "cubeKey": "titou_arena_peasant_plus",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "titou_peasant:peasant_staple"
+      ],
+      "synergyTags": [
+        "synergy-token-creature",
+        "synergy-token",
+        "keyword-anthem"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PEASANT STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.9 %",
+            "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
+          }
+        ]
+      }
+    }
+  }
+}

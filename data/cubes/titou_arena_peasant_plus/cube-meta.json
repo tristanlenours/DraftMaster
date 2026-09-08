@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "titou_arena_peasant_plus",
+  "name": "Titou's Arena Peasant Plus Cube",
+  "owner": "titou",
+  "coverImage": "data/cubes/titou_arena_peasant_plus/titouPeasant.jpg",
+  "activeSnapshotId": "titou_arena_peasant_plus@2026-09-08.1",
+  "cardCount": 360,
+  "powerTier": "peasant",
+  "pacing": "midrange_attrition",
+  "fundamentalTurn": {
+    "targetTurn": 3.5,
+    "criticalWindow": "T3-T4",
+    "pacingDescription": "Format Peasant optimisé par des bilands parfaits (Shocklands fetchables par les Landscapes MH3). Le tour pivot se joue au T3-T4 où les synergies d’artefacts, de sacrifice, de tokens ou de food s’enchaînent avec une régularité remarquable.",
+    "deckExpectation": "Un deck équilibré doit stabiliser sa base de mana dès les premiers tours et développer des interactions à bas coût (abattages, cantrips, synergies d’artefacts) pour dominer les échanges au tour pivot T3/T4."
+  },
+  "technicalAxes": {
+    "speedIndex": 6.5,
+    "interactionDensityPercentage": 24.5,
+    "averageCmcEstimate": 2.6,
+    "fixingQuality": "shocks_checks",
+    "comboPotential": "minimal_fair_only"
+  },
+  "dominantMechanics": [
+    "Artifacts & Sacrifice",
+    "Food Engine",
+    "Tokens & Go-Wide",
+    "Recursion & Attrition",
+    "Tempo & Evasion",
+    "Shocklands & Landscapes"
+  ],
+  "fixingDensityPercentage": 8.9,
+  "archetypes": [
+    {
+      "id": "titou_peasant:azorius_tempo",
+      "name": "Azorius Tempo & Disruptive Fliers",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "category": "midrange",
+      "description": "Bêtes évasives et disruptives soutenues par des contresorts et du bounce économique.",
+      "gameplan": "Développer des menaces à bas coût (Sokka, fliers), perturber le tempo adverse et clore rapidement la partie.",
+      "keyCards": [
+        "427f8ef9-12b3-4fa0-b303-28153566b6dc",
+        "43c69d19-c06c-470a-bdba-a0335ff2d655",
+        "f1750962-a87c-49f6-b731-02ae971ac6ea"
+      ],
+      "supportCards": [
+        "6cb37ac1-dd11-4a8c-bca5-ef44d828059f"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:dimir_control",
+      "name": "Dimir Control & Draw-Two",
+      "primaryColors": [
+        "U",
+        "B"
+      ],
+      "category": "control",
+      "description": "Contrôle réactif d’attrition combinant pioche régulière, removals chirurgicaux et payoffs de pioche.",
+      "gameplan": "Neutraliser les premières menaces avec Cast Down et contre-sorts, rentabiliser Morbid Opportunist et Sneaky Snacker.",
+      "keyCards": [
+        "322f44f0-e6da-4ee0-b474-e7d5e9a461c5",
+        "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
+        "fc9ec820-4245-4a96-b009-5308a818ca58"
+      ],
+      "supportCards": [
+        "33ee23bc-6327-4a54-a704-dfd83be36bb5"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        14
+      ],
+      "recommendedRemovalCount": [
+        7,
+        10
+      ]
+    },
+    {
+      "id": "titou_peasant:rakdos_artifacts_sac",
+      "name": "Rakdos Artifacts & Sacrifice",
+      "primaryColors": [
+        "B",
+        "R"
+      ],
+      "category": "aggro",
+      "description": "Moteur de sacrifice d’artefacts infligeant des dégâts continus via drain et portée directe.",
+      "gameplan": "Générer des tokens et trésors, activer Oni-Cult Anvil et achever l’adversaire avec Marionette Apprentice et Improvised Club.",
+      "keyCards": [
+        "c018f072-8f6d-4835-a717-ed4ecba70d97",
+        "726d9d2c-736a-4852-9938-a0f50d8fd89f",
+        "43985bbc-a0f6-4812-984e-392bc8562633"
+      ],
+      "supportCards": [
+        "44b83535-fdbf-4307-bf53-ca20470a768d"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:gruul_stompy",
+      "name": "Gruul Stompy & Power Curve",
+      "primaryColors": [
+        "R",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Déploiement agressif de créatures surdimensionnées mettant sous pression constante la défense adverse.",
+      "gameplan": "Accélérer la courbe, poser des menaces imposantes dès le T3 et déborder les bloqueurs avec piétinement et burn.",
+      "keyCards": [
+        "9d14c7bd-7802-401c-b02b-c7f3c51b007f",
+        "ae3e5c80-6a6a-4781-a7b9-4d63357ffa3b",
+        "16052b52-ade1-406f-a06b-ce7ea607fb63"
+      ],
+      "supportCards": [
+        "e040a8e6-b90c-42d1-a1b1-771d954c61ab"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:selesnya_tokens",
+      "name": "Selesnya Go-Wide & Anthems",
+      "primaryColors": [
+        "G",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Production massive de jetons créatures amplifiés par des effets d’hymne et de synergies de plateau.",
+      "gameplan": "Multiplier les présences au sol dès les premiers tours, puis verrouiller la table avec des boosts globaux.",
+      "keyCards": [
+        "168d5711-4459-440f-8de4-aabffd47c44d",
+        "79d577a8-53c0-4220-bc0e-70764d72d5fd",
+        "f413a83d-a40d-434c-b20a-4c707c0527fa"
+      ],
+      "supportCards": [
+        "99720c65-be96-4220-8ed4-720660bf6928"
+      ],
+      "recommendedCreatureCount": [
+        15,
+        19
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:orzhov_recursion",
+      "name": "Orzhov Grind & Recursion",
+      "primaryColors": [
+        "W",
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Guerre d’usure et récursion de permanents à forte valeur pour épuiser toutes les réponses adverses.",
+      "gameplan": "Rentabiliser Ruthless Lawbringer et Sunpearl Kirin avec des effets de réanimation et de sacrifice tactique.",
+      "keyCards": [
+        "82b6a283-9897-4ce1-8de3-e7579cc9b75b",
+        "0b23d9aa-d4ed-4ccf-8810-4a4d11d6fb9c",
+        "73864fcc-1bde-4bc0-831e-2b93e546e417"
+      ],
+      "supportCards": [
+        "c9b7ea9c-3bcb-4538-aa25-cdb82a52037e"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "titou_peasant:golgari_food",
+      "name": "Golgari Food & Graveyard Value",
+      "primaryColors": [
+        "B",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Utilisation stratégique des jetons Nourriture comme ressources d’activation, couplée au cimetière.",
+      "gameplan": "Déposer Tough Cookie et Vinereap Mentor, engranger du card advantage et convertir la nourriture en victoires.",
+      "keyCards": [
+        "8a1a5862-c027-4c15-99a7-1795d0da96da",
+        "db649e15-24ca-4fd8-9f0b-f1df28c9c57d",
+        "975ec9a3-6f20-4177-8211-82526e092538"
+      ],
+      "supportCards": [
+        "2065cada-4078-41c4-9e06-2460d2a2e8ee"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "titou_peasant:simic_tempo_ramp",
+      "name": "Simic Ramp & Combat Tricks",
+      "primaryColors": [
+        "G",
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Développement rapide de mana vers des menaces polyvalentes protégées par des sorts de protection.",
+      "gameplan": "Poser des accélérateurs, déployer des menaces 2-pour-1 et punir les réponses adverses avec Repulsive Mutation.",
+      "keyCards": [
+        "611bfaa6-b098-48d9-9e49-1e7dc8687f15",
+        "69501650-ed48-4ebf-9287-b0338c5bc5d5",
+        "20283c4a-f1f0-42f0-bc08-6da87474426b"
+      ],
+      "supportCards": [
+        "29cd8a7c-108a-43d1-af63-f603a27c24f2"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "titou_peasant:izzet_artifacts",
+      "name": "Izzet Artifacts & Noncreature Spells",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Synergie dynamique entre créatures mécaniques, noncreature spells et génération de thopters.",
+      "gameplan": "Poser des artefacts tôt, déclencher Maverick Thopterist et clore par des attaques aériennes et du burn.",
+      "keyCards": [
+        "71ba6f1b-2fa6-4d4c-8778-f0765b1a5d8e",
+        "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "17039058-822d-409f-938c-b727a366ba63"
+      ],
+      "supportCards": [
+        "081bfd50-a436-463b-9d2c-5bc8a32b387c"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "titou_peasant:boros_game_objects",
+      "name": "Boros Aggro & Game Objects",
+      "primaryColors": [
+        "R",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Déferlement agressif créant un nombre massif d’objets de jeu (jetons, artefacts) exploités par Arabella.",
+      "gameplan": "Submerger le plateau de petites créatures et convertir la masse en dégâts directs dévastateurs.",
+      "keyCards": [
+        "7c4bbb1b-29c4-4e06-aed0-b361293a585b",
+        "42a9aeac-5b9c-4675-8c96-7c8ce7e9098c",
+        "45181cb8-2090-4471-ba90-e5a8f04d525f"
+      ],
+      "supportCards": [
+        "a3faf70d-c034-4692-9e92-1922029e3852"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 1,
+    "comboSynergyMultiplier": 1.2,
+    "fixingPriorityBonus": 2,
+    "curveStrictness": 2
+  }
+}
