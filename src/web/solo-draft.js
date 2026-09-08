@@ -317,7 +317,11 @@ export class SoloDraftController {
     if (this.dom.hudPackNumber) this.dom.hudPackNumber.textContent = `Pack ${String(session.packNumber)} / 3`;
     if (this.dom.hudPickNumber) this.dom.hudPickNumber.textContent = `Pick ${String(session.pickNumber)} / 15`;
     if (this.dom.hudDirection) {
-      this.dom.hudDirection.textContent = `🥛 Nourri au bon lait de : ${session.nextBoosterFromBotName}`;
+      const feederName =
+        session.nextBoosterFromBotName ||
+        (session.direction === "right" ? "Voisin de Droite" : "Voisin de Gauche") ||
+        "TitouBot";
+      this.dom.hudDirection.textContent = `🥛 Nourri au bon lait de : ${feederName}`;
     }
     if (this.dom.hudPlayerBadge) this.dom.hudPlayerBadge.textContent = session.playerName;
 
