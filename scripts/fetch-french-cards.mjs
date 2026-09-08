@@ -34,6 +34,21 @@ const candidateCards = cardList.filter((card) => {
   return card.presentInCubes && card.presentInCubes.includes(targetCube);
 });
 
+function isMatchingScryfallPrint(print, cardName) {
+  if (!print || !cardName) return false;
+  const cn = cardName.trim().toLowerCase();
+  const pn = (print.name || '').trim().toLowerCase();
+  if (pn === cn) return true;
+  if (print.card_faces && print.card_faces.length > 0) {
+    const frontFaceName = (print.card_faces[0].printed_name || print.card_faces[0].name || '').trim().toLowerCase();
+    const frontFaceOracleName = (print.card_faces[0].name || '').trim().toLowerCase();
+    if (frontFaceName === cn || frontFaceOracleName === cn) {
+      return true;
+    }
+  }
+  return false;
+}
+
 console.log(`📋 Found ${candidateCards.length} matching cards for target.`);
 
 const cardsToProcess = limit ? candidateCards.slice(0, limit) : candidateCards;
@@ -74,10 +89,9 @@ for (let i = 0; i < cardsToProcess.length; i++) {
     if (res.ok) {
       const data = await res.json();
       const prints = data.data || [];
-      const match =
-        prints.find((p) => p.name === card.name && (p.image_uris || p.card_faces?.[0]?.image_uris)) ||
-        prints.find((p) => p.image_uris || p.card_faces?.[0]?.image_uris) ||
-        prints[0];
+      const match = prints.find(
+        (p) => isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris)
+      );
 
       if (match) {
         if (match.card_faces && match.card_faces.length > 0) {

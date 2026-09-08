@@ -10,6 +10,7 @@ import {
   renderPantheonGrid,
 } from "./leaderboard.js";
 import { initAdminView } from "./admin.js";
+import { isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
 
 const CUBE_KEYS = {
   NICO: "nico_candyshop",
@@ -111,6 +112,10 @@ try {
     const parsed = JSON.parse(stored);
     for (const [k, v] of Object.entries(parsed)) {
       localFrenchCache.set(k, v);
+    }
+    if (sanitizeFrenchCache(localFrenchCache)) {
+      const cleaned = Object.fromEntries(localFrenchCache.entries());
+      localStorage.setItem("draftmaster_french_cache", JSON.stringify(cleaned));
     }
   }
 } catch {
@@ -1766,6 +1771,7 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
   // 1. Check local cache
   if (localFrenchCache.has(card.name)) {
     const cached = localFrenchCache.get(card.name);
+    if (cached.hasNoFrenchPrint) return;
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
@@ -1788,10 +1794,9 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
     if (res.ok) {
       const data = await res.json();
       const prints = data.data || [];
-      const match =
-        prints.find((p) => p.name === card.name && (p.image_uris || p.card_faces?.[0]?.image_uris)) ||
-        prints.find((p) => p.image_uris || p.card_faces?.[0]?.image_uris) ||
-        prints[0];
+      const match = prints.find(
+        (p) => isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris)
+      );
 
       if (match) {
         let fName = match.printed_name || card.name;
@@ -1820,7 +1825,15 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
         });
 
         if (onUpdate) onUpdate(card);
+      } else {
+        saveFrenchCache(card.name, {
+          hasNoFrenchPrint: true,
+        });
       }
+    } else {
+      saveFrenchCache(card.name, {
+        hasNoFrenchPrint: true,
+      });
     }
   } catch {
     // Offline mode: gracefully keeps fallback

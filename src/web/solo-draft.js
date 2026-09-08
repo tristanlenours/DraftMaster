@@ -1,7 +1,7 @@
 // DraftMaster — Solo Draft Client Controller & State Machine
 
 import { formatDuration, getScoreGrade } from "./leaderboard.js";
-import { loadImageWithFallback } from "./card-image.js";
+import { loadImageWithFallback, isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
 
 // Local cache for French card translations & images
 const localFrenchCache = new Map();
@@ -11,6 +11,10 @@ try {
     const parsed = JSON.parse(stored);
     for (const [k, v] of Object.entries(parsed)) {
       localFrenchCache.set(k, v);
+    }
+    if (sanitizeFrenchCache(localFrenchCache)) {
+      const cleaned = Object.fromEntries(localFrenchCache.entries());
+      localStorage.setItem("draftmaster_french_cache", JSON.stringify(cleaned));
     }
   }
 } catch {
@@ -52,6 +56,7 @@ function getSoloCardImage(card, isLarge = false) {
 
 function getSoloCardFallbackImage(card) {
   return (
+    card?.frenchImageUrl ||
     card?.imageUrl ||
     `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(card?.name || "")}&format=image`
   );
@@ -59,7 +64,19 @@ function getSoloCardFallbackImage(card) {
 
 async function fetchFrenchCard(card, onUpdate) {
   if (!card || !card.name) return;
-  if (card.localFrenchImagePath || card.image?.localFrenchPath) return;
+  if (card.frenchImageUrl) return;
+
+  if (localFrenchCache.has(card.name)) {
+    const cached = localFrenchCache.get(card.name);
+    if (cached.hasNoFrenchPrint) return;
+    if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
+    if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
+    if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (onUpdate) onUpdate(card);
+    if (card.frenchImageUrl) return;
+  }
+
   const cleanName = card.name.split(" // ")[0].trim();
   const searchUrl = `https://api.scryfall.com/cards/search?q=%21%22${encodeURIComponent(cleanName)}%22+lang%3Afr`;
   try {
@@ -72,10 +89,9 @@ async function fetchFrenchCard(card, onUpdate) {
     if (res.ok) {
       const data = await res.json();
       const prints = data.data || [];
-      const match =
-        prints.find((p) => p.name === card.name && (p.image_uris || p.card_faces?.[0]?.image_uris)) ||
-        prints.find((p) => p.image_uris || p.card_faces?.[0]?.image_uris) ||
-        prints[0];
+      const match = prints.find(
+        (p) => isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris)
+      );
 
       if (match) {
         let fName = match.printed_name || card.name;
@@ -103,7 +119,15 @@ async function fetchFrenchCard(card, onUpdate) {
           frenchLargeImageUrl: fLargeImg,
         });
         if (onUpdate) onUpdate(card);
+      } else {
+        saveFrenchCache(card.name, {
+          hasNoFrenchPrint: true,
+        });
       }
+    } else {
+      saveFrenchCache(card.name, {
+        hasNoFrenchPrint: true,
+      });
     }
   } catch {
     // Offline mode: gracefully ignore
@@ -186,6 +210,14 @@ export class SoloDraftController {
     const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
     publishToggle?.addEventListener("change", () => {
       this.renderDeckbuilder();
+    });
+
+    document.getElementById("card-hover-close-btn")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      this.hideCardHoverPreview();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") this.hideCardHoverPreview();
     });
   }
 
@@ -285,8 +317,7 @@ export class SoloDraftController {
     if (this.dom.hudPackNumber) this.dom.hudPackNumber.textContent = `Pack ${String(session.packNumber)} / 3`;
     if (this.dom.hudPickNumber) this.dom.hudPickNumber.textContent = `Pick ${String(session.pickNumber)} / 15`;
     if (this.dom.hudDirection) {
-      this.dom.hudDirection.textContent =
-        session.direction === "right" ? "➡️ Tourne à Droite" : "⬅️ Tourne à Gauche";
+      this.dom.hudDirection.textContent = `🥛 Nourri au bon lait de : ${session.nextBoosterFromBotName}`;
     }
     if (this.dom.hudPlayerBadge) this.dom.hudPlayerBadge.textContent = session.playerName;
 
@@ -310,10 +341,6 @@ export class SoloDraftController {
             const img = itemEl.querySelector(".booster-card-img");
             if (img && updatedCard.frenchImageUrl) {
               img.src = updatedCard.frenchImageUrl;
-            }
-            const label = itemEl.querySelector(".card-name-label");
-            if (label && updatedCard.frenchName) {
-              label.textContent = updatedCard.frenchName;
             }
           }
           if (this.activeHoveredCard?.instanceId === updatedCard.instanceId) {
@@ -342,10 +369,12 @@ export class SoloDraftController {
           <div class="booster-card-item" data-instance-id="${card.instanceId}" role="button" tabindex="0">
             <div class="card-art-wrap">
               <img alt="${escapeHtml(displayName)}" loading="lazy" class="booster-card-img" />
-            </div>
-            <div class="card-info-footer">
-              <span class="card-name-label">${escapeHtml(displayName)}</span>
-              <span class="card-cost-label">${escapeHtml(card.manaCost || "")}</span>
+              <button
+                type="button"
+                class="card-zoom-btn"
+                aria-label="Agrandir ${escapeHtml(displayName)}"
+                title="Agrandir la carte"
+              >🔍</button>
             </div>
           </div>
         `;
@@ -363,6 +392,7 @@ export class SoloDraftController {
       }
 
       el.addEventListener("click", () => {
+        this.hideCardHoverPreview();
         this.selectCardForPick(id);
       });
       el.addEventListener("dblclick", () => {
@@ -371,11 +401,12 @@ export class SoloDraftController {
       });
 
       if (card) {
-        el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
-        el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
-        el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
-        el.addEventListener("focus", (e) => this.showCardHoverPreview(card, e));
-        el.addEventListener("blur", () => this.hideCardHoverPreview());
+        const zoomButton = el.querySelector(".card-zoom-btn");
+        zoomButton?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          this.showCardHoverPreview(card, event);
+        });
+        zoomButton?.addEventListener("dblclick", (event) => event.stopPropagation());
       }
     });
 
@@ -479,17 +510,19 @@ export class SoloDraftController {
     this.activeHoveredCard = card;
 
     const targetSrc = getSoloCardImage(card, true);
+    const fallbackSrc = getSoloCardFallbackImage(card);
 
     popoverImg.alt = card.frenchName || card.name;
     popoverImg.onerror = () => {
-      if (card.imageUrl && popoverImg.src !== card.imageUrl) {
-        popoverImg.src = card.imageUrl;
+      if (fallbackSrc && popoverImg.src !== fallbackSrc) {
+        popoverImg.src = fallbackSrc;
       }
     };
     popoverImg.src = targetSrc;
 
     popover.hidden = false;
     popover.style.display = "block";
+    popover.setAttribute("aria-hidden", "false");
     this.positionCardHoverPreview(e);
 
     if (!card.frenchImageUrl) {
@@ -545,6 +578,7 @@ export class SoloDraftController {
     if (!el) return;
     el.hidden = true;
     el.style.display = "none";
+    el.setAttribute("aria-hidden", "true");
   }
 
   setupDeckbuilder(pool) {
