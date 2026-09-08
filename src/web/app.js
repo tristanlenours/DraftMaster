@@ -224,8 +224,12 @@ const elements = {
   leaderboardTbody: document.getElementById("leaderboard-tbody"),
   reportsTbody: document.getElementById("reports-tbody"),
 
-  // Cubes Detailed Panel
+  // Cubes Detailed Panel & Mobile Controls
   cubeDetailPanel: document.getElementById("cube-detail-panel"),
+  btnCubesModeCards: document.getElementById("btn-cubes-mode-cards"),
+  btnCubesModeTable: document.getElementById("btn-cubes-mode-table"),
+  cubesMobilePillBar: document.getElementById("cubes-mobile-pill-bar"),
+  cubesMobileCardsView: document.getElementById("cubes-mobile-cards-view"),
 
   // Controls Bar
   cubeSelect: document.getElementById("cube-select"),
@@ -760,13 +764,38 @@ function setupEventListeners() {
     });
   });
 
-  // Comparison table tab clicks
+  // Comparison table tab clicks & mobile card deep-dive triggers
   document.querySelectorAll(".btn-select-cube-tab").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const targetCube = e.currentTarget.dataset.tabCube;
-      document.querySelectorAll(".btn-select-cube-tab").forEach((b) => b.classList.remove("active"));
-      e.currentTarget.classList.add("active");
-      renderCubeDetail(targetCube);
+      if (targetCube) {
+        selectCube(targetCube);
+      }
+      if (e.currentTarget.classList.contains("btn-mobile-card-action")) {
+        elements.cubeDetailPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+  // Cubes Mobile Mode Toggle (Cards vs Table)
+  elements.btnCubesModeCards?.addEventListener("click", () => {
+    elements.btnCubesModeCards?.classList.add("active");
+    elements.btnCubesModeTable?.classList.remove("active");
+    elements.viewCubes?.classList.remove("table-mode");
+  });
+  elements.btnCubesModeTable?.addEventListener("click", () => {
+    elements.btnCubesModeTable?.classList.add("active");
+    elements.btnCubesModeCards?.classList.remove("active");
+    elements.viewCubes?.classList.add("table-mode");
+  });
+
+  // Mobile Cube Selector Pills
+  document.querySelectorAll(".cube-pill").forEach((pill) => {
+    pill.addEventListener("click", (e) => {
+      const targetCube = e.currentTarget.dataset.pillCube;
+      if (targetCube) {
+        selectCube(targetCube);
+      }
     });
   });
 
@@ -896,17 +925,38 @@ async function loadData() {
   }
 }
 
+// Synchronize and select active cube across Desktop table, Mobile pills, and Mobile cards
+function selectCube(cubeKey) {
+  state.detailCubeKey = cubeKey;
+  state.activeCubeKey = cubeKey;
+  if (elements.cubeSelect) elements.cubeSelect.value = cubeKey;
+
+  // Sync desktop comparison table tabs
+  document.querySelectorAll(".btn-select-cube-tab").forEach((btn) => {
+    const cube = btn.dataset.tabCube;
+    btn.classList.toggle("active", cube === cubeKey);
+  });
+
+  // Sync mobile pill selector
+  document.querySelectorAll(".cube-pill").forEach((pill) => {
+    const cube = pill.dataset.pillCube;
+    const isActive = cube === cubeKey;
+    pill.classList.toggle("active", isActive);
+    pill.setAttribute("aria-selected", String(isActive));
+  });
+
+  // Sync mobile synthetic cards
+  document.querySelectorAll(".cube-mobile-synth-card").forEach((card) => {
+    card.classList.toggle("active", card.dataset.cubeKey === cubeKey);
+  });
+
+  renderCubeDetail(cubeKey);
+}
+
 // Render Cubes Synthetic Page & Detailed Deep Dive
 function renderCubesPage() {
   const selectedCube = state.detailCubeKey || state.activeCubeKey || CUBE_KEYS.TITOU;
-
-  // Update tabs in comparison table
-  document.querySelectorAll(".btn-select-cube-tab").forEach((btn) => {
-    const cube = btn.dataset.tabCube;
-    btn.classList.toggle("active", cube === selectedCube);
-  });
-
-  renderCubeDetail(selectedCube);
+  selectCube(selectedCube);
 }
 
 function findCardByRef(ref) {

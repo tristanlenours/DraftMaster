@@ -389,6 +389,261 @@
           </div>
         </div>
 
+        <!-- Mobile View Controls (Mode Switcher + Cube Selector Pills) -->
+        <div class="cubes-mobile-controls" id="cubes-mobile-controls">
+          <!-- Mode Toggle: Cards vs Table -->
+          <div class="cubes-mobile-mode-toggle" role="group" aria-label="Mode d'affichage mobile des cubes">
+            <button type="button" class="btn-cubes-mode active" id="btn-cubes-mode-cards" data-mode="cards">
+              📱 Fiches Synthétiques
+            </button>
+            <button type="button" class="btn-cubes-mode" id="btn-cubes-mode-table" data-mode="table">
+              📊 Tableau Comparatif
+            </button>
+          </div>
+
+          <!-- Cube Selector Pills (Mobile) -->
+          <div class="cubes-mobile-pill-bar" id="cubes-mobile-pill-bar" role="tablist" aria-label="Sélectionner un cube">
+            <button type="button" class="cube-pill active" data-pill-cube="titou_tribal" role="tab" aria-selected="true">
+              👑 Titou's Tribal
+            </button>
+            <button type="button" class="cube-pill" data-pill-cube="nico_candyshop" role="tab" aria-selected="false">
+              ⚡ Nico's Candyshop
+            </button>
+            <button type="button" class="cube-pill" data-pill-cube="hugues_pauper" role="tab" aria-selected="false">
+              🛡️ Huge's Pauper
+            </button>
+            <button type="button" class="cube-pill" data-pill-cube="cedric_cube" role="tab" aria-selected="false">
+              ⚔️ Cédric's High-Power
+            </button>
+            <button type="button" class="cube-pill" data-pill-cube="titou_arena_peasant_plus" role="tab" aria-selected="false">
+              🌿 Peasant Plus
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Synthetic Cards View -->
+        <div class="cubes-mobile-cards-view" id="cubes-mobile-cards-view">
+          <!-- Card 1: Titou's Tribal -->
+          <article class="cube-mobile-synth-card active" data-cube-key="titou_tribal">
+            <div class="synth-card-header">
+              <div class="synth-card-title-row">
+                <span class="synth-card-icon">👑</span>
+                <div>
+                  <h3 class="synth-card-name">Titou's Tribal</h3>
+                  <span class="synth-card-architect">Tristan (@eltitou007)</span>
+                </div>
+              </div>
+              <span class="badge badge-synergy">Synergy Unpowered</span>
+            </div>
+            <dl class="synth-card-specs">
+              <div class="synth-spec-row">
+                <dt>⏱️ Rythme & Pacing</dt>
+                <dd>Midrange & Attrition</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🎯 Tour Fondamental (Zvi)</dt>
+                <dd><strong>T4</strong> (Critique : T3-T5)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>⚡ Vitesse & CMC</dt>
+                <dd>Vitesse : 5.8 / 10 • CMC : 3.1</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>💥 Densité Interaction</dt>
+                <dd>16.0 %</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🗺️ Qualité du Fixing</dt>
+                <dd>Rainbow Tribal & Changelins</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🌟 Signature</dt>
+                <dd>Armées tribales, Seigneurs, Guild Challenge</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn-select-cube-tab active btn-mobile-card-action" data-tab-cube="titou_tribal">
+              🔍 Voir l'Analyse Détaillée ci-dessous ↓
+            </button>
+          </article>
+
+          <!-- Card 2: Nico's Candyshop -->
+          <article class="cube-mobile-synth-card" data-cube-key="nico_candyshop">
+            <div class="synth-card-header">
+              <div class="synth-card-title-row">
+                <span class="synth-card-icon">⚡</span>
+                <div>
+                  <h3 class="synth-card-name">Nico's Candyshop</h3>
+                  <span class="synth-card-architect">Nico (@Fedor007)</span>
+                </div>
+              </div>
+              <span class="badge badge-vintage">Powered Vintage</span>
+            </div>
+            <dl class="synth-card-specs">
+              <div class="synth-spec-row">
+                <dt>⏱️ Rythme & Pacing</dt>
+                <dd>Ultra-Rapide (Blistering)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🎯 Tour Fondamental (Zvi)</dt>
+                <dd><strong>T2</strong> (Critique : T1-T3)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>⚡ Vitesse & CMC</dt>
+                <dd>Vitesse : 9.8 / 10 • CMC : 2.1</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>💥 Densité Interaction</dt>
+                <dd>24.5 % (Interactions 0 mana)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🗺️ Qualité du Fixing</dt>
+                <dd>10 Fetches & 10 Duals ABU</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🌟 Signature</dt>
+                <dd>Fast mana, Power 9, Storm, Combos T1/T2</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn-select-cube-tab btn-mobile-card-action" data-tab-cube="nico_candyshop">
+              🔍 Voir l'Analyse Détaillée ci-dessous ↓
+            </button>
+          </article>
+
+          <!-- Card 3: Huge's Pauper -->
+          <article class="cube-mobile-synth-card" data-cube-key="hugues_pauper">
+            <div class="synth-card-header">
+              <div class="synth-card-title-row">
+                <span class="synth-card-icon">🛡️</span>
+                <div>
+                  <h3 class="synth-card-name">Huge's Pauper</h3>
+                  <span class="synth-card-architect">Huge / Hugues</span>
+                </div>
+              </div>
+              <span class="badge badge-pauper">Pauper (100% Communes)</span>
+            </div>
+            <dl class="synth-card-specs">
+              <div class="synth-spec-row">
+                <dt>⏱️ Rythme & Pacing</dt>
+                <dd>Tempo & Attrition</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🎯 Tour Fondamental (Zvi)</dt>
+                <dd><strong>T4.5</strong> (Critique : T4-T5)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>⚡ Vitesse & CMC</dt>
+                <dd>Vitesse : 4.5 / 10 • CMC : 2.6</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>💥 Densité Interaction</dt>
+                <dd>22.0 % (Échanges 2-pour-1)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🗺️ Qualité du Fixing</dt>
+                <dd>Bouncelands & Taplands</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🌟 Signature</dt>
+                <dd>Avantage cartes à l'usure, Ninjutsu, Synthesizer</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn-select-cube-tab btn-mobile-card-action" data-tab-cube="hugues_pauper">
+              🔍 Voir l'Analyse Détaillée ci-dessous ↓
+            </button>
+          </article>
+
+          <!-- Card 4: Cédric's High-Power -->
+          <article class="cube-mobile-synth-card" data-cube-key="cedric_cube">
+            <div class="synth-card-header">
+              <div class="synth-card-title-row">
+                <span class="synth-card-icon">⚔️</span>
+                <div>
+                  <h3 class="synth-card-name">Cédric's High-Power</h3>
+                  <span class="synth-card-architect">Cédric (@Strobinellus)</span>
+                </div>
+              </div>
+              <span class="badge badge-cedric">Vintage Unpowered</span>
+            </div>
+            <dl class="synth-card-specs">
+              <div class="synth-spec-row">
+                <dt>⏱️ Rythme & Pacing</dt>
+                <dd>Midrange Attrition (Balanced)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🎯 Tour Fondamental (Zvi)</dt>
+                <dd><strong>T3.5</strong> (Critique : T3-T4)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>⚡ Vitesse & CMC</dt>
+                <dd>Vitesse : 7.8 / 10 • CMC : 3.2</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>💥 Densité Interaction</dt>
+                <dd>25.0 % (Sweepers & Blasts)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🗺️ Qualité du Fixing</dt>
+                <dd>Fetches, Duals & 10 Man-Lands</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🌟 Signature</dt>
+                <dd>Reanimator, Sneak/Show, 5 Swords, Superfriends</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn-select-cube-tab btn-mobile-card-action" data-tab-cube="cedric_cube">
+              🔍 Voir l'Analyse Détaillée ci-dessous ↓
+            </button>
+          </article>
+
+          <!-- Card 5: Titou's Peasant Plus -->
+          <article class="cube-mobile-synth-card" data-cube-key="titou_arena_peasant_plus">
+            <div class="synth-card-header">
+              <div class="synth-card-title-row">
+                <span class="synth-card-icon">🌿</span>
+                <div>
+                  <h3 class="synth-card-name">Titou's Peasant Plus</h3>
+                  <span class="synth-card-architect">Tristan (@eltitou007) / Jank Diver</span>
+                </div>
+              </div>
+              <span class="badge badge-peasant">Peasant Plus</span>
+            </div>
+            <dl class="synth-card-specs">
+              <div class="synth-spec-row">
+                <dt>⏱️ Rythme & Pacing</dt>
+                <dd>Midrange & Attrition</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🎯 Tour Fondamental (Zvi)</dt>
+                <dd><strong>T3.5</strong> (Critique : T3-T4)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>⚡ Vitesse & CMC</dt>
+                <dd>Vitesse : 6.5 / 10 • CMC : 2.6</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>💥 Densité Interaction</dt>
+                <dd>24.5 % (Removals & Échanges)</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🗺️ Qualité du Fixing</dt>
+                <dd>10 Shocklands, Fetches MH3 & Confluence</dd>
+              </div>
+              <div class="synth-spec-row">
+                <dt>🌟 Signature</dt>
+                <dd>Synergies Artefacts, Food, Tokens, Shocklands</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn-select-cube-tab btn-mobile-card-action" data-tab-cube="titou_arena_peasant_plus">
+              🔍 Voir l'Analyse Détaillée ci-dessous ↓
+            </button>
+          </article>
+        </div>
+
+        <!-- Scroll Hint for Comparison Table (Visible in Table Mode on Mobile) -->
+        <div class="cubes-table-scroll-hint" id="cubes-table-scroll-hint">
+          <span>👉 Glissez horizontalement pour comparer les 5 cubes</span>
+        </div>
+
         <!-- Synthetic Comparison Grid -->
         <div class="cubes-comparison-table-wrap">
           <table class="cubes-comparison-table">

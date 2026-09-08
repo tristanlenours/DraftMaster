@@ -2623,6 +2623,23 @@ body {
   margin: 0 auto;
 }
 
+/* Mobile Controls & Synthetic Cards (Hidden on Desktop) */
+.cubes-mobile-controls {
+  display: none;
+}
+
+.cubes-mobile-cards-view {
+  display: none;
+}
+
+.cubes-table-scroll-hint {
+  display: none;
+}
+
+.cube-mobile-synth-card {
+  display: none;
+}
+
 /* Synthetic Comparison Table */
 .cubes-comparison-table-wrap {
   background: var(--bg-surface);
@@ -3279,6 +3296,378 @@ body {
   }
   .home-manifesto-card {
     padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* ==========================================================================
+     VIEW 2 RESPONSIVENESS: CUBES MOBILE EXPERIENCE
+     ========================================================================== */
+  .cubes-view-container {
+    padding: 16px 12px 60px;
+    gap: 20px;
+  }
+
+  .cubes-view-title {
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  .cubes-view-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Mobile Controls: Mode Toggle + Pill Bar */
+  .cubes-mobile-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cubes-mobile-mode-toggle {
+    display: flex;
+    background: #141720;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 3px;
+    gap: 4px;
+  }
+
+  .btn-cubes-mode {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    border: none;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-cubes-mode.active {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(245, 158, 11, 0.35) 100%);
+    color: #fbbf24;
+    font-weight: 800;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .cubes-mobile-pill-bar {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 2px 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cubes-mobile-pill-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cube-pill {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-medium);
+    background: #181b24;
+    color: #cbd5e1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cube-pill.active {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(245, 158, 11, 0.35) 100%);
+    border-color: #f59e0b;
+    color: #fbbf24;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+  }
+
+  /* Mobile Synthetic Card View */
+  .cubes-mobile-cards-view {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cube-mobile-synth-card {
+    background: #151821;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px 14px;
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .cube-mobile-synth-card.active {
+    display: flex;
+    border-color: rgba(234, 179, 8, 0.35);
+  }
+
+  .synth-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .synth-card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .synth-card-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .synth-card-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .synth-card-architect {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .synth-card-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 12px 14px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .synth-spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 6px;
+  }
+
+  .synth-spec-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .synth-spec-row dt {
+    font-weight: 700;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  .synth-spec-row dd {
+    margin: 0;
+    text-align: right;
+    color: #f1f5f9;
+    word-break: break-word;
+  }
+
+  .btn-mobile-card-action {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Mode Switcher Behavior on Mobile */
+  .view-cubes:not(.table-mode) .cubes-comparison-table-wrap {
+    display: none;
+  }
+
+  .view-cubes:not(.table-mode) .cubes-table-scroll-hint {
+    display: none;
+  }
+
+  .view-cubes.table-mode .cubes-mobile-cards-view {
+    display: none;
+  }
+
+  .view-cubes.table-mode .cubes-comparison-table-wrap {
+    display: block;
+  }
+
+  .view-cubes.table-mode .cubes-table-scroll-hint {
+    display: flex;
+  }
+
+  /* Comparison Table Mobile Optimizations */
+  .cubes-table-scroll-hint {
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(234, 179, 8, 0.1);
+    border: 1px dashed rgba(234, 179, 8, 0.35);
+    border-radius: var(--radius-xs);
+    padding: 8px 12px;
+    text-align: center;
+  }
+
+  .cubes-comparison-table-wrap {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .cubes-comparison-table {
+    min-width: 680px;
+    font-size: 0.8rem;
+  }
+
+  .cubes-comparison-table th,
+  .cubes-comparison-table td {
+    padding: 10px 12px;
+  }
+
+  .cubes-comparison-table th.col-cube-feature,
+  .cubes-comparison-table td.feat-name {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    background: #161922;
+    border-right: 1px solid var(--border-medium);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+    font-size: 0.78rem;
+    word-break: break-word;
+  }
+
+  .cubes-comparison-table thead th.col-cube-feature {
+    z-index: 3;
+    background: #1c202a;
+  }
+
+  /* Deep-Dive Panel Mobile Layout Fixes */
+  .cube-detail-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 14px;
+    gap: 16px;
+  }
+
+  .cube-detail-cover {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+  }
+
+  .hero-tag-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cube-detail-name {
+    font-size: 1.4rem;
+  }
+
+  .cube-detail-owner {
+    font-size: 0.8rem;
+  }
+
+  .cube-detail-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .cube-detail-actions .btn-primary-action {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    padding: 12px 14px;
+    min-height: 44px;
+    font-size: 0.85rem;
+  }
+
+  .cube-format-box {
+    padding: 18px 14px;
+  }
+
+  .format-box-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .format-phases-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cube-tempo-axes-card {
+    grid-template-columns: 1fr;
+    padding: 16px 14px;
+    gap: 20px;
+  }
+
+  .tempo-clock-column {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .tempo-clock-dial {
+    margin: 0 auto;
+  }
+
+  .archetypes-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .archetype-card-item {
+    padding: 16px 14px;
+  }
+
+  .arch-card-title {
+    font-size: 1.05rem;
+  }
+
+  .archetype-card-chip {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+    min-height: 32px;
   }
 }
 

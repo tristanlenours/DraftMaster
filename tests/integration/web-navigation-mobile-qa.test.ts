@@ -117,6 +117,19 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('id="mobile-tier-list"');
       expect(htmlContent).toContain('id="matrix-tbody"');
     });
+
+    it("declares mobile view controls (mode toggle, cube selector pills) and mobile synthetic cube cards in view-cubes", () => {
+      expect(htmlContent).toContain('id="cubes-mobile-controls"');
+      expect(htmlContent).toContain('id="btn-cubes-mode-cards"');
+      expect(htmlContent).toContain('id="btn-cubes-mode-table"');
+      expect(htmlContent).toContain('id="cubes-mobile-pill-bar"');
+      expect(htmlContent).toContain('id="cubes-mobile-cards-view"');
+      expect(htmlContent).toContain('data-pill-cube="titou_tribal"');
+      expect(htmlContent).toContain('data-pill-cube="nico_candyshop"');
+      expect(htmlContent).toContain('data-pill-cube="hugues_pauper"');
+      expect(htmlContent).toContain('data-pill-cube="cedric_cube"');
+      expect(htmlContent).toContain('data-pill-cube="titou_arena_peasant_plus"');
+    });
   });
 
   describe("CSS Responsiveness & Mobile Target Guarantees", () => {
@@ -183,6 +196,19 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(cssContent).toContain(".mystery-coming-soon-banner");
       expect(cssContent).toContain(".teaser-feature-card");
     });
+
+    it("enforces responsive styles for cubes view: mobile pill bar, card view, sticky table column, and 1fr grids on mobile", () => {
+      expect(cssContent).toContain(".cubes-mobile-controls");
+      expect(cssContent).toContain(".cubes-mobile-pill-bar");
+      expect(cssContent).toContain(".cube-mobile-synth-card");
+      expect(cssContent).toContain(".cubes-table-scroll-hint");
+      expect(cssContent).toMatch(
+        /@media\s*\(max-width:\s*768px\)\s*\{[\s\S]*?\.cubes-comparison-table\s+th\.col-cube-feature[\s\S]*?position:\s*sticky/,
+      );
+      expect(cssContent).toMatch(
+        /@media\s*\(max-width:\s*768px\)\s*\{[\s\S]*?\.archetypes-cards-grid\s*\{[\s\S]*?grid-template-columns:\s*1fr/,
+      );
+    });
   });
 
   describe("Client Logic & Mobile Invariants", () => {
@@ -191,6 +217,13 @@ describe("Web Navigation & Mobile Target QA", () => {
       for (const identity of expectedIdentities) {
         expect(jsContent).toMatch(new RegExp(`${identity}:\\s*\`<svg`));
       }
+    });
+
+    it("implements mobile cube selector synchronization and cards/table mode toggle in cubes view", () => {
+      expect(jsContent).toContain("btnCubesModeCards");
+      expect(jsContent).toContain("btnCubesModeTable");
+      expect(jsContent).toContain("pillCube");
+      expect(jsContent).toContain("cube-mobile-synth-card");
     });
 
     it("implements mobile nav drawer toggling and closing functions", () => {

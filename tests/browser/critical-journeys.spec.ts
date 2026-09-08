@@ -156,3 +156,49 @@ test.describe("Solo Draft Coach on mobile", () => {
     await expect(page.locator(".booster-card-item").nth(3)).toBeVisible();
   });
 });
+
+test.describe("Cubes view on mobile", () => {
+  test.use({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
+
+  test("presents responsive synthetic cards, selector pills, and mode switcher without horizontal body overflow", async ({
+    page,
+  }) => {
+    await page.goto("/cubes");
+    await expect(page.locator("#view-cubes")).toBeVisible();
+
+    // Mobile controls & default cards view
+    await expect(page.locator("#cubes-mobile-controls")).toBeVisible();
+    await expect(page.locator("#btn-cubes-mode-cards")).toHaveClass(/active/);
+    await expect(page.locator("#cubes-mobile-cards-view")).toBeVisible();
+    await expect(page.locator(".cubes-comparison-table-wrap")).toBeHidden();
+
+    // First card (Titou) is active by default
+    const titouCard = page.locator('.cube-mobile-synth-card[data-cube-key="titou_tribal"]');
+    await expect(titouCard).toBeVisible();
+
+    // Select Nico's Candyshop via pill
+    const nicoPill = page.locator('.cube-pill[data-pill-cube="nico_candyshop"]');
+    await nicoPill.tap();
+    await expect(nicoPill).toHaveClass(/active/);
+
+    const nicoCard = page.locator('.cube-mobile-synth-card[data-cube-key="nico_candyshop"]');
+    await expect(nicoCard).toBeVisible();
+    await expect(titouCard).toBeHidden();
+
+    // Detail panel reflects selected cube
+    await expect(page.locator("#cube-detail-panel .cube-detail-name")).toContainText(
+      "Nico's Vintage Candyshop",
+    );
+
+    // Switch to comparison table mode
+    await page.locator("#btn-cubes-mode-table").tap();
+    await expect(page.locator("#btn-cubes-mode-table")).toHaveClass(/active/);
+    await expect(page.locator(".cubes-comparison-table-wrap")).toBeVisible();
+    await expect(page.locator("#cubes-table-scroll-hint")).toBeVisible();
+    await expect(page.locator("#cubes-mobile-cards-view")).toBeHidden();
+
+    // Body scroll width does not overflow mobile viewport
+    const bodyScrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    expect(bodyScrollWidth).toBeLessThanOrEqual(390);
+  });
+});
