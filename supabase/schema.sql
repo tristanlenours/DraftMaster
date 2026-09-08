@@ -100,7 +100,7 @@ create policy "Mise à jour profils"
 insert into public.magiciens_profiles (slug, name, nickname, title, quote, level, preferred_colors, avatar_url)
 values
   ('nico', 'Nico', 'Big Nixos', 'Le Spike Impitoyable', 'Je prends ce qui gagne. Pas de sentiments en draft.', 'elite', array['U', 'B', 'W'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Nico&backgroundColor=0e1115'),
-  ('cedric', 'Cédric', 'Cédrix', 'Meilleur Joueur de sa Génération', 'Un play propre, de la value, et la courbe parfaite. La base du beau jeu.', 'elite', array['U', 'R', 'W'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Cedric&backgroundColor=0e1115'),
+  ('cedric', 'Cédric', 'Jakko', 'Meilleur Joueur de sa Génération', 'Un play propre, de la value, et la courbe parfaite. La base du beau jeu.', 'elite', array['U', 'R', 'W'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Cedric&backgroundColor=0e1115'),
   ('hugues', 'Hugues', 'Hugo', 'Turbo Rien / Le Johnny Osé', 'J''ai vu une combo avec cette saga et ce caillou. Si ça passe, c''est du génie !', 'ambitious', array['U', 'R', 'G'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Hugues&backgroundColor=0e1115'),
   ('remi', 'Rémi', 'Le Rouxeleur', 'Le Maître des Rouxelettes', 'Attends, je peux vraiment jouer ça ? C''est légal ? Bon, je prends quand même !', 'medium', array['R', 'G', 'B'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Remi&backgroundColor=0e1115'),
   ('papayou', 'Papayou', 'LaPapapaie', 'Le Roi des Légendaires', 'Une légendaire, c''est toujours plus fort. Regarde cette illustration !', 'ambitious', array['W', 'G', 'B'], 'https://api.dicebear.com/7.x/bottts/svg?seed=Papayou&backgroundColor=0e1115'),

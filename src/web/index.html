@@ -913,7 +913,7 @@
             </div>
           </article>
 
-          <!-- Bot 2 : Cédrix -->
+          <!-- Bot 2 : Jakko -->
           <article class="bot-card" data-bot-id="cedric" data-style="value" data-level="elite">
             <header class="bot-card-header">
               <div class="bot-avatar-wrap">
@@ -922,7 +922,7 @@
               </div>
               <div class="bot-identity">
                 <div class="bot-name-row">
-                  <h3 class="bot-name">Cédrix</h3>
+                  <h3 class="bot-name">Jakko</h3>
                 </div>
                 <div class="bot-title">L'Architecte du Beau Jeu & de la Curve</div>
               </div>
@@ -956,7 +956,7 @@
             </div>
 
             <p class="bot-description">
-              Considéré comme le « Meilleur joueur de sa génération », Cédrix est un puriste de la rentabilité. Il cherche en permanence les 2-pour-1, les moteurs d'avantage de cartes et une courbe de mana au millimètre. Magic est pour lui un art de précision mathématique.
+              Considéré comme le « Meilleur joueur de sa génération », Jakko est un puriste de la rentabilité. Il cherche en permanence les 2-pour-1, les moteurs d'avantage de cartes et une courbe de mana au millimètre. Magic est pour lui un art de précision mathématique.
             </p>
 
             <div class="bot-biases-section">
@@ -1397,35 +1397,26 @@
         </div>
 
         <div class="lobby-card-box">
-          <!-- Magicien Identity Selection (Effet WHAOU) -->
-          <div class="magicien-select-section">
-            <div class="magicien-select-header">
-              <span class="magicien-select-icon">👑</span>
-              <div>
-                <h3 class="magicien-select-title">Incarnez votre Magicien</h3>
-                <span class="magicien-select-subtitle">Sélectionnez votre profil officiel ou jouez en Invité</span>
+          <!-- Saisie du Nom du Joueur -->
+          <div class="lobby-player-input-box">
+            <div class="form-field-group">
+              <label for="draft-player-name" class="field-label">Votre Nom de Joueur :</label>
+              <div class="player-input-wrap">
+                <input
+                  type="text"
+                  id="draft-player-name"
+                  class="arcade-input"
+                  placeholder="Entrez votre nom..."
+                  maxlength="16"
+                  value="Joueur"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <input type="hidden" id="draft-magicien-slug" value="" />
               </div>
-            </div>
-
-            <div class="magicien-cards-grid" id="magicien-cards-grid">
-              <!-- Dynamically populated with 8 Magiciens + Invité -->
-            </div>
-
-            <div class="lobby-form-row lobby-single-field" style="margin-top: 14px;">
-              <div class="form-field-group">
-                <label for="draft-player-name" class="field-label">Nom d'affichage pour la session :</label>
-                <div class="player-input-with-slug">
-                  <input
-                    type="text"
-                    id="draft-player-name"
-                    class="arcade-input"
-                    placeholder="Ex: Tristan, Le Conquérant..."
-                    maxlength="30"
-                    value="Tristan"
-                  />
-                  <input type="hidden" id="draft-magicien-slug" value="titou" />
-                </div>
-              </div>
+              <span class="player-input-hint" style="font-size: 0.78rem; color: #94a3b8; margin-top: 6px; display: block;">
+                16 caractères max • Pas de caractères spéciaux
+              </span>
             </div>
           </div>
 
@@ -1442,49 +1433,49 @@
               <div class="preview-seat-card seat-human">
                 <span class="seat-badge">Siège 0</span>
                 <span class="seat-avatar">🧙‍♂️</span>
-                <span class="seat-name" id="preview-human-name">Tristan (Vous)</span>
+                <span class="seat-name" id="preview-human-name">Vous</span>
                 <span class="seat-role">Challenger Solo</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 1 (Gauche)</span>
                 <span class="seat-avatar">⚡</span>
-                <span class="seat-name">Nico (Big Nixos)</span>
+                <span class="seat-name">Big Nixos</span>
                 <span class="seat-role">Spike Impitoyable</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 2</span>
                 <span class="seat-avatar">🎲</span>
-                <span class="seat-name">Rémi (Le Rouxeleur)</span>
+                <span class="seat-name">Le Rouxeleur</span>
                 <span class="seat-role">Maître Rouxelettes</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 3</span>
                 <span class="seat-avatar">🎭</span>
-                <span class="seat-name">Hugues (Hugo)</span>
+                <span class="seat-name">Hugo</span>
                 <span class="seat-role">Turbo Rien / Combo</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 4 (Face)</span>
                 <span class="seat-avatar">🌲</span>
-                <span class="seat-name">Ivan (Le Gourmand)</span>
+                <span class="seat-name">Le Gourmand</span>
                 <span class="seat-role">4-Couleurs Ramp</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 5</span>
                 <span class="seat-avatar">👑</span>
-                <span class="seat-name">Papayou (LaPapapaie)</span>
+                <span class="seat-name">LaPapapaie</span>
                 <span class="seat-role">Légendaires Bombs</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 6</span>
                 <span class="seat-avatar">🏆</span>
-                <span class="seat-name">Cédric (Cédrix)</span>
+                <span class="seat-name">Jakko</span>
                 <span class="seat-role">Meilleur de sa Génération</span>
               </div>
               <div class="preview-seat-card">
                 <span class="seat-badge">Siège 7 (Droite)</span>
                 <span class="seat-avatar">📜</span>
-                <span class="seat-name">Titou (TitouBot)</span>
+                <span class="seat-name">TitouBot</span>
                 <span class="seat-role">Architecte Tribal</span>
               </div>
             </div>

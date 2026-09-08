@@ -702,8 +702,15 @@ export function createRequestHandler(options = {}) {
       const content = await readFile(filePath);
       const fileExt = extname(filePath).toLowerCase();
       const contentType = MIME_TYPES[fileExt] || "application/octet-stream";
+      const isDynamicAsset = fileExt === ".html" || fileExt === ".js" || fileExt === ".css";
+      const cacheControl = isDynamicAsset
+        ? "no-cache, no-store, must-revalidate"
+        : "public, max-age=3600";
 
-      res.writeHead(200, { "Content-Type": contentType });
+      res.writeHead(200, {
+        "Content-Type": contentType,
+        "Cache-Control": cacheControl,
+      });
       res.end(content);
     } catch {
       res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });

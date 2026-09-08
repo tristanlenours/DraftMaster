@@ -88,7 +88,7 @@ const DEFAULT_MAGICIENS: readonly MagicienProfileDto[] = [
     id: "cedric",
     slug: "cedric",
     name: "Cédric",
-    nickname: "Cédrix",
+    nickname: "Jakko",
     title: "Meilleur Joueur de sa Génération",
     quote: "Un play propre, de la value, et la courbe parfaite. La base du beau jeu.",
     level: "elite",

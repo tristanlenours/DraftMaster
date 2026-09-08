@@ -21,7 +21,6 @@ export interface FriendProfile {
   readonly id: string;
   readonly name: string;
   readonly botName?: string;
-  readonly cloneOf?: string;
   readonly title: string;
   readonly quote: string;
   readonly level: FriendSkillLevel;
@@ -34,7 +33,6 @@ export const NICO_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "nico",
   name: "Nico",
   botName: "Big Nixos",
-  cloneOf: "Nico",
   title: "Le Spike Impitoyable",
   quote: "Je prends ce qui gagne. Pas de sentiments en draft.",
   level: "elite",
@@ -50,8 +48,7 @@ export const NICO_PROFILE: Readonly<FriendProfile> = Object.freeze({
 export const CEDRIC_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "cedric",
   name: "Cédric",
-  botName: "Cédrix",
-  cloneOf: "Cédric",
+  botName: "Jakko",
   title: "Meilleur Joueur de sa Génération",
   quote: "Un play propre, de la value, et la courbe parfaite. La base du beau jeu.",
   level: "elite",
@@ -68,7 +65,6 @@ export const HUGUES_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "hugues",
   name: "Hugues",
   botName: "Hugo",
-  cloneOf: "Hugues",
   title: "Turbo Rien / Le Johnny Osé",
   quote: "J'ai vu une combo avec cette saga et ce caillou. Si ça passe, c'est du génie !",
   level: "ambitious",
@@ -83,7 +79,6 @@ export const REMI_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "remi",
   name: "Rémi",
   botName: "Le Rouxeleur",
-  cloneOf: "Rémi",
   title: "Le Maître des Rouxelettes",
   quote: "Attends, je peux vraiment jouer ça ? C'est légal ? Bon, je prends quand même !",
   level: "medium",
@@ -97,7 +92,6 @@ export const PAPAYOU_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "papayou",
   name: "Papayou",
   botName: "LaPapapaie",
-  cloneOf: "Papayou",
   title: "L'Amateur de High-Power & Triathlète",
   quote: "Une bombe légendaire 6/6 qui rase la table ? Donne-moi ça tout de suite !",
   level: "medium",
@@ -112,7 +106,6 @@ export const IVAN_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "ivan",
   name: "Ivan",
   botName: "Le Gourmand",
-  cloneOf: "Ivan",
   title: "Le Maître 4-Couleurs Ramp & Wrath (Non-Rouge)",
   quote:
     "J'accélère la mana, une bonne Wrath pour nettoyer la table, et après je pose les monstres. Jamais de rouge !",
@@ -132,7 +125,6 @@ export const TITOU_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "titou",
   name: "Titou",
   botName: "TitouBot",
-  cloneOf: "Titou",
   title: "L'Architecte Tribal & Chromatique",
   quote: "Une tribu bien huilée et un bon seigneur, et la guilde roule sur le format.",
   level: "elite",
@@ -147,7 +139,6 @@ export const THEO_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "theo",
   name: "Théo",
   botName: "Le Rockeur",
-  cloneOf: "Théo",
   title: "Le Virtuose Reanimator & Riffs Rakdos",
   quote:
     "Tu croyais que ma bête était morte ? Monte les amplis à 11, elle revient direct du cimetière !",

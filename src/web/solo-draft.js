@@ -163,10 +163,19 @@ export class SoloDraftController {
     this.lastResult = null;
 
     this.bindEvents();
-    this.initMagiciensSelector();
   }
 
   bindEvents() {
+    // 0. Player Name input sanitization (16 chars max, no special characters)
+    if (this.dom.playerNameInput) {
+      this.dom.playerNameInput.addEventListener("input", (e) => {
+        const cleaned = e.target.value.replace(/[^a-zA-Z0-9À-ÿ _-]/g, "").slice(0, 16);
+        if (e.target.value !== cleaned) {
+          e.target.value = cleaned;
+        }
+      });
+    }
+
     // 1. Start button in lobby
     this.dom.startBtn?.addEventListener("click", () => this.handleStartDraft());
 
@@ -263,16 +272,16 @@ export class SoloDraftController {
   }
 
   async handleStartDraft() {
-    const rawName = this.dom.playerNameInput?.value?.trim() || "";
+    let rawName = this.dom.playerNameInput?.value?.trim() || "";
+    // Sanitize: max 16 chars, alphanumeric, french accented letters, spaces, hyphens, underscores
+    rawName = rawName.replace(/[^a-zA-Z0-9À-ÿ _-]/g, "").slice(0, 16).trim();
     if (!rawName) {
-      alert("Veuillez saisir votre nom ou pseudo pour lancer le draft solo !");
-      this.dom.playerNameInput?.focus();
-      return;
+      rawName = "Joueur";
     }
 
     this.playerName = rawName;
     const slugInput = document.getElementById("draft-magicien-slug");
-    const magicienSlug = slugInput?.value || this.magicienSlug || "titou";
+    const magicienSlug = slugInput?.value || undefined;
 
     // Seed is generated randomly in the background and completely masked from the player
     const seed = Math.floor(Math.random() * 2147483647) + 1;
@@ -929,68 +938,6 @@ export class SoloDraftController {
 
     // Store for sharing
     this.lastResult = result;
-  }
-
-  async initMagiciensSelector() {
-    const grid = document.getElementById("magicien-cards-grid");
-    if (!grid) return;
-
-    try {
-      const res = await fetch("/api/magiciens");
-      if (!res.ok) return;
-      const { magiciens } = await res.json();
-      if (!Array.isArray(magiciens) || magiciens.length === 0) return;
-
-      grid.innerHTML = magiciens
-        .map((m) => {
-          const isSelected = m.slug === this.magicienSlug;
-          const trophyBadge =
-            m.trophiesCount > 0 ? `<span class="magicien-badge-trophy">🏆 ${String(m.trophiesCount)}</span>` : "";
-          const colorDots = (m.preferredColors || [])
-            .map((c) => `<span class="color-dot ${c}"></span>`)
-            .join("");
-
-          return `
-            <div class="magicien-card ${isSelected ? "selected" : ""}" data-slug="${m.slug}" data-name="${escapeHtml(m.name)}" data-nick="${escapeHtml(m.nickname)}" data-title="${escapeHtml(m.title)}" data-quote="${escapeHtml(m.quote)}">
-              <div class="magicien-card-avatar-wrap">
-                <img src="${m.avatarUrl}" alt="${escapeHtml(m.name)}" class="magicien-card-avatar" />
-                ${trophyBadge}
-              </div>
-              <span class="magicien-card-name">${escapeHtml(m.name)}</span>
-              <span class="magicien-card-nick">${escapeHtml(m.nickname)}</span>
-              <span class="magicien-card-title">${escapeHtml(m.title)}</span>
-              <div class="magicien-colors-dots">
-                ${colorDots}
-              </div>
-            </div>
-          `;
-        })
-        .join("");
-
-      grid.querySelectorAll(".magicien-card").forEach((cardEl) => {
-        cardEl.addEventListener("click", () => {
-          grid.querySelectorAll(".magicien-card").forEach((c) => c.classList.remove("selected"));
-          cardEl.classList.add("selected");
-
-          const slug = cardEl.dataset.slug;
-          const name = cardEl.dataset.name;
-          const nick = cardEl.dataset.nick;
-
-          this.magicienSlug = slug;
-          const nameInput = document.getElementById("draft-player-name");
-          const slugInput = document.getElementById("draft-magicien-slug");
-          if (nameInput) nameInput.value = name;
-          if (slugInput) slugInput.value = slug;
-
-          const previewHumanName = document.getElementById("preview-human-name");
-          if (previewHumanName) {
-            previewHumanName.textContent = `${name} (Vous) - ${nick}`;
-          }
-        });
-      });
-    } catch (err) {
-      console.warn("Échec chargement sélecteur magiciens :", err);
-    }
   }
 
   openDeckShowcaseModal(result) {
