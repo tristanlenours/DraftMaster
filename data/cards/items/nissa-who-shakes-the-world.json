@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "slug": "nissa-who-shakes-the-world",
+  "name": "Nissa, Who Shakes the World",
+  "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
+  "manaCost": "{G}{G}{3}",
+  "cmc": 5,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Legendary Planeswalker — Nissa",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Nissa"
+  ],
+  "oracleText": "Whenever you tap a Forest for mana, add an additional {G}.\n+1: Put three +1/+1 counters on up to one target noncreature land you control. Untap it. It becomes a 0/0 Elemental creature with vigilance and haste that's still a land.\n−8: You get an emblem with \"Lands you control have indestructible.\" Search your library for any number of Forest cards, put them onto the battlefield tapped, then shuffle.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f857bbe4-5619-4733-a0c7-69700f2ef4f3/normal.webp",
+    "localPath": "data/cards/images/cards/nissa-who-shakes-the-world.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f857bbe4-5619-4733-a0c7-69700f2ef4f3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/nissa-who-shakes-the-world.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f857bbe4-5619-4733-a0c7-69700f2ef4f3/normal.webp",
+  "powerScore": {
+    "score": 34,
+    "source": "untapped",
+    "rawSourceScore": 34,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1318).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "cycle-war-gatewatch"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "55.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "cycle-war-gatewatch"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

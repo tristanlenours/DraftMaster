@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "slug": "blood-researcher",
+  "name": "Blood Researcher",
+  "oracleId": "a465ba74-615a-4261-b4a0-fcb0819f10b3",
+  "manaCost": "{G}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Creature — Vampire Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Vampire",
+    "Druid"
+  ],
+  "oracleText": "Menace (This creature can't be blocked except by two or more creatures.)\nWhenever you gain life, put a +1/+1 counter on this creature.",
+  "keywords": [
+    "Menace"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3e35e9ba-a10e-4926-a7a6-3a65efc2a730/normal.webp",
+    "localPath": "data/cards/images/cards/blood-researcher.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3e35e9ba-a10e-4926-a7a6-3a65efc2a730/art_crop.webp",
+    "localArtPath": "data/cards/images/art/blood-researcher.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3e35e9ba-a10e-4926-a7a6-3a65efc2a730/normal.webp",
+  "powerScore": {
+    "score": 8.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1116.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1117).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.6,
+    "ceilingRating": 6.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "triggered-ability",
+        "cycle-stx-c-2c-creature"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "C",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Chercheuse en sang",
+  "frenchText": "Menace (Cette créature ne peut pas être bloquée excepté par deux créatures ou plus.)\nÀ chaque fois que vous gagnez des points de vie, mettez un marqueur +1/+1 sur la Chercheuse en sang."
+}

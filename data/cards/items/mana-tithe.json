@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "slug": "mana-tithe",
+  "name": "Mana Tithe",
+  "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345",
+  "manaCost": "{W}",
+  "cmc": 1,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Counter target spell unless its controller pays {1}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e7f32354-893d-4f0b-b555-e0757fb5443b/normal.webp",
+    "localPath": "data/cards/images/cards/mana-tithe.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e7f32354-893d-4f0b-b555-e0757fb5443b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mana-tithe.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e7f32354-893d-4f0b-b555-e0757fb5443b/normal.webp",
+  "powerScore": {
+    "score": 32,
+    "source": "untapped",
+    "rawSourceScore": 32,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1270).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "counterspell-with-set-mechanic",
+        "staple-with-set-s-mechanic"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "counterspell-with-set-mechanic",
+        "staple-with-set-s-mechanic"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.5 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "counterspell-with-set-mechanic",
+        "staple-with-set-s-mechanic"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Dîme de mana",
+  "frenchText": "Contrecarrez un sort ciblé à moins que son contrôleur ne paie {1}."
+}

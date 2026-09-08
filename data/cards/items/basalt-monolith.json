@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "slug": "basalt-monolith",
+  "name": "Basalt Monolith",
+  "oracleId": "6b8cf2a0-b045-4d91-9d91-c602d40c6237",
+  "manaCost": "{3}",
+  "cmc": 3,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{3}: Untap this artifact.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e5951ebc-8fee-4305-a776-b2bd751c9818/normal.webp",
+    "localPath": "data/cards/images/cards/basalt-monolith.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e5951ebc-8fee-4305-a776-b2bd751c9818/art_crop.webp",
+    "localArtPath": "data/cards/images/art/basalt-monolith.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e5951ebc-8fee-4305-a776-b2bd751c9818/normal.webp",
+  "powerScore": {
+    "score": 20.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1532.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1533).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7.7,
+    "ceilingRating": 8.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "doesn-t-untap",
+        "fun-ruling",
+        "untaps-self"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "66.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "doesn-t-untap",
+        "fun-ruling",
+        "untaps-self"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "66.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

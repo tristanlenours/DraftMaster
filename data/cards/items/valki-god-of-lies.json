@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "slug": "valki-god-of-lies",
+  "name": "Valki, God of Lies",
+  "oracleId": "907ae517-22d5-4ac7-bc3a-3f4d5eaeeb57",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Legendary Creature — God",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "God"
+  ],
+  "oracleText": "When Valki enters, each opponent reveals their hand. For each opponent, exile a creature card they revealed this way until Valki leaves the battlefield.\n{X}: Choose a creature card exiled with Valki with mana value X. Valki becomes a copy of that card.\nAs Tibalt enters, you get an emblem with \"You may play cards exiled with Tibalt, Cosmic Impostor, and you may spend mana as though it were mana of any color to cast those spells.\"\n+2: Exile the top card of each player's library.\n−3: Exile target artifact or creature.\n−8: Exile all graveyards. Add {R}{R}{R}.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ea7e4c65-b4c4-4795-9475-3cba71c50ea5/normal.webp",
+    "localPath": "data/cards/images/cards/valki-god-of-lies.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ea7e4c65-b4c4-4795-9475-3cba71c50ea5/art_crop.webp",
+    "localArtPath": "data/cards/images/art/valki-god-of-lies.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ea7e4c65-b4c4-4795-9475-3cba71c50ea5/normal.webp",
+  "powerScore": {
+    "score": 26.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1278.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1278).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "passive-ability",
+        "more-expensive-than-mv"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "passive-ability",
+        "more-expensive-than-mv"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

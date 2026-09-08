@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "nurturing-peatland",
+  "name": "Nurturing Peatland",
+  "oracleId": "8ed932ff-986c-4592-ad70-53b3fac80d69",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}, Pay 1 life: Add {B} or {G}.\n{1}, {T}, Sacrifice this land: Draw a card.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "B",
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/2744ac83-a79f-4042-8720-688b5adda382/normal.webp",
+    "localPath": "data/cards/images/cards/nurturing-peatland.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/2744ac83-a79f-4042-8720-688b5adda382/art_crop.webp",
+    "localArtPath": "data/cards/images/art/nurturing-peatland.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/2744ac83-a79f-4042-8720-688b5adda382/normal.webp",
+  "powerScore": {
+    "score": 39.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1259.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1260).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "drawback",
+        "pure-draw",
+        "draw"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

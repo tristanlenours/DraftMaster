@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "elder-gargaroth",
+  "name": "Elder Gargaroth",
+  "oracleId": "397b9dcf-690a-4a58-8637-bb9baab7cc2f",
+  "scryfallId": "d51269cf-a333-4a64-94cd-245798d840d2",
+  "manaCost": "{G}{G}{3}",
+  "cmc": 5,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Beast",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Beast"
+  ],
+  "oracleText": "Reach, vigilance, trample\nWhenever this creature attacks or blocks, choose one —\n• Create a 3/3 green Beast creature token.\n• You gain 3 life.\n• Draw a card.",
+  "keywords": [
+    "Reach",
+    "Vigilance",
+    "Trample"
+  ],
+  "power": "6",
+  "toughness": "6",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d51269cf-a333-4a64-94cd-245798d840d2/normal.webp",
+    "localPath": "data/cards/images/elder-gargaroth.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d51269cf-a333-4a64-94cd-245798d840d2/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d51269cf-a333-4a64-94cd-245798d840d2/normal.webp",
+  "powerScore": {
+    "score": 23,
+    "source": "untapped",
+    "rawSourceScore": 23,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1328).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "B",
+            "winrateOrScore": "56.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

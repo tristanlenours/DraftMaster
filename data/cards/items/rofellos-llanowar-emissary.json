@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "rofellos-llanowar-emissary",
+  "name": "Rofellos, Llanowar Emissary",
+  "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
+  "manaCost": "{G}{G}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Legendary Creature — Elf Druid",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Druid"
+  ],
+  "oracleText": "{T}: Add {G} for each Forest you control.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/6aa5cc65-f8f1-4f6f-8b4e-2fedccbda684/normal.webp",
+    "localPath": "data/cards/images/cards/rofellos-llanowar-emissary.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/6aa5cc65-f8f1-4f6f-8b4e-2fedccbda684/art_crop.webp",
+    "localArtPath": "data/cards/images/art/rofellos-llanowar-emissary.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/6aa5cc65-f8f1-4f6f-8b4e-2fedccbda684/normal.webp",
+  "powerScore": {
+    "score": 20,
+    "source": "untapped",
+    "rawSourceScore": 20,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1349).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "synergy-forest",
+        "adds-multiple-mana",
+        "deprecated-legend-type"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "57.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "synergy-forest",
+        "adds-multiple-mana",
+        "deprecated-legend-type"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "B",
+            "winrateOrScore": "57.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "pack-rat",
+  "name": "Pack Rat",
+  "oracleId": "5632c2df-71e6-41b7-b8f5-c683812cc0e2",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Rat",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Rat"
+  ],
+  "oracleText": "Pack Rat's power and toughness are each equal to the number of Rats you control.\n{2}{B}, Discard a card: Create a token that's a copy of this creature.",
+  "keywords": [],
+  "power": "*",
+  "toughness": "*",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/5c2c421c-e7fe-495c-8fbb-e25b1c1f7526/normal.webp",
+    "localPath": "data/cards/images/cards/pack-rat.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/5c2c421c-e7fe-495c-8fbb-e25b1c1f7526/art_crop.webp",
+    "localArtPath": "data/cards/images/art/pack-rat.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/5c2c421c-e7fe-495c-8fbb-e25b1c1f7526/normal.webp",
+  "powerScore": {
+    "score": 30.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1443.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1444).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "quadratic",
+        "discard-outlet",
+        "typal-rat"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,6299 @@
+{
+  "schemaVersion": "untapped-axis-benchmark/v1",
+  "purpose": "Exploratory, held-out calibration benchmark. This does not reproduce Untapped's proprietary algorithm.",
+  "split": {
+    "heldOutDraftId": "d555b02d-3745-4a4f-b1b6-fdc75c38c5c0",
+    "trainingDrafts": [
+      "04334a47-a726-4a79-bd3e-bbdde8da99b9",
+      "05d0bf70-33a9-458c-a8d0-48823d67883c",
+      "11b9feba-4746-49a9-b917-dbfc8b5bf912",
+      "19df0e22-b072-4cfc-a4ef-a74524a2402d",
+      "276ef67f-a9bb-4eb5-8c30-28d2dc0a0f5e",
+      "3153227f-b29a-4d59-a006-76b37f75513f",
+      "3327927b-d30f-455f-98f3-b7ad6305198e",
+      "42f03c5b-e7cc-497c-add2-8f343e9372fb",
+      "444f28a8-cdfd-48c9-b205-80c8b8e76870",
+      "4fda1a2f-7cb8-4a12-baca-f1354368d386",
+      "86331ef3-6256-4e0e-9aa6-6d4b142affa7",
+      "99d33110-b547-4bbc-9720-58d4403a1433",
+      "c0cc2fc4-f9b5-4ac5-9706-cf7ff5451679",
+      "cfa68bf3-843a-4755-9286-96118967e797",
+      "d6a354f2-5e23-4d1a-b936-0c49c4dd2e11",
+      "d89942e0-9128-4f78-99ad-a0ec23a8d510",
+      "d9c7ed89-7297-40ba-aaa7-d7dd3ea68f9e",
+      "f737d86f-1217-4db0-b128-ccefdba73f2b",
+      "fe8cb6d1-e93b-4298-9fa9-11302dfc4850",
+      "ffbc4bad-2e06-433b-8330-76c52d7865a9"
+    ],
+    "trainingSamples": 7193,
+    "heldOutSamples": 360,
+    "heldOutPicks": 45
+  },
+  "inputs": {
+    "drafts": {
+      "path": "data/untapped_history/drafts_backup.json",
+      "sha256": "7BE9C9DE89ACDD096E984F4816AE45802071721A4D40F2BAC1D3F41621A7C270"
+    },
+    "cardMetadata": {
+      "path": "data/untapped_history/card-metadata-v1.json",
+      "sha256": "DC73EDA0556BF28730CA60565E85544CFB53CF64D46638C0E9770D9388E6A886"
+    },
+    "heldOutCoverage": {
+      "numericScores": 360,
+      "enrichedScores": 360
+    }
+  },
+  "model": {
+    "featureDefinitions": {
+      "power.linearDecay": "Puissance",
+      "power.lateDecay": "Puissance",
+      "mana.spellMiss": "Mana",
+      "mana.spellMissConfident": "Mana",
+      "mana.goldTax": "Mana",
+      "mana.landMiss": "Mana",
+      "mana.landFit": "Mana",
+      "mana.colorless": "Mana",
+      "curve.shortage": "Courbe",
+      "curve.glut": "Courbe",
+      "interaction.shortage": "Interaction",
+      "interaction.glut": "Interaction",
+      "synergy.bestPair": "Synergie",
+      "synergy.poolFit": "Synergie",
+      "synergy.tribe": "Synergie"
+    },
+    "validation": [
+      {
+        "lambda": 0.01,
+        "mae": 4.240154226032092
+      },
+      {
+        "lambda": 0.1,
+        "mae": 4.240101755608735
+      },
+      {
+        "lambda": 1,
+        "mae": 4.239587363622468
+      },
+      {
+        "lambda": 10,
+        "mae": 4.236452955533407
+      },
+      {
+        "lambda": 100,
+        "mae": 4.253400045402374
+      },
+      {
+        "lambda": 1000,
+        "mae": 4.3534553249564665
+      }
+    ],
+    "selectedLambda": 10,
+    "neighborValidation": [
+      {
+        "k": 1,
+        "mae": 5.057696005825789
+      },
+      {
+        "k": 3,
+        "mae": 4.452504367373992
+      },
+      {
+        "k": 5,
+        "mae": 4.3882605114216355
+      },
+      {
+        "k": 8,
+        "mae": 4.423163613915866
+      }
+    ],
+    "selectedNeighborCount": 5,
+    "coefficients": {
+      "power.linearDecay": 0.5021691998807086,
+      "power.lateDecay": -0.4896201379029086,
+      "mana.spellMiss": -0.23213437560820516,
+      "mana.spellMissConfident": 0.909268608159701,
+      "mana.goldTax": 0.19731087646541728,
+      "mana.landMiss": 0.7703941124968517,
+      "mana.landFit": -0.24900042231615296,
+      "mana.colorless": 0.13488483125074005,
+      "curve.shortage": -0.7751435126839238,
+      "curve.glut": 0.38392644080486055,
+      "interaction.shortage": -0.9999295310128421,
+      "interaction.glut": 0.11867441863843642,
+      "synergy.bestPair": 0.06397582331838193,
+      "synergy.poolFit": -0.024603469269649066,
+      "synergy.tribe": -0.09028172693124092
+    }
+  },
+  "metrics": {
+    "baselineStaticMae": 8.768055555555554,
+    "ablations": [
+      {
+        "label": "Puissance",
+        "mae": 5.269991438443318
+      },
+      {
+        "label": "Puissance + Mana",
+        "mae": 4.755966587655758
+      },
+      {
+        "label": "Puissance + Courbe",
+        "mae": 5.287008142828732
+      },
+      {
+        "label": "Puissance + Interaction",
+        "mae": 5.222618139181204
+      },
+      {
+        "label": "Puissance + Synergie",
+        "mae": 5.245199932303204
+      },
+      {
+        "label": "Tous les axes",
+        "mae": 4.720520368037367
+      }
+    ],
+    "heldOutMae": 4.720520368037367,
+    "withinOne": 0.18333333333333332,
+    "withinThree": 0.4444444444444444,
+    "topOneAccuracy": 0.6,
+    "neighborHeldOutMae": 4.539241233400224,
+    "visibleDraftAxisWeights": {
+      "Puissance": 0.8699273704241708,
+      "Mana": 0.8478653733360074,
+      "Courbe": 0.20117040610550121,
+      "Interaction": 2.8113788610935564,
+      "Synergie": 1.8410356179693321
+    },
+    "visibleDraftAxisMae": 4.4398488005159225
+  },
+  "axes": [
+    "Puissance",
+    "Mana",
+    "Courbe",
+    "Interaction",
+    "Synergie"
+  ],
+  "rows": [
+    {
+      "pick": "P1P1",
+      "cardId": "12615",
+      "card": "Frantic Search",
+      "staticScore": 17,
+      "dynamicScore": 17,
+      "predictedScore": 17,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "19679",
+      "card": "Talisman of Dominance",
+      "staticScore": 12,
+      "dynamicScore": 12,
+      "predictedScore": 12,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "55531",
+      "card": "Unexpectedly Absent",
+      "staticScore": 20,
+      "dynamicScore": 20,
+      "predictedScore": 20,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "60981",
+      "card": "Kolaghan's Command",
+      "staticScore": 42,
+      "dynamicScore": 42,
+      "predictedScore": 42,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "67440",
+      "card": "Llanowar Elves",
+      "staticScore": 41,
+      "dynamicScore": 41,
+      "predictedScore": 41,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "71326",
+      "card": "Zagoth Triome",
+      "staticScore": 26,
+      "dynamicScore": 26,
+      "predictedScore": 26,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "79695",
+      "card": "Reckoner Bankbuster",
+      "staticScore": 8.6,
+      "dynamicScore": 8.6,
+      "predictedScore": 8.6,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "83733",
+      "card": "Skrelv, Defector Mite",
+      "staticScore": 21,
+      "dynamicScore": 21,
+      "predictedScore": 21,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "86274",
+      "card": "Tireless Tracker",
+      "staticScore": 25,
+      "dynamicScore": 25,
+      "predictedScore": 25,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "90672",
+      "card": "Generous Plunderer",
+      "staticScore": 38,
+      "dynamicScore": 38,
+      "predictedScore": 38,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "91113",
+      "card": "Sylvan Safekeeper",
+      "staticScore": 31,
+      "dynamicScore": 31,
+      "predictedScore": 31,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "92218",
+      "card": "Fear of Missing Out",
+      "staticScore": 28,
+      "dynamicScore": 28,
+      "predictedScore": 28,
+      "absoluteError": 0,
+      "picked": true,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "99795",
+      "card": "Currency Converter",
+      "staticScore": 19,
+      "dynamicScore": 19,
+      "predictedScore": 19,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "100457",
+      "card": "Gut, True Soul Zealot",
+      "staticScore": 44,
+      "dynamicScore": 44,
+      "predictedScore": 44,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P1",
+      "cardId": "101029",
+      "card": "Mind Twist",
+      "staticScore": 36,
+      "dynamicScore": 36,
+      "predictedScore": 36,
+      "absoluteError": 0,
+      "picked": false,
+      "contributions": {
+        "Puissance": 0,
+        "Mana": 0,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "12349",
+      "card": "Yawgmoth's Will",
+      "staticScore": 5.7,
+      "dynamicScore": 4.1,
+      "predictedScore": 4.499913020470991,
+      "absoluteError": 0.39991302047099175,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.06361219036365452,
+        "Mana": -0.5818664108112657,
+        "Courbe": -0.5842864068751515,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "12551",
+      "card": "Grim Monolith",
+      "staticScore": 17,
+      "dynamicScore": 7.4,
+      "predictedScore": 16.322509663154563,
+      "absoluteError": 8.922509663154562,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.18972056775125032,
+        "Mana": 0.34568910808522074,
+        "Courbe": -0.8334588771794064,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "48165",
+      "card": "Coalition Relic",
+      "staticScore": 9.2,
+      "dynamicScore": 4.9,
+      "predictedScore": 8.700120097305584,
+      "absoluteError": 3.8001200973055838,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.1026723072536178,
+        "Mana": 0.18707881143435476,
+        "Courbe": -0.5842864068751515,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "64171",
+      "card": "Smuggler's Copter",
+      "staticScore": 18,
+      "dynamicScore": 34.1,
+      "predictedScore": 17.391040340216335,
+      "absoluteError": 16.708959659783666,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.20088060114838271,
+        "Mana": 0.3660237615019985,
+        "Courbe": -0.8334588771794064,
+        "Interaction": 0,
+        "Synergie": 0.05935605704212601
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "72518",
+      "card": "Aether Spellbomb",
+      "staticScore": 10,
+      "dynamicScore": 3.8,
+      "predictedScore": 9.177688539184315,
+      "absoluteError": 5.377688539184315,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.11160033397132371,
+        "Mana": 0.20334653416777693,
+        "Courbe": -0.28045747530007276,
+        "Interaction": -0.6632782142331283,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "76410",
+      "card": "Elite Spellbinder",
+      "staticScore": 38,
+      "dynamicScore": 36.7,
+      "predictedScore": 33.14220094714644,
+      "absoluteError": 3.557799052853561,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.42408126909103017,
+        "Mana": -3.879109405408438,
+        "Courbe": -0.5842864068751515,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "76955",
+      "card": "Dauthi Voidwalker",
+      "staticScore": 34,
+      "dynamicScore": 26.4,
+      "predictedScore": 29.37567394478425,
+      "absoluteError": 2.9756739447842513,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.37944113550250064,
+        "Mana": -3.4707820995759704,
+        "Courbe": -0.8334588771794064,
+        "Interaction": 0,
+        "Synergie": 0.05935605704212601
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "77513",
+      "card": "Tendrils of Agony",
+      "staticScore": 4.1,
+      "dynamicScore": 2.2,
+      "predictedScore": 3.285136530468387,
+      "absoluteError": 1.0851365304683869,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.045756136928242715,
+        "Mana": -0.4185354884782788,
+        "Courbe": -0.3505718441250909,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "86950",
+      "card": "Kellan, the <nobr>Fae-Blooded</nobr>",
+      "staticScore": 2.7,
+      "dynamicScore": 3.3,
+      "predictedScore": 2.1152595314736544,
+      "absoluteError": 1.1847404685263454,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.030132090172257407,
+        "Mana": 0,
+        "Courbe": -0.5842864068751515,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "92066",
+      "card": "Exorcise",
+      "staticScore": 18,
+      "dynamicScore": 15.5,
+      "predictedScore": 14.46490943119298,
+      "absoluteError": 1.0350905688070196,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.20088060114838271,
+        "Mana": -1.8374728762461026,
+        "Courbe": -0.8334588771794064,
+        "Interaction": -0.6632782142331283,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "92212",
+      "card": "Clockwork Percussionist",
+      "staticScore": 7.9,
+      "dynamicScore": 10.2,
+      "predictedScore": 7.561056289383645,
+      "absoluteError": 2.6389437106163545,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.08816426383734575,
+        "Mana": 0,
+        "Courbe": -0.28045747530007276,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "100563",
+      "card": "Ravenous Robots",
+      "staticScore": 16,
+      "dynamicScore": 11.7,
+      "predictedScore": 15.01765861698754,
+      "absoluteError": 3.31765861698754,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.17856053435411795,
+        "Mana": 0,
+        "Courbe": -0.8334588771794064,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "102474",
+      "card": "Erode",
+      "staticScore": 38,
+      "dynamicScore": 34.6,
+      "predictedScore": 32.75307363596733,
+      "absoluteError": 1.8469263640326687,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.42408126909103017,
+        "Mana": -3.879109405408438,
+        "Courbe": -0.28045747530007276,
+        "Interaction": -0.6632782142331283,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P2",
+      "cardId": "102625",
+      "card": "Vastlands Scavenger",
+      "staticScore": 22,
+      "dynamicScore": 14.7,
+      "predictedScore": 18.95407070483043,
+      "absoluteError": 4.254070704830429,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.24552073473691216,
+        "Mana": -2.2458001820785696,
+        "Courbe": -0.5842864068751515,
+        "Interaction": 0,
+        "Synergie": 0.029678028521063004
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "30238",
+      "card": "Figure of Destiny",
+      "staticScore": 18,
+      "dynamicScore": 28.7,
+      "predictedScore": 16.484621106732998,
+      "absoluteError": 12.215378893267001,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.3926566956002237,
+        "Mana": -0.7572027637292459,
+        "Courbe": -0.39662676523828017,
+        "Interaction": 0,
+        "Synergie": 0.031107331300747096
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "54163",
+      "card": "Elvish Mystic",
+      "staticScore": 38,
+      "dynamicScore": 14.4,
+      "predictedScore": 31.319649522071014,
+      "absoluteError": 16.919649522071012,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8289419129338056,
+        "Mana": -5.485889131057648,
+        "Courbe": -0.39662676523828017,
+        "Interaction": 0,
+        "Synergie": 0.031107331300747096
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "68140",
+      "card": "Crucible of Worlds",
+      "staticScore": 6,
+      "dynamicScore": 4.1,
+      "predictedScore": 5.682045623704296,
+      "absoluteError": 1.5820456237042961,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.13088556520007455,
+        "Mana": 0.17254525588898045,
+        "Courbe": -0.4092669610372807,
+        "Interaction": 0,
+        "Synergie": 0.04965289405267104
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "76025",
+      "card": "Thought Monitor",
+      "staticScore": 16,
+      "dynamicScore": 6.9,
+      "predictedScore": 13.138920590060275,
+      "absoluteError": 6.238920590060275,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.3490281738668655,
+        "Mana": -2.309848055182167,
+        "Courbe": -0.26441784349218683,
+        "Interaction": 0,
+        "Synergie": 0.06221466260149419
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "77004",
+      "card": "Mine Collapse",
+      "staticScore": 14,
+      "dynamicScore": 16,
+      "predictedScore": 12.260799845123545,
+      "absoluteError": 3.739200154876455,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.3053996521335073,
+        "Mana": 0,
+        "Courbe": -0.4957834565478502,
+        "Interaction": -0.9380170461950972,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "77058",
+      "card": "Misty Rainforest",
+      "staticScore": 45,
+      "dynamicScore": 15.8,
+      "predictedScore": 41.67909307657271,
+      "absoluteError": 25.879093076572712,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9816417390005593,
+        "Mana": -2.3889180784794,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.04965289405267104
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "91011",
+      "card": "Malevolent Rumble",
+      "staticScore": 41,
+      "dynamicScore": 15.7,
+      "predictedScore": 33.876127631401715,
+      "absoluteError": 18.176127631401716,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8943846955338429,
+        "Mana": -5.918985641404302,
+        "Courbe": -0.36015492571280694,
+        "Interaction": 0,
+        "Synergie": 0.04965289405267104
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "91168",
+      "card": "Endurance",
+      "staticScore": 20,
+      "dynamicScore": 7.6,
+      "predictedScore": 16.34789797800485,
+      "absoluteError": 8.747897978004849,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.4362852173335819,
+        "Mana": -2.8873100689777083,
+        "Courbe": -0.4092669610372807,
+        "Interaction": 0,
+        "Synergie": 0.08076022535341812
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "91882",
+      "card": "Jace, the Mind Sculptor",
+      "staticScore": 21,
+      "dynamicScore": 9.2,
+      "predictedScore": 16.12607734068287,
+      "absoluteError": 6.92607734068287,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.458099478200261,
+        "Mana": -3.031675572426594,
+        "Courbe": -0.4957834565478502,
+        "Interaction": -0.9380170461950972,
+        "Synergie": 0.04965289405267104
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "95902",
+      "card": "Astrologian's Planisphere",
+      "staticScore": 13,
+      "dynamicScore": 5.7,
+      "predictedScore": 10.479508138184855,
+      "absoluteError": 4.7795081381848545,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.28358539126682825,
+        "Mana": -1.8767515448355103,
+        "Courbe": -0.36015492571280694,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "97384",
+      "card": "Mai, Scornful Striker",
+      "staticScore": 7.8,
+      "dynamicScore": 4,
+      "predictedScore": 6.1170058573598505,
+      "absoluteError": 2.1170058573598505,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.17015123476009691,
+        "Mana": -1.1260509269013064,
+        "Courbe": -0.36015492571280694,
+        "Interaction": 0,
+        "Synergie": -0.026637055265939416
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "98888",
+      "card": "Painter's Servant",
+      "staticScore": 8.6,
+      "dynamicScore": 7.9,
+      "predictedScore": 8.330664628908705,
+      "absoluteError": 0.4306646289087048,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.18760264345344022,
+        "Mana": 0.24731486677420536,
+        "Courbe": -0.36015492571280694,
+        "Interaction": 0,
+        "Synergie": 0.031107331300747096
+      }
+    },
+    {
+      "pick": "P1P3",
+      "cardId": "102780",
+      "card": "Dismember",
+      "staticScore": 41,
+      "dynamicScore": 20.4,
+      "predictedScore": 33.777362702024575,
+      "absoluteError": 13.377362702024577,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.8943846955338429,
+        "Mana": -5.918985641404302,
+        "Courbe": -0.4092669610372807,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "68740",
+      "card": "Watery Grave",
+      "staticScore": 42,
+      "dynamicScore": 22.9,
+      "predictedScore": 35.06777228873676,
+      "absoluteError": 12.167772288736764,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3424326611628867,
+        "Mana": -5.589795050100351,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "69399",
+      "card": "Hallowed Fountain",
+      "staticScore": 44,
+      "dynamicScore": 20.1,
+      "predictedScore": 36.73766620724803,
+      "absoluteError": 16.63766620724803,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.4063580259801671,
+        "Mana": -5.855975766771797,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "73226",
+      "card": "Skyclave Apparition",
+      "staticScore": 40,
+      "dynamicScore": 32.6,
+      "predictedScore": 37.932514602424746,
+      "absoluteError": 5.3325146024247445,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.2785072963456068,
+        "Mana": 0,
+        "Courbe": -0.835412685934051,
+        "Interaction": 0,
+        "Synergie": 0.046434584704400615
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "76101",
+      "card": "Unholy Heat",
+      "staticScore": 22,
+      "dynamicScore": 17.3,
+      "predictedScore": 17.250655607058818,
+      "absoluteError": 0.0493443929411832,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7031790129900836,
+        "Mana": -2.5229819489242695,
+        "Courbe": -0.48576659658221943,
+        "Interaction": -1.1488315666053326,
+        "Synergie": 0.11141473216072517
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "76260",
+      "card": "Zuran Orb",
+      "staticScore": 7.2,
+      "dynamicScore": 2.3,
+      "predictedScore": 6.7376907907551455,
+      "absoluteError": 4.437690790755146,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.23013131334220915,
+        "Mana": 0.25358870067957384,
+        "Courbe": -0.48576659658221943,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "78549",
+      "card": "Outland Liberator",
+      "staticScore": 16,
+      "dynamicScore": 6.5,
+      "predictedScore": 12.37364917160805,
+      "absoluteError": 5.873649171608051,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.5114029185382426,
+        "Mana": -1.8348959628540142,
+        "Courbe": -0.10693282379955849,
+        "Interaction": -1.1488315666053326,
+        "Synergie": -0.024287556594802064
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "79588",
+      "card": "Rabbit Battery",
+      "staticScore": 7.9,
+      "dynamicScore": 7.8,
+      "predictedScore": 6.302182915434754,
+      "absoluteError": 1.4978170845652459,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.25250519102825725,
+        "Mana": -0.9059798816591695,
+        "Courbe": -0.48576659658221943,
+        "Interaction": 0,
+        "Synergie": 0.046434584704400615
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "86811",
+      "card": "Virtue of Persistence",
+      "staticScore": 26,
+      "dynamicScore": 19.2,
+      "predictedScore": 24.975086154566526,
+      "absoluteError": 5.775086154566527,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8310297426246442,
+        "Mana": 0,
+        "Courbe": -0.32384439772147966,
+        "Interaction": 0,
+        "Synergie": 0.12996029491264913
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "98374",
+      "card": "Loch Mare",
+      "staticScore": 15,
+      "dynamicScore": 9,
+      "predictedScore": 12.804826707055927,
+      "absoluteError": 3.804826707055927,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.4794402361296025,
+        "Mana": -1.7202149651756382,
+        "Courbe": -0.10693282379955849,
+        "Interaction": 0,
+        "Synergie": 0.11141473216072517
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "102572",
+      "card": "Emeritus of Conflict",
+      "staticScore": 15,
+      "dynamicScore": 17.9,
+      "predictedScore": 12.669124418300399,
+      "absoluteError": 5.2308755816996,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.4794402361296025,
+        "Mana": -1.7202149651756382,
+        "Courbe": -0.10693282379955849,
+        "Interaction": 0,
+        "Synergie": -0.024287556594802064
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "102765",
+      "card": "Brain Freeze",
+      "staticScore": 17,
+      "dynamicScore": 10,
+      "predictedScore": 14.465104762177493,
+      "absoluteError": 4.465104762177493,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.5433656009468828,
+        "Mana": -1.9495769605323903,
+        "Courbe": -0.10693282379955849,
+        "Interaction": 0,
+        "Synergie": 0.06498014745632456
+      }
+    },
+    {
+      "pick": "P1P4",
+      "cardId": "104126",
+      "card": "Library of Alexandria",
+      "staticScore": 30,
+      "dynamicScore": 21.6,
+      "predictedScore": 27.155556232002255,
+      "absoluteError": 5.555556232002253,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.958880472259205,
+        "Mana": -1.9505434431948632,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.06498014745632456
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "67518",
+      "card": "Teferi, Hero of Dominaria",
+      "staticScore": 45,
+      "dynamicScore": 21.9,
+      "predictedScore": 35.222342739797035,
+      "absoluteError": 13.322342739797037,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.8722384110357015,
+        "Mana": -6.095849089894909,
+        "Courbe": -0.5609149506001455,
+        "Interaction": -1.3265564284662565,
+        "Synergie": 0.07790161979404996
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "70391",
+      "card": "Fabled Passage",
+      "staticScore": 16,
+      "dynamicScore": 10.5,
+      "predictedScore": 14.210993617298213,
+      "absoluteError": 3.7109936172982128,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6656847683682494,
+        "Mana": -1.2012232341275881,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.07790161979404996
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "78374",
+      "card": "Consider",
+      "staticScore": 15,
+      "dynamicScore": 8.5,
+      "predictedScore": 11.595206272720622,
+      "absoluteError": 3.095206272720622,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6240794703452339,
+        "Mana": -2.2791553633761237,
+        "Courbe": -0.5609149506001455,
+        "Interaction": 0,
+        "Synergie": 0.05935605704212601
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "79241",
+      "card": "Blade Splicer",
+      "staticScore": 14,
+      "dynamicScore": 12.5,
+      "predictedScore": 12.219091653474173,
+      "absoluteError": 0.28090834652582686,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.5824741723222182,
+        "Mana": 0,
+        "Courbe": -1.1575817738602867,
+        "Interaction": 0,
+        "Synergie": -0.04085240034332078
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "83875",
+      "card": "Nissa, Ascended Animist",
+      "staticScore": 30,
+      "dynamicScore": 11.5,
+      "predictedScore": 22.493030603690933,
+      "absoluteError": 10.993030603690933,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2481589406904678,
+        "Mana": -4.558310726752247,
+        "Courbe": -0.37394330040009705,
+        "Interaction": -1.3265564284662565,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "83948",
+      "card": "Blackcleave Cliffs",
+      "staticScore": 42,
+      "dynamicScore": 30,
+      "predictedScore": 33.798038129252795,
+      "absoluteError": 3.798038129252795,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7474225169666548,
+        "Mana": -6.454539353780551,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "84449",
+      "card": "Stoke the Flames",
+      "staticScore": 7,
+      "dynamicScore": 7.9,
+      "predictedScore": 3.6953585806743114,
+      "absoluteError": 4.204641419325689,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.2912370861611091,
+        "Mana": -1.063605836242191,
+        "Courbe": -0.7011436882501818,
+        "Interaction": -1.3265564284662565,
+        "Synergie": 0.07790161979404996
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "87145",
+      "card": "Get Lost",
+      "staticScore": 27,
+      "dynamicScore": 23.4,
+      "predictedScore": 24.487773407056338,
+      "absoluteError": 1.0877734070563392,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.123343046621421,
+        "Mana": 0,
+        "Courbe": -0.1402287376500365,
+        "Interaction": -1.3265564284662565,
+        "Synergie": 0.07790161979404996
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "90934",
+      "card": "Crabomination",
+      "staticScore": 38,
+      "dynamicScore": 21.5,
+      "predictedScore": 36.16376748880956,
+      "absoluteError": 14.663767488809562,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.5810013248745924,
+        "Mana": 0,
+        "Courbe": -0.37394330040009705,
+        "Interaction": 0,
+        "Synergie": 0.11871211408425202
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "96733",
+      "card": "Rust Harvester",
+      "staticScore": 7.1,
+      "dynamicScore": 4.2,
+      "predictedScore": 5.28359934218933,
+      "absoluteError": 1.0835993421893297,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.2953976159634107,
+        "Mana": -1.0788002053313652,
+        "Courbe": -0.5609149506001455,
+        "Interaction": 0,
+        "Synergie": 0.11871211408425202
+      }
+    },
+    {
+      "pick": "P1P5",
+      "cardId": "98368",
+      "card": "Glen Elendra Guardian",
+      "staticScore": 17,
+      "dynamicScore": 9.4,
+      "predictedScore": 11.266339480412787,
+      "absoluteError": 1.8663394804127869,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.707290066391265,
+        "Mana": -2.5830427451596067,
+        "Courbe": -1.1575817738602867,
+        "Interaction": -1.3265564284662565,
+        "Synergie": 0.04081049429020205
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "59913",
+      "card": "Hymn to Tourach",
+      "staticScore": 24,
+      "dynamicScore": 16.8,
+      "predictedScore": 22.45339376070569,
+      "absoluteError": 5.65339376070569,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2178105850353287,
+        "Mana": 0,
+        "Courbe": -0.4180813197126206,
+        "Interaction": 0,
+        "Synergie": 0.08928566545364049
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "73935",
+      "card": "Glorybringer",
+      "staticScore": 19,
+      "dynamicScore": 19.6,
+      "predictedScore": 14.922441487923397,
+      "absoluteError": 4.677558512076605,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9641000464863021,
+        "Mana": -2.8052024494624987,
+        "Courbe": -0.20707452286931124,
+        "Interaction": -0.1348304704563584,
+        "Synergie": 0.03364897719786866
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "75662",
+      "card": "Fatal Push",
+      "staticScore": 41,
+      "dynamicScore": 31.4,
+      "predictedScore": 38.22836123657441,
+      "absoluteError": 6.828361236574409,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.08042641610202,
+        "Mana": 0,
+        "Courbe": -0.6271219795689308,
+        "Interaction": -0.1348304704563584,
+        "Synergie": 0.07074010270171655
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "77035",
+      "card": "Territorial Kavu",
+      "staticScore": 19,
+      "dynamicScore": 4.4,
+      "predictedScore": 13.831820420278326,
+      "absoluteError": 9.431820420278326,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9641000464863021,
+        "Mana": -4.068958624329617,
+        "Courbe": -0.4180813197126206,
+        "Interaction": 0,
+        "Synergie": 0.2829604108068662
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "77492",
+      "card": "Brainstorm",
+      "staticScore": 21,
+      "dynamicScore": 14.8,
+      "predictedScore": 16.259001380647977,
+      "absoluteError": 1.459001380647976,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0655842619059126,
+        "Mana": -3.100486917826972,
+        "Courbe": -0.6271219795689308,
+        "Interaction": 0,
+        "Synergie": 0.0521945399497926
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "80401",
+      "card": "Jetmir's Garden",
+      "staticScore": 20,
+      "dynamicScore": 12.9,
+      "predictedScore": 15.122932747777325,
+      "absoluteError": 2.2229327477773246,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.014842154196107,
+        "Mana": -4.022250866181924,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.16002576815535702
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "82149",
+      "card": "Liliana of the Veil",
+      "staticScore": 30,
+      "dynamicScore": 22,
+      "predictedScore": 27.642525833854318,
+      "absoluteError": 5.642525833854318,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.5222632312941609,
+        "Mana": 0,
+        "Courbe": -0.9059510375532365,
+        "Interaction": 0,
+        "Synergie": 0.07074010270171655
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "84295",
+      "card": "Sunfall",
+      "staticScore": 21,
+      "dynamicScore": 22.9,
+      "predictedScore": 19.727341215224776,
+      "absoluteError": 3.172658784775223,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0655842619059126,
+        "Mana": 0,
+        "Courbe": -0.20707452286931124,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "92093",
+      "card": "Splitskin Doll",
+      "staticScore": 20,
+      "dynamicScore": 22.9,
+      "predictedScore": 18.779296834196423,
+      "absoluteError": 4.120703165803576,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.014842154196107,
+        "Mana": 0,
+        "Courbe": -0.4180813197126206,
+        "Interaction": 0,
+        "Synergie": 0.21222030810514958
+      }
+    },
+    {
+      "pick": "P1P6",
+      "cardId": "98024",
+      "card": "Mystic Confluence",
+      "staticScore": 40,
+      "dynamicScore": 28.1,
+      "predictedScore": 31.774915870942436,
+      "absoluteError": 3.674915870942435,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.029684308392214,
+        "Mana": -5.905689367289471,
+        "Courbe": -0.20707452286931124,
+        "Interaction": -0.1348304704563584,
+        "Synergie": 0.0521945399497926
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "70262",
+      "card": "Bonecrusher Giant",
+      "staticScore": 33,
+      "dynamicScore": 24.8,
+      "predictedScore": 25.438169575366466,
+      "absoluteError": 0.6381695753664651,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9593126784773132,
+        "Mana": -4.956133079707914,
+        "Courbe": -0.7088711703758822,
+        "Interaction": 0,
+        "Synergie": 0.062486503927578076
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "71320",
+      "card": "Savai Triome",
+      "staticScore": 22,
+      "dynamicScore": 19.4,
+      "predictedScore": 16.009085112065222,
+      "absoluteError": 3.390914887934777,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3062084523182087,
+        "Mana": -4.846770568975574,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.16206413335900405
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "78352",
+      "card": "Intrepid Adversary",
+      "staticScore": 22,
+      "dynamicScore": 14.1,
+      "predictedScore": 20.007449559469265,
+      "absoluteError": 5.907449559469265,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3062084523182087,
+        "Mana": 0,
+        "Courbe": -0.6488122807547062,
+        "Interaction": 0,
+        "Synergie": -0.03752970745782073
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "83957",
+      "card": "Razorverge Thicket",
+      "staticScore": 41,
+      "dynamicScore": 19.5,
+      "predictedScore": 30.848756648812174,
+      "absoluteError": 11.348756648812174,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.434297570229389,
+        "Mana": -7.716945780958437,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "90589",
+      "card": "Lavaspur Boots",
+      "staticScore": 7,
+      "dynamicScore": 7.5,
+      "predictedScore": 6.246077185454674,
+      "absoluteError": 1.2539228145453256,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.41561178028306645,
+        "Mana": 0.3486666747721351,
+        "Courbe": -0.6869777090343946,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "92125",
+      "card": "Floodpits Drowner",
+      "staticScore": 13,
+      "dynamicScore": 19.4,
+      "predictedScore": 11.641823774075748,
+      "absoluteError": 7.758176225924251,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7718504490971233,
+        "Mana": 0,
+        "Courbe": -0.6488122807547062,
+        "Interaction": 0,
+        "Synergie": 0.062486503927578076
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "95526",
+      "card": "Elspeth, Storm Slayer",
+      "staticScore": 44,
+      "dynamicScore": 40.9,
+      "predictedScore": 40.88250183981277,
+      "absoluteError": 0.017498160187230383,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.6124169046364174,
+        "Mana": 0,
+        "Courbe": -0.6049033987207528,
+        "Interaction": -0.09933311569291242,
+        "Synergie": 0.19915525886285196
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "96671",
+      "card": "Elegy Acolyte",
+      "staticScore": 17,
+      "dynamicScore": 12.6,
+      "predictedScore": 12.603732299899526,
+      "absoluteError": 0.0037322998995268364,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.009342894973161,
+        "Mana": -2.5531594653040766,
+        "Courbe": -0.8587221362929934,
+        "Interaction": 0,
+        "Synergie": 0.024956796469757347
+      }
+    },
+    {
+      "pick": "P1P7",
+      "cardId": "98430",
+      "card": "Moonshadow",
+      "staticScore": 18,
+      "dynamicScore": 14.6,
+      "predictedScore": 13.703025101678122,
+      "absoluteError": 0.8969748983218775,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0687160064421706,
+        "Mana": -2.703345316204316,
+        "Courbe": -0.6869777090343946,
+        "Interaction": 0,
+        "Synergie": 0.16206413335900405
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "70024",
+      "card": "Steel Overseer",
+      "staticScore": 6.1,
+      "dynamicScore": 4.2,
+      "predictedScore": 5.221824656485548,
+      "absoluteError": 1.0218246564855482,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.41173968673383055,
+        "Mana": 0.32818265921865014,
+        "Courbe": -0.8480236948263231,
+        "Interaction": 0,
+        "Synergie": 0.0534053788270524
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "71317",
+      "card": "Ketria Triome",
+      "staticScore": 22,
+      "dynamicScore": 15.1,
+      "predictedScore": 15.27992664835195,
+      "absoluteError": 0.17992664835194994,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.484962804613815,
+        "Mana": -5.235110547034235,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "72393",
+      "card": "Grim Lavamancer",
+      "staticScore": 10,
+      "dynamicScore": 7.6,
+      "predictedScore": 6.6272653237083965,
+      "absoluteError": 0.9727346762916032,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6749830930062796,
+        "Mana": -1.794149482877149,
+        "Courbe": -0.7420207329730324,
+        "Interaction": -0.19745339532210976,
+        "Synergie": 0.03587202788696639
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "84699",
+      "card": "Eagles of the North",
+      "staticScore": 16,
+      "dynamicScore": 18.8,
+      "predictedScore": 14.58779400845114,
+      "absoluteError": 4.21220599154886,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0799729488100474,
+        "Mana": 0,
+        "Courbe": -0.49468048864868835,
+        "Interaction": 0,
+        "Synergie": 0.16244744590987661
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "89193",
+      "card": "Underground Mortuary",
+      "staticScore": 42,
+      "dynamicScore": 12,
+      "predictedScore": 26.259271106669523,
+      "absoluteError": 14.259271106669523,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8349289906263744,
+        "Mana": -12.905799902704102,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "90570",
+      "card": "Pillage the Bog",
+      "staticScore": 19,
+      "dynamicScore": 5.6,
+      "predictedScore": 12.074370006698256,
+      "absoluteError": 6.474370006698257,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2824678767119313,
+        "Mana": -4.904180488846315,
+        "Courbe": -0.8480236948263231,
+        "Interaction": 0,
+        "Synergie": 0.10904206708282423
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "90952",
+      "card": "Nethergoyf",
+      "staticScore": 19,
+      "dynamicScore": 13.1,
+      "predictedScore": 13.747620381510252,
+      "absoluteError": 0.6476203815102526,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2824678767119313,
+        "Mana": -3.4088840174665833,
+        "Courbe": -0.7420207329730324,
+        "Interaction": 0,
+        "Synergie": 0.18099300866180057
+      }
+    },
+    {
+      "pick": "P1P8",
+      "cardId": "96625",
+      "card": "Consult the Star Charts",
+      "staticScore": 26,
+      "dynamicScore": 35.4,
+      "predictedScore": 23.468971204936327,
+      "absoluteError": 11.931028795063671,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.7549560418163273,
+        "Mana": 0,
+        "Courbe": -0.8480236948263231,
+        "Interaction": 0,
+        "Synergie": 0.07195094157897633
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "55531",
+      "card": "Unexpectedly Absent",
+      "staticScore": 20,
+      "dynamicScore": 21.4,
+      "predictedScore": 18.04957051427583,
+      "absoluteError": 3.3504294857241703,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.5023540240932158,
+        "Mana": 0,
+        "Courbe": -0.5288356869843737,
+        "Interaction": 0,
+        "Synergie": 0.08076022535341812
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "60981",
+      "card": "Kolaghan's Command",
+      "staticScore": 42,
+      "dynamicScore": 24.5,
+      "predictedScore": 26.482088582894754,
+      "absoluteError": 1.9820885828947539,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.154943450595753,
+        "Mana": -11.939806772812961,
+        "Courbe": -0.4092669610372807,
+        "Interaction": -0.15686912061416156,
+        "Synergie": 0.14297488795491228
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "71326",
+      "card": "Zagoth Triome",
+      "staticScore": 26,
+      "dynamicScore": 17,
+      "predictedScore": 17.631424834875098,
+      "absoluteError": 0.6314248348750979,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9530602313211807,
+        "Mana": -6.614126510014406,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.19861157621068415
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "79695",
+      "card": "Reckoner Bankbuster",
+      "staticScore": 8.6,
+      "dynamicScore": 12.3,
+      "predictedScore": 8.312518783170681,
+      "absoluteError": 3.9874812168293197,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6460122303600828,
+        "Mana": 0.4946297335484107,
+        "Courbe": -0.19831338261914028,
+        "Interaction": 0,
+        "Synergie": 0.06221466260149419
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "86274",
+      "card": "Tireless Tracker",
+      "staticScore": 25,
+      "dynamicScore": 13.3,
+      "predictedScore": 17.755135355818584,
+      "absoluteError": 4.455135355818584,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.8779425301165198,
+        "Mana": -5.003686830601079,
+        "Courbe": -0.4092669610372807,
+        "Interaction": 0,
+        "Synergie": 0.046031677573463214
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "91113",
+      "card": "Sylvan Safekeeper",
+      "staticScore": 31,
+      "dynamicScore": 16.7,
+      "predictedScore": 21.638797514453657,
+      "absoluteError": 4.9387975144536576,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.328648737344485,
+        "Mana": -6.20457166994534,
+        "Courbe": -0.7932535304765603,
+        "Interaction": 0,
+        "Synergie": -0.034728547779954905
+      }
+    },
+    {
+      "pick": "P1P9",
+      "cardId": "99795",
+      "card": "Currency Converter",
+      "staticScore": 19,
+      "dynamicScore": 25.2,
+      "predictedScore": 18.133123006077273,
+      "absoluteError": 7.066876993922726,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.4272363228885552,
+        "Mana": 1.0927866206302097,
+        "Courbe": -0.7932535304765603,
+        "Interaction": 0,
+        "Synergie": 0.2608262388121783
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "12349",
+      "card": "Yawgmoth's Will",
+      "staticScore": 5.7,
+      "dynamicScore": 4.2,
+      "predictedScore": 3.6743624788964597,
+      "absoluteError": 0.5256375211035405,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.46871833693231535,
+        "Mana": -0.9892427977345042,
+        "Courbe": -0.6752560347518338,
+        "Interaction": 0,
+        "Synergie": 0.10757964831511299
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "76955",
+      "card": "Dauthi Voidwalker",
+      "staticScore": 34,
+      "dynamicScore": 26.4,
+      "predictedScore": 25.076352652066294,
+      "absoluteError": 1.3236473479337043,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.795863764157671,
+        "Mana": -5.900746512802305,
+        "Courbe": -0.40510524210010534,
+        "Interaction": 0,
+        "Synergie": 0.17806817112637807
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "86950",
+      "card": "Kellan, the <nobr>Fae-Blooded</nobr>",
+      "staticScore": 2.7,
+      "dynamicScore": 1.8,
+      "predictedScore": 1.3006705398083669,
+      "absoluteError": 0.49932946019163316,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.22202447538899153,
+        "Mana": -0.46858869366371253,
+        "Courbe": -0.6752560347518338,
+        "Interaction": 0,
+        "Synergie": -0.033460256387095225
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "92066",
+      "card": "Exorcise",
+      "staticScore": 18,
+      "dynamicScore": 22.2,
+      "predictedScore": 15.962835671763369,
+      "absoluteError": 6.237164328236631,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.480163169259943,
+        "Mana": 0,
+        "Courbe": -0.40510524210010534,
+        "Interaction": -0.2409300024397731,
+        "Synergie": 0.08903408556318904
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "92212",
+      "card": "Clockwork Percussionist",
+      "staticScore": 7.9,
+      "dynamicScore": 6,
+      "predictedScore": 5.126978683545801,
+      "absoluteError": 0.8730213164541993,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6496271687307531,
+        "Mana": -1.3710558073864179,
+        "Courbe": -0.8413724259002181,
+        "Interaction": 0,
+        "Synergie": 0.08903408556318904
+      }
+    },
+    {
+      "pick": "P1P10",
+      "cardId": "102474",
+      "card": "Erode",
+      "staticScore": 38,
+      "dynamicScore": 35.2,
+      "predictedScore": 33.915340141648514,
+      "absoluteError": 1.284659858351489,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.1247889128821025,
+        "Mana": 0,
+        "Courbe": -0.8413724259002181,
+        "Interaction": -0.2409300024397731,
+        "Synergie": 0.12243148287060626
+      }
+    },
+    {
+      "pick": "P1P11",
+      "cardId": "30238",
+      "card": "Figure of Destiny",
+      "staticScore": 18,
+      "dynamicScore": 16.9,
+      "predictedScore": 12.885107119368735,
+      "absoluteError": 4.014892880631264,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.5991032101394511,
+        "Mana": -3.4648352994835925,
+        "Courbe": -0.14781406812810743,
+        "Interaction": 0,
+        "Synergie": 0.09685969711988565
+      }
+    },
+    {
+      "pick": "P1P11",
+      "cardId": "77004",
+      "card": "Mine Collapse",
+      "staticScore": 14,
+      "dynamicScore": 9.5,
+      "predictedScore": 8.712961471139183,
+      "absoluteError": 0.7870385288608173,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2437469412195727,
+        "Mana": -2.7559442509422234,
+        "Courbe": -1.1086055109608064,
+        "Interaction": -0.31682453172221314,
+        "Synergie": 0.1380827059839995
+      }
+    },
+    {
+      "pick": "P1P11",
+      "cardId": "91168",
+      "card": "Endurance",
+      "staticScore": 20,
+      "dynamicScore": 8.5,
+      "predictedScore": 13.949331149266087,
+      "absoluteError": 5.4493311492660865,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7767813445993896,
+        "Mana": -3.9370632156317487,
+        "Courbe": -0.5490892474944705,
+        "Interaction": 0,
+        "Synergie": 0.21226495699169529
+      }
+    },
+    {
+      "pick": "P1P11",
+      "cardId": "95902",
+      "card": "Astrologian's Planisphere",
+      "staticScore": 13,
+      "dynamicScore": 12.7,
+      "predictedScore": 11.521737498745434,
+      "absoluteError": 1.178262501254565,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.1549078739896035,
+        "Mana": 0,
+        "Courbe": -0.5912562725124302,
+        "Interaction": 0,
+        "Synergie": 0.26790164524746707
+      }
+    },
+    {
+      "pick": "P1P11",
+      "cardId": "97384",
+      "card": "Mai, Scornful Striker",
+      "staticScore": 7.8,
+      "dynamicScore": 5.2,
+      "predictedScore": 4.948083672435175,
+      "absoluteError": 0.2519163275648255,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6929447243937621,
+        "Mana": -1.5354546540963816,
+        "Courbe": -0.5912562725124302,
+        "Interaction": 0,
+        "Synergie": -0.032260676562251095
+      }
+    },
+    {
+      "pick": "P1P12",
+      "cardId": "78549",
+      "card": "Outland Liberator",
+      "staticScore": 16,
+      "dynamicScore": 9,
+      "predictedScore": 10.082871154538907,
+      "absoluteError": 1.082871154538907,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.519056661619926,
+        "Mana": -3.2348292008286847,
+        "Courbe": -0.7610499942714889,
+        "Interaction": -0.2783454546246963,
+        "Synergie": -0.12384753411629812
+      }
+    },
+    {
+      "pick": "P1P12",
+      "cardId": "79588",
+      "card": "Rabbit Battery",
+      "staticScore": 7.9,
+      "dynamicScore": 11,
+      "predictedScore": 5.401189817479435,
+      "absoluteError": 5.598810182520565,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7500342266748384,
+        "Mana": -1.5971969179091632,
+        "Courbe": -0.23733634522482291,
+        "Interaction": 0,
+        "Synergie": 0.08575730728825905
+      }
+    },
+    {
+      "pick": "P1P12",
+      "cardId": "86811",
+      "card": "Virtue of Persistence",
+      "staticScore": 26,
+      "dynamicScore": 21.2,
+      "predictedScore": 17.919063091710004,
+      "absoluteError": 3.280936908289995,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.46846707513238,
+        "Mana": -5.256597451346613,
+        "Courbe": -0.620114810147139,
+        "Interaction": 0,
+        "Synergie": 0.2642424283361378
+      }
+    },
+    {
+      "pick": "P1P12",
+      "cardId": "102572",
+      "card": "Emeritus of Conflict",
+      "staticScore": 15,
+      "dynamicScore": 17.5,
+      "predictedScore": 9.732516726574335,
+      "absoluteError": 7.767483273425665,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.4241156202686804,
+        "Mana": -3.0326523757768915,
+        "Courbe": -0.7610499942714889,
+        "Interaction": 0,
+        "Synergie": -0.04966528310860234
+      }
+    },
+    {
+      "pick": "P1P13",
+      "cardId": "79241",
+      "card": "Blade Splicer",
+      "staticScore": 14,
+      "dynamicScore": 14.2,
+      "predictedScore": 12.191193316055752,
+      "absoluteError": 2.008806683944247,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.4075209336290984,
+        "Mana": 0,
+        "Courbe": -0.3341650743736205,
+        "Interaction": 0,
+        "Synergie": -0.06712067594152808
+      }
+    },
+    {
+      "pick": "P1P13",
+      "cardId": "83948",
+      "card": "Blackcleave Cliffs",
+      "staticScore": 42,
+      "dynamicScore": 37.3,
+      "predictedScore": 20.87977863965692,
+      "absoluteError": 16.420221360343078,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.222562800887294,
+        "Mana": -16.897658559455788,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P1P13",
+      "cardId": "87145",
+      "card": "Get Lost",
+      "staticScore": 27,
+      "dynamicScore": 21.3,
+      "predictedScore": 23.29135792897678,
+      "absoluteError": 1.9913579289767789,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.714504657713261,
+        "Mana": 0,
+        "Courbe": -0.9175591268775259,
+        "Interaction": -0.24377106249811342,
+        "Synergie": 0.16719277606567853
+      }
+    },
+    {
+      "pick": "P1P14",
+      "cardId": "77035",
+      "card": "Territorial Kavu",
+      "staticScore": 19,
+      "dynamicScore": 4.2,
+      "predictedScore": 10.991156464245226,
+      "absoluteError": 6.791156464245225,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.006923864409764,
+        "Mana": -6.004373909935152,
+        "Courbe": -0.4148528442180873,
+        "Interaction": 0,
+        "Synergie": 0.4173070828082296
+      }
+    },
+    {
+      "pick": "P1P14",
+      "cardId": "82149",
+      "card": "Liliana of the Veil",
+      "staticScore": 30,
+      "dynamicScore": 28.4,
+      "predictedScore": 20.408428771575842,
+      "absoluteError": 7.9915712284241565,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.168827154331205,
+        "Mana": -6.2630973274399615,
+        "Courbe": -0.24079156391514372,
+        "Interaction": 0,
+        "Synergie": 0.08114481726215246
+      }
+    },
+    {
+      "pick": "P1P15",
+      "cardId": "90589",
+      "card": "Lavaspur Boots",
+      "staticScore": 7,
+      "dynamicScore": 3.4,
+      "predictedScore": 6.662111688504638,
+      "absoluteError": 3.2621116885046377,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.7714848970469136,
+        "Mana": 0.5325971431506196,
+        "Courbe": -0.09900055759906795,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "12553",
+      "card": "Mother of Runes",
+      "staticScore": 44,
+      "dynamicScore": 33.6,
+      "predictedScore": 38.56698514820314,
+      "absoluteError": 4.966985148203136,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.028798656661666,
+        "Mana": 0,
+        "Courbe": -0.3586635945627305,
+        "Interaction": 0,
+        "Synergie": -0.045552600572466434
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "19831",
+      "card": "Chrome Mox",
+      "staticScore": 26,
+      "dynamicScore": 28.5,
+      "predictedScore": 24.830010602637437,
+      "absoluteError": 3.6699893973625635,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.9715628425728022,
+        "Mana": 2.0476501248860735,
+        "Courbe": -0.3586635945627305,
+        "Interaction": 0,
+        "Synergie": 0.11258691488689604
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "67106",
+      "card": "Karn, Scion of Urza",
+      "staticScore": 10,
+      "dynamicScore": 9.3,
+      "predictedScore": 8.75446972471433,
+      "absoluteError": 0.545530275285671,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.1429087856049238,
+        "Mana": 0.7875577403407975,
+        "Courbe": -1.3577589139456996,
+        "Interaction": 0,
+        "Synergie": 0.4675796839241557
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "68739",
+      "card": "Temple Garden",
+      "staticScore": 44,
+      "dynamicScore": 19.8,
+      "predictedScore": 25.87684145424514,
+      "absoluteError": 6.076841454245141,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.028798656661666,
+        "Mana": -13.094359889093193,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "81701",
+      "card": "Displacer Kitten",
+      "staticScore": 18,
+      "dynamicScore": 18.3,
+      "predictedScore": 10.479598235205206,
+      "absoluteError": 7.820401764794795,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.0572358140888625,
+        "Mana": -4.217993951647127,
+        "Courbe": -1.3577589139456996,
+        "Interaction": 0,
+        "Synergie": 0.11258691488689604
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "82496",
+      "card": "Loran of the Third Path",
+      "staticScore": 21,
+      "dynamicScore": 15.1,
+      "predictedScore": 18.31186351629317,
+      "absoluteError": 3.2118635162931692,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.4001084497703395,
+        "Mana": 0,
+        "Courbe": -0.3736079110028441,
+        "Interaction": 0,
+        "Synergie": 0.08557987706635353
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "83517",
+      "card": "Oracle of the Alpha",
+      "staticScore": 42,
+      "dynamicScore": 33.3,
+      "predictedScore": 27.09677621716674,
+      "absoluteError": 6.2032237828332555,
+      "picked": true,
+      "contributions": {
+        "Puissance": -4.800216899540679,
+        "Mana": -9.84198588717663,
+        "Courbe": -0.3736079110028441,
+        "Interaction": 0,
+        "Synergie": 0.11258691488689604
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "86653",
+      "card": "Faithless Looting",
+      "staticScore": 9.9,
+      "dynamicScore": 8.4,
+      "predictedScore": 6.483357467198934,
+      "absoluteError": 1.9166425328010668,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.1314796977488748,
+        "Mana": -2.3198966734059203,
+        "Courbe": -0.3586635945627305,
+        "Interaction": 0,
+        "Synergie": 0.3933974329164599
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "86902",
+      "card": "Tough Cookie",
+      "staticScore": 5.7,
+      "dynamicScore": 3.1,
+      "predictedScore": 3.02711048395843,
+      "absoluteError": 0.0728895160415699,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6514580077948066,
+        "Mana": -1.3356980846882571,
+        "Courbe": -0.7241380874377066,
+        "Interaction": 0,
+        "Synergie": 0.038404663879200274
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "89182",
+      "card": "Elegant Parlor",
+      "staticScore": 41,
+      "dynamicScore": 36.7,
+      "predictedScore": 24.112511355092064,
+      "absoluteError": 12.587488644907939,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.6859260209801885,
+        "Mana": -12.201562623927746,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "91043",
+      "card": "Nadu, Winged Wisdom",
+      "staticScore": 47,
+      "dynamicScore": 26,
+      "predictedScore": 25.238390526330225,
+      "absoluteError": 0.7616094736697754,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.371671292343141,
+        "Mana": -16.428273265992175,
+        "Courbe": -0.3736079110028441,
+        "Interaction": 0,
+        "Synergie": 0.4119429956683839
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "92356",
+      "card": "Blazemire Verge",
+      "staticScore": 41,
+      "dynamicScore": 36.5,
+      "predictedScore": 24.112511355092064,
+      "absoluteError": 12.387488644907936,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.6859260209801885,
+        "Mana": -12.201562623927746,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "96760",
+      "card": "Gene Pollinator",
+      "staticScore": 6.2,
+      "dynamicScore": 3.7,
+      "predictedScore": 3.773909727152067,
+      "absoluteError": 0.073909727152067,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7086034470750526,
+        "Mana": -1.452864583345122,
+        "Courbe": -0.3586635945627305,
+        "Interaction": 0,
+        "Synergie": 0.0940413521349721
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "100950",
+      "card": "Carnage Interpreter",
+      "staticScore": 8.3,
+      "dynamicScore": 8.2,
+      "predictedScore": 5.292815977094357,
+      "absoluteError": 2.9071840229056427,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9486142920520868,
+        "Mana": -1.9286812123764294,
+        "Courbe": -0.3736079110028441,
+        "Interaction": 0,
+        "Synergie": 0.243719392525716
+      }
+    },
+    {
+      "pick": "P2P1",
+      "cardId": "102789",
+      "card": "Abrade",
+      "staticScore": 29,
+      "dynamicScore": 30.8,
+      "predictedScore": 18.08585929778357,
+      "absoluteError": 12.71414070221643,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.3144354782542784,
+        "Mana": -6.795656922098149,
+        "Courbe": -0.7241380874377066,
+        "Interaction": -0.2494473559443144,
+        "Synergie": 0.16953714151802024
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "69394",
+      "card": "Breeding Pool",
+      "staticScore": 42,
+      "dynamicScore": 24.2,
+      "predictedScore": 24.140640724597617,
+      "absoluteError": 0.059359275402382394,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.950280567841281,
+        "Mana": -12.909078707561102,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "70672",
+      "card": "Underworld Breach",
+      "staticScore": 14,
+      "dynamicScore": 16.8,
+      "predictedScore": 8.5423131447881,
+      "absoluteError": 8.257686855211901,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.6500935226137599,
+        "Mana": -3.1431825530875734,
+        "Courbe": -0.8647438821752245,
+        "Interaction": 0,
+        "Synergie": 0.20033310266465615
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "75876",
+      "card": "Spirebluff Canal",
+      "staticScore": 40,
+      "dynamicScore": 26.1,
+      "predictedScore": 22.99108640437868,
+      "absoluteError": 3.1089135956213205,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.714552921753601,
+        "Mana": -12.294360673867718,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "84763",
+      "card": "Stern Scolding",
+      "staticScore": 15,
+      "dynamicScore": 21.9,
+      "predictedScore": 12.953618928430462,
+      "absoluteError": 8.946381071569537,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7679573456576008,
+        "Mana": 0,
+        "Courbe": -0.3125470789422774,
+        "Interaction": -0.22184643789008815,
+        "Synergie": 0.25596979092042793
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "86146",
+      "card": "Collective Brutality",
+      "staticScore": 27,
+      "dynamicScore": 20.8,
+      "predictedScore": 16.906658619250617,
+      "absoluteError": 3.8933413807493835,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.1823232221836806,
+        "Mana": -6.061852066668893,
+        "Courbe": -0.8647438821752245,
+        "Interaction": -0.22184643789008815,
+        "Synergie": 0.23742422816850403
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "86606",
+      "card": "Emrakul, the Promised End",
+      "staticScore": 8,
+      "dynamicScore": 9.3,
+      "predictedScore": 7.763076796477704,
+      "absoluteError": 1.5369232035222966,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9429105843507202,
+        "Mana": 0.6507089093368862,
+        "Courbe": -0.16360019392504246,
+        "Interaction": 0,
+        "Synergie": 0.2188786654165801
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "87173",
+      "card": "Thousand Moons Smithy",
+      "staticScore": 8,
+      "dynamicScore": 9.3,
+      "predictedScore": 5.810605278737016,
+      "absoluteError": 3.4893947212629843,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9429105843507202,
+        "Mana": 0,
+        "Courbe": -1.4022873765003636,
+        "Interaction": 0,
+        "Synergie": 0.1558032395880999
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "87972",
+      "card": "Mana Vault",
+      "staticScore": 42,
+      "dynamicScore": 40.9,
+      "predictedScore": 40.327742929575116,
+      "absoluteError": 0.5722570704248824,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.950280567841281,
+        "Mana": 3.416221774018652,
+        "Courbe": -0.3125470789422774,
+        "Interaction": 0,
+        "Synergie": 0.17434880234002384
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "90661",
+      "card": "Prismatic Vista",
+      "staticScore": 29,
+      "dynamicScore": 33.4,
+      "predictedScore": 21.32768145934846,
+      "absoluteError": 12.072318540651537,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.4180508682713597,
+        "Mana": -4.354434223712507,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.10016655133232807
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "90709",
+      "card": "Mana Drain",
+      "staticScore": 46,
+      "dynamicScore": 44.2,
+      "predictedScore": 39.74764361083847,
+      "absoluteError": 4.45235638916153,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.421735860016642,
+        "Mana": 0,
+        "Courbe": -0.8647438821752245,
+        "Interaction": -0.22184643789008815,
+        "Synergie": 0.25596979092042793
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "91614",
+      "card": "Thundertrap Trainer",
+      "staticScore": 20,
+      "dynamicScore": 24.1,
+      "predictedScore": 16.852078095849436,
+      "absoluteError": 7.247921904150566,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.3572764608768004,
+        "Mana": 0,
+        "Courbe": -0.8647438821752245,
+        "Interaction": 0,
+        "Synergie": 0.07409843890145837
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "102584",
+      "card": "<nobr>Molten-Core</nobr> Maestro",
+      "staticScore": 7.1,
+      "dynamicScore": 5.3,
+      "predictedScore": 3.886001382299503,
+      "absoluteError": 1.4139986177004968,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8368331436112642,
+        "Mana": -1.594042580494412,
+        "Courbe": -0.8647438821752245,
+        "Interaction": 0,
+        "Synergie": 0.0816209885804041
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "102775",
+      "card": "Spell Pierce",
+      "staticScore": 24,
+      "dynamicScore": 32.1,
+      "predictedScore": 20.8928445210359,
+      "absoluteError": 11.2071554789641,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8287317530521605,
+        "Mana": 0,
+        "Courbe": -0.3125470789422774,
+        "Interaction": -0.22184643789008815,
+        "Synergie": 0.25596979092042793
+      }
+    },
+    {
+      "pick": "P2P2",
+      "cardId": "102832",
+      "card": "Sylvan Library",
+      "staticScore": 30,
+      "dynamicScore": 16.8,
+      "predictedScore": 19.15701115774619,
+      "absoluteError": 2.3570111577461894,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.5359146913152015,
+        "Mana": -6.735391185187659,
+        "Courbe": -0.8647438821752245,
+        "Interaction": 0,
+        "Synergie": 0.2930609164242759
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "11867",
+      "card": "Gaea's Cradle",
+      "staticScore": 41,
+      "dynamicScore": 21.9,
+      "predictedScore": 16.40845681368367,
+      "absoluteError": 5.491543186316328,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.958169425583681,
+        "Mana": -19.63337376073265,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "47485",
+      "card": "Thalia, Guardian of Thraben",
+      "staticScore": 27,
+      "dynamicScore": 15.2,
+      "predictedScore": 23.241815595951653,
+      "absoluteError": 8.041815595951654,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.2651359631892545,
+        "Mana": 0,
+        "Courbe": -0.4307992174307623,
+        "Interaction": 0,
+        "Synergie": -0.06224922342833061
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "60295",
+      "card": "Scrubland",
+      "staticScore": 45,
+      "dynamicScore": 34.7,
+      "predictedScore": 25.30127769926264,
+      "absoluteError": 9.398722300737361,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.441893271982089,
+        "Mana": -14.25682902875527,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "71293",
+      "card": "Lurrus of the <nobr>Dream-Den</nobr>",
+      "staticScore": 15,
+      "dynamicScore": 15.4,
+      "predictedScore": 9.085837851030998,
+      "absoluteError": 6.314162148969002,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.81396442399403,
+        "Mana": -3.689821840411732,
+        "Courbe": -0.49132093334427557,
+        "Interaction": 0,
+        "Synergie": 0.08094504878103681
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "71315",
+      "card": "Indatha Triome",
+      "staticScore": 18,
+      "dynamicScore": 14.8,
+      "predictedScore": 9.434633513379065,
+      "absoluteError": 5.365366486620935,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.176757308792836,
+        "Mana": -6.674997722246833,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.2863885444187348
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "91019",
+      "card": "Six",
+      "staticScore": 38,
+      "dynamicScore": 21.4,
+      "predictedScore": 23.8760651938792,
+      "absoluteError": 2.476065193879201,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.595376540784876,
+        "Mana": -9.374092334860135,
+        "Courbe": -0.49132093334427557,
+        "Interaction": 0,
+        "Synergie": 0.3368550028684824
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "91079",
+      "card": "Shifting Woodland",
+      "staticScore": 26,
+      "dynamicScore": 13.9,
+      "predictedScore": 10.548557129667305,
+      "absoluteError": 3.3514428703326953,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.1442050015896514,
+        "Mana": -12.450432140952412,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.1431942722093674
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "92117",
+      "card": "Enduring Curiosity",
+      "staticScore": 17,
+      "dynamicScore": 19.8,
+      "predictedScore": 13.909766163987625,
+      "absoluteError": 5.890233836012376,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.055826347193234,
+        "Mana": 0,
+        "Courbe": -1.44544474269532,
+        "Interaction": 0,
+        "Synergie": 0.41103725387617823
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "94152",
+      "card": "Expedition Map",
+      "staticScore": 6.9,
+      "dynamicScore": 14.6,
+      "predictedScore": 6.462118597518765,
+      "absoluteError": 8.137881402481234,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8344236350372538,
+        "Mana": 0.5785092748941403,
+        "Courbe": -0.2695246262917169,
+        "Interaction": 0,
+        "Synergie": 0.08755758395359557
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "94238",
+      "card": "Gideon, Ally of Zendikar",
+      "staticScore": 14,
+      "dynamicScore": 20.3,
+      "predictedScore": 11.185001464832835,
+      "absoluteError": 9.114998535167166,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.693033462394428,
+        "Mana": 0,
+        "Courbe": -1.44544474269532,
+        "Interaction": 0,
+        "Synergie": 0.3234796699225827
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "96583",
+      "card": "Cosmogrand Zenith",
+      "staticScore": 37,
+      "dynamicScore": 28.1,
+      "predictedScore": 32.13372409900341,
+      "absoluteError": 4.033724099003408,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.474445579185275,
+        "Mana": 0,
+        "Courbe": -0.49132093334427557,
+        "Interaction": 0,
+        "Synergie": 0.09949061153296074
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "102767",
+      "card": "Daze",
+      "staticScore": 28,
+      "dynamicScore": 34.9,
+      "predictedScore": 24.075335370540852,
+      "absoluteError": 10.824664629459146,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.386066924788856,
+        "Mana": 0,
+        "Courbe": -0.4307992174307623,
+        "Interaction": -0.28291365514671984,
+        "Synergie": 0.17511516790719114
+      }
+    },
+    {
+      "pick": "P2P3",
+      "cardId": "102795",
+      "card": "Empty the Warrens",
+      "staticScore": 3.2,
+      "dynamicScore": 2.5,
+      "predictedScore": 0.7584643286477895,
+      "absoluteError": 1.7415356713522105,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.38697907711872637,
+        "Mana": -0.7893972492513798,
+        "Courbe": -1.44544474269532,
+        "Interaction": 0,
+        "Synergie": 0.18028539771321528
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "10035",
+      "card": "Wasteland",
+      "staticScore": 23,
+      "dynamicScore": 18.5,
+      "predictedScore": 16.43531483695721,
+      "absoluteError": 2.064685163042789,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8403227672389018,
+        "Mana": -3.66300772033508,
+        "Courbe": 0,
+        "Interaction": -0.34072647703291,
+        "Synergie": 0.27937180156410224
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "12697",
+      "card": "Memory Jar",
+      "staticScore": 5,
+      "dynamicScore": 9.5,
+      "predictedScore": 4.882629534718708,
+      "absoluteError": 4.617370465281292,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6174614711388917,
+        "Mana": 0.43136313972245116,
+        "Courbe": -0.2291894981808771,
+        "Interaction": 0,
+        "Synergie": 0.29791736431602617
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "17047",
+      "card": "Entomb",
+      "staticScore": 41,
+      "dynamicScore": 24.3,
+      "predictedScore": 25.16188618447476,
+      "absoluteError": 0.8618861844747592,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.063184063338911,
+        "Mana": -10.75092980456186,
+        "Courbe": -0.2291894981808771,
+        "Interaction": 0,
+        "Synergie": 0.20518955055640636
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "60053",
+      "card": "Wheel of Fortune",
+      "staticScore": 32,
+      "dynamicScore": 30,
+      "predictedScore": 19.396968702271348,
+      "absoluteError": 10.603031297728652,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.951753415288907,
+        "Mana": -8.390969603560476,
+        "Courbe": -0.4092669610372806,
+        "Interaction": 0,
+        "Synergie": 0.14895868215801308
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "66029",
+      "card": "Settle the Wreckage",
+      "staticScore": 12,
+      "dynamicScore": 21.1,
+      "predictedScore": 9.217386087427592,
+      "absoluteError": 11.88261391257241,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.48190753073334,
+        "Mana": 0,
+        "Courbe": -1.4873503696435508,
+        "Interaction": 0,
+        "Synergie": 0.18664398780448246
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "77056",
+      "card": "Marsh Flats",
+      "staticScore": 43,
+      "dynamicScore": 26.5,
+      "predictedScore": 31.009103768141188,
+      "absoluteError": 4.509103768141188,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.310168651794468,
+        "Mana": -6.84823182497428,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.16750424490993704
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "77533",
+      "card": "Natural Order",
+      "staticScore": 34,
+      "dynamicScore": 18.4,
+      "predictedScore": 19.566010667738915,
+      "absoluteError": 1.1660106677389166,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.198738003744463,
+        "Mana": -8.915405203783006,
+        "Courbe": -1.4873503696435508,
+        "Interaction": 0,
+        "Synergie": 0.16750424490993704
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "83402",
+      "card": "Leovold, Emissary of Trest",
+      "staticScore": 42,
+      "dynamicScore": 16.6,
+      "predictedScore": 18.72194582488335,
+      "absoluteError": 2.1219458248833476,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.186676357566691,
+        "Mana": -17.942937095324858,
+        "Courbe": -0.4092669610372806,
+        "Interaction": 0,
+        "Synergie": 0.26082623881217826
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "87246",
+      "card": "<nobr>Deep-Cavern</nobr> Bat",
+      "staticScore": 40,
+      "dynamicScore": 25.2,
+      "predictedScore": 24.79184208220751,
+      "absoluteError": 0.4081579177924901,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.939691769111134,
+        "Mana": -10.488712004450598,
+        "Courbe": -0.022034820291015708,
+        "Interaction": 0,
+        "Synergie": 0.24228067606025433
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "87760",
+      "card": "Unearth",
+      "staticScore": 18,
+      "dynamicScore": 13.2,
+      "predictedScore": 11.274904850190385,
+      "absoluteError": 1.9250951498096143,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.2228612961000094,
+        "Mana": -4.719920402002768,
+        "Courbe": -0.2291894981808771,
+        "Interaction": 0,
+        "Synergie": 0.4468760464740392
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "89181",
+      "card": "Commercial District",
+      "staticScore": 43,
+      "dynamicScore": 8.4,
+      "predictedScore": 16.65072364116246,
+      "absoluteError": 8.25072364116246,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.310168651794468,
+        "Mana": -21.188066389201087,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.14895868215801308
+      }
+    },
+    {
+      "pick": "P2P4",
+      "cardId": "95112",
+      "card": "Galvanic Blast",
+      "staticScore": 15,
+      "dynamicScore": 11.4,
+      "predictedScore": 8.812531034753121,
+      "absoluteError": 2.587468965246879,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.8523844134166754,
+        "Mana": -3.9332670016689733,
+        "Courbe": -0.2291894981808771,
+        "Interaction": -0.34072647703291,
+        "Synergie": 0.16809842505255848
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "28707",
+      "card": "Shelldock Isle",
+      "staticScore": 23,
+      "dynamicScore": 29.4,
+      "predictedScore": 16.349017437944674,
+      "absoluteError": 13.050982562055324,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.887599881352488,
+        "Mana": -3.76338268070284,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "44125",
+      "card": "Griselbrand",
+      "staticScore": 28,
+      "dynamicScore": 24.2,
+      "predictedScore": 16.809821043025593,
+      "absoluteError": 7.390178956974406,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.515338985994333,
+        "Mana": -7.543289034556805,
+        "Courbe": -0.2490248837172091,
+        "Interaction": 0,
+        "Synergie": 0.11747394729394033
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "60087",
+      "card": "Fastbond",
+      "staticScore": 29,
+      "dynamicScore": 15.2,
+      "predictedScore": 17.484061788944665,
+      "absoluteError": 2.2840617889446655,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.6408868069227016,
+        "Mana": -7.812692214362407,
+        "Courbe": -0.23546982531993865,
+        "Interaction": 0,
+        "Synergie": 0.17311063554971215
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "69407",
+      "card": "Stomping Ground",
+      "staticScore": 44,
+      "dynamicScore": 8.6,
+      "predictedScore": 16.20097890861374,
+      "absoluteError": 7.600978908613742,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.524104120848236,
+        "Mana": -22.274916970538023,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "70316",
+      "card": "Once Upon a Time",
+      "staticScore": 40,
+      "dynamicScore": 20.8,
+      "predictedScore": 24.377178113932786,
+      "absoluteError": 3.577178113932785,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.021912837134762,
+        "Mana": -10.77612719222401,
+        "Courbe": -0.022638625792473693,
+        "Interaction": 0,
+        "Synergie": 0.19785676908403274
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "80412",
+      "card": "Ziatora's Proving Ground",
+      "staticScore": 22,
+      "dynamicScore": 14.4,
+      "predictedScore": 8.409619599902447,
+      "absoluteError": 5.990380400097553,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.762052060424118,
+        "Mana": -11.137458485269011,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.3091301455955764
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "82054",
+      "card": "Anointed Peacekeeper",
+      "staticScore": 18,
+      "dynamicScore": 11.3,
+      "predictedScore": 15.25915118708257,
+      "absoluteError": 3.9591511870825684,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.2598607767106422,
+        "Mana": 0,
+        "Courbe": -0.42048183092846175,
+        "Interaction": 0,
+        "Synergie": -0.060506205278327715
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "82084",
+      "card": "Serra Paragon",
+      "staticScore": 27,
+      "dynamicScore": 17,
+      "predictedScore": 22.3541406140338,
+      "absoluteError": 5.354140614033799,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.389791165065964,
+        "Mana": 0,
+        "Courbe": -1.5281072409919647,
+        "Interaction": 0,
+        "Synergie": 0.27203902009172853
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "88914",
+      "card": "Show and Tell",
+      "staticScore": 14,
+      "dynamicScore": 12.8,
+      "predictedScore": 11.957868186120237,
+      "absoluteError": 0.8421318138797638,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7576694929971666,
+        "Mana": 0,
+        "Courbe": -0.42048183092846175,
+        "Interaction": 0,
+        "Synergie": 0.13601951004586427
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "92370",
+      "card": "Thornspire Verge",
+      "staticScore": 43,
+      "dynamicScore": 8.4,
+      "predictedScore": 15.832774842508886,
+      "absoluteError": 7.432774842508886,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.398556299919868,
+        "Mana": -21.768668857571246,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P5",
+      "cardId": "95623",
+      "card": "<nobr>Cori-Steel</nobr> Cutter",
+      "staticScore": 41,
+      "dynamicScore": 30.1,
+      "predictedScore": 25.149137177966136,
+      "absoluteError": 4.950862822033866,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.147460658063128,
+        "Mana": -11.04553037202961,
+        "Courbe": -0.022638625792473693,
+        "Interaction": 0,
+        "Synergie": 0.3647668338513482
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "7649",
+      "card": "Necromancy",
+      "staticScore": 41,
+      "dynamicScore": 34.9,
+      "predictedScore": 24.035002080379407,
+      "absoluteError": 10.864997919620592,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.210999209756337,
+        "Mana": -11.605553864693391,
+        "Courbe": -0.43140525597773155,
+        "Interaction": 0,
+        "Synergie": 0.2829604108068662
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "60251",
+      "card": "Badlands",
+      "staticScore": 44,
+      "dynamicScore": 27.3,
+      "predictedScore": 15.554125558873313,
+      "absoluteError": 11.745874441126688,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.592291834860458,
+        "Mana": -22.85358260626623,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "76953",
+      "card": "Bone Shards",
+      "staticScore": 29,
+      "dynamicScore": 27.3,
+      "predictedScore": 16.731944435580495,
+      "absoluteError": 10.568055564419506,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.6858287093398476,
+        "Mana": -8.208806392100204,
+        "Courbe": -0.24158694334752973,
+        "Interaction": -0.3591572421830152,
+        "Synergie": 0.22732372255109434
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "79446",
+      "card": "Lion Sash",
+      "staticScore": 15,
+      "dynamicScore": 14.4,
+      "predictedScore": 12.845748801103813,
+      "absoluteError": 1.5542511988961873,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9064631255206108,
+        "Mana": 0,
+        "Courbe": -0.023226739984034624,
+        "Interaction": -0.3591572421830152,
+        "Synergie": 0.13459590879147465
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "79711",
+      "card": "Otawara, Soaring City",
+      "staticScore": 23,
+      "dynamicScore": 30.3,
+      "predictedScore": 16.016475905827427,
+      "absoluteError": 14.283524094172574,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.9232434591316037,
+        "Mana": -3.861149161013308,
+        "Courbe": 0,
+        "Interaction": -0.3591572421830152,
+        "Synergie": 0.16002576815535702
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "86990",
+      "card": "Restless Cottage",
+      "staticScore": 37,
+      "dynamicScore": 14.6,
+      "predictedScore": 13.221085789001446,
+      "absoluteError": 1.3789142109985537,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.702609042950839,
+        "Mana": -19.217785373451147,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.1414802054034331
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "87809",
+      "card": "Eternal Witness",
+      "staticScore": 20,
+      "dynamicScore": 11.1,
+      "predictedScore": 11.46575474950638,
+      "absoluteError": 0.36575474950637954,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.5419508340274803,
+        "Mana": -5.661245787655314,
+        "Courbe": -0.43140525597773155,
+        "Interaction": 0,
+        "Synergie": 0.10035662716690635
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "92191",
+      "card": "Overlord of the Balemurk",
+      "staticScore": 39,
+      "dynamicScore": 29,
+      "predictedScore": 23.22371138608517,
+      "absoluteError": 5.776288613914829,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.956804126353587,
+        "Mana": -11.039429285927863,
+        "Courbe": -0.24158694334752973,
+        "Interaction": 0,
+        "Synergie": 0.46153174171414707
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "98497",
+      "card": "Formidable Speaker",
+      "staticScore": 37,
+      "dynamicScore": 20.1,
+      "predictedScore": 21.67564140471596,
+      "absoluteError": 1.5756414047159595,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.702609042950839,
+        "Mana": -10.473304707162335,
+        "Courbe": -0.43140525597773155,
+        "Interaction": 0,
+        "Synergie": 0.2829604108068662
+      }
+    },
+    {
+      "pick": "P2P6",
+      "cardId": "100581",
+      "card": "Mutagen Man, Living Ooze",
+      "staticScore": 13,
+      "dynamicScore": 7.4,
+      "predictedScore": 7.658297341384824,
+      "absoluteError": 0.2582973413848233,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.6522680421178626,
+        "Mana": -3.679809761975953,
+        "Courbe": -0.25549413982437924,
+        "Interaction": 0,
+        "Synergie": 0.24586928530301827
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "59613",
+      "card": "Rofellos, Llanowar Emissary",
+      "staticScore": 21,
+      "dynamicScore": 12.2,
+      "predictedScore": 12.189284118160424,
+      "absoluteError": 0.010715881839574948,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.690970587482662,
+        "Mana": -6.224205411781352,
+        "Courbe": -0.023800326107014803,
+        "Interaction": 0,
+        "Synergie": 0.12826044353145483
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "60313",
+      "card": "Tundra",
+      "staticScore": 44,
+      "dynamicScore": 43.4,
+      "predictedScore": 30.792818366163257,
+      "absoluteError": 12.607181633836742,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.6382240880589105,
+        "Mana": -7.568957545777834,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "70740",
+      "card": "Uro, Titan of Nature's Wrath",
+      "staticScore": 44,
+      "dynamicScore": 27.2,
+      "predictedScore": 25.730534183861828,
+      "absoluteError": 1.4694658161381717,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.6382240880589105,
+        "Mana": -12.518327528599855,
+        "Courbe": -0.4420588418180013,
+        "Interaction": 0,
+        "Synergie": 0.32914464233859264
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "71469",
+      "card": "Goblin Engineer",
+      "staticScore": 7,
+      "dynamicScore": 5.8,
+      "predictedScore": 4.242449665115966,
+      "absoluteError": 1.5575503348840334,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8969901958275541,
+        "Mana": -2.0747351372604506,
+        "Courbe": -0.023800326107014803,
+        "Interaction": 0,
+        "Synergie": 0.23797532431098573
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "76136",
+      "card": "Tireless Provisioner",
+      "staticScore": 17,
+      "dynamicScore": 10.3,
+      "predictedScore": 9.59741480774547,
+      "absoluteError": 0.7025851922545314,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.178404761295488,
+        "Mana": -5.03864247620395,
+        "Courbe": -0.4420588418180013,
+        "Interaction": 0,
+        "Synergie": 0.25652088706290965
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "77042",
+      "card": "Monoskelion",
+      "staticScore": 2.7,
+      "dynamicScore": 2.1,
+      "predictedScore": 2.4332205839722922,
+      "absoluteError": 0.33322058397229215,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.3459819326763422,
+        "Mana": 0.25159973898530574,
+        "Courbe": -0.023800326107014803,
+        "Interaction": -0.3680266577887185,
+        "Synergie": 0.21942976155906177
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "77541",
+      "card": "Lightning Helix",
+      "staticScore": 43,
+      "dynamicScore": 29.7,
+      "predictedScore": 25.065154498631248,
+      "absoluteError": 4.634845501368751,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.510082631512117,
+        "Mana": -12.23382008476804,
+        "Courbe": -0.023800326107014803,
+        "Interaction": -0.3680266577887185,
+        "Synergie": 0.20088419880713781
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "91326",
+      "card": "Booster Tutor",
+      "staticScore": 43,
+      "dynamicScore": 37.9,
+      "predictedScore": 24.570186614888435,
+      "absoluteError": 13.329813385111564,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.510082631512117,
+        "Mana": -12.744801557457052,
+        "Courbe": -0.24755295141808079,
+        "Interaction": 0,
+        "Synergie": 0.07262375527568302
+      }
+    },
+    {
+      "pick": "P2P7",
+      "cardId": "102787",
+      "card": "Vampiric Tutor",
+      "staticScore": 37,
+      "dynamicScore": 31.3,
+      "predictedScore": 21.11737975753529,
+      "absoluteError": 10.182620242464711,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.741233892231357,
+        "Mana": -10.966457154090953,
+        "Courbe": -0.24755295141808079,
+        "Interaction": 0,
+        "Synergie": 0.07262375527568302
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "69669",
+      "card": "Tamiyo, Collector of Tales",
+      "staticScore": 37,
+      "dynamicScore": 22.4,
+      "predictedScore": 19.976052268323503,
+      "absoluteError": 2.4239477316764955,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.761143922191205,
+        "Mana": -10.981767617574198,
+        "Courbe": -1.6443277026346894,
+        "Interaction": 0,
+        "Synergie": 0.36329151072359783
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "92314",
+      "card": "Kaito, Bane of Nightmares",
+      "staticScore": 39,
+      "dynamicScore": 31.5,
+      "predictedScore": 21.102896574753895,
+      "absoluteError": 10.397103425246105,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.018503053120458,
+        "Mana": -11.575376677983616,
+        "Courbe": -1.6443277026346894,
+        "Interaction": 0,
+        "Synergie": 0.34110400849265954
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "95072",
+      "card": "Willowrush Verge",
+      "staticScore": 40,
+      "dynamicScore": 23.9,
+      "predictedScore": 20.43640161599928,
+      "absoluteError": 3.4635983840007185,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.147182618585087,
+        "Mana": -14.416415765415636,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "95684",
+      "card": "Surrak, Elusive Hunter",
+      "staticScore": 28,
+      "dynamicScore": 16.3,
+      "predictedScore": 15.249065334939342,
+      "absoluteError": 1.0509346650606588,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.6030278330095604,
+        "Mana": -8.807941601432418,
+        "Courbe": -0.4524616496165541,
+        "Interaction": 0,
+        "Synergie": 0.11249641899787383
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "100138",
+      "card": "Glimmer Lens",
+      "staticScore": 40,
+      "dynamicScore": 24.4,
+      "predictedScore": 35.1881065422501,
+      "absoluteError": 10.788106542250098,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.147182618585087,
+        "Mana": 0,
+        "Courbe": -0.024360410409402962,
+        "Interaction": 0,
+        "Synergie": 0.3596495712445835
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "100335",
+      "card": "Fallen Shinobi",
+      "staticScore": 40,
+      "dynamicScore": 33.9,
+      "predictedScore": 22.860718528183803,
+      "absoluteError": 11.039281471816196,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.147182618585087,
+        "Mana": -11.872181208188323,
+        "Courbe": -0.25337852378527037,
+        "Interaction": 0,
+        "Synergie": 0.1334608787424819
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "100632",
+      "card": "Krang, Utrom Warlord",
+      "staticScore": 7.6,
+      "dynamicScore": 11.1,
+      "predictedScore": 7.401501873016309,
+      "absoluteError": 3.698498126983691,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.9779646975311664,
+        "Mana": 0.724872639310171,
+        "Courbe": -0.2679645145034309,
+        "Interaction": 0,
+        "Synergie": 0.3225584457407356
+      }
+    },
+    {
+      "pick": "P2P8",
+      "cardId": "102755",
+      "card": "Armageddon",
+      "staticScore": 12,
+      "dynamicScore": 10.5,
+      "predictedScore": 8.811517511789784,
+      "absoluteError": 1.6884824882102158,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.544154785575526,
+        "Mana": 0,
+        "Courbe": -1.6443277026346894,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "68739",
+      "card": "Temple Garden",
+      "staticScore": 44,
+      "dynamicScore": 19.2,
+      "predictedScore": 22.122215106339965,
+      "absoluteError": 2.9222151063399657,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.663322212014511,
+        "Mana": -16.214462681645525,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "82496",
+      "card": "Loran of the Third Path",
+      "staticScore": 21,
+      "dynamicScore": 19.3,
+      "predictedScore": 18.03162971218139,
+      "absoluteError": 1.268370287818609,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.7029492375523803,
+        "Mana": 0,
+        "Courbe": -0.3652346817033827,
+        "Interaction": 0,
+        "Synergie": 0.09981363143715541
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "86653",
+      "card": "Faithless Looting",
+      "staticScore": 9.9,
+      "dynamicScore": 6.8,
+      "predictedScore": 5.739510279223373,
+      "absoluteError": 1.0604897207766264,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2742474977032647,
+        "Mana": -3.1842280764759905,
+        "Courbe": -0.21037517666114844,
+        "Interaction": 0,
+        "Synergie": 0.5083610300637775
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "86902",
+      "card": "Tough Cookie",
+      "staticScore": 5.7,
+      "dynamicScore": 2.9,
+      "predictedScore": 3.1842209058343682,
+      "absoluteError": 0.2842209058343683,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.733657650192789,
+        "Mana": -1.8333434379710247,
+        "Courbe": -0.1887756913674092,
+        "Interaction": 0,
+        "Synergie": 0.23999768536559055
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "89182",
+      "card": "Elegant Parlor",
+      "staticScore": 41,
+      "dynamicScore": 23.6,
+      "predictedScore": 20.613882258180418,
+      "absoluteError": 2.9861177418195837,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.277186606649885,
+        "Mana": -15.108931135169696,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "92356",
+      "card": "Blazemire Verge",
+      "staticScore": 41,
+      "dynamicScore": 21.2,
+      "predictedScore": 12.886058446865551,
+      "absoluteError": 8.313941553134448,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.277186606649885,
+        "Mana": -22.836754946484564,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P9",
+      "cardId": "96760",
+      "card": "Gene Pollinator",
+      "staticScore": 6.2,
+      "dynamicScore": 2.2,
+      "predictedScore": 3.315807395314661,
+      "absoluteError": 1.1158073953146608,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7980135844202266,
+        "Mana": -1.9941630377930442,
+        "Courbe": -0.21037517666114844,
+        "Interaction": 0,
+        "Synergie": 0.11835919418907945
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "84763",
+      "card": "Stern Scolding",
+      "staticScore": 15,
+      "dynamicScore": 23.8,
+      "predictedScore": 12.85925829437265,
+      "absoluteError": 10.940741705627351,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9235754827630656,
+        "Mana": 0,
+        "Courbe": -0.17012908089021173,
+        "Interaction": -0.31552872043631014,
+        "Synergie": 0.26849157846223626
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "86146",
+      "card": "Collective Brutality",
+      "staticScore": 27,
+      "dynamicScore": 13,
+      "predictedScore": 14.176101013409124,
+      "absoluteError": 1.1761010134091237,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.4624358689735173,
+        "Mana": -9.008028246629937,
+        "Courbe": -0.3434888545171977,
+        "Interaction": -0.31552872043631014,
+        "Synergie": 0.30558270396608417
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "87173",
+      "card": "Thousand Moons Smithy",
+      "staticScore": 8,
+      "dynamicScore": 12.9,
+      "predictedScore": 5.43725849938464,
+      "absoluteError": 7.46274150061536,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0259069241403016,
+        "Mana": 0,
+        "Courbe": -1.7174442725859869,
+        "Interaction": 0,
+        "Synergie": 0.180609696110928
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "91614",
+      "card": "Thundertrap Trainer",
+      "staticScore": 20,
+      "dynamicScore": 25.2,
+      "predictedScore": 17.160202990823485,
+      "absoluteError": 8.039797009176514,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.5647673103507547,
+        "Mana": 0,
+        "Courbe": -0.3434888545171977,
+        "Interaction": 0,
+        "Synergie": 0.06845915569143865
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "102584",
+      "card": "<nobr>Molten-Core</nobr> Maestro",
+      "staticScore": 7.1,
+      "dynamicScore": 5.4,
+      "predictedScore": 3.5651228344717207,
+      "absoluteError": 1.8348771655282796,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9104923951745176,
+        "Mana": -2.368777798187872,
+        "Courbe": -0.3434888545171977,
+        "Interaction": 0,
+        "Synergie": 0.08788188235130828
+      }
+    },
+    {
+      "pick": "P2P10",
+      "cardId": "102775",
+      "card": "Spell Pierce",
+      "staticScore": 24,
+      "dynamicScore": 31.1,
+      "predictedScore": 20.70511300471481,
+      "absoluteError": 10.39488699528519,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.0777207724209044,
+        "Mana": 0,
+        "Courbe": -0.17012908089021173,
+        "Interaction": -0.31552872043631014,
+        "Synergie": 0.26849157846223626
+      }
+    },
+    {
+      "pick": "P2P11",
+      "cardId": "60295",
+      "card": "Scrubland",
+      "staticScore": 45,
+      "dynamicScore": 24.9,
+      "predictedScore": 21.98439775300587,
+      "absoluteError": 2.91560224699413,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.726657549367652,
+        "Mana": -17.28894469762648,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P11",
+      "cardId": "71315",
+      "card": "Indatha Triome",
+      "staticScore": 18,
+      "dynamicScore": 10.3,
+      "predictedScore": 7.948584667561242,
+      "absoluteError": 2.3514153324387586,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.29066301974706,
+        "Mana": -8.094623723406176,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.333871410714478
+      }
+    },
+    {
+      "pick": "P2P11",
+      "cardId": "91079",
+      "card": "Shifting Woodland",
+      "staticScore": 26,
+      "dynamicScore": 12,
+      "predictedScore": 7.778379088749475,
+      "absoluteError": 4.221620911250525,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.308735472967977,
+        "Mana": -15.098366706391714,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.18548126810916293
+      }
+    },
+    {
+      "pick": "P2P11",
+      "cardId": "94238",
+      "card": "Gideon, Ally of Zendikar",
+      "staticScore": 14,
+      "dynamicScore": 16.3,
+      "predictedScore": 10.873567647960115,
+      "absoluteError": 5.426432352039885,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7816267931366028,
+        "Mana": 0,
+        "Courbe": -1.7528592206254547,
+        "Interaction": 0,
+        "Synergie": 0.4080536617221738
+      }
+    },
+    {
+      "pick": "P2P11",
+      "cardId": "96583",
+      "card": "Cosmogrand Zenith",
+      "staticScore": 37,
+      "dynamicScore": 20,
+      "predictedScore": 31.716100539539752,
+      "absoluteError": 11.716100539539752,
+      "picked": true,
+      "contributions": {
+        "Puissance": -4.708585096146736,
+        "Mana": 0,
+        "Courbe": -0.4823257391084527,
+        "Interaction": 0,
+        "Synergie": -0.09298862520506013
+      }
+    },
+    {
+      "pick": "P2P12",
+      "cardId": "17047",
+      "card": "Entomb",
+      "staticScore": 41,
+      "dynamicScore": 22.2,
+      "predictedScore": 20.948178766326823,
+      "absoluteError": 1.2518212336731764,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.15673161626433,
+        "Mana": -14.79944513054825,
+        "Courbe": -0.36488379967047346,
+        "Interaction": 0,
+        "Synergie": 0.269239312809879
+      }
+    },
+    {
+      "pick": "P2P12",
+      "cardId": "66029",
+      "card": "Settle the Wreckage",
+      "staticScore": 12,
+      "dynamicScore": 18.5,
+      "predictedScore": 8.953833773626641,
+      "absoluteError": 9.546166226373359,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.5092873023212676,
+        "Mana": 0,
+        "Courbe": -1.7875726741100468,
+        "Interaction": 0,
+        "Synergie": 0.2506937500579551
+      }
+    },
+    {
+      "pick": "P2P12",
+      "cardId": "83402",
+      "card": "Leovold, Emissary of Trest",
+      "staticScore": 42,
+      "dynamicScore": 17,
+      "predictedScore": 13.468430848716114,
+      "absoluteError": 3.531569151283886,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.282505558124437,
+        "Mana": -22.84756062716331,
+        "Courbe": -0.6707422788060173,
+        "Interaction": 0,
+        "Synergie": 0.269239312809879
+      }
+    },
+    {
+      "pick": "P2P12",
+      "cardId": "87760",
+      "card": "Unearth",
+      "staticScore": 18,
+      "dynamicScore": 10.8,
+      "predictedScore": 9.407545780938875,
+      "absoluteError": 1.3924542190611255,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.263930953481901,
+        "Mana": -6.497317374387036,
+        "Courbe": -0.36488379967047346,
+        "Interaction": 0,
+        "Synergie": 0.5336779084782861
+      }
+    },
+    {
+      "pick": "P2P13",
+      "cardId": "69407",
+      "card": "Stomping Ground",
+      "staticScore": 44,
+      "dynamicScore": 14.3,
+      "predictedScore": 12.000083619266128,
+      "absoluteError": 2.2999163807338725,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.446452930160488,
+        "Mana": -26.553463450573382,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P13",
+      "cardId": "88914",
+      "card": "Show and Tell",
+      "staticScore": 14,
+      "dynamicScore": 13.2,
+      "predictedScore": 11.85501147443378,
+      "absoluteError": 1.3449885255662188,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.7329622959601556,
+        "Mana": 0,
+        "Courbe": -0.5884211092231143,
+        "Interaction": 0,
+        "Synergie": 0.17639487961704975
+      }
+    },
+    {
+      "pick": "P2P13",
+      "cardId": "92370",
+      "card": "Thornspire Verge",
+      "staticScore": 43,
+      "dynamicScore": 13.8,
+      "predictedScore": 11.727354446100989,
+      "absoluteError": 2.0726455538990116,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.322669909020476,
+        "Mana": -25.949975644878535,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P2P14",
+      "cardId": "98497",
+      "card": "Formidable Speaker",
+      "staticScore": 37,
+      "dynamicScore": 20.6,
+      "predictedScore": 19.098994551552334,
+      "absoluteError": 1.5010054484476676,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.487592896216245,
+        "Mana": -12.935547944583494,
+        "Courbe": -0.7656683739638319,
+        "Interaction": 0,
+        "Synergie": 0.2878037663159053
+      }
+    },
+    {
+      "pick": "P2P14",
+      "cardId": "100581",
+      "card": "Mutagen Man, Living Ooze",
+      "staticScore": 13,
+      "dynamicScore": 7.6,
+      "predictedScore": 7.3267348724720955,
+      "absoluteError": 0.2732651275279041,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.5767218284003022,
+        "Mana": -4.5449222507996065,
+        "Courbe": -0.020417823305702146,
+        "Interaction": 0,
+        "Synergie": 0.4687967749777059
+      }
+    },
+    {
+      "pick": "P2P15",
+      "cardId": "71469",
+      "card": "Goblin Engineer",
+      "staticScore": 7,
+      "dynamicScore": 5.1,
+      "predictedScore": 2.7178134091808666,
+      "absoluteError": 2.382186590819133,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.8279863334194559,
+        "Mana": -2.4315524401070725,
+        "Courbe": -1.0068731505891644,
+        "Interaction": 0,
+        "Synergie": -0.01577466670344141
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "20551",
+      "card": "Skullclamp",
+      "staticScore": 39,
+      "dynamicScore": 27.9,
+      "predictedScore": 38.80746928832556,
+      "absoluteError": 10.907469288325558,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.476241513154331,
+        "Mana": 4.34372186641327,
+        "Courbe": -0.45845510055239674,
+        "Interaction": 0,
+        "Synergie": 0.3984440356190169
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "37374",
+      "card": "Grave Titan",
+      "staticScore": 25,
+      "dynamicScore": 15.6,
+      "predictedScore": 13.4735942641027,
+      "absoluteError": 2.1264057358973005,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8693855853553414,
+        "Mana": -8.719840441294004,
+        "Courbe": -0.22435036835542818,
+        "Interaction": 0,
+        "Synergie": 0.2871706591074732
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "56493",
+      "card": "Flame Slash",
+      "staticScore": 35,
+      "dynamicScore": 23.1,
+      "predictedScore": 18.222244774968107,
+      "absoluteError": 4.877755225031894,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.017139819497477,
+        "Mana": -12.207776617811604,
+        "Courbe": -0.45845510055239674,
+        "Interaction": -0.2472417981001177,
+        "Synergie": 0.1528581109296986
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "60211",
+      "card": "Lion's Eye Diamond",
+      "staticScore": 9.3,
+      "dynamicScore": 15.8,
+      "predictedScore": 9.134205845220672,
+      "absoluteError": 6.665794154779329,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0674114377521877,
+        "Mana": 1.035810598913934,
+        "Courbe": -0.45845510055239674,
+        "Interaction": 0,
+        "Synergie": 0.3242617846113211
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "71571",
+      "card": "Talisman of Conviction",
+      "staticScore": 8.8,
+      "dynamicScore": 10.2,
+      "predictedScore": 8.366931782599728,
+      "absoluteError": 1.833068217400271,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.01002372604508,
+        "Mana": 0.9801218570368406,
+        "Courbe": -0.6302067103294271,
+        "Interaction": 0,
+        "Synergie": 0.22704036193739438
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "71961",
+      "card": "Elder Gargaroth",
+      "staticScore": 23,
+      "dynamicScore": 12.6,
+      "predictedScore": 12.70031338367447,
+      "absoluteError": 0.10031338367446985,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.639834738526914,
+        "Mana": -8.022253205990483,
+        "Courbe": -0.05908187909338363,
+        "Interaction": 0,
+        "Synergie": 0.4214832072852478
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "76217",
+      "card": "Urza's Saga",
+      "staticScore": 38,
+      "dynamicScore": 35.8,
+      "predictedScore": 25.996934973511003,
+      "absoluteError": 9.803065026488994,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.361466089740118,
+        "Mana": -7.8130026104305,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.17140367368162254
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "77529",
+      "card": "Channel",
+      "staticScore": 18,
+      "dynamicScore": 13.3,
+      "predictedScore": 9.271136475172362,
+      "absoluteError": 4.0288635248276385,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.065957621455846,
+        "Mana": -6.278285117731683,
+        "Courbe": -0.6302067103294271,
+        "Interaction": 0,
+        "Synergie": 0.24558592468931834
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "90810",
+      "card": "Tamiyo, Inquisitive Student",
+      "staticScore": 45,
+      "dynamicScore": 43.3,
+      "predictedScore": 39.458724020157646,
+      "absoluteError": 3.841275979842351,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.164894053639616,
+        "Mana": 0,
+        "Courbe": -0.45845510055239674,
+        "Interaction": 0,
+        "Synergie": 0.08207317434965702
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "90887",
+      "card": "Ocelot Pride",
+      "staticScore": 48,
+      "dynamicScore": 38.5,
+      "predictedScore": 42.319495234672814,
+      "absoluteError": 3.8194952346728144,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.509220323882259,
+        "Mana": 0,
+        "Courbe": -0.45845510055239674,
+        "Interaction": 0,
+        "Synergie": 0.2871706591074732
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "94287",
+      "card": "Jace, Vryn's Prodigy",
+      "staticScore": 26,
+      "dynamicScore": 25.8,
+      "predictedScore": 22.121038097332775,
+      "absoluteError": 3.6789619026672256,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.984161008769556,
+        "Mana": 0,
+        "Courbe": -0.6302067103294271,
+        "Interaction": 0,
+        "Synergie": -0.26459418356824227
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "95070",
+      "card": "Wastewood Verge",
+      "staticScore": 41,
+      "dynamicScore": 20,
+      "predictedScore": 10.212795556201506,
+      "absoluteError": 9.787204443798494,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.7057923599827625,
+        "Mana": -26.08141208381573,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "95520",
+      "card": "Clarion Conqueror",
+      "staticScore": 14,
+      "dynamicScore": 9,
+      "predictedScore": 11.862172192026739,
+      "absoluteError": 2.8621721920267387,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.6068559277989918,
+        "Mana": 0,
+        "Courbe": -0.6096477400962721,
+        "Interaction": 0,
+        "Synergie": 0.07867585992200282
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "95949",
+      "card": "Cecil, Dark Knight",
+      "staticScore": 17,
+      "dynamicScore": 12.6,
+      "predictedScore": 8.068617918718832,
+      "absoluteError": 4.531382081281167,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9511821980416326,
+        "Mana": -5.929491500079921,
+        "Courbe": -0.45845510055239674,
+        "Interaction": 0,
+        "Synergie": -0.5922532826072178
+      }
+    },
+    {
+      "pick": "P3P1",
+      "cardId": "102698",
+      "card": "Traumatic Critique",
+      "staticScore": 30,
+      "dynamicScore": 18,
+      "predictedScore": 16.33136456266179,
+      "absoluteError": 1.6686354373382102,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.4432627024264093,
+        "Mana": -10.119627087485732,
+        "Courbe": -0.22435036835542818,
+        "Interaction": -0.2472417981001177,
+        "Synergie": 0.3658465190294759
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "39581",
+      "card": "Green Sun's Zenith",
+      "staticScore": 39,
+      "dynamicScore": 19.4,
+      "predictedScore": 20.48080042996702,
+      "absoluteError": 1.0808004299670202,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.319689880367287,
+        "Mana": -14.24894617392707,
+        "Courbe": -0.20051554592411577,
+        "Interaction": 0,
+        "Synergie": 0.24995203018549358
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "51569",
+      "card": "Worldspine Wurm",
+      "staticScore": 26,
+      "dynamicScore": 17.5,
+      "predictedScore": 13.836429712234828,
+      "absoluteError": 3.6635702877651717,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8797932535781916,
+        "Mana": -9.499297449284715,
+        "Courbe": -0.20051554592411577,
+        "Interaction": 0,
+        "Synergie": 0.4160359610218498
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "59697",
+      "card": "Balance",
+      "staticScore": 35,
+      "dynamicScore": 35.6,
+      "predictedScore": 30.723051283869886,
+      "absoluteError": 4.876948716130116,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.8766447644321786,
+        "Mana": 0,
+        "Courbe": -0.7518435100535316,
+        "Interaction": 0,
+        "Synergie": 0.3515395583555956
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "60279",
+      "card": "Mishra's Workshop",
+      "staticScore": 11,
+      "dynamicScore": 11.9,
+      "predictedScore": 7.482581960473174,
+      "absoluteError": 4.417418039526827,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.218374068821542,
+        "Mana": -2.2990439707052843,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "60303",
+      "card": "Taiga",
+      "staticScore": 46,
+      "dynamicScore": 18.3,
+      "predictedScore": 11.159205690590852,
+      "absoluteError": 7.140794309409149,
+      "picked": false,
+      "contributions": {
+        "Puissance": -5.095018833253723,
+        "Mana": -29.745775476155426,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "67572",
+      "card": "Traxos, Scourge of Kroog",
+      "staticScore": 4.5,
+      "dynamicScore": 3.9,
+      "predictedScore": 2.855059208151502,
+      "absoluteError": 1.0449407918484979,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.49842575542699463,
+        "Mana": 0.5094835138099556,
+        "Courbe": -1.9519014203312826,
+        "Interaction": 0,
+        "Synergie": 0.29590287009982374
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "70186",
+      "card": "Brazen Borrower",
+      "staticScore": 25,
+      "dynamicScore": 30,
+      "predictedScore": 21.7583692157751,
+      "absoluteError": 8.241630784224899,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.769031974594414,
+        "Mana": 0,
+        "Courbe": -0.5370952122967387,
+        "Interaction": 0,
+        "Synergie": 0.06449640266625412
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "71573",
+      "card": "Talisman of Curiosity",
+      "staticScore": 12,
+      "dynamicScore": 11,
+      "predictedScore": 11.509050313067936,
+      "absoluteError": 0.5090503130679362,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3291353478053174,
+        "Mana": 1.358622703493215,
+        "Courbe": -0.7518435100535316,
+        "Interaction": 0,
+        "Synergie": 0.23140646743356966
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "73937",
+      "card": "Hazoret the Fervent",
+      "staticScore": 6.3,
+      "dynamicScore": 3.9,
+      "predictedScore": 1.6073614231863749,
+      "absoluteError": 2.292638576813625,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6977960575977922,
+        "Mana": -2.301752843480526,
+        "Courbe": -1.9519014203312826,
+        "Interaction": 0,
+        "Synergie": 0.2588117445959759
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "77138",
+      "card": "Portable Hole",
+      "staticScore": 31,
+      "dynamicScore": 25.6,
+      "predictedScore": 26.82045503136827,
+      "absoluteError": 1.2204550313682674,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.433599648497074,
+        "Mana": 0,
+        "Courbe": -0.6588367937506662,
+        "Interaction": -0.22578718005794277,
+        "Synergie": 0.13867865367394994
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "77510",
+      "card": "Inquisition of Kozilek",
+      "staticScore": 40,
+      "dynamicScore": 22.4,
+      "predictedScore": 20.647947837123546,
+      "absoluteError": 1.7520521628764527,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.430451159351062,
+        "Mana": -14.614303768130323,
+        "Courbe": -0.6588367937506662,
+        "Interaction": 0,
+        "Synergie": 0.3515395583555956
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "82684",
+      "card": "Haywire Mite",
+      "staticScore": 4.8,
+      "dynamicScore": 3.3,
+      "predictedScore": 4.037618211047134,
+      "absoluteError": 0.7376182110471339,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.5316541391221274,
+        "Mana": 0.543449081397286,
+        "Courbe": -0.6588367937506662,
+        "Interaction": -0.22578718005794277,
+        "Synergie": 0.11044724258058436
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "84752",
+      "card": "Lórien Revealed",
+      "staticScore": 26,
+      "dynamicScore": 32.1,
+      "predictedScore": 23.18030829328368,
+      "absoluteError": 8.919691706716321,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.8797932535781916,
+        "Mana": 0,
+        "Courbe": -0.11566823231592788,
+        "Interaction": 0,
+        "Synergie": 0.1757697791777978
+      }
+    },
+    {
+      "pick": "P3P2",
+      "cardId": "94248",
+      "card": "Kytheon, Hero of Akros",
+      "staticScore": 31,
+      "dynamicScore": 8.3,
+      "predictedScore": 26.5399923588449,
+      "absoluteError": 18.239992358844898,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.433599648497074,
+        "Mana": 0,
+        "Courbe": -0.6588367937506662,
+        "Interaction": 0,
+        "Synergie": -0.36757119890735956
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "69396",
+      "card": "Godless Shrine",
+      "staticScore": 43,
+      "dynamicScore": 22.5,
+      "predictedScore": 19.740757392975674,
+      "absoluteError": 2.7592426070243263,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.568377130907415,
+        "Mana": -18.69086547611691,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "71572",
+      "card": "Talisman of Creativity",
+      "staticScore": 11,
+      "dynamicScore": 17.1,
+      "predictedScore": 10.93575319811215,
+      "absoluteError": 6.164246801887851,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.1686546148832915,
+        "Mana": 1.26533187651919,
+        "Courbe": -0.39662676523828055,
+        "Interaction": 0,
+        "Synergie": 0.23570270171453203
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "77494",
+      "card": "Counterspell",
+      "staticScore": 39,
+      "dynamicScore": 37.6,
+      "predictedScore": 34.540607829039395,
+      "absoluteError": 3.0593921709606064,
+      "picked": true,
+      "contributions": {
+        "Puissance": -4.143411816404399,
+        "Mana": 0,
+        "Courbe": -0.39662676523828055,
+        "Interaction": -0.20530336522775064,
+        "Synergie": 0.28594977590982457
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "78887",
+      "card": "Blood Fountain",
+      "staticScore": 6.5,
+      "dynamicScore": 3.7,
+      "predictedScore": 2.9773839882906517,
+      "absoluteError": 0.7226160117093485,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6905686360673999,
+        "Mana": -2.463497581968827,
+        "Courbe": -0.6174084440790977,
+        "Interaction": 0,
+        "Synergie": 0.24885865040597677
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "78989",
+      "card": "Voldaren Epicure",
+      "staticScore": 12,
+      "dynamicScore": 7.6,
+      "predictedScore": 5.845649852379231,
+      "absoluteError": 1.7543501476207686,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.274895943509046,
+        "Mana": -4.54799553594245,
+        "Courbe": -0.6174084440790977,
+        "Interaction": 0,
+        "Synergie": 0.28594977590982457
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "80408",
+      "card": "Spara's Headquarters",
+      "staticScore": 26,
+      "dynamicScore": 25.8,
+      "predictedScore": 13.86307138836202,
+      "absoluteError": 11.936928611637981,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.7622745442695997,
+        "Mana": -9.37465406736838,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "84831",
+      "card": "Oliphaunt",
+      "staticScore": 20,
+      "dynamicScore": 13.4,
+      "predictedScore": 10.329209597975352,
+      "absoluteError": 3.070790402024649,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.124826572515075,
+        "Mana": -7.579992559904083,
+        "Courbe": -0.17773879450761898,
+        "Interaction": 0,
+        "Synergie": 0.2117675249021288
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "84850",
+      "card": "Delighted Halfling",
+      "staticScore": 42,
+      "dynamicScore": 25.5,
+      "predictedScore": 21.071264014787886,
+      "absoluteError": 4.428735985212114,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.46213580228166,
+        "Mana": -15.917984375798572,
+        "Courbe": -0.6174084440790977,
+        "Interaction": 0,
+        "Synergie": 0.06879263694721649
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "89186",
+      "card": "Meticulous Archive",
+      "staticScore": 41,
+      "dynamicScore": 34.9,
+      "predictedScore": 28.117892320455706,
+      "absoluteError": 6.782107679544293,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.355894473655907,
+        "Mana": -8.706279219347147,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.18006601345876022
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "93804",
+      "card": "Kellan, Planar Trailblazer",
+      "staticScore": 20,
+      "dynamicScore": 12.3,
+      "predictedScore": 9.05363242164872,
+      "absoluteError": 3.246367578351281,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.124826572515075,
+        "Mana": -7.579992559904083,
+        "Courbe": -0.6174084440790977,
+        "Interaction": 0,
+        "Synergie": -0.6241400018530217
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "94435",
+      "card": "Sylvan Caryatid",
+      "staticScore": 34,
+      "dynamicScore": 18.9,
+      "predictedScore": 17.173973346596362,
+      "absoluteError": 1.7260266534036361,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.612205173275628,
+        "Mana": -12.885987351836942,
+        "Courbe": -0.39662676523828055,
+        "Interaction": 0,
+        "Synergie": 0.06879263694721649
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "97335",
+      "card": "The Legend of Kuruk",
+      "staticScore": 20,
+      "dynamicScore": 27.9,
+      "predictedScore": 16.307808316466815,
+      "absoluteError": 11.592191683533184,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.124826572515075,
+        "Mana": 0,
+        "Courbe": -1.9831338261914009,
+        "Interaction": 0,
+        "Synergie": 0.41576871517329217
+      }
+    },
+    {
+      "pick": "P3P3",
+      "cardId": "101031",
+      "card": "Volcanic Island",
+      "staticScore": 43,
+      "dynamicScore": 29.7,
+      "predictedScore": 19.740757392975674,
+      "absoluteError": 9.959242607024326,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.568377130907415,
+        "Mana": -18.69086547611691,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "19737",
+      "card": "Lightning Greaves",
+      "staticScore": 11,
+      "dynamicScore": 6,
+      "predictedScore": 11.614434129822213,
+      "absoluteError": 5.614434129822213,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.113371295741599,
+        "Mana": 1.2849505949314983,
+        "Courbe": -0.055555363329350745,
+        "Interaction": 0,
+        "Synergie": 0.4984101939616643
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "39974",
+      "card": "Batterskull",
+      "staticScore": 6.9,
+      "dynamicScore": 13.7,
+      "predictedScore": 7.283815755590655,
+      "absoluteError": 6.416184244409345,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6983874491470035,
+        "Mana": 0.8060144640933945,
+        "Courbe": -0.22222145331740129,
+        "Interaction": 0,
+        "Synergie": 0.4984101939616643
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "68734",
+      "card": "Overgrown Tomb",
+      "staticScore": 42,
+      "dynamicScore": 22,
+      "predictedScore": 9.7273493230878,
+      "absoluteError": 12.2726506769122,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.251054038286107,
+        "Mana": -28.021596638626093,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "72862",
+      "card": "Fire Covenant",
+      "staticScore": 44,
+      "dynamicScore": 26.3,
+      "predictedScore": 14.406775079007783,
+      "absoluteError": 11.893224920992218,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.453485182966396,
+        "Mana": -24.81148089292357,
+        "Courbe": -0.4012810959398039,
+        "Interaction": 0,
+        "Synergie": 0.0730222508375547
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "76988",
+      "card": "Dragon's Rage Channeler",
+      "staticScore": 20,
+      "dynamicScore": 13.7,
+      "predictedScore": 9.072518438119332,
+      "absoluteError": 4.627481561880668,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.0243114468029084,
+        "Mana": -7.8604212311793145,
+        "Courbe": -0.5778447781533175,
+        "Interaction": 0,
+        "Synergie": -0.46490410574513
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "78335",
+      "card": "Cathar Commando",
+      "staticScore": 23,
+      "dynamicScore": 11.1,
+      "predictedScore": 19.80227129680514,
+      "absoluteError": 8.702271296805142,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.327958163823344,
+        "Mana": 0,
+        "Courbe": -0.055555363329350745,
+        "Interaction": -0.25658325653741537,
+        "Synergie": -0.5576319195047497
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "89184",
+      "card": "Hedge Maze",
+      "staticScore": 40,
+      "dynamicScore": 25.7,
+      "predictedScore": 18.479241461201635,
+      "absoluteError": 7.220758538798364,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.048622893605817,
+        "Mana": -17.656431272541646,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0.18429562734909835
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "90681",
+      "card": "Vaultborn Tyrant",
+      "staticScore": 38,
+      "dynamicScore": 25.8,
+      "predictedScore": 19.523240611413417,
+      "absoluteError": 6.2767593885865836,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.8461917489255253,
+        "Mana": -14.934800339240699,
+        "Courbe": -0.15592636870803803,
+        "Interaction": 0,
+        "Synergie": 0.4601590682876753
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "91050",
+      "card": "Psychic Frog",
+      "staticScore": 50,
+      "dynamicScore": 29.4,
+      "predictedScore": 27.103145914969016,
+      "absoluteError": 2.296854085030983,
+      "picked": true,
+      "contributions": {
+        "Puissance": -5.060778617007269,
+        "Mana": -18.36933811207537,
+        "Courbe": -0.055555363329350745,
+        "Interaction": 0,
+        "Synergie": 0.5888180073810019
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "91096",
+      "card": "Kappa Cannoneer",
+      "staticScore": 19,
+      "dynamicScore": 16.1,
+      "predictedScore": 17.178295635015854,
+      "absoluteError": 1.0782956350158521,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9230958744627626,
+        "Mana": 0,
+        "Courbe": -0.15592636870803803,
+        "Interaction": 0,
+        "Synergie": 0.2573178781866531
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "92904",
+      "card": "Dark Confidant",
+      "staticScore": 21,
+      "dynamicScore": 11.5,
+      "predictedScore": 9.465703540327103,
+      "absoluteError": 2.0342964596728965,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.1255270191430533,
+        "Mana": -8.253442292738281,
+        "Courbe": -0.055555363329350745,
+        "Interaction": 0,
+        "Synergie": -1.0997717844622104
+      }
+    },
+    {
+      "pick": "P3P4",
+      "cardId": "96576",
+      "card": "Tezzeret, Cruel Captain",
+      "staticScore": 13,
+      "dynamicScore": 16.5,
+      "predictedScore": 13.244267945172334,
+      "absoluteError": 3.255732054827666,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3158024404218893,
+        "Mana": 1.5185779758281344,
+        "Courbe": -0.4012810959398039,
+        "Interaction": 0,
+        "Synergie": 0.44277350570589247
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "12623",
+      "card": "Tinker",
+      "staticScore": 33,
+      "dynamicScore": 25.1,
+      "predictedScore": 29.9189518637277,
+      "absoluteError": 4.818951863727698,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.1575723341893944,
+        "Mana": 0,
+        "Courbe": -0.3374901818864511,
+        "Interaction": 0,
+        "Synergie": 0.4140143798035456
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "20535",
+      "card": "Sword of Fire and Ice",
+      "staticScore": 6.2,
+      "dynamicScore": 10.3,
+      "predictedScore": 6.0892318016724865,
+      "absoluteError": 4.210768198327514,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.5932408627870984,
+        "Mana": 0.7351363924038106,
+        "Courbe": -0.3374901818864511,
+        "Interaction": -0.23646011210170023,
+        "Synergie": 0.32128656604392586
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "60255",
+      "card": "Bayou",
+      "staticScore": 43,
+      "dynamicScore": 23.4,
+      "predictedScore": 9.765375656115935,
+      "absoluteError": 13.634624343884063,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.114412435458904,
+        "Mana": -29.12021190842516,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "78196",
+      "card": "Manamorphose",
+      "staticScore": 8.4,
+      "dynamicScore": 6.2,
+      "predictedScore": 3.0030797139045236,
+      "absoluteError": 3.1969202860954766,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8037456850663909,
+        "Mana": -4.723828406062658,
+        "Courbe": -0.1349960727545802,
+        "Interaction": 0,
+        "Synergie": 0.2656498777881541
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "79448",
+      "card": "March of Otherworldly Light",
+      "staticScore": 21,
+      "dynamicScore": 22.7,
+      "predictedScore": 18.884829480265896,
+      "absoluteError": 3.815170519734103,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.0093642126659788,
+        "Mana": 0,
+        "Courbe": -0.13499607275458048,
+        "Interaction": -0.23646011210170023,
+        "Synergie": 0.2656498777881541
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "82726",
+      "card": "Portal to Phyrexia",
+      "staticScore": 10,
+      "dynamicScore": 19.2,
+      "predictedScore": 10.396608687983733,
+      "absoluteError": 8.803391312016267,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9568401012695134,
+        "Mana": 1.1857038587158237,
+        "Courbe": -0.13499607275458048,
+        "Interaction": 0,
+        "Synergie": 0.30274100329200193
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "82810",
+      "card": "Chromatic Star",
+      "staticScore": 9.8,
+      "dynamicScore": 18.1,
+      "predictedScore": 9.694315380811444,
+      "absoluteError": 8.405684619188557,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9377032992441232,
+        "Mana": 1.1619897815415072,
+        "Courbe": -0.5399842910183219,
+        "Interaction": 0,
+        "Synergie": 0.21001318953238218
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "89191",
+      "card": "Thundering Falls",
+      "staticScore": 37,
+      "dynamicScore": 23.3,
+      "predictedScore": 16.881881939762682,
+      "absoluteError": 6.418118060237319,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.540308374697201,
+        "Mana": -16.577809685540117,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "91048",
+      "card": "Phlage, Titan of Fire's Fury",
+      "staticScore": 50,
+      "dynamicScore": 33.1,
+      "predictedScore": 26.55243451310338,
+      "absoluteError": 6.547565486896623,
+      "picked": false,
+      "contributions": {
+        "Puissance": -4.784200506347565,
+        "Mana": -18.395161689483515,
+        "Courbe": -0.3374901818864511,
+        "Interaction": -0.23646011210170023,
+        "Synergie": 0.30574700292261114
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "96118",
+      "card": "Sin, Spira's Punishment",
+      "staticScore": 41,
+      "dynamicScore": 20.6,
+      "predictedScore": 12.394807291147082,
+      "absoluteError": 8.20519270885292,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.9230444152050037,
+        "Mana": -24.852899223815946,
+        "Courbe": -0.13499607275458048,
+        "Interaction": 0,
+        "Synergie": 0.30574700292261114
+      }
+    },
+    {
+      "pick": "P3P5",
+      "cardId": "100549",
+      "card": "Improvised Arsenal",
+      "staticScore": 7.6,
+      "dynamicScore": 9.9,
+      "predictedScore": 4.233160136315686,
+      "absoluteError": 5.666839863684315,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7271984769648299,
+        "Mana": -2.955750819272298,
+        "Courbe": -0.1349960727545802,
+        "Interaction": 0,
+        "Synergie": 0.45110550530739346
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "56597",
+      "card": "Pyrokinesis",
+      "staticScore": 27,
+      "dynamicScore": 19.1,
+      "predictedScore": 13.713990051160817,
+      "absoluteError": 5.386009948839185,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.420459333626635,
+        "Mana": -10.831968554875377,
+        "Courbe": -0.11487548346458402,
+        "Interaction": 0,
+        "Synergie": 0.08129342312741383
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "75860",
+      "card": "Concealed Courtyard",
+      "staticScore": 42,
+      "dynamicScore": 20.4,
+      "predictedScore": 19.1420561465198,
+      "absoluteError": 1.2579438534801994,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.765158963419209,
+        "Mana": -19.09278489006099,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "76158",
+      "card": "Grist, the Hunger Tide",
+      "staticScore": 41,
+      "dynamicScore": 20.3,
+      "predictedScore": 13.568534442976166,
+      "absoluteError": 6.731465557023835,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.675512321433036,
+        "Mana": -23.663648359290995,
+        "Courbe": -0.497057380375604,
+        "Interaction": -0.21715019246464118,
+        "Synergie": 0.6219026965404383
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "79706",
+      "card": "Boseiju, Who Endures",
+      "staticScore": 31,
+      "dynamicScore": 13.6,
+      "predictedScore": 6.977530260155341,
+      "absoluteError": 6.622469739844659,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.7790459015713207,
+        "Mana": -21.300133868575067,
+        "Courbe": 0,
+        "Interaction": -0.21715019246464118,
+        "Synergie": 0.27386022276637134
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "91002",
+      "card": "Fanatic of Rhonas",
+      "staticScore": 37,
+      "dynamicScore": 16.9,
+      "predictedScore": 18.831320741293386,
+      "absoluteError": 1.931320741293387,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.3169257534883503,
+        "Mana": -14.843808760384778,
+        "Courbe": -0.07069260520897475,
+        "Interaction": 0,
+        "Synergie": 0.06274786037548982
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "91172",
+      "card": "Persist",
+      "staticScore": 35,
+      "dynamicScore": 20.3,
+      "predictedScore": 18.061185554262337,
+      "absoluteError": 2.2388144457376633,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.1376324695160083,
+        "Mana": -14.041440719282898,
+        "Courbe": -0.07069260520897475,
+        "Interaction": 0,
+        "Synergie": 0.31095134827021914
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "95052",
+      "card": "Bleachbone Verge",
+      "staticScore": 42,
+      "dynamicScore": 21.9,
+      "predictedScore": 19.1420561465198,
+      "absoluteError": 2.7579438534801994,
+      "picked": true,
+      "contributions": {
+        "Puissance": -3.765158963419209,
+        "Mana": -19.09278489006099,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "99488",
+      "card": "Chain Lightning",
+      "staticScore": 37,
+      "dynamicScore": 24.1,
+      "predictedScore": 18.255360592931474,
+      "absoluteError": 5.844639407068527,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.3169257534883503,
+        "Mana": -14.843808760384778,
+        "Courbe": -0.5036848121139454,
+        "Interaction": -0.21715019246464118,
+        "Synergie": 0.13693011138318567
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "100908",
+      "card": "Torsten, Founder of Benalia",
+      "staticScore": 26,
+      "dynamicScore": 15,
+      "predictedScore": 13.238479731138565,
+      "absoluteError": 1.7615202688614353,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.330812691640462,
+        "Mana": -9.790823765558898,
+        "Courbe": -0.11487548346458402,
+        "Interaction": 0,
+        "Synergie": -0.5250083281974924
+      }
+    },
+    {
+      "pick": "P3P6",
+      "cardId": "102673",
+      "card": "Professor Dellian Fel",
+      "staticScore": 42,
+      "dynamicScore": 21.4,
+      "predictedScore": 12.317660854588823,
+      "absoluteError": 9.082339145411176,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.765158963419209,
+        "Mana": -24.24081051439565,
+        "Courbe": -2.0740109995524008,
+        "Interaction": -0.21715019246464118,
+        "Synergie": 0.6147915244207203
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "73278",
+      "card": "Thieving Skydiver",
+      "staticScore": 18,
+      "dynamicScore": 15.8,
+      "predictedScore": 16.499236984810075,
+      "absoluteError": 0.6992369848100743,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.4958624225205108,
+        "Mana": 0,
+        "Courbe": -0.07169538728424997,
+        "Interaction": 0,
+        "Synergie": 0.06679479461483437
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "76070",
+      "card": "Breya's Apprentice",
+      "staticScore": 9.1,
+      "dynamicScore": 4.6,
+      "predictedScore": 3.6521631232498013,
+      "absoluteError": 0.9478368767501983,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7562415580520367,
+        "Mana": -3.630463528121094,
+        "Courbe": -0.5041081918423829,
+        "Interaction": 0,
+        "Synergie": -0.5570235987346839
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "87088",
+      "card": "Sneak Attack",
+      "staticScore": 21,
+      "dynamicScore": 17.7,
+      "predictedScore": 8.895834834643605,
+      "absoluteError": 8.804165165356395,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.745172826273932,
+        "Mana": -8.377992757202524,
+        "Courbe": -2.103431064750546,
+        "Interaction": 0,
+        "Synergie": 0.12243148287060626
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "90428",
+      "card": "Caustic Bronco",
+      "staticScore": 23,
+      "dynamicScore": 8.2,
+      "predictedScore": 11.907822815903991,
+      "absoluteError": 3.7078228159039917,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9113797621095436,
+        "Mana": -9.17589682931705,
+        "Courbe": -0.07169538728424997,
+        "Interaction": 0,
+        "Synergie": 0.06679479461483437
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "96172",
+      "card": "Starting Town",
+      "staticScore": 23,
+      "dynamicScore": 18.5,
+      "predictedScore": 9.400011979872415,
+      "absoluteError": 9.099988020127585,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9113797621095436,
+        "Mana": -11.688608258018041,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "96626",
+      "card": "Cryogen Relic",
+      "staticScore": 15,
+      "dynamicScore": 12.1,
+      "predictedScore": 13.926615559689868,
+      "absoluteError": 1.826615559689868,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2465520187670949,
+        "Mana": 0,
+        "Courbe": -0.07169538728424997,
+        "Interaction": 0,
+        "Synergie": 0.24486296574121252
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "100142",
+      "card": "Staff of the Storyteller",
+      "staticScore": 41,
+      "dynamicScore": 24.1,
+      "predictedScore": 37.8401076448346,
+      "absoluteError": 13.740107644834602,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.4072421846300536,
+        "Mana": 0,
+        "Courbe": -0.07169538728424997,
+        "Interaction": 0,
+        "Synergie": 0.31904521674890823
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "100574",
+      "card": "Leatherhead, Swamp Stalker",
+      "staticScore": 18,
+      "dynamicScore": 5.9,
+      "predictedScore": 6.94357696639115,
+      "absoluteError": 1.04357696639115,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.4958624225205108,
+        "Mana": -7.181136649030735,
+        "Courbe": -2.103431064750546,
+        "Interaction": -0.2202304908919293,
+        "Synergie": -0.05576240641512789
+      }
+    },
+    {
+      "pick": "P3P7",
+      "cardId": "102472",
+      "card": "Emeritus of Truce",
+      "staticScore": 12,
+      "dynamicScore": 9.9,
+      "predictedScore": 10.320456303858208,
+      "absoluteError": 0.42045630385820765,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9972416150136749,
+        "Mana": 0,
+        "Courbe": -0.5041081918423829,
+        "Interaction": 0,
+        "Synergie": -0.17819388928573415
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "78446",
+      "card": "Graveyard Trespasser",
+      "staticScore": 16,
+      "dynamicScore": 9,
+      "predictedScore": 7.486750509594637,
+      "absoluteError": 1.5132494904053626,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2168718067496833,
+        "Mana": -6.527551643696983,
+        "Courbe": -0.44008093998709363,
+        "Interaction": 0,
+        "Synergie": -0.3287450999716013
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "82723",
+      "card": "The Mightstone and Weakstone",
+      "staticScore": 8.3,
+      "dynamicScore": 5.7,
+      "predictedScore": 8.485717744795547,
+      "absoluteError": 2.785717744795547,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6312522497513986,
+        "Mana": 1.0266342033224611,
+        "Courbe": -0.3731779235837889,
+        "Interaction": 0,
+        "Synergie": 0.1635137148082736
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "83000",
+      "card": "Retrofitter Foundry",
+      "staticScore": 18,
+      "dynamicScore": 19.7,
+      "predictedScore": 18.746285979004107,
+      "absoluteError": 0.9537140209958928,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3689807825933942,
+        "Mana": 2.2264356216631684,
+        "Courbe": -0.4752874151860612,
+        "Interaction": 0,
+        "Synergie": 0.36411855512039504
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "84861",
+      "card": "Generous Ent",
+      "staticScore": 25,
+      "dynamicScore": 11,
+      "predictedScore": 13.092456855992618,
+      "absoluteError": 2.0924568559926175,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.9013621980463835,
+        "Mana": -10.199299443276537,
+        "Courbe": -0.09681780679716061,
+        "Interaction": 0,
+        "Synergie": 0.2899363041126993
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "87258",
+      "card": "Preacher of the Schism",
+      "staticScore": 22,
+      "dynamicScore": 9.8,
+      "predictedScore": 10.860177308205575,
+      "absoluteError": 1.0601773082055743,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.673198734280816,
+        "Mana": -8.975383510083352,
+        "Courbe": -0.44008093998709363,
+        "Interaction": 0,
+        "Synergie": -0.05115950744316258
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "87370",
+      "card": "Sentinel of the Nameless City",
+      "staticScore": 35,
+      "dynamicScore": 17.1,
+      "predictedScore": 17.660561068477275,
+      "absoluteError": 0.5605610684772735,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.661907077264935,
+        "Mana": -14.27901922058715,
+        "Courbe": -0.44008093998709363,
+        "Interaction": 0,
+        "Synergie": 0.041568306316457165
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "89188",
+      "card": "Raucous Theater",
+      "staticScore": 42,
+      "dynamicScore": 23.6,
+      "predictedScore": 9.13439820455632,
+      "absoluteError": 14.465601795443682,
+      "picked": false,
+      "contributions": {
+        "Puissance": -3.1942884927179183,
+        "Mana": -29.671313302725764,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P8",
+      "cardId": "92064",
+      "card": "Enduring Innocence",
+      "staticScore": 30,
+      "dynamicScore": 12.9,
+      "predictedScore": 27.787371129533994,
+      "absoluteError": 14.887371129533994,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.2816346376556567,
+        "Mana": 0,
+        "Courbe": -0.44008093998709363,
+        "Interaction": 0,
+        "Synergie": 0.5090867071767449
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "20551",
+      "card": "Skullclamp",
+      "staticScore": 39,
+      "dynamicScore": 26,
+      "predictedScore": 41.20371658460452,
+      "absoluteError": 15.203716584604521,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.671488377934427,
+        "Mana": 4.888697668448309,
+        "Courbe": -0.44112300377535396,
+        "Interaction": 0,
+        "Synergie": 0.42763029786599105
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "37374",
+      "card": "Grave Titan",
+      "staticScore": 25,
+      "dynamicScore": 11.1,
+      "predictedScore": 13.440409422812175,
+      "absoluteError": 2.3404094228121757,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.7124925499579664,
+        "Mana": -10.029973024368179,
+        "Courbe": -0.07784523596035657,
+        "Interaction": 0,
+        "Synergie": 0.2607202330986755
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "71961",
+      "card": "Elder Gargaroth",
+      "staticScore": 23,
+      "dynamicScore": 9.1,
+      "predictedScore": 12.447620036686727,
+      "absoluteError": 3.3476200366867275,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.57549314596133,
+        "Mana": -9.227575182418724,
+        "Courbe": -0.4191166031459621,
+        "Interaction": 0,
+        "Synergie": 0.6698049682127426
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "77529",
+      "card": "Channel",
+      "staticScore": 18,
+      "dynamicScore": 10,
+      "predictedScore": 9.622718336963084,
+      "absoluteError": 0.377281663036916,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.2329946359697344,
+        "Mana": -7.221580577545088,
+        "Courbe": -0.16433994258297485,
+        "Interaction": 0,
+        "Synergie": 0.24163349306088144
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "95520",
+      "card": "Clarion Conqueror",
+      "staticScore": 14,
+      "dynamicScore": 5.9,
+      "predictedScore": 12.483985366782754,
+      "absoluteError": 6.583985366782754,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9589958279764614,
+        "Mana": 0,
+        "Courbe": -0.5946511080305015,
+        "Interaction": 0,
+        "Synergie": 0.03763230278971802
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "95949",
+      "card": "Cecil, Dark Knight",
+      "staticScore": 17,
+      "dynamicScore": 8.1,
+      "predictedScore": 7.856526871669786,
+      "absoluteError": 0.24347312833021384,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.164494933971417,
+        "Mana": -6.82038165657036,
+        "Courbe": -0.44112300377535396,
+        "Interaction": 0,
+        "Synergie": -0.7174735340130844
+      }
+    },
+    {
+      "pick": "P3P9",
+      "cardId": "102698",
+      "card": "Traumatic Critique",
+      "staticScore": 30,
+      "dynamicScore": 12.7,
+      "predictedScore": 16.537621609117643,
+      "absoluteError": 3.837621609117644,
+      "picked": false,
+      "contributions": {
+        "Puissance": -2.0549910599495558,
+        "Mana": -11.51893435939672,
+        "Courbe": -0.07784523596035657,
+        "Interaction": -0.18314252247181545,
+        "Synergie": 0.37253478689608943
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "51569",
+      "card": "Worldspine Wurm",
+      "staticScore": 26,
+      "dynamicScore": 12.4,
+      "predictedScore": 14.222800545190161,
+      "absoluteError": 1.8228005451901605,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.5714168638271033,
+        "Mana": -10.567532921741012,
+        "Courbe": -0.059533730617858514,
+        "Interaction": 0,
+        "Synergie": 0.4212840613761354
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "60279",
+      "card": "Mishra's Workshop",
+      "staticScore": 11,
+      "dynamicScore": 6,
+      "predictedScore": 7.756482175245815,
+      "absoluteError": 1.7564821752458153,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.6648302116191589,
+        "Mana": -2.578687613135026,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "71573",
+      "card": "Talisman of Curiosity",
+      "staticScore": 12,
+      "dynamicScore": 6.5,
+      "predictedScore": 12.942070835667753,
+      "absoluteError": 6.442070835667753,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.7252693217663548,
+        "Mana": 1.5238784386308222,
+        "Courbe": -0.10205782391632869,
+        "Interaction": 0,
+        "Synergie": 0.24551954271961413
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "73937",
+      "card": "Hazoret the Fervent",
+      "staticScore": 6.3,
+      "dynamicScore": 2,
+      "predictedScore": 1.4007198324762973,
+      "absoluteError": 0.5992801675237027,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.38076639392733735,
+        "Mana": -2.56059451565263,
+        "Courbe": -2.1893204648560283,
+        "Interaction": 0,
+        "Synergie": 0.23140120691229304
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "77138",
+      "card": "Portable Hole",
+      "staticScore": 31,
+      "dynamicScore": 18.5,
+      "predictedScore": 28.49270682108886,
+      "absoluteError": 9.99270682108886,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.8736124145630857,
+        "Mana": 0,
+        "Courbe": -0.6208517621576669,
+        "Interaction": -0.1656207311503817,
+        "Synergie": 0.1527917289599944
+      }
+    },
+    {
+      "pick": "P3P10",
+      "cardId": "82684",
+      "card": "Haywire Mite",
+      "staticScore": 4.8,
+      "dynamicScore": 2.1,
+      "predictedScore": 4.378916732830791,
+      "absoluteError": 2.278916732830791,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.29010772870654233,
+        "Mana": 0.6095513754523287,
+        "Courbe": -0.6208517621576669,
+        "Interaction": -0.1656207311503817,
+        "Synergie": 0.04594557939305355
+      }
+    },
+    {
+      "pick": "P3P11",
+      "cardId": "69396",
+      "card": "Godless Shrine",
+      "staticScore": 43,
+      "dynamicScore": 20.8,
+      "predictedScore": 19.872450486704306,
+      "absoluteError": 0.9275495132956948,
+      "picked": true,
+      "contributions": {
+        "Puissance": -2.2305266318450023,
+        "Mana": -20.89702288145069,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P11",
+      "cardId": "78887",
+      "card": "Blood Fountain",
+      "staticScore": 6.5,
+      "dynamicScore": 2.2,
+      "predictedScore": 2.8723323556875746,
+      "absoluteError": 0.6723323556875744,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.3371726303951741,
+        "Mana": -2.7161516841136732,
+        "Courbe": -0.7948720535158047,
+        "Interaction": 0,
+        "Synergie": 0.2205287237122271
+      }
+    },
+    {
+      "pick": "P3P11",
+      "cardId": "78989",
+      "card": "Voldaren Epicure",
+      "staticScore": 12,
+      "dynamicScore": 3.5,
+      "predictedScore": 5.586146184302356,
+      "absoluteError": 2.086146184302356,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.622472548421861,
+        "Mana": -5.014433878363704,
+        "Courbe": -0.7948720535158047,
+        "Interaction": 0,
+        "Synergie": 0.017924664603725493
+      }
+    },
+    {
+      "pick": "P3P11",
+      "cardId": "80408",
+      "card": "Spara's Headquarters",
+      "staticScore": 26,
+      "dynamicScore": 15.1,
+      "predictedScore": 14.170127598329007,
+      "absoluteError": 0.9298724016709929,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3486905215806964,
+        "Mana": -10.481181880090297,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P11",
+      "cardId": "84831",
+      "card": "Oliphaunt",
+      "staticScore": 20,
+      "dynamicScore": 9.2,
+      "predictedScore": 10.765303745080026,
+      "absoluteError": 1.5653037450800262,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.0374542473697659,
+        "Mana": -8.357389797272837,
+        "Courbe": -0.04183537123767393,
+        "Interaction": 0,
+        "Synergie": 0.20198316096030322
+      }
+    },
+    {
+      "pick": "P3P12",
+      "cardId": "19737",
+      "card": "Lightning Greaves",
+      "staticScore": 11,
+      "dynamicScore": 4.3,
+      "predictedScore": 12.425387668859745,
+      "absoluteError": 8.125387668859744,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.47080559528414234,
+        "Mana": 1.4322584336804252,
+        "Courbe": -0.04235508521723004,
+        "Interaction": 0,
+        "Synergie": 0.5062899156806921
+      }
+    },
+    {
+      "pick": "P3P12",
+      "cardId": "39974",
+      "card": "Batterskull",
+      "staticScore": 6.9,
+      "dynamicScore": 6.5,
+      "predictedScore": 7.477750623395676,
+      "absoluteError": 0.9777506233956759,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.29532350976914357,
+        "Mana": 0.8984166538540849,
+        "Courbe": -0.5130868736180342,
+        "Interaction": 0,
+        "Synergie": 0.4877443529287682
+      }
+    },
+    {
+      "pick": "P3P12",
+      "cardId": "72862",
+      "card": "Fire Covenant",
+      "staticScore": 44,
+      "dynamicScore": 25.8,
+      "predictedScore": 15.077205495130055,
+      "absoluteError": 10.722794504869945,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.8832223811365694,
+        "Mana": -26.667857870864488,
+        "Courbe": -0.4764947086938415,
+        "Interaction": 0,
+        "Synergie": 0.10478045582495454
+      }
+    },
+    {
+      "pick": "P3P12",
+      "cardId": "92904",
+      "card": "Dark Confidant",
+      "staticScore": 21,
+      "dynamicScore": 5.7,
+      "predictedScore": 10.072670808464208,
+      "absoluteError": 4.372670808464208,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.8988106819060917,
+        "Mana": -8.728063042164568,
+        "Courbe": -0.04235508521723004,
+        "Interaction": 0,
+        "Synergie": -1.2581003822479047
+      }
+    },
+    {
+      "pick": "P3P13",
+      "cardId": "91048",
+      "card": "Phlage, Titan of Fire's Fury",
+      "staticScore": 50,
+      "dynamicScore": 27.2,
+      "predictedScore": 27.85695941521559,
+      "absoluteError": 0.6569594152155922,
+      "picked": true,
+      "contributions": {
+        "Puissance": -1.6611249514157755,
+        "Mana": -20.15522130717678,
+        "Courbe": -0.41677707297730704,
+        "Interaction": -0.19839632865590534,
+        "Synergie": 0.28847907544135987
+      }
+    },
+    {
+      "pick": "P3P13",
+      "cardId": "96118",
+      "card": "Sin, Spira's Punishment",
+      "staticScore": 41,
+      "dynamicScore": 13.9,
+      "predictedScore": 12.651444782200564,
+      "absoluteError": 1.2485552177994368,
+      "picked": false,
+      "contributions": {
+        "Puissance": -1.3621224601609327,
+        "Mana": -27.305541896956996,
+        "Courbe": -0.02500662437863837,
+        "Interaction": 0,
+        "Synergie": 0.3441157636971317
+      }
+    },
+    {
+      "pick": "P3P13",
+      "cardId": "100549",
+      "card": "Improvised Arsenal",
+      "staticScore": 7.6,
+      "dynamicScore": 5.2,
+      "predictedScore": 4.519336109434622,
+      "absoluteError": 0.6806638905653779,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.2524909926151979,
+        "Mana": -3.1970165821301144,
+        "Courbe": -0.03365874396944279,
+        "Interaction": 0,
+        "Synergie": 0.402502428149378
+      }
+    },
+    {
+      "pick": "P3P14",
+      "cardId": "75860",
+      "card": "Concealed Courtyard",
+      "staticScore": 42,
+      "dynamicScore": 11.6,
+      "predictedScore": 19.86555278684032,
+      "absoluteError": 8.265552786840319,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.9718247056077232,
+        "Mana": -21.162622507551962,
+        "Courbe": 0,
+        "Interaction": 0,
+        "Synergie": 0
+      }
+    },
+    {
+      "pick": "P3P14",
+      "cardId": "102673",
+      "card": "Professor Dellian Fel",
+      "staticScore": 42,
+      "dynamicScore": 16.2,
+      "predictedScore": 13.337580033123448,
+      "absoluteError": 2.8624199668765513,
+      "picked": false,
+      "contributions": {
+        "Puissance": -0.9718247056077232,
+        "Mana": -25.724717775721665,
+        "Courbe": -2.298853316201467,
+        "Interaction": -0.244782619888256,
+        "Synergie": 0.5777584505425561
+      }
+    },
+    {
+      "pick": "P3P15",
+      "cardId": "90428",
+      "card": "Caustic Bronco",
+      "staticScore": 23,
+      "dynamicScore": 8,
+      "predictedScore": 13.039066163850887,
+      "absoluteError": 5.039066163850887,
+      "picked": true,
+      "contributions": {
+        "Puissance": -0.2886284254893994,
+        "Mana": -9.563162348369406,
+        "Courbe": -0.1508387376033583,
+        "Interaction": 0,
+        "Synergie": 0.04169567531305046
+      }
+    }
+  ]
+}

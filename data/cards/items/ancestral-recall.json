@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "slug": "ancestral-recall",
+  "name": "Ancestral Recall",
+  "oracleId": "00000000-0000-4000-8000-000000000003",
+  "manaCost": "{U}",
+  "cmc": 1,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Target player draws three cards.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Ancestral%20Recall&format=image",
+    "localPath": "data/cards/images/cards/ancestral-recall.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Ancestral%20Recall&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/ancestral-recall.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Ancestral%20Recall&format=image",
+  "powerScore": {
+    "score": 53,
+    "source": "untapped",
+    "rawSourceScore": 53,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Piocher 3 cartes à vitesse d'éphémère pour 1 seul mana bleu.",
+    "roles": [
+      "bomb",
+      "card_advantage"
+    ],
+    "floorRating": 10,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 5,
+      "parity": 5,
+      "behind": 5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "burst-draw",
+        "draw"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "103.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

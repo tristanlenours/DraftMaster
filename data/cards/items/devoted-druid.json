@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "devoted-druid",
+  "name": "Devoted Druid",
+  "oracleId": "cb814e16-acf7-41d5-a357-1323dcc369f3",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Elf Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Druid"
+  ],
+  "oracleText": "{T}: Add {G}.\nPut a -1/-1 counter on this creature: Untap this creature.",
+  "keywords": [],
+  "power": "0",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/820e2f07-f637-4144-b45a-0e1430dcf55e/normal.webp",
+    "localPath": "data/cards/images/cards/devoted-druid.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/820e2f07-f637-4144-b45a-0e1430dcf55e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/devoted-druid.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/820e2f07-f637-4144-b45a-0e1430dcf55e/normal.webp",
+  "powerScore": {
+    "score": 28.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1387.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1388).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "gains-mm-counters",
+        "cycle-shm-untap",
+        "cycle"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "59.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

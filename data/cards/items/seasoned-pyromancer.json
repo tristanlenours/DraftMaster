@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "slug": "seasoned-pyromancer",
+  "name": "Seasoned Pyromancer",
+  "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
+  "manaCost": "{R}{R}{1}",
+  "cmc": 3,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Human Shaman",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Shaman"
+  ],
+  "oracleText": "When this creature enters, discard two cards, then draw two cards. For each nonland card discarded this way, create a 1/1 red Elemental creature token.\n{3}{R}{R}, Exile this card from your graveyard: Create two 1/1 red Elemental creature tokens.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/14da7322-924c-4018-a38a-89f4ea85d435/normal.webp",
+    "localPath": "data/cards/images/cards/seasoned-pyromancer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/14da7322-924c-4018-a38a-89f4ea85d435/art_crop.webp",
+    "localArtPath": "data/cards/images/art/seasoned-pyromancer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/14da7322-924c-4018-a38a-89f4ea85d435/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "untapped",
+    "rawSourceScore": 21,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1344).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "57.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "garruk-primal-hunter",
+  "name": "Garruk, Primal Hunter",
+  "oracleId": "298a7e1a-b254-442e-bc1d-2a3e5296d849",
+  "scryfallId": "82d586bf-bed3-4390-b81d-d101c2ae524c",
+  "manaCost": "{G}{G}{G}{2}",
+  "cmc": 5,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Legendary Planeswalker — Garruk",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Garruk"
+  ],
+  "oracleText": "+1: Create a 3/3 green Beast creature token.\n−3: Draw cards equal to the greatest power among creatures you control.\n−6: Create a 6/6 green Wurm creature token for each land you control.",
+  "keywords": [],
+  "loyalty": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/82d586bf-bed3-4390-b81d-d101c2ae524c/normal.webp",
+    "localPath": "data/cards/images/garruk-primal-hunter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/82d586bf-bed3-4390-b81d-d101c2ae524c/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/82d586bf-bed3-4390-b81d-d101c2ae524c/normal.webp",
+  "powerScore": {
+    "score": 16.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1306.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1306).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

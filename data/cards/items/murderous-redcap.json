@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "slug": "murderous-redcap",
+  "name": "Murderous Redcap",
+  "oracleId": "a498bc70-36e7-4454-bc44-906893df38b8",
+  "manaCost": "{2}{B/R}{B/R}",
+  "cmc": 4,
+  "colors": [
+    "B",
+    "R"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Creature — Goblin Assassin",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Goblin",
+    "Assassin"
+  ],
+  "oracleText": "When this creature enters, it deals damage equal to its power to any target.\nPersist (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+  "keywords": [
+    "Persist"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/a/c/acadf575-2076-4f0c-b66e-994898adf375.jpg?1783933770",
+    "localPath": "data/cards/images/cards/murderous-redcap.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/a/c/acadf575-2076-4f0c-b66e-994898adf375.jpg?1783933770",
+    "localArtPath": "data/cards/images/art/murderous-redcap.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/murderous-redcap.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/murderous-redcap.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/a/c/acadf575-2076-4f0c-b66e-994898adf375.jpg?1783933770",
+  "powerScore": {
+    "score": 20.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1329.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Murderous Redcap est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "synergy_enabler"
+    ],
+    "floorRating": 3.7,
+    "ceilingRating": 4.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (ELO: 1329) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Jouez Murderous Redcap sur courbe de mana pour consolider la présence sur table.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "B",
+            "winrateOrScore": "58.2 %",
+            "comment": "Alignement au métagame Titou Tribal (B)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "one-sided-fight",
+        "scales-with-power",
+        "power-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "one-sided-fight",
+        "scales-with-power",
+        "power-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "B",
+            "winrateOrScore": "56.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Bonnet-rouge meurtrier",
+  "frenchText": "Quand le Bonnet-rouge meurtrier arrive en jeu, il inflige un nombre de blessures égal à sa force à une cible, créature ou joueur.\nPersistance (Quand cette créature est mise dans un cimetière depuis le jeu, si elle n'avait pas de marqueurs -1/-1 sur elle, renvoyez-la en jeu sous le contrôle de son propriétaire avec un marqueur -1/-1 sur elle.)",
+  "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/3/e30fc8b8-31de-466c-852f-0dd2b41df68b.jpg?1783006407",
+  "localFrenchPath": "data/cards/images/fr/cards/murderous-redcap.jpg"
+}

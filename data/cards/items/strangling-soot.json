@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "strangling-soot",
+  "name": "Strangling Soot",
+  "oracleId": "6c9d3ad0-1ede-41de-a1b4-15de9c728216",
+  "manaCost": "{B}{2}",
+  "cmc": 3,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Destroy target creature with toughness 3 or less.\nFlashback {5}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "keywords": [
+    "Flashback"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/6723e552-baf5-4b6a-8af6-843fd8597f6c/normal.webp",
+    "localPath": "data/cards/images/cards/strangling-soot.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/6723e552-baf5-4b6a-8af6-843fd8597f6c/art_crop.webp",
+    "localArtPath": "data/cards/images/art/strangling-soot.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/6723e552-baf5-4b6a-8af6-843fd8597f6c/normal.webp",
+  "powerScore": {
+    "score": 5.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1247.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1247).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "cycle-tsp-forward-flashback",
+        "cycle"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "52.4 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Suie étrangleuse",
+  "frenchText": "Détruisez une créature ciblée d'endurance inférieure ou égale à 3.\nFlashback {5}{R} (Vous pouvez lancer cette carte depuis votre cimetière pour son coût de flashback. Exilez-la ensuite.)"
+}

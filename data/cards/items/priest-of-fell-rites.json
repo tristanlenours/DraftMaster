@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "priest-of-fell-rites",
+  "name": "Priest of Fell Rites",
+  "oracleId": "ec6ccd8f-cc75-4a50-8639-f4ec31a280aa",
+  "manaCost": "{B}{W}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "W"
+  ],
+  "typeLine": "Creature — Human Warlock",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Warlock"
+  ],
+  "oracleText": "{T}, Pay 3 life, Sacrifice this creature: Return target creature card from your graveyard to the battlefield. Activate only as a sorcery.\nUnearth {3}{W}{B} ({3}{W}{B}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.)",
+  "keywords": [
+    "Unearth"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d116329d-6de7-402c-821d-e9aeba9ad2b1/normal.webp",
+    "localPath": "data/cards/images/cards/priest-of-fell-rites.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d116329d-6de7-402c-821d-e9aeba9ad2b1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/priest-of-fell-rites.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d116329d-6de7-402c-821d-e9aeba9ad2b1/normal.webp",
+  "powerScore": {
+    "score": 24.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1210.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1210).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "temporary-reanimation",
+        "more-expensive-than-mv",
+        "reanimate-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "50.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

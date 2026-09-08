@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "abrupt-decay",
+  "name": "Abrupt Decay",
+  "oracleId": "1c747fe2-289e-492a-a846-aa77707e2dc3",
+  "scryfallId": "3b1e92b4-6e53-4dba-a572-c67e01965ac5",
+  "manaCost": "{G}{B}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "This spell can't be countered.\nDestroy target nonland permanent with mana value 3 or less.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3b1e92b4-6e53-4dba-a572-c67e01965ac5/normal.webp",
+    "localPath": "data/cards/images/abrupt-decay.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3b1e92b4-6e53-4dba-a572-c67e01965ac5/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3b1e92b4-6e53-4dba-a572-c67e01965ac5/normal.webp",
+  "powerScore": {
+    "score": 27.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1273,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1273).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "removal-destroy",
+        "removal"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "53.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

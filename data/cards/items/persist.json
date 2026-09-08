@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "persist",
+  "name": "Persist",
+  "oracleId": "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Return target nonlegendary creature card from your graveyard to the battlefield with a -1/-1 counter on it.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b92a8dbf-d5b1-4337-8c3e-bc0c8308e426/normal.webp",
+    "localPath": "data/cards/images/cards/persist.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b92a8dbf-d5b1-4337-8c3e-bc0c8308e426/art_crop.webp",
+    "localArtPath": "data/cards/images/art/persist.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b92a8dbf-d5b1-4337-8c3e-bc0c8308e426/normal.webp",
+  "powerScore": {
+    "score": 35,
+    "source": "untapped",
+    "rawSourceScore": 35,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1419).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "single-english-word-name",
+        "card-names"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "60.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "single-english-word-name",
+        "card-names"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "A",
+            "winrateOrScore": "60.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

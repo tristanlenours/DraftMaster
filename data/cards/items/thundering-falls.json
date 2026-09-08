@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "thundering-falls",
+  "name": "Thundering Falls",
+  "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Land — Island Mountain",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Island",
+    "Mountain"
+  ],
+  "oracleText": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/da1792e4-2170-42ae-a335-fde6f5ef8932/normal.webp",
+    "localPath": "data/cards/images/cards/thundering-falls.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/da1792e4-2170-42ae-a335-fde6f5ef8932/art_crop.webp",
+    "localArtPath": "data/cards/images/art/thundering-falls.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/da1792e4-2170-42ae-a335-fde6f5ef8932/normal.webp",
+  "powerScore": {
+    "score": 38,
+    "source": "untapped",
+    "rawSourceScore": 38,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1389).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "59.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

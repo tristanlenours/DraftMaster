@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "solemn-simulacrum",
+  "name": "Solemn Simulacrum",
+  "oracleId": "00c0543c-2a1f-4425-8283-4062d74a1637",
+  "manaCost": "{4}",
+  "cmc": 4,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Golem",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Golem"
+  ],
+  "oracleText": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/25eab51a-8dad-4a37-9551-c6bf0dc6ecf5/normal.webp",
+    "localPath": "data/cards/images/cards/solemn-simulacrum.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/25eab51a-8dad-4a37-9551-c6bf0dc6ecf5/art_crop.webp",
+    "localArtPath": "data/cards/images/art/solemn-simulacrum.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/25eab51a-8dad-4a37-9551-c6bf0dc6ecf5/normal.webp",
+  "powerScore": {
+    "score": 12.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1419.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1419).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "61.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "61.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "slug": "sensei-s-divining-top",
+  "name": "Sensei's Divining Top",
+  "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
+  "manaCost": "{1}",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{1}: Look at the top three cards of your library, then put them back in any order.\n{T}: Draw a card, then put this artifact on top of its owner's library.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
+    "localPath": "data/cards/images/cards/sensei-s-divining-top.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/sensei-s-divining-top.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
+  "powerScore": {
+    "score": 17.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1554.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1554).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.8,
+    "ceilingRating": 8.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "S",
+            "winrateOrScore": "67.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "67.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

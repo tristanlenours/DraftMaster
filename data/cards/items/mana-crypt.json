@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "slug": "mana-crypt",
+  "name": "Mana Crypt",
+  "oracleId": "2c63e4e1-89d2-4bc6-a232-94e75c4b1c8a",
+  "manaCost": "{0}",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "At the beginning of your upkeep, flip a coin. If you lose the flip, this artifact deals 3 damage to you.\n{T}: Add {C}{C}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/480c2b30-c2c2-4b8b-ae0f-9f03732f92a1/normal.webp",
+    "localPath": "data/cards/images/cards/mana-crypt.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/480c2b30-c2c2-4b8b-ae0f-9f03732f92a1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mana-crypt.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/480c2b30-c2c2-4b8b-ae0f-9f03732f92a1/normal.webp",
+  "powerScore": {
+    "score": 50,
+    "source": "untapped",
+    "rawSourceScore": 50,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 2191).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal"
+    ],
+    "floorRating": 10,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "drawback",
+        "coin-flip",
+        "adds-multiple-mana"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "99.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

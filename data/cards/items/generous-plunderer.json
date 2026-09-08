@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "generous-plunderer",
+  "name": "Generous Plunderer",
+  "oracleId": "91c835d1-22ca-4c90-9ba6-c8e01bbc0347",
+  "manaCost": "{R}{1}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Human Rogue",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Rogue"
+  ],
+  "oracleText": "Menace\nAt the beginning of your upkeep, you may create a Treasure token. When you do, target opponent creates a tapped Treasure token.\nWhenever this creature attacks, it deals damage to defending player equal to the number of artifacts they control.",
+  "keywords": [
+    "Treasure",
+    "Menace"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/351eea06-f5be-4044-b3b3-cc6bf805abb1/normal.webp",
+    "localPath": "data/cards/images/cards/generous-plunderer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/351eea06-f5be-4044-b3b3-cc6bf805abb1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/generous-plunderer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/351eea06-f5be-4044-b3b3-cc6bf805abb1/normal.webp",
+  "powerScore": {
+    "score": 36,
+    "source": "untapped",
+    "rawSourceScore": 36,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1348).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "reflexive-trigger",
+        "triggered-ability",
+        "burn-player"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "57.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

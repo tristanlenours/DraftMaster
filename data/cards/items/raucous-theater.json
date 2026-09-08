@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "raucous-theater",
+  "name": "Raucous Theater",
+  "oracleId": "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Land — Swamp Mountain",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Swamp",
+    "Mountain"
+  ],
+  "oracleText": "({T}: Add {B} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "B",
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/2faf0337-c7a3-45a0-bb14-c431526da2cd/normal.webp",
+    "localPath": "data/cards/images/cards/raucous-theater.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/2faf0337-c7a3-45a0-bb14-c431526da2cd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/raucous-theater.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/2faf0337-c7a3-45a0-bb14-c431526da2cd/normal.webp",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1330).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "56.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

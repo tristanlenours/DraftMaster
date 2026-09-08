@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "slug": "leovold-emissary-of-trest",
+  "name": "Leovold, Emissary of Trest",
+  "oracleId": "d5d91377-fd66-4dbe-a092-07f2ea379ca7",
+  "manaCost": "{U}{G}{B}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "G",
+    "U"
+  ],
+  "typeLine": "Legendary Creature — Elf Advisor",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Advisor"
+  ],
+  "oracleText": "Each opponent can't draw more than one card each turn.\nWhenever you or a permanent you control becomes the target of a spell or ability an opponent controls, you may draw a card.",
+  "keywords": [],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dda80811-0410-4b51-bc67-82c50209a0a2/normal.webp",
+    "localPath": "data/cards/images/cards/leovold-emissary-of-trest.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dda80811-0410-4b51-bc67-82c50209a0a2/art_crop.webp",
+    "localArtPath": "data/cards/images/art/leovold-emissary-of-trest.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dda80811-0410-4b51-bc67-82c50209a0a2/normal.webp",
+  "powerScore": {
+    "score": 43,
+    "source": "untapped",
+    "rawSourceScore": 43,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1280).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G",
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G",
+              "U"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "B",
+            "winrateOrScore": "54.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

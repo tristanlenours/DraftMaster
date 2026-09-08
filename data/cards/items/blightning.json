@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "slug": "blightning",
+  "name": "Blightning",
+  "oracleId": "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
+  "manaCost": "{R}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "R"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Blightning deals 3 damage to target player or planeswalker. That player or that planeswalker's controller discards two cards.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3c05e8a2-b7d0-4f24-b2ae-8e4db30e5842/normal.webp",
+    "localPath": "data/cards/images/cards/blightning.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3c05e8a2-b7d0-4f24-b2ae-8e4db30e5842/art_crop.webp",
+    "localArtPath": "data/cards/images/art/blightning.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3c05e8a2-b7d0-4f24-b2ae-8e4db30e5842/normal.webp",
+  "powerScore": {
+    "score": 15.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1195.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1195).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:rakdos_attrition"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "cycle-a25-draft-signpost"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "RAKDOS ATTRITION",
+            "grade": "C",
+            "winrateOrScore": "49.8 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "cycle-a25-draft-signpost"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "C",
+            "winrateOrScore": "49.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Éclair de flétrissement",
+  "frenchText": "L'Éclair de flétrissement inflige 3 blessures au joueur ciblé. Ce joueur se défausse de deux cartes."
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "carnage-interpreter",
+  "name": "Carnage Interpreter",
+  "oracleId": "4bc79fb3-81bb-42ed-9bbb-93f8cede3094",
+  "manaCost": "{B-R}{B-R}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "R"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Creature — Devil Detective",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Devil",
+    "Detective"
+  ],
+  "oracleText": "When this creature enters, discard your hand, then investigate four times. (To investigate, create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nAs long as you have one or fewer cards in hand, this creature gets +2/+2 and has menace.",
+  "keywords": [
+    "Investigate"
+  ],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f6fb576e-a4a4-496b-b553-3f81cc651210/normal.webp",
+    "localPath": "data/cards/images/cards/carnage-interpreter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f6fb576e-a4a4-496b-b553-3f81cc651210/art_crop.webp",
+    "localArtPath": "data/cards/images/art/carnage-interpreter.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f6fb576e-a4a4-496b-b553-3f81cc651210/normal.webp",
+  "powerScore": {
+    "score": 8.4,
+    "source": "untapped",
+    "rawSourceScore": 8.4,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1275).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "heckbent",
+        "hand-size-matters",
+        "discard-outlet"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "53.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "jacked-rabbit",
+  "name": "Jacked Rabbit",
+  "oracleId": "5a343a5f-3f9b-43c3-8532-8391de7a5443",
+  "manaCost": "{W}{1}{X}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Rabbit Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Rabbit",
+    "Warrior"
+  ],
+  "oracleText": "Ravenous (This creature enters with X +1/+1 counters on it. If X is 5 or more, draw a card when it enters.)\nWhenever this creature attacks, create a number of 1/1 white Rabbit creature tokens equal to this creature's power.",
+  "keywords": [
+    "Ravenous"
+  ],
+  "power": "1",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/2c695df6-6bf2-4e6b-8500-e3116137ca27/normal.webp",
+    "localPath": "data/cards/images/cards/jacked-rabbit.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/2c695df6-6bf2-4e6b-8500-e3116137ca27/art_crop.webp",
+    "localArtPath": "data/cards/images/art/jacked-rabbit.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/2c695df6-6bf2-4e6b-8500-e3116137ca27/normal.webp",
+  "powerScore": {
+    "score": 35,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1360.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1360).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "cantrip",
+        "pure-draw",
+        "draw"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "58.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

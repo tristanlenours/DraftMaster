@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "shorikai-genesis-engine",
+  "name": "Shorikai, Genesis Engine",
+  "oracleId": "e2962883-6daf-4a84-af73-917afc73092c",
+  "manaCost": "{U}{W}{2}",
+  "cmc": 4,
+  "colors": [
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "U",
+    "W"
+  ],
+  "typeLine": "Legendary Artifact — Vehicle",
+  "types": [
+    "Legendary",
+    "Artifact"
+  ],
+  "subtypes": [
+    "Vehicle"
+  ],
+  "oracleText": "{1}, {T}: Draw two cards, then discard a card. Create a 1/1 colorless Pilot creature token with \"This token crews Vehicles as though its power were 2 greater.\"\nCrew 8 (Tap any number of creatures you control with total power 8 or more: This Vehicle becomes an artifact creature until end of turn.)",
+  "keywords": [
+    "Crew"
+  ],
+  "power": "8",
+  "toughness": "8",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0347cf84-42f5-4674-99de-619b0ae51d62/normal.webp",
+    "localPath": "data/cards/images/cards/shorikai-genesis-engine.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0347cf84-42f5-4674-99de-619b0ae51d62/art_crop.webp",
+    "localArtPath": "data/cards/images/art/shorikai-genesis-engine.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0347cf84-42f5-4674-99de-619b0ae51d62/normal.webp",
+  "powerScore": {
+    "score": 19.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1293.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1294).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "slug": "dark-ritual",
+  "name": "Dark Ritual",
+  "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+  "manaCost": "{B}",
+  "cmc": 1,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Add {B}{B}{B}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/a6aacc3e-fe37-4a08-83e6-7ee8c0c0af74/normal.webp",
+    "localPath": "data/cards/images/cards/dark-ritual.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/a6aacc3e-fe37-4a08-83e6-7ee8c0c0af74/art_crop.webp",
+    "localArtPath": "data/cards/images/art/dark-ritual.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/a6aacc3e-fe37-4a08-83e6-7ee8c0c0af74/normal.webp",
+  "powerScore": {
+    "score": 25,
+    "source": "untapped",
+    "rawSourceScore": 25,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1507).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7.5,
+    "ceilingRating": 8.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cycle-lea-boon",
+        "cycle",
+        "color-break"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "65.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "cycle-lea-boon",
+        "cycle",
+        "color-break"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "65.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

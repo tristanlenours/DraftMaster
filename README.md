@@ -1,10 +1,11 @@
-# DraftMaster
+# LMCDEU — Les Magiciens : Cube Digital Extended Universe
 
-DraftMaster redémarre sur une base greenfield pour construire un moteur de draft Magic déterministe, auditable et testable. Le premier périmètre est un draft headless à huit sièges sur une version figée du cube Tribal Titou.
+**LMCDEU** (propulsé par le moteur **DraftMaster**) est l'univers numérique étendu de draft et d'analyse compétitive dédié au groupe de jeu *Les Magiciens*. Il rassemble les cubes phares de la communauté (Titou Tribal, Nico's Vintage Candyshop, Hugues Pauper), un simulateur déterministe à 8 sièges incarnant les amis réels du groupe, et une matrice visuelle interactive inspirée de *Limited Grades*.
 
-La spécification et l’implémentation TypeScript sont développées sur la branche `001-simulate-titou-draft`.
+## Données et Architecture
 
-## Données préservées
+L'organisation des données suit une architecture à **1 fichier JSON par carte** (`data/cards/items/<slug>.json`) et **1 fichier JSON par cube** (`data/cubes/<cubeKey>/cube.json`), validés par des schémas JSON Draft 2020-12 stricts.
+Consultez [`data/README.md`](data/README.md) pour la documentation détaillée de l'architecture, du cycle de vie des cartes et cubes, et des règles de versioning.
 
 Le snapshot `data/cubes/titou_tribal/2026-02-24.1.json` contient 545 instances du mainboard CubeCobra historique. Sa provenance, ses empreintes et sa méthode de reproduction sont documentées dans `data/cubes/titou_tribal/README.md`.
 
@@ -144,6 +145,7 @@ Cette première version se concentre exclusivement sur les fondations détermini
 ## Commandes de vérification
 
 - `npm run check` : vérification complète de la qualité (Prettier, ESLint, `tsc --noEmit`, Vitest, couverture V8).
+- `npm run data:sync` : synchronisation du bundle `master-cards.json` et des index `cube.json` à partir de `data/cards/items/`.
 - `npm run test` : exécution de l'ensemble des suites de tests Vitest.
 - `npm run test:reference` : test de non-régression sur le tirage de référence figé seed 42 (US2).
 - `npm run test:replay` : tests de déterminisme, validation de flux d'événements et équivalence de replay (US2).

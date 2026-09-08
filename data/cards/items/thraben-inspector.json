@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "slug": "thraben-inspector",
+  "name": "Thraben Inspector",
+  "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+  "manaCost": "oW",
+  "cmc": 1,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Human Soldier",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Soldier"
+  ],
+  "oracleText": "When this creature enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+  "keywords": [
+    "Investigate"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/0/8/08a5007f-06a0-40fa-a252-c38baa6b5c6f.jpg?1783908171",
+    "localPath": "data/cards/images/cards/thraben-inspector.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/0/8/08a5007f-06a0-40fa-a252-c38baa6b5c6f.jpg?1783908171",
+    "localArtPath": "data/cards/images/art/thraben-inspector.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/thraben-inspector.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/thraben-inspector.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/0/8/08a5007f-06a0-40fa-a252-c38baa6b5c6f.jpg?1783908171",
+  "powerScore": {
+    "score": 33,
+    "source": "untapped",
+    "rawSourceScore": 33,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Thraben Inspector est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.5,
+    "ceilingRating": 6.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (ELO: 1334) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Jouez Thraben Inspector sur courbe de mana pour consolider la présence sur table.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "B",
+            "winrateOrScore": "58.4 %",
+            "comment": "Alignement au métagame Titou Tribal (B)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "56.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "56.7 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "pure-draw",
+        "draw",
+        "card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "B",
+            "winrateOrScore": "56.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Inspectrice de Thraben",
+  "frenchText": "Quand l'Inspectrice de Thraben arrive sur le champ de bataille, enquêtez. (Créez un jeton Indice. C'est un artefact avec « {2}, sacrifiez cet artefact : Piochez une carte. »)",
+  "frenchImageUrl": "https://cards.scryfall.io/normal/front/5/9/598b6ecd-f812-4d8f-b713-fce6c64e7604.jpg?1782818166",
+  "localFrenchPath": "data/cards/images/fr/cards/thraben-inspector.jpg"
+}

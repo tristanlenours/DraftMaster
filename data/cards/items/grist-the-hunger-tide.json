@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "grist-the-hunger-tide",
+  "name": "Grist, the Hunger Tide",
+  "oracleId": "0efb0d7e-dea0-4817-a243-15066e9ef333",
+  "manaCost": "{G}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Legendary Planeswalker — Grist",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Grist"
+  ],
+  "oracleText": "As long as Grist isn't on the battlefield, it's a 1/1 Insect creature in addition to its other types.\n+1: Create a 1/1 black and green Insect creature token, then mill a card. If an Insect card was milled this way, put a loyalty counter on Grist and repeat this process.\n−2: You may sacrifice a creature. When you do, destroy target creature or planeswalker.\n−5: Each opponent loses life equal to the number of creature cards in your graveyard.",
+  "keywords": [
+    "Mill"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/808a3770-057a-4985-ba5c-870d7b1cd527/normal.webp",
+    "localPath": "data/cards/images/cards/grist-the-hunger-tide.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/808a3770-057a-4985-ba5c-870d7b1cd527/art_crop.webp",
+    "localArtPath": "data/cards/images/art/grist-the-hunger-tide.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/808a3770-057a-4985-ba5c-870d7b1cd527/normal.webp",
+  "powerScore": {
+    "score": 41,
+    "source": "untapped",
+    "rawSourceScore": 41,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1303).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "reflexive-trigger",
+        "triggered-ability",
+        "undergrowth"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "reflexive-trigger",
+        "triggered-ability",
+        "undergrowth"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "B",
+            "winrateOrScore": "55.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

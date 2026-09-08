@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "hexdrinker",
+  "name": "Hexdrinker",
+  "oracleId": "69bc2afd-9f53-47f2-b9c8-f12732784e10",
+  "manaCost": "{G}",
+  "cmc": 1,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Snake",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Snake"
+  ],
+  "oracleText": "Level up {1} ({1}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 3-7\n4/4\nProtection from instants\nLEVEL 8+\n6/6\nProtection from everything",
+  "keywords": [
+    "Level Up",
+    "Protection"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/89f5cc05-5d9d-4709-b3c5-a6249c294acc/normal.webp",
+    "localPath": "data/cards/images/cards/hexdrinker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/89f5cc05-5d9d-4709-b3c5-a6249c294acc/art_crop.webp",
+    "localArtPath": "data/cards/images/art/hexdrinker.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/89f5cc05-5d9d-4709-b3c5-a6249c294acc/normal.webp",
+  "powerScore": {
+    "score": 32.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1440.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1441).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "gains-protection",
+        "protection",
+        "evasion"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "gains-protection",
+        "protection",
+        "evasion"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "slug": "fanatic-of-rhonas",
+  "name": "Fanatic of Rhonas",
+  "oracleId": "7973820b-fdaf-46ec-9e3e-d4c0e77b5067",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Snake Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Snake",
+    "Druid"
+  ],
+  "oracleText": "{T}: Add {G}.\nFerocious — {T}: Add {G}{G}{G}{G}. Activate only if you control a creature with power 4 or greater.\nEternalize {2}{G}{G} ({2}{G}{G}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie Snake Druid with no mana cost. Eternalize only as a sorcery.)",
+  "keywords": [
+    "Ferocious",
+    "Eternalize"
+  ],
+  "power": "1",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1f9fb33a-3b39-4aff-93b8-aedafe0ea694/normal.webp",
+    "localPath": "data/cards/images/cards/fanatic-of-rhonas.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1f9fb33a-3b39-4aff-93b8-aedafe0ea694/art_crop.webp",
+    "localArtPath": "data/cards/images/art/fanatic-of-rhonas.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1f9fb33a-3b39-4aff-93b8-aedafe0ea694/normal.webp",
+  "powerScore": {
+    "score": 37,
+    "source": "untapped",
+    "rawSourceScore": 37,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1408).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "60.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "surge-engine",
+  "name": "Surge Engine",
+  "oracleId": "864d9db7-34ca-4440-8d6d-096f9eddedd4",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Artifact Creature — Construct",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Construct"
+  ],
+  "oracleText": "Defender\n{U}: This creature loses defender and gains \"This creature can't be blocked.\"\n{2}{U}: This creature becomes blue and has base power and toughness 5/4. Activate only if this creature doesn't have defender.\n{4}{U}{U}: Draw three cards. Activate only if this creature is blue and only once.",
+  "keywords": [
+    "Defender"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/538c4a9d-5733-4abd-a7a1-1514c8d33100/normal.webp",
+    "localPath": "data/cards/images/cards/surge-engine.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/538c4a9d-5733-4abd-a7a1-1514c8d33100/art_crop.webp",
+    "localArtPath": "data/cards/images/art/surge-engine.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/538c4a9d-5733-4abd-a7a1-1514c8d33100/normal.webp",
+  "powerScore": {
+    "score": 6.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1333.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1334).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "drawback",
+        "color-change-self",
+        "color-change"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "56.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,2049 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      if (window.location.protocol === "file:") {
+        window.location.replace("http://localhost:3000/");
+      }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e1115" />
+    <title>LMCDEU — Les Magiciens : Cube Digital Extended Universe</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Supabase JS & Canvas Confetti pour l'effet WHAOU en direct -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  </head>
+  <body>
+    <!-- Top Site Navigation Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand" id="brand-home-btn" role="button" tabindex="0" title="Retour à l'accueil">
+          <span class="brand-badge" title="Les Magiciens : Cube Digital Extended Universe"
+            >LMCDEU</span
+          >
+          <div class="brand-text">
+            <span class="brand-title">LES MAGICIENS</span>
+            <span class="brand-tagline">Cube Digital Extended Universe</span>
+          </div>
+        </div>
+
+        <!-- Main SPA Navigation Tabs -->
+        <nav class="site-nav" aria-label="Navigation principale">
+          <button class="nav-tab-btn active" data-view="home" id="nav-btn-home">
+            <span class="tab-icon">🏛️</span>
+            <span class="tab-label">Accueil</span>
+          </button>
+          <button class="nav-tab-btn" data-view="cubes" id="nav-btn-cubes">
+            <span class="tab-icon">🎲</span>
+            <span class="tab-label">Les Cubes</span>
+          </button>
+          <button class="nav-tab-btn" data-view="cards" id="nav-btn-cards">
+            <span class="tab-icon">🎴</span>
+            <span class="tab-label">Cartes & Ranking</span>
+          </button>
+          <button class="nav-tab-btn" data-view="bots" id="nav-btn-bots">
+            <span class="tab-icon">🤖</span>
+            <span class="tab-label">Les 8 Bots</span>
+          </button>
+          <button class="nav-tab-btn" data-view="draft" id="nav-btn-draft">
+            <span class="tab-icon">⚔️</span>
+            <span class="tab-label">Draft Solo</span>
+          </button>
+          <button class="nav-tab-btn" data-view="records" id="nav-btn-records">
+            <span class="tab-icon">🏆</span>
+            <span class="tab-label">Mur des Records</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         VIEW 1: ACCUEIL / HOME (Concept LMCDEU, Philosophie & Contribution à l'Humanité)
+         ========================================================================== -->
+    <section class="app-view view-home" id="view-home">
+      <div class="home-container">
+        <!-- Hero Banner -->
+        <div class="home-hero">
+          <div class="home-hero-badge">
+            <span class="pulse-dot"></span>
+            <span>LMCDEU • PROJET FONDATEUR</span>
+          </div>
+          <h1 class="home-hero-title">
+            <span class="gold-gradient">CUBE DIGITAL</span>
+            <span class="white-text">EXTENDED UNIVERSE</span>
+          </h1>
+          <p class="home-hero-subtitle">
+            Rendre le Cube Magic accessible à tous — Ma contribution à l'humanité
+          </p>
+          <div class="home-hero-actions">
+            <button class="btn-action-hero primary-hero" id="home-cta-draft">
+              <span class="btn-icon">⚔️</span>
+              <span>Draft Solo (Coach & Records)</span>
+            </button>
+            <button class="btn-action-hero secondary-hero" id="home-cta-cubes">
+              <span class="btn-icon">🎲</span>
+              <span>Explorer les Cubes</span>
+            </button>
+            <button class="btn-action-hero secondary-hero" id="home-cta-cards">
+              <span class="btn-icon">🎴</span>
+              <span>Cartes & Ranking</span>
+            </button>
+            <button class="btn-action-hero secondary-hero" id="home-cta-bots">
+              <span class="btn-icon">🤖</span>
+              <span>Les 8 Bots</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Philosophical Manifesto Card -->
+        <div class="home-manifesto-card">
+          <div class="manifesto-header">
+            <div class="manifesto-icon">✨</div>
+            <div>
+              <h2 class="manifesto-title">Le Manifeste du Cube Universel</h2>
+              <span class="manifesto-tagline">Pourquoi ce projet existe</span>
+            </div>
+          </div>
+          <div class="manifesto-content">
+            <p>
+              Le Cube représente le sommet absolu de la stratégie, du plaisir intellectuel et de l'expression créative dans <em>Magic: The Gathering</em>. C'est un jeu d'échecs vivant, dynamique et infini, où chaque sélection de carte tisse une aventure narrative et tactique inédite.
+            </p>
+            <blockquote class="manifesto-quote">
+              « Pendant des décennies, le Cube est resté un trésor jalousement gardé, réservé à une élite initiée capable de naviguer dans des centaines de cartes complexes et des dynamiques de tempo invisibles. Ma volonté avec le <strong>Cube Digital Extended Universe (LMCDEU)</strong> est de briser ces murailles : rendre le Cube immédiatement lisible, intelligible et passionnant pour tous les joueurs, quel que soit leur niveau. C'est ma contribution à l'humanité pour célébrer et transmettre ce jeu magnifique. »
+            </blockquote>
+            <p>
+              En associant des outils d'analyse théorique de pointe — tels que le <strong>Tour Fondamental de Zvi Mowshowitz</strong> et la <strong>Théorie des Quadrants</strong> — à un modèle mathématique de <strong>Power Ranking harmonisé</strong> et des interfaces pédagogiques bilingues, LMCDEU transforme chaque session de Cube en une expérience enrichissante et ouverte à tous.
+            </p>
+          </div>
+        </div>
+
+        <!-- Founding Pillars -->
+        <div class="home-pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon">🎓</div>
+            <h3 class="pillar-title">Démocratisation & Pédagogie</h3>
+            <p class="pillar-desc">
+              Supprimer les barrières cognitives. Chaque carte dispose de conseils tactiques clairs (« Comment la jouer »), de textes bilingues FR/EN et de son positionnement précis dans les archétypes sans verbiage hermétique.
+            </p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">⚖️</div>
+            <h3 class="pillar-title">Rigueur Mathématique du Ranking</h3>
+            <p class="pillar-desc">
+              Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 55) croise les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise compétitive pour refléter la valeur absolue réelle de chaque pièce.
+            </p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">👥</div>
+            <h3 class="pillar-title">Convivialité & Communauté</h3>
+            <p class="pillar-desc">
+              Des cubes vivants façonnés par des magiciens passionnés (Titou, Nico, Huge, Cédric...), complétés par un simulateur solo doté de friend-bots reproduisant les personnalités et archétypes de jeu de la table des amis.
+            </p>
+          </div>
+        </div>
+
+        <!-- Community Cubes Overview Cards -->
+        <div class="home-section-header">
+          <h2 class="home-section-title">Les Cubes de la Communauté</h2>
+          <p class="home-section-desc">Des visions magistrales et complémentaires du jeu en format Limité</p>
+        </div>
+
+        <div class="home-cubes-cards">
+          <!-- Cube 1 : Titou Tribal -->
+          <div class="home-cube-card" data-cube-key="titou_tribal">
+            <div class="home-cube-badge">👑 SYNERGIES TRIBALES • TOUR PIVOT T4</div>
+            <h3 class="home-cube-name">Titou's Tribal & Chromatic Cube</h3>
+            <span class="home-cube-author">Conçu par Tristan (@eltitou007) • 545 Cartes</span>
+            <p class="home-cube-summary">
+              L'éloge des armées thématiques et des créatures légendaires. Gobelins explosifs, Vampires aristocrates, Elfes ramp, Loups-garous et Anges célestes s'affrontent selon le format original <em>Titou's Master Guild Challenge®</em>.
+            </p>
+            <div class="home-cube-tags">
+              <span>Gobelins</span><span>Vampires</span><span>Elfes</span><span>Loups</span><span>Anges</span><span>Dragons</span><span>Humains</span><span>Changelins</span>
+            </div>
+            <button class="btn-explore-cube" data-cube-target="titou_tribal">
+              Explorer ce Cube ➔
+            </button>
+          </div>
+
+          <!-- Cube 2 : Nico Vintage -->
+          <div class="home-cube-card" data-cube-key="nico_candyshop">
+            <div class="home-cube-badge badge-vintage">⚡ POWERED VINTAGE • TOUR PIVOT T2</div>
+            <h3 class="home-cube-name">Nico's Vintage Candyshop Cube</h3>
+            <span class="home-cube-author">Conçu par Nico (@Fedor007) • 730 Cartes</span>
+            <p class="home-cube-summary">
+              L'arène de la vitesse pure et du faste absolu. Fast mana, Power 9 complet, réanimations tour 1, Tinker dans Bolas's Citadel et enchaînements Storm dévastateurs exigent des réponses à 0 mana dès les premiers instants.
+            </p>
+            <div class="home-cube-tags">
+              <span>Power 9</span><span>Storm</span><span>Reanimator</span><span>Artifact Ramp</span><span>Sneak & Show</span>
+            </div>
+            <button class="btn-explore-cube" data-cube-target="nico_candyshop">
+              Explorer ce Cube ➔
+            </button>
+          </div>
+
+          <!-- Cube 3 : Huge Pauper -->
+          <div class="home-cube-card" data-cube-key="hugues_pauper">
+            <div class="home-cube-badge badge-pauper">🛡️ 100% COMMUNES • TOUR PIVOT T4.5</div>
+            <h3 class="home-cube-name">Huge's Pauper Cube</h3>
+            <span class="home-cube-author">Conçu par Huge / Hugues • 450 Cartes</span>
+            <p class="home-cube-summary">
+              Le retour aux fondamentaux purs du Magic papier. Sans fast mana ni bombes mythiques, la victoire se gagne par le card advantage méticuleux, le double-spelling et l'ingéniosité tactique sur le champ de bataille.
+            </p>
+            <div class="home-cube-tags">
+              <span>Ninjutsu</span><span>Synth & Blasts</span><span>Azorius Blink</span><span>Delve</span><span>Go-Wide</span>
+            </div>
+            <button class="btn-explore-cube" data-cube-target="hugues_pauper">
+              Explorer ce Cube ➔
+            </button>
+          </div>
+
+          <!-- Cube 4 : Cédric High-Power -->
+          <div class="home-cube-card" data-cube-key="cedric_cube">
+            <div class="home-cube-badge badge-cedric">⚔️ VINTAGE UNPOWERED • TOUR PIVOT T3.5</div>
+            <h3 class="home-cube-name">Cédric's High-Power Cube</h3>
+            <span class="home-cube-author">Conçu par Cédric (@Strobinellus) • 720 Cartes</span>
+            <p class="home-cube-summary">
+              L'arène du haut niveau interactif sans les abus de tempo du Power 9. Réanimations véloces, monstres sneak/show, 46 planeswalkers, équipements mirrans et bilands parfaits offrent un environnement d'une profondeur stratégique exceptionnelle.
+            </p>
+            <div class="home-cube-tags">
+              <span>Reanimator</span><span>Sneak & Show</span><span>5 Swords</span><span>Man-Lands</span><span>Superfriends</span>
+            </div>
+            <button class="btn-explore-cube" data-cube-target="cedric_cube">
+              Explorer ce Cube ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Stats Counter -->
+        <div class="home-stats-strip">
+          <div class="stat-box">
+            <span class="stat-number">4</span>
+            <span class="stat-caption">Cubes Vivants</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">1 650+</span>
+            <span class="stat-caption">Cartes Référencées</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">1 – 55</span>
+            <span class="stat-caption">Échelle de Puissance</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">100%</span>
+            <span class="stat-caption">Pédagogique & Ouvert</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 2: CUBES (Vision Synthétique & Analyse Détaillée par Cube)
+         ========================================================================== -->
+    <section class="app-view view-cubes" id="view-cubes" hidden style="display: none">
+      <div class="cubes-view-container">
+        <!-- Cubes Synthetic Overview Header -->
+        <div class="cubes-view-header">
+          <div class="header-titles">
+            <span class="section-tag">COMMUNAUTÉ DES MAGICIENS</span>
+            <h1 class="cubes-view-title">Les Cubes en Vision Synthétique</h1>
+            <p class="cubes-view-desc">
+              Des formats emblématiques, des rythmes de jeu et des visions stratégiques comparés côte à côte.
+            </p>
+          </div>
+        </div>
+
+        <!-- Synthetic Comparison Grid -->
+        <div class="cubes-comparison-table-wrap">
+          <table class="cubes-comparison-table">
+            <thead>
+              <tr>
+                <th class="col-cube-feature">Caractéristique</th>
+                <th class="col-cube-titou">👑 Titou's Tribal</th>
+                <th class="col-cube-nico">⚡ Nico's Candyshop</th>
+                <th class="col-cube-hugues">🛡️ Huge's Pauper</th>
+                <th class="col-cube-cedric">⚔️ Cédric's High-Power</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feat-name">Architecte & Origine</td>
+                <td>Tristan (@eltitou007)</td>
+                <td>Nico (@Fedor007)</td>
+                <td>Huge / Hugues</td>
+                <td>Cédric (@Strobinellus)</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Niveau de Puissance</td>
+                <td><span class="badge badge-synergy">Synergy Unpowered</span></td>
+                <td><span class="badge badge-vintage">Powered Vintage</span></td>
+                <td><span class="badge badge-pauper">Pauper (100% Communes)</span></td>
+                <td><span class="badge badge-cedric">Vintage Unpowered</span></td>
+              </tr>
+              <tr>
+                <td class="feat-name">Rythme & Pacing</td>
+                <td>Midrange & Attrition</td>
+                <td>Ultra-Rapide (Blistering)</td>
+                <td>Tempo & Attrition</td>
+                <td>Midrange Attrition (Balanced)</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Tour Fondamental (Zvi)</td>
+                <td><strong>T4</strong> (Critique : T3-T5)</td>
+                <td><strong>T2</strong> (Critique : T1-T3)</td>
+                <td><strong>T4.5</strong> (Critique : T4-T5)</td>
+                <td><strong>T3.5</strong> (Critique : T3-T4)</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Vitesse & CMC Moyen</td>
+                <td>Vitesse : 5.8 / 10 • CMC : 3.1</td>
+                <td>Vitesse : 9.8 / 10 • CMC : 2.1</td>
+                <td>Vitesse : 4.5 / 10 • CMC : 2.6</td>
+                <td>Vitesse : 7.8 / 10 • CMC : 3.2</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Densité d'Interaction</td>
+                <td>16.0 %</td>
+                <td>24.5 % (Interactions 0 mana)</td>
+                <td>22.0 % (Échanges 2-pour-1)</td>
+                <td>25.0 % (Sweepers & Blasts)</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Qualité du Fixing</td>
+                <td>Rainbow Tribal & Changelins</td>
+                <td>10 Fetches & 10 Duals ABU</td>
+                <td>Bouncelands & Taplands</td>
+                <td>Fetches, Duals & 10 Man-Lands</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Signature de Jeu</td>
+                <td>Armées tribales, Seigneurs, Guild Challenge</td>
+                <td>Fast mana, Power 9, Storm, Combos T1/T2</td>
+                <td>Avantage cartes à l'usure, Ninjutsu, Synthesizer</td>
+                <td>Reanimator, Sneak/Show, 5 Swords, Superfriends</td>
+              </tr>
+              <tr>
+                <td class="feat-name">Action d'Analyse</td>
+                <td>
+                  <button class="btn-select-cube-tab active" data-tab-cube="titou_tribal">
+                    Analyser Titou Tribal
+                  </button>
+                </td>
+                <td>
+                  <button class="btn-select-cube-tab" data-tab-cube="nico_candyshop">
+                    Analyser Nico Candyshop
+                  </button>
+                </td>
+                <td>
+                  <button class="btn-select-cube-tab" data-tab-cube="hugues_pauper">
+                    Analyser Huge Pauper
+                  </button>
+                </td>
+                <td>
+                  <button class="btn-select-cube-tab" data-tab-cube="cedric_cube">
+                    Analyser Cédric Cube
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Detailed Cube Deep-Dive Section (Dynamic Content) -->
+        <div class="cube-detail-panel" id="cube-detail-panel">
+          <!-- Populated dynamically by app.js: renderCubeDetail(cubeKey) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 3: CARDS & RANKING MATRIX
+         ========================================================================== -->
+    <section class="app-view view-cards" id="view-cards" hidden style="display: none">
+      <!-- Main Limited Grades Matrix Controls Bar -->
+      <nav class="controls-bar" aria-label="Filtres du tableau de classement">
+        <div class="controls-bar-inner">
+          <!-- Set Filter Dropdown -->
+          <div class="control-group">
+            <span class="control-group-label">Set</span>
+            <div class="select-wrapper">
+              <select id="cube-select" aria-label="Sélectionner le Cube de la communauté">
+                <option value="titou_tribal" selected>👑 Titou — Tribal & Chromatique</option>
+                <option value="nico_candyshop">⚡ Nico — Vintage Candyshop</option>
+                <option value="hugues_pauper">🛡️ Huge — Pauper Cube</option>
+                <option value="cedric_cube">⚔️ Cédric — High-Power Cube</option>
+              </select>
+            </div>
+          </div>
+
+        <!-- Types Filter Dropdown -->
+        <div class="control-group">
+          <span class="control-group-label">Type</span>
+          <div class="select-wrapper">
+            <select id="type-select" aria-label="Filtrer par type de carte">
+              <option value="ALL">All types</option>
+              <option value="Creature">Creature</option>
+              <option value="Instant">Instant</option>
+              <option value="Sorcery">Sorcery</option>
+              <option value="Artifact">Artifact</option>
+              <option value="Enchantment">Enchantment</option>
+              <option value="Planeswalker">Planeswalker</option>
+              <option value="Land">Land</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mana Value (CMC) Filter Chips -->
+        <div class="control-group">
+          <span class="control-group-label">Mana Value</span>
+          <div
+            class="cmc-chips-group"
+            id="cmc-chips-group"
+            role="group"
+            aria-label="Filtrer par valeur de mana"
+          >
+            <button class="cmc-chip active" data-cmc="ALL">All</button>
+            <button class="cmc-chip" data-cmc="0">0</button>
+            <button class="cmc-chip" data-cmc="1">1</button>
+            <button class="cmc-chip" data-cmc="2">2</button>
+            <button class="cmc-chip" data-cmc="3">3</button>
+            <button class="cmc-chip" data-cmc="4">4</button>
+            <button class="cmc-chip" data-cmc="5">5</button>
+            <button class="cmc-chip" data-cmc="6+">6+</button>
+          </div>
+        </div>
+
+        <!-- Search Input -->
+        <div class="control-group search-group">
+          <span class="control-group-label">Search</span>
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input
+              type="search"
+              id="card-search-input"
+              placeholder="Search card..."
+              aria-label="Rechercher une carte par son nom"
+            />
+          </div>
+        </div>
+
+        <!-- Shared Across Cubes Filter -->
+        <div class="control-group shared-filter-group">
+          <span class="control-group-label">Cross-Cube</span>
+          <button
+            id="shared-filter-btn"
+            class="action-btn pill-btn"
+            title="Filtrer les cartes communes à au moins 2 cubes"
+          >
+            <span class="btn-icon">🔄</span>
+            <span class="btn-text">Communes aux Cubes</span>
+          </button>
+        </div>
+
+        <!-- Language Selector (FR / EN) -->
+        <div class="control-group lang-filter-group">
+          <span class="control-group-label">Langue</span>
+          <div
+            class="lang-chips-group"
+            id="card-lang-toggle-group"
+            role="group"
+            aria-label="Sélectionner la langue des cartes dans l'explorateur"
+          >
+            <button
+              class="lang-chip active"
+              id="lang-chip-fr"
+              data-lang="FR"
+              title="Afficher les cartes en Français (titres et illustrations FR)"
+            >
+              🇫🇷 FR
+            </button>
+            <button
+              class="lang-chip"
+              id="lang-chip-en"
+              data-lang="EN"
+              title="Display cards in English (titles and original art)"
+            >
+              🇬🇧 EN
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Meta Info Sub-bar -->
+    <div class="meta-subbar">
+      <div class="meta-subbar-inner">
+        <span class="results-stats" id="results-stats">Chargement des cartes...</span>
+        <span class="matrix-tip"
+          >💡 Survolez pour afficher la carte, cliquez pour l'analyse fine et ses synergies.</span
+        >
+      </div>
+    </div>
+
+    <!-- The Limited Grades Tier Matrix Table (Desktop & Tablet) -->
+    <main class="matrix-container" id="matrix-container">
+      <div class="matrix-table-wrapper">
+        <table class="tier-matrix" id="tier-matrix">
+          <thead>
+            <tr>
+              <th class="th-tier"></th>
+              <th class="th-color th-w" title="Blanc (W)">
+                <span class="mana-symbol-badge mana-w">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Blanc">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#f8fafc"
+                      stroke="#cbd5e1"
+                      stroke-width="4"
+                    />
+                    <path
+                      d="M50 22 L54 36 L68 26 L63 40 L78 44 L66 52 L76 64 L62 65 L64 80 L51 72 L47 86 L41 72 L28 80 L30 65 L16 64 L26 52 L14 44 L29 40 L24 26 L38 36 Z"
+                      fill="#ca8a04"
+                    />
+                    <circle cx="50" cy="50" r="13" fill="#ca8a04" />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-u" title="Bleu (U)">
+                <span class="mana-symbol-badge mana-u">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Bleu">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#0284c7"
+                      stroke="#38bdf8"
+                      stroke-width="4"
+                    />
+                    <path
+                      d="M50 20 C42 34 26 54 26 68 C26 81 37 88 50 88 C63 88 74 81 74 68 C74 54 58 34 50 20 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-b" title="Noir (B)">
+                <span class="mana-symbol-badge mana-b">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Noir">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#334155"
+                      stroke="#64748b"
+                      stroke-width="4"
+                    />
+                    <path
+                      d="M50 22 C35 22 27 34 27 48 C27 58 33 66 37 70 L37 80 L44 80 L44 74 L56 74 L56 80 L63 80 L63 70 C67 66 73 58 73 48 C73 34 65 22 50 22 Z M40 48 A6 8 0 1 1 40 47.9 Z M60 48 A6 8 0 1 1 60 47.9 Z M50 64 L46 68 L54 68 Z"
+                      fill="#0f172a"
+                    />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-r" title="Rouge (R)">
+                <span class="mana-symbol-badge mana-r">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Rouge">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#dc2626"
+                      stroke="#f87171"
+                      stroke-width="4"
+                    />
+                    <path
+                      d="M48 18 C52 30 64 36 62 48 C68 42 70 34 68 28 C76 38 78 54 70 68 C62 82 46 86 38 78 C28 68 30 52 38 42 C38 52 44 58 48 54 C46 44 42 34 48 18 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-g" title="Vert (G)">
+                <span class="mana-symbol-badge mana-g">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Vert">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#16a34a"
+                      stroke="#4ade80"
+                      stroke-width="4"
+                    />
+                    <path
+                      d="M50 18 C38 28 32 42 38 54 C30 56 26 64 30 72 C34 80 44 82 46 84 L46 88 L54 88 L54 84 C56 82 66 80 70 72 C74 64 70 56 62 54 C68 42 62 28 50 18 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-multi" title="Multicolore (M)">
+                <span class="mana-symbol-badge mana-multi">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Multicolore">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#d97706"
+                      stroke="#fbbf24"
+                      stroke-width="4"
+                    />
+                    <circle cx="50" cy="50" r="26" fill="none" stroke="#ffffff" stroke-width="5" />
+                    <polygon
+                      points="50,18 58,40 82,50 58,60 50,82 42,60 18,50 42,40"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </span>
+              </th>
+              <th class="th-color th-colorless" title="Incolore & Terrains (C)">
+                <span class="mana-symbol-badge mana-c">
+                  <svg viewBox="0 0 100 100" class="mana-svg" aria-label="Incolore">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="46"
+                      fill="#475569"
+                      stroke="#94a3b8"
+                      stroke-width="4"
+                    />
+                    <polygon points="50,18 78,50 50,82 22,50" fill="#ffffff" />
+                  </svg>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody">
+            <!-- Dynamically populated rows for strictly S, A, B, C, D -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Tier Accordion View (<= 768px) -->
+      <div class="mobile-tier-list" id="mobile-tier-list">
+        <!-- Dynamically populated collapsible tier sections -->
+      </div>
+    </main>
+    </section><!-- /view-cards -->
+
+    <!-- ==========================================================================
+         VIEW 4: LES 8 BOTS DU DRAFT (Clones parodiques de la table d'amis)
+         ========================================================================== -->
+    <section class="app-view view-bots" id="view-bots" hidden style="display: none">
+      <div class="bots-container">
+        <!-- Hero Header -->
+        <div class="bots-hero">
+          <div class="bots-hero-badge">
+            <span class="pulse-dot"></span>
+            <span>SIMULATION SOLO • TABLE D'AMIS (8 BOTS DISPONIBLES)</span>
+          </div>
+          <h1 class="bots-hero-title">
+            <span class="gold-gradient">LES 8 BOTS</span>
+            <span class="white-text">DU DRAFT</span>
+          </h1>
+          <p class="bots-hero-subtitle">
+            Affrontez les clones parodiques de vos amis : chacun dispose d'une personnalité unique, de ses archétypes de prédilection, de sa température d'IA et de biais algorithmiques fidèles à son style de jeu.
+          </p>
+
+          <!-- Key Metrics -->
+          <div class="bots-stats-grid">
+            <div class="bots-stat-box">
+              <span class="stat-num">8</span>
+              <span class="stat-lbl">Bots Clones</span>
+            </div>
+            <div class="bots-stat-box">
+              <span class="stat-num">8</span>
+              <span class="stat-lbl">Profils & Styles</span>
+            </div>
+            <div class="bots-stat-box">
+              <span class="stat-num">0.8 – 2.0</span>
+              <span class="stat-lbl">Échelle Température T</span>
+            </div>
+            <div class="bots-stat-box">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Biais Algorithmiques Réels</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="bots-filter-bar">
+          <div class="filter-group">
+            <span class="filter-label">Filtrer par Style :</span>
+            <div class="filter-pills" id="bots-style-filter">
+              <button class="bot-filter-btn active" data-style="ALL">Tous les styles (8)</button>
+              <button class="bot-filter-btn" data-style="spike">🎯 Spike & Contrôle</button>
+              <button class="bot-filter-btn" data-style="value">🧠 Value & Curve</button>
+              <button class="bot-filter-btn" data-style="johnny">🧪 Johnny & Combos</button>
+              <button class="bot-filter-btn" data-style="timmy">🦖 Timmy & Ramp</button>
+              <button class="bot-filter-btn" data-style="chaos">🎲 Rouxelettes</button>
+              <button class="bot-filter-btn" data-style="reanimator">💀 Reanimator & Rock</button>
+              <button class="bot-filter-btn" data-style="tribal">👑 Tribal</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Niveau d'IA :</span>
+            <div class="filter-pills" id="bots-level-filter">
+              <button class="bot-filter-btn active" data-level="ALL">Tous (8)</button>
+              <button class="bot-filter-btn" data-level="elite">⭐ Élite (3)</button>
+              <button class="bot-filter-btn" data-level="ambitious">✨ Ambitieux (2)</button>
+              <button class="bot-filter-btn" data-level="medium">⚡ Intermédiaire (3)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 Bots Cards Grid -->
+        <div class="bots-cards-grid" id="bots-cards-container">
+          <!-- Bot 1 : Big Nixos -->
+          <article class="bot-card" data-bot-id="nico" data-style="spike" data-level="elite">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">⚡</span>
+                <span class="bot-seat-badge">Bot #1</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Big Nixos</h3>
+                  <span class="clone-tag">Clone de Nico</span>
+                </div>
+                <div class="bot-title">Le Spike Impitoyable & Algorithmique</div>
+              </div>
+              <div class="bot-level-badge level-elite">Élite</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Je prends ce qui gagne. Pas de sentiments en draft. »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-low">0.8</span>
+                  <div class="temp-bar-bg" title="T = 0.8 : Décisions optimales et froides">
+                    <div class="temp-bar-fill" style="width: 40%; background: #06b6d4;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Spike / Précision</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-u" title="Bleu">U</span>
+                  <span class="color-dot color-b" title="Noir">B</span>
+                  <span class="color-dot color-w" title="Blanc">W</span>
+                </div>
+                <span class="metric-hint">Discipline stricte (1.25)</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Machine à gagner glaciale et chirurgicale. Big Nixos applique les principes fondamentaux du Limité de haut niveau : interaction efficace à 1 ou 2 mana, curve agressive ou contrôle verrouillé. Il punit chaque erreur de tempo et ne laisse jamais passer un contre ou un removal premium.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+3.0</strong> Removals & Contres à CMC ≤ 2</li>
+                <li class="bias-tag bonus"><strong>+1.5</strong> Cartes de Curve Basse (CMC 1-3)</li>
+                <li class="bias-tag info"><strong>1.25</strong> Discipline de Couleur (Ne dilue pas son deck)</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Swords to Plowshares">Swords to Plowshares</span>
+                <span class="sig-card-chip" data-search="Mana Drain">Mana Drain</span>
+                <span class="sig-card-chip" data-search="Psychic Frog">Psychic Frog</span>
+                <span class="sig-card-chip" data-search="Fatal Push">Fatal Push</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 2 : Cédrix -->
+          <article class="bot-card" data-bot-id="cedric" data-style="value" data-level="elite">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🧠</span>
+                <span class="bot-seat-badge">Bot #2</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Cédrix</h3>
+                  <span class="clone-tag">Clone de Cédric</span>
+                </div>
+                <div class="bot-title">L'Architecte du Beau Jeu & de la Curve</div>
+              </div>
+              <div class="bot-level-badge level-elite">Élite</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Un play propre, de la value, et la courbe parfaite. La base du beau jeu. »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-low">0.9</span>
+                  <div class="temp-bar-bg" title="T = 0.9 : Équilibre mathématique">
+                    <div class="temp-bar-fill" style="width: 45%; background: #10b981;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Élite / Régularité</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-u" title="Bleu">U</span>
+                  <span class="color-dot color-r" title="Rouge">R</span>
+                  <span class="color-dot color-w" title="Blanc">W</span>
+                </div>
+                <span class="metric-hint">Jeskai / Curve fluide</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Considéré comme le « Meilleur joueur de sa génération », Cédrix est un puriste de la rentabilité. Il cherche en permanence les 2-pour-1, les moteurs d'avantage de cartes et une courbe de mana au millimètre. Magic est pour lui un art de précision mathématique.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+3.0</strong> Moteurs de Value & 2-pour-1</li>
+                <li class="bias-tag bonus"><strong>+2.5</strong> Densité Curve Basse (CMC 1-3)</li>
+                <li class="bias-tag info"><strong>1.15</strong> Discipline de Couleur Solide</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Ancestral Recall">Ancestral Recall</span>
+                <span class="sig-card-chip" data-search="Snapcaster Mage">Snapcaster Mage</span>
+                <span class="sig-card-chip" data-search="Ocelot Pride">Ocelot Pride</span>
+                <span class="sig-card-chip" data-search="Preordain">Preordain</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 3 : Hugo -->
+          <article class="bot-card" data-bot-id="hugues" data-style="johnny" data-level="ambitious">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🧙‍♂️</span>
+                <span class="bot-seat-badge">Bot #3</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Hugo</h3>
+                  <span class="clone-tag">Clone de Hugues</span>
+                </div>
+                <div class="bot-title">Turbo Rien / Le Johnny Osé</div>
+              </div>
+              <div class="bot-level-badge level-ambitious">Ambitieux</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « J'ai vu une combo avec cette saga et ce caillou. Si ça passe, c'est du génie ! »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-high">1.6</span>
+                  <div class="temp-bar-bg" title="T = 1.6 : Prise de risque élevée">
+                    <div class="temp-bar-fill" style="width: 80%; background: #f59e0b;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Johnny / Audacieux</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-c" title="Incolore & Artefacts">C</span>
+                  <span class="color-badge-text">Ouvert à tout splash</span>
+                </div>
+                <span class="metric-hint">Discipline faible (0.75)</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Spéculateur d'artefacts, de sagas et d'interactions étranges. Hugo refuse la banalité et préfère perdre avec panache en tentant d'assembler un moteur ésotérique plutôt que d'empiler des créatures conventionnelles. Reste ouvert très longtemps.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+4.0</strong> Sagas, Artefacts & Moteurs Combo</li>
+                <li class="bias-tag info"><strong>0.75</strong> Discipline Couleur (Splashes sauvages)</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Urza's Saga">Urza's Saga</span>
+                <span class="sig-card-chip" data-search="The One Ring">The One Ring</span>
+                <span class="sig-card-chip" data-search="Mishra's Bauble">Mishra's Bauble</span>
+                <span class="sig-card-chip" data-search="Retrofitter Foundry">Retrofitter Foundry</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 4 : Le Rouxeleur -->
+          <article class="bot-card" data-bot-id="remi" data-style="chaos" data-level="medium">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🎲</span>
+                <span class="bot-seat-badge">Bot #4</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Le Rouxeleur</h3>
+                  <span class="clone-tag">Clone de Rémi</span>
+                </div>
+                <div class="bot-title">Le Maître des Rouxelettes</div>
+              </div>
+              <div class="bot-level-badge level-medium">Intermédiaire</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Attends, je peux vraiment jouer ça ? C'est légal ? Bon, je prends quand même ! »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-max">2.0</span>
+                  <div class="temp-bar-bg" title="T = 2.0 : Chaos maximal !">
+                    <div class="temp-bar-fill" style="width: 100%; background: #ef4444;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Rouxelette / Imprévisible</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-badge-text">Caméléon total</span>
+                </div>
+                <span class="metric-hint">Pivote sans prévenir</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              L'incarnation vivante du chaos et de l'imprévisibilité. Avec la température maximale de toute la table (T = 2.0), Le Rouxeleur peut pivoter de couleur en plein milieu d'un pack sur un coup de cœur artistique ou une carte loufoque. Impossible de savoir ce qu'il va vous laisser passer !
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag warning"><strong>T = 2.0</strong> Température Softmax maximale (Picks chaotiques)</li>
+                <li class="bias-tag info"><strong>0.8</strong> Faible attachement aux couleurs (Pivots fréquents)</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Reanimate">Reanimate</span>
+                <span class="sig-card-chip" data-search="Wheel of Fortune">Wheel of Fortune</span>
+                <span class="sig-card-chip" data-search="Dauthi Voidwalker">Dauthi Voidwalker</span>
+                <span class="sig-card-chip" data-search="Chaos Orb">Chaos Orb</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 5 : LaPapapaie -->
+          <article class="bot-card" data-bot-id="papayou" data-style="timmy" data-level="medium">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">👑</span>
+                <span class="bot-seat-badge">Bot #5</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">LaPapapaie</h3>
+                  <span class="clone-tag">Clone de Papayou</span>
+                </div>
+                <div class="bot-title">Le Colosse Légendaire & High-Power</div>
+              </div>
+              <div class="bot-level-badge level-medium">Intermédiaire</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Une bombe légendaire 6/6 qui rase la table ? Donne-moi ça tout de suite ! »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-high">1.7</span>
+                  <div class="temp-bar-bg" title="T = 1.7 : Gourmandise assumée">
+                    <div class="temp-bar-fill" style="width: 85%; background: #ea580c;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Gourmand / Puissance</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-u" title="Bleu">U</span>
+                  <span class="color-dot color-w" title="Blanc">W</span>
+                  <span class="color-dot color-r" title="Rouge">R</span>
+                </div>
+                <span class="metric-hint">Jeskai • Bleu, Blanc, Rouge</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Triathlète du draft et amateur inconditionnel de bombes légendaires et de sorts majeurs dans ses couleurs fétiches (Bleu, Blanc, Rouge). Pour LaPapapaie, la finesse est surfavorisée : donnez-lui des cartes capables de renverser la partie d'un coup. Dès qu'une carte affiche un cadre légendaire ou des statistiques écrasantes, elle rejoint son pool sans hésiter.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+3.5</strong> Bombes Légendaires & Menaces Isolées</li>
+                <li class="bias-tag bonus"><strong>+2.0</strong> Affinité Bleu, Blanc, Rouge (Jeskai)</li>
+                <li class="bias-tag info">Priorité aux cartes à haut score statique brut</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Phlage, Titan of Fire's Fury">Phlage, Titan</span>
+                <span class="sig-card-chip" data-search="Ragavan, Nimble Pilferer">Ragavan, Nimble Pilferer</span>
+                <span class="sig-card-chip" data-search="Elesh Norn, Mother of Machines">Elesh Norn</span>
+                <span class="sig-card-chip" data-search="Subtlety">Subtlety</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 6 : Le Gourmand -->
+          <article class="bot-card" data-bot-id="ivan" data-style="timmy" data-level="medium">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🦖</span>
+                <span class="bot-seat-badge">Bot #6</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Le Gourmand</h3>
+                  <span class="clone-tag">Clone d'Ivan</span>
+                </div>
+                <div class="bot-title">Le Colosse 4-Couleurs Ramp & Wrath</div>
+              </div>
+              <div class="bot-level-badge level-medium">Intermédiaire</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « J'accélère la mana, une bonne Wrath pour nettoyer la table, et après je pose les monstres. Jamais de rouge ! »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-mid">1.2</span>
+                  <div class="temp-bar-bg" title="T = 1.2 : Timmy réfléchi">
+                    <div class="temp-bar-fill" style="width: 60%; background: #3b82f6;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Timmy / Ramp</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-g" title="Vert">G</span>
+                  <span class="color-dot color-w" title="Blanc">W</span>
+                  <span class="color-dot color-u" title="Bleu">U</span>
+                  <span class="color-dot color-b" title="Noir">B</span>
+                  <span class="anti-red-pill" title="Pénalité sévère sur le Rouge !">🚫 PAS DE ROUGE</span>
+                </div>
+                <span class="metric-hint">4-Couleurs Non-Rouge</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              L'ingénieur Big Mana. Sa stratégie éprouvée : accélérer le développement avec des elfes et du fixing chromatique, effacer toute opposition avec un balayeur de table (Wrath of God / Damnation), puis dérouler des monstres géants à 5, 6 ou 7+ mana. Haine absolue et inscrite dans le code pour les cartes rouges (-8.0) !
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+4.5</strong> Créatures CMC ≥ 5 (et +3.5 bonus si CMC ≥ 7)</li>
+                <li class="bias-tag bonus"><strong>+5.0</strong> Balayeurs de table (Wraths & Sweepers)</li>
+                <li class="bias-tag bonus"><strong>+3.5</strong> Ramp & Elfes de mana verts (CMC ≤ 3)</li>
+                <li class="bias-tag bonus"><strong>+4.5</strong> Fixings & Terrains multi-couleurs</li>
+                <li class="bias-tag danger"><strong>-8.0</strong> Malus Sévère sur toute carte ROUGE</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Craterhoof Behemoth">Craterhoof Behemoth</span>
+                <span class="sig-card-chip" data-search="Wrath of God">Wrath of God</span>
+                <span class="sig-card-chip" data-search="Carnage Tyrant">Carnage Tyrant</span>
+                <span class="sig-card-chip" data-search="Llanowar Elves">Llanowar Elves</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 7 : TitouBot -->
+          <article class="bot-card" data-bot-id="titou" data-style="tribal" data-level="elite">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🛡️</span>
+                <span class="bot-seat-badge">Bot #7</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">TitouBot</h3>
+                  <span class="clone-tag">Clone de Titou</span>
+                </div>
+                <div class="bot-title">L'Architecte Tribal & Chromatique</div>
+              </div>
+              <div class="bot-level-badge level-elite">Élite</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Une tribu bien huilée et un bon seigneur, et la guilde roule sur le format. »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-mid">1.0</span>
+                  <div class="temp-bar-bg" title="T = 1.0 : Équilibre stratégique">
+                    <div class="temp-bar-fill" style="width: 50%; background: #eab308;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Élite / Cohérence</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-badge-text">Polyvalence de Guilde</span>
+                </div>
+                <span class="metric-hint">Synergies & Seigneurs</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Inspiré par le créateur du format Titou's Master Guild Challenge®. TitouBot excelle à identifier les tribus ouvertes (Gobelins, Vampires, Elfes, etc.) et à verrouiller les seigneurs et payoffs correspondants pour assembler des synergies tribales redoutables.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+3.5</strong> Synergies de Types & Seigneurs Tribaux</li>
+                <li class="bias-tag info"><strong>1.10</strong> Discipline de Guilde & Cohérence</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Lord of Atlantis">Lord of Atlantis</span>
+                <span class="sig-card-chip" data-search="Goblin Chieftain">Goblin Chieftain</span>
+                <span class="sig-card-chip" data-search="Floodfarm Verge">Floodfarm Verge</span>
+                <span class="sig-card-chip" data-search="Thalia, Guardian of Thraben">Thalia, Guardian</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bot 8 : Le Rockeur -->
+          <article class="bot-card" data-bot-id="theo" data-style="reanimator" data-level="ambitious">
+            <header class="bot-card-header">
+              <div class="bot-avatar-wrap">
+                <span class="bot-avatar">🎸</span>
+                <span class="bot-seat-badge">Bot #8</span>
+              </div>
+              <div class="bot-identity">
+                <div class="bot-name-row">
+                  <h3 class="bot-name">Le Rockeur</h3>
+                  <span class="clone-tag">Clone de Théo</span>
+                </div>
+                <div class="bot-title">Le Virtuose Reanimator & Riffs Rakdos</div>
+              </div>
+              <div class="bot-level-badge level-ambitious">Ambitieux</div>
+            </header>
+
+            <blockquote class="bot-quote">
+              « Tu croyais que ma bête était morte ? Monte les amplis à 11, elle revient direct du cimetière ! »
+            </blockquote>
+
+            <div class="bot-metrics-row">
+              <div class="bot-metric-box">
+                <span class="metric-label">Température T</span>
+                <div class="temp-display">
+                  <span class="temp-val temp-mid">1.2</span>
+                  <div class="temp-bar-bg" title="T = 1.2 : Ambitieux & focus sur l'archétype">
+                    <div class="temp-bar-fill" style="width: 60%; background: #a855f7;"></div>
+                  </div>
+                </div>
+                <span class="metric-hint">Ambitieux / Synergique</span>
+              </div>
+              <div class="bot-metric-box">
+                <span class="metric-label">Couleurs Préférées</span>
+                <div class="bot-colors-list">
+                  <span class="color-dot color-b" title="Noir">B</span>
+                  <span class="color-dot color-r" title="Rouge">R</span>
+                  <span class="color-badge-text">Rakdos Vif</span>
+                </div>
+                <span class="metric-hint">Discipline solide (1.15)</span>
+              </div>
+            </div>
+
+            <p class="bot-description">
+              Grand esthète du riff saturé et de la nécromancie rapide. Dès qu'un booster propose <em>Reanimate</em>, <em>Animate Dead</em> ou un titan à déterrer au tour 2, Le Rockeur saute dessus sans hésiter. Quand la voie Reanimator se referme, il embrase la table avec un deck Rakdos ultra agressif, conjuguant blasts rouges incandescents et défausse noire impitoyable.
+            </p>
+
+            <div class="bot-biases-section">
+              <h4 class="biases-title">⚙️ Biais Algorithmiques Codés :</h4>
+              <ul class="biases-tags">
+                <li class="bias-tag bonus"><strong>+7.0</strong> Sorts de Réanimation (*Reanimate*, *Animate Dead*, *Necromancy*)</li>
+                <li class="bias-tag bonus"><strong>+5.0</strong> Cibles de Réanimation colossales (CMC ≥ 6)</li>
+                <li class="bias-tag bonus"><strong>+3.0</strong> Enablers de Défausse & Ravitaillement cimetière (*Looting*, *Entomb*)</li>
+                <li class="bias-tag info"><strong>+2.0</strong> Affinité marquée pour le Noir et le Rouge vif (Rakdos)</li>
+              </ul>
+            </div>
+
+            <div class="bot-signatures-section">
+              <h4 class="signatures-title">🎴 Cartes Fétiches dans les Cubes :</h4>
+              <div class="signatures-chips">
+                <span class="sig-card-chip" data-search="Reanimate">Reanimate</span>
+                <span class="sig-card-chip" data-search="Animate Dead">Animate Dead</span>
+                <span class="sig-card-chip" data-search="Faithless Looting">Faithless Looting</span>
+                <span class="sig-card-chip" data-search="Griselbrand">Griselbrand</span>
+                <span class="sig-card-chip" data-search="Archon of Cruelty">Archon of Cruelty</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section><!-- /view-bots -->
+
+    <!-- ==========================================================================
+         VIEW 5: DRAFT SOLO (Lobby, Arena 45 Picks, Deckbuilder 23 Cartes, Résultat)
+         ========================================================================== -->
+    <section class="app-view view-draft" id="view-draft" hidden>
+      <!-- STAGE 1: LOBBY & CONFIGURATION -->
+      <div class="draft-stage" id="draft-lobby-stage">
+        <div class="draft-lobby-hero">
+          <div class="home-hero-badge">
+            <span class="pulse-dot"></span>
+            <span>SOLO DRAFT COACH • FEATURE STAR</span>
+          </div>
+          <h1 class="lobby-title">
+            <span class="gold-gradient">DRAFT SOLO CLASSIQUE</span>
+            <span class="white-text">LE DÉFI DES 8 BOTS</span>
+          </h1>
+          <p class="lobby-subtitle">
+            Entrez dans l'arène, draftez 45 cartes face aux 7 amis du LMCDEU, construisez votre deck de 23 cartes et inscrivez votre nom tout en haut du Mur des Records !
+          </p>
+        </div>
+
+        <div class="lobby-card-box">
+          <!-- Magicien Identity Selection (Effet WHAOU) -->
+          <div class="magicien-select-section">
+            <div class="magicien-select-header">
+              <span class="magicien-select-icon">👑</span>
+              <div>
+                <h3 class="magicien-select-title">Incarnez votre Magicien</h3>
+                <span class="magicien-select-subtitle">Sélectionnez votre profil officiel ou jouez en Invité</span>
+              </div>
+            </div>
+
+            <div class="magicien-cards-grid" id="magicien-cards-grid">
+              <!-- Dynamically populated with 8 Magiciens + Invité -->
+            </div>
+
+            <div class="lobby-form-row lobby-single-field" style="margin-top: 14px;">
+              <div class="form-field-group">
+                <label for="draft-player-name" class="field-label">Nom d'affichage pour la session :</label>
+                <div class="player-input-with-slug">
+                  <input
+                    type="text"
+                    id="draft-player-name"
+                    class="arcade-input"
+                    placeholder="Ex: Tristan, Le Conquérant..."
+                    maxlength="30"
+                    value="Tristan"
+                  />
+                  <input type="hidden" id="draft-magicien-slug" value="titou" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lobby-cube-info-banner">
+            <span class="cube-badge-tag">🎲 CUBE SÉLECTIONNÉ</span>
+            <span class="cube-badge-name">Titou's Tribal & Chromatic Cube (545 cartes uniques)</span>
+            <span class="cube-badge-meta">45 picks • 3 packs de 15 cartes • 8 sièges</span>
+          </div>
+
+          <!-- Table preview (8 seats) -->
+          <div class="lobby-table-preview">
+            <h3 class="preview-title">Table des 8 Joueurs Déployés</h3>
+            <div class="table-seats-grid">
+              <div class="preview-seat-card seat-human">
+                <span class="seat-badge">Siège 0</span>
+                <span class="seat-avatar">🧙‍♂️</span>
+                <span class="seat-name" id="preview-human-name">Tristan (Vous)</span>
+                <span class="seat-role">Challenger Solo</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 1 (Gauche)</span>
+                <span class="seat-avatar">⚡</span>
+                <span class="seat-name">Nico (Big Nixos)</span>
+                <span class="seat-role">Spike Impitoyable</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 2</span>
+                <span class="seat-avatar">🎲</span>
+                <span class="seat-name">Rémi (Le Rouxeleur)</span>
+                <span class="seat-role">Maître Rouxelettes</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 3</span>
+                <span class="seat-avatar">🎭</span>
+                <span class="seat-name">Hugues (Hugo)</span>
+                <span class="seat-role">Turbo Rien / Combo</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 4 (Face)</span>
+                <span class="seat-avatar">🌲</span>
+                <span class="seat-name">Ivan (Le Gourmand)</span>
+                <span class="seat-role">4-Couleurs Ramp</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 5</span>
+                <span class="seat-avatar">👑</span>
+                <span class="seat-name">Papayou (LaPapapaie)</span>
+                <span class="seat-role">Légendaires Bombs</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 6</span>
+                <span class="seat-avatar">🏆</span>
+                <span class="seat-name">Cédric (Cédrix)</span>
+                <span class="seat-role">Meilleur de sa Génération</span>
+              </div>
+              <div class="preview-seat-card">
+                <span class="seat-badge">Siège 7 (Droite)</span>
+                <span class="seat-avatar">📜</span>
+                <span class="seat-name">Titou (TitouBot)</span>
+                <span class="seat-role">Architecte Tribal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lobby-cta-row">
+            <button class="btn-start-draft-epic" id="start-solo-draft-btn">
+              <span>Lancer le Draft Solo 🚀</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 2: LIVE DRAFT ARENA (45 PICKS) -->
+      <div class="draft-stage" id="draft-arena-stage" hidden>
+        <!-- Sticky Command HUD -->
+        <div class="arena-sticky-hud">
+          <div class="hud-inner">
+            <div class="hud-left">
+              <span class="hud-pill pill-player" id="hud-player-badge">Tristan</span>
+              <span class="hud-pill pill-pack" id="hud-pack-num">Pack 1 / 3</span>
+              <span class="hud-pill pill-pick" id="hud-pick-num">Pick 1 / 15</span>
+              <span class="hud-pill pill-direction" id="hud-direction">⬅️ Tourne à Gauche</span>
+            </div>
+            <div class="hud-right">
+              <span class="hud-pill pill-homologated">🛡️ Homologué</span>
+              <span class="hud-pill pill-timer" id="arena-timer">⏱️ 00:00</span>
+              <button class="btn-confirm-pick" id="draft-confirm-pick-btn" disabled>
+                <span>Sélectionnez une carte</span>
+              </button>
+            </div>
+          </div>
+          <div class="hud-progress-track">
+            <div class="hud-progress-fill" id="hud-progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="arena-content-container">
+          <div class="booster-header-banner">
+            <h2 class="booster-title">Vos Cartes Disponibles</h2>
+            <p class="booster-hint">Cliquez sur une carte pour la sélectionner, ou double-cliquez pour la drafter directement.</p>
+          </div>
+
+          <!-- Booster Grid -->
+          <div class="draft-booster-grid" id="draft-booster-grid">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Collapsible Pool Drawer -->
+          <div class="draft-pool-drawer" id="draft-pool-drawer">
+            <div class="pool-drawer-header">
+              <span class="pool-drawer-title">🎴 Votre Pool Drafté</span>
+              <span class="pool-count-badge" id="pool-count-badge">0 / 45</span>
+            </div>
+            <div class="pool-mini-cards-row" id="draft-pool-container">
+              <!-- Mini cards populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 3: DECKBUILDER STUDIO (23 CARDS SELECTION + 17 LANDS) -->
+      <div class="draft-stage" id="draft-deckbuilder-stage" hidden>
+        <div class="deckbuilder-header-bar">
+          <div class="dh-left">
+            <h2 class="deck-stage-title">Atelier de Deckbuilding</h2>
+            <span class="deck-stage-desc">Sélectionnez exactement 23 cartes actives parmi votre pool de 45 cartes draftées.</span>
+          </div>
+          <div class="dh-right">
+            <span class="counter-badge" id="deck-spells-counter">0 / 23 cartes</span>
+            <span class="counter-badge" id="total-lands-badge">17 / 17 terrains</span>
+            <span class="hud-pill pill-timer" id="deck-timer">⏱️ 00:00</span>
+          </div>
+        </div>
+
+        <div class="deckbuilder-studio-grid">
+          <!-- Left Column: Main Deck (23 Playables) -->
+          <div class="deck-zone-col maindeck-col">
+            <div class="zone-header">
+              <div class="zone-title-wrap">
+                <span class="zone-icon">⚔️</span>
+                <span class="zone-title">Main Deck (23 Cartes Actives)</span>
+              </div>
+              <span class="zone-help">Cliquez sur une carte pour la basculer dans la réserve.</span>
+            </div>
+            <div class="deck-cards-flex" id="deck-maindeck-container">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Right Column: Sideboard (22 Cards Reserve) -->
+          <div class="deck-zone-col sideboard-col">
+            <div class="zone-header">
+              <div class="zone-title-wrap">
+                <span class="zone-icon">📦</span>
+                <span class="zone-title">Réserve / Sideboard (22 Cartes)</span>
+              </div>
+              <span class="zone-help">Cliquez sur une carte pour l'ajouter au Main Deck.</span>
+            </div>
+            <div class="deck-cards-flex" id="deck-sideboard-container">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Basic Lands Manager Box -->
+        <div class="lands-manager-box">
+          <div class="lands-manager-header">
+            <div>
+              <h3 class="lands-title">🏔️ Base de Mana (17 Terrains de Base)</h3>
+              <p class="lands-subtitle">Ajustez manuellement la répartition des 5 terrains de base ou réinitialisez selon les symboles de vos sorts.</p>
+            </div>
+            <button class="btn-action-arcade" id="auto-calculate-lands-btn">
+              ⚡ Répartir Optimalement
+            </button>
+          </div>
+          <div class="lands-steppers-grid">
+            <div class="land-stepper-item">
+              <span class="land-symbol-icon mana-w">W</span>
+              <span class="land-name">Plaine</span>
+              <div class="stepper-controls">
+                <button class="btn-step" id="land-minus-plains">−</button>
+                <span class="land-val" id="land-count-plains">4</span>
+                <button class="btn-step" id="land-plus-plains">+</button>
+              </div>
+            </div>
+            <div class="land-stepper-item">
+              <span class="land-symbol-icon mana-u">U</span>
+              <span class="land-name">Île</span>
+              <div class="stepper-controls">
+                <button class="btn-step" id="land-minus-island">−</button>
+                <span class="land-val" id="land-count-island">4</span>
+                <button class="btn-step" id="land-plus-island">+</button>
+              </div>
+            </div>
+            <div class="land-stepper-item">
+              <span class="land-symbol-icon mana-b">B</span>
+              <span class="land-name">Marais</span>
+              <div class="stepper-controls">
+                <button class="btn-step" id="land-minus-swamp">−</button>
+                <span class="land-val" id="land-count-swamp">3</span>
+                <button class="btn-step" id="land-plus-swamp">+</button>
+              </div>
+            </div>
+            <div class="land-stepper-item">
+              <span class="land-symbol-icon mana-r">R</span>
+              <span class="land-name">Montagne</span>
+              <div class="stepper-controls">
+                <button class="btn-step" id="land-minus-mountain">−</button>
+                <span class="land-val" id="land-count-mountain">3</span>
+                <button class="btn-step" id="land-plus-mountain">+</button>
+              </div>
+            </div>
+            <div class="land-stepper-item">
+              <span class="land-symbol-icon mana-g">G</span>
+              <span class="land-name">Forêt</span>
+              <div class="stepper-controls">
+                <button class="btn-step" id="land-minus-forest">−</button>
+                <span class="land-val" id="land-count-forest">3</span>
+                <button class="btn-step" id="land-plus-forest">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="deckbuilder-footer-cta">
+          <button class="btn-validate-deck-epic" id="draft-validate-deck-btn" disabled>
+            <span>🏆 Valider et Verrouiller mon Deck (23/23)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STAGE 4: RESULT SCREEN & SCORE 5 AXES -->
+      <div class="draft-stage" id="draft-result-stage" hidden>
+        <div class="result-highscore-banner" id="result-highscore-banner" hidden>
+          <span class="pulse-dot"></span>
+          <span>👑 NOUVEAU RECORD HISTORIQUE DU CUBE DÉCROCHÉ ! 👑</span>
+        </div>
+
+        <div class="result-hero-card">
+          <div class="result-score-circle">
+            <span class="score-main-value" id="result-score-val">88</span>
+            <span class="score-denom">/ 100</span>
+            <span class="result-grade-badge grade-s" id="result-score-grade">TIER S</span>
+          </div>
+
+          <div class="result-meta-info">
+            <div class="result-archetype-wrap">
+              <span class="result-meta-label">Archétype Détecté</span>
+              <h2 class="result-archetype-title" id="result-archetype-label">Azorius Control Tribal</h2>
+              <p class="result-archetype-description" id="result-archetype-desc"></p>
+            </div>
+            <div class="result-stats-row">
+              <span class="stat-tag" id="result-rank-badge">Rang #1 au Mur des Records</span>
+              <span class="stat-tag" id="result-chrono-text">Temps : 12m 30s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Axis Kiviat Radar Showcase -->
+        <div class="result-axes-card">
+          <h3 class="axes-card-title">Évaluation Explicable sur les 5 Axes de Deck</h3>
+          <div class="radar-axes-list">
+            <div class="radar-axis-row">
+              <span class="axis-lbl">⚡ Puissance Brute</span>
+              <div class="axis-track">
+                <div class="axis-fill fill-power" id="result-radar-bar-power" style="width: 85%"></div>
+              </div>
+              <span class="axis-val" id="result-radar-val-power">85 / 100</span>
+            </div>
+            <div class="radar-axis-row">
+              <span class="axis-lbl">🔗 Synergie & Thèmes</span>
+              <div class="axis-track">
+                <div class="axis-fill fill-synergy" id="result-radar-bar-synergy" style="width: 90%"></div>
+              </div>
+              <span class="axis-val" id="result-radar-val-synergy">90 / 100</span>
+            </div>
+            <div class="radar-axis-row">
+              <span class="axis-lbl">📈 Courbe de Mana</span>
+              <div class="axis-track">
+                <div class="axis-fill fill-curve" id="result-radar-bar-curve" style="width: 88%"></div>
+              </div>
+              <span class="axis-val" id="result-radar-val-curve">88 / 100</span>
+            </div>
+            <div class="radar-axis-row">
+              <span class="axis-lbl">💧 Stabilité du Mana</span>
+              <div class="axis-track">
+                <div class="axis-fill fill-mana" id="result-radar-bar-mana" style="width: 86%"></div>
+              </div>
+              <span class="axis-val" id="result-radar-val-mana">86 / 100</span>
+            </div>
+            <div class="radar-axis-row">
+              <span class="axis-lbl">🛡️ Densité d'Interaction</span>
+              <div class="axis-track">
+                <div class="axis-fill fill-interaction" id="result-radar-bar-interaction" style="width: 92%"></div>
+              </div>
+              <span class="axis-val" id="result-radar-val-interaction">92 / 100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strengths & Weaknesses -->
+        <div class="result-feedback-grid">
+          <div class="feedback-card feedback-strengths">
+            <h4 class="feedback-title">Forces du Deck</h4>
+            <ul class="feedback-list" id="result-strengths-list"></ul>
+          </div>
+          <div class="feedback-card feedback-weaknesses">
+            <h4 class="feedback-title">Points d'Amélioration</h4>
+            <ul class="feedback-list" id="result-weaknesses-list"></ul>
+          </div>
+        </div>
+
+        <!-- Action Links & Reports -->
+        <div class="result-actions-card">
+          <h3 class="actions-card-title">Traçabilité, Rapports & Classement</h3>
+          <div class="result-buttons-row">
+            <button class="btn-action-hero primary-hero" id="btn-share-deck-showcase" style="background: linear-gradient(135deg, #d4af37, #f39c12); color: #000; font-weight: 800; border: none; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);">
+              <span class="btn-icon">📱</span>
+              <span>Partager mon Deck aux Magiciens 🌟</span>
+            </button>
+            <button class="btn-action-hero secondary-hero" id="btn-go-to-records">
+              <span class="btn-icon">🏆</span>
+              <span>Consulter le Mur des Records</span>
+            </button>
+            <a href="#" target="_blank" rel="noopener" class="btn-action-hero secondary-hero" id="btn-open-walkthrough-report">
+              <span class="btn-icon">📑</span>
+              <span>Parcours 17Lands (45 Écrans) ↗</span>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="btn-action-hero secondary-hero" id="btn-open-boosters-report">
+              <span class="btn-icon">📦</span>
+              <span>Répartition 360 Cartes (24 Boosters) ↗</span>
+            </a>
+            <button class="btn-action-hero secondary-hero" id="btn-restart-draft">
+              <span class="btn-icon">🔄</span>
+              <span>Recommencer un Draft</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section><!-- /view-draft -->
+
+    <!-- ==========================================================================
+         VIEW 6: MUR DES RECORDS (Rétro Arcade High Scores & Hall of Fame)
+         ========================================================================== -->
+    <section class="app-view view-records" id="view-records" hidden>
+      <div class="records-container">
+        <!-- Arcade Marquee Header -->
+        <div class="arcade-marquee-banner">
+          <div class="arcade-glow-frame">
+            <h1 class="arcade-title">
+              <span class="arcade-neon-gold">MUR DES RECORDS</span>
+              <span class="arcade-neon-cyan">• HALL OF FAME •</span>
+            </h1>
+            <p class="arcade-tagline">
+              Le tableau d'honneur des plus grands deckbuilders du Cube Digital Extended Universe
+            </p>
+          </div>
+        </div>
+
+        <!-- Records Subnav Tabs: Général vs Panthéon des Magiciens -->
+        <div class="records-subnav-tabs">
+          <button class="records-tab-btn active" id="tab-btn-records-general">
+            <span>🏆 Classement Général</span>
+          </button>
+          <button class="records-tab-btn" id="tab-btn-records-pantheon">
+            <span>🏛️ Panthéon des Magiciens (Rivalités)</span>
+          </button>
+        </div>
+
+        <!-- Arcade High Scores Table Card -->
+        <div class="arcade-table-card" id="general-records-table-card">
+          <div class="arcade-table-header-row">
+            <div class="ath-title-wrap">
+              <span class="ath-icon">👑</span>
+              <h2 class="ath-title">Classement Général Officiel</h2>
+            </div>
+            <span class="ath-badge">Scores Homologués 5 Axes</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="arcade-leaderboard-table" id="arcade-leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rang</th>
+                  <th>Joueur</th>
+                  <th>Score</th>
+                  <th>Archétype</th>
+                  <th>Temps</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section Panthéon des Magiciens (Rivalités & Statistiques) -->
+        <div class="arcade-table-card" id="pantheon-table-card" hidden>
+          <div class="arcade-table-header-row">
+            <div class="ath-title-wrap">
+              <span class="ath-icon">🏛️</span>
+              <h2 class="ath-title">Le Panthéon des 8 Magiciens</h2>
+            </div>
+            <span class="ath-badge">Statistiques & Trophées</span>
+          </div>
+          <div class="pantheon-cards-grid" id="pantheon-cards-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </section><!-- /view-records -->
+
+    <!-- ==========================================================================
+         VIEW 7: ADMIN CONSOLE (Accès direct URL, inspection des 8 decks et rapports)
+         ========================================================================== -->
+    <section class="app-view view-admin" id="view-admin" hidden>
+      <div class="admin-container">
+        <!-- Admin Header -->
+        <div class="admin-header-banner">
+          <div class="admin-banner-content">
+            <div class="admin-badge-row">
+              <span class="admin-badge-secret">🔒 CONSOLE D'ADMINISTRATION</span>
+              <span class="admin-badge-mode">ACCÈS DIRECT</span>
+            </div>
+            <h1 class="admin-title">Historique des Drafts & Decks des Bots</h1>
+            <p class="admin-tagline">
+              Visualisez l'ensemble des sessions de draft complétées, examinez en détail les 8 decks de la table (joueur humain et 7 bots) et auditez les rapports HTML 17Lands.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 1: Liste des Sessions de Draft -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="ach-title-wrap">
+              <span class="ach-icon">📋</span>
+              <h2 class="ach-title">Sessions de Draft Enregistrées</h2>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="admin-refresh-btn" type="button">🔄 Actualiser</button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-drafts-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Seed</th>
+                  <th>Joueur Humain</th>
+                  <th>Score Humain</th>
+                  <th>Archétype</th>
+                  <th>Rapports HTML</th>
+                  <th>Decks de la Table</th>
+                </tr>
+              </thead>
+              <tbody id="admin-drafts-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 2: Inspecteur des 8 Decks (Humain + 7 Bots) -->
+        <div class="admin-card" id="admin-table-inspector" hidden>
+          <div class="admin-card-header">
+            <div class="ach-title-wrap">
+              <span class="ach-icon">🔍</span>
+              <h2 class="ach-title" id="admin-inspector-title">Inspection des 8 Decks de la Table</h2>
+            </div>
+            <span class="ach-badge" id="admin-inspector-meta">Détail des Sièges</span>
+          </div>
+
+          <!-- 8 Seats Tabs -->
+          <div class="admin-seats-tabs" id="admin-seats-tabs">
+            <!-- 8 Seat Buttons populated dynamically -->
+          </div>
+
+          <!-- Active Seat Deck Inspector View -->
+          <div class="admin-seat-detail" id="admin-seat-detail">
+            <!-- Populated dynamically when a seat is chosen -->
+          </div>
+        </div>
+
+        <!-- Section 3: Rapports HTML Archivés -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="ach-title-wrap">
+              <span class="ach-icon">📊</span>
+              <h2 class="ach-title">Fichiers de Rapports Archivés (reports/)</h2>
+            </div>
+            <span class="ach-badge">Audit 17Lands & Boosters</span>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-reports-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Fichier HTML</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="reports-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section><!-- /view-admin -->
+
+    <!-- Deck Review Modal for Leaderboard Entries -->
+    <div class="modal-backdrop" id="deck-review-backdrop" hidden>
+      <div class="card-modal deck-review-modal" role="dialog" aria-modal="true" aria-labelledby="deck-review-modal-title">
+        <button class="modal-close-btn" id="deck-review-close-btn" aria-label="Fermer la vue du deck">
+          ✕
+        </button>
+        <div class="modal-body deck-review-body">
+          <div class="deck-review-header">
+            <div>
+              <span class="review-rank-tag" id="deck-review-rank">#1</span>
+              <h2 class="deck-review-title" id="deck-review-modal-title">Deck de Tristan</h2>
+              <span class="deck-review-meta" id="deck-review-meta">Score : 88/100 • Azorius Control Tribal</span>
+            </div>
+          </div>
+          <div class="deck-review-cards-grid" id="deck-review-cards-grid">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Hover Image Popover (Follows cursor / anchors next to card) -->
+    <div
+      class="card-popover"
+      id="card-hover-popover"
+      hidden
+      style="display: none"
+      aria-hidden="true"
+    >
+      <img id="popover-img" src="" alt="Aperçu de la carte" loading="eager" />
+    </div>
+
+    <!-- Educational Card Detail Modal (Matching Screenshot 3) -->
+    <div class="modal-backdrop" id="card-modal-backdrop">
+      <div
+        class="card-modal"
+        id="card-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-card-title"
+      >
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Fermer la fiche détaillée">
+          ✕
+        </button>
+
+        <div class="modal-body">
+          <!-- Left Column : Card Visual Art (High-Res Scryfall) -->
+          <div class="modal-col-left">
+            <div class="card-image-container">
+              <img id="modal-card-image" src="" alt="Illustration Magic" class="modal-card-img" />
+            </div>
+            <div class="modal-quadrant-panel">
+              <span class="panel-heading">Théorie des Quadrants (Zvi Mowshowitz)</span>
+              <div class="quadrant-scores-grid">
+                <div class="q-score">
+                  <span class="q-lbl">Opening</span
+                  ><span class="q-num" id="q-val-opening">4.5</span>
+                </div>
+                <div class="q-score">
+                  <span class="q-lbl">Developing</span
+                  ><span class="q-num" id="q-val-developing">4.8</span>
+                </div>
+                <div class="q-score">
+                  <span class="q-lbl">Parity</span><span class="q-num" id="q-val-parity">4.2</span>
+                </div>
+                <div class="q-score">
+                  <span class="q-lbl">Behind</span><span class="q-num" id="q-val-behind">3.8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column : Fine Pedagogical & Archetype Analysis -->
+          <div class="modal-col-right">
+            <!-- Header with Title, French Subtitle, Mana Cost, Typeline -->
+            <div class="modal-header-section">
+              <div class="modal-title-row">
+                <div class="modal-title-group">
+                  <h2 class="modal-title" id="modal-card-title">Path to Exile</h2>
+                  <span class="modal-subtitle-fr" id="modal-card-subtitle-fr"
+                    >Chemin vers l'exil</span
+                  >
+                </div>
+              </div>
+              <div class="modal-meta-row">
+                <span class="modal-typeline" id="modal-card-typeline">Instant</span>
+                <span class="modal-cube-badge" id="modal-active-cube-badge"
+                  >Titou's Tribal & Chromatic Cube</span
+                >
+              </div>
+            </div>
+
+            <!-- Prominent Tier List & Power Ranking Showcase -->
+            <div class="modal-ranking-hero" id="modal-ranking-hero">
+              <div class="hero-tier-card" id="modal-hero-tier-card">
+                <span class="hero-tier-letter" id="modal-hero-tier-letter">S</span>
+                <span class="hero-tier-label" id="modal-hero-tier-label">TIER S</span>
+              </div>
+              <div class="hero-metrics-grid">
+                <div class="hero-metric-box">
+                  <span class="hero-metric-label">Power Ranking</span>
+                  <div class="hero-metric-val-wrap">
+                    <span class="hero-metric-number" id="modal-hero-power-score">53</span>
+                    <span class="hero-metric-denom">/ 55</span>
+                  </div>
+                  <div class="hero-metric-bar">
+                    <div
+                      class="hero-metric-bar-fill"
+                      id="modal-hero-power-bar"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="hero-metric-box">
+                  <span class="hero-metric-label">Rang Cube</span>
+                  <div class="hero-metric-val-wrap">
+                    <span class="hero-metric-number" id="modal-hero-cube-rank">#8</span>
+                    <span class="hero-metric-denom" id="modal-hero-cube-total">/ 541</span>
+                  </div>
+                  <span class="hero-metric-sub" id="modal-hero-percentile">Top 2% du Cube</span>
+                </div>
+                <div class="hero-metric-box">
+                  <span class="hero-metric-label">Rôle Cube</span>
+                  <span class="hero-metric-text" id="modal-hero-cube-role">Support Polyvalent</span>
+                  <span class="hero-metric-sub" id="modal-hero-tempo-impact">Impact : Élevé</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rules Text Section (French by default, with FR/EN toggle) -->
+            <div class="modal-oracle-section">
+              <div class="oracle-lang-bar">
+                <span class="oracle-lang-title">📜 Texte de la carte :</span>
+                <div class="lang-toggle-chips">
+                  <button
+                    type="button"
+                    class="lang-chip active"
+                    id="lang-btn-fr"
+                    title="Afficher le texte officiel en français"
+                  >
+                    FR
+                  </button>
+                  <button
+                    type="button"
+                    class="lang-chip"
+                    id="lang-btn-en"
+                    title="Afficher le texte original en anglais"
+                  >
+                    EN
+                  </button>
+                </div>
+              </div>
+              <p id="modal-oracle-text" class="card-rule-text"></p>
+            </div>
+
+            <!-- Pedagogical Section: "Comment la jouer" -->
+            <div class="modal-section pedagogy-section">
+              <h3 class="section-title">
+                <span class="sec-icon">💡</span>
+                Comment la jouer dans ce Cube
+              </h3>
+              <p class="pedagogy-text" id="modal-pedagogy-play">
+                Conserver avec 2 manas ouverts en réponse à une pioche adverse.
+              </p>
+            </div>
+
+            <!-- Deck & Archetype Fit Table (Guild mana icons, Grades S/A/B/C/D) -->
+            <div class="modal-section archetype-table-section">
+              <h3 class="section-title">
+                <span class="sec-icon">📊</span>
+                Évaluation par Deck & Archétype
+              </h3>
+              <div class="table-responsive">
+                <table class="archetype-fit-table">
+                  <thead>
+                    <tr>
+                      <th>Deck / Guilde</th>
+                      <th>Grade</th>
+                      <th>Score / WR</th>
+                      <th>Commentaire d'Alignement</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modal-archetype-rows">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Key Synergies in Cube -->
+            <div class="modal-section synergies-section">
+              <h3 class="section-title">
+                <span class="sec-icon">🔗</span>
+                Synergies Clés du Cube
+              </h3>
+              <div class="synergies-grid" id="modal-synergies-grid">
+                <!-- Dynamically populated synergy cards -->
+              </div>
+            </div>
+
+            <!-- Cross-Cube Perspective (Comparative across Nico, Hugues, Titou) -->
+            <div class="modal-section cross-cube-section" id="modal-cross-cube-section">
+              <h3 class="section-title">
+                <span class="sec-icon">🔄</span>
+                Regard Croisé Multi-Cubes
+              </h3>
+              <p class="cross-cube-help">
+                Comment le rôle et la note de cette carte changent selon le cube :
+              </p>
+              <div class="cross-cube-cards-row" id="modal-cross-cube-cards">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Realtime Live Toast Container (Effet WHAOU) -->
+    <div id="live-activity-toast-container" class="live-toast-container" aria-live="polite"></div>
+
+    <!-- Modal Showcase de Deck Partageable (Effet WHAOU) -->
+    <div id="deck-showcase-modal" class="deck-modal-backdrop" hidden>
+      <div class="deck-modal-card">
+        <div class="deck-modal-header">
+          <div class="dmh-title-wrap">
+            <span class="dmh-icon">🎴</span>
+            <div>
+              <h2 class="dmh-title" id="deck-modal-player-title">Deck Showcase</h2>
+              <span class="dmh-subtitle" id="deck-modal-subtitle">Les Magiciens • Cube Digital Extended Universe</span>
+            </div>
+          </div>
+          <button class="deck-modal-close" id="deck-modal-close-btn" aria-label="Fermer la fenêtre">✕</button>
+        </div>
+        <div class="deck-modal-body" id="deck-modal-body">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Module Script -->
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

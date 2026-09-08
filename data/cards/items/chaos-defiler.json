@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "slug": "chaos-defiler",
+  "name": "Chaos Defiler",
+  "oracleId": "eba7ef08-f444-4d23-92b8-29d2ac08b156",
+  "manaCost": "{R}{B}{3}",
+  "cmc": 5,
+  "colors": [
+    "B",
+    "R"
+  ],
+  "colorIdentity": [
+    "B",
+    "R"
+  ],
+  "typeLine": "Artifact Creature — Demon Construct",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Demon",
+    "Construct"
+  ],
+  "oracleText": "Trample\nBattle Cannon — When this creature enters or dies, for each opponent, choose a nonland permanent that player controls. Destroy one of them chosen at random.",
+  "keywords": [
+    "Battle Cannon",
+    "Trample"
+  ],
+  "power": "5",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1c0f2873-5849-4cab-855a-2fbbc41dbb6c/normal.webp",
+    "localPath": "data/cards/images/cards/chaos-defiler.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1c0f2873-5849-4cab-855a-2fbbc41dbb6c/art_crop.webp",
+    "localArtPath": "data/cards/images/art/chaos-defiler.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1c0f2873-5849-4cab-855a-2fbbc41dbb6c/normal.webp",
+  "powerScore": {
+    "score": 26.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1408.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1409).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "40k-model",
+        "unique-type-line",
+        "life-and-death-trigger-self"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "60.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

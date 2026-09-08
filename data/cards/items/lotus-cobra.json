@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "slug": "lotus-cobra",
+  "name": "Lotus Cobra",
+  "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Snake",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Snake"
+  ],
+  "oracleText": "Landfall — Whenever a land you control enters, add one mana of any color.",
+  "keywords": [
+    "Landfall"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/151bdf3a-4445-43b1-8cea-2737c13d9dee/normal.webp",
+    "localPath": "data/cards/images/cards/lotus-cobra.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/151bdf3a-4445-43b1-8cea-2737c13d9dee/art_crop.webp",
+    "localArtPath": "data/cards/images/art/lotus-cobra.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/151bdf3a-4445-43b1-8cea-2737c13d9dee/normal.webp",
+  "powerScore": {
+    "score": 34,
+    "source": "untapped",
+    "rawSourceScore": 34,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1397).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "refund",
+        "non-mana-ability-mana"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "59.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "refund",
+        "non-mana-ability-mana"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

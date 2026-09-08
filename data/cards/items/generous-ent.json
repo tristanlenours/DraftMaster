@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "slug": "generous-ent",
+  "name": "Generous Ent",
+  "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
+  "manaCost": "{G}{5}",
+  "cmc": 6,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Treefolk",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Treefolk"
+  ],
+  "oracleText": "Reach\nWhen this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\nForestcycling {1} ({1}, Discard this card: Search your library for a Forest card, reveal it, put it into your hand, then shuffle.)",
+  "keywords": [
+    "Reach",
+    "Landcycling",
+    "Food",
+    "Forestcycling",
+    "Typecycling",
+    "Cycling"
+  ],
+  "power": "5",
+  "toughness": "7",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ffabb307-87f0-428b-a4dc-a147c6c926a8/normal.webp",
+    "localPath": "data/cards/images/cards/generous-ent.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ffabb307-87f0-428b-a4dc-a147c6c926a8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/generous-ent.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ffabb307-87f0-428b-a4dc-a147c6c926a8/normal.webp",
+  "powerScore": {
+    "score": 25,
+    "source": "untapped",
+    "rawSourceScore": 25,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1364).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "cheaper-than-mv",
+        "lifegain",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "58.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

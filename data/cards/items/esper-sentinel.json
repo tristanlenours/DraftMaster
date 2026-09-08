@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "esper-sentinel",
+  "name": "Esper Sentinel",
+  "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
+  "manaCost": "{W}",
+  "cmc": 1,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Artifact Creature — Human Soldier",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Soldier"
+  ],
+  "oracleText": "Whenever an opponent casts their first noncreature spell each turn, draw a card unless that player pays {X}, where X is this creature's power.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/676758ee-dac8-4c97-8a62-fff25bcbb6df/normal.webp",
+    "localPath": "data/cards/images/cards/esper-sentinel.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/676758ee-dac8-4c97-8a62-fff25bcbb6df/art_crop.webp",
+    "localArtPath": "data/cards/images/art/esper-sentinel.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/676758ee-dac8-4c97-8a62-fff25bcbb6df/normal.webp",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1491).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.5,
+    "ceilingRating": 8.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "S",
+            "winrateOrScore": "64.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

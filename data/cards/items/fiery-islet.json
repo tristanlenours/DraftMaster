@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "fiery-islet",
+  "name": "Fiery Islet",
+  "oracleId": "026f4a4b-eedd-44e1-9d37-ca4fb8d6db98",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}, Pay 1 life: Add {U} or {R}.\n{1}, {T}, Sacrifice this land: Draw a card.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/a3aab13c-9d9d-4507-ae5d-da979990ae1b/normal.webp",
+    "localPath": "data/cards/images/cards/fiery-islet.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/a3aab13c-9d9d-4507-ae5d-da979990ae1b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/fiery-islet.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/a3aab13c-9d9d-4507-ae5d-da979990ae1b/normal.webp",
+  "powerScore": {
+    "score": 38.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1327.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1327).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "drawback",
+        "pure-draw",
+        "draw"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "56.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "slug": "collective-brutality",
+  "name": "Collective Brutality",
+  "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Escalate—Discard a card. (Pay this cost for each mode chosen beyond the first.)\nChoose one or more —\n• Target opponent reveals their hand. You choose an instant or sorcery card from it. That player discards that card.\n• Target creature gets -2/-2 until end of turn.\n• Target opponent loses 2 life and you gain 2 life.",
+  "keywords": [
+    "Escalate"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/cb94a02f-4660-45b6-8a39-941b710cf8f3/normal.webp",
+    "localPath": "data/cards/images/cards/collective-brutality.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/cb94a02f-4660-45b6-8a39-941b710cf8f3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/collective-brutality.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/cb94a02f-4660-45b6-8a39-941b710cf8f3/normal.webp",
+  "powerScore": {
+    "score": 27,
+    "source": "untapped",
+    "rawSourceScore": 27,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1372).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "58.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "58.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

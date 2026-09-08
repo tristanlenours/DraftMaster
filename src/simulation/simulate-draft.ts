@@ -138,7 +138,7 @@ export function simulateDraft(
 
         decisions.push({
           seatId: sId,
-          cardInstanceId: choiceResult.value,
+          cardInstanceId: choiceResult.value.cardInstanceId,
           source: {
             kind: "policy",
             policyId: policy.id,

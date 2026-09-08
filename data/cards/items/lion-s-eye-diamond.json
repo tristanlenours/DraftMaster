@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "slug": "lion-s-eye-diamond",
+  "name": "Lion's Eye Diamond",
+  "oracleId": "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b",
+  "manaCost": "o0",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "Discard your hand, Sacrifice CARDNAME: Add three mana of any one color. Activate only as an instant.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Lion's%20Eye%20Diamond&format=image",
+    "localPath": "data/cards/images/cards/lion-s-eye-diamond.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Lion's%20Eye%20Diamond&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/lion-s-eye-diamond.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Lion's%20Eye%20Diamond&format=image",
+  "powerScore": {
+    "score": 9.3,
+    "source": "untapped",
+    "rawSourceScore": 9.3,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Lion's Eye Diamond est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "synergy_enabler"
+    ],
+    "floorRating": 1.6,
+    "ceilingRating": 2.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "engine:storm",
+        "combo",
+        "graveyard"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "70.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

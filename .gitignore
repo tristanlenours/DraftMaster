@@ -23,3 +23,11 @@ Thumbs.db
 
 # Agent-local scratch work
 .scratch/
+
+# Card images (downloaded binaries, fetched via CDN or cards:download-images)
+data/cards/images/
+
+# Generated draft reports (keep locked reference fixture reports)
+reports/*.html
+!reports/draft-titou-seed-42.html
+!reports/draft-titou-seed-42-boosters.html

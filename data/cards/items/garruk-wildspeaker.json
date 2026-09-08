@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "slug": "garruk-wildspeaker",
+  "name": "Garruk Wildspeaker",
+  "oracleId": "186b4def-4fff-4a2b-bcbf-5318b0ac5fa9",
+  "manaCost": "{G}{G}{2}",
+  "cmc": 4,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Legendary Planeswalker — Garruk",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Garruk"
+  ],
+  "oracleText": "+1: Untap two target lands.\n−1: Create a 3/3 green Beast creature token.\n−4: Creatures you control get +3/+3 and gain trample until end of turn.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b86ac828-7b49-4663-a718-99fcac904568/normal.webp",
+    "localPath": "data/cards/images/cards/garruk-wildspeaker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b86ac828-7b49-4663-a718-99fcac904568/art_crop.webp",
+    "localArtPath": "data/cards/images/art/garruk-wildspeaker.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b86ac828-7b49-4663-a718-99fcac904568/normal.webp",
+  "powerScore": {
+    "score": 22.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1330.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1331).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "cycle-lrw-lorwyn-five"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "cycle-lrw-lorwyn-five"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "B",
+            "winrateOrScore": "56.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

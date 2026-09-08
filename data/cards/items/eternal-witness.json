@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "slug": "eternal-witness",
+  "name": "Eternal Witness",
+  "oracleId": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+  "manaCost": "{G}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Human Shaman",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Shaman"
+  ],
+  "oracleText": "When this creature enters, you may return target card from your graveyard to your hand.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/cf722227-5b90-47e3-9f56-5ba43114c14e/normal.webp",
+    "localPath": "data/cards/images/cards/eternal-witness.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/cf722227-5b90-47e3-9f56-5ba43114c14e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/eternal-witness.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/cf722227-5b90-47e3-9f56-5ba43114c14e/normal.webp",
+  "powerScore": {
+    "score": 20,
+    "source": "untapped",
+    "rawSourceScore": 20,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1381).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "regrowth-any",
+        "recursion-any"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "regrowth-any",
+        "recursion-any"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "A",
+            "winrateOrScore": "59.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

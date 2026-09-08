@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "slug": "jace-the-mind-sculptor",
+  "name": "Jace, the Mind Sculptor",
+  "oracleId": "7f77a84e-5a4b-4834-aefa-3cecc175ae8e",
+  "manaCost": "{U}{U}{2}",
+  "cmc": 4,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Legendary Planeswalker — Jace",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Jace"
+  ],
+  "oracleText": "+2: Look at the top card of target player's library. You may put that card on the bottom of that player's library.\n0: Draw three cards, then put two cards from your hand on top of your library in any order.\n−1: Return target creature to its owner's hand.\n−12: Exile all cards from target player's library, then that player shuffles their hand into their library.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0e606072-a3aa-4300-ba90-ec92a721fa76/normal.webp",
+    "localPath": "data/cards/images/cards/jace-the-mind-sculptor.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0e606072-a3aa-4300-ba90-ec92a721fa76/art_crop.webp",
+    "localArtPath": "data/cards/images/art/jace-the-mind-sculptor.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0e606072-a3aa-4300-ba90-ec92a721fa76/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "untapped",
+    "rawSourceScore": 21,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1546).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7.7,
+    "ceilingRating": 8.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "removal-bounce",
+        "blue-effect",
+        "bounce"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "67.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "removal-bounce",
+        "blue-effect",
+        "bounce"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "67.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

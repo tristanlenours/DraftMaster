@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "slug": "lightning-bolt",
+  "name": "Lightning Bolt",
+  "oracleId": "11111111-aaaa-4000-8000-000000000001",
+  "manaCost": "{R}",
+  "cmc": 1,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Lightning Bolt deals 3 damage to any target.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/7/6/7673784e-db4b-43a1-8d55-1bb9fc1e284f.jpg?1783903008",
+    "localPath": "data/cards/images/cards/lightning-bolt.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/7/6/7673784e-db4b-43a1-8d55-1bb9fc1e284f.jpg?1783903008",
+    "localArtPath": "data/cards/images/art/lightning-bolt.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/lightning-bolt.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/lightning-bolt.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/7/6/7673784e-db4b-43a1-8d55-1bb9fc1e284f.jpg?1783903008",
+  "powerScore": {
+    "score": 43,
+    "source": "untapped",
+    "rawSourceScore": 43,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "hugues_pauper",
+    "titou_tribal"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Sort d'interaction et de dégâts directs le plus efficient de l'histoire de Magic.",
+    "roles": [
+      "premium_removal",
+      "finisher"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 9.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 4.8,
+      "parity": 4,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "hugues:boros_synth_tokens"
+      ],
+      "synergyTags": [
+        "burn",
+        "cheap_removal",
+        "reach"
+      ],
+      "scoreModifier": 12,
+      "analysis": "La référence absolue du retrait et du tempo en Pauper. Détruit 95% des créatures du format pour 1 mana éphémère, ou achève l'adversaire. Carte S-Tier incontournable.",
+      "pedagogy": {
+        "howToPlay": "Prioriser l'élimination des créatures clés adverses dès leur arrivée (Ninja, Elfe, Synth) pour briser leur tempo. Ne lancer vers les PV adverses qu'en toute fin de partie lorsque le 'lethal' est garanti.",
+        "keySynergies": [
+          {
+            "cardName": "Monastery Swiftspear",
+            "synergyType": "Burst Tempo",
+            "description": "Déclenche Prouesse tout en nettoyant le bloqueur pour laisser passer 2 dégâts supplémentaires."
+          },
+          {
+            "cardName": "Experimental Synthesizer",
+            "synergyType": "Card Advantage",
+            "description": "Révélé sur le Synthétiseur, Bolt est quasi-systématiquement castable pour 1 mana."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "W"
+            ],
+            "archetype": "Boros Synth & Burn",
+            "grade": "S",
+            "winrateOrScore": "66.2 %",
+            "comment": "Removal premium et reach décisif pour fermer la partie."
+          },
+          {
+            "colors": [
+              "U",
+              "R"
+            ],
+            "archetype": "Izzet Skred / Spells",
+            "grade": "A",
+            "winrateOrScore": "63.8 %",
+            "comment": "Assure le contrôle du board avant le déploiement des serpents ou faeries."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Experimental Synthesizer",
+        "Monastery Swiftspear"
+      ]
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cheap_removal",
+        "burn"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sort fair et économique, mais nettement en retrait dans un environnement dominé par le Fast Mana T1/T2 et les monstres colossaux (Griselbrand, Blightsteel). Reste une réponse honnête à Ragavan.",
+      "pedagogy": {
+        "howToPlay": "En Vintage, gardez Bolt pour tuer Ragavan, Bowmasters ou Ocelot Pride au tour 1. Ne comptez pas dessus pour stopper les réanimations de monstres 7/7.",
+        "keySynergies": [
+          {
+            "cardName": "Underworld Breach",
+            "synergyType": "Mitraillage Escape",
+            "description": "Rejouable depuis le cimetière avec Breach pour vider les points de vie résiduels."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "R"
+            ],
+            "archetype": "Izzet Tempo / Breach",
+            "grade": "B",
+            "winrateOrScore": "56.4 %",
+            "comment": "Gère les menaces légères et augmente le storm count."
+          },
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "Mono-Red Aggro",
+            "grade": "A",
+            "winrateOrScore": "59.1 %",
+            "comment": "Pilier indispensable de la courbe agressive directe."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Ragavan, Nimble Pilferer",
+        "Underworld Breach"
+      ]
+    },
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [],
+      "synergyTags": [
+        "removal"
+      ],
+      "scoreModifier": 6,
+      "analysis": "Carte de rang S (ELO: 1663) dans l'environnement tribal et interactif de Titou.",
+      "keyPairs": [],
+      "pedagogy": {
+        "howToPlay": "Menace ou ressource clé : déployez Lightning Bolt dès que possible en sécurisant votre avantage.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "S",
+            "winrateOrScore": "71.5 %",
+            "comment": "Alignement au métagame Titou Tribal (S)."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Foudre",
+  "frenchText": "La Foudre inflige 3 blessures à n'importe quelle cible.",
+  "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/f/1f93e813-516d-43c6-a2f3-4196c18620a5.jpg?1785282934",
+  "localFrenchPath": "data/cards/images/fr/cards/lightning-bolt.jpg"
+}

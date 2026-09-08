@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "skyclave-shade",
+  "name": "Skyclave Shade",
+  "oracleId": "2345b243-ed0d-4556-8017-d533db1fbc74",
+  "scryfallId": "05347539-de61-4a37-929f-c909e65033f5",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Shade",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Shade"
+  ],
+  "oracleText": "Kicker {2}{B}\nThis creature can't block.\nIf this creature was kicked, it enters with two +1/+1 counters on it.\nLandfall — Whenever a land you control enters, if this card is in your graveyard and it's your turn, you may cast it from your graveyard this turn.",
+  "keywords": [
+    "Kicker",
+    "Landfall"
+  ],
+  "power": "3",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/05347539-de61-4a37-929f-c909e65033f5/normal.webp",
+    "localPath": "data/cards/images/skyclave-shade.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/05347539-de61-4a37-929f-c909e65033f5/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/05347539-de61-4a37-929f-c909e65033f5/normal.webp",
+  "powerScore": {
+    "score": 16.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1247.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1247).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "drawback",
+        "more-expensive-than-mv",
+        "trigger-from-graveyard"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

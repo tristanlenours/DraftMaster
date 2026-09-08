@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "slug": "raffine-scheming-seer",
+  "name": "Raffine, Scheming Seer",
+  "oracleId": "9307f7e9-bcd9-41f9-88f8-0fb9700a6b12",
+  "manaCost": "{B}{U}{W}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Sphinx Demon",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Sphinx",
+    "Demon"
+  ],
+  "oracleText": "Flying, ward {1}\nWhenever you attack, target attacking creature connives X, where X is the number of attacking creatures. (Draw X cards, then discard X cards. Put a +1/+1 counter on that creature for each nonland card discarded this way.)",
+  "keywords": [
+    "Flying",
+    "Ward",
+    "Connive"
+  ],
+  "power": "1",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/716a44b4-f6b0-4f14-a270-6442aed3251f/normal.webp",
+    "localPath": "data/cards/images/cards/raffine-scheming-seer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/716a44b4-f6b0-4f14-a270-6442aed3251f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/raffine-scheming-seer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/716a44b4-f6b0-4f14-a270-6442aed3251f/normal.webp",
+  "powerScore": {
+    "score": 18.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1145.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1146).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 5.7,
+    "ceilingRating": 6.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "ward",
+        "hate-target"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U",
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "C",
+            "winrateOrScore": "47.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

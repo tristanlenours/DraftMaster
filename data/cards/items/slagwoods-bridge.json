@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "slagwoods-bridge",
+  "name": "Slagwoods Bridge",
+  "oracleId": "e040a8e6-b90c-42d1-a1b1-771d954c61ab",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "G",
+    "R"
+  ],
+  "typeLine": "Artifact Land",
+  "types": [
+    "Artifact",
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped.\nIndestructible\n{T}: Add {R} or {G}.",
+  "keywords": [
+    "Indestructible"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "G",
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e51b48e9-a75a-4acd-9462-5e1ac2b0d803/normal.webp",
+    "localPath": "data/cards/images/cards/slagwoods-bridge.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e51b48e9-a75a-4acd-9462-5e1ac2b0d803/art_crop.webp",
+    "localArtPath": "data/cards/images/art/slagwoods-bridge.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e51b48e9-a75a-4acd-9462-5e1ac2b0d803/normal.webp",
+  "powerScore": {
+    "score": 21.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1190.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1191).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "creature-ability-noncreature",
+        "activated-ability",
+        "cycle-mh2-bridge"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "49.5 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Pont de Boiscories",
+  "frenchText": "Ce terrain arrive engagé.\nIndestructible\n{T} : Ajoutez {R} ou {G}."
+}

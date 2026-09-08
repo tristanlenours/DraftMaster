@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "black-lotus",
+  "name": "Black Lotus",
+  "oracleId": "00000000-0000-4000-8000-000000000001",
+  "manaCost": "{0}",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}, Sacrifice Black Lotus: Add three mana of any one color.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "W",
+    "U",
+    "B",
+    "R",
+    "G"
+  ],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Black%20Lotus&format=image",
+    "localPath": "data/cards/images/cards/black-lotus.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Black%20Lotus&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/black-lotus.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Black%20Lotus&format=image",
+  "powerScore": {
+    "score": 53,
+    "source": "untapped",
+    "rawSourceScore": 53,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "La carte la plus puissante de l'histoire de Magic : +3 mana gratuits immédiats.",
+    "roles": [
+      "mana_ramp",
+      "bomb"
+    ],
+    "floorRating": 10,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 5,
+      "parity": 4.8,
+      "behind": 4.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "ramp",
+        "misnomer",
+        "card-names"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "113.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

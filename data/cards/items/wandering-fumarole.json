@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "wandering-fumarole",
+  "name": "Wandering Fumarole",
+  "oracleId": "741c51f1-cfbe-4c29-ac8f-ca6bcd2652f9",
+  "scryfallId": "dd0ee251-6c79-499b-8366-c281c989b061",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped.\n{T}: Add {U} or {R}.\n{2}{U}{R}: Until end of turn, this land becomes a 1/4 blue and red Elemental creature with \"{0}: Switch this creature's power and toughness until end of turn.\" It's still a land.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dd0ee251-6c79-499b-8366-c281c989b061/normal.webp",
+    "localPath": "data/cards/images/wandering-fumarole.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dd0ee251-6c79-499b-8366-c281c989b061/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dd0ee251-6c79-499b-8366-c281c989b061/normal.webp",
+  "powerScore": {
+    "score": 24.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1251.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1252).",
+    "roles": [
+      "mana_ramp",
+      "mana_fixing"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "color-change-self",
+        "color-change",
+        "cycle-block-bfz-creatureland"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "thief-of-sanity",
+  "name": "Thief of Sanity",
+  "oracleId": "68b51d58-7566-4a26-8c31-8da32799bea7",
+  "manaCost": "{B}{U}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Creature — Specter",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Specter"
+  ],
+  "oracleText": "Flying\nWhenever this creature deals combat damage to a player, look at the top three cards of that player's library, exile one of them face down, then put the rest into their graveyard. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast that spell.",
+  "keywords": [
+    "Flying"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/307543ca-8e17-433f-9758-4c77da6c0870/normal.webp",
+    "localPath": "data/cards/images/cards/thief-of-sanity.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/307543ca-8e17-433f-9758-4c77da6c0870/art_crop.webp",
+    "localArtPath": "data/cards/images/art/thief-of-sanity.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/307543ca-8e17-433f-9758-4c77da6c0870/normal.webp",
+  "powerScore": {
+    "score": 30.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1278.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1279).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "ingest",
+        "mill-opponent"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "ingest",
+        "mill-opponent"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "B",
+            "winrateOrScore": "53.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

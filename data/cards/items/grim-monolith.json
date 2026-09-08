@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "slug": "grim-monolith",
+  "name": "Grim Monolith",
+  "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9ddc9fe1-17c8-4e1d-aeb8-c4214e881280/normal.webp",
+    "localPath": "data/cards/images/cards/grim-monolith.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9ddc9fe1-17c8-4e1d-aeb8-c4214e881280/art_crop.webp",
+    "localArtPath": "data/cards/images/art/grim-monolith.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9ddc9fe1-17c8-4e1d-aeb8-c4214e881280/normal.webp",
+  "powerScore": {
+    "score": 17,
+    "source": "untapped",
+    "rawSourceScore": 17,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1696).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 9.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "doesn-t-untap",
+        "untaps-self",
+        "untapper"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "74.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "doesn-t-untap",
+        "untaps-self",
+        "untapper"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

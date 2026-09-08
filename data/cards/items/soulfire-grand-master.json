@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "slug": "soulfire-grand-master",
+  "name": "Soulfire Grand Master",
+  "oracleId": "e65769f4-50ae-482b-933b-ac5cf3843f2a",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "R",
+    "U",
+    "W"
+  ],
+  "typeLine": "Creature — Human Monk",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Monk"
+  ],
+  "oracleText": "Lifelink\nInstant and sorcery spells you control have lifelink.\n{2}{U/R}{U/R}: The next time you cast an instant or sorcery spell from your hand this turn, put that card into your hand instead of into your graveyard as it resolves.",
+  "keywords": [
+    "Lifelink"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/fc3a4e7d-6667-4c2f-b6b4-484f401b0455/normal.webp",
+    "localPath": "data/cards/images/cards/soulfire-grand-master.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/fc3a4e7d-6667-4c2f-b6b4-484f401b0455/art_crop.webp",
+    "localArtPath": "data/cards/images/art/soulfire-grand-master.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/fc3a4e7d-6667-4c2f-b6b4-484f401b0455/normal.webp",
+  "powerScore": {
+    "score": 13.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1252.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1253).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "auto-buyback",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "52.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

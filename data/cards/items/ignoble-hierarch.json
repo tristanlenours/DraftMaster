@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "slug": "ignoble-hierarch",
+  "name": "Ignoble Hierarch",
+  "oracleId": "c8de43a3-ebd3-4000-b343-a6ffed11d34d",
+  "manaCost": "{G}",
+  "cmc": 1,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G",
+    "R"
+  ],
+  "typeLine": "Creature — Goblin Shaman",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Goblin",
+    "Shaman"
+  ],
+  "oracleText": "Exalted (Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.)\n{T}: Add {B}, {R}, or {G}.",
+  "keywords": [
+    "Exalted"
+  ],
+  "power": "0",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/aba51852-af8f-49d8-8fb6-22d52a1742b8/normal.webp",
+    "localPath": "data/cards/images/cards/ignoble-hierarch.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/aba51852-af8f-49d8-8fb6-22d52a1742b8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/ignoble-hierarch.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/aba51852-af8f-49d8-8fb6-22d52a1742b8/normal.webp",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1497).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7.5,
+    "ceilingRating": 8.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "activated-ability",
+        "mana-dork",
+        "mana-producer"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "64.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "activated-ability",
+        "mana-dork",
+        "mana-producer"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "A",
+            "winrateOrScore": "64.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

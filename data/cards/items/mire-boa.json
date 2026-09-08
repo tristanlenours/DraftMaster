@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "slug": "mire-boa",
+  "name": "Mire Boa",
+  "oracleId": "e9a3a466-df78-49a0-add3-975b94c5cd09",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Snake",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Snake"
+  ],
+  "oracleText": "Swampwalk (This creature can't be blocked as long as defending player controls a Swamp.)\n{G}: Regenerate this creature. (The next time this creature would be destroyed this turn, instead tap it, remove it from combat, and heal all damage on it.)",
+  "keywords": [
+    "Landwalk",
+    "Heal",
+    "Swampwalk",
+    "Regenerate"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/190dffdc-9d85-430d-9aea-b75084104840/normal.webp",
+    "localPath": "data/cards/images/cards/mire-boa.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/190dffdc-9d85-430d-9aea-b75084104840/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mire-boa.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/190dffdc-9d85-430d-9aea-b75084104840/normal.webp",
+  "powerScore": {
+    "score": 4.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1192.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1193).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "regenerates-self",
+        "activated-ability",
+        "evasion"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "49.6 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Boa des fondrières",
+  "frenchText": "Traversée des marais (Cette créature ne peut pas être bloquée tant que le joueur défenseur contrôle au moins un marais.)\n{G} : Régénérez le Boa des fondrières. (La prochaine fois que cette créature devrait être détruite, à la place, engagez-la, retirez-la du combat et retirez-lui toutes ses blessures.)"
+}

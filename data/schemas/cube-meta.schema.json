@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://draftmaster.local/schemas/cube-meta-v1.json",
+  "title": "DraftMaster Cube Meta Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "cubeKey",
+    "name",
+    "owner",
+    "activeSnapshotId",
+    "cardCount",
+    "powerTier",
+    "pacing",
+    "fixingDensityPercentage",
+    "dominantMechanics",
+    "archetypes",
+    "scoringProfile"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "cubeKey": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string", "minLength": 1 },
+    "coverImage": { "type": "string" },
+    "activeSnapshotId": { "type": "string", "minLength": 1 },
+    "cardCount": { "type": "integer", "minimum": 180 },
+    "powerTier": {
+      "type": "string",
+      "enum": ["pauper", "peasant", "synergy_unpowered", "vintage_unpowered", "powered_vintage"]
+    },
+    "pacing": {
+      "type": "string",
+      "enum": ["blistering_fast", "aggro_favored", "balanced", "midrange_attrition", "control_combo_heavy"]
+    },
+    "fundamentalTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targetTurn",
+        "criticalWindow",
+        "pacingDescription",
+        "deckExpectation"
+      ],
+      "properties": {
+        "targetTurn": { "type": "number", "minimum": 1.0, "maximum": 10.0 },
+        "criticalWindow": { "type": "string", "minLength": 1 },
+        "pacingDescription": { "type": "string", "minLength": 1 },
+        "deckExpectation": { "type": "string", "minLength": 1 }
+      }
+    },
+    "technicalAxes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "speedIndex",
+        "interactionDensityPercentage",
+        "averageCmcEstimate",
+        "fixingQuality"
+      ],
+      "properties": {
+        "speedIndex": { "type": "number", "minimum": 1.0, "maximum": 10.0 },
+        "interactionDensityPercentage": { "type": "number", "minimum": 0.0, "maximum": 100.0 },
+        "averageCmcEstimate": { "type": "number", "minimum": 1.0, "maximum": 8.0 },
+        "fixingQuality": {
+          "type": "string",
+          "enum": ["fast_fetches_duals", "shocks_checks", "bouncelands_taplands", "rainbow_tribal", "custom"]
+        },
+        "comboPotential": {
+          "type": "string",
+          "enum": ["infinite_turn1_3", "high_synergy_engine", "minimal_fair_only"]
+        }
+      }
+    },
+    "fixingDensityPercentage": { "type": "number", "minimum": 0.0, "maximum": 100.0 },
+    "dominantMechanics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "archetypes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/cubeArchetype" }
+    },
+    "scoringProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tribalSynergyMultiplier",
+        "comboSynergyMultiplier",
+        "fixingPriorityBonus",
+        "curveStrictness"
+      ],
+      "properties": {
+        "tribalSynergyMultiplier": { "type": "number", "minimum": 0.0, "maximum": 5.0 },
+        "comboSynergyMultiplier": { "type": "number", "minimum": 0.0, "maximum": 5.0 },
+        "fixingPriorityBonus": { "type": "number", "minimum": 0.0, "maximum": 5.0 },
+        "curveStrictness": { "type": "number", "minimum": 0.0, "maximum": 5.0 }
+      }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "mtgColor": {
+      "type": "string",
+      "enum": ["W", "U", "B", "R", "G"]
+    },
+    "cubeArchetype": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "primaryColors",
+        "category",
+        "description",
+        "gameplan",
+        "keyCards",
+        "supportCards"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "primaryColors": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/mtgColor" }
+        },
+        "splashColors": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/mtgColor" }
+        },
+        "category": {
+          "type": "string",
+          "enum": ["aggro", "midrange", "control", "ramp", "combo"]
+        },
+        "description": { "type": "string", "minLength": 1 },
+        "gameplan": { "type": "string", "minLength": 1 },
+        "keyCards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/uuid" }
+        },
+        "supportCards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/uuid" }
+        },
+        "trapCards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/uuid" }
+        },
+        "targetCurve": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "recommendedCreatureCount": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "recommendedRemovalCount": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    }
+  }
+}

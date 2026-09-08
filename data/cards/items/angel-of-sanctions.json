@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "angel-of-sanctions",
+  "name": "Angel of Sanctions",
+  "oracleId": "3c49e98d-d33b-47fa-8b07-b38b367de2c7",
+  "manaCost": "{W}{W}{3}",
+  "cmc": 5,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Angel",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Angel"
+  ],
+  "oracleText": "Flying\nWhen this creature enters, you may exile target nonland permanent an opponent controls until this creature leaves the battlefield.\nEmbalm {5}{W} ({5}{W}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a white Zombie Angel with no mana cost. Embalm only as a sorcery.)",
+  "keywords": [
+    "Flying",
+    "Embalm"
+  ],
+  "power": "3",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/66b1cbf0-1273-406a-bc99-ce20ce53e5aa/normal.webp",
+    "localPath": "data/cards/images/cards/angel-of-sanctions.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/66b1cbf0-1273-406a-bc99-ce20ce53e5aa/art_crop.webp",
+    "localArtPath": "data/cards/images/art/angel-of-sanctions.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/66b1cbf0-1273-406a-bc99-ce20ce53e5aa/normal.webp",
+  "powerScore": {
+    "score": 17.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1252.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1252).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "B",
+            "winrateOrScore": "52.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

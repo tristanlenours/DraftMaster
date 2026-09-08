@@ -5,7 +5,12 @@ import {
   type SeatNumber,
   type SeededRandom,
 } from "../random/seeded-random.ts";
-import type { PickContext, PickPolicy, PickPolicyError } from "./pick-policy.ts";
+import type {
+  PickContext,
+  PickPolicy,
+  PickPolicyDecision,
+  PickPolicyError,
+} from "./pick-policy.ts";
 
 function policyFailure(
   message: string,
@@ -21,7 +26,9 @@ function policyFailure(
   };
 }
 
-function policySuccess(value: string): Result<string, never> {
+function policySuccess(
+  value: Readonly<PickPolicyDecision>,
+): Result<Readonly<PickPolicyDecision>, never> {
   return {
     ok: true,
     value,
@@ -63,7 +70,7 @@ export function createSeededRandomPolicy(
   const policy: PickPolicy = {
     id,
     version,
-    choose(context: Readonly<PickContext>): Result<string, PickPolicyError> {
+    choose(context: Readonly<PickContext>): Result<Readonly<PickPolicyDecision>, PickPolicyError> {
       if (context.currentBooster.length === 0) {
         return policyFailure("Cannot pick from an empty booster.", {
           seatId: context.seatId,
@@ -77,7 +84,7 @@ export function createSeededRandomPolicy(
           index,
         });
       }
-      return policySuccess(chosen);
+      return policySuccess({ cardInstanceId: chosen });
     },
   };
 

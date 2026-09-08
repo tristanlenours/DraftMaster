@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "imperial-seal",
+  "name": "Imperial Seal",
+  "oracleId": "16cd0b90-f70c-4efa-b252-8de8784ef9a3",
+  "manaCost": "{B}",
+  "cmc": 1,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Search your library for a card, then shuffle and put that card on top. You lose 2 life.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0163dd21-9f9f-4656-b0b2-7774be0b6ada/normal.webp",
+    "localPath": "data/cards/images/cards/imperial-seal.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0163dd21-9f9f-4656-b0b2-7774be0b6ada/art_crop.webp",
+    "localArtPath": "data/cards/images/art/imperial-seal.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0163dd21-9f9f-4656-b0b2-7774be0b6ada/normal.webp",
+  "powerScore": {
+    "score": 28.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1535.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1536).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 7.7,
+    "ceilingRating": 8.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "tutor-to-top",
+        "top-deck-manipulation",
+        "library-manipulation"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "66.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "tutor-to-top",
+        "top-deck-manipulation",
+        "library-manipulation"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "66.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

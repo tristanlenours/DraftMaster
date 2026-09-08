@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "izzet-charm",
+  "name": "Izzet Charm",
+  "oracleId": "a07698f6-5ad5-49a3-9da2-f82d407f5cd7",
+  "scryfallId": "1e3a5af6-5423-442b-a207-364e97a871d8",
+  "manaCost": "{R}{U}",
+  "cmc": 2,
+  "colors": [
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Choose one —\n• Counter target noncreature spell unless its controller pays {2}.\n• Izzet Charm deals 2 damage to target creature.\n• Draw two cards, then discard two cards.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1e3a5af6-5423-442b-a207-364e97a871d8/normal.webp",
+    "localPath": "data/cards/images/izzet-charm.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1e3a5af6-5423-442b-a207-364e97a871d8/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1e3a5af6-5423-442b-a207-364e97a871d8/normal.webp",
+  "powerScore": {
+    "score": 23.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1251,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1251).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "burn-creature",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "52.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

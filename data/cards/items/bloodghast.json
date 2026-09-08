@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "bloodghast",
+  "name": "Bloodghast",
+  "oracleId": "e97f9c2b-b41e-4f36-9245-77c0ac125647",
+  "manaCost": "{B}{B}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Vampire Spirit",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Vampire",
+    "Spirit"
+  ],
+  "oracleText": "This creature can't block.\nThis creature has haste as long as an opponent has 10 or less life.\nLandfall — Whenever a land you control enters, you may return this card from your graveyard to the battlefield.",
+  "keywords": [
+    "Landfall"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/63870c81-63bf-4a9a-aeb5-74c6eaded9f1/normal.webp",
+    "localPath": "data/cards/images/cards/bloodghast.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/63870c81-63bf-4a9a-aeb5-74c6eaded9f1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/bloodghast.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/63870c81-63bf-4a9a-aeb5-74c6eaded9f1/normal.webp",
+  "powerScore": {
+    "score": 14.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1283.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1283).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "drawback",
+        "trigger-from-graveyard",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "drawback",
+        "trigger-from-graveyard",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "B",
+            "winrateOrScore": "54.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

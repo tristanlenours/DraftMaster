@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "hugues_pauper",
+  "name": "Huge's Pauper Cube",
+  "owner": "hugues",
+  "activeSnapshotId": "hugues_pauper@2026-03-01.1",
+  "cardCount": 357,
+  "powerTier": "pauper",
+  "pacing": "midrange_attrition",
+  "fundamentalTurn": {
+    "targetTurn": 4.5,
+    "criticalWindow": "T4-T5",
+    "pacingDescription": "Format 100% cartes communes sans fast mana ni combo infini dégénéré. La partie bascule lors des tours 4 et 5 par le double-spelling, l'accumulation de card advantage (Mulldrifter, Ninjutsu) et les batailles d'usure sur le board.",
+    "deckExpectation": "Un deck performant doit présenter une courbe régulière et équilibrée (CMC moyen 2.4 à 2.8), maximiser les échanges 2-pour-1, et rentabiliser ses interactions économiques (Lightning Bolt, Cast Down, Counterspell) pour stabiliser le board au tour 4/5."
+  },
+  "technicalAxes": {
+    "speedIndex": 4.5,
+    "interactionDensityPercentage": 22,
+    "averageCmcEstimate": 2.6,
+    "fixingQuality": "bouncelands_taplands",
+    "comboPotential": "minimal_fair_only"
+  },
+  "fixingDensityPercentage": 11.5,
+  "dominantMechanics": [
+    "Ninjutsu",
+    "Blink / ETB Value",
+    "Graveyard / Delve",
+    "Synthesizer / Artifacts",
+    "Tokens / Go-Wide",
+    "Card Advantage"
+  ],
+  "archetypes": [
+    {
+      "id": "hugues:azorius_blink",
+      "name": "Azorius Blink and Attrition",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "category": "control",
+      "description": "Moteur de value ultime en Pauper : réactivation continue d'effets d'arrivée en jeu de Mulldrifter et d'inspecteurs.",
+      "gameplan": "Stabiliser les premiers tours avec des cantrips et créatures défensives, évoquer Mulldrifter pour piocher et submerger l'adversaire.",
+      "keyCards": [
+        "24d0f5e7-0d9e-4b76-900e-a7274e80312d",
+        "054a0193-861e-4644-ab0a-8aa33407abc8",
+        "3cbb5045-8566-4279-b7d3-3e599b11ccc5"
+      ],
+      "supportCards": [
+        "caa02547-66e3-4e27-a2d3-5e94f3e7a069"
+      ],
+      "recommendedCreatureCount": [
+        12,
+        16
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "hugues:faeries_ninjas_tempo",
+      "name": "Dimir / Mono-U Faeries and Ninjas",
+      "primaryColors": [
+        "U"
+      ],
+      "splashColors": [
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Menaces évasives à 1 mana réactivées par Ninjutsu pour générer du card advantage continu protégé par Counterspell.",
+      "gameplan": "Poser une créature évasive T1 (Faerie Seer), attaquer T2 pour Ninjutsu avec Ninja of the Deep Hours, et garder la mana ouverte pour contrer.",
+      "keyCards": [
+        "1f3c2b00-0000-4ae1-9650-9553accac52e",
+        "b2e65e8b-5f08-4cc2-ab1d-00f8903dbea2",
+        "11111111-aaaa-4000-8000-000000000002"
+      ],
+      "supportCards": [
+        "11111111-aaaa-4000-8000-000000000005"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "hugues:rakdos_attrition",
+      "name": "Rakdos Attrition and Removal",
+      "primaryColors": [
+        "B",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Destruction systématique des menaces adverses couplée à du sacrifice et de la défausse disruptive.",
+      "gameplan": "Éliminer les créatures clés avec Terminate et Cast Down, vider les ressources adverses avec Blightning et clore aux attaquants récursifs.",
+      "keyCards": [
+        "6257c2fd-005f-41e3-8a72-af76df1eb134",
+        "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
+        "cdaab6b0-1a2d-4809-8e6b-56013acd8f78"
+      ],
+      "supportCards": [
+        "4457ed35-7c10-48c8-9776-456485fdf070"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "hugues:gruul_stompy",
+      "name": "Gruul Stompy and Aggro",
+      "primaryColors": [
+        "R",
+        "G"
+      ],
+      "category": "aggro",
+      "description": "Déploiement rapide de menaces musclées au-dessus de la courbe de stat standard, amplifiées par le piétinement.",
+      "gameplan": "Enchaîner les créatures agressives avec Rancor, exploiter Horned Kavu pour rentabiliser les ETB et achever au blast.",
+      "keyCards": [
+        "14817050-9f2d-453f-b36b-e6429fa29165",
+        "13f63b98-40b0-499b-bb5d-640b95a6ea1c",
+        "9d2d6479-531c-4ce1-b52b-00e36fa63b64"
+      ],
+      "supportCards": [
+        "4457ed35-7c10-48c8-9776-456485fdf070"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": "hugues:selesnya_tokens",
+      "name": "Selesnya Tokens and Go-Wide",
+      "primaryColors": [
+        "G",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Armée de créatures au sol et d'auras protectrices submergeant la défense adverse par le nombre et le Convoke.",
+      "gameplan": "Développer de multiples corps sur table, poser Armadillo Cloak ou Qasali Pridemage pour dominer les phases d'attaque.",
+      "keyCards": [
+        "10821e37-8a83-4d8e-a12f-249a10933a22",
+        "15397a59-70a8-441f-abf7-230405a1602b",
+        "54b3ccdc-e5b0-44d9-bc81-a296fc5dc005"
+      ],
+      "supportCards": [
+        "8b33d890-7d67-44a8-a253-e2b171d7ca9d"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        20
+      ],
+      "recommendedRemovalCount": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "hugues:orzhov_drain_extort",
+      "name": "Orzhov Drain and Attrition",
+      "primaryColors": [
+        "W",
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Contrôle à l'usure drainant les points de vie adverses via Extorquer, removals inconditionnels et créatures volantes.",
+      "gameplan": "Contrôler le tempo avec Pillory of the Sleepless et Unmake tout en drainant à chaque sort avec Kingpin's Pet.",
+      "keyCards": [
+        "1c4561d1-377c-4a6a-b7a2-8ce81efa39c6",
+        "74776491-29c3-46e6-989b-cf9a00bbfcef",
+        "c551ba63-2a74-439d-8996-d566e2efbd5f"
+      ],
+      "supportCards": [
+        "caa02547-66e3-4e27-a2d3-5e94f3e7a069"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        17
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "hugues:izzet_spellslinger",
+      "name": "Izzet Spellslinger and Tempo",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Enchaînement de cantrips et de blasts à bas coût activant la prouesse et le double-spelling.",
+      "gameplan": "Optimiser le tempo avec Fire // Ice et Lightning Bolt pour maintenir la table propre tout en agressant.",
+      "keyCards": [
+        "ae92942b-919c-4ea9-b693-85fcef765d5a",
+        "4457ed35-7c10-48c8-9776-456485fdf070",
+        "790e3c9e-7d94-43f7-bc14-d83c7d4c889e"
+      ],
+      "supportCards": [
+        "11111111-aaaa-4000-8000-000000000009"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        14
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "hugues:golgari_graveyard",
+      "name": "Golgari Delve and Morbid",
+      "primaryColors": [
+        "B",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Exploitation du cimetière pour accélérer des menaces Delve colossales comme Gurmag Angler.",
+      "gameplan": "Remplir le cimetière par des échanges agressifs ou de l'auto-meule, poser Gurmag Angler pour 1 mana et verrouiller le sol.",
+      "keyCards": [
+        "16b723bc-aab9-40f2-8e1b-b9c2bd2af3bc",
+        "a465ba74-615a-4261-b4a0-fcb0819f10b3",
+        "53fd9fb1-c28f-4d73-bf98-94cdab418f21"
+      ],
+      "supportCards": [
+        "22222222-bbbb-4000-8000-000000000003"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "hugues:boros_synth_tokens",
+      "name": "Boros Synthesizer and Burn",
+      "primaryColors": [
+        "R",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Moteur d'artefacts récursifs générant des jetons, de la pioche impulsive et un finish dévastateur aux blasts.",
+      "gameplan": "Enchaîner Thraben Inspector et Goblin Legionnaire, rejouer les artefacts avec Kor Skyfisher, puis achever aux Lightning Bolt.",
+      "keyCards": [
+        "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+        "582fdfbe-c5fe-45d0-b3ff-e66db5183725",
+        "4457ed35-7c10-48c8-9776-456485fdf070"
+      ],
+      "supportCards": [
+        "054a0193-861e-4644-ab0a-8aa33407abc8"
+      ],
+      "recommendedCreatureCount": [
+        15,
+        19
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "hugues:simic_ramp_value",
+      "name": "Simic Ramp and Tempo Value",
+      "primaryColors": [
+        "G",
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Développement accéléré du mana, créatures cantrip et contrôle du tempo via les effets de rebond.",
+      "gameplan": "Développer le mana avec Coiling Oracle, poser de grosses menaces évasives comme Aeromunculus et gérer les attaquants avec Snakeform.",
+      "keyCards": [
+        "69fd4ddf-9ed8-4c56-bef3-9944daf05e4f",
+        "a0cd19c1-9125-4627-83ba-d42c489b4e7d",
+        "76ae07ce-ca0c-4308-b8bd-d999eea0a65f"
+      ],
+      "supportCards": [
+        "24d0f5e7-0d9e-4b76-900e-a7274e80312d"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "hugues:pauper_staple",
+      "name": "Pauper Staples and Goodstuff",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "splashColors": [
+        "B",
+        "R",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Piliers transversaux inconditionnels du format Pauper assurant régularité, card advantage et tempo.",
+      "gameplan": "Maximiser la flexibilité et la rentabilité mana avec les meilleures cartes du format.",
+      "keyCards": [
+        "4457ed35-7c10-48c8-9776-456485fdf070",
+        "11111111-aaaa-4000-8000-000000000002",
+        "11111111-aaaa-4000-8000-000000000009"
+      ],
+      "supportCards": [
+        "24d0f5e7-0d9e-4b76-900e-a7274e80312d"
+      ],
+      "recommendedCreatureCount": [
+        12,
+        16
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 0.8,
+    "comboSynergyMultiplier": 0.3,
+    "fixingPriorityBonus": 1.8,
+    "curveStrictness": 1.9
+  },
+  "coverImage": "data/cubes/hugues_pauper/pauperCube.jpg"
+}

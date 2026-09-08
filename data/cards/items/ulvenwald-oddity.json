@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "ulvenwald-oddity",
+  "name": "Ulvenwald Oddity",
+  "oracleId": "90379825-1894-4b79-bf72-445175e97ffb",
+  "manaCost": "{G}{G}{2}",
+  "cmc": 4,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Beast",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Beast"
+  ],
+  "oracleText": "Trample, haste\n{5}{G}{G}: Transform this creature.\nTrample, haste\nOther creatures you control get +1/+1 and have trample and haste.",
+  "keywords": [
+    "Transform",
+    "Haste",
+    "Trample"
+  ],
+  "power": "4",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8e857c4e-9d85-418a-9200-3bdcceff3f6b/normal.webp",
+    "localPath": "data/cards/images/cards/ulvenwald-oddity.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8e857c4e-9d85-418a-9200-3bdcceff3f6b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/ulvenwald-oddity.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8e857c4e-9d85-418a-9200-3bdcceff3f6b/normal.webp",
+  "powerScore": {
+    "score": 17,
+    "source": "untapped",
+    "rawSourceScore": 17,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1202).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "anthem",
+        "keyword-anthem",
+        "toughness-boost-to-all"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "50.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "anthem",
+        "keyword-anthem",
+        "toughness-boost-to-all"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "C",
+            "winrateOrScore": "50.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

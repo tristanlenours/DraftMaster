@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "thieving-skydiver",
+  "name": "Thieving Skydiver",
+  "oracleId": "f509ac02-f22e-4d1a-9fe1-afa96dd7806d",
+  "manaCost": "{U}{1}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Merfolk Rogue",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Merfolk",
+    "Rogue"
+  ],
+  "oracleText": "Kicker {X}. X can't be 0. (You may pay an additional {X} as you cast this spell.)\nFlying\nWhen this creature enters, if it was kicked, gain control of target artifact with mana value X or less. If that artifact is an Equipment, attach it to this creature.",
+  "keywords": [
+    "Kicker",
+    "Flying"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f8b3eb41-2351-4dca-becb-7ecb1fcfa14b/normal.webp",
+    "localPath": "data/cards/images/cards/thieving-skydiver.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f8b3eb41-2351-4dca-becb-7ecb1fcfa14b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/thieving-skydiver.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f8b3eb41-2351-4dca-becb-7ecb1fcfa14b/normal.webp",
+  "powerScore": {
+    "score": 18,
+    "source": "untapped",
+    "rawSourceScore": 18,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1326).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "more-expensive-than-mv",
+        "virtual-french-vanilla",
+        "flavors-of-vanilla"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "56.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "more-expensive-than-mv",
+        "virtual-french-vanilla",
+        "flavors-of-vanilla"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

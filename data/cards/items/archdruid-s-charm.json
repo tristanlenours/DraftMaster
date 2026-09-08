@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "slug": "archdruid-s-charm",
+  "name": "Archdruid's Charm",
+  "oracleId": "3c1ef404-e2c6-486d-a5a2-d5779c71d498",
+  "manaCost": "{G}{G}{G}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Choose one —\n• Search your library for a creature or land card and reveal it. Put it onto the battlefield tapped if it's a land card. Otherwise, put it into your hand. Then shuffle.\n• Put a +1/+1 counter on target creature you control. It deals damage equal to its power to target creature you don't control.\n• Exile target artifact or enchantment.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/5caae5ae-845f-42c2-b1ae-956df2739433/normal.webp",
+    "localPath": "data/cards/images/cards/archdruid-s-charm.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/5caae5ae-845f-42c2-b1ae-956df2739433/art_crop.webp",
+    "localArtPath": "data/cards/images/art/archdruid-s-charm.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/5caae5ae-845f-42c2-b1ae-956df2739433/normal.webp",
+  "powerScore": {
+    "score": 25.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1216.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1217).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "one-sided-fight",
+        "scales-with-power",
+        "power-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "50.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

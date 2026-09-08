@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "shifting-woodland",
+  "name": "Shifting Woodland",
+  "oracleId": "7c2a4fe5-43e8-4e20-bef2-0278d18afc4b",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped unless you control a Forest.\n{T}: Add {G}.\nDelirium — {2}{G}{G}: This land becomes a copy of target permanent card in your graveyard until end of turn. Activate only if there are four or more card types among cards in your graveyard.",
+  "keywords": [
+    "Delirium"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/890e97b5-6750-4fae-8481-1244e311da7e/normal.webp",
+    "localPath": "data/cards/images/cards/shifting-woodland.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/890e97b5-6750-4fae-8481-1244e311da7e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/shifting-woodland.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/890e97b5-6750-4fae-8481-1244e311da7e/normal.webp",
+  "powerScore": {
+    "score": 27,
+    "source": "untapped",
+    "rawSourceScore": 27,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1281).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cycle-mh3-r-mono-land",
+        "conditional-tapland",
+        "cycle-mono-land"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "54.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

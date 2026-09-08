@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "talisman-of-unity",
+  "name": "Talisman of Unity",
+  "oracleId": "e5fcc5d7-6a60-4a5b-9d02-6c30041a95b9",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [
+    "G",
+    "W"
+  ],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}: Add {C}.\n{T}: Add {G} or {W}. This artifact deals 1 damage to you.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "G",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/26b6bdac-02d4-4661-b022-103f19232985/normal.webp",
+    "localPath": "data/cards/images/cards/talisman-of-unity.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/26b6bdac-02d4-4661-b022-103f19232985/art_crop.webp",
+    "localArtPath": "data/cards/images/art/talisman-of-unity.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/26b6bdac-02d4-4661-b022-103f19232985/normal.webp",
+  "powerScore": {
+    "score": 5.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1198.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1199).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "mana-ability-with-extra-effect",
+        "cycle-mrd-talisman",
+        "cycle-talisman"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "C",
+            "winrateOrScore": "49.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

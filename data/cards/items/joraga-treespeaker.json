@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "joraga-treespeaker",
+  "name": "Joraga Treespeaker",
+  "oracleId": "a011aefe-5853-4435-b686-179e931ba897",
+  "manaCost": "{G}",
+  "cmc": 1,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Elf Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Druid"
+  ],
+  "oracleText": "Level up {1}{G} ({1}{G}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-4\n1/2\n{T}: Add {G}{G}.\nLEVEL 5+\n1/4\nElves you control have \"{T}: Add {G}{G}.\"",
+  "keywords": [
+    "Level Up"
+  ],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1132218d-56cd-441e-9006-df3c50344491/normal.webp",
+    "localPath": "data/cards/images/cards/joraga-treespeaker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1132218d-56cd-441e-9006-df3c50344491/art_crop.webp",
+    "localArtPath": "data/cards/images/art/joraga-treespeaker.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1132218d-56cd-441e-9006-df3c50344491/normal.webp",
+  "powerScore": {
+    "score": 29.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1408.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1409).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "typal-elf",
+        "typal-creature",
+        "typal"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "60.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "typal-elf",
+        "typal-creature",
+        "typal"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "A",
+            "winrateOrScore": "60.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "balance",
+  "name": "Balance",
+  "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Each player chooses a number of lands they control equal to the number of lands controlled by the player who controls the fewest, then sacrifices the rest. Players discard cards and sacrifice creatures the same way.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/52ec6882-a92b-4ee0-b601-638994a65337/normal.webp",
+    "localPath": "data/cards/images/cards/balance.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/52ec6882-a92b-4ee0-b601-638994a65337/art_crop.webp",
+    "localArtPath": "data/cards/images/art/balance.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/52ec6882-a92b-4ee0-b601-638994a65337/normal.webp",
+  "powerScore": {
+    "score": 35,
+    "source": "untapped",
+    "rawSourceScore": 35,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1547).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 7.7,
+    "ceilingRating": 8.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "discard-outlet"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "67.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "discard-outlet"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "67.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

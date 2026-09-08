@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "containment-priest",
+  "name": "Containment Priest",
+  "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Human Cleric",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Cleric"
+  ],
+  "oracleText": "Flash\nIf a nontoken creature would enter and it wasn't cast, exile it instead.",
+  "keywords": [
+    "Flash"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/normal.webp",
+    "localPath": "data/cards/images/cards/containment-priest.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/containment-priest.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/normal.webp",
+  "powerScore": {
+    "score": 27,
+    "source": "untapped",
+    "rawSourceScore": 27,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1347).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "prevent-etb",
+        "hate-free-spell",
+        "hate"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "prevent-etb",
+        "hate-free-spell",
+        "hate"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "B",
+            "winrateOrScore": "57.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

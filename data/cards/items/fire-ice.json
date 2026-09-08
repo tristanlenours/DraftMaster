@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "slug": "fire-ice",
+  "name": "Fire // Ice",
+  "oracleId": "ae92942b-919c-4ea9-b693-85fcef765d5a",
+  "manaCost": "{1}{R} // {1}{U}",
+  "cmc": 4,
+  "colors": [
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Instant // Instant",
+  "types": [
+    "Instant",
+    "//",
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+    "localPath": "data/cards/images/cards/fire-ice.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+    "localArtPath": "data/cards/images/art/fire-ice.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/fire-ice.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/fire-ice.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+  "powerScore": {
+    "score": 21.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1323.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Fire // Ice est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "synergy_enabler"
+    ],
+    "floorRating": 3.7,
+    "ceilingRating": 4.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (ELO: 1324) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Jouez Fire // Ice sur courbe de mana pour consolider la présence sur table.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "B",
+            "winrateOrScore": "57.9 %",
+            "comment": "Alignement au métagame Titou Tribal (B)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "cheaper-than-mv",
+        "cantrip"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:izzet_spellslinger"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "cheaper-than-mv",
+        "cantrip"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "IZZET SPELLSLINGER",
+            "grade": "A",
+            "winrateOrScore": "56.2 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "cheaper-than-mv",
+        "cantrip"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "56.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Feu // Glace",
+  "frenchText": "Feu\nLe Feu inflige 2 blessures réparties comme vous le désirez entre une ou deux cibles, créatures et/ou joueurs.\n\n---\n\nGlace\nPiochez une carte.\nFranz Vohwinkel",
+  "localFrenchPath": "data/cards/images/fr/cards/fire-ice.jpg"
+}

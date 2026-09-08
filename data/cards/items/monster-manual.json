@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "monster-manual",
+  "name": "Monster Manual",
+  "oracleId": "6d4e7943-1fdf-4085-8af0-658badbd0cb8",
+  "manaCost": "{G}{2}{SPLIT}{G}{3}",
+  "cmc": 4,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Artifact — Book",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [
+    "Book"
+  ],
+  "oracleText": "{1}{G}, {T}: You may put a creature card from your hand onto the battlefield.\nMill five cards, then return a creature card milled this way to your hand. (Then exile this card. You may cast the artifact later from exile.)",
+  "keywords": [
+    "Mill"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dc00c54e-9159-4c4d-80d9-9e873ee35d73/normal.webp",
+    "localPath": "data/cards/images/cards/monster-manual.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dc00c54e-9159-4c4d-80d9-9e873ee35d73/art_crop.webp",
+    "localArtPath": "data/cards/images/art/monster-manual.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dc00c54e-9159-4c4d-80d9-9e873ee35d73/normal.webp",
+  "powerScore": {
+    "score": 12.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1291.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1292).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "type-addition-book",
+        "type-errata-addition",
+        "type-errata"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "jadelight-ranger",
+  "name": "Jadelight Ranger",
+  "oracleId": "0b5d174c-7d4d-4c31-a582-8169d3bc932a",
+  "scryfallId": "9fe5c719-f20d-4469-9750-fb689d5f3fc8",
+  "manaCost": "{G}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Merfolk Scout Ranger",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Merfolk",
+    "Scout",
+    "Ranger"
+  ],
+  "oracleText": "When this creature enters, it explores, then it explores again. (Reveal the top card of your library. Put that card into your hand if it's a land. Otherwise, put a +1/+1 counter on this creature, then put the card back or put it into your graveyard. Then repeat this process.)",
+  "keywords": [
+    "Explore"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9fe5c719-f20d-4469-9750-fb689d5f3fc8/normal.webp",
+    "localPath": "data/cards/images/jadelight-ranger.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9fe5c719-f20d-4469-9750-fb689d5f3fc8/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9fe5c719-f20d-4469-9750-fb689d5f3fc8/normal.webp",
+  "powerScore": {
+    "score": 25.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1368.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1368).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "fun-ruling",
+        "repeated-keyword"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "A",
+            "winrateOrScore": "58.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

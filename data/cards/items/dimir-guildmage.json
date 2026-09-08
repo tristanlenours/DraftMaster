@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "dimir-guildmage",
+  "name": "Dimir Guildmage",
+  "oracleId": "1b6c67e5-5913-4db9-85d9-8dae57da02ee",
+  "manaCost": "{U-B}{U-B}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Creature — Human Wizard",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Wizard"
+  ],
+  "oracleText": "({U/B} can be paid with either {U} or {B}.)\n{3}{U}: Target player draws a card. Activate only as a sorcery.\n{3}{B}: Target player discards a card. Activate only as a sorcery.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/6822ef8f-ff27-410d-934f-c87baef03266/normal.webp",
+    "localPath": "data/cards/images/cards/dimir-guildmage.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/6822ef8f-ff27-410d-934f-c87baef03266/art_crop.webp",
+    "localArtPath": "data/cards/images/art/dimir-guildmage.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/6822ef8f-ff27-410d-934f-c87baef03266/normal.webp",
+  "powerScore": {
+    "score": 22.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1226.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1226).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:faeries_ninjas_tempo"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U"
+            ],
+            "archetype": "FAERIES NINJAS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "51.3 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Ghildmage de Dimir",
+  "frenchText": "{3}{U} : Un joueur ciblé pioche une carte. N'activez que lorsque vous pourriez lancer un rituel.\n{3}{B} : Un joueur ciblé se défausse d'une carte. N'activez que lorsque vous pourriez lancer un rituel."
+}

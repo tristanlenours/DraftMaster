@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "urza-lord-high-artificer",
+  "name": "Urza, Lord High Artificer",
+  "oracleId": "44444444-5555-4666-8777-888888888888",
+  "manaCost": "o2oUoU",
+  "cmc": 4,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Legendary Creature — Human Artificer",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Artificer"
+  ],
+  "oracleText": "When Urza enters, create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\"\nTap an untapped artifact you control: Add {U}.\n{5}: Shuffle your library, then exile the top card. Until end of turn, you may play that card without paying its mana cost.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "U"
+  ],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Urza%2C%20Lord%20High%20Artificer&format=image",
+    "localPath": "data/cards/images/cards/urza-lord-high-artificer.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Urza%2C%20Lord%20High%20Artificer&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/urza-lord-high-artificer.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Urza%2C%20Lord%20High%20Artificer&format=image",
+  "powerScore": {
+    "score": 33,
+    "source": "untapped",
+    "rawSourceScore": 33,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Urza, Lord High Artificer est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "premium_removal",
+      "beater"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "tap-fuel-artifact",
+        "tap-outlet",
+        "synergy-artifact"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "73.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "tap-fuel-artifact",
+        "tap-outlet",
+        "synergy-artifact"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

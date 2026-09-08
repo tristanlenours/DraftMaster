@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "kitesail-freebooter",
+  "name": "Kitesail Freebooter",
+  "oracleId": "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
+  "scryfallId": "f62fd592-4910-417d-a500-e7029f3d119f",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Human Pirate",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Pirate"
+  ],
+  "oracleText": "Flying\nWhen this creature enters, target opponent reveals their hand. You choose a noncreature, nonland card from it. Exile that card until this creature leaves the battlefield.",
+  "keywords": [
+    "Flying"
+  ],
+  "power": "1",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f62fd592-4910-417d-a500-e7029f3d119f/normal.webp",
+    "localPath": "data/cards/images/kitesail-freebooter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f62fd592-4910-417d-a500-e7029f3d119f/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f62fd592-4910-417d-a500-e7029f3d119f/normal.webp",
+  "powerScore": {
+    "score": 31.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1369.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1370).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "banish-hand",
+        "banish"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "58.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

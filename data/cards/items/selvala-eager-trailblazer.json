@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "slug": "selvala-eager-trailblazer",
+  "name": "Selvala, Eager Trailblazer",
+  "oracleId": "95b20721-1af9-4f3f-a39b-7cd1d4ce0b20",
+  "manaCost": "{W}{G}{2}",
+  "cmc": 4,
+  "colors": [
+    "G",
+    "W"
+  ],
+  "colorIdentity": [
+    "G",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Elf Scout",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Scout"
+  ],
+  "oracleText": "Vigilance\nWhenever you cast a creature spell, create a 1/1 red Mercenary creature token with \"{T}: Target creature you control gets +1/+0 until end of turn. Activate only as a sorcery.\"\n{T}: Choose a color. Add one mana of that color for each different power among creatures you control.",
+  "keywords": [
+    "Vigilance"
+  ],
+  "power": "4",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7d2e167f-7cb2-4f15-a1db-7ee56b7ba523/normal.webp",
+    "localPath": "data/cards/images/cards/selvala-eager-trailblazer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7d2e167f-7cb2-4f15-a1db-7ee56b7ba523/art_crop.webp",
+    "localArtPath": "data/cards/images/art/selvala-eager-trailblazer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7d2e167f-7cb2-4f15-a1db-7ee56b7ba523/normal.webp",
+  "powerScore": {
+    "score": 13.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1195.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1195).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "adds-multiple-mana",
+        "out-of-color-token",
+        "cast-trigger-you"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "C",
+            "winrateOrScore": "49.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "thassa-s-oracle",
+  "name": "Thassa's Oracle",
+  "oracleId": "1de1b591-a73f-4974-b507-8c63e07a0868",
+  "manaCost": "{U}{U}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Merfolk Wizard",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Merfolk",
+    "Wizard"
+  ],
+  "oracleText": "When this creature enters, look at the top X cards of your library, where X is your devotion to blue. Put up to one of them on top of your library and the rest on the bottom of your library in a random order. If X is greater than or equal to the number of cards in your library, you win the game. (Each {U} in the mana costs of permanents you control counts toward your devotion to blue.)",
+  "keywords": [],
+  "power": "1",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/726e8b29-13e9-4138-b6a9-d2a0d8188d1c/normal.webp",
+    "localPath": "data/cards/images/cards/thassa-s-oracle.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/726e8b29-13e9-4138-b6a9-d2a0d8188d1c/art_crop.webp",
+    "localArtPath": "data/cards/images/art/thassa-s-oracle.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/726e8b29-13e9-4138-b6a9-d2a0d8188d1c/normal.webp",
+  "powerScore": {
+    "score": 24.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1450.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1450).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.3,
+    "ceilingRating": 8.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "synergy-blue",
+        "triggered-ability",
+        "alternate-win-condition"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

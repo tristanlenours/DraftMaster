@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "slug": "queen-marchesa",
+  "name": "Queen Marchesa",
+  "oracleId": "d7ac4be1-dcca-49b6-8ddb-d1b0e6cf2dcf",
+  "scryfallId": "03f4341c-088b-4f35-b82b-3d98d8a93de4",
+  "manaCost": "{B}{W}{R}{1}",
+  "cmc": 4,
+  "colors": [
+    "B",
+    "R",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "R",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Human Assassin",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Assassin"
+  ],
+  "oracleText": "Deathtouch, haste\nWhen Queen Marchesa enters, you become the monarch.\nAt the beginning of your upkeep, if an opponent is the monarch, create a 1/1 black Assassin creature token with deathtouch and haste.",
+  "keywords": [
+    "Haste",
+    "Deathtouch"
+  ],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/03f4341c-088b-4f35-b82b-3d98d8a93de4/normal.webp",
+    "localPath": "data/cards/images/queen-marchesa.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/03f4341c-088b-4f35-b82b-3d98d8a93de4/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/03f4341c-088b-4f35-b82b-3d98d8a93de4/normal.webp",
+  "powerScore": {
+    "score": 19,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1187.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1188).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.9,
+    "ceilingRating": 6.9,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R",
+              "W"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "C",
+            "winrateOrScore": "49.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

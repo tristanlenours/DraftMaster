@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "slug": "omnath-locus-of-creation",
+  "name": "Omnath, Locus of Creation",
+  "oracleId": "cd133d30-51ff-4114-a7d7-029345f0f0d7",
+  "manaCost": "{U}{W}{G}{R}",
+  "cmc": 4,
+  "colors": [
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Elemental",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elemental"
+  ],
+  "oracleText": "When Omnath enters, draw a card.\nLandfall — Whenever a land you control enters, you gain 4 life if this is the first time this ability has resolved this turn. If it's the second time, add {R}{G}{W}{U}. If it's the third time, Omnath deals 4 damage to each opponent and each planeswalker you don't control.",
+  "keywords": [
+    "Landfall"
+  ],
+  "power": "4",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9b5bc5d7-c0f8-4632-adb7-dd3b75a3d87d/normal.webp",
+    "localPath": "data/cards/images/cards/omnath-locus-of-creation.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9b5bc5d7-c0f8-4632-adb7-dd3b75a3d87d/art_crop.webp",
+    "localArtPath": "data/cards/images/art/omnath-locus-of-creation.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9b5bc5d7-c0f8-4632-adb7-dd3b75a3d87d/normal.webp",
+  "powerScore": {
+    "score": 33.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1238.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1239).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "repeatable-lifegain"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "R",
+              "U",
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "51.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

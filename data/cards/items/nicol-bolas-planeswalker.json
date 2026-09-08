@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "nicol-bolas-planeswalker",
+  "name": "Nicol Bolas, Planeswalker",
+  "oracleId": "05e9b55e-6329-48ec-b7d7-24c6b9692244",
+  "scryfallId": "605a6165-bf78-486b-b186-6a55e0ffe28f",
+  "manaCost": "{R}{B}{B}{U}{4}",
+  "cmc": 8,
+  "colors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "typeLine": "Legendary Planeswalker — Bolas",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Bolas"
+  ],
+  "oracleText": "+3: Destroy target noncreature permanent.\n−2: Gain control of target creature.\n−9: Nicol Bolas deals 7 damage to target player or planeswalker. That player or that planeswalker's controller discards seven cards, then sacrifices seven permanents of their choice.",
+  "keywords": [],
+  "loyalty": "5",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/605a6165-bf78-486b-b186-6a55e0ffe28f/normal.webp",
+    "localPath": "data/cards/images/nicol-bolas-planeswalker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/605a6165-bf78-486b-b186-6a55e0ffe28f/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/605a6165-bf78-486b-b186-6a55e0ffe28f/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1152,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1152).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 5.8,
+    "ceilingRating": 6.8,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "removal-noncreature"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "R",
+              "U"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "C",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

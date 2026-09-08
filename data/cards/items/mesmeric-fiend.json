@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "mesmeric-fiend",
+  "name": "Mesmeric Fiend",
+  "oracleId": "fb46b300-8a39-40d2-8bc7-31b90c822e22",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Nightmare Horror",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Nightmare",
+    "Horror"
+  ],
+  "oracleText": "When this creature enters, target opponent reveals their hand and you choose a nonland card from it. Exile that card.\nWhen this creature leaves the battlefield, return the exiled card to its owner's hand.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b6edd4ea-c587-4d93-a675-4cdec3e0b1ca/normal.webp",
+    "localPath": "data/cards/images/cards/mesmeric-fiend.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b6edd4ea-c587-4d93-a675-4cdec3e0b1ca/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mesmeric-fiend.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b6edd4ea-c587-4d93-a675-4cdec3e0b1ca/normal.webp",
+  "powerScore": {
+    "score": 18.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1382.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1383).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

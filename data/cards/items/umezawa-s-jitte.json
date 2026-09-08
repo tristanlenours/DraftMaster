@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "umezawa-s-jitte",
+  "name": "Umezawa's Jitte",
+  "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Artifact — Equipment",
+  "types": [
+    "Legendary",
+    "Artifact"
+  ],
+  "subtypes": [
+    "Equipment"
+  ],
+  "oracleText": "Whenever equipped creature deals combat damage, put two charge counters on Umezawa's Jitte.\nRemove a charge counter from Umezawa's Jitte: Choose one —\n• Equipped creature gets +2/+2 until end of turn.\n• Target creature gets -1/-1 until end of turn.\n• You gain 2 life.\nEquip {2}",
+  "keywords": [
+    "Equip"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3b6e5956-f795-451b-bb24-56462d1ced27/normal.webp",
+    "localPath": "data/cards/images/cards/umezawa-s-jitte.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3b6e5956-f795-451b-bb24-56462d1ced27/art_crop.webp",
+    "localArtPath": "data/cards/images/art/umezawa-s-jitte.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3b6e5956-f795-451b-bb24-56462d1ced27/normal.webp",
+  "powerScore": {
+    "score": 16,
+    "source": "untapped",
+    "rawSourceScore": 16,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1479).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7.4,
+    "ceilingRating": 8.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "64.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "64.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "snakeform",
+  "name": "Snakeform",
+  "oracleId": "76ae07ce-ca0c-4308-b8bd-d999eea0a65f",
+  "manaCost": "{G-U}{2}",
+  "cmc": 3,
+  "colors": [
+    "G",
+    "U"
+  ],
+  "colorIdentity": [
+    "G",
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Until end of turn, target creature loses all abilities and becomes a green Snake with base power and toughness 1/1.\nDraw a card.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4e5a1330-b227-4480-aae7-c8cf350c4898/normal.webp",
+    "localPath": "data/cards/images/cards/snakeform.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4e5a1330-b227-4480-aae7-c8cf350c4898/art_crop.webp",
+    "localArtPath": "data/cards/images/art/snakeform.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4e5a1330-b227-4480-aae7-c8cf350c4898/normal.webp",
+  "powerScore": {
+    "score": 9.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1276.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1276).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:simic_ramp_value"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "combat-trick",
+        "cantrip"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "U"
+            ],
+            "archetype": "SIMIC RAMP VALUE",
+            "grade": "B",
+            "winrateOrScore": "53.8 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Forme du serpent",
+  "frenchText": "Jusqu'à la fin du tour, la créature ciblée perd toutes ses capacités et devient un serpent vert avec une force et une endurance de base de 1/1.Piochez une carte."
+}

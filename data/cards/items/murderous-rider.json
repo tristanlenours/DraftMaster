@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "murderous-rider",
+  "name": "Murderous Rider",
+  "oracleId": "1080c5b5-6651-4c6a-93e6-099fbe389e26",
+  "manaCost": "{B}{B}{1}{SPLIT}{B}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Zombie Knight",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Zombie",
+    "Knight"
+  ],
+  "oracleText": "Lifelink\nWhen this creature dies, put it on the bottom of its owner's library.\nDestroy target creature or planeswalker. You lose 2 life. (Then exile this card. You may cast the creature later from exile.)",
+  "keywords": [
+    "Lifelink"
+  ],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/49c98e70-e8fe-4fea-b1d0-e7560780fda9/normal.webp",
+    "localPath": "data/cards/images/cards/murderous-rider.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/49c98e70-e8fe-4fea-b1d0-e7560780fda9/art_crop.webp",
+    "localArtPath": "data/cards/images/art/murderous-rider.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/49c98e70-e8fe-4fea-b1d0-e7560780fda9/normal.webp",
+  "powerScore": {
+    "score": 30.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1335.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1336).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "restock-to-bottom",
+        "bottom-deck-manipulation"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "restock-to-bottom",
+        "bottom-deck-manipulation"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

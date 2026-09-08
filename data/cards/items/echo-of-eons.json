@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "echo-of-eons",
+  "name": "Echo of Eons",
+  "oracleId": "23d3e5fe-3f82-44cf-91a1-6646a12a0255",
+  "manaCost": "{U}{U}{4}",
+  "cmc": 6,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Each player shuffles their hand and graveyard into their library, then draws seven cards.\nFlashback {2}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)",
+  "keywords": [
+    "Flashback"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ff590af2-2d6c-4f16-a9b8-1a6dab6e9ad5/normal.webp",
+    "localPath": "data/cards/images/cards/echo-of-eons.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ff590af2-2d6c-4f16-a9b8-1a6dab6e9ad5/art_crop.webp",
+    "localArtPath": "data/cards/images/art/echo-of-eons.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ff590af2-2d6c-4f16-a9b8-1a6dab6e9ad5/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "untapped",
+    "rawSourceScore": 21,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1467).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7.3,
+    "ceilingRating": 8.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "whirlpool",
+        "wheel",
+        "draw"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "63.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

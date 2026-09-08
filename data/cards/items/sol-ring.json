@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "slug": "sol-ring",
+  "name": "Sol Ring",
+  "oracleId": "99999999-aaaa-4bbb-8ccc-dddddddddddd",
+  "manaCost": "o1",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{oT}: Add {oCoC}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/9/1/91fdb56b-54d5-4272-8319-505ff987fe9b.jpg?1783903215",
+    "localPath": "data/cards/images/cards/sol-ring.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/9/1/91fdb56b-54d5-4272-8319-505ff987fe9b.jpg?1783903215",
+    "localArtPath": "data/cards/images/art/sol-ring.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/9/1/91fdb56b-54d5-4272-8319-505ff987fe9b.jpg?1783903215",
+  "powerScore": {
+    "score": 51,
+    "source": "untapped",
+    "rawSourceScore": 51,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Sol Ring est une carte de premier ordre offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 9.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "adds-multiple-mana",
+        "mana-rock",
+        "mana-producer"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "102.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

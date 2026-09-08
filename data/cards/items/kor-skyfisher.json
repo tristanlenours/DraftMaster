@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "kor-skyfisher",
+  "name": "Kor Skyfisher",
+  "oracleId": "054a0193-861e-4644-ab0a-8aa33407abc8",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Kor Soldier",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Kor",
+    "Soldier"
+  ],
+  "oracleText": "Flying\nWhen this creature enters, return a permanent you control to its owner's hand.",
+  "keywords": [
+    "Flying"
+  ],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/bb2e9465-f5ba-4c7b-9f03-d40dc8394acd/normal.webp",
+    "localPath": "data/cards/images/cards/kor-skyfisher.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/bb2e9465-f5ba-4c7b-9f03-d40dc8394acd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/kor-skyfisher.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/bb2e9465-f5ba-4c7b-9f03-d40dc8394acd/normal.webp",
+  "powerScore": {
+    "score": 23.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1328.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1329).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:azorius_blink"
+      ],
+      "synergyTags": [
+        "bounce-self",
+        "bounce",
+        "triggered-ability"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "AZORIUS BLINK",
+            "grade": "A",
+            "winrateOrScore": "56.4 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "bounce-self",
+        "bounce",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Pêcheuse céleste kor",
+  "frenchText": "Vol\nQuand la Pêcheuse céleste kor arrive sur le champ de bataille, renvoyez un permanent que vous contrôlez dans la main de son propriétaire."
+}

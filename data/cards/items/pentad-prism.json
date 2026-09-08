@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "pentad-prism",
+  "name": "Pentad Prism",
+  "oracleId": "72e8d67a-41e6-4074-bcbd-b54ead995237",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "Sunburst (This artifact enters with a charge counter on it for each color of mana spent to cast it.)\nRemove a charge counter from this artifact: Add one mana of any color.",
+  "keywords": [
+    "Sunburst"
+  ],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/672b9b16-daef-44e6-9a3a-cfd9f3c78bc7/normal.webp",
+    "localPath": "data/cards/images/cards/pentad-prism.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/672b9b16-daef-44e6-9a3a-cfd9f3c78bc7/art_crop.webp",
+    "localArtPath": "data/cards/images/art/pentad-prism.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/672b9b16-daef-44e6-9a3a-cfd9f3c78bc7/normal.webp",
+  "powerScore": {
+    "score": 8.6,
+    "source": "untapped",
+    "rawSourceScore": 8.6,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1393).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "sunburst",
+        "converge",
+        "color-spent-matters"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "59.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

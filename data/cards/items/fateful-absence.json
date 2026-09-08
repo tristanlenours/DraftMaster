@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "slug": "fateful-absence",
+  "name": "Fateful Absence",
+  "oracleId": "35bba442-1aec-4d33-b502-4c580d61644b",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Destroy target creature or planeswalker. Its controller investigates. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+  "keywords": [
+    "Investigate"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/eca8d6f8-c6f1-437c-99e2-4281eae14a6f/normal.webp",
+    "localPath": "data/cards/images/cards/fateful-absence.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/eca8d6f8-c6f1-437c-99e2-4281eae14a6f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/fateful-absence.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/eca8d6f8-c6f1-437c-99e2-4281eae14a6f/normal.webp",
+  "powerScore": {
+    "score": 30.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1401,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1401).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "drawback",
+        "single-target-instant-sorcery",
+        "removal-planeswalker"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "60.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "drawback",
+        "single-target-instant-sorcery",
+        "removal-planeswalker"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "A",
+            "winrateOrScore": "60.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "glimmer-lens",
+  "name": "Glimmer Lens",
+  "oracleId": "bb7cebb7-a979-4879-b834-deab13f2a22c",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Artifact — Equipment",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [
+    "Equipment"
+  ],
+  "oracleText": "For Mirrodin! (When this Equipment enters, create a 2/2 red Rebel creature token, then attach this to it.)\nWhenever equipped creature and at least one other creature attack, draw a card.\nEquip {1}{W}",
+  "keywords": [
+    "For Mirrodin!",
+    "Equip"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/c9262000-e6f3-4da1-ad1c-038f65d3bef6/normal.webp",
+    "localPath": "data/cards/images/cards/glimmer-lens.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/c9262000-e6f3-4da1-ad1c-038f65d3bef6/art_crop.webp",
+    "localArtPath": "data/cards/images/art/glimmer-lens.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/c9262000-e6f3-4da1-ad1c-038f65d3bef6/normal.webp",
+  "powerScore": {
+    "score": 40,
+    "source": "untapped",
+    "rawSourceScore": 40,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1316).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "55.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

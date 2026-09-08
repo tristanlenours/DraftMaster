@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "slug": "force-spike",
+  "name": "Force Spike",
+  "oracleId": "896ea218-3019-47e4-b0a0-2487335872bb",
+  "manaCost": "{U}",
+  "cmc": 1,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Counter target spell unless its controller pays {1}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/97a6c6c9-dd26-4ce7-850f-0b3fc49245bd/normal.webp",
+    "localPath": "data/cards/images/cards/force-spike.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/97a6c6c9-dd26-4ce7-850f-0b3fc49245bd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/force-spike.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/97a6c6c9-dd26-4ce7-850f-0b3fc49245bd/normal.webp",
+  "powerScore": {
+    "score": 17.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1288.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1288).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "interrupt",
+        "deprecated-card-types"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.4 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "interrupt",
+        "deprecated-card-types"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Chiquenaude de force",
+  "frenchText": "Contrecarrez le sort ciblé à moins que son lanceur ne paye {1}."
+}

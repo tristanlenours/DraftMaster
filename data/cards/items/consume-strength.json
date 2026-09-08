@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "consume-strength",
+  "name": "Consume Strength",
+  "oracleId": "53fd9fb1-c28f-4d73-bf98-94cdab418f21",
+  "manaCost": "{G}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Target creature gets +2/+2 until end of turn. Another target creature gets -2/-2 until end of turn.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/49b48dd6-3311-44a1-8dbd-6fac1957a61d/normal.webp",
+    "localPath": "data/cards/images/cards/consume-strength.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/49b48dd6-3311-44a1-8dbd-6fac1957a61d/art_crop.webp",
+    "localArtPath": "data/cards/images/art/consume-strength.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/49b48dd6-3311-44a1-8dbd-6fac1957a61d/normal.webp",
+  "powerScore": {
+    "score": 16.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1071.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1071).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.4,
+    "ceilingRating": 6.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "D",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": -10,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "D",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Absorption de la force",
+  "frenchText": "La créature ciblée gagne +2/+2 jusqu'à la fin du tour. Une autre créature ciblée gagne —2/—2 jusqu'à la fin du tour."
+}

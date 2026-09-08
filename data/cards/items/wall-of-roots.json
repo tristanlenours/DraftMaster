@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "wall-of-roots",
+  "name": "Wall of Roots",
+  "oracleId": "3a21a6ae-b2f2-4f0c-acfd-5f3e8d63fd2f",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Plant Wall",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Plant",
+    "Wall"
+  ],
+  "oracleText": "Defender\nPut a -0/-1 counter on this creature: Add {G}. Activate only once each turn.",
+  "keywords": [
+    "Defender"
+  ],
+  "power": "0",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/000619be-f2b4-407d-a76c-7245d8cab7bd/normal.webp",
+    "localPath": "data/cards/images/cards/wall-of-roots.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/000619be-f2b4-407d-a76c-7245d8cab7bd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/wall-of-roots.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/000619be-f2b4-407d-a76c-7245d8cab7bd/normal.webp",
+  "powerScore": {
+    "score": 25.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1352.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1353).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "drawback",
+        "deprecated-p-t-counter",
+        "deprecated-mechanics"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.6 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "drawback",
+        "deprecated-p-t-counter",
+        "deprecated-mechanics"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "A",
+            "winrateOrScore": "57.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Mur de racines",
+  "frenchText": "Défenseur\nMettez un marqueur -0/-1 sur cette créature : Ajoutez {G}. N'activez qu'une seule fois par tour."
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "underworld-breach",
+  "name": "Underworld Breach",
+  "oracleId": "018595a8-ef01-4475-8025-a1c1d81b94e3",
+  "manaCost": "{1}{R}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Enchantment",
+  "types": [
+    "Enchantment"
+  ],
+  "subtypes": [],
+  "oracleText": "Each nonland card in your graveyard has escape. The escape cost is equal to the card's mana cost plus exile three other cards from your graveyard.\nAt the beginning of the end step, sacrifice Underworld Breach.",
+  "keywords": [
+    "Escape"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+    "localPath": "data/cards/images/cards/underworld-breach.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/underworld-breach.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+  "powerScore": {
+    "score": 16,
+    "source": "untapped",
+    "rawSourceScore": 16,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Moteur de victoire combo récursif permettant de rejouer tout son cimetière en boucle.",
+    "roles": [
+      "engine",
+      "bomb"
+    ],
+    "floorRating": 8,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.5,
+      "developing": 5,
+      "parity": 5,
+      "behind": 4.8
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "engine:storm",
+        "combo",
+        "graveyard"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "69.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "undercity-sewers",
+  "name": "Undercity Sewers",
+  "oracleId": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Land — Island Swamp",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Island",
+    "Swamp"
+  ],
+  "oracleText": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "B",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3239a1e5-a002-4389-b9a7-049b1d60e2ac/normal.webp",
+    "localPath": "data/cards/images/cards/undercity-sewers.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3239a1e5-a002-4389-b9a7-049b1d60e2ac/art_crop.webp",
+    "localArtPath": "data/cards/images/art/undercity-sewers.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3239a1e5-a002-4389-b9a7-049b1d60e2ac/normal.webp",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1446).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "62.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

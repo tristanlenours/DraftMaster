@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "cabal-ritual",
+  "name": "Cabal Ritual",
+  "oracleId": "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard.",
+  "keywords": [
+    "Threshold"
+  ],
+  "isLand": false,
+  "producesColors": [
+    "B"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/5403b49d-03a7-4cc3-af3c-df098c1c9c2e/normal.webp",
+    "localPath": "data/cards/images/cards/cabal-ritual.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/5403b49d-03a7-4cc3-af3c-df098c1c9c2e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/cabal-ritual.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/5403b49d-03a7-4cc3-af3c-df098c1c9c2e/normal.webp",
+  "powerScore": {
+    "score": 14.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1321.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1321).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "adds-multiple-mana",
+        "threshold",
+        "cards-in-graveyard-matter"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "56.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

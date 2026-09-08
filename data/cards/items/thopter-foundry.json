@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "thopter-foundry",
+  "name": "Thopter Foundry",
+  "oracleId": "88bef744-550e-4f33-b1ff-a8ee990ec754",
+  "manaCost": "{U}{W-B}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "U",
+    "W"
+  ],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{1}, Sacrifice a nontoken artifact: Create a 1/1 blue Thopter artifact creature token with flying. You gain 1 life.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/42b8d797-b01d-49cf-9818-d84bba17029d/normal.webp",
+    "localPath": "data/cards/images/cards/thopter-foundry.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/42b8d797-b01d-49cf-9818-d84bba17029d/art_crop.webp",
+    "localArtPath": "data/cards/images/art/thopter-foundry.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/42b8d797-b01d-49cf-9818-d84bba17029d/normal.webp",
+  "powerScore": {
+    "score": 32.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1470.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1470).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.4,
+    "ceilingRating": 8.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "sacrifice-outlet-artifact",
+        "sacrifice-outlet",
+        "repeatable-lifegain"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U",
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "63.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

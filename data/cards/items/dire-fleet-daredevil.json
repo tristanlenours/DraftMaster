@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "dire-fleet-daredevil",
+  "name": "Dire Fleet Daredevil",
+  "oracleId": "7a3e50a5-c163-4c41-b62d-d52c233c55b7",
+  "manaCost": "{R}{1}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Human Pirate",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Pirate"
+  ],
+  "oracleText": "First strike\nWhen this creature enters, exile target instant or sorcery card from an opponent's graveyard. You may cast it this turn, and mana of any type can be spent to cast that spell. If that spell would be put into a graveyard, exile it instead.",
+  "keywords": [
+    "First strike"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/13e3c0c5-7451-4da9-acc0-d6e4e1f2655e/normal.webp",
+    "localPath": "data/cards/images/cards/dire-fleet-daredevil.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/13e3c0c5-7451-4da9-acc0-d6e4e1f2655e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/dire-fleet-daredevil.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/13e3c0c5-7451-4da9-acc0-d6e4e1f2655e/normal.webp",
+  "powerScore": {
+    "score": 12.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1265.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1266).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "hate-graveyard",
+        "hate",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "hate-graveyard",
+        "hate",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "53.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

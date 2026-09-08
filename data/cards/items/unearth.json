@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "unearth",
+  "name": "Unearth",
+  "oracleId": "4e0b647a-6e1a-421b-bca9-8d5e346bda80",
+  "manaCost": "{B}",
+  "cmc": 1,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Return target creature card with mana value 3 or less from your graveyard to the battlefield.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+  "keywords": [
+    "Cycling"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ed268699-e1cc-4742-b19f-7f0ceaed2733/normal.webp",
+    "localPath": "data/cards/images/cards/unearth.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ed268699-e1cc-4742-b19f-7f0ceaed2733/art_crop.webp",
+    "localArtPath": "data/cards/images/art/unearth.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ed268699-e1cc-4742-b19f-7f0ceaed2733/normal.webp",
+  "powerScore": {
+    "score": 18,
+    "source": "untapped",
+    "rawSourceScore": 18,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1313).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "single-english-word-name",
+        "card-names"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "A",
+            "winrateOrScore": "55.6 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Sortir de terre",
+  "frenchText": "Renvoyez sur le champ de bataille, depuis votre cimetière, une carte de créature ciblée avec une valeur de mana inférieure ou égale à 3.\nRecyclage {2} ({2}, défaussez-vous de cette carte : Piochez une carte.)"
+}

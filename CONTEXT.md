@@ -1,8 +1,11 @@
-# DraftMaster Domain
+# DraftMaster & LMCDEU Domain
 
-Canonical vocabulary for DraftMaster's product and drafting domain.
+Canonical vocabulary for DraftMaster and the LMCDEU (*Les Magiciens : Cube Digital Extended Universe*) product and drafting domain.
 
 ## Product Scope
+
+**LMCDEU**:
+*Les Magiciens : Cube Digital Extended Universe*. The official universe umbrella encompassing the community cubes (Titou Tribal, Nico's Candyshop, Hugues Pauper), the friend bots table, and the interactive Limited Grades matrix.
 
 **Solo Draft Coach**:
 The first product milestone: one player completes a 45-pick cube draft against bots, understands recommendations, builds a deck, and records scores and trophies.

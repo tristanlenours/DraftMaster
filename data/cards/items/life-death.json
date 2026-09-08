@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "life-death",
+  "name": "Life // Death",
+  "oracleId": "d476f4b3-db63-4756-ab76-4b35f63c2825",
+  "manaCost": "{B}{1}{SPLIT}{G}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "All lands you control become 1/1 creatures until end of turn. They're still lands.\nReturn target creature card from your graveyard to the battlefield. You lose life equal to its mana value.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e16d52ca-f8de-4852-9bff-9d208e5f678f/normal.webp",
+    "localPath": "data/cards/images/cards/life-death.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e16d52ca-f8de-4852-9bff-9d208e5f678f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/life-death.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e16d52ca-f8de-4852-9bff-9d208e5f678f/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "untapped",
+    "rawSourceScore": 21,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1385).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "universal-type-change",
+        "type-change"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

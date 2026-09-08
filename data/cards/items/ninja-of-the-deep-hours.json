@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "slug": "ninja-of-the-deep-hours",
+  "name": "Ninja of the Deep Hours",
+  "oracleId": "22222222-bbbb-4000-8000-000000000001",
+  "manaCost": "{3}{U}",
+  "cmc": 4,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Human Ninja",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Ninja"
+  ],
+  "oracleText": "Ninjutsu {1}{U}\nWhenever Ninja of the Deep Hours deals combat damage to a player, you may draw a card.",
+  "keywords": [
+    "Ninjutsu"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Ninja%20of%20the%20Deep%20Hours&format=image",
+    "localPath": "data/cards/images/cards/ninja-of-the-deep-hours.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Ninja%20of%20the%20Deep%20Hours&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/ninja-of-the-deep-hours.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Ninja%20of%20the%20Deep%20Hours&format=image",
+  "powerScore": {
+    "score": 14.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1282,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Moteur de card advantage tactique réactivant les créatures évasives à faible coût.",
+    "roles": [
+      "engine",
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 9.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 4.5,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "build_around",
+      "tier": "S",
+      "archetypes": [
+        "hugues:faeries_ninjas_tempo"
+      ],
+      "synergyTags": [
+        "ninjutsu",
+        "etb_reuse",
+        "card_draw"
+      ],
+      "scoreModifier": 12,
+      "analysis": "La signature du Pauper Tempo : posé pour 2 manas sur une créature non bloquée, il pioche immédiatement et remet en main Faerie Seer ou Thraben Inspector pour rejouer leur effet.",
+      "pedagogy": {
+        "howToPlay": "Attendez que l'adversaire déclare 'aucun bloqueur' avant d'annoncer le Ninjutsu. Remontez toujours une créature avec un effet d'arrivée en jeu bénéfique (Faerie Seer, Thraben Inspector). Gardez ensuite 1 ou 2 manas ouverts pour protéger le Ninja avec Counterspell ou Spell Pierce.",
+        "keySynergies": [
+          {
+            "cardName": "Faerie Seer",
+            "synergyType": "Moteur Perpétuel",
+            "description": "Créature vol T1 qui permet le Ninjutsu T2 puis se relance pour Scry 2 !"
+          },
+          {
+            "cardName": "Snuff Out",
+            "synergyType": "Protection Gratuite",
+            "description": "Permet de tuer un bloqueur adverse sans dépenser de mana avant d'attaquer."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "B"
+            ],
+            "archetype": "Dimir Ninjas",
+            "grade": "S",
+            "winrateOrScore": "67.0 %",
+            "comment": "Le cœur stratégique de l'archétype le plus compétitif du format."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Counterspell",
+        "Snuff Out"
+      ]
+    }
+  },
+  "frenchName": "Ninja des heures noires",
+  "frenchText": "Ninjutsu {1}{U} ({1}{U}, renvoyez en main un attaquant non-bloqué que vous contrôlez : Mettez sur le champ de bataille cette carte, engagée et attaquante, depuis votre main.)\nÀ chaque fois que le Ninja des heures noires inflige des blessures de combat à un joueur, vous pouvez piocher une carte."
+}

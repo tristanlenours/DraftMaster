@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "slug": "lutri-the-spellchaser",
+  "name": "Lutri, the Spellchaser",
+  "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
+  "manaCost": "{U-R}{U-R}{1}",
+  "cmc": 3,
+  "colors": [
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Legendary Creature — Elemental Otter",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elemental",
+    "Otter"
+  ],
+  "oracleText": "Companion — Each nonland card in your starting deck has a different name. (If this card is your chosen companion, you may put it into your hand from outside the game for {3} as a sorcery.)\nFlash\nWhen Lutri enters, if you cast it, copy target instant or sorcery spell you control. You may choose new targets for the copy.",
+  "keywords": [
+    "Companion",
+    "Flash"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/12c01a00-2128-4b6c-874f-a206eca3a756/normal.webp",
+    "localPath": "data/cards/images/cards/lutri-the-spellchaser.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/12c01a00-2128-4b6c-874f-a206eca3a756/art_crop.webp",
+    "localArtPath": "data/cards/images/art/lutri-the-spellchaser.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/12c01a00-2128-4b6c-874f-a206eca3a756/normal.webp",
+  "powerScore": {
+    "score": 32,
+    "source": "untapped",
+    "rawSourceScore": 32,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1565).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 7.8,
+    "ceilingRating": 8.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "copy-sorcery",
+        "copy",
+        "unique-type-line"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "68.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "copy-sorcery",
+        "copy",
+        "unique-type-line"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "A",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

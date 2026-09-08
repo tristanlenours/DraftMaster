@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "slug": "karn-scion-of-urza",
+  "name": "Karn, Scion of Urza",
+  "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
+  "manaCost": "{4}",
+  "cmc": 4,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Planeswalker — Karn",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Karn"
+  ],
+  "oracleText": "+1: Reveal the top two cards of your library. An opponent chooses one of them. Put that card into your hand and exile the other with a silver counter on it.\n−1: Put a card you own with a silver counter on it from exile into your hand.\n−2: Create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\"",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/07a3d9e8-8597-498b-869c-cff79e0df516/normal.webp",
+    "localPath": "data/cards/images/cards/karn-scion-of-urza.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/07a3d9e8-8597-498b-869c-cff79e0df516/art_crop.webp",
+    "localArtPath": "data/cards/images/art/karn-scion-of-urza.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/07a3d9e8-8597-498b-869c-cff79e0df516/normal.webp",
+  "powerScore": {
+    "score": 10,
+    "source": "untapped",
+    "rawSourceScore": 10,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1365).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "opponent-chooses",
+        "quadratic",
+        "repeatable-impulse"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "58.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "opponent-chooses",
+        "quadratic",
+        "repeatable-impulse"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "58.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "worldspine-wurm",
+  "name": "Worldspine Wurm",
+  "oracleId": "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
+  "scryfallId": "543d55cb-3a6b-4620-af25-10ae74ed32c4",
+  "manaCost": "{G}{G}{G}{8}",
+  "cmc": 11,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Wurm",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Wurm"
+  ],
+  "oracleText": "Trample\nWhen this creature dies, create three 5/5 green Wurm creature tokens with trample.\nWhen Worldspine Wurm is put into a graveyard from anywhere, shuffle it into its owner's library.",
+  "keywords": [
+    "Trample"
+  ],
+  "power": "15",
+  "toughness": "15",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/543d55cb-3a6b-4620-af25-10ae74ed32c4/normal.webp",
+    "localPath": "data/cards/images/worldspine-wurm.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/543d55cb-3a6b-4620-af25-10ae74ed32c4/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/543d55cb-3a6b-4620-af25-10ae74ed32c4/normal.webp",
+  "powerScore": {
+    "score": 26,
+    "source": "untapped",
+    "rawSourceScore": 26,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1484).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 7.4,
+    "ceilingRating": 8.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "splits-on-death",
+        "leaves-body-behind",
+        "death-trigger-self"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "A",
+            "winrateOrScore": "64.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

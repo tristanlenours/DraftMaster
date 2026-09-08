@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "slug": "progenitus",
+  "name": "Progenitus",
+  "oracleId": "2d7e00b6-12f0-4b03-82a6-50e3d1b5395e",
+  "scryfallId": "bcc764b0-3046-4bde-b424-c0f4e1a6169b",
+  "manaCost": "{G}{G}{R}{R}{B}{B}{U}{U}{W}{W}",
+  "cmc": 10,
+  "colors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Hydra Avatar",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Hydra",
+    "Avatar"
+  ],
+  "oracleText": "Protection from everything\nIf Progenitus would be put into a graveyard from anywhere, reveal Progenitus and shuffle it into its owner's library instead.",
+  "keywords": [
+    "Protection"
+  ],
+  "power": "10",
+  "toughness": "10",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/bcc764b0-3046-4bde-b424-c0f4e1a6169b/normal.webp",
+    "localPath": "data/cards/images/progenitus.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/bcc764b0-3046-4bde-b424-c0f4e1a6169b/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/bcc764b0-3046-4bde-b424-c0f4e1a6169b/normal.webp",
+  "powerScore": {
+    "score": 16.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1168.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1168).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.8,
+    "ceilingRating": 6.8,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:azorius_control_blink"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "unique-mana-cost",
+        "unblockable"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G",
+              "R",
+              "U",
+              "W"
+            ],
+            "archetype": "AZORIUS CONTROL BLINK",
+            "grade": "C",
+            "winrateOrScore": "48.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

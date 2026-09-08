@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "tezzeret-agent-of-bolas",
+  "name": "Tezzeret, Agent of Bolas",
+  "oracleId": "8ab7358e-a0f5-4220-8769-25177237bcdf",
+  "manaCost": "{B}{U}{2}",
+  "cmc": 4,
+  "colors": [
+    "B",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Legendary Planeswalker — Tezzeret",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Tezzeret"
+  ],
+  "oracleText": "+1: Look at the top five cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\n−1: Target artifact becomes an artifact creature with base power and toughness 5/5.\n−4: Target player loses X life and you gain X life, where X is twice the number of artifacts you control.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0f3c8470-1cc8-4383-8782-c022867d46e8/normal.webp",
+    "localPath": "data/cards/images/cards/tezzeret-agent-of-bolas.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0f3c8470-1cc8-4383-8782-c022867d46e8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/tezzeret-agent-of-bolas.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0f3c8470-1cc8-4383-8782-c022867d46e8/normal.webp",
+  "powerScore": {
+    "score": 19.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1239.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1240).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "repeatable-impulse",
+        "repeatable-card-advantage",
+        "card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "52.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

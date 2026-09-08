@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "trinket-mage",
+  "name": "Trinket Mage",
+  "oracleId": "ffc95093-24a2-4616-a44a-24788e8df9c8",
+  "manaCost": "{U}{2}",
+  "cmc": 3,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Human Wizard",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Wizard"
+  ],
+  "oracleText": "When this creature enters, you may search your library for an artifact card with mana value 1 or less, reveal that card, put it into your hand, then shuffle.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4c5a41ab-1840-4abb-a8bb-f0b1e7d1b450/normal.webp",
+    "localPath": "data/cards/images/cards/trinket-mage.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4c5a41ab-1840-4abb-a8bb-f0b1e7d1b450/art_crop.webp",
+    "localArtPath": "data/cards/images/art/trinket-mage.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4c5a41ab-1840-4abb-a8bb-f0b1e7d1b450/normal.webp",
+  "powerScore": {
+    "score": 17,
+    "source": "untapped",
+    "rawSourceScore": 17,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1368).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "tutor-artifact",
+        "tutor",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "58.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

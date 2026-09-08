@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "slug": "skyclave-apparition",
+  "name": "Skyclave Apparition",
+  "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+  "manaCost": "{W}{W}{1}",
+  "cmc": 3,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Kor Spirit",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Kor",
+    "Spirit"
+  ],
+  "oracleText": "When this creature enters, exile up to one target nonland, nontoken permanent you don't control with mana value 4 or less.\nWhen this creature leaves the battlefield, the exiled card's owner creates an X/X blue Illusion creature token, where X is the mana value of the exiled card.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/bc4b938f-a600-4d10-8030-ed60cf6ade56/normal.webp",
+    "localPath": "data/cards/images/cards/skyclave-apparition.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/bc4b938f-a600-4d10-8030-ed60cf6ade56/art_crop.webp",
+    "localArtPath": "data/cards/images/art/skyclave-apparition.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/bc4b938f-a600-4d10-8030-ed60cf6ade56/normal.webp",
+  "powerScore": {
+    "score": 40,
+    "source": "untapped",
+    "rawSourceScore": 40,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1394).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "A",
+            "winrateOrScore": "59.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

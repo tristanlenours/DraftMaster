@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "slug": "hallowed-fountain",
+  "name": "Hallowed Fountain",
+  "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
+  "manaCost": "{0}",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "U",
+    "W"
+  ],
+  "typeLine": "Land — Plains Island",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Plains",
+    "Island"
+  ],
+  "oracleText": "As CARDNAME enters, you may pay 2 life. If you don't, it enters tapped.\n{oT}: Add {oU}.\n{oT}: Add {oW}.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/b/7/b7285986-7e08-4969-86ef-452dc5bfdd9f.jpg?1784036830",
+    "localPath": "data/cards/images/cards/hallowed-fountain.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/b/7/b7285986-7e08-4969-86ef-452dc5bfdd9f.jpg?1784036830",
+    "localArtPath": "data/cards/images/art/hallowed-fountain.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/hallowed-fountain.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/hallowed-fountain.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/b/7/b7285986-7e08-4969-86ef-452dc5bfdd9f.jpg?1784036830",
+  "powerScore": {
+    "score": 44,
+    "source": "untapped",
+    "rawSourceScore": 44,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Hallowed Fountain est une carte de premier ordre offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "bomb",
+      "mana_fixing"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 3,
+      "analysis": "Carte de rang A (ELO: 1458) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "A",
+            "winrateOrScore": "63.3 %",
+            "comment": "Alignement au métagame Titou Tribal (A)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cycle-rav-shockland",
+        "shockland",
+        "life-payment"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "62.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "cycle-rav-shockland",
+        "shockland",
+        "life-payment"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Fontaine sacrée",
+  "frenchText": "({T} : Ajoutez {W} ou {U}.)\nAu moment où la Fontaine sacrée arrive sur le champ de bataille, vous pouvez payer 2 points de vie. Si vous ne le faites pas, elle arrive sur le champ de bataille engagée.",
+  "frenchImageUrl": "https://cards.scryfall.io/normal/front/f/4/f491338f-8489-4a15-b77d-f8d9cdb978ba.jpg?1782805098",
+  "localFrenchPath": "data/cards/images/fr/cards/hallowed-fountain.jpg"
+}

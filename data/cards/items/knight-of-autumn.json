@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "knight-of-autumn",
+  "name": "Knight of Autumn",
+  "oracleId": "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
+  "manaCost": "{W}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G",
+    "W"
+  ],
+  "colorIdentity": [
+    "G",
+    "W"
+  ],
+  "typeLine": "Creature — Dryad Knight",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Dryad",
+    "Knight"
+  ],
+  "oracleText": "When this creature enters, choose one —\n• Put two +1/+1 counters on this creature.\n• Destroy target artifact or enchantment.\n• You gain 4 life.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3028075c-5fc5-4942-a984-1ffcf7a8933d/normal.webp",
+    "localPath": "data/cards/images/cards/knight-of-autumn.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3028075c-5fc5-4942-a984-1ffcf7a8933d/art_crop.webp",
+    "localArtPath": "data/cards/images/art/knight-of-autumn.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3028075c-5fc5-4942-a984-1ffcf7a8933d/normal.webp",
+  "powerScore": {
+    "score": 22.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1130.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1130).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 5.7,
+    "ceilingRating": 6.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "lifegain",
+        "triggered-ability"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "C",
+            "winrateOrScore": "46.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "D",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "lifegain",
+        "triggered-ability"
+      ],
+      "scoreModifier": -10,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "D",
+            "winrateOrScore": "48.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

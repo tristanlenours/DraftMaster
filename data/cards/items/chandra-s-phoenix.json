@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "chandra-s-phoenix",
+  "name": "Chandra's Phoenix",
+  "oracleId": "65ddd04c-7207-4f6c-ae1b-c5e02a520a51",
+  "scryfallId": "c7c319cd-74ed-4ad8-ac0f-efb932bf5813",
+  "manaCost": "{R}{R}{1}",
+  "cmc": 3,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Phoenix",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Phoenix"
+  ],
+  "oracleText": "Flying\nHaste (This creature can attack and {T} as soon as it comes under your control.)\nWhenever an opponent is dealt damage by a red instant or sorcery spell you control or by a red planeswalker you control, return this card from your graveyard to your hand.",
+  "keywords": [
+    "Flying",
+    "Haste"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/c7c319cd-74ed-4ad8-ac0f-efb932bf5813/normal.webp",
+    "localPath": "data/cards/images/chandra-s-phoenix.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/c7c319cd-74ed-4ad8-ac0f-efb932bf5813/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/c7c319cd-74ed-4ad8-ac0f-efb932bf5813/normal.webp",
+  "powerScore": {
+    "score": 3.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1249.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1249).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "trigger-from-graveyard",
+        "triggered-ability",
+        "cycle-m12-r-pw-signature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "52.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

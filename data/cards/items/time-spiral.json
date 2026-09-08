@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "slug": "time-spiral",
+  "name": "Time Spiral",
+  "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
+  "manaCost": "{U}{U}{4}",
+  "cmc": 6,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Exile Time Spiral. Each player shuffles their hand and graveyard into their library, then draws seven cards. You untap up to six lands.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f3d62dbd-63db-4ac9-950f-9852627f23f2/normal.webp",
+    "localPath": "data/cards/images/cards/time-spiral.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f3d62dbd-63db-4ac9-950f-9852627f23f2/art_crop.webp",
+    "localArtPath": "data/cards/images/art/time-spiral.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f3d62dbd-63db-4ac9-950f-9852627f23f2/normal.webp",
+  "powerScore": {
+    "score": 22,
+    "source": "untapped",
+    "rawSourceScore": 22,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1528).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7.6,
+    "ceilingRating": 8.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "ritual-untap"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "66.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "woodfall-primus",
+  "name": "Woodfall Primus",
+  "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+  "manaCost": "{G}{G}{G}{5}",
+  "cmc": 8,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Treefolk Shaman",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Treefolk",
+    "Shaman"
+  ],
+  "oracleText": "Trample\nWhen this creature enters, destroy target noncreature permanent.\nPersist (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+  "keywords": [
+    "Persist",
+    "Trample"
+  ],
+  "power": "6",
+  "toughness": "6",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/43aa7e35-55ee-4e02-a8aa-ea2b267055d1/normal.webp",
+    "localPath": "data/cards/images/cards/woodfall-primus.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/43aa7e35-55ee-4e02-a8aa-ea2b267055d1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/woodfall-primus.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/43aa7e35-55ee-4e02-a8aa-ea2b267055d1/normal.webp",
+  "powerScore": {
+    "score": 34,
+    "source": "untapped",
+    "rawSourceScore": 34,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1385).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "persist",
+        "death-trigger-self",
+        "death-trigger"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "persist",
+        "death-trigger-self",
+        "death-trigger"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "A",
+            "winrateOrScore": "59.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

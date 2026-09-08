@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "slug": "gurmag-angler",
+  "name": "Gurmag Angler",
+  "oracleId": "22222222-bbbb-4000-8000-000000000003",
+  "manaCost": "{6}{B}",
+  "cmc": 7,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Zombie Fish",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Zombie",
+    "Fish"
+  ],
+  "oracleText": "Delve",
+  "keywords": [
+    "Delve"
+  ],
+  "power": "5",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Gurmag%20Angler&format=image",
+    "localPath": "data/cards/images/cards/gurmag-angler.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Gurmag%20Angler&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/gurmag-angler.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Gurmag%20Angler&format=image",
+  "powerScore": {
+    "score": 37,
+    "source": "expert_heuristic",
+    "harmonizationDegree": "fallback",
+    "confidence": 0.5,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Créature 5/5 massive déployée pour seulement 1 mana noir grâce au Delve.",
+    "roles": [
+      "beater",
+      "finisher"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 9.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.2,
+      "developing": 4.9,
+      "parity": 4.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "hugues:faeries_ninjas_tempo"
+      ],
+      "synergyTags": [
+        "delve",
+        "beater",
+        "zombie"
+      ],
+      "scoreModifier": 12,
+      "analysis": "Une 5/5 pour 1 mana noir qui échappe à Lightning Bolt et bloque tout le format. La terreur des champs de bataille Pauper.",
+      "pedagogy": {
+        "howToPlay": "Remplissez votre cimetière au T1-T2 avec des cantrips ou de la défausse (Thought Scour, Looting) pour poser la 5/5 dès le T3 avec du mana de contre ouvert.",
+        "keySynergies": [
+          {
+            "cardName": "Counterspell",
+            "synergyType": "Menace Protégée",
+            "description": "Poser Gurmag pour 1 mana et garder UU ouvert pour contrer la réponse adverse."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "B"
+            ],
+            "archetype": "Dimir Delver / Delve",
+            "grade": "S",
+            "winrateOrScore": "65.8 %",
+            "comment": "L'horloge de fin de partie la plus intimidante."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Counterspell"
+      ]
+    }
+  },
+  "frenchName": "Baudroie de Gurmag",
+  "frenchText": "Fouille (Chaque carte que vous exilez depuis votre cimetière en lançant ce sort paie {1}.)"
+}

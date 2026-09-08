@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "yavimaya-elder",
+  "name": "Yavimaya Elder",
+  "oracleId": "7fd4c452-07f2-492c-9c78-d1c6362d9eec",
+  "manaCost": "{G}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Human Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Druid"
+  ],
+  "oracleText": "When this creature dies, you may search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.\n{2}, Sacrifice this creature: Draw a card.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8f023d51-c364-4a52-a016-e9060488675b/normal.webp",
+    "localPath": "data/cards/images/cards/yavimaya-elder.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8f023d51-c364-4a52-a016-e9060488675b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/yavimaya-elder.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8f023d51-c364-4a52-a016-e9060488675b/normal.webp",
+  "powerScore": {
+    "score": 15.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1313.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1314).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:simic_ramp_value"
+      ],
+      "synergyTags": [
+        "type-addition-human",
+        "type-errata-addition",
+        "type-errata"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP VALUE",
+            "grade": "A",
+            "winrateOrScore": "55.7 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "type-addition-human",
+        "type-errata-addition",
+        "type-errata"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Vieux sage de la Yavimaya",
+  "frenchText": "Quand le Vieux sage de la Yavimaya meurt, vous pouvez chercher dans votre bibliothèque jusqu'à deux cartes de terrain de base, les révéler, les mettre dans votre main et mélanger.\n{2}, sacrifiez le Vieux sage de la Yavimaya : Piochez une carte."
+}

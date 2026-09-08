@@ -1,5 +1,10 @@
 import type { Result } from "../draft/internal/errors.ts";
-import type { PickContext, PickPolicy, PickPolicyError } from "./pick-policy.ts";
+import type {
+  PickContext,
+  PickPolicy,
+  PickPolicyDecision,
+  PickPolicyError,
+} from "./pick-policy.ts";
 
 function policyFailure(
   message: string,
@@ -15,7 +20,9 @@ function policyFailure(
   };
 }
 
-function policySuccess(value: string): Result<string, never> {
+function policySuccess(
+  value: Readonly<PickPolicyDecision>,
+): Result<Readonly<PickPolicyDecision>, never> {
   return {
     ok: true,
     value,
@@ -47,7 +54,7 @@ export function createScriptedPolicy(
   const policy: PickPolicy = {
     id,
     version,
-    choose(context: Readonly<PickContext>): Result<string, PickPolicyError> {
+    choose(context: Readonly<PickContext>): Result<Readonly<PickPolicyDecision>, PickPolicyError> {
       if (queue.length === 0) {
         return policyFailure("Scripted choices exhausted.", {
           seatId: context.seatId,
@@ -61,7 +68,7 @@ export function createScriptedPolicy(
           pickNumber: context.pickNumber,
         });
       }
-      return policySuccess(choice);
+      return policySuccess({ cardInstanceId: choice });
     },
   };
 

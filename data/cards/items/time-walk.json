@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "slug": "time-walk",
+  "name": "Time Walk",
+  "oracleId": "00000000-0000-4000-8000-000000000002",
+  "manaCost": "{1}{U}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Take an extra turn after this one.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Time%20Walk&format=image",
+    "localPath": "data/cards/images/cards/time-walk.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Time%20Walk&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/time-walk.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Time%20Walk&format=image",
+  "powerScore": {
+    "score": 53,
+    "source": "untapped",
+    "rawSourceScore": 53,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Prendre un tour supplémentaire pour seulement 2 manas.",
+    "roles": [
+      "bomb",
+      "cantrip"
+    ],
+    "floorRating": 10,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 5,
+      "parity": 5,
+      "behind": 4.8
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "extra-turn",
+        "blue-effect",
+        "power-nine"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "105.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

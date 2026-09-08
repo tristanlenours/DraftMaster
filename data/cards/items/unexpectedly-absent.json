@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "unexpectedly-absent",
+  "name": "Unexpectedly Absent",
+  "oracleId": "e8d78a83-c932-4b55-8f75-7094c672c3a9",
+  "manaCost": "{W}{W}{X}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Put target nonland permanent into its owner's library just beneath the top X cards of that library.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/eb6071cf-76bb-48f0-acbe-27b92558495a/normal.webp",
+    "localPath": "data/cards/images/cards/unexpectedly-absent.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/eb6071cf-76bb-48f0-acbe-27b92558495a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/unexpectedly-absent.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/eb6071cf-76bb-48f0-acbe-27b92558495a/normal.webp",
+  "powerScore": {
+    "score": 20,
+    "source": "untapped",
+    "rawSourceScore": 20,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1218).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "removal-tuck",
+        "tuck"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "50.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "removal-tuck",
+        "tuck"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "50.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

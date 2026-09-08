@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "electrolyze",
+  "name": "Electrolyze",
+  "oracleId": "07b222d7-24f2-4994-9004-ff6672ebe161",
+  "scryfallId": "ef42b5b2-6504-486c-aaa0-9d5e4769ba1d",
+  "manaCost": "{R}{U}{1}",
+  "cmc": 3,
+  "colors": [
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Electrolyze deals 2 damage divided as you choose among one or two targets.\nDraw a card.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ef42b5b2-6504-486c-aaa0-9d5e4769ba1d/normal.webp",
+    "localPath": "data/cards/images/electrolyze.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ef42b5b2-6504-486c-aaa0-9d5e4769ba1d/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ef42b5b2-6504-486c-aaa0-9d5e4769ba1d/normal.webp",
+  "powerScore": {
+    "score": 20.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1308.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1309).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:izzet_spells_tempo"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "single-english-word-name",
+        "card-names"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "U"
+            ],
+            "archetype": "IZZET SPELLS TEMPO",
+            "grade": "B",
+            "winrateOrScore": "55.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

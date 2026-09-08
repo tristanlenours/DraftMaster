@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "endurance",
+  "name": "Endurance",
+  "oracleId": "c85d824b-c190-4d04-ab99-918ad0e6516c",
+  "manaCost": "{G}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Elemental Incarnation",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elemental",
+    "Incarnation"
+  ],
+  "oracleText": "Flash\nReach\nWhen this creature enters, up to one target player puts all the cards from their graveyard on the bottom of their library in a random order.\nEvoke—Exile a green card from your hand.",
+  "keywords": [
+    "Reach",
+    "Evoke",
+    "Flash"
+  ],
+  "power": "3",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/eb0e0404-4846-4891-acfa-bd0951ecf9c6/normal.webp",
+    "localPath": "data/cards/images/cards/endurance.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/eb0e0404-4846-4891-acfa-bd0951ecf9c6/art_crop.webp",
+    "localArtPath": "data/cards/images/art/endurance.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/eb0e0404-4846-4891-acfa-bd0951ecf9c6/normal.webp",
+  "powerScore": {
+    "score": 19,
+    "source": "untapped",
+    "rawSourceScore": 19,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1262).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "restock-to-bottom"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "restock-to-bottom"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

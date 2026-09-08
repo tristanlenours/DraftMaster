@@ -390,7 +390,7 @@ describe("Draft Report Audit (Independent Verification without check-invariants)
         if (!choiceRes.ok) throw new Error("Bot choice failed");
         return {
           seatId,
-          cardInstanceId: choiceRes.value,
+          cardInstanceId: choiceRes.value.cardInstanceId,
           source: {
             kind: "policy" as const,
             policyId: bot.id,

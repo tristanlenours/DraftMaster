@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "river-boa",
+  "name": "River Boa",
+  "oracleId": "86187aed-77ce-4b2d-aab0-0a8f807a9451",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Snake",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Snake"
+  ],
+  "oracleText": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\n{G}: Regenerate this creature.",
+  "keywords": [
+    "Landwalk",
+    "Regenerate",
+    "Islandwalk"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/edfbf056-c3b7-40e9-8e2b-333585978ac9/normal.webp",
+    "localPath": "data/cards/images/cards/river-boa.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/edfbf056-c3b7-40e9-8e2b-333585978ac9/art_crop.webp",
+    "localArtPath": "data/cards/images/art/river-boa.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/edfbf056-c3b7-40e9-8e2b-333585978ac9/normal.webp",
+  "powerScore": {
+    "score": 6.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1241.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1241).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "regenerates-self",
+        "activated-ability",
+        "evasion"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.1 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Boa des rivières",
+  "frenchText": "Traversée des îles\n{G} : Régénérez le Boa des rivières."
+}

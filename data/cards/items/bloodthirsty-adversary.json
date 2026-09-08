@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "bloodthirsty-adversary",
+  "name": "Bloodthirsty Adversary",
+  "oracleId": "3b943c3e-1f18-4997-b6d0-28ef75aed88e",
+  "manaCost": "{R}{1}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Vampire",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Vampire"
+  ],
+  "oracleText": "Haste\nWhen this creature enters, you may pay {2}{R} any number of times. When you pay this cost one or more times, put that many +1/+1 counters on this creature, then exile up to that many target instant and/or sorcery cards with mana value 3 or less from your graveyard and copy them. You may cast any number of the copies without paying their mana costs.",
+  "keywords": [
+    "Haste"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/196e21ed-6523-40a5-9d53-5864c7dca2cf/normal.webp",
+    "localPath": "data/cards/images/cards/bloodthirsty-adversary.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/196e21ed-6523-40a5-9d53-5864c7dca2cf/art_crop.webp",
+    "localArtPath": "data/cards/images/art/bloodthirsty-adversary.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/196e21ed-6523-40a5-9d53-5864c7dca2cf/normal.webp",
+  "powerScore": {
+    "score": 12,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1269.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1270).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "reflexive-trigger",
+        "triggered-ability",
+        "copy-sorcery"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

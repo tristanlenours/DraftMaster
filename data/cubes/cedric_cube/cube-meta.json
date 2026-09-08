@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "cedric_cube",
+  "name": "Cédric's High-Power Cube (Strobinellus)",
+  "owner": "cedric",
+  "coverImage": "data/cubes/cedric_cube/cedricCube.jpg",
+  "activeSnapshotId": "cedric_cube@2026-03-01.1",
+  "cardCount": 720,
+  "powerTier": "vintage_unpowered",
+  "pacing": "midrange_attrition",
+  "description": "Un environnement Vintage Non-Powered de 720 cartes célébrant le jeu interactif de haut niveau : réanimation, monstres sneak/show, planeswalkers et synergies de guilde sans la brutalité non interactive du Power 9.",
+  "fundamentalTurn": {
+    "targetTurn": 3.5,
+    "criticalWindow": "T3-T4",
+    "pacingDescription": "Format de très haut niveau interactif sans Power 9. L'accélération sélective (Mana Vault, Mox Diamond, Grim Monolith) et les bilands parfaits permettent aux decks agressifs et réanimateurs d'imposer une horloge dès le T3, tandis que les jeux midrange et contrôle stabilisent au T4 via des sweepers et des planeswalkers décisifs.",
+    "deckExpectation": "Un deck compétitif doit développer des interactions à bas coût dès le T1/T2 (Thoughtseize, Swords to Plowshares, Lightning Bolt, Mana Drain) pour contenir l'agression ou protéger son propre plan proactif avant le tour pivot T4."
+  },
+  "technicalAxes": {
+    "speedIndex": 7.8,
+    "interactionDensityPercentage": 25,
+    "averageCmcEstimate": 3.2,
+    "fixingQuality": "fast_fetches_duals",
+    "comboPotential": "high_synergy_engine"
+  },
+  "philosophy": "Le Cube de Cédric (Strobinellus) privilégie la profondeur stratégique et l'équilibre interactif. En écartant le Power 9 au profit d'accélérateurs sélectifs et de bilands parfaits, il permet des affrontements spectaculaires où le Tour Pivot (T3.5 - T4) récompense l'anticipation, les échanges 2-pour-1 et les synergies construites.",
+  "dominantMechanics": [
+    "Reanimator",
+    "Sneak and Show",
+    "Tinker and Artifact Ramp",
+    "Planeswalkers and Superfriends",
+    "Midrange Value and Attrition",
+    "Equipment and Swords",
+    "Man-Lands"
+  ],
+  "fixingDensityPercentage": 9.7,
+  "archetypes": [
+    {
+      "id": "cedric:azorius_control_blink",
+      "name": "Azorius Control and Blink",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "category": "control",
+      "description": "Verrouillage de table par contre-sorts et sweepers, rentabilisé par le clignement de créatures à haute valeur ajoutée.",
+      "gameplan": "Contrôler le tempo tôt avec Counterspell et Mana Drain, nettoyer avec Supreme Verdict, puis clore via Teferi, Restoration Angel ou Consecrated Sphinx.",
+      "keyCards": [
+        "ae7604bb-4818-45a3-960c-cf3d83f15964",
+        "0230de18-8d15-4cfa-9d42-7ccddd9f9570",
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+      ],
+      "supportCards": [
+        "3979067a-9c68-443d-a85f-d9f07be880b9"
+      ],
+      "recommendedCreatureCount": [
+        8,
+        14
+      ],
+      "recommendedRemovalCount": [
+        6,
+        10
+      ]
+    },
+    {
+      "id": "cedric:dimir_reanimator",
+      "name": "Dimir Reanimator and Tempo",
+      "primaryColors": [
+        "U",
+        "B"
+      ],
+      "category": "combo",
+      "description": "Mise rapide de monstres terrifiants au cimetière et réanimation économique dès les premiers tours.",
+      "gameplan": "Défausser ou meuler Griselbrand ou Archon of Cruelty avec Entomb ou Thoughtseize, puis réanimer avec Reanimate ou Shallow Grave.",
+      "keyCards": [
+        "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+        "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+        "f759d112-76db-4091-a22b-b9f19ab6fa5f"
+      ],
+      "supportCards": [
+        "11111111-aaaa-4000-8000-000000000002"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        15
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "cedric:rakdos_aristocrats",
+      "name": "Rakdos Aristocrats and Attrition",
+      "primaryColors": [
+        "B",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Sacrifices récursifs, défausse agressive et finisseurs directs pour épuiser l'adversaire.",
+      "gameplan": "Poser Bloodghast et Gobelins, perturber la main adverse avec Thoughtseize et Blightning, et convertir le plateau avec Daretti.",
+      "keyCards": [
+        "add0f7e7-8990-4fd1-8ac7-8115f7802912",
+        "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
+        "e97f9c2b-b41e-4f36-9245-77c0ac125647"
+      ],
+      "supportCards": [
+        "4457ed35-7c10-48c8-9776-456485fdf070"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        18
+      ],
+      "recommendedRemovalCount": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "cedric:gruul_stompy_sneak",
+      "name": "Gruul Stompy and Monster Cheat",
+      "primaryColors": [
+        "R",
+        "G"
+      ],
+      "category": "ramp",
+      "description": "Accélération de mana brutale et projection immédiate de créatures gigantesques via Sneak Attack ou Natural Order.",
+      "gameplan": "Ramper avec Wood Elves ou Sylvan Caryatid, poser Minsc and Boo ou activer Sneak Attack pour envoyer Worldspine Wurm.",
+      "keyCards": [
+        "3a310554-3f69-4158-bb94-9d6965c7125a",
+        "3f0c9466-5ab9-4205-a84f-b4b27b5a678e",
+        "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d"
+      ],
+      "supportCards": [
+        "13d4c46b-c2d6-44cc-a252-4a991d471854"
+      ],
+      "recommendedCreatureCount": [
+        15,
+        20
+      ],
+      "recommendedRemovalCount": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "cedric:selesnya_tokens_midrange",
+      "name": "Selesnya Midrange and Hatebears",
+      "primaryColors": [
+        "G",
+        "W"
+      ],
+      "category": "midrange",
+      "description": "Déploiement de créatures résilientes, protection des menaces et amplification par le nombre.",
+      "gameplan": "Protéger ses attaquants avec Giver of Runes, déployer Voice of Resurgence et Knight of Autumn pour dominer le combat.",
+      "keyCards": [
+        "5cbbb3f3-63a4-4983-81ea-8c405b10e63f",
+        "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
+        "4ec85850-f274-4c0c-9a03-0488267caa14"
+      ],
+      "supportCards": [
+        "13d4c46b-c2d6-44cc-a252-4a991d471854"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        21
+      ],
+      "recommendedRemovalCount": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "cedric:orzhov_attrition_tokens",
+      "name": "Orzhov Attrition and Tokens",
+      "primaryColors": [
+        "W",
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Contrôle à l'usure combinant removal inconditionnel, esprits volants et récursion de menaces à bas coût.",
+      "gameplan": "Éliminer toute menace avec Vindicate, peupler les airs avec Lingering Souls ou Sorin, et récurer avec Lurrus.",
+      "keyCards": [
+        "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
+        "5c780dda-ee76-482a-a610-53c321c4fdec",
+        "3bc757c1-3adb-4321-8832-8e1cc9e687f7"
+      ],
+      "supportCards": [
+        "4ec85850-f274-4c0c-9a03-0488267caa14"
+      ],
+      "recommendedCreatureCount": [
+        12,
+        17
+      ],
+      "recommendedRemovalCount": [
+        5,
+        9
+      ]
+    },
+    {
+      "id": "cedric:izzet_spells_tempo",
+      "name": "Izzet Spells and Tempo",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "category": "midrange",
+      "description": "Enchaînement de sorts à faible coût, pioche impulsive, gestion de tempo et vol d'artefacts.",
+      "gameplan": "Gérer les créatures au blast avec Lightning Bolt et Electrolyze, générer du card advantage avec Dack Fayden et Fact or Fiction.",
+      "keyCards": [
+        "9d4b1e44-3c66-4b1b-8a1d-308aa4f841f8",
+        "07b222d7-24f2-4994-9004-ff6672ebe161",
+        "4457ed35-7c10-48c8-9776-456485fdf070"
+      ],
+      "supportCards": [
+        "3979067a-9c68-443d-a85f-d9f07be880b9"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        15
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "cedric:golgari_rock_graveyard",
+      "name": "Golgari The Rock and Graveyard",
+      "primaryColors": [
+        "B",
+        "G"
+      ],
+      "category": "midrange",
+      "description": "Destruction chirurgicale permanente, menaces polyvalentes et exploitation du cimetière comme ressource.",
+      "gameplan": "Détruire les permanents clés avec Abrupt Decay et Assassin's Trophy, alimenter Deathrite Shaman et régner avec Grist.",
+      "keyCards": [
+        "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+        "1c747fe2-289e-492a-a846-aa77707e2dc3",
+        "0efb0d7e-dea0-4817-a243-15066e9ef333"
+      ],
+      "supportCards": [
+        "13d4c46b-c2d6-44cc-a252-4a991d471854"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        19
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "cedric:boros_aggro_equipment",
+      "name": "Boros Aggro and Equipment",
+      "primaryColors": [
+        "R",
+        "W"
+      ],
+      "category": "aggro",
+      "description": "Agression ultra-rapide sur courbe basse armée d'équipements mirrans et de blasts dévastateurs.",
+      "gameplan": "Dérouler des attaquants rapides, équiper une Sword of Fire and Ice et achever au blast avec Forth Eorlingas! et Lightning Helix.",
+      "keyCards": [
+        "35807c14-4647-482f-9ba1-6d640fd5e8d8",
+        "800c258a-cfc4-4a54-a667-065ea8dea69e",
+        "2ccdc60a-49a9-44b9-a7af-0ebf18b26785"
+      ],
+      "supportCards": [
+        "4ec85850-f274-4c0c-9a03-0488267caa14"
+      ],
+      "recommendedCreatureCount": [
+        16,
+        21
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "cedric:simic_ramp_goodstuff",
+      "name": "Simic Ramp and Big Mana",
+      "primaryColors": [
+        "G",
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Accélération mana continue vers des menaces intraitables et domination totale du champ de bataille.",
+      "gameplan": "Poser Oko T2 via Sylvan Caryatid ou mana rock, développer d'immenses Hydroid Krasis et verrouiller aux contres.",
+      "keyCards": [
+        "60c60923-ff1b-43f7-8768-731499fcffc9",
+        "6bd872b2-5c40-4e11-9a7f-0136a51b0642",
+        "13d4c46b-c2d6-44cc-a252-4a991d471854"
+      ],
+      "supportCards": [
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+      ],
+      "recommendedCreatureCount": [
+        13,
+        18
+      ],
+      "recommendedRemovalCount": [
+        3,
+        6
+      ]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 0.5,
+    "comboSynergyMultiplier": 1.8,
+    "fixingPriorityBonus": 2,
+    "curveStrictness": 1.8
+  }
+}

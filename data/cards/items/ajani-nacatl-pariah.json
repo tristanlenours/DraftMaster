@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "ajani-nacatl-pariah",
+  "name": "Ajani, Nacatl Pariah",
+  "oracleId": "00000000-0000-4000-8000-000000000004",
+  "manaCost": "{1}{W}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W",
+    "R"
+  ],
+  "typeLine": "Legendary Creature — Cat Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Cat",
+    "Warrior"
+  ],
+  "oracleText": "When Ajani enters the battlefield, create a 2/1 white Cat creature token.\nWhenever one or more other Cats you control die, exile Ajani, then return him to the battlefield transformed under his owner's control.",
+  "keywords": [
+    "Transform"
+  ],
+  "power": "1",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Ajani%2C%20Nacatl%20Pariah&format=image",
+    "localPath": "data/cards/images/cards/ajani-nacatl-pariah.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Ajani%2C%20Nacatl%20Pariah&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/ajani-nacatl-pariah.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Ajani%2C%20Nacatl%20Pariah&format=image",
+  "powerScore": {
+    "score": 50,
+    "source": "untapped",
+    "rawSourceScore": 50,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Créature bicolore 2-en-1 ultra-agressive se transformant en arpenteur rouge surpuissant.",
+    "roles": [
+      "bomb",
+      "beater",
+      "engine"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 9.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 4.8,
+      "parity": 4.6,
+      "behind": 4
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "reflexive-trigger",
+        "triggered-ability",
+        "sweeper-one-sided"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "S",
+            "winrateOrScore": "74.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

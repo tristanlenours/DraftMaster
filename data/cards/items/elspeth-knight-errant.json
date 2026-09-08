@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "slug": "elspeth-knight-errant",
+  "name": "Elspeth, Knight-Errant",
+  "oracleId": "eab0d8b9-c66f-402f-b259-f46f15cefd78",
+  "manaCost": "{W}{W}{2}",
+  "cmc": 4,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Legendary Planeswalker — Elspeth",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Elspeth"
+  ],
+  "oracleText": "+1: Create a 1/1 white Soldier creature token.\n+1: Target creature gets +3/+3 and gains flying until end of turn.\n−8: You get an emblem with \"Artifacts, creatures, enchantments, and lands you control have indestructible.\"",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1b350e59-376b-46ab-a34a-cc124eca5fba/normal.webp",
+    "localPath": "data/cards/images/cards/elspeth-knight-errant.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1b350e59-376b-46ab-a34a-cc124eca5fba/art_crop.webp",
+    "localArtPath": "data/cards/images/art/elspeth-knight-errant.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1b350e59-376b-46ab-a34a-cc124eca5fba/normal.webp",
+  "powerScore": {
+    "score": 22.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1375.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1376).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "gives-flying",
+        "gives-evasion",
+        "keyword-anthem"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "58.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "gives-flying",
+        "gives-evasion",
+        "keyword-anthem"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "A",
+            "winrateOrScore": "58.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

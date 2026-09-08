@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "figure-of-destiny",
+  "name": "Figure of Destiny",
+  "oracleId": "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
+  "manaCost": "{R-W}",
+  "cmc": 1,
+  "colors": [
+    "R",
+    "W"
+  ],
+  "colorIdentity": [
+    "R",
+    "W"
+  ],
+  "typeLine": "Creature — Kithkin",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Kithkin"
+  ],
+  "oracleText": "{R/W}: This creature becomes a Kithkin Spirit with base power and toughness 2/2.\n{R/W}{R/W}{R/W}: If this creature is a Spirit, it becomes a Kithkin Spirit Warrior with base power and toughness 4/4.\n{R/W}{R/W}{R/W}{R/W}{R/W}{R/W}: If this creature is a Warrior, it becomes a Kithkin Spirit Warrior Avatar with base power and toughness 8/8, flying, and first strike.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0da69523-cece-425a-b08a-fb27fac29374/normal.webp",
+    "localPath": "data/cards/images/cards/figure-of-destiny.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0da69523-cece-425a-b08a-fb27fac29374/art_crop.webp",
+    "localArtPath": "data/cards/images/art/figure-of-destiny.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0da69523-cece-425a-b08a-fb27fac29374/normal.webp",
+  "powerScore": {
+    "score": 18,
+    "source": "untapped",
+    "rawSourceScore": 18,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1269).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "pseudo-leveler",
+        "shapechange",
+        "type-change"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:boros_aggro_equipment"
+      ],
+      "synergyTags": [
+        "pseudo-leveler",
+        "shapechange",
+        "type-change"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "W"
+            ],
+            "archetype": "BOROS AGGRO EQUIPMENT",
+            "grade": "B",
+            "winrateOrScore": "53.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

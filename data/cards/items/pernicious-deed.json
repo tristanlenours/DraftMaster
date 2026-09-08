@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "slug": "pernicious-deed",
+  "name": "Pernicious Deed",
+  "oracleId": "62e44e0d-eda0-4275-8367-49dab9a087c3",
+  "manaCost": "{G}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Enchantment",
+  "types": [
+    "Enchantment"
+  ],
+  "subtypes": [],
+  "oracleText": "{X}, Sacrifice this enchantment: Destroy each artifact, creature, and enchantment with mana value X or less.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7ccb3e75-dc82-4dab-be96-38da1c3f20e6/normal.webp",
+    "localPath": "data/cards/images/cards/pernicious-deed.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7ccb3e75-dc82-4dab-be96-38da1c3f20e6/art_crop.webp",
+    "localArtPath": "data/cards/images/art/pernicious-deed.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7ccb3e75-dc82-4dab-be96-38da1c3f20e6/normal.webp",
+  "powerScore": {
+    "score": 17.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1262.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1263).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "cycle-a25-r-two-color",
+        "cycle",
+        "mana-value-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "cycle-a25-r-two-color",
+        "cycle",
+        "mana-value-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

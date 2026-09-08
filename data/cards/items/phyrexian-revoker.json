@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "slug": "phyrexian-revoker",
+  "name": "Phyrexian Revoker",
+  "oracleId": "786b3657-b595-4b38-83f2-d40915e51e2b",
+  "manaCost": "{2}",
+  "cmc": 2,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Phyrexian Horror",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Phyrexian",
+    "Horror"
+  ],
+  "oracleText": "As this creature enters, choose a nonland card name.\nActivated abilities of sources with the chosen name can't be activated.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7c7bec21-61b0-4e72-848b-82f38e1910e0/normal.webp",
+    "localPath": "data/cards/images/cards/phyrexian-revoker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7c7bec21-61b0-4e72-848b-82f38e1910e0/art_crop.webp",
+    "localArtPath": "data/cards/images/art/phyrexian-revoker.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7c7bec21-61b0-4e72-848b-82f38e1910e0/normal.webp",
+  "powerScore": {
+    "score": 3.8,
+    "source": "untapped",
+    "rawSourceScore": 3.8,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1263).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "prevent-activation",
+        "hate-named",
+        "name-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "prevent-activation",
+        "hate-named",
+        "name-matters"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "53.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

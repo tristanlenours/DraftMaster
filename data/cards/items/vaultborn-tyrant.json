@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "vaultborn-tyrant",
+  "name": "Vaultborn Tyrant",
+  "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
+  "manaCost": "{G}{G}{5}",
+  "cmc": 7,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Dinosaur",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Dinosaur"
+  ],
+  "oracleText": "Trample\nWhenever this creature or another creature you control with power 4 or greater enters, you gain 3 life and draw a card.\nWhen this creature dies, if it's not a token, create a token that's a copy of it, except it's an artifact in addition to its other types.",
+  "keywords": [
+    "Trample"
+  ],
+  "power": "6",
+  "toughness": "6",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/c1f0544c-0124-497c-a8f1-5d5fb959ca39/normal.webp",
+    "localPath": "data/cards/images/cards/vaultborn-tyrant.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/c1f0544c-0124-497c-a8f1-5d5fb959ca39/art_crop.webp",
+    "localArtPath": "data/cards/images/art/vaultborn-tyrant.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/c1f0544c-0124-497c-a8f1-5d5fb959ca39/normal.webp",
+  "powerScore": {
+    "score": 38,
+    "source": "untapped",
+    "rawSourceScore": 38,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1414).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "60.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

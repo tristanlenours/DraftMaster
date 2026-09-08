@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "orcish-hellraiser",
+  "name": "Orcish Hellraiser",
+  "oracleId": "dd21cbaa-7537-414b-b720-3c7d6fc7c93d",
+  "manaCost": "{R}{1}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Orc Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Orc",
+    "Warrior"
+  ],
+  "oracleText": "Echo {R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature dies, it deals 2 damage to target player or planeswalker.",
+  "keywords": [
+    "Echo"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/56ea32e5-b164-4a8d-9312-c35ae5cd8b2a/normal.webp",
+    "localPath": "data/cards/images/cards/orcish-hellraiser.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/56ea32e5-b164-4a8d-9312-c35ae5cd8b2a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/orcish-hellraiser.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/56ea32e5-b164-4a8d-9312-c35ae5cd8b2a/normal.webp",
+  "powerScore": {
+    "score": 10.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1217.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1218).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "distinct-echo-cost"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "50.9 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "distinct-echo-cost"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "50.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Godailleuse orque",
+  "frenchText": "Écho {R} (Au début de votre entretien, si ce permanent est passé sous votre contrôle depuis le début de votre dernier entretien, sacrifiez-le à moins que vous ne payiez son coût d'écho.)\nQuand la Godailleuse orque meurt, elle inflige 2 blessures à une cible, joueur ou planeswalker."
+}

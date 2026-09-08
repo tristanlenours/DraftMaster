@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "slug": "gilded-goose",
+  "name": "Gilded Goose",
+  "oracleId": "f2f09757-1931-47c0-a5f0-39280445489d",
+  "manaCost": "{G}",
+  "cmc": 1,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Bird",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Bird"
+  ],
+  "oracleText": "Flying\nWhen this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\n{1}{G}, {T}: Create a Food token.\n{T}, Sacrifice a Food: Add one mana of any color.",
+  "keywords": [
+    "Flying",
+    "Food"
+  ],
+  "power": "0",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/226b1cc4-44be-4d8d-963a-93c84b09c7f0/normal.webp",
+    "localPath": "data/cards/images/cards/gilded-goose.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/226b1cc4-44be-4d8d-963a-93c84b09c7f0/art_crop.webp",
+    "localArtPath": "data/cards/images/art/gilded-goose.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/226b1cc4-44be-4d8d-963a-93c84b09c7f0/normal.webp",
+  "powerScore": {
+    "score": 33.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1430.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1431).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "repeatable-food",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "61.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "repeatable-food",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "61.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

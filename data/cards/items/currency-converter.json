@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "slug": "currency-converter",
+  "name": "Currency Converter",
+  "oracleId": "981298e6-ddee-49c0-9377-f47f019b4138",
+  "manaCost": "{1}",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "Whenever you discard a card, you may exile that card from your graveyard.\n{2}, {T}: Draw a card, then discard a card.\n{T}: Put a card exiled with this artifact into its owner's graveyard. If it's a land card, create a Treasure token. If it's a nonland card, create a 2/2 black Rogue creature token.",
+  "keywords": [
+    "Treasure"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/06ab6802-da97-4ad8-95ee-2362b2c03975/normal.webp",
+    "localPath": "data/cards/images/cards/currency-converter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/06ab6802-da97-4ad8-95ee-2362b2c03975/art_crop.webp",
+    "localArtPath": "data/cards/images/art/currency-converter.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/06ab6802-da97-4ad8-95ee-2362b2c03975/normal.webp",
+  "powerScore": {
+    "score": 19,
+    "source": "untapped",
+    "rawSourceScore": 19,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1479).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7.4,
+    "ceilingRating": 8.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "ramp",
+        "repeatable-treasures",
+        "repeatable-artifact-tokens"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "64.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

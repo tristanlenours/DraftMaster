@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "circuit-mender",
+  "name": "Circuit Mender",
+  "oracleId": "1665ca9f-176d-40f1-a4e9-42da4f1236e9",
+  "manaCost": "{3}",
+  "cmc": 3,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Insect",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Insect"
+  ],
+  "oracleText": "When this creature enters, you gain 2 life.\nWhen this creature leaves the battlefield, draw a card.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/defaeb68-3f8a-4740-b13f-8c71c7e9c8b4/normal.webp",
+    "localPath": "data/cards/images/cards/circuit-mender.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/defaeb68-3f8a-4740-b13f-8c71c7e9c8b4/art_crop.webp",
+    "localArtPath": "data/cards/images/art/circuit-mender.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/defaeb68-3f8a-4740-b13f-8c71c7e9c8b4/normal.webp",
+  "powerScore": {
+    "score": 6.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1318.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1319).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "55.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

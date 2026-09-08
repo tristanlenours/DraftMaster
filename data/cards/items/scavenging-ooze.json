@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "slug": "scavenging-ooze",
+  "name": "Scavenging Ooze",
+  "oracleId": "1ff25f67-36a7-4cfa-a2b1-2135b5b6fb67",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Ooze",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Ooze"
+  ],
+  "oracleText": "{G}: Exile target card from a graveyard. If it was a creature card, put a +1/+1 counter on this creature and you gain 1 life.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0a91920a-7de3-4e9b-9cce-ff43ce0157b8/normal.webp",
+    "localPath": "data/cards/images/cards/scavenging-ooze.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0a91920a-7de3-4e9b-9cce-ff43ce0157b8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/scavenging-ooze.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0a91920a-7de3-4e9b-9cce-ff43ce0157b8/normal.webp",
+  "powerScore": {
+    "score": 25.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1339.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1339).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "hate-graveyard"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "57.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "hate-graveyard"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "57.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

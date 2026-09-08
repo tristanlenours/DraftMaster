@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "grim-harvest",
+  "name": "Grim Harvest",
+  "oracleId": "231ca538-b277-4c12-979f-57640a0e87f0",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Return target creature card from your graveyard to your hand.\nRecover {2}{B} (When a creature is put into your graveyard from the battlefield, you may pay {2}{B}. If you do, return this card from your graveyard to your hand. Otherwise, exile this card.)",
+  "keywords": [
+    "Recover"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/bdb1972f-2ef7-4fe2-8c8e-ab07f48a3176/normal.webp",
+    "localPath": "data/cards/images/cards/grim-harvest.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/bdb1972f-2ef7-4fe2-8c8e-ab07f48a3176/art_crop.webp",
+    "localArtPath": "data/cards/images/art/grim-harvest.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/bdb1972f-2ef7-4fe2-8c8e-ab07f48a3176/normal.webp",
+  "powerScore": {
+    "score": 4.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1247,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1247).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "death-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "52.4 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Sinistre récolte",
+  "frenchText": "Renvoyez une carte de créature ciblée depuis votre cimetière dans votre main.\nRecouvrement {2}{B} (Quand une créature est mise dans votre cimetière depuis le jeu, vous pouvez payer {2}{B}. Si vous faites ainsi, renvoyez cette carte dans votre main depuis votre cimetière. Sinon, retirez cette carte de la partie.)"
+}

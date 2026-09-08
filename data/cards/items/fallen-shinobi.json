@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "slug": "fallen-shinobi",
+  "name": "Fallen Shinobi",
+  "oracleId": "4fc5f871-a809-4a4a-adfb-eb4cd52837c8",
+  "manaCost": "{B}{U}{3}",
+  "cmc": 5,
+  "colors": [
+    "B",
+    "U"
+  ],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Creature — Zombie Ninja",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Zombie",
+    "Ninja"
+  ],
+  "oracleText": "Ninjutsu {2}{U}{B} ({2}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nWhenever this creature deals combat damage to a player, that player exiles the top two cards of their library. Until end of turn, you may play those cards without paying their mana costs.",
+  "keywords": [
+    "Ninjutsu"
+  ],
+  "power": "5",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/900c9dfd-ece1-4b09-a801-0fa05e1994b9/normal.webp",
+    "localPath": "data/cards/images/cards/fallen-shinobi.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/900c9dfd-ece1-4b09-a801-0fa05e1994b9/art_crop.webp",
+    "localArtPath": "data/cards/images/art/fallen-shinobi.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/900c9dfd-ece1-4b09-a801-0fa05e1994b9/normal.webp",
+  "powerScore": {
+    "score": 40,
+    "source": "untapped",
+    "rawSourceScore": 40,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1303).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "ingest",
+        "mill-opponent"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "55.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

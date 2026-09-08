@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "vampiric-tutor",
+  "name": "Vampiric Tutor",
+  "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
+  "manaCost": "{B}",
+  "cmc": 1,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Search your library for a card, then shuffle and put that card on top. You lose 2 life.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3c04bbbe-cae0-4ac5-8bd3-ecc95a2b6bd8/normal.webp",
+    "localPath": "data/cards/images/cards/vampiric-tutor.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3c04bbbe-cae0-4ac5-8bd3-ecc95a2b6bd8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/vampiric-tutor.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3c04bbbe-cae0-4ac5-8bd3-ecc95a2b6bd8/normal.webp",
+  "powerScore": {
+    "score": 37,
+    "source": "untapped",
+    "rawSourceScore": 37,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1688).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 8.4,
+    "ceilingRating": 9.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "tutor-to-top",
+        "top-deck-manipulation",
+        "library-manipulation"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "74.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "tutor-to-top",
+        "top-deck-manipulation",
+        "library-manipulation"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

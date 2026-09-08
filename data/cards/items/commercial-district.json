@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "commercial-district",
+  "name": "Commercial District",
+  "oracleId": "b33656ae-3473-4223-845f-f9147f87678b",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "G",
+    "R"
+  ],
+  "typeLine": "Land — Mountain Forest",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Mountain",
+    "Forest"
+  ],
+  "oracleText": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "G",
+    "R"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/3a9889ab-3527-414e-9c30-539f0608bd2b/normal.webp",
+    "localPath": "data/cards/images/cards/commercial-district.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/3a9889ab-3527-414e-9c30-539f0608bd2b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/commercial-district.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/3a9889ab-3527-414e-9c30-539f0608bd2b/normal.webp",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1350).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "57.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

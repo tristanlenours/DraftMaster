@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "slug": "shallow-grave",
+  "name": "Shallow Grave",
+  "oracleId": "9843d8a6-bcbf-40c2-8c41-316e97db9c62",
+  "scryfallId": "d5c782cc-c951-4c6f-a93f-774ae6c1c214",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Return the top creature card of your graveyard to the battlefield. That creature gains haste until end of turn. Exile it at the beginning of the next end step.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d5c782cc-c951-4c6f-a93f-774ae6c1c214/normal.webp",
+    "localPath": "data/cards/images/shallow-grave.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d5c782cc-c951-4c6f-a93f-774ae6c1c214/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d5c782cc-c951-4c6f-a93f-774ae6c1c214/normal.webp",
+  "powerScore": {
+    "score": 31.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1431.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1431).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "build_around",
+      "tier": "A",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "temporary-reanimation",
+        "graveyard-order-matters",
+        "deprecated-mechanics"
+      ],
+      "scoreModifier": 10,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "A",
+            "winrateOrScore": "61.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

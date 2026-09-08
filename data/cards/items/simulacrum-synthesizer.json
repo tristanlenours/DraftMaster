@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "simulacrum-synthesizer",
+  "name": "Simulacrum Synthesizer",
+  "oracleId": "eb7a1f21-a66d-415b-8520-710b44890bb6",
+  "manaCost": "{U}{2}",
+  "cmc": 3,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "When this artifact enters, scry 2.\nWhenever another artifact you control with mana value 3 or greater enters, create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\"",
+  "keywords": [
+    "Scry"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/28a11489-11c5-4018-aab8-c9d036638414/normal.webp",
+    "localPath": "data/cards/images/cards/simulacrum-synthesizer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/28a11489-11c5-4018-aab8-c9d036638414/art_crop.webp",
+    "localArtPath": "data/cards/images/art/simulacrum-synthesizer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/28a11489-11c5-4018-aab8-c9d036638414/normal.webp",
+  "powerScore": {
+    "score": 17.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1433.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1433).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "artifactfall",
+        "thingfall",
+        "synergy-artifact"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "61.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

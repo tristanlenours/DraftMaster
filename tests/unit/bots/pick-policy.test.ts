@@ -40,8 +40,8 @@ describe("SeededRandomPolicy", () => {
     expect(choiceA1.ok).toBe(true);
     expect(choiceB1.ok).toBe(true);
     if (choiceA1.ok && choiceB1.ok) {
-      expect(choiceA1.value).toBe(choiceB1.value);
-      expect(context.currentBooster).toContain(choiceA1.value);
+      expect(choiceA1.value).toEqual(choiceB1.value);
+      expect(context.currentBooster).toContain(choiceA1.value.cardInstanceId);
     }
   });
 
@@ -86,8 +86,8 @@ describe("ScriptedPolicy", () => {
     const first = policy.choose(context);
     const second = policy.choose(context);
 
-    expect(first).toEqual({ ok: true, value: "card-2" });
-    expect(second).toEqual({ ok: true, value: "card-1" });
+    expect(first).toEqual({ ok: true, value: { cardInstanceId: "card-2" } });
+    expect(second).toEqual({ ok: true, value: { cardInstanceId: "card-1" } });
   });
 
   it("fails with POLICY_FAILED when scripted choices are exhausted", () => {
@@ -109,6 +109,9 @@ describe("ScriptedPolicy", () => {
 
     const result = policy.choose(context);
 
-    expect(result).toEqual({ ok: true, value: "illegal-card-not-in-booster" });
+    expect(result).toEqual({
+      ok: true,
+      value: { cardInstanceId: "illegal-card-not-in-booster" },
+    });
   });
 });

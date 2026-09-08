@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "slug": "burst-lightning",
+  "name": "Burst Lightning",
+  "oracleId": "ac2086fe-98ee-4280-9c7c-c5c2d6548a8b",
+  "manaCost": "{R}",
+  "cmc": 1,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead.",
+  "keywords": [
+    "Kicker"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/2dc16614-5cf8-444d-a5ae-cac25018af68/normal.webp",
+    "localPath": "data/cards/images/cards/burst-lightning.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/2dc16614-5cf8-444d-a5ae-cac25018af68/art_crop.webp",
+    "localArtPath": "data/cards/images/art/burst-lightning.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/2dc16614-5cf8-444d-a5ae-cac25018af68/normal.webp",
+  "powerScore": {
+    "score": 26,
+    "source": "untapped",
+    "rawSourceScore": 26,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1445).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.5,
+      "developing": 4.8,
+      "parity": 3.5,
+      "behind": 4
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "more-expensive-than-mv",
+        "spot-removal"
+      ],
+      "scoreModifier": 12,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "62.3 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "more-expensive-than-mv",
+        "spot-removal"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Éclair explosif",
+  "frenchText": "Kick {4} (Vous pouvez payer {4} supplémentaires au moment où vous lancez ce sort.)\nL'Éclair explosif inflige 2 blessures à n'importe quelle cible. Si ce sort a été kické, il inflige 4 blessures à la place."
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "leonin-relic-warder",
+  "name": "Leonin Relic-Warder",
+  "oracleId": "8e720216-a980-4a34-8aef-62ac3ef15a6e",
+  "manaCost": "{W}{W}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Cat Cleric",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Cat",
+    "Cleric"
+  ],
+  "oracleText": "When this creature enters, you may exile target artifact or enchantment.\nWhen this creature leaves the battlefield, return the exiled card to the battlefield under its owner's control.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dd0900e1-df78-466d-b747-33f22c273d67/normal.webp",
+    "localPath": "data/cards/images/cards/leonin-relic-warder.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dd0900e1-df78-466d-b747-33f22c273d67/art_crop.webp",
+    "localArtPath": "data/cards/images/art/leonin-relic-warder.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dd0900e1-df78-466d-b747-33f22c273d67/normal.webp",
+  "powerScore": {
+    "score": 16.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1213.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1214).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "50.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "ajani-unyielding",
+  "name": "Ajani Unyielding",
+  "oracleId": "8a70ddc5-bb51-45eb-96f2-8ecaecac0cc2",
+  "scryfallId": "23b82ee9-2ac6-4b81-8c64-dd4f47c2d8cb",
+  "manaCost": "{W}{G}{4}",
+  "cmc": 6,
+  "colors": [
+    "G",
+    "W"
+  ],
+  "colorIdentity": [
+    "G",
+    "W"
+  ],
+  "typeLine": "Legendary Planeswalker — Ajani",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Ajani"
+  ],
+  "oracleText": "+2: Reveal the top three cards of your library. Put all nonland permanent cards revealed this way into your hand and the rest on the bottom of your library in any order.\n−2: Exile target creature. Its controller gains life equal to its power.\n−9: Put five +1/+1 counters on each creature you control and five loyalty counters on each other planeswalker you control.",
+  "keywords": [],
+  "loyalty": "4",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/23b82ee9-2ac6-4b81-8c64-dd4f47c2d8cb/normal.webp",
+    "localPath": "data/cards/images/ajani-unyielding.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/23b82ee9-2ac6-4b81-8c64-dd4f47c2d8cb/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/23b82ee9-2ac6-4b81-8c64-dd4f47c2d8cb/normal.webp",
+  "powerScore": {
+    "score": 19.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1187.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1188).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 5.9,
+    "ceilingRating": 6.9,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "repeatable-impulse",
+        "repeatable-card-advantage",
+        "card-advantage"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "C",
+            "winrateOrScore": "49.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

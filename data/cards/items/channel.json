@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "channel",
+  "name": "Channel",
+  "oracleId": "d1b815d1-2848-40d4-a555-66822d1becbc",
+  "manaCost": "{G}{G}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Until end of turn, any time you could activate a mana ability, you may pay 1 life. If you do, add {C}.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0e07a16f-d836-40f9-85e3-a78582a97109/normal.webp",
+    "localPath": "data/cards/images/cards/channel.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0e07a16f-d836-40f9-85e3-a78582a97109/art_crop.webp",
+    "localArtPath": "data/cards/images/art/channel.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0e07a16f-d836-40f9-85e3-a78582a97109/normal.webp",
+  "powerScore": {
+    "score": 18,
+    "source": "untapped",
+    "rawSourceScore": 18,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1424).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "full-refund"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "61.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "build_around",
+      "tier": "A",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "full-refund"
+      ],
+      "scoreModifier": 10,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "A",
+            "winrateOrScore": "61.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

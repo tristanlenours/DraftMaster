@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "den-protector",
+  "name": "Den Protector",
+  "oracleId": "59324efc-65b7-4b31-89c5-17aed5c7eeb1",
+  "scryfallId": "bd90d5ea-c586-4afd-be75-1c821e48df0c",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Human Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Warrior"
+  ],
+  "oracleText": "Creatures with power less than this creature's power can't block it.\nMegamorph {1}{G} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its megamorph cost and put a +1/+1 counter on it.)\nWhen this creature is turned face up, return target card from your graveyard to your hand.",
+  "keywords": [
+    "Megamorph"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/bd90d5ea-c586-4afd-be75-1c821e48df0c/normal.webp",
+    "localPath": "data/cards/images/den-protector.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/bd90d5ea-c586-4afd-be75-1c821e48df0c/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/bd90d5ea-c586-4afd-be75-1c821e48df0c/normal.webp",
+  "powerScore": {
+    "score": 8.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1274.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1274).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "hate-low-power",
+        "hate",
+        "turn-face-up-trigger-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "B",
+            "winrateOrScore": "53.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

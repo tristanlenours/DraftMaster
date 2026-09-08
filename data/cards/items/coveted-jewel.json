@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "coveted-jewel",
+  "name": "Coveted Jewel",
+  "oracleId": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
+  "manaCost": "{6}",
+  "cmc": 6,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "When this artifact enters, draw three cards.\n{T}: Add three mana of any one color.\nWhenever one or more creatures an opponent controls attack you and aren't blocked, that player draws three cards and gains control of this artifact. Untap it.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f83ed433-fae3-4fa5-acad-bb8a5b535ce3/normal.webp",
+    "localPath": "data/cards/images/cards/coveted-jewel.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f83ed433-fae3-4fa5-acad-bb8a5b535ce3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/coveted-jewel.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f83ed433-fae3-4fa5-acad-bb8a5b535ce3/normal.webp",
+  "powerScore": {
+    "score": 8.5,
+    "source": "untapped",
+    "rawSourceScore": 8.5,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1384).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "drawback",
+        "draw-engine",
+        "repeatable-draw"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "59.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

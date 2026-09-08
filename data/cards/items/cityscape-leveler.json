@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "cityscape-leveler",
+  "name": "Cityscape Leveler",
+  "oracleId": "d4d65797-2b92-4265-9169-133120c86c7f",
+  "manaCost": "{8}",
+  "cmc": 8,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Construct",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Construct"
+  ],
+  "oracleText": "Trample\nWhen you cast this spell and whenever this creature attacks, destroy up to one target nonland permanent. Its controller creates a tapped Powerstone token.\nUnearth {8}",
+  "keywords": [
+    "Unearth",
+    "Trample"
+  ],
+  "power": "8",
+  "toughness": "8",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/67a87278-4c82-4056-8354-253d86b0ef3d/normal.webp",
+    "localPath": "data/cards/images/cards/cityscape-leveler.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/67a87278-4c82-4056-8354-253d86b0ef3d/art_crop.webp",
+    "localArtPath": "data/cards/images/art/cityscape-leveler.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/67a87278-4c82-4056-8354-253d86b0ef3d/normal.webp",
+  "powerScore": {
+    "score": 6.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1280.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1280).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "cast-trigger-self",
+        "cast-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

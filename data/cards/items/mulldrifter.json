@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "slug": "mulldrifter",
+  "name": "Mulldrifter",
+  "oracleId": "11111111-aaaa-4000-8000-000000000003",
+  "manaCost": "{4}{U}",
+  "cmc": 5,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Elemental",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elemental"
+  ],
+  "oracleText": "Flying\nWhen Mulldrifter enters the battlefield, draw two cards.\nEvoke {2}{U}",
+  "keywords": [
+    "Flying",
+    "Evoke"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Mulldrifter&format=image",
+    "localPath": "data/cards/images/cards/mulldrifter.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Mulldrifter&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/mulldrifter.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Mulldrifter&format=image",
+  "powerScore": {
+    "score": 25,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1419.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Moteur de card advantage classique combinant corps aérien et pioche, avec flexibilité d'évocation.",
+    "roles": [
+      "card_advantage",
+      "engine",
+      "beater"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 9,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4.5,
+      "parity": 5,
+      "behind": 4
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "build_around",
+      "tier": "S",
+      "archetypes": [
+        "hugues:azorius_blink"
+      ],
+      "synergyTags": [
+        "card_advantage",
+        "blink_target",
+        "evoke"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Bombe absolue et définition même du format Pauper. Jouable en évocation T3 pour creuser ou en 2/2 vol T5 pour un 3-pour-1. Dévastateur combiné avec Ephemerate.",
+      "pedagogy": {
+        "howToPlay": "Trick fondamental d'Évocation : castez pour {2}{U}. Quand le trigger de sacrifice et le trigger de pioche vont sur la pile, répondez avec Ephemerate ! Vous exilez la créature avant qu'elle ne se sacrifie, elle revient comme nouvel objet permanent, pioche 2 cartes supplémentaires et reste sur table !",
+        "keySynergies": [
+          {
+            "cardName": "Ephemerate",
+            "synergyType": "Combo Mythique Pauper",
+            "description": "Piocher 6 cartes et conserver une 2/2 vol pour 4 mana au total."
+          },
+          {
+            "cardName": "Kor Skyfisher",
+            "synergyType": "Rebond Value",
+            "description": "Remonte Mulldrifter en main après résolution pour le rejouer plus tard."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "W",
+              "U"
+            ],
+            "archetype": "Azorius Blink",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Le payoff absolu du jeu de rebond et d'attrition."
+          },
+          {
+            "colors": [
+              "U",
+              "R"
+            ],
+            "archetype": "Izzet Skred",
+            "grade": "A",
+            "winrateOrScore": "62.4 %",
+            "comment": "Moteur de pioche stabilisateur pour alimenter les sorts de contrôle."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Ephemerate",
+        "Kor Skyfisher"
+      ]
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [],
+      "synergyTags": [
+        "card_advantage"
+      ],
+      "scoreModifier": -14,
+      "analysis": "Payer 3 manas pour piocher 2 ou 5 manas pour une 2/2 est un suicide de tempo en Vintage Powered où la partie se décide T1-T2. Totalement surclassé par Ancestral Recall et Timetwister.",
+      "pedagogy": {
+        "howToPlay": "À éviter en Vintage Cube. Trop lent, trop gourmand en mana, ne génère aucune interaction immédiate contre les combos létaux du format."
+      },
+      "keyPairs": []
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "cheaper-than-mv",
+        "pure-draw",
+        "draw"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "61.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Vagabond des pensées",
+  "frenchText": "Vol\nQuand cette créature arrive, piochez deux cartes.\nÉvocation {2U} (Vous pouvez lancer ce sort pour son coût d'évocation. Si vous faites ainsi, il est sacrifié quand il arrive.)"
+}

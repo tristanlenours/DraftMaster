@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "hedge-maze",
+  "name": "Hedge Maze",
+  "oracleId": "ca4b6689-04ee-4227-9bdc-cb5a9590c745",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "G",
+    "U"
+  ],
+  "typeLine": "Land — Forest Island",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Forest",
+    "Island"
+  ],
+  "oracleText": "({T}: Add {G} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "G",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ee215175-d48b-4630-a1b1-36e195db05dd/normal.webp",
+    "localPath": "data/cards/images/cards/hedge-maze.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ee215175-d48b-4630-a1b1-36e195db05dd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/hedge-maze.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ee215175-d48b-4630-a1b1-36e195db05dd/normal.webp",
+  "powerScore": {
+    "score": 40,
+    "source": "untapped",
+    "rawSourceScore": 40,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1364).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "58.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

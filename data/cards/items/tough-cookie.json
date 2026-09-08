@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "tough-cookie",
+  "name": "Tough Cookie",
+  "oracleId": "8a1a5862-c027-4c15-99a7-1795d0da96da",
+  "manaCost": "{G}{1}",
+  "cmc": 2,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Artifact Creature — Food Golem",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Food",
+    "Golem"
+  ],
+  "oracleText": "When this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\n{2}{G}: Until end of turn, target noncreature artifact you control becomes a 4/4 artifact creature.\n{2}, {T}, Sacrifice this creature: You gain 3 life.",
+  "keywords": [
+    "Food"
+  ],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7aa37f85-5336-4372-97a2-9c8b00798c7a/normal.webp",
+    "localPath": "data/cards/images/cards/tough-cookie.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7aa37f85-5336-4372-97a2-9c8b00798c7a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/tough-cookie.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7aa37f85-5336-4372-97a2-9c8b00798c7a/normal.webp",
+  "powerScore": {
+    "score": 5.7,
+    "source": "untapped",
+    "rawSourceScore": 5.7,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1284).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "lifegain",
+        "triggered-ability",
+        "bear-with-set-s-mechanic"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

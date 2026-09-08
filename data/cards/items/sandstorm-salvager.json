@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "sandstorm-salvager",
+  "name": "Sandstorm Salvager",
+  "oracleId": "ec19a9bc-6fc1-4150-976b-37a47b165016",
+  "manaCost": "{G}{2}",
+  "cmc": 3,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Human Artificer",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Artificer"
+  ],
+  "oracleText": "When this creature enters, create a 3/3 colorless Golem artifact creature token.\n{2}, {T}: Put a +1/+1 counter on each creature token you control. They gain trample until end of turn.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/82613173-2892-47d7-8a09-2102f2f0965f/normal.webp",
+    "localPath": "data/cards/images/cards/sandstorm-salvager.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/82613173-2892-47d7-8a09-2102f2f0965f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/sandstorm-salvager.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/82613173-2892-47d7-8a09-2102f2f0965f/normal.webp",
+  "powerScore": {
+    "score": 14.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1280,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1280).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "synergy-token-creature",
+        "synergy-token",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

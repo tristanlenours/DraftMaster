@@ -1,0 +1,5857 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prototype — Calibration du score dynamique</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: #182019;
+        background: #f4f1e8;
+        --paper: #fffdf7;
+        --ink-soft: #5d665e;
+        --line: #d9d5ca;
+        --accent: #26634b;
+        --danger: #a13c2e;
+        --good: #1f6d4b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 32px 18px 64px;
+      }
+
+      main {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        line-height: 1.05;
+      }
+
+      .eyebrow {
+        margin-bottom: 12px;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .intro {
+        max-width: 850px;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+
+      .notice,
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--paper);
+        box-shadow: 0 10px 28px rgb(44 52 43 / 7%);
+      }
+
+      .notice {
+        margin: 24px 0;
+        padding: 16px 18px;
+        border-left: 5px solid var(--accent);
+        line-height: 1.5;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      .metric {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgb(255 253 247 / 70%);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 5px;
+        font-size: 1.55rem;
+      }
+
+      .metric span {
+        color: var(--ink-soft);
+        font-size: 0.82rem;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: 18px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .toolbar,
+      .actions,
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      button,
+      select {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 9px 12px;
+        color: inherit;
+        background: white;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      button:hover,
+      button:focus-visible,
+      select:focus-visible {
+        border-color: var(--accent);
+        outline: 3px solid rgb(38 99 75 / 18%);
+      }
+
+      button.primary,
+      .tab[aria-selected="true"] {
+        border-color: var(--accent);
+        color: white;
+        background: var(--accent);
+      }
+
+      select {
+        flex: 1;
+        min-width: 220px;
+      }
+
+      .scoreboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      .score {
+        padding: 14px;
+        border-radius: 12px;
+        background: #f1eee5;
+      }
+
+      .score strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 1.7rem;
+      }
+
+      .score.error strong {
+        color: var(--danger);
+      }
+
+      .score.error.good strong {
+        color: var(--good);
+      }
+
+      .axes {
+        display: grid;
+        gap: 12px;
+      }
+
+      .axis {
+        display: grid;
+        grid-template-columns: 110px 1fr 66px;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .axis label {
+        font-weight: 700;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--accent);
+      }
+
+      output {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .explanation {
+        min-height: 74px;
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 12px;
+        color: var(--ink-soft);
+        background: #f1eee5;
+        line-height: 1.5;
+      }
+
+      .state-list {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px 16px;
+        margin: 0;
+      }
+
+      .state-list dt {
+        color: var(--ink-soft);
+      }
+
+      .state-list dd {
+        margin: 0;
+        text-align: right;
+        font-weight: 700;
+      }
+
+      .walkthroughs {
+        margin-top: 18px;
+      }
+
+      .walkthrough {
+        display: none;
+        padding-top: 16px;
+        line-height: 1.5;
+      }
+
+      .walkthrough.active {
+        display: block;
+      }
+
+      .walkthrough .steps {
+        display: grid;
+        gap: 8px;
+      }
+
+      .walkthrough button {
+        text-align: left;
+      }
+
+      .footnote {
+        margin-top: 24px;
+        color: var(--ink-soft);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .benchmark {
+        margin-top: 18px;
+      }
+
+      .benchmark-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+        gap: 20px;
+      }
+
+      .coefficient-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .coefficient {
+        display: grid;
+        grid-template-columns: 110px 1fr 58px;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .benchmark-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .benchmark-metrics div {
+        padding: 12px;
+        border-radius: 10px;
+        background: #f1eee5;
+      }
+
+      .benchmark-metrics span,
+      .benchmark-metrics strong {
+        display: block;
+      }
+
+      .benchmark-metrics span {
+        color: var(--ink-soft);
+        font-size: 0.78rem;
+      }
+
+      .benchmark-metrics strong {
+        margin-top: 4px;
+        font-size: 1.35rem;
+      }
+
+      table {
+        width: 100%;
+        margin-top: 18px;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+
+      th,
+      td {
+        padding: 9px 6px;
+        border-top: 1px solid var(--line);
+        text-align: left;
+      }
+
+      th:not(:first-child),
+      td:not(:first-child) {
+        text-align: right;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding-top: 20px;
+        }
+
+        .metrics,
+        .layout {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .axis {
+          grid-template-columns: 90px 1fr 58px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .metrics,
+        .scoreboard {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Prototype jetable · Draft témoin d555b02d</p>
+      <h1>Peut-on retrouver le score Untapped avec cinq axes additifs ?</h1>
+      <p class="intro">
+        Manipulez les contributions de Puissance, Mana, Courbe, Interaction et Synergie sur des cas
+        réels du draft. Le but n'est pas de fabriquer après coup une égalité, mais de voir si une
+        décomposition reste stable et crédible d'une carte à l'autre.
+      </p>
+
+      <div class="notice">
+        <strong>Question testée :</strong> une somme explicable de cinq bonus/malus globaux
+        peut-elle approcher les scores observés sans connaître la réponse à l'avance ? Le benchmark
+        tenu à l'écart répond actuellement « pas encore ».
+      </div>
+
+      <section class="metrics" aria-label="Résultats du benchmark complet">
+        <div class="metric"><span>Évaluations</span><strong>360</strong></div>
+        <div class="metric"><span>MAE moteur actuel</span><strong>6,25</strong></div>
+        <div class="metric"><span>À ±1 point</span><strong>15,8 %</strong></div>
+        <div class="metric"><span>Top 1 identique</span><strong>53,3 %</strong></div>
+      </section>
+
+      <div class="layout">
+        <section class="panel" aria-labelledby="lab-title">
+          <h2 id="lab-title">Laboratoire libre</h2>
+          <div class="toolbar">
+            <button id="previous" type="button" aria-label="Cas précédent">←</button>
+            <select id="scenario" aria-label="Choisir un cas du draft"></select>
+            <button id="next" type="button" aria-label="Cas suivant">→</button>
+          </div>
+
+          <div class="scoreboard">
+            <div class="score"><span>Score statique</span><strong id="static-score"></strong></div>
+            <div class="score"><span>Votre calcul</span><strong id="computed-score"></strong></div>
+            <div class="score error" id="error-card">
+              <span>Écart à Untapped</span><strong id="error-score"></strong>
+            </div>
+          </div>
+
+          <div class="axes" id="axes"></div>
+
+          <div class="actions" style="margin-top: 18px">
+            <button class="primary" id="reset" type="button">Revenir au moteur actuel</button>
+            <button id="assign-mana" type="button">Mettre le résidu sur Mana</button>
+            <button id="assign-synergy" type="button">Mettre le résidu sur Synergie</button>
+          </div>
+
+          <p class="explanation" id="explanation"></p>
+        </section>
+
+        <aside class="panel" aria-labelledby="state-title">
+          <h2 id="state-title">État complet</h2>
+          <dl class="state-list">
+            <dt>Pick</dt>
+            <dd id="state-pick"></dd>
+            <dt>Carte</dt>
+            <dd id="state-card"></dd>
+            <dt>Untapped</dt>
+            <dd id="state-target"></dd>
+            <dt>Prédiction initiale</dt>
+            <dd id="state-initial"></dd>
+            <dt>Résidu initial</dt>
+            <dd id="state-residual"></dd>
+            <dt>Axes actifs</dt>
+            <dd id="state-active"></dd>
+          </dl>
+
+          <div class="walkthroughs">
+            <h2>Parcours guidés</h2>
+            <div class="tabs" role="tablist" aria-label="Parcours guidés">
+              <button class="tab" role="tab" aria-selected="true" data-tab="invariant">
+                Invariant
+              </button>
+              <button class="tab" role="tab" aria-selected="false" data-tab="bonus">
+                Bonus manquant
+              </button>
+              <button class="tab" role="tab" aria-selected="false" data-tab="land">
+                Faux fixeur
+              </button>
+            </div>
+
+            <div class="walkthrough active" id="walkthrough-invariant">
+              <p>Au P1P1, aucun contexte n'existe : les cinq axes doivent rester neutres.</p>
+              <div class="steps">
+                <button type="button" data-load="0">1. Charger Fear of Missing Out au P1P1</button>
+                <button type="button" data-zero>2. Neutraliser tous les axes</button>
+              </div>
+            </div>
+
+            <div class="walkthrough" id="walkthrough-bonus">
+              <p>
+                Une carte bleue bon marché reçoit un bonus massif qu'une simple affinité de couleur
+                ne sait pas expliquer.
+              </p>
+              <div class="steps">
+                <button type="button" data-load="3">1. Charger Consult the Star Charts</button>
+                <button type="button" data-assign="Synergie">
+                  2. Attribuer tout le résidu à la Synergie
+                </button>
+                <button type="button" data-reassign="Courbe">
+                  3. Réattribuer tout le résidu à la Courbe
+                </button>
+              </div>
+            </div>
+
+            <div class="walkthrough" id="walkthrough-land">
+              <p>
+                Être un terrain bicolore n'est pas un bonus automatique. La valeur dépend du plan de
+                mana exact et du moment du draft.
+              </p>
+              <div class="steps">
+                <button type="button" data-load="6">1. Charger Concealed Courtyard</button>
+                <button type="button" data-assign="Mana">2. Attribuer le résidu au Mana</button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="panel benchmark" aria-labelledby="benchmark-title">
+        <h2 id="benchmark-title">Banc de calibration : les 360 cartes du draft témoin</h2>
+        <p class="intro">
+          Chaque curseur règle la force d'un axe pour toutes les cartes à la fois. Le réglage «
+          appris ailleurs » provient des 20 autres drafts ; le réglage « ajusté au témoin » est
+          volontairement une triche utile pour mesurer le plafond d'un modèle à cinq axes.
+        </p>
+        <div class="benchmark-grid">
+          <div>
+            <div class="coefficient-list" id="coefficient-list"></div>
+            <div class="actions" style="margin-top: 18px">
+              <button class="primary" id="learned-weights" type="button">
+                Appliquer « appris ailleurs »
+              </button>
+              <button id="visible-fit-weights" type="button">
+                Ajuster sur ce draft (surajusté)
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="benchmark-metrics" aria-live="polite">
+              <div><span>MAE</span><strong id="benchmark-mae"></strong></div>
+              <div><span>À ±1 point</span><strong id="benchmark-within-one"></strong></div>
+              <div><span>Top 1 identique</span><strong id="benchmark-top-one"></strong></div>
+              <div><span>Réglage</span><strong id="benchmark-mode"></strong></div>
+            </div>
+            <p class="explanation" id="benchmark-explanation"></p>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Plus grand écart</th>
+              <th>Untapped</th>
+              <th>Calcul</th>
+              <th>Écart</th>
+            </tr>
+          </thead>
+          <tbody id="worst-errors"></tbody>
+        </table>
+      </section>
+
+      <p class="footnote">
+        Données : sauvegarde locale Untapped, draft complet du 11 juin 2026. Les contributions
+        initiales reproduisent la décomposition du moteur DraftMaster actuel. Modifier les curseurs
+        ne constitue pas un apprentissage : plusieurs décompositions différentes peuvent produire
+        exactement le même total, ce qui illustre le problème d'identifiabilité.
+      </p>
+    </main>
+
+    <script>
+      // Pure prototype module. It owns no DOM and can be lifted out independently.
+      const Calibration = (() => {
+        const axisNames = ["Puissance", "Mana", "Courbe", "Interaction", "Synergie"];
+        const cases = [
+          {
+            pick: "P1P1",
+            card: "Fear of Missing Out",
+            staticScore: 28,
+            target: 28,
+            initial: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Cas de contrôle : le score dynamique est exactement égal au score statique.",
+          },
+          {
+            pick: "P1P7",
+            card: "Elspeth, Storm Slayer",
+            staticScore: 44,
+            target: 40.9,
+            initial: { Puissance: -3.5, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Le moteur vise juste ici avec sa simple décote naturelle : erreur de 0,4.",
+          },
+          {
+            pick: "P1P9",
+            card: "Kolaghan's Command",
+            staticScore: 42,
+            target: 24.5,
+            initial: { Puissance: 0, Mana: -17.4, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Autre réussite locale : le malus de couleur suffit presque exactement.",
+          },
+          {
+            pick: "P1P8",
+            card: "Consult the Star Charts",
+            staticScore: 26,
+            target: 35.4,
+            initial: { Puissance: -2.1, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Untapped ajoute 9,4 points au score brut ; le moteur retire 2,1 points.",
+          },
+          {
+            pick: "P2P10",
+            card: "Spell Pierce",
+            staticScore: 24,
+            target: 31.1,
+            initial: { Puissance: -1.2, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "La couleur est correcte, mais il manque encore un bonus contextuel de 8,3.",
+          },
+          {
+            pick: "P1P3",
+            card: "Misty Rainforest",
+            staticScore: 45,
+            target: 15.8,
+            initial: { Puissance: -3.6, Mana: 2, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Le fetch est traité comme universel ; le résultat dépasse Untapped de 27,6.",
+          },
+          {
+            pick: "P3P14",
+            card: "Concealed Courtyard",
+            staticScore: 42,
+            target: 11.6,
+            initial: { Puissance: 0, Mana: -8.9, Courbe: 0, Interaction: 0, Synergie: 0 },
+            note: "Le terrain partage une couleur avec Esper, mais Untapped lui retire 30,4 points.",
+          },
+        ];
+
+        const cloneAxes = (axes) => Object.fromEntries(axisNames.map((name) => [name, axes[name]]));
+
+        const initialState = (index = 0) => ({
+          index,
+          axes: cloneAxes(cases[index].initial),
+          lastAction: "Cas chargé avec les contributions du moteur actuel.",
+        });
+
+        const score = (state) =>
+          cases[state.index].staticScore +
+          axisNames.reduce((total, axis) => total + state.axes[axis], 0);
+
+        const residual = (state) => cases[state.index].target - score(state);
+
+        const reduce = (state, action) => {
+          if (action.type === "load") return initialState(action.index);
+          if (action.type === "set-axis") {
+            return {
+              ...state,
+              axes: { ...state.axes, [action.axis]: action.value },
+              lastAction: `${action.axis} vaut maintenant ${action.value.toFixed(1)}.`,
+            };
+          }
+          if (action.type === "reset") return initialState(state.index);
+          if (action.type === "zero") {
+            return {
+              ...state,
+              axes: Object.fromEntries(axisNames.map((axis) => [axis, 0])),
+              lastAction: "Tous les axes ont été neutralisés.",
+            };
+          }
+          if (action.type === "assign-residual") {
+            const remaining = residual(state);
+            return {
+              ...state,
+              axes: { ...state.axes, [action.axis]: state.axes[action.axis] + remaining },
+              lastAction: `Le résidu de ${remaining.toFixed(1)} a été attribué à ${action.axis}.`,
+            };
+          }
+          if (action.type === "reassign-residual") {
+            const base = initialState(state.index);
+            const remaining = residual(base);
+            return {
+              ...base,
+              axes: { ...base.axes, [action.axis]: base.axes[action.axis] + remaining },
+              lastAction: `Le moteur a été réinitialisé, puis son résidu de ${remaining.toFixed(1)} a été attribué à ${action.axis}.`,
+            };
+          }
+          return state;
+        };
+
+        return { axisNames, cases, initialState, score, residual, reduce };
+      })();
+
+      const scenario = document.querySelector("#scenario");
+      const axesRoot = document.querySelector("#axes");
+      let state = Calibration.initialState();
+
+      Calibration.cases.forEach((item, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = `${item.pick} — ${item.card}`;
+        scenario.append(option);
+      });
+
+      Calibration.axisNames.forEach((axis) => {
+        const row = document.createElement("div");
+        row.className = "axis";
+        row.innerHTML = `
+          <label for="axis-${axis}">${axis}</label>
+          <input id="axis-${axis}" data-axis="${axis}" type="range" min="-35" max="20" step="0.1" />
+          <output id="output-${axis}"></output>
+        `;
+        axesRoot.append(row);
+      });
+
+      function dispatch(action) {
+        state = Calibration.reduce(state, action);
+        render();
+      }
+
+      function render() {
+        const item = Calibration.cases[state.index];
+        const computed = Calibration.score(state);
+        const error = computed - item.target;
+        scenario.value = String(state.index);
+        document.querySelector("#static-score").textContent = item.staticScore.toFixed(1);
+        document.querySelector("#computed-score").textContent = computed.toFixed(1);
+        document.querySelector("#error-score").textContent =
+          `${error >= 0 ? "+" : ""}${error.toFixed(1)}`;
+        document.querySelector("#error-card").classList.toggle("good", Math.abs(error) <= 1);
+        document.querySelector("#explanation").textContent = `${item.note} ${state.lastAction}`;
+        document.querySelector("#state-pick").textContent = item.pick;
+        document.querySelector("#state-card").textContent = item.card;
+        document.querySelector("#state-target").textContent = item.target.toFixed(1);
+        const initialTotal =
+          item.staticScore + Object.values(item.initial).reduce((total, value) => total + value, 0);
+        document.querySelector("#state-initial").textContent = initialTotal.toFixed(1);
+        document.querySelector("#state-residual").textContent = (
+          item.target - initialTotal
+        ).toFixed(1);
+        document.querySelector("#state-active").textContent =
+          Calibration.axisNames.filter((axis) => Math.abs(state.axes[axis]) > 0.05).join(", ") ||
+          "aucun";
+
+        for (const axis of Calibration.axisNames) {
+          const input = document.querySelector(`#axis-${axis}`);
+          input.value = String(state.axes[axis]);
+          document.querySelector(`#output-${axis}`).textContent =
+            `${state.axes[axis] >= 0 ? "+" : ""}${state.axes[axis].toFixed(1)}`;
+        }
+      }
+
+      scenario.addEventListener("change", () =>
+        dispatch({ type: "load", index: Number(scenario.value) }),
+      );
+      document.querySelector("#previous").addEventListener("click", () =>
+        dispatch({
+          type: "load",
+          index: (state.index - 1 + Calibration.cases.length) % Calibration.cases.length,
+        }),
+      );
+      document
+        .querySelector("#next")
+        .addEventListener("click", () =>
+          dispatch({ type: "load", index: (state.index + 1) % Calibration.cases.length }),
+        );
+      document.querySelector("#reset").addEventListener("click", () => dispatch({ type: "reset" }));
+      document
+        .querySelector("#assign-mana")
+        .addEventListener("click", () => dispatch({ type: "assign-residual", axis: "Mana" }));
+      document
+        .querySelector("#assign-synergy")
+        .addEventListener("click", () => dispatch({ type: "assign-residual", axis: "Synergie" }));
+      axesRoot.addEventListener("input", (event) => {
+        const input = event.target.closest("[data-axis]");
+        if (input)
+          dispatch({ type: "set-axis", axis: input.dataset.axis, value: Number(input.value) });
+      });
+
+      document
+        .querySelectorAll("[data-load]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            dispatch({ type: "load", index: Number(button.dataset.load) }),
+          ),
+        );
+      document
+        .querySelectorAll("[data-zero]")
+        .forEach((button) => button.addEventListener("click", () => dispatch({ type: "zero" })));
+      document
+        .querySelectorAll("[data-assign]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            dispatch({ type: "assign-residual", axis: button.dataset.assign }),
+          ),
+        );
+      document
+        .querySelectorAll("[data-reassign]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            dispatch({ type: "reassign-residual", axis: button.dataset.reassign }),
+          ),
+        );
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+          document
+            .querySelectorAll(".walkthrough")
+            .forEach((panel) =>
+              panel.classList.toggle("active", panel.id === `walkthrough-${tab.dataset.tab}`),
+            );
+        });
+      });
+
+      render();
+
+      // The compact dataset is generated from the held-out draft. It contains only scores and
+      // precomputed axis contributions, never the raw Untapped history.
+      const BENCHMARK_DATA = {
+        heldOutDraftId: "d555b02d-3745-4a4f-b1b6-fdc75c38c5c0",
+        axes: ["Puissance", "Mana", "Courbe", "Interaction", "Synergie"],
+        trainingDrafts: 20,
+        learnedMae: 4.7205,
+        visibleDraftAxisMae: 4.4398,
+        visibleDraftAxisWeights: {
+          Puissance: 0.8699,
+          Mana: 0.8479,
+          Courbe: 0.2012,
+          Interaction: 2.8114,
+          Synergie: 1.841,
+        },
+        rows: [
+          {
+            pick: "P1P1",
+            card: "Frantic Search",
+            staticScore: 17,
+            target: 17,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Talisman of Dominance",
+            staticScore: 12,
+            target: 12,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Unexpectedly Absent",
+            staticScore: 20,
+            target: 20,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Kolaghan's Command",
+            staticScore: 42,
+            target: 42,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Llanowar Elves",
+            staticScore: 41,
+            target: 41,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Zagoth Triome",
+            staticScore: 26,
+            target: 26,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Reckoner Bankbuster",
+            staticScore: 8.6,
+            target: 8.6,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Skrelv, Defector Mite",
+            staticScore: 21,
+            target: 21,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Tireless Tracker",
+            staticScore: 25,
+            target: 25,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Generous Plunderer",
+            staticScore: 38,
+            target: 38,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Sylvan Safekeeper",
+            staticScore: 31,
+            target: 31,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Fear of Missing Out",
+            staticScore: 28,
+            target: 28,
+            picked: true,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Currency Converter",
+            staticScore: 19,
+            target: 19,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Gut, True Soul Zealot",
+            staticScore: 44,
+            target: 44,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P1",
+            card: "Mind Twist",
+            staticScore: 36,
+            target: 36,
+            picked: false,
+            contributions: { Puissance: 0, Mana: 0, Courbe: 0, Interaction: 0, Synergie: 0 },
+          },
+          {
+            pick: "P1P2",
+            card: "Yawgmoth's Will",
+            staticScore: 5.7,
+            target: 4.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.0636,
+              Mana: -0.5819,
+              Courbe: -0.5843,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Grim Monolith",
+            staticScore: 17,
+            target: 7.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.1897,
+              Mana: 0.3457,
+              Courbe: -0.8335,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Coalition Relic",
+            staticScore: 9.2,
+            target: 4.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.1027,
+              Mana: 0.1871,
+              Courbe: -0.5843,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Smuggler's Copter",
+            staticScore: 18,
+            target: 34.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.2009,
+              Mana: 0.366,
+              Courbe: -0.8335,
+              Interaction: 0,
+              Synergie: 0.0594,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Aether Spellbomb",
+            staticScore: 10,
+            target: 3.8,
+            picked: false,
+            contributions: {
+              Puissance: -0.1116,
+              Mana: 0.2033,
+              Courbe: -0.2805,
+              Interaction: -0.6633,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Elite Spellbinder",
+            staticScore: 38,
+            target: 36.7,
+            picked: true,
+            contributions: {
+              Puissance: -0.4241,
+              Mana: -3.8791,
+              Courbe: -0.5843,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Dauthi Voidwalker",
+            staticScore: 34,
+            target: 26.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.3794,
+              Mana: -3.4708,
+              Courbe: -0.8335,
+              Interaction: 0,
+              Synergie: 0.0594,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Tendrils of Agony",
+            staticScore: 4.1,
+            target: 2.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.0458,
+              Mana: -0.4185,
+              Courbe: -0.3506,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Kellan, the <nobr>Fae-Blooded</nobr>",
+            staticScore: 2.7,
+            target: 3.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.0301,
+              Mana: 0,
+              Courbe: -0.5843,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Exorcise",
+            staticScore: 18,
+            target: 15.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.2009,
+              Mana: -1.8375,
+              Courbe: -0.8335,
+              Interaction: -0.6633,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Clockwork Percussionist",
+            staticScore: 7.9,
+            target: 10.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.0882,
+              Mana: 0,
+              Courbe: -0.2805,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Ravenous Robots",
+            staticScore: 16,
+            target: 11.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.1786,
+              Mana: 0,
+              Courbe: -0.8335,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Erode",
+            staticScore: 38,
+            target: 34.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.4241,
+              Mana: -3.8791,
+              Courbe: -0.2805,
+              Interaction: -0.6633,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P2",
+            card: "Vastlands Scavenger",
+            staticScore: 22,
+            target: 14.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.2455,
+              Mana: -2.2458,
+              Courbe: -0.5843,
+              Interaction: 0,
+              Synergie: 0.0297,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Figure of Destiny",
+            staticScore: 18,
+            target: 28.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.3927,
+              Mana: -0.7572,
+              Courbe: -0.3966,
+              Interaction: 0,
+              Synergie: 0.0311,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Elvish Mystic",
+            staticScore: 38,
+            target: 14.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.8289,
+              Mana: -5.4859,
+              Courbe: -0.3966,
+              Interaction: 0,
+              Synergie: 0.0311,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Crucible of Worlds",
+            staticScore: 6,
+            target: 4.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.1309,
+              Mana: 0.1725,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0.0497,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Thought Monitor",
+            staticScore: 16,
+            target: 6.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.349,
+              Mana: -2.3098,
+              Courbe: -0.2644,
+              Interaction: 0,
+              Synergie: 0.0622,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Mine Collapse",
+            staticScore: 14,
+            target: 16,
+            picked: false,
+            contributions: {
+              Puissance: -0.3054,
+              Mana: 0,
+              Courbe: -0.4958,
+              Interaction: -0.938,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Misty Rainforest",
+            staticScore: 45,
+            target: 15.8,
+            picked: false,
+            contributions: {
+              Puissance: -0.9816,
+              Mana: -2.3889,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.0497,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Malevolent Rumble",
+            staticScore: 41,
+            target: 15.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.8944,
+              Mana: -5.919,
+              Courbe: -0.3602,
+              Interaction: 0,
+              Synergie: 0.0497,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Endurance",
+            staticScore: 20,
+            target: 7.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.4363,
+              Mana: -2.8873,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0.0808,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Jace, the Mind Sculptor",
+            staticScore: 21,
+            target: 9.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.4581,
+              Mana: -3.0317,
+              Courbe: -0.4958,
+              Interaction: -0.938,
+              Synergie: 0.0497,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Astrologian's Planisphere",
+            staticScore: 13,
+            target: 5.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.2836,
+              Mana: -1.8768,
+              Courbe: -0.3602,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Mai, Scornful Striker",
+            staticScore: 7.8,
+            target: 4,
+            picked: false,
+            contributions: {
+              Puissance: -0.1702,
+              Mana: -1.1261,
+              Courbe: -0.3602,
+              Interaction: 0,
+              Synergie: -0.0266,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Painter's Servant",
+            staticScore: 8.6,
+            target: 7.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.1876,
+              Mana: 0.2473,
+              Courbe: -0.3602,
+              Interaction: 0,
+              Synergie: 0.0311,
+            },
+          },
+          {
+            pick: "P1P3",
+            card: "Dismember",
+            staticScore: 41,
+            target: 20.4,
+            picked: true,
+            contributions: {
+              Puissance: -0.8944,
+              Mana: -5.919,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Watery Grave",
+            staticScore: 42,
+            target: 22.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.3424,
+              Mana: -5.5898,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Hallowed Fountain",
+            staticScore: 44,
+            target: 20.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.4064,
+              Mana: -5.856,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Skyclave Apparition",
+            staticScore: 40,
+            target: 32.6,
+            picked: true,
+            contributions: {
+              Puissance: -1.2785,
+              Mana: 0,
+              Courbe: -0.8354,
+              Interaction: 0,
+              Synergie: 0.0464,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Unholy Heat",
+            staticScore: 22,
+            target: 17.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.7032,
+              Mana: -2.523,
+              Courbe: -0.4858,
+              Interaction: -1.1488,
+              Synergie: 0.1114,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Zuran Orb",
+            staticScore: 7.2,
+            target: 2.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.2301,
+              Mana: 0.2536,
+              Courbe: -0.4858,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Outland Liberator",
+            staticScore: 16,
+            target: 6.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.5114,
+              Mana: -1.8349,
+              Courbe: -0.1069,
+              Interaction: -1.1488,
+              Synergie: -0.0243,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Rabbit Battery",
+            staticScore: 7.9,
+            target: 7.8,
+            picked: false,
+            contributions: {
+              Puissance: -0.2525,
+              Mana: -0.906,
+              Courbe: -0.4858,
+              Interaction: 0,
+              Synergie: 0.0464,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Virtue of Persistence",
+            staticScore: 26,
+            target: 19.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.831,
+              Mana: 0,
+              Courbe: -0.3238,
+              Interaction: 0,
+              Synergie: 0.13,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Loch Mare",
+            staticScore: 15,
+            target: 9,
+            picked: false,
+            contributions: {
+              Puissance: -0.4794,
+              Mana: -1.7202,
+              Courbe: -0.1069,
+              Interaction: 0,
+              Synergie: 0.1114,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Emeritus of Conflict",
+            staticScore: 15,
+            target: 17.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.4794,
+              Mana: -1.7202,
+              Courbe: -0.1069,
+              Interaction: 0,
+              Synergie: -0.0243,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Brain Freeze",
+            staticScore: 17,
+            target: 10,
+            picked: false,
+            contributions: {
+              Puissance: -0.5434,
+              Mana: -1.9496,
+              Courbe: -0.1069,
+              Interaction: 0,
+              Synergie: 0.065,
+            },
+          },
+          {
+            pick: "P1P4",
+            card: "Library of Alexandria",
+            staticScore: 30,
+            target: 21.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.9589,
+              Mana: -1.9505,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.065,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Teferi, Hero of Dominaria",
+            staticScore: 45,
+            target: 21.9,
+            picked: true,
+            contributions: {
+              Puissance: -1.8722,
+              Mana: -6.0958,
+              Courbe: -0.5609,
+              Interaction: -1.3266,
+              Synergie: 0.0779,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Fabled Passage",
+            staticScore: 16,
+            target: 10.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.6657,
+              Mana: -1.2012,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.0779,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Consider",
+            staticScore: 15,
+            target: 8.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.6241,
+              Mana: -2.2792,
+              Courbe: -0.5609,
+              Interaction: 0,
+              Synergie: 0.0594,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Blade Splicer",
+            staticScore: 14,
+            target: 12.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.5825,
+              Mana: 0,
+              Courbe: -1.1576,
+              Interaction: 0,
+              Synergie: -0.0409,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Nissa, Ascended Animist",
+            staticScore: 30,
+            target: 11.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.2482,
+              Mana: -4.5583,
+              Courbe: -0.3739,
+              Interaction: -1.3266,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Blackcleave Cliffs",
+            staticScore: 42,
+            target: 30,
+            picked: false,
+            contributions: {
+              Puissance: -1.7474,
+              Mana: -6.4545,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Stoke the Flames",
+            staticScore: 7,
+            target: 7.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.2912,
+              Mana: -1.0636,
+              Courbe: -0.7011,
+              Interaction: -1.3266,
+              Synergie: 0.0779,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Get Lost",
+            staticScore: 27,
+            target: 23.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.1233,
+              Mana: 0,
+              Courbe: -0.1402,
+              Interaction: -1.3266,
+              Synergie: 0.0779,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Crabomination",
+            staticScore: 38,
+            target: 21.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.581,
+              Mana: 0,
+              Courbe: -0.3739,
+              Interaction: 0,
+              Synergie: 0.1187,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Rust Harvester",
+            staticScore: 7.1,
+            target: 4.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.2954,
+              Mana: -1.0788,
+              Courbe: -0.5609,
+              Interaction: 0,
+              Synergie: 0.1187,
+            },
+          },
+          {
+            pick: "P1P5",
+            card: "Glen Elendra Guardian",
+            staticScore: 17,
+            target: 9.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.7073,
+              Mana: -2.583,
+              Courbe: -1.1576,
+              Interaction: -1.3266,
+              Synergie: 0.0408,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Hymn to Tourach",
+            staticScore: 24,
+            target: 16.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.2178,
+              Mana: 0,
+              Courbe: -0.4181,
+              Interaction: 0,
+              Synergie: 0.0893,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Glorybringer",
+            staticScore: 19,
+            target: 19.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.9641,
+              Mana: -2.8052,
+              Courbe: -0.2071,
+              Interaction: -0.1348,
+              Synergie: 0.0336,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Fatal Push",
+            staticScore: 41,
+            target: 31.4,
+            picked: false,
+            contributions: {
+              Puissance: -2.0804,
+              Mana: 0,
+              Courbe: -0.6271,
+              Interaction: -0.1348,
+              Synergie: 0.0707,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Territorial Kavu",
+            staticScore: 19,
+            target: 4.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.9641,
+              Mana: -4.069,
+              Courbe: -0.4181,
+              Interaction: 0,
+              Synergie: 0.283,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Brainstorm",
+            staticScore: 21,
+            target: 14.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.0656,
+              Mana: -3.1005,
+              Courbe: -0.6271,
+              Interaction: 0,
+              Synergie: 0.0522,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Jetmir's Garden",
+            staticScore: 20,
+            target: 12.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.0148,
+              Mana: -4.0223,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.16,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Liliana of the Veil",
+            staticScore: 30,
+            target: 22,
+            picked: false,
+            contributions: {
+              Puissance: -1.5223,
+              Mana: 0,
+              Courbe: -0.906,
+              Interaction: 0,
+              Synergie: 0.0707,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Sunfall",
+            staticScore: 21,
+            target: 22.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.0656,
+              Mana: 0,
+              Courbe: -0.2071,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Splitskin Doll",
+            staticScore: 20,
+            target: 22.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.0148,
+              Mana: 0,
+              Courbe: -0.4181,
+              Interaction: 0,
+              Synergie: 0.2122,
+            },
+          },
+          {
+            pick: "P1P6",
+            card: "Mystic Confluence",
+            staticScore: 40,
+            target: 28.1,
+            picked: true,
+            contributions: {
+              Puissance: -2.0297,
+              Mana: -5.9057,
+              Courbe: -0.2071,
+              Interaction: -0.1348,
+              Synergie: 0.0522,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Bonecrusher Giant",
+            staticScore: 33,
+            target: 24.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.9593,
+              Mana: -4.9561,
+              Courbe: -0.7089,
+              Interaction: 0,
+              Synergie: 0.0625,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Savai Triome",
+            staticScore: 22,
+            target: 19.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.3062,
+              Mana: -4.8468,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1621,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Intrepid Adversary",
+            staticScore: 22,
+            target: 14.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.3062,
+              Mana: 0,
+              Courbe: -0.6488,
+              Interaction: 0,
+              Synergie: -0.0375,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Razorverge Thicket",
+            staticScore: 41,
+            target: 19.5,
+            picked: false,
+            contributions: {
+              Puissance: -2.4343,
+              Mana: -7.7169,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Lavaspur Boots",
+            staticScore: 7,
+            target: 7.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.4156,
+              Mana: 0.3487,
+              Courbe: -0.687,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Floodpits Drowner",
+            staticScore: 13,
+            target: 19.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.7719,
+              Mana: 0,
+              Courbe: -0.6488,
+              Interaction: 0,
+              Synergie: 0.0625,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Elspeth, Storm Slayer",
+            staticScore: 44,
+            target: 40.9,
+            picked: true,
+            contributions: {
+              Puissance: -2.6124,
+              Mana: 0,
+              Courbe: -0.6049,
+              Interaction: -0.0993,
+              Synergie: 0.1992,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Elegy Acolyte",
+            staticScore: 17,
+            target: 12.6,
+            picked: false,
+            contributions: {
+              Puissance: -1.0093,
+              Mana: -2.5532,
+              Courbe: -0.8587,
+              Interaction: 0,
+              Synergie: 0.025,
+            },
+          },
+          {
+            pick: "P1P7",
+            card: "Moonshadow",
+            staticScore: 18,
+            target: 14.6,
+            picked: false,
+            contributions: {
+              Puissance: -1.0687,
+              Mana: -2.7033,
+              Courbe: -0.687,
+              Interaction: 0,
+              Synergie: 0.1621,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Steel Overseer",
+            staticScore: 6.1,
+            target: 4.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.4117,
+              Mana: 0.3282,
+              Courbe: -0.848,
+              Interaction: 0,
+              Synergie: 0.0534,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Ketria Triome",
+            staticScore: 22,
+            target: 15.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.485,
+              Mana: -5.2351,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Grim Lavamancer",
+            staticScore: 10,
+            target: 7.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.675,
+              Mana: -1.7941,
+              Courbe: -0.742,
+              Interaction: -0.1975,
+              Synergie: 0.0359,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Eagles of the North",
+            staticScore: 16,
+            target: 18.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.08,
+              Mana: 0,
+              Courbe: -0.4947,
+              Interaction: 0,
+              Synergie: 0.1624,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Underground Mortuary",
+            staticScore: 42,
+            target: 12,
+            picked: false,
+            contributions: {
+              Puissance: -2.8349,
+              Mana: -12.9058,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Pillage the Bog",
+            staticScore: 19,
+            target: 5.6,
+            picked: false,
+            contributions: {
+              Puissance: -1.2825,
+              Mana: -4.9042,
+              Courbe: -0.848,
+              Interaction: 0,
+              Synergie: 0.109,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Nethergoyf",
+            staticScore: 19,
+            target: 13.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.2825,
+              Mana: -3.4089,
+              Courbe: -0.742,
+              Interaction: 0,
+              Synergie: 0.181,
+            },
+          },
+          {
+            pick: "P1P8",
+            card: "Consult the Star Charts",
+            staticScore: 26,
+            target: 35.4,
+            picked: true,
+            contributions: {
+              Puissance: -1.755,
+              Mana: 0,
+              Courbe: -0.848,
+              Interaction: 0,
+              Synergie: 0.072,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Unexpectedly Absent",
+            staticScore: 20,
+            target: 21.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.5024,
+              Mana: 0,
+              Courbe: -0.5288,
+              Interaction: 0,
+              Synergie: 0.0808,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Kolaghan's Command",
+            staticScore: 42,
+            target: 24.5,
+            picked: true,
+            contributions: {
+              Puissance: -3.1549,
+              Mana: -11.9398,
+              Courbe: -0.4093,
+              Interaction: -0.1569,
+              Synergie: 0.143,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Zagoth Triome",
+            staticScore: 26,
+            target: 17,
+            picked: false,
+            contributions: {
+              Puissance: -1.9531,
+              Mana: -6.6141,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1986,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Reckoner Bankbuster",
+            staticScore: 8.6,
+            target: 12.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.646,
+              Mana: 0.4946,
+              Courbe: -0.1983,
+              Interaction: 0,
+              Synergie: 0.0622,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Tireless Tracker",
+            staticScore: 25,
+            target: 13.3,
+            picked: false,
+            contributions: {
+              Puissance: -1.8779,
+              Mana: -5.0037,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0.046,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Sylvan Safekeeper",
+            staticScore: 31,
+            target: 16.7,
+            picked: false,
+            contributions: {
+              Puissance: -2.3286,
+              Mana: -6.2046,
+              Courbe: -0.7933,
+              Interaction: 0,
+              Synergie: -0.0347,
+            },
+          },
+          {
+            pick: "P1P9",
+            card: "Currency Converter",
+            staticScore: 19,
+            target: 25.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.4272,
+              Mana: 1.0928,
+              Courbe: -0.7933,
+              Interaction: 0,
+              Synergie: 0.2608,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Yawgmoth's Will",
+            staticScore: 5.7,
+            target: 4.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.4687,
+              Mana: -0.9892,
+              Courbe: -0.6753,
+              Interaction: 0,
+              Synergie: 0.1076,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Dauthi Voidwalker",
+            staticScore: 34,
+            target: 26.4,
+            picked: false,
+            contributions: {
+              Puissance: -2.7959,
+              Mana: -5.9007,
+              Courbe: -0.4051,
+              Interaction: 0,
+              Synergie: 0.1781,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Kellan, the <nobr>Fae-Blooded</nobr>",
+            staticScore: 2.7,
+            target: 1.8,
+            picked: false,
+            contributions: {
+              Puissance: -0.222,
+              Mana: -0.4686,
+              Courbe: -0.6753,
+              Interaction: 0,
+              Synergie: -0.0335,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Exorcise",
+            staticScore: 18,
+            target: 22.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.4802,
+              Mana: 0,
+              Courbe: -0.4051,
+              Interaction: -0.2409,
+              Synergie: 0.089,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Clockwork Percussionist",
+            staticScore: 7.9,
+            target: 6,
+            picked: false,
+            contributions: {
+              Puissance: -0.6496,
+              Mana: -1.3711,
+              Courbe: -0.8414,
+              Interaction: 0,
+              Synergie: 0.089,
+            },
+          },
+          {
+            pick: "P1P10",
+            card: "Erode",
+            staticScore: 38,
+            target: 35.2,
+            picked: true,
+            contributions: {
+              Puissance: -3.1248,
+              Mana: 0,
+              Courbe: -0.8414,
+              Interaction: -0.2409,
+              Synergie: 0.1224,
+            },
+          },
+          {
+            pick: "P1P11",
+            card: "Figure of Destiny",
+            staticScore: 18,
+            target: 16.9,
+            picked: true,
+            contributions: {
+              Puissance: -1.5991,
+              Mana: -3.4648,
+              Courbe: -0.1478,
+              Interaction: 0,
+              Synergie: 0.0969,
+            },
+          },
+          {
+            pick: "P1P11",
+            card: "Mine Collapse",
+            staticScore: 14,
+            target: 9.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.2437,
+              Mana: -2.7559,
+              Courbe: -1.1086,
+              Interaction: -0.3168,
+              Synergie: 0.1381,
+            },
+          },
+          {
+            pick: "P1P11",
+            card: "Endurance",
+            staticScore: 20,
+            target: 8.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.7768,
+              Mana: -3.9371,
+              Courbe: -0.5491,
+              Interaction: 0,
+              Synergie: 0.2123,
+            },
+          },
+          {
+            pick: "P1P11",
+            card: "Astrologian's Planisphere",
+            staticScore: 13,
+            target: 12.7,
+            picked: false,
+            contributions: {
+              Puissance: -1.1549,
+              Mana: 0,
+              Courbe: -0.5913,
+              Interaction: 0,
+              Synergie: 0.2679,
+            },
+          },
+          {
+            pick: "P1P11",
+            card: "Mai, Scornful Striker",
+            staticScore: 7.8,
+            target: 5.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.6929,
+              Mana: -1.5355,
+              Courbe: -0.5913,
+              Interaction: 0,
+              Synergie: -0.0323,
+            },
+          },
+          {
+            pick: "P1P12",
+            card: "Outland Liberator",
+            staticScore: 16,
+            target: 9,
+            picked: false,
+            contributions: {
+              Puissance: -1.5191,
+              Mana: -3.2348,
+              Courbe: -0.761,
+              Interaction: -0.2783,
+              Synergie: -0.1238,
+            },
+          },
+          {
+            pick: "P1P12",
+            card: "Rabbit Battery",
+            staticScore: 7.9,
+            target: 11,
+            picked: false,
+            contributions: {
+              Puissance: -0.75,
+              Mana: -1.5972,
+              Courbe: -0.2373,
+              Interaction: 0,
+              Synergie: 0.0858,
+            },
+          },
+          {
+            pick: "P1P12",
+            card: "Virtue of Persistence",
+            staticScore: 26,
+            target: 21.2,
+            picked: true,
+            contributions: {
+              Puissance: -2.4685,
+              Mana: -5.2566,
+              Courbe: -0.6201,
+              Interaction: 0,
+              Synergie: 0.2642,
+            },
+          },
+          {
+            pick: "P1P12",
+            card: "Emeritus of Conflict",
+            staticScore: 15,
+            target: 17.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.4241,
+              Mana: -3.0327,
+              Courbe: -0.761,
+              Interaction: 0,
+              Synergie: -0.0497,
+            },
+          },
+          {
+            pick: "P1P13",
+            card: "Blade Splicer",
+            staticScore: 14,
+            target: 14.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.4075,
+              Mana: 0,
+              Courbe: -0.3342,
+              Interaction: 0,
+              Synergie: -0.0671,
+            },
+          },
+          {
+            pick: "P1P13",
+            card: "Blackcleave Cliffs",
+            staticScore: 42,
+            target: 37.3,
+            picked: false,
+            contributions: {
+              Puissance: -4.2226,
+              Mana: -16.8977,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P1P13",
+            card: "Get Lost",
+            staticScore: 27,
+            target: 21.3,
+            picked: true,
+            contributions: {
+              Puissance: -2.7145,
+              Mana: 0,
+              Courbe: -0.9176,
+              Interaction: -0.2438,
+              Synergie: 0.1672,
+            },
+          },
+          {
+            pick: "P1P14",
+            card: "Territorial Kavu",
+            staticScore: 19,
+            target: 4.2,
+            picked: false,
+            contributions: {
+              Puissance: -2.0069,
+              Mana: -6.0044,
+              Courbe: -0.4149,
+              Interaction: 0,
+              Synergie: 0.4173,
+            },
+          },
+          {
+            pick: "P1P14",
+            card: "Liliana of the Veil",
+            staticScore: 30,
+            target: 28.4,
+            picked: true,
+            contributions: {
+              Puissance: -3.1688,
+              Mana: -6.2631,
+              Courbe: -0.2408,
+              Interaction: 0,
+              Synergie: 0.0811,
+            },
+          },
+          {
+            pick: "P1P15",
+            card: "Lavaspur Boots",
+            staticScore: 7,
+            target: 3.4,
+            picked: true,
+            contributions: {
+              Puissance: -0.7715,
+              Mana: 0.5326,
+              Courbe: -0.099,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Mother of Runes",
+            staticScore: 44,
+            target: 33.6,
+            picked: false,
+            contributions: {
+              Puissance: -5.0288,
+              Mana: 0,
+              Courbe: -0.3587,
+              Interaction: 0,
+              Synergie: -0.0456,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Chrome Mox",
+            staticScore: 26,
+            target: 28.5,
+            picked: false,
+            contributions: {
+              Puissance: -2.9716,
+              Mana: 2.0477,
+              Courbe: -0.3587,
+              Interaction: 0,
+              Synergie: 0.1126,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Karn, Scion of Urza",
+            staticScore: 10,
+            target: 9.3,
+            picked: false,
+            contributions: {
+              Puissance: -1.1429,
+              Mana: 0.7876,
+              Courbe: -1.3578,
+              Interaction: 0,
+              Synergie: 0.4676,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Temple Garden",
+            staticScore: 44,
+            target: 19.8,
+            picked: false,
+            contributions: {
+              Puissance: -5.0288,
+              Mana: -13.0944,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Displacer Kitten",
+            staticScore: 18,
+            target: 18.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.0572,
+              Mana: -4.218,
+              Courbe: -1.3578,
+              Interaction: 0,
+              Synergie: 0.1126,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Loran of the Third Path",
+            staticScore: 21,
+            target: 15.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.4001,
+              Mana: 0,
+              Courbe: -0.3736,
+              Interaction: 0,
+              Synergie: 0.0856,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Oracle of the Alpha",
+            staticScore: 42,
+            target: 33.3,
+            picked: true,
+            contributions: {
+              Puissance: -4.8002,
+              Mana: -9.842,
+              Courbe: -0.3736,
+              Interaction: 0,
+              Synergie: 0.1126,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Faithless Looting",
+            staticScore: 9.9,
+            target: 8.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.1315,
+              Mana: -2.3199,
+              Courbe: -0.3587,
+              Interaction: 0,
+              Synergie: 0.3934,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Tough Cookie",
+            staticScore: 5.7,
+            target: 3.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.6515,
+              Mana: -1.3357,
+              Courbe: -0.7241,
+              Interaction: 0,
+              Synergie: 0.0384,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Elegant Parlor",
+            staticScore: 41,
+            target: 36.7,
+            picked: false,
+            contributions: {
+              Puissance: -4.6859,
+              Mana: -12.2016,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Nadu, Winged Wisdom",
+            staticScore: 47,
+            target: 26,
+            picked: false,
+            contributions: {
+              Puissance: -5.3717,
+              Mana: -16.4283,
+              Courbe: -0.3736,
+              Interaction: 0,
+              Synergie: 0.4119,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Blazemire Verge",
+            staticScore: 41,
+            target: 36.5,
+            picked: false,
+            contributions: {
+              Puissance: -4.6859,
+              Mana: -12.2016,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Gene Pollinator",
+            staticScore: 6.2,
+            target: 3.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.7086,
+              Mana: -1.4529,
+              Courbe: -0.3587,
+              Interaction: 0,
+              Synergie: 0.094,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Carnage Interpreter",
+            staticScore: 8.3,
+            target: 8.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.9486,
+              Mana: -1.9287,
+              Courbe: -0.3736,
+              Interaction: 0,
+              Synergie: 0.2437,
+            },
+          },
+          {
+            pick: "P2P1",
+            card: "Abrade",
+            staticScore: 29,
+            target: 30.8,
+            picked: false,
+            contributions: {
+              Puissance: -3.3144,
+              Mana: -6.7957,
+              Courbe: -0.7241,
+              Interaction: -0.2494,
+              Synergie: 0.1695,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Breeding Pool",
+            staticScore: 42,
+            target: 24.2,
+            picked: false,
+            contributions: {
+              Puissance: -4.9503,
+              Mana: -12.9091,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Underworld Breach",
+            staticScore: 14,
+            target: 16.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.6501,
+              Mana: -3.1432,
+              Courbe: -0.8647,
+              Interaction: 0,
+              Synergie: 0.2003,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Spirebluff Canal",
+            staticScore: 40,
+            target: 26.1,
+            picked: false,
+            contributions: {
+              Puissance: -4.7146,
+              Mana: -12.2944,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Stern Scolding",
+            staticScore: 15,
+            target: 21.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.768,
+              Mana: 0,
+              Courbe: -0.3125,
+              Interaction: -0.2218,
+              Synergie: 0.256,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Collective Brutality",
+            staticScore: 27,
+            target: 20.8,
+            picked: false,
+            contributions: {
+              Puissance: -3.1823,
+              Mana: -6.0619,
+              Courbe: -0.8647,
+              Interaction: -0.2218,
+              Synergie: 0.2374,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Emrakul, the Promised End",
+            staticScore: 8,
+            target: 9.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.9429,
+              Mana: 0.6507,
+              Courbe: -0.1636,
+              Interaction: 0,
+              Synergie: 0.2189,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Thousand Moons Smithy",
+            staticScore: 8,
+            target: 9.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.9429,
+              Mana: 0,
+              Courbe: -1.4023,
+              Interaction: 0,
+              Synergie: 0.1558,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Mana Vault",
+            staticScore: 42,
+            target: 40.9,
+            picked: false,
+            contributions: {
+              Puissance: -4.9503,
+              Mana: 3.4162,
+              Courbe: -0.3125,
+              Interaction: 0,
+              Synergie: 0.1743,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Prismatic Vista",
+            staticScore: 29,
+            target: 33.4,
+            picked: false,
+            contributions: {
+              Puissance: -3.4181,
+              Mana: -4.3544,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1002,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Mana Drain",
+            staticScore: 46,
+            target: 44.2,
+            picked: true,
+            contributions: {
+              Puissance: -5.4217,
+              Mana: 0,
+              Courbe: -0.8647,
+              Interaction: -0.2218,
+              Synergie: 0.256,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Thundertrap Trainer",
+            staticScore: 20,
+            target: 24.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.3573,
+              Mana: 0,
+              Courbe: -0.8647,
+              Interaction: 0,
+              Synergie: 0.0741,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "<nobr>Molten-Core</nobr> Maestro",
+            staticScore: 7.1,
+            target: 5.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.8368,
+              Mana: -1.594,
+              Courbe: -0.8647,
+              Interaction: 0,
+              Synergie: 0.0816,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Spell Pierce",
+            staticScore: 24,
+            target: 32.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.8287,
+              Mana: 0,
+              Courbe: -0.3125,
+              Interaction: -0.2218,
+              Synergie: 0.256,
+            },
+          },
+          {
+            pick: "P2P2",
+            card: "Sylvan Library",
+            staticScore: 30,
+            target: 16.8,
+            picked: false,
+            contributions: {
+              Puissance: -3.5359,
+              Mana: -6.7354,
+              Courbe: -0.8647,
+              Interaction: 0,
+              Synergie: 0.2931,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Gaea's Cradle",
+            staticScore: 41,
+            target: 21.9,
+            picked: false,
+            contributions: {
+              Puissance: -4.9582,
+              Mana: -19.6334,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Thalia, Guardian of Thraben",
+            staticScore: 27,
+            target: 15.2,
+            picked: false,
+            contributions: {
+              Puissance: -3.2651,
+              Mana: 0,
+              Courbe: -0.4308,
+              Interaction: 0,
+              Synergie: -0.0622,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Scrubland",
+            staticScore: 45,
+            target: 34.7,
+            picked: false,
+            contributions: {
+              Puissance: -5.4419,
+              Mana: -14.2568,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Lurrus of the <nobr>Dream-Den</nobr>",
+            staticScore: 15,
+            target: 15.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.814,
+              Mana: -3.6898,
+              Courbe: -0.4913,
+              Interaction: 0,
+              Synergie: 0.0809,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Indatha Triome",
+            staticScore: 18,
+            target: 14.8,
+            picked: false,
+            contributions: {
+              Puissance: -2.1768,
+              Mana: -6.675,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.2864,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Six",
+            staticScore: 38,
+            target: 21.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.5954,
+              Mana: -9.3741,
+              Courbe: -0.4913,
+              Interaction: 0,
+              Synergie: 0.3369,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Shifting Woodland",
+            staticScore: 26,
+            target: 13.9,
+            picked: false,
+            contributions: {
+              Puissance: -3.1442,
+              Mana: -12.4504,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1432,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Enduring Curiosity",
+            staticScore: 17,
+            target: 19.8,
+            picked: false,
+            contributions: {
+              Puissance: -2.0558,
+              Mana: 0,
+              Courbe: -1.4454,
+              Interaction: 0,
+              Synergie: 0.411,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Expedition Map",
+            staticScore: 6.9,
+            target: 14.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.8344,
+              Mana: 0.5785,
+              Courbe: -0.2695,
+              Interaction: 0,
+              Synergie: 0.0876,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Gideon, Ally of Zendikar",
+            staticScore: 14,
+            target: 20.3,
+            picked: false,
+            contributions: {
+              Puissance: -1.693,
+              Mana: 0,
+              Courbe: -1.4454,
+              Interaction: 0,
+              Synergie: 0.3235,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Cosmogrand Zenith",
+            staticScore: 37,
+            target: 28.1,
+            picked: false,
+            contributions: {
+              Puissance: -4.4744,
+              Mana: 0,
+              Courbe: -0.4913,
+              Interaction: 0,
+              Synergie: 0.0995,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Daze",
+            staticScore: 28,
+            target: 34.9,
+            picked: true,
+            contributions: {
+              Puissance: -3.3861,
+              Mana: 0,
+              Courbe: -0.4308,
+              Interaction: -0.2829,
+              Synergie: 0.1751,
+            },
+          },
+          {
+            pick: "P2P3",
+            card: "Empty the Warrens",
+            staticScore: 3.2,
+            target: 2.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.387,
+              Mana: -0.7894,
+              Courbe: -1.4454,
+              Interaction: 0,
+              Synergie: 0.1803,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Wasteland",
+            staticScore: 23,
+            target: 18.5,
+            picked: false,
+            contributions: {
+              Puissance: -2.8403,
+              Mana: -3.663,
+              Courbe: 0,
+              Interaction: -0.3407,
+              Synergie: 0.2794,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Memory Jar",
+            staticScore: 5,
+            target: 9.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.6175,
+              Mana: 0.4314,
+              Courbe: -0.2292,
+              Interaction: 0,
+              Synergie: 0.2979,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Entomb",
+            staticScore: 41,
+            target: 24.3,
+            picked: false,
+            contributions: {
+              Puissance: -5.0632,
+              Mana: -10.7509,
+              Courbe: -0.2292,
+              Interaction: 0,
+              Synergie: 0.2052,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Wheel of Fortune",
+            staticScore: 32,
+            target: 30,
+            picked: false,
+            contributions: {
+              Puissance: -3.9518,
+              Mana: -8.391,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0.149,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Settle the Wreckage",
+            staticScore: 12,
+            target: 21.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.4819,
+              Mana: 0,
+              Courbe: -1.4874,
+              Interaction: 0,
+              Synergie: 0.1866,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Marsh Flats",
+            staticScore: 43,
+            target: 26.5,
+            picked: true,
+            contributions: {
+              Puissance: -5.3102,
+              Mana: -6.8482,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1675,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Natural Order",
+            staticScore: 34,
+            target: 18.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.1987,
+              Mana: -8.9154,
+              Courbe: -1.4874,
+              Interaction: 0,
+              Synergie: 0.1675,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Leovold, Emissary of Trest",
+            staticScore: 42,
+            target: 16.6,
+            picked: false,
+            contributions: {
+              Puissance: -5.1867,
+              Mana: -17.9429,
+              Courbe: -0.4093,
+              Interaction: 0,
+              Synergie: 0.2608,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "<nobr>Deep-Cavern</nobr> Bat",
+            staticScore: 40,
+            target: 25.2,
+            picked: false,
+            contributions: {
+              Puissance: -4.9397,
+              Mana: -10.4887,
+              Courbe: -0.022,
+              Interaction: 0,
+              Synergie: 0.2423,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Unearth",
+            staticScore: 18,
+            target: 13.2,
+            picked: false,
+            contributions: {
+              Puissance: -2.2229,
+              Mana: -4.7199,
+              Courbe: -0.2292,
+              Interaction: 0,
+              Synergie: 0.4469,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Commercial District",
+            staticScore: 43,
+            target: 8.4,
+            picked: false,
+            contributions: {
+              Puissance: -5.3102,
+              Mana: -21.1881,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.149,
+            },
+          },
+          {
+            pick: "P2P4",
+            card: "Galvanic Blast",
+            staticScore: 15,
+            target: 11.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.8524,
+              Mana: -3.9333,
+              Courbe: -0.2292,
+              Interaction: -0.3407,
+              Synergie: 0.1681,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Shelldock Isle",
+            staticScore: 23,
+            target: 29.4,
+            picked: true,
+            contributions: {
+              Puissance: -2.8876,
+              Mana: -3.7634,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Griselbrand",
+            staticScore: 28,
+            target: 24.2,
+            picked: false,
+            contributions: {
+              Puissance: -3.5153,
+              Mana: -7.5433,
+              Courbe: -0.249,
+              Interaction: 0,
+              Synergie: 0.1175,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Fastbond",
+            staticScore: 29,
+            target: 15.2,
+            picked: false,
+            contributions: {
+              Puissance: -3.6409,
+              Mana: -7.8127,
+              Courbe: -0.2355,
+              Interaction: 0,
+              Synergie: 0.1731,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Stomping Ground",
+            staticScore: 44,
+            target: 8.6,
+            picked: false,
+            contributions: {
+              Puissance: -5.5241,
+              Mana: -22.2749,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Once Upon a Time",
+            staticScore: 40,
+            target: 20.8,
+            picked: false,
+            contributions: {
+              Puissance: -5.0219,
+              Mana: -10.7761,
+              Courbe: -0.0226,
+              Interaction: 0,
+              Synergie: 0.1979,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Ziatora's Proving Ground",
+            staticScore: 22,
+            target: 14.4,
+            picked: false,
+            contributions: {
+              Puissance: -2.7621,
+              Mana: -11.1375,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.3091,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Anointed Peacekeeper",
+            staticScore: 18,
+            target: 11.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.2599,
+              Mana: 0,
+              Courbe: -0.4205,
+              Interaction: 0,
+              Synergie: -0.0605,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Serra Paragon",
+            staticScore: 27,
+            target: 17,
+            picked: false,
+            contributions: {
+              Puissance: -3.3898,
+              Mana: 0,
+              Courbe: -1.5281,
+              Interaction: 0,
+              Synergie: 0.272,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Show and Tell",
+            staticScore: 14,
+            target: 12.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.7577,
+              Mana: 0,
+              Courbe: -0.4205,
+              Interaction: 0,
+              Synergie: 0.136,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "Thornspire Verge",
+            staticScore: 43,
+            target: 8.4,
+            picked: false,
+            contributions: {
+              Puissance: -5.3986,
+              Mana: -21.7687,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P5",
+            card: "<nobr>Cori-Steel</nobr> Cutter",
+            staticScore: 41,
+            target: 30.1,
+            picked: false,
+            contributions: {
+              Puissance: -5.1475,
+              Mana: -11.0455,
+              Courbe: -0.0226,
+              Interaction: 0,
+              Synergie: 0.3648,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Necromancy",
+            staticScore: 41,
+            target: 34.9,
+            picked: false,
+            contributions: {
+              Puissance: -5.211,
+              Mana: -11.6056,
+              Courbe: -0.4314,
+              Interaction: 0,
+              Synergie: 0.283,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Badlands",
+            staticScore: 44,
+            target: 27.3,
+            picked: false,
+            contributions: {
+              Puissance: -5.5923,
+              Mana: -22.8536,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Bone Shards",
+            staticScore: 29,
+            target: 27.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.6858,
+              Mana: -8.2088,
+              Courbe: -0.2416,
+              Interaction: -0.3592,
+              Synergie: 0.2273,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Lion Sash",
+            staticScore: 15,
+            target: 14.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.9065,
+              Mana: 0,
+              Courbe: -0.0232,
+              Interaction: -0.3592,
+              Synergie: 0.1346,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Otawara, Soaring City",
+            staticScore: 23,
+            target: 30.3,
+            picked: true,
+            contributions: {
+              Puissance: -2.9232,
+              Mana: -3.8611,
+              Courbe: 0,
+              Interaction: -0.3592,
+              Synergie: 0.16,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Restless Cottage",
+            staticScore: 37,
+            target: 14.6,
+            picked: false,
+            contributions: {
+              Puissance: -4.7026,
+              Mana: -19.2178,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1415,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Eternal Witness",
+            staticScore: 20,
+            target: 11.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.542,
+              Mana: -5.6612,
+              Courbe: -0.4314,
+              Interaction: 0,
+              Synergie: 0.1004,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Overlord of the Balemurk",
+            staticScore: 39,
+            target: 29,
+            picked: false,
+            contributions: {
+              Puissance: -4.9568,
+              Mana: -11.0394,
+              Courbe: -0.2416,
+              Interaction: 0,
+              Synergie: 0.4615,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Formidable Speaker",
+            staticScore: 37,
+            target: 20.1,
+            picked: false,
+            contributions: {
+              Puissance: -4.7026,
+              Mana: -10.4733,
+              Courbe: -0.4314,
+              Interaction: 0,
+              Synergie: 0.283,
+            },
+          },
+          {
+            pick: "P2P6",
+            card: "Mutagen Man, Living Ooze",
+            staticScore: 13,
+            target: 7.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.6523,
+              Mana: -3.6798,
+              Courbe: -0.2555,
+              Interaction: 0,
+              Synergie: 0.2459,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Rofellos, Llanowar Emissary",
+            staticScore: 21,
+            target: 12.2,
+            picked: false,
+            contributions: {
+              Puissance: -2.691,
+              Mana: -6.2242,
+              Courbe: -0.0238,
+              Interaction: 0,
+              Synergie: 0.1283,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Tundra",
+            staticScore: 44,
+            target: 43.4,
+            picked: true,
+            contributions: {
+              Puissance: -5.6382,
+              Mana: -7.569,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Uro, Titan of Nature's Wrath",
+            staticScore: 44,
+            target: 27.2,
+            picked: false,
+            contributions: {
+              Puissance: -5.6382,
+              Mana: -12.5183,
+              Courbe: -0.4421,
+              Interaction: 0,
+              Synergie: 0.3291,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Goblin Engineer",
+            staticScore: 7,
+            target: 5.8,
+            picked: false,
+            contributions: {
+              Puissance: -0.897,
+              Mana: -2.0747,
+              Courbe: -0.0238,
+              Interaction: 0,
+              Synergie: 0.238,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Tireless Provisioner",
+            staticScore: 17,
+            target: 10.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.1784,
+              Mana: -5.0386,
+              Courbe: -0.4421,
+              Interaction: 0,
+              Synergie: 0.2565,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Monoskelion",
+            staticScore: 2.7,
+            target: 2.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.346,
+              Mana: 0.2516,
+              Courbe: -0.0238,
+              Interaction: -0.368,
+              Synergie: 0.2194,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Lightning Helix",
+            staticScore: 43,
+            target: 29.7,
+            picked: false,
+            contributions: {
+              Puissance: -5.5101,
+              Mana: -12.2338,
+              Courbe: -0.0238,
+              Interaction: -0.368,
+              Synergie: 0.2009,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Booster Tutor",
+            staticScore: 43,
+            target: 37.9,
+            picked: false,
+            contributions: {
+              Puissance: -5.5101,
+              Mana: -12.7448,
+              Courbe: -0.2476,
+              Interaction: 0,
+              Synergie: 0.0726,
+            },
+          },
+          {
+            pick: "P2P7",
+            card: "Vampiric Tutor",
+            staticScore: 37,
+            target: 31.3,
+            picked: false,
+            contributions: {
+              Puissance: -4.7412,
+              Mana: -10.9665,
+              Courbe: -0.2476,
+              Interaction: 0,
+              Synergie: 0.0726,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Tamiyo, Collector of Tales",
+            staticScore: 37,
+            target: 22.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.7611,
+              Mana: -10.9818,
+              Courbe: -1.6443,
+              Interaction: 0,
+              Synergie: 0.3633,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Kaito, Bane of Nightmares",
+            staticScore: 39,
+            target: 31.5,
+            picked: false,
+            contributions: {
+              Puissance: -5.0185,
+              Mana: -11.5754,
+              Courbe: -1.6443,
+              Interaction: 0,
+              Synergie: 0.3411,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Willowrush Verge",
+            staticScore: 40,
+            target: 23.9,
+            picked: false,
+            contributions: {
+              Puissance: -5.1472,
+              Mana: -14.4164,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Surrak, Elusive Hunter",
+            staticScore: 28,
+            target: 16.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.603,
+              Mana: -8.8079,
+              Courbe: -0.4525,
+              Interaction: 0,
+              Synergie: 0.1125,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Glimmer Lens",
+            staticScore: 40,
+            target: 24.4,
+            picked: false,
+            contributions: {
+              Puissance: -5.1472,
+              Mana: 0,
+              Courbe: -0.0244,
+              Interaction: 0,
+              Synergie: 0.3596,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Fallen Shinobi",
+            staticScore: 40,
+            target: 33.9,
+            picked: false,
+            contributions: {
+              Puissance: -5.1472,
+              Mana: -11.8722,
+              Courbe: -0.2534,
+              Interaction: 0,
+              Synergie: 0.1335,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Krang, Utrom Warlord",
+            staticScore: 7.6,
+            target: 11.1,
+            picked: true,
+            contributions: {
+              Puissance: -0.978,
+              Mana: 0.7249,
+              Courbe: -0.268,
+              Interaction: 0,
+              Synergie: 0.3226,
+            },
+          },
+          {
+            pick: "P2P8",
+            card: "Armageddon",
+            staticScore: 12,
+            target: 10.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.5442,
+              Mana: 0,
+              Courbe: -1.6443,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Temple Garden",
+            staticScore: 44,
+            target: 19.2,
+            picked: false,
+            contributions: {
+              Puissance: -5.6633,
+              Mana: -16.2145,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Loran of the Third Path",
+            staticScore: 21,
+            target: 19.3,
+            picked: true,
+            contributions: {
+              Puissance: -2.7029,
+              Mana: 0,
+              Courbe: -0.3652,
+              Interaction: 0,
+              Synergie: 0.0998,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Faithless Looting",
+            staticScore: 9.9,
+            target: 6.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.2742,
+              Mana: -3.1842,
+              Courbe: -0.2104,
+              Interaction: 0,
+              Synergie: 0.5084,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Tough Cookie",
+            staticScore: 5.7,
+            target: 2.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.7337,
+              Mana: -1.8333,
+              Courbe: -0.1888,
+              Interaction: 0,
+              Synergie: 0.24,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Elegant Parlor",
+            staticScore: 41,
+            target: 23.6,
+            picked: false,
+            contributions: {
+              Puissance: -5.2772,
+              Mana: -15.1089,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Blazemire Verge",
+            staticScore: 41,
+            target: 21.2,
+            picked: false,
+            contributions: {
+              Puissance: -5.2772,
+              Mana: -22.8368,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P9",
+            card: "Gene Pollinator",
+            staticScore: 6.2,
+            target: 2.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.798,
+              Mana: -1.9942,
+              Courbe: -0.2104,
+              Interaction: 0,
+              Synergie: 0.1184,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "Stern Scolding",
+            staticScore: 15,
+            target: 23.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.9236,
+              Mana: 0,
+              Courbe: -0.1701,
+              Interaction: -0.3155,
+              Synergie: 0.2685,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "Collective Brutality",
+            staticScore: 27,
+            target: 13,
+            picked: false,
+            contributions: {
+              Puissance: -3.4624,
+              Mana: -9.008,
+              Courbe: -0.3435,
+              Interaction: -0.3155,
+              Synergie: 0.3056,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "Thousand Moons Smithy",
+            staticScore: 8,
+            target: 12.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.0259,
+              Mana: 0,
+              Courbe: -1.7174,
+              Interaction: 0,
+              Synergie: 0.1806,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "Thundertrap Trainer",
+            staticScore: 20,
+            target: 25.2,
+            picked: false,
+            contributions: {
+              Puissance: -2.5648,
+              Mana: 0,
+              Courbe: -0.3435,
+              Interaction: 0,
+              Synergie: 0.0685,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "<nobr>Molten-Core</nobr> Maestro",
+            staticScore: 7.1,
+            target: 5.4,
+            picked: false,
+            contributions: {
+              Puissance: -0.9105,
+              Mana: -2.3688,
+              Courbe: -0.3435,
+              Interaction: 0,
+              Synergie: 0.0879,
+            },
+          },
+          {
+            pick: "P2P10",
+            card: "Spell Pierce",
+            staticScore: 24,
+            target: 31.1,
+            picked: true,
+            contributions: {
+              Puissance: -3.0777,
+              Mana: 0,
+              Courbe: -0.1701,
+              Interaction: -0.3155,
+              Synergie: 0.2685,
+            },
+          },
+          {
+            pick: "P2P11",
+            card: "Scrubland",
+            staticScore: 45,
+            target: 24.9,
+            picked: false,
+            contributions: {
+              Puissance: -5.7267,
+              Mana: -17.2889,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P11",
+            card: "Indatha Triome",
+            staticScore: 18,
+            target: 10.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.2907,
+              Mana: -8.0946,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.3339,
+            },
+          },
+          {
+            pick: "P2P11",
+            card: "Shifting Woodland",
+            staticScore: 26,
+            target: 12,
+            picked: false,
+            contributions: {
+              Puissance: -3.3087,
+              Mana: -15.0984,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1855,
+            },
+          },
+          {
+            pick: "P2P11",
+            card: "Gideon, Ally of Zendikar",
+            staticScore: 14,
+            target: 16.3,
+            picked: false,
+            contributions: {
+              Puissance: -1.7816,
+              Mana: 0,
+              Courbe: -1.7529,
+              Interaction: 0,
+              Synergie: 0.4081,
+            },
+          },
+          {
+            pick: "P2P11",
+            card: "Cosmogrand Zenith",
+            staticScore: 37,
+            target: 20,
+            picked: true,
+            contributions: {
+              Puissance: -4.7086,
+              Mana: 0,
+              Courbe: -0.4823,
+              Interaction: 0,
+              Synergie: -0.093,
+            },
+          },
+          {
+            pick: "P2P12",
+            card: "Entomb",
+            staticScore: 41,
+            target: 22.2,
+            picked: true,
+            contributions: {
+              Puissance: -5.1567,
+              Mana: -14.7994,
+              Courbe: -0.3649,
+              Interaction: 0,
+              Synergie: 0.2692,
+            },
+          },
+          {
+            pick: "P2P12",
+            card: "Settle the Wreckage",
+            staticScore: 12,
+            target: 18.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.5093,
+              Mana: 0,
+              Courbe: -1.7876,
+              Interaction: 0,
+              Synergie: 0.2507,
+            },
+          },
+          {
+            pick: "P2P12",
+            card: "Leovold, Emissary of Trest",
+            staticScore: 42,
+            target: 17,
+            picked: false,
+            contributions: {
+              Puissance: -5.2825,
+              Mana: -22.8476,
+              Courbe: -0.6707,
+              Interaction: 0,
+              Synergie: 0.2692,
+            },
+          },
+          {
+            pick: "P2P12",
+            card: "Unearth",
+            staticScore: 18,
+            target: 10.8,
+            picked: false,
+            contributions: {
+              Puissance: -2.2639,
+              Mana: -6.4973,
+              Courbe: -0.3649,
+              Interaction: 0,
+              Synergie: 0.5337,
+            },
+          },
+          {
+            pick: "P2P13",
+            card: "Stomping Ground",
+            staticScore: 44,
+            target: 14.3,
+            picked: false,
+            contributions: {
+              Puissance: -5.4465,
+              Mana: -26.5535,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P13",
+            card: "Show and Tell",
+            staticScore: 14,
+            target: 13.2,
+            picked: true,
+            contributions: {
+              Puissance: -1.733,
+              Mana: 0,
+              Courbe: -0.5884,
+              Interaction: 0,
+              Synergie: 0.1764,
+            },
+          },
+          {
+            pick: "P2P13",
+            card: "Thornspire Verge",
+            staticScore: 43,
+            target: 13.8,
+            picked: false,
+            contributions: {
+              Puissance: -5.3227,
+              Mana: -25.95,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P2P14",
+            card: "Formidable Speaker",
+            staticScore: 37,
+            target: 20.6,
+            picked: false,
+            contributions: {
+              Puissance: -4.4876,
+              Mana: -12.9355,
+              Courbe: -0.7657,
+              Interaction: 0,
+              Synergie: 0.2878,
+            },
+          },
+          {
+            pick: "P2P14",
+            card: "Mutagen Man, Living Ooze",
+            staticScore: 13,
+            target: 7.6,
+            picked: true,
+            contributions: {
+              Puissance: -1.5767,
+              Mana: -4.5449,
+              Courbe: -0.0204,
+              Interaction: 0,
+              Synergie: 0.4688,
+            },
+          },
+          {
+            pick: "P2P15",
+            card: "Goblin Engineer",
+            staticScore: 7,
+            target: 5.1,
+            picked: true,
+            contributions: {
+              Puissance: -0.828,
+              Mana: -2.4316,
+              Courbe: -1.0069,
+              Interaction: 0,
+              Synergie: -0.0158,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Skullclamp",
+            staticScore: 39,
+            target: 27.9,
+            picked: false,
+            contributions: {
+              Puissance: -4.4762,
+              Mana: 4.3437,
+              Courbe: -0.4585,
+              Interaction: 0,
+              Synergie: 0.3984,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Grave Titan",
+            staticScore: 25,
+            target: 15.6,
+            picked: false,
+            contributions: {
+              Puissance: -2.8694,
+              Mana: -8.7198,
+              Courbe: -0.2244,
+              Interaction: 0,
+              Synergie: 0.2872,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Flame Slash",
+            staticScore: 35,
+            target: 23.1,
+            picked: false,
+            contributions: {
+              Puissance: -4.0171,
+              Mana: -12.2078,
+              Courbe: -0.4585,
+              Interaction: -0.2472,
+              Synergie: 0.1529,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Lion's Eye Diamond",
+            staticScore: 9.3,
+            target: 15.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.0674,
+              Mana: 1.0358,
+              Courbe: -0.4585,
+              Interaction: 0,
+              Synergie: 0.3243,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Talisman of Conviction",
+            staticScore: 8.8,
+            target: 10.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.01,
+              Mana: 0.9801,
+              Courbe: -0.6302,
+              Interaction: 0,
+              Synergie: 0.227,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Elder Gargaroth",
+            staticScore: 23,
+            target: 12.6,
+            picked: false,
+            contributions: {
+              Puissance: -2.6398,
+              Mana: -8.0223,
+              Courbe: -0.0591,
+              Interaction: 0,
+              Synergie: 0.4215,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Urza's Saga",
+            staticScore: 38,
+            target: 35.8,
+            picked: false,
+            contributions: {
+              Puissance: -4.3615,
+              Mana: -7.813,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1714,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Channel",
+            staticScore: 18,
+            target: 13.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.066,
+              Mana: -6.2783,
+              Courbe: -0.6302,
+              Interaction: 0,
+              Synergie: 0.2456,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Tamiyo, Inquisitive Student",
+            staticScore: 45,
+            target: 43.3,
+            picked: true,
+            contributions: {
+              Puissance: -5.1649,
+              Mana: 0,
+              Courbe: -0.4585,
+              Interaction: 0,
+              Synergie: 0.0821,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Ocelot Pride",
+            staticScore: 48,
+            target: 38.5,
+            picked: false,
+            contributions: {
+              Puissance: -5.5092,
+              Mana: 0,
+              Courbe: -0.4585,
+              Interaction: 0,
+              Synergie: 0.2872,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Jace, Vryn's Prodigy",
+            staticScore: 26,
+            target: 25.8,
+            picked: false,
+            contributions: {
+              Puissance: -2.9842,
+              Mana: 0,
+              Courbe: -0.6302,
+              Interaction: 0,
+              Synergie: -0.2646,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Wastewood Verge",
+            staticScore: 41,
+            target: 20,
+            picked: false,
+            contributions: {
+              Puissance: -4.7058,
+              Mana: -26.0814,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Clarion Conqueror",
+            staticScore: 14,
+            target: 9,
+            picked: false,
+            contributions: {
+              Puissance: -1.6069,
+              Mana: 0,
+              Courbe: -0.6096,
+              Interaction: 0,
+              Synergie: 0.0787,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Cecil, Dark Knight",
+            staticScore: 17,
+            target: 12.6,
+            picked: false,
+            contributions: {
+              Puissance: -1.9512,
+              Mana: -5.9295,
+              Courbe: -0.4585,
+              Interaction: 0,
+              Synergie: -0.5923,
+            },
+          },
+          {
+            pick: "P3P1",
+            card: "Traumatic Critique",
+            staticScore: 30,
+            target: 18,
+            picked: false,
+            contributions: {
+              Puissance: -3.4433,
+              Mana: -10.1196,
+              Courbe: -0.2244,
+              Interaction: -0.2472,
+              Synergie: 0.3658,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Green Sun's Zenith",
+            staticScore: 39,
+            target: 19.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.3197,
+              Mana: -14.2489,
+              Courbe: -0.2005,
+              Interaction: 0,
+              Synergie: 0.25,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Worldspine Wurm",
+            staticScore: 26,
+            target: 17.5,
+            picked: false,
+            contributions: {
+              Puissance: -2.8798,
+              Mana: -9.4993,
+              Courbe: -0.2005,
+              Interaction: 0,
+              Synergie: 0.416,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Balance",
+            staticScore: 35,
+            target: 35.6,
+            picked: true,
+            contributions: {
+              Puissance: -3.8766,
+              Mana: 0,
+              Courbe: -0.7518,
+              Interaction: 0,
+              Synergie: 0.3515,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Mishra's Workshop",
+            staticScore: 11,
+            target: 11.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.2184,
+              Mana: -2.299,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Taiga",
+            staticScore: 46,
+            target: 18.3,
+            picked: false,
+            contributions: {
+              Puissance: -5.095,
+              Mana: -29.7458,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Traxos, Scourge of Kroog",
+            staticScore: 4.5,
+            target: 3.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.4984,
+              Mana: 0.5095,
+              Courbe: -1.9519,
+              Interaction: 0,
+              Synergie: 0.2959,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Brazen Borrower",
+            staticScore: 25,
+            target: 30,
+            picked: false,
+            contributions: {
+              Puissance: -2.769,
+              Mana: 0,
+              Courbe: -0.5371,
+              Interaction: 0,
+              Synergie: 0.0645,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Talisman of Curiosity",
+            staticScore: 12,
+            target: 11,
+            picked: false,
+            contributions: {
+              Puissance: -1.3291,
+              Mana: 1.3586,
+              Courbe: -0.7518,
+              Interaction: 0,
+              Synergie: 0.2314,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Hazoret the Fervent",
+            staticScore: 6.3,
+            target: 3.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.6978,
+              Mana: -2.3018,
+              Courbe: -1.9519,
+              Interaction: 0,
+              Synergie: 0.2588,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Portable Hole",
+            staticScore: 31,
+            target: 25.6,
+            picked: false,
+            contributions: {
+              Puissance: -3.4336,
+              Mana: 0,
+              Courbe: -0.6588,
+              Interaction: -0.2258,
+              Synergie: 0.1387,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Inquisition of Kozilek",
+            staticScore: 40,
+            target: 22.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.4305,
+              Mana: -14.6143,
+              Courbe: -0.6588,
+              Interaction: 0,
+              Synergie: 0.3515,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Haywire Mite",
+            staticScore: 4.8,
+            target: 3.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.5317,
+              Mana: 0.5434,
+              Courbe: -0.6588,
+              Interaction: -0.2258,
+              Synergie: 0.1104,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Lórien Revealed",
+            staticScore: 26,
+            target: 32.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.8798,
+              Mana: 0,
+              Courbe: -0.1157,
+              Interaction: 0,
+              Synergie: 0.1758,
+            },
+          },
+          {
+            pick: "P3P2",
+            card: "Kytheon, Hero of Akros",
+            staticScore: 31,
+            target: 8.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.4336,
+              Mana: 0,
+              Courbe: -0.6588,
+              Interaction: 0,
+              Synergie: -0.3676,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Godless Shrine",
+            staticScore: 43,
+            target: 22.5,
+            picked: false,
+            contributions: {
+              Puissance: -4.5684,
+              Mana: -18.6909,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Talisman of Creativity",
+            staticScore: 11,
+            target: 17.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.1687,
+              Mana: 1.2653,
+              Courbe: -0.3966,
+              Interaction: 0,
+              Synergie: 0.2357,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Counterspell",
+            staticScore: 39,
+            target: 37.6,
+            picked: true,
+            contributions: {
+              Puissance: -4.1434,
+              Mana: 0,
+              Courbe: -0.3966,
+              Interaction: -0.2053,
+              Synergie: 0.2859,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Blood Fountain",
+            staticScore: 6.5,
+            target: 3.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.6906,
+              Mana: -2.4635,
+              Courbe: -0.6174,
+              Interaction: 0,
+              Synergie: 0.2489,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Voldaren Epicure",
+            staticScore: 12,
+            target: 7.6,
+            picked: false,
+            contributions: {
+              Puissance: -1.2749,
+              Mana: -4.548,
+              Courbe: -0.6174,
+              Interaction: 0,
+              Synergie: 0.2859,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Spara's Headquarters",
+            staticScore: 26,
+            target: 25.8,
+            picked: false,
+            contributions: {
+              Puissance: -2.7623,
+              Mana: -9.3747,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Oliphaunt",
+            staticScore: 20,
+            target: 13.4,
+            picked: false,
+            contributions: {
+              Puissance: -2.1248,
+              Mana: -7.58,
+              Courbe: -0.1777,
+              Interaction: 0,
+              Synergie: 0.2118,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Delighted Halfling",
+            staticScore: 42,
+            target: 25.5,
+            picked: false,
+            contributions: {
+              Puissance: -4.4621,
+              Mana: -15.918,
+              Courbe: -0.6174,
+              Interaction: 0,
+              Synergie: 0.0688,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Meticulous Archive",
+            staticScore: 41,
+            target: 34.9,
+            picked: false,
+            contributions: {
+              Puissance: -4.3559,
+              Mana: -8.7063,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1801,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Kellan, Planar Trailblazer",
+            staticScore: 20,
+            target: 12.3,
+            picked: false,
+            contributions: {
+              Puissance: -2.1248,
+              Mana: -7.58,
+              Courbe: -0.6174,
+              Interaction: 0,
+              Synergie: -0.6241,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Sylvan Caryatid",
+            staticScore: 34,
+            target: 18.9,
+            picked: false,
+            contributions: {
+              Puissance: -3.6122,
+              Mana: -12.886,
+              Courbe: -0.3966,
+              Interaction: 0,
+              Synergie: 0.0688,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "The Legend of Kuruk",
+            staticScore: 20,
+            target: 27.9,
+            picked: false,
+            contributions: {
+              Puissance: -2.1248,
+              Mana: 0,
+              Courbe: -1.9831,
+              Interaction: 0,
+              Synergie: 0.4158,
+            },
+          },
+          {
+            pick: "P3P3",
+            card: "Volcanic Island",
+            staticScore: 43,
+            target: 29.7,
+            picked: false,
+            contributions: {
+              Puissance: -4.5684,
+              Mana: -18.6909,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Lightning Greaves",
+            staticScore: 11,
+            target: 6,
+            picked: false,
+            contributions: {
+              Puissance: -1.1134,
+              Mana: 1.285,
+              Courbe: -0.0556,
+              Interaction: 0,
+              Synergie: 0.4984,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Batterskull",
+            staticScore: 6.9,
+            target: 13.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.6984,
+              Mana: 0.806,
+              Courbe: -0.2222,
+              Interaction: 0,
+              Synergie: 0.4984,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Overgrown Tomb",
+            staticScore: 42,
+            target: 22,
+            picked: false,
+            contributions: {
+              Puissance: -4.2511,
+              Mana: -28.0216,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Fire Covenant",
+            staticScore: 44,
+            target: 26.3,
+            picked: false,
+            contributions: {
+              Puissance: -4.4535,
+              Mana: -24.8115,
+              Courbe: -0.4013,
+              Interaction: 0,
+              Synergie: 0.073,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Dragon's Rage Channeler",
+            staticScore: 20,
+            target: 13.7,
+            picked: false,
+            contributions: {
+              Puissance: -2.0243,
+              Mana: -7.8604,
+              Courbe: -0.5778,
+              Interaction: 0,
+              Synergie: -0.4649,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Cathar Commando",
+            staticScore: 23,
+            target: 11.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.328,
+              Mana: 0,
+              Courbe: -0.0556,
+              Interaction: -0.2566,
+              Synergie: -0.5576,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Hedge Maze",
+            staticScore: 40,
+            target: 25.7,
+            picked: false,
+            contributions: {
+              Puissance: -4.0486,
+              Mana: -17.6564,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0.1843,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Vaultborn Tyrant",
+            staticScore: 38,
+            target: 25.8,
+            picked: false,
+            contributions: {
+              Puissance: -3.8462,
+              Mana: -14.9348,
+              Courbe: -0.1559,
+              Interaction: 0,
+              Synergie: 0.4602,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Psychic Frog",
+            staticScore: 50,
+            target: 29.4,
+            picked: true,
+            contributions: {
+              Puissance: -5.0608,
+              Mana: -18.3693,
+              Courbe: -0.0556,
+              Interaction: 0,
+              Synergie: 0.5888,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Kappa Cannoneer",
+            staticScore: 19,
+            target: 16.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.9231,
+              Mana: 0,
+              Courbe: -0.1559,
+              Interaction: 0,
+              Synergie: 0.2573,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Dark Confidant",
+            staticScore: 21,
+            target: 11.5,
+            picked: false,
+            contributions: {
+              Puissance: -2.1255,
+              Mana: -8.2534,
+              Courbe: -0.0556,
+              Interaction: 0,
+              Synergie: -1.0998,
+            },
+          },
+          {
+            pick: "P3P4",
+            card: "Tezzeret, Cruel Captain",
+            staticScore: 13,
+            target: 16.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.3158,
+              Mana: 1.5186,
+              Courbe: -0.4013,
+              Interaction: 0,
+              Synergie: 0.4428,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Tinker",
+            staticScore: 33,
+            target: 25.1,
+            picked: true,
+            contributions: {
+              Puissance: -3.1576,
+              Mana: 0,
+              Courbe: -0.3375,
+              Interaction: 0,
+              Synergie: 0.414,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Sword of Fire and Ice",
+            staticScore: 6.2,
+            target: 10.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.5932,
+              Mana: 0.7351,
+              Courbe: -0.3375,
+              Interaction: -0.2365,
+              Synergie: 0.3213,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Bayou",
+            staticScore: 43,
+            target: 23.4,
+            picked: false,
+            contributions: {
+              Puissance: -4.1144,
+              Mana: -29.1202,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Manamorphose",
+            staticScore: 8.4,
+            target: 6.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.8037,
+              Mana: -4.7238,
+              Courbe: -0.135,
+              Interaction: 0,
+              Synergie: 0.2656,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "March of Otherworldly Light",
+            staticScore: 21,
+            target: 22.7,
+            picked: false,
+            contributions: {
+              Puissance: -2.0094,
+              Mana: 0,
+              Courbe: -0.135,
+              Interaction: -0.2365,
+              Synergie: 0.2656,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Portal to Phyrexia",
+            staticScore: 10,
+            target: 19.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.9568,
+              Mana: 1.1857,
+              Courbe: -0.135,
+              Interaction: 0,
+              Synergie: 0.3027,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Chromatic Star",
+            staticScore: 9.8,
+            target: 18.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.9377,
+              Mana: 1.162,
+              Courbe: -0.54,
+              Interaction: 0,
+              Synergie: 0.21,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Thundering Falls",
+            staticScore: 37,
+            target: 23.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.5403,
+              Mana: -16.5778,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Phlage, Titan of Fire's Fury",
+            staticScore: 50,
+            target: 33.1,
+            picked: false,
+            contributions: {
+              Puissance: -4.7842,
+              Mana: -18.3952,
+              Courbe: -0.3375,
+              Interaction: -0.2365,
+              Synergie: 0.3057,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Sin, Spira's Punishment",
+            staticScore: 41,
+            target: 20.6,
+            picked: false,
+            contributions: {
+              Puissance: -3.923,
+              Mana: -24.8529,
+              Courbe: -0.135,
+              Interaction: 0,
+              Synergie: 0.3057,
+            },
+          },
+          {
+            pick: "P3P5",
+            card: "Improvised Arsenal",
+            staticScore: 7.6,
+            target: 9.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.7272,
+              Mana: -2.9558,
+              Courbe: -0.135,
+              Interaction: 0,
+              Synergie: 0.4511,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Pyrokinesis",
+            staticScore: 27,
+            target: 19.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.4205,
+              Mana: -10.832,
+              Courbe: -0.1149,
+              Interaction: 0,
+              Synergie: 0.0813,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Concealed Courtyard",
+            staticScore: 42,
+            target: 20.4,
+            picked: false,
+            contributions: {
+              Puissance: -3.7652,
+              Mana: -19.0928,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Grist, the Hunger Tide",
+            staticScore: 41,
+            target: 20.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.6755,
+              Mana: -23.6636,
+              Courbe: -0.4971,
+              Interaction: -0.2172,
+              Synergie: 0.6219,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Boseiju, Who Endures",
+            staticScore: 31,
+            target: 13.6,
+            picked: false,
+            contributions: {
+              Puissance: -2.779,
+              Mana: -21.3001,
+              Courbe: 0,
+              Interaction: -0.2172,
+              Synergie: 0.2739,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Fanatic of Rhonas",
+            staticScore: 37,
+            target: 16.9,
+            picked: false,
+            contributions: {
+              Puissance: -3.3169,
+              Mana: -14.8438,
+              Courbe: -0.0707,
+              Interaction: 0,
+              Synergie: 0.0627,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Persist",
+            staticScore: 35,
+            target: 20.3,
+            picked: false,
+            contributions: {
+              Puissance: -3.1376,
+              Mana: -14.0414,
+              Courbe: -0.0707,
+              Interaction: 0,
+              Synergie: 0.311,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Bleachbone Verge",
+            staticScore: 42,
+            target: 21.9,
+            picked: true,
+            contributions: {
+              Puissance: -3.7652,
+              Mana: -19.0928,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Chain Lightning",
+            staticScore: 37,
+            target: 24.1,
+            picked: false,
+            contributions: {
+              Puissance: -3.3169,
+              Mana: -14.8438,
+              Courbe: -0.5037,
+              Interaction: -0.2172,
+              Synergie: 0.1369,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Torsten, Founder of Benalia",
+            staticScore: 26,
+            target: 15,
+            picked: false,
+            contributions: {
+              Puissance: -2.3308,
+              Mana: -9.7908,
+              Courbe: -0.1149,
+              Interaction: 0,
+              Synergie: -0.525,
+            },
+          },
+          {
+            pick: "P3P6",
+            card: "Professor Dellian Fel",
+            staticScore: 42,
+            target: 21.4,
+            picked: false,
+            contributions: {
+              Puissance: -3.7652,
+              Mana: -24.2408,
+              Courbe: -2.074,
+              Interaction: -0.2172,
+              Synergie: 0.6148,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Thieving Skydiver",
+            staticScore: 18,
+            target: 15.8,
+            picked: true,
+            contributions: {
+              Puissance: -1.4959,
+              Mana: 0,
+              Courbe: -0.0717,
+              Interaction: 0,
+              Synergie: 0.0668,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Breya's Apprentice",
+            staticScore: 9.1,
+            target: 4.6,
+            picked: false,
+            contributions: {
+              Puissance: -0.7562,
+              Mana: -3.6305,
+              Courbe: -0.5041,
+              Interaction: 0,
+              Synergie: -0.557,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Sneak Attack",
+            staticScore: 21,
+            target: 17.7,
+            picked: false,
+            contributions: {
+              Puissance: -1.7452,
+              Mana: -8.378,
+              Courbe: -2.1034,
+              Interaction: 0,
+              Synergie: 0.1224,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Caustic Bronco",
+            staticScore: 23,
+            target: 8.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.9114,
+              Mana: -9.1759,
+              Courbe: -0.0717,
+              Interaction: 0,
+              Synergie: 0.0668,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Starting Town",
+            staticScore: 23,
+            target: 18.5,
+            picked: false,
+            contributions: {
+              Puissance: -1.9114,
+              Mana: -11.6886,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Cryogen Relic",
+            staticScore: 15,
+            target: 12.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.2466,
+              Mana: 0,
+              Courbe: -0.0717,
+              Interaction: 0,
+              Synergie: 0.2449,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Staff of the Storyteller",
+            staticScore: 41,
+            target: 24.1,
+            picked: false,
+            contributions: {
+              Puissance: -3.4072,
+              Mana: 0,
+              Courbe: -0.0717,
+              Interaction: 0,
+              Synergie: 0.319,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Leatherhead, Swamp Stalker",
+            staticScore: 18,
+            target: 5.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.4959,
+              Mana: -7.1811,
+              Courbe: -2.1034,
+              Interaction: -0.2202,
+              Synergie: -0.0558,
+            },
+          },
+          {
+            pick: "P3P7",
+            card: "Emeritus of Truce",
+            staticScore: 12,
+            target: 9.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.9972,
+              Mana: 0,
+              Courbe: -0.5041,
+              Interaction: 0,
+              Synergie: -0.1782,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Graveyard Trespasser",
+            staticScore: 16,
+            target: 9,
+            picked: false,
+            contributions: {
+              Puissance: -1.2169,
+              Mana: -6.5276,
+              Courbe: -0.4401,
+              Interaction: 0,
+              Synergie: -0.3287,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "The Mightstone and Weakstone",
+            staticScore: 8.3,
+            target: 5.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.6313,
+              Mana: 1.0266,
+              Courbe: -0.3732,
+              Interaction: 0,
+              Synergie: 0.1635,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Retrofitter Foundry",
+            staticScore: 18,
+            target: 19.7,
+            picked: false,
+            contributions: {
+              Puissance: -1.369,
+              Mana: 2.2264,
+              Courbe: -0.4753,
+              Interaction: 0,
+              Synergie: 0.3641,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Generous Ent",
+            staticScore: 25,
+            target: 11,
+            picked: false,
+            contributions: {
+              Puissance: -1.9014,
+              Mana: -10.1993,
+              Courbe: -0.0968,
+              Interaction: 0,
+              Synergie: 0.2899,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Preacher of the Schism",
+            staticScore: 22,
+            target: 9.8,
+            picked: true,
+            contributions: {
+              Puissance: -1.6732,
+              Mana: -8.9754,
+              Courbe: -0.4401,
+              Interaction: 0,
+              Synergie: -0.0512,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Sentinel of the Nameless City",
+            staticScore: 35,
+            target: 17.1,
+            picked: false,
+            contributions: {
+              Puissance: -2.6619,
+              Mana: -14.279,
+              Courbe: -0.4401,
+              Interaction: 0,
+              Synergie: 0.0416,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Raucous Theater",
+            staticScore: 42,
+            target: 23.6,
+            picked: false,
+            contributions: {
+              Puissance: -3.1943,
+              Mana: -29.6713,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P8",
+            card: "Enduring Innocence",
+            staticScore: 30,
+            target: 12.9,
+            picked: false,
+            contributions: {
+              Puissance: -2.2816,
+              Mana: 0,
+              Courbe: -0.4401,
+              Interaction: 0,
+              Synergie: 0.5091,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Skullclamp",
+            staticScore: 39,
+            target: 26,
+            picked: true,
+            contributions: {
+              Puissance: -2.6715,
+              Mana: 4.8887,
+              Courbe: -0.4411,
+              Interaction: 0,
+              Synergie: 0.4276,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Grave Titan",
+            staticScore: 25,
+            target: 11.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.7125,
+              Mana: -10.03,
+              Courbe: -0.0778,
+              Interaction: 0,
+              Synergie: 0.2607,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Elder Gargaroth",
+            staticScore: 23,
+            target: 9.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.5755,
+              Mana: -9.2276,
+              Courbe: -0.4191,
+              Interaction: 0,
+              Synergie: 0.6698,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Channel",
+            staticScore: 18,
+            target: 10,
+            picked: false,
+            contributions: {
+              Puissance: -1.233,
+              Mana: -7.2216,
+              Courbe: -0.1643,
+              Interaction: 0,
+              Synergie: 0.2416,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Clarion Conqueror",
+            staticScore: 14,
+            target: 5.9,
+            picked: false,
+            contributions: {
+              Puissance: -0.959,
+              Mana: 0,
+              Courbe: -0.5947,
+              Interaction: 0,
+              Synergie: 0.0376,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Cecil, Dark Knight",
+            staticScore: 17,
+            target: 8.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.1645,
+              Mana: -6.8204,
+              Courbe: -0.4411,
+              Interaction: 0,
+              Synergie: -0.7175,
+            },
+          },
+          {
+            pick: "P3P9",
+            card: "Traumatic Critique",
+            staticScore: 30,
+            target: 12.7,
+            picked: false,
+            contributions: {
+              Puissance: -2.055,
+              Mana: -11.5189,
+              Courbe: -0.0778,
+              Interaction: -0.1831,
+              Synergie: 0.3725,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Worldspine Wurm",
+            staticScore: 26,
+            target: 12.4,
+            picked: false,
+            contributions: {
+              Puissance: -1.5714,
+              Mana: -10.5675,
+              Courbe: -0.0595,
+              Interaction: 0,
+              Synergie: 0.4213,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Mishra's Workshop",
+            staticScore: 11,
+            target: 6,
+            picked: false,
+            contributions: {
+              Puissance: -0.6648,
+              Mana: -2.5787,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Talisman of Curiosity",
+            staticScore: 12,
+            target: 6.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.7253,
+              Mana: 1.5239,
+              Courbe: -0.1021,
+              Interaction: 0,
+              Synergie: 0.2455,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Hazoret the Fervent",
+            staticScore: 6.3,
+            target: 2,
+            picked: false,
+            contributions: {
+              Puissance: -0.3808,
+              Mana: -2.5606,
+              Courbe: -2.1893,
+              Interaction: 0,
+              Synergie: 0.2314,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Portable Hole",
+            staticScore: 31,
+            target: 18.5,
+            picked: true,
+            contributions: {
+              Puissance: -1.8736,
+              Mana: 0,
+              Courbe: -0.6209,
+              Interaction: -0.1656,
+              Synergie: 0.1528,
+            },
+          },
+          {
+            pick: "P3P10",
+            card: "Haywire Mite",
+            staticScore: 4.8,
+            target: 2.1,
+            picked: false,
+            contributions: {
+              Puissance: -0.2901,
+              Mana: 0.6096,
+              Courbe: -0.6209,
+              Interaction: -0.1656,
+              Synergie: 0.0459,
+            },
+          },
+          {
+            pick: "P3P11",
+            card: "Godless Shrine",
+            staticScore: 43,
+            target: 20.8,
+            picked: true,
+            contributions: {
+              Puissance: -2.2305,
+              Mana: -20.897,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P11",
+            card: "Blood Fountain",
+            staticScore: 6.5,
+            target: 2.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.3372,
+              Mana: -2.7162,
+              Courbe: -0.7949,
+              Interaction: 0,
+              Synergie: 0.2205,
+            },
+          },
+          {
+            pick: "P3P11",
+            card: "Voldaren Epicure",
+            staticScore: 12,
+            target: 3.5,
+            picked: false,
+            contributions: {
+              Puissance: -0.6225,
+              Mana: -5.0144,
+              Courbe: -0.7949,
+              Interaction: 0,
+              Synergie: 0.0179,
+            },
+          },
+          {
+            pick: "P3P11",
+            card: "Spara's Headquarters",
+            staticScore: 26,
+            target: 15.1,
+            picked: false,
+            contributions: {
+              Puissance: -1.3487,
+              Mana: -10.4812,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P11",
+            card: "Oliphaunt",
+            staticScore: 20,
+            target: 9.2,
+            picked: false,
+            contributions: {
+              Puissance: -1.0375,
+              Mana: -8.3574,
+              Courbe: -0.0418,
+              Interaction: 0,
+              Synergie: 0.202,
+            },
+          },
+          {
+            pick: "P3P12",
+            card: "Lightning Greaves",
+            staticScore: 11,
+            target: 4.3,
+            picked: false,
+            contributions: {
+              Puissance: -0.4708,
+              Mana: 1.4323,
+              Courbe: -0.0424,
+              Interaction: 0,
+              Synergie: 0.5063,
+            },
+          },
+          {
+            pick: "P3P12",
+            card: "Batterskull",
+            staticScore: 6.9,
+            target: 6.5,
+            picked: true,
+            contributions: {
+              Puissance: -0.2953,
+              Mana: 0.8984,
+              Courbe: -0.5131,
+              Interaction: 0,
+              Synergie: 0.4877,
+            },
+          },
+          {
+            pick: "P3P12",
+            card: "Fire Covenant",
+            staticScore: 44,
+            target: 25.8,
+            picked: false,
+            contributions: {
+              Puissance: -1.8832,
+              Mana: -26.6679,
+              Courbe: -0.4765,
+              Interaction: 0,
+              Synergie: 0.1048,
+            },
+          },
+          {
+            pick: "P3P12",
+            card: "Dark Confidant",
+            staticScore: 21,
+            target: 5.7,
+            picked: false,
+            contributions: {
+              Puissance: -0.8988,
+              Mana: -8.7281,
+              Courbe: -0.0424,
+              Interaction: 0,
+              Synergie: -1.2581,
+            },
+          },
+          {
+            pick: "P3P13",
+            card: "Phlage, Titan of Fire's Fury",
+            staticScore: 50,
+            target: 27.2,
+            picked: true,
+            contributions: {
+              Puissance: -1.6611,
+              Mana: -20.1552,
+              Courbe: -0.4168,
+              Interaction: -0.1984,
+              Synergie: 0.2885,
+            },
+          },
+          {
+            pick: "P3P13",
+            card: "Sin, Spira's Punishment",
+            staticScore: 41,
+            target: 13.9,
+            picked: false,
+            contributions: {
+              Puissance: -1.3621,
+              Mana: -27.3055,
+              Courbe: -0.025,
+              Interaction: 0,
+              Synergie: 0.3441,
+            },
+          },
+          {
+            pick: "P3P13",
+            card: "Improvised Arsenal",
+            staticScore: 7.6,
+            target: 5.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.2525,
+              Mana: -3.197,
+              Courbe: -0.0337,
+              Interaction: 0,
+              Synergie: 0.4025,
+            },
+          },
+          {
+            pick: "P3P14",
+            card: "Concealed Courtyard",
+            staticScore: 42,
+            target: 11.6,
+            picked: true,
+            contributions: {
+              Puissance: -0.9718,
+              Mana: -21.1626,
+              Courbe: 0,
+              Interaction: 0,
+              Synergie: 0,
+            },
+          },
+          {
+            pick: "P3P14",
+            card: "Professor Dellian Fel",
+            staticScore: 42,
+            target: 16.2,
+            picked: false,
+            contributions: {
+              Puissance: -0.9718,
+              Mana: -25.7247,
+              Courbe: -2.2989,
+              Interaction: -0.2448,
+              Synergie: 0.5778,
+            },
+          },
+          {
+            pick: "P3P15",
+            card: "Caustic Bronco",
+            staticScore: 23,
+            target: 8,
+            picked: true,
+            contributions: {
+              Puissance: -0.2886,
+              Mana: -9.5632,
+              Courbe: -0.1508,
+              Interaction: 0,
+              Synergie: 0.0417,
+            },
+          },
+        ],
+      };
+      const benchmarkState = {
+        weights: Object.fromEntries(BENCHMARK_DATA.axes.map((axis) => [axis, 1])),
+        mode: "appris ailleurs",
+      };
+
+      function benchmarkPrediction(row) {
+        return (
+          row.staticScore +
+          BENCHMARK_DATA.axes.reduce(
+            (total, axis) => total + row.contributions[axis] * benchmarkState.weights[axis],
+            0,
+          )
+        );
+      }
+
+      function benchmarkMetrics() {
+        const scored = BENCHMARK_DATA.rows.map((row) => ({
+          ...row,
+          prediction: benchmarkPrediction(row),
+          error: benchmarkPrediction(row) - row.target,
+        }));
+        const mae = scored.reduce((total, row) => total + Math.abs(row.error), 0) / scored.length;
+        const withinOne = scored.filter((row) => Math.abs(row.error) <= 1).length / scored.length;
+        const picks = Map.groupBy(scored, (row) => row.pick);
+        const topOne =
+          [...picks.values()].filter((rows) => {
+            const actual = rows.toSorted((left, right) => right.target - left.target)[0];
+            const predicted = rows.toSorted((left, right) => right.prediction - left.prediction)[0];
+            return actual.card === predicted.card;
+          }).length / picks.size;
+        return {
+          mae,
+          withinOne,
+          topOne,
+          worst: scored
+            .toSorted((left, right) => Math.abs(right.error) - Math.abs(left.error))
+            .slice(0, 5),
+        };
+      }
+
+      function renderBenchmark() {
+        const metrics = benchmarkMetrics();
+        document.querySelector("#benchmark-mae").textContent = metrics.mae.toFixed(2);
+        document.querySelector("#benchmark-within-one").textContent =
+          `${(metrics.withinOne * 100).toFixed(1)} %`;
+        document.querySelector("#benchmark-top-one").textContent =
+          `${(metrics.topOne * 100).toFixed(1)} %`;
+        document.querySelector("#benchmark-mode").textContent = benchmarkState.mode;
+        document.querySelector("#benchmark-explanation").textContent =
+          benchmarkState.mode === "appris ailleurs"
+            ? `Ces coefficients n'ont pas vu ce draft : MAE attendue ${BENCHMARK_DATA.learnedMae.toFixed(2)}.`
+            : `Ce réglage a vu les 360 cibles ; son MAE de référence est ${BENCHMARK_DATA.visibleDraftAxisMae.toFixed(2)}. Ce n'est pas une validation.`;
+
+        for (const axis of BENCHMARK_DATA.axes) {
+          const input = document.querySelector(`#coefficient-${axis}`);
+          input.value = String(benchmarkState.weights[axis]);
+          document.querySelector(`#coefficient-output-${axis}`).textContent =
+            `${benchmarkState.weights[axis].toFixed(2)}×`;
+        }
+
+        const body = document.querySelector("#worst-errors");
+        body.replaceChildren(
+          ...metrics.worst.map((row) => {
+            const element = document.createElement("tr");
+            const cells = [
+              `${row.pick} — ${row.card}`,
+              row.target.toFixed(1),
+              row.prediction.toFixed(1),
+              `${row.error >= 0 ? "+" : ""}${row.error.toFixed(1)}`,
+            ];
+            for (const value of cells) {
+              const cell = document.createElement("td");
+              cell.textContent = value;
+              element.append(cell);
+            }
+            return element;
+          }),
+        );
+      }
+
+      const coefficientList = document.querySelector("#coefficient-list");
+      for (const axis of BENCHMARK_DATA.axes) {
+        const row = document.createElement("div");
+        row.className = "coefficient";
+        row.innerHTML = `
+          <label for="coefficient-${axis}">${axis}</label>
+          <input id="coefficient-${axis}" data-coefficient="${axis}" type="range" min="-1" max="4" step="0.01" />
+          <output id="coefficient-output-${axis}"></output>
+        `;
+        coefficientList.append(row);
+      }
+      coefficientList.addEventListener("input", (event) => {
+        const input = event.target.closest("[data-coefficient]");
+        if (!input) return;
+        benchmarkState.weights[input.dataset.coefficient] = Number(input.value);
+        benchmarkState.mode = "manuel";
+        renderBenchmark();
+      });
+      document.querySelector("#learned-weights").addEventListener("click", () => {
+        Object.assign(
+          benchmarkState.weights,
+          Object.fromEntries(BENCHMARK_DATA.axes.map((axis) => [axis, 1])),
+        );
+        benchmarkState.mode = "appris ailleurs";
+        renderBenchmark();
+      });
+      document.querySelector("#visible-fit-weights").addEventListener("click", () => {
+        Object.assign(benchmarkState.weights, BENCHMARK_DATA.visibleDraftAxisWeights);
+        benchmarkState.mode = "ajusté au témoin";
+        renderBenchmark();
+      });
+      renderBenchmark();
+    </script>
+  </body>
+</html>

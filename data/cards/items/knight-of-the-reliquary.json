@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "knight-of-the-reliquary",
+  "name": "Knight of the Reliquary",
+  "oracleId": "393e5331-4456-4ba3-b410-bb630bb053db",
+  "manaCost": "{W}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G",
+    "W"
+  ],
+  "colorIdentity": [
+    "G",
+    "W"
+  ],
+  "typeLine": "Creature — Human Knight",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Knight"
+  ],
+  "oracleText": "This creature gets +1/+1 for each land card in your graveyard.\n{T}, Sacrifice a Forest or Plains: Search your library for a land card, put it onto the battlefield, then shuffle.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/648da53a-5cce-4133-9779-62d18783dd67/normal.webp",
+    "localPath": "data/cards/images/cards/knight-of-the-reliquary.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/648da53a-5cce-4133-9779-62d18783dd67/art_crop.webp",
+    "localArtPath": "data/cards/images/art/knight-of-the-reliquary.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/648da53a-5cce-4133-9779-62d18783dd67/normal.webp",
+  "powerScore": {
+    "score": 24.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1246.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1247).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "ramp",
+        "synergy-forest",
+        "cycle-ima-r-two-color"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

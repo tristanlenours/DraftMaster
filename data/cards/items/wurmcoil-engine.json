@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "slug": "wurmcoil-engine",
+  "name": "Wurmcoil Engine",
+  "oracleId": "d1a60f44-7696-49ee-91fb-cab5b3102962",
+  "manaCost": "{6}",
+  "cmc": 6,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Phyrexian Wurm",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Phyrexian",
+    "Wurm"
+  ],
+  "oracleText": "Deathtouch, lifelink\nWhen this creature dies, create a 3/3 colorless Phyrexian Wurm artifact creature token with deathtouch and a 3/3 colorless Phyrexian Wurm artifact creature token with lifelink.",
+  "keywords": [
+    "Lifelink",
+    "Deathtouch"
+  ],
+  "power": "6",
+  "toughness": "6",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b045a766-73ee-4109-bede-2e1d71b80f2f/normal.webp",
+    "localPath": "data/cards/images/cards/wurmcoil-engine.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b045a766-73ee-4109-bede-2e1d71b80f2f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/wurmcoil-engine.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b045a766-73ee-4109-bede-2e1d71b80f2f/normal.webp",
+  "powerScore": {
+    "score": 22.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1462.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1462).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.3,
+    "ceilingRating": 8.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "token-errata",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "63.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "token-errata",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "63.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

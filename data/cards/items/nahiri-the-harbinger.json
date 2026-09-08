@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "slug": "nahiri-the-harbinger",
+  "name": "Nahiri, the Harbinger",
+  "oracleId": "d492eb9a-1f3b-4bf2-9a5d-0f4a4433f33f",
+  "manaCost": "{W}{R}{2}",
+  "cmc": 4,
+  "colors": [
+    "R",
+    "W"
+  ],
+  "colorIdentity": [
+    "R",
+    "W"
+  ],
+  "typeLine": "Legendary Planeswalker — Nahiri",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Nahiri"
+  ],
+  "oracleText": "+2: You may discard a card. If you do, draw a card.\n−2: Exile target enchantment, tapped artifact, or tapped creature.\n−8: Search your library for an artifact or creature card, put it onto the battlefield, then shuffle. It gains haste. Return it to your hand at the beginning of the next end step.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/84d70487-21d1-4897-ac20-2a996e893b5b/normal.webp",
+    "localPath": "data/cards/images/cards/nahiri-the-harbinger.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/84d70487-21d1-4897-ac20-2a996e893b5b/art_crop.webp",
+    "localArtPath": "data/cards/images/art/nahiri-the-harbinger.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/84d70487-21d1-4897-ac20-2a996e893b5b/normal.webp",
+  "powerScore": {
+    "score": 20.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1291.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1291).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "tutor-artifact",
+        "tutor",
+        "tutor-creature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "54.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:boros_aggro_equipment"
+      ],
+      "synergyTags": [
+        "tutor-artifact",
+        "tutor",
+        "tutor-creature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R",
+              "W"
+            ],
+            "archetype": "BOROS AGGRO EQUIPMENT",
+            "grade": "B",
+            "winrateOrScore": "54.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

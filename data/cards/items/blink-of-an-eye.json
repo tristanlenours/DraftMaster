@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "blink-of-an-eye",
+  "name": "Blink of an Eye",
+  "oracleId": "51acd176-e84d-42c2-acb2-cceeb28a9fec",
+  "manaCost": "{U}{1}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nReturn target nonland permanent to its owner's hand. If this spell was kicked, draw a card.",
+  "keywords": [
+    "Kicker"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ab830392-4d7e-4b45-93cf-35ed1e935228/normal.webp",
+    "localPath": "data/cards/images/cards/blink-of-an-eye.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ab830392-4d7e-4b45-93cf-35ed1e935228/art_crop.webp",
+    "localArtPath": "data/cards/images/art/blink-of-an-eye.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ab830392-4d7e-4b45-93cf-35ed1e935228/normal.webp",
+  "powerScore": {
+    "score": 11.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1312.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1313).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "removal-bounce",
+        "blue-effect"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "55.6 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Clin d'œil",
+  "frenchText": "Kick {1}{U} (Vous pouvez payer {1}{U} supplémentaires au moment où vous lancez ce sort.)\nRenvoyez un permanent non-terrain ciblé dans la main de son propriétaire. Si ce sort a été kické, piochez une carte."
+}

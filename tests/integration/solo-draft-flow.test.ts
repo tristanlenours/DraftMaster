@@ -1,0 +1,167 @@
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { createServer, type Server } from "node:http";
+import type { AddressInfo } from "node:net";
+import { createRequestHandler } from "../../scripts/serve-web.mjs";
+
+describe("Solo Draft Web API & Flow Integration", () => {
+  let server: Server;
+  let baseUrl: string;
+
+  beforeAll(async () => {
+    const handler = createRequestHandler();
+    server = createServer(handler);
+    await new Promise<void>((resolve) => {
+      server.listen(0, () => {
+        resolve();
+      });
+    });
+    const addr = server.address() as AddressInfo;
+    baseUrl = `http://localhost:${String(addr.port)}`;
+  });
+
+  afterAll(async () => {
+    await new Promise<void>((resolve, reject) => {
+      server.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  });
+
+  it("fetches the leaderboard list via GET /api/leaderboard", async () => {
+    const res = await fetch(`${baseUrl}/api/leaderboard`);
+    expect(res.status).toBe(200);
+    const data = (await res.json()) as { ok: boolean; entries: unknown[] };
+    expect(data.ok).toBe(true);
+    expect(Array.isArray(data.entries)).toBe(true);
+    expect(data.entries.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it("completes full solo draft lifecycle via HTTP API", async () => {
+    // 1. Start draft
+    const startRes = await fetch(`${baseUrl}/api/draft/start`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playerName: "API Tester", seed: 42 }),
+    });
+    expect(startRes.status).toBe(200);
+    const startData = (await startRes.json()) as {
+      ok: boolean;
+      session: {
+        sessionId: string;
+        roundIndex: number;
+        packNumber: number;
+        pickNumber: number;
+        currentBooster: { instanceId: string }[];
+        playerPool: { instanceId: string }[];
+      };
+    };
+
+    expect(startData.ok).toBe(true);
+    const sessionId = startData.session.sessionId;
+    expect(startData.session.currentBooster.length).toBe(15);
+    expect(startData.session.playerPool.length).toBe(0);
+
+    // 2. Play all 45 rounds
+    let currentBooster = startData.session.currentBooster;
+    let pool: { instanceId: string }[] = [];
+
+    for (let round = 0; round < 45; round++) {
+      const cardToPick = currentBooster[0];
+      if (!cardToPick) {
+        throw new Error("Missing card in booster");
+      }
+      const pickRes = await fetch(`${baseUrl}/api/draft/pick`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, cardInstanceId: cardToPick.instanceId }),
+      });
+      expect(pickRes.status).toBe(200);
+      const pickData = (await pickRes.json()) as {
+        ok: boolean;
+        session: {
+          roundIndex: number;
+          status: string;
+          currentBooster: { instanceId: string }[];
+          playerPool: { instanceId: string }[];
+        };
+      };
+      currentBooster = pickData.session.currentBooster;
+      pool = pickData.session.playerPool;
+
+      if (round === 44) {
+        expect(pickData.session.status).toBe("deckbuilding");
+      }
+    }
+
+    expect(pool.length).toBe(45);
+
+    // 3. Finalize Deck with 23 cards
+    const maindeck23 = pool.slice(0, 23).map((c) => c.instanceId);
+    const deckRes = await fetch(`${baseUrl}/api/draft/deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId,
+        maindeckCardInstanceIds: maindeck23,
+      }),
+    });
+
+    expect(deckRes.status).toBe(200);
+    const deckData = (await deckRes.json()) as {
+      ok: boolean;
+      result: {
+        playerName: string;
+        evaluation: { overallScore: number };
+        reports: { walkthroughUrl: string; boostersUrl: string };
+      };
+    };
+
+    expect(deckData.ok).toBe(true);
+    expect(deckData.result.playerName).toBe("API Tester");
+    expect(deckData.result.evaluation.overallScore).toBeGreaterThan(0);
+
+    // 4. Fetch the generated HTML report through the server
+    const reportRes = await fetch(`${baseUrl}${deckData.result.reports.walkthroughUrl}`);
+    expect(reportRes.status).toBe(200);
+    const htmlText = await reportRes.text();
+    expect(htmlText).toContain("<!DOCTYPE html>");
+    expect(htmlText).toContain("API Tester");
+
+    // 5. Query /api/reports list
+    const reportsListRes = await fetch(`${baseUrl}/api/reports`);
+    expect(reportsListRes.status).toBe(200);
+    const reportsListData = (await reportsListRes.json()) as {
+      ok: boolean;
+      reports: { filename: string }[];
+    };
+    expect(reportsListData.ok).toBe(true);
+    expect(reportsListData.reports.some((r) => r.filename.includes("API_Tester"))).toBe(true);
+
+    // 6. Query /api/admin/drafts to verify all 8 seats (human + 7 bots) are available
+    const adminDraftsRes = await fetch(`${baseUrl}/api/admin/drafts`);
+    expect(adminDraftsRes.status).toBe(200);
+    const adminDraftsData = (await adminDraftsRes.json()) as {
+      ok: boolean;
+      drafts: {
+        id: string;
+        playerName: string;
+        seats: {
+          seatId: number;
+          isBot: boolean;
+          botName: string;
+          deck: { overallScore: number };
+        }[];
+      }[];
+    };
+    expect(adminDraftsData.ok).toBe(true);
+    const myDraft = adminDraftsData.drafts.find((d) => d.playerName === "API Tester");
+    expect(myDraft).toBeDefined();
+    expect(myDraft?.seats.length).toBe(8);
+    expect(myDraft?.seats[0]?.isBot).toBe(false);
+    expect(myDraft?.seats[1]?.isBot).toBe(true);
+  }, 20000);
+});

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "restless-reef",
+  "name": "Restless Reef",
+  "oracleId": "df20f85b-5f81-4ee4-8487-55d90109ac36",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "U"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped.\n{T}: Add {U} or {B}.\n{2}{U}{B}: Until end of turn, this land becomes a 4/4 blue and black Shark creature with deathtouch. It's still a land.\nWhenever this land attacks, target player mills four cards.",
+  "keywords": [
+    "Mill"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "B",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8315e121-cf10-4442-91c0-036ca5bbc652/normal.webp",
+    "localPath": "data/cards/images/cards/restless-reef.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8315e121-cf10-4442-91c0-036ca5bbc652/art_crop.webp",
+    "localArtPath": "data/cards/images/art/restless-reef.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8315e121-cf10-4442-91c0-036ca5bbc652/normal.webp",
+  "powerScore": {
+    "score": 30,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1274.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1274).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "mill-any",
+        "mill-self",
+        "mill"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

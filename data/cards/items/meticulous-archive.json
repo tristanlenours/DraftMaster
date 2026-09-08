@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "meticulous-archive",
+  "name": "Meticulous Archive",
+  "oracleId": "ccfb8b4d-651c-418a-aa19-cb23105b3f2f",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "U",
+    "W"
+  ],
+  "typeLine": "Land — Plains Island",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Plains",
+    "Island"
+  ],
+  "oracleText": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/79d4ba4b-03f3-4e64-b4e7-8c025fc70178/normal.webp",
+    "localPath": "data/cards/images/cards/meticulous-archive.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/79d4ba4b-03f3-4e64-b4e7-8c025fc70178/art_crop.webp",
+    "localArtPath": "data/cards/images/art/meticulous-archive.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/79d4ba4b-03f3-4e64-b4e7-8c025fc70178/normal.webp",
+  "powerScore": {
+    "score": 41,
+    "source": "untapped",
+    "rawSourceScore": 41,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1412).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "60.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

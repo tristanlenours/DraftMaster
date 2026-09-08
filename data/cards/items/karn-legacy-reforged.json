@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "karn-legacy-reforged",
+  "name": "Karn, Legacy Reforged",
+  "oracleId": "bc8802db-8c94-4eb4-817f-5f4f5408b7a4",
+  "manaCost": "{5}",
+  "cmc": 5,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Artifact Creature — Golem",
+  "types": [
+    "Legendary",
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Golem"
+  ],
+  "oracleText": "Karn's power and toughness are each equal to the greatest mana value among artifacts you control.\nAt the beginning of your upkeep, add {C} for each artifact you control. This mana can't be spent to cast nonartifact spells. Until end of turn, you don't lose this mana as steps and phases end.",
+  "keywords": [],
+  "power": "*",
+  "toughness": "*",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4219b5ea-a252-4d76-a60a-9674340e8ed3/normal.webp",
+    "localPath": "data/cards/images/cards/karn-legacy-reforged.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4219b5ea-a252-4d76-a60a-9674340e8ed3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/karn-legacy-reforged.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4219b5ea-a252-4d76-a60a-9674340e8ed3/normal.webp",
+  "powerScore": {
+    "score": 3.8,
+    "source": "untapped",
+    "rawSourceScore": 3.8,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1290).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "adds-multiple-mana",
+        "triggered-ability",
+        "synergy-artifact"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "54.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

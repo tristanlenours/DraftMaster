@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "show-and-tell",
+  "name": "Show and Tell",
+  "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+  "manaCost": "{U}{2}",
+  "cmc": 3,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Each player may put an artifact, creature, enchantment, or land card from their hand onto the battlefield.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4b851c17-55ed-4671-b471-dc7b34944432/normal.webp",
+    "localPath": "data/cards/images/cards/show-and-tell.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4b851c17-55ed-4671-b471-dc7b34944432/art_crop.webp",
+    "localArtPath": "data/cards/images/art/show-and-tell.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4b851c17-55ed-4671-b471-dc7b34944432/normal.webp",
+  "powerScore": {
+    "score": 13,
+    "source": "untapped",
+    "rawSourceScore": 13,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1458).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.3,
+    "ceilingRating": 8.3,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "sneak-land",
+        "sneak",
+        "cost-ignorer"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "62.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "build_around",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "sneak-land",
+        "sneak",
+        "cost-ignorer"
+      ],
+      "scoreModifier": 10,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.9 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

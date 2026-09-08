@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "slug": "orcish-bowmasters",
+  "name": "Orcish Bowmasters",
+  "oracleId": "77777777-bbbb-4000-8000-000000000001",
+  "manaCost": "{1}{B}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Orc Archer",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Orc",
+    "Archer"
+  ],
+  "oracleText": "Flash\nWhen Orcish Bowmasters enters the battlefield and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1.",
+  "keywords": [
+    "Flash",
+    "Amass"
+  ],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Orcish%20Bowmasters&format=image",
+    "localPath": "data/cards/images/cards/orcish-bowmasters.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Orcish%20Bowmasters&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/orcish-bowmasters.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Orcish%20Bowmasters&format=image",
+  "powerScore": {
+    "score": 49,
+    "source": "untapped",
+    "rawSourceScore": 49,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Créature Flash punitive ultra-rentable terrorisant tout joueur tentant de piocher.",
+    "roles": [
+      "premium_removal",
+      "beater",
+      "synergy_enabler"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 10,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 5,
+      "developing": 5,
+      "parity": 4.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "draw-hate",
+        "hate",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "83.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "draw-hate",
+        "hate",
+        "triggered-ability"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "witherbloom-command",
+  "name": "Witherbloom Command",
+  "oracleId": "7cc81fb3-495c-47cd-8c56-96197d87e9e0",
+  "manaCost": "{G}{B}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Choose two —\n• Target player mills three cards, then you return a land card from your graveyard to your hand.\n• Destroy target noncreature, nonland permanent with mana value 2 or less.\n• Target creature gets -3/-1 until end of turn.\n• Target opponent loses 2 life and you gain 2 life.",
+  "keywords": [
+    "Mill"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0f04535d-a6b7-4d91-918d-fccc1adfcaf3/normal.webp",
+    "localPath": "data/cards/images/cards/witherbloom-command.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0f04535d-a6b7-4d91-918d-fccc1adfcaf3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/witherbloom-command.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0f04535d-a6b7-4d91-918d-fccc1adfcaf3/normal.webp",
+  "powerScore": {
+    "score": 23,
+    "source": "untapped",
+    "rawSourceScore": 23,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1226).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "removal-toughness",
+        "removal-creature",
+        "removal"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "51.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

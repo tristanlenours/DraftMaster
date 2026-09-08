@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "slug": "birds-of-paradise",
+  "name": "Birds of Paradise",
+  "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+  "manaCost": "{G}",
+  "cmc": 1,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Bird",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Bird"
+  ],
+  "oracleText": "Flying\n{T}: Add one mana of any color.",
+  "keywords": [
+    "Flying"
+  ],
+  "power": "0",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9ca8c7a0-d7c5-414f-8ca9-80e3daf49a5e/normal.webp",
+    "localPath": "data/cards/images/cards/birds-of-paradise.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9ca8c7a0-d7c5-414f-8ca9-80e3daf49a5e/art_crop.webp",
+    "localArtPath": "data/cards/images/art/birds-of-paradise.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9ca8c7a0-d7c5-414f-8ca9-80e3daf49a5e/normal.webp",
+  "powerScore": {
+    "score": 43,
+    "source": "untapped",
+    "rawSourceScore": 43,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1601).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 8,
+    "ceilingRating": 9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "type-errata-specific-bird",
+        "type-errata-specific",
+        "type-errata-genericise"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "70.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "type-errata-specific-bird",
+        "type-errata-specific",
+        "type-errata-genericise"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

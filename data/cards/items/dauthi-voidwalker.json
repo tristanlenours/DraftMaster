@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slug": "dauthi-voidwalker",
+  "name": "Dauthi Voidwalker",
+  "oracleId": "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
+  "manaCost": "{B}{B}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Dauthi Rogue",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Dauthi",
+    "Rogue"
+  ],
+  "oracleText": "Shadow (This creature can block or be blocked by only creatures with shadow.)\nIf a card would be put into an opponent's graveyard from anywhere, instead exile it with a void counter on it.\n{T}, Sacrifice this creature: Choose an exiled card an opponent owns with a void counter on it. You may play it this turn without paying its mana cost.",
+  "keywords": [
+    "Shadow"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/29632951-3c3d-478c-8c5a-9a34f30a5c28/normal.webp",
+    "localPath": "data/cards/images/cards/dauthi-voidwalker.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/29632951-3c3d-478c-8c5a-9a34f30a5c28/art_crop.webp",
+    "localArtPath": "data/cards/images/art/dauthi-voidwalker.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/29632951-3c3d-478c-8c5a-9a34f30a5c28/normal.webp",
+  "powerScore": {
+    "score": 34,
+    "source": "untapped",
+    "rawSourceScore": 34,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1372).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "free-cast-another",
+        "cost-ignorer"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "58.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:rakdos_aristocrats"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "free-cast-another",
+        "cost-ignorer"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "RAKDOS ARISTOCRATS",
+            "grade": "A",
+            "winrateOrScore": "58.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

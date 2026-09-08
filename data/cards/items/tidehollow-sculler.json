@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "tidehollow-sculler",
+  "name": "Tidehollow Sculler",
+  "oracleId": "51b55057-8b14-4277-894b-4813b4f7eb39",
+  "manaCost": "{B}{W}",
+  "cmc": 2,
+  "colors": [
+    "B",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "W"
+  ],
+  "typeLine": "Artifact Creature — Zombie",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Zombie"
+  ],
+  "oracleText": "When this creature enters, target opponent reveals their hand and you choose a nonland card from it. Exile that card.\nWhen this creature leaves the battlefield, return the exiled card to its owner's hand.",
+  "keywords": [],
+  "power": "2",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1abecc77-07f2-43e4-8585-0a8199cdcf01/normal.webp",
+    "localPath": "data/cards/images/cards/tidehollow-sculler.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1abecc77-07f2-43e4-8585-0a8199cdcf01/art_crop.webp",
+    "localArtPath": "data/cards/images/art/tidehollow-sculler.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1abecc77-07f2-43e4-8585-0a8199cdcf01/normal.webp",
+  "powerScore": {
+    "score": 26.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1216.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1216).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "leaves-trigger-self",
+        "leaves-battlefield-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "50.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

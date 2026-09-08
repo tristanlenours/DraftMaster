@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "slug": "snuff-out",
+  "name": "Snuff Out",
+  "oracleId": "11111111-aaaa-4000-8000-000000000005",
+  "manaCost": "{3}{B}",
+  "cmc": 4,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "If you control a Swamp, you may pay 4 life rather than pay this spell's mana cost.\nDestroy target nonblack creature. It can't be regenerated.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
+    "localPath": "data/cards/images/cards/snuff-out.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/snuff-out.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
+  "powerScore": {
+    "score": 42,
+    "source": "untapped",
+    "rawSourceScore": 42,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Removal gratuit conditionné au contrôle d'un marais au prix de 4 points de vie.",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 9.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 4.2,
+      "behind": 4
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "hugues:faeries_ninjas_tempo"
+      ],
+      "synergyTags": [
+        "free_spell",
+        "tempo_swing",
+        "swamp_synergy"
+      ],
+      "scoreModifier": 12,
+      "analysis": "Le seul removal inconditionnellement gratuit du Pauper ! Taper 0 mana pour détruire une créature tout en posant sa menace donne un avantage de tempo insurmontable.",
+      "pedagogy": {
+        "howToPlay": "Payer 4 points de vie est anecdotique en début/milieu de partie face à l'immense swing de tempo que procure un sort gratuit. Utilisez-le pour libérer la voie à une attaque de Ninjutsu ou pour éliminer une menace au moment où l'adversaire a dépensé tout son mana.",
+        "keySynergies": [
+          {
+            "cardName": "Ninja of the Deep Hours",
+            "synergyType": "Ouverture de Ligne",
+            "description": "Détruit le bloqueur adverse gratuitement avant déclaration des attaquants."
+          }
+        ],
+        "archetypeFit": [
+          {
+            "colors": [
+              "U",
+              "B"
+            ],
+            "archetype": "Dimir Ninjas",
+            "grade": "S",
+            "winrateOrScore": "66.5 %",
+            "comment": "Permet de garder du mana pour contrebalancer les agressions."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Ninja of the Deep Hours"
+      ]
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "alternate-cost-life",
+        "life-payment"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "66.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "alternate-cost-life",
+        "life-payment"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "66.5 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Dégommage",
+  "frenchText": "Si vous contrôlez un marais, vous pouvez payer 4 points de vie à la place du coût de mana de ce sort.\nDétruisez une créature non-noire ciblée. Elle ne peut pas être régénérée."
+}

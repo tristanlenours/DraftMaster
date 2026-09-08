@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "slug": "volcanic-island",
+  "name": "Volcanic Island",
+  "oracleId": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
+  "manaCost": "{0}",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "U"
+  ],
+  "typeLine": "Land — Island Mountain",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Island",
+    "Mountain"
+  ],
+  "oracleText": "{oT}: Add {oR}.\n{oT}: Add {oU}.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "U"
+  ],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/2/f/2f607e7e-30c0-45e9-8f61-bf6e9fe63f2b.jpg?1783939216",
+    "localPath": "data/cards/images/cards/volcanic-island.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/2/f/2f607e7e-30c0-45e9-8f61-bf6e9fe63f2b.jpg?1783939216",
+    "localArtPath": "data/cards/images/art/volcanic-island.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/volcanic-island.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/volcanic-island.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/2/f/2f607e7e-30c0-45e9-8f61-bf6e9fe63f2b.jpg?1783939216",
+  "powerScore": {
+    "score": 43,
+    "source": "untapped",
+    "rawSourceScore": 43,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Volcanic Island est une carte de premier ordre offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "bomb",
+      "mana_fixing"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 6,
+      "analysis": "Carte de rang S (ELO: 1591) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Menace ou ressource clé : déployez Volcanic Island dès que possible en sécurisant votre avantage.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "S",
+            "winrateOrScore": "68.6 %",
+            "comment": "Alignement au métagame Titou Tribal (S)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cycle-abu-dual-land",
+        "cycle-dual-land",
+        "dual-land"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "S",
+            "winrateOrScore": "69.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "cycle-abu-dual-land",
+        "cycle-dual-land",
+        "dual-land"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Ile volcanique",
+  "frenchText": "({T}: Add {U} or {R}.)",
+  "frenchImageUrl": "https://cards.scryfall.io/normal/front/7/7/77642b89-b9cf-404e-b6ac-0bf662106d75.jpg?1783063128",
+  "localFrenchPath": "data/cards/images/fr/cards/volcanic-island.jpg"
+}

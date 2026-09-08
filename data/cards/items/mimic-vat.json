@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "slug": "mimic-vat",
+  "name": "Mimic Vat",
+  "oracleId": "6ebdc9f3-6b23-4716-8011-48f00d7e30c8",
+  "scryfallId": "736fff86-2417-4a77-b8eb-be2d1d142a9f",
+  "manaCost": "{3}",
+  "cmc": 3,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "Imprint — Whenever a nontoken creature dies, you may exile that card. If you do, return each other card exiled with this artifact to its owner's graveyard.\n{3}, {T}: Create a token that's a copy of a card exiled with this artifact. It gains haste. Exile it at the beginning of the next end step.",
+  "keywords": [
+    "Imprint"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/736fff86-2417-4a77-b8eb-be2d1d142a9f/normal.webp",
+    "localPath": "data/cards/images/mimic-vat.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/736fff86-2417-4a77-b8eb-be2d1d142a9f/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/736fff86-2417-4a77-b8eb-be2d1d142a9f/normal.webp",
+  "powerScore": {
+    "score": 5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1295,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1295).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "death-trigger",
+        "triggered-ability",
+        "hate-graveyard"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.8 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

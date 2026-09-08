@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "morgul-knife",
+  "name": "Morgul-Knife",
+  "oracleId": "8b27326f-e7b8-4a4d-b589-df459246d19a",
+  "manaCost": "{1}",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Artifact — Equipment",
+  "types": [
+    "Legendary",
+    "Artifact"
+  ],
+  "subtypes": [
+    "Equipment"
+  ],
+  "oracleText": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}",
+  "keywords": [
+    "Equip"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/0e818a8b-d0b1-4524-91b7-89ee03d12e41/normal.webp",
+    "localPath": "data/cards/images/cards/morgul-knife.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/0e818a8b-d0b1-4524-91b7-89ee03d12e41/art_crop.webp",
+    "localArtPath": "data/cards/images/art/morgul-knife.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/0e818a8b-d0b1-4524-91b7-89ee03d12e41/normal.webp",
+  "powerScore": {
+    "score": 9.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1352.9,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1353).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "gives-trample",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "57.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "gives-trample",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

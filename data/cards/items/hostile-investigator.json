@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "hostile-investigator",
+  "name": "Hostile Investigator",
+  "oracleId": "de83b1a4-0ce0-4cc1-aff3-6d0239d92302",
+  "manaCost": "{B}{3}",
+  "cmc": 4,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Ogre Rogue Detective",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Ogre",
+    "Rogue",
+    "Detective"
+  ],
+  "oracleText": "When this creature enters, target opponent discards a card.\nWhenever one or more players discard one or more cards, investigate. This ability triggers only once each turn. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+  "keywords": [
+    "Investigate"
+  ],
+  "power": "4",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/158c000e-7960-4518-b034-a529622b7bf1/normal.webp",
+    "localPath": "data/cards/images/cards/hostile-investigator.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/158c000e-7960-4518-b034-a529622b7bf1/art_crop.webp",
+    "localArtPath": "data/cards/images/art/hostile-investigator.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/158c000e-7960-4518-b034-a529622b7bf1/normal.webp",
+  "powerScore": {
+    "score": 21.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1315.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1316).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "unique-type-line",
+        "hate-discard",
+        "hate"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "55.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

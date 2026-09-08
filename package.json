@@ -9,14 +9,25 @@
     "npm": ">=11 <12"
   },
   "scripts": {
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:coverage",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:coverage && npm run reports:verify",
+    "cards:download-images": "node scripts/download-card-images.mjs",
     "cube:fetch": "node src/cli/import-cube.ts fetch",
     "cube:normalize": "node src/cli/import-cube.ts normalize",
-    "cube:validate": "node src/cli/import-cube.ts validate",
+    "data:sync": "node scripts/sync-data-models.mjs",
+    "demo:coaching": "node --experimental-strip-types scripts/demo-coaching-pack.ts",
+    "demo:evaluation": "node --experimental-strip-types scripts/demo-deck-evaluation.ts",
+    "demo:friends": "node --experimental-strip-types scripts/demo-friends-draft.ts",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"*.{js,json,ts}\" \".github/**/*.yml\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"*.{js,json,ts}\" \".github/**/*.yml\"",
     "lint": "eslint .",
-    "simulate": "node src/cli/simulate-draft.ts",
+    "power:rebuild": "node --experimental-strip-types scripts/rebuild-power-ranking.ts",
+    "power:rebuild:apply": "node --experimental-strip-types scripts/rebuild-power-ranking.ts --apply",
+    "research:untapped-axis-benchmark": "node scripts/research/untapped-axis-benchmark.mjs --output docs/research/artifacts/untapped-axis-benchmark-v1.json",
+    "research:untapped-pair-affinity-benchmark": "node scripts/research/untapped-pair-affinity-benchmark.mjs --output docs/research/artifacts/untapped-pair-affinity-benchmark-v1.json",
+    "research:untapped-advanced-mana-benchmark": "node scripts/research/untapped-advanced-mana-benchmark.mjs --output docs/research/artifacts/untapped-advanced-mana-benchmark-v1.json",
+    "reports:verify": "node --no-warnings --experimental-strip-types scripts/verify-html-reports.ts",
+    "simulate": "node --no-warnings --experimental-strip-types src/cli/simulate-draft.ts",
+    "simulate:html": "node --no-warnings --experimental-strip-types scripts/simulate-html-report.ts",
     "test": "vitest run",
     "test:audit": "vitest run tests/integration/report-audit.test.ts",
     "test:coverage": "vitest run --coverage",
@@ -25,9 +36,11 @@
     "test:performance": "vitest run --config vitest.performance.config.ts",
     "test:reference": "vitest run tests/integration/reference-draft.test.ts",
     "test:replay": "vitest run tests/contract/replay-draft.test.ts tests/integration/replay-equivalence.test.ts tests/integration/replay-properties.test.ts tests/integration/determinism.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "web": "node --no-warnings --experimental-strip-types scripts/serve-web.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.116.0",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "pure-rand": "8.4.2"

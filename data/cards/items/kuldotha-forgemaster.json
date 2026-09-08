@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "slug": "kuldotha-forgemaster",
+  "name": "Kuldotha Forgemaster",
+  "oracleId": "b0f99367-4313-4bb1-a9fd-7711bc4ce40e",
+  "manaCost": "{5}",
+  "cmc": 5,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Construct",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Construct"
+  ],
+  "oracleText": "{T}, Sacrifice three artifacts: Search your library for an artifact card, put it onto the battlefield, then shuffle.",
+  "keywords": [],
+  "power": "3",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ad590bea-b872-4af7-a612-c8e8759d59df/normal.webp",
+    "localPath": "data/cards/images/cards/kuldotha-forgemaster.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ad590bea-b872-4af7-a612-c8e8759d59df/art_crop.webp",
+    "localArtPath": "data/cards/images/art/kuldotha-forgemaster.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ad590bea-b872-4af7-a612-c8e8759d59df/normal.webp",
+  "powerScore": {
+    "score": 5.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1238.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1239).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.2,
+    "ceilingRating": 7.2,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "tutor-artifact",
+        "tutor",
+        "sacrifice-outlet-artifact"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "51.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

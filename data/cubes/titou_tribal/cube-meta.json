@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "titou_tribal",
+  "name": "Titou's Tribal and Chromatic Cube",
+  "owner": "eltitou007",
+  "coverImage": "data/cubes/titou_tribal/TTCC.png",
+  "activeSnapshotId": "titou_tribal@2026-02-24.1",
+  "cardCount": 545,
+  "powerTier": "synergy_unpowered",
+  "pacing": "midrange_attrition",
+  "fundamentalTurn": {
+    "targetTurn": 4,
+    "criticalWindow": "T3-T5",
+    "pacingDescription": "Format synergique articulé sur les types de créatures et les seigneurs. Les parties basculent quand un joueur atteint la masse critique tribale ou verrouille les airs au tour 4.",
+    "deckExpectation": "Un deck doit développer sa courbe de créatures T1-T3 pour capitaliser sur un seigneur ou un payoff d'archétype au T4, tout en conservant 3 à 5 removals pour casser les moteurs adverses."
+  },
+  "technicalAxes": {
+    "speedIndex": 5.8,
+    "interactionDensityPercentage": 16,
+    "averageCmcEstimate": 3.1,
+    "fixingQuality": "rainbow_tribal",
+    "comboPotential": "high_synergy_engine"
+  },
+  "fixingDensityPercentage": 14.5,
+  "dominantMechanics": [
+    "Tribal",
+    "Lifegain",
+    "Blink",
+    "+1/+1 Counters",
+    "Graveyard"
+  ],
+  "archetypes": [
+    {
+      "id": "titou:tribal_goblins",
+      "name": "Rakdos Gobelins Aggro & Burn",
+      "primaryColors": ["R"],
+      "splashColors": ["B"],
+      "category": "aggro",
+      "description": "La tribu la plus agressive du cube : submerge l'adversaire de jetons et conclut par des dégâts directs.",
+      "gameplan": "Déployer des gobelins dès les premiers tours, accumuler une masse critique et lancer Goblin Grenade ou Muxus pour plier la partie.",
+      "keyCards": [
+        "07c82cde-f00d-4454-9df4-9286e344c9bb",
+        "24661b81-6bee-4ad8-b3ab-53cb65005c51",
+        "20aecb7b-7e37-4efe-ac27-f9f9042203f4",
+        "b582b696-17fa-4eea-8124-293f9bd3a208",
+        "0283bf5e-ddf2-4a4a-a7cf-d3e27eed7e7d"
+      ],
+      "supportCards": [
+        "4e93b23c-a7f7-4bdd-bbca-0dc48bb5c223",
+        "bdb94ccd-1bb5-4bb7-9539-e1b1c97c19c5",
+        "368b4052-174e-4458-a6e6-eaf8093aa0fe"
+      ],
+      "recommendedCreatureCount": [18, 22],
+      "recommendedRemovalCount": [4, 6]
+    },
+    {
+      "id": "titou:tribal_vampires",
+      "name": "Mardu Vampires Aristocrates & Drain",
+      "primaryColors": ["B"],
+      "splashColors": ["W", "R"],
+      "category": "midrange",
+      "description": "Contrôle du champ de bataille via le sacrifice, le drain de points de vie et le vol.",
+      "gameplan": "Verrouiller le début de partie par du removal et des créatures à contact mortel, puis poser Sorin, Kalitas ou Immersturm Predator.",
+      "keyCards": [
+        "fee680c6-afe2-4321-9d8a-8f81a612a53b",
+        "e1cfd1cb-44a5-429f-a5c1-e6d29bad1c71",
+        "dd27d0f2-fe1e-4b63-9ba0-6264ca3c70f8",
+        "fcb6c6d4-ea8d-49cf-b6df-377084bdb757"
+      ],
+      "supportCards": [
+        "419a8ab2-cff6-4811-a559-8791c9bb3d8e",
+        "89b24b5f-d837-4274-8877-8ff7dc2708ba",
+        "96cb97ca-4ce0-4d33-86fb-4db4ce1956be",
+        "f83a768c-162d-46f0-8ebd-d9c6b2c69322"
+      ],
+      "recommendedCreatureCount": [15, 18],
+      "recommendedRemovalCount": [5, 7]
+    },
+    {
+      "id": "titou:tribal_elves",
+      "name": "Golgari Elfes Ramp & Swarm",
+      "primaryColors": ["G"],
+      "splashColors": ["B"],
+      "category": "ramp",
+      "description": "Génération massive de mana pour lancer des sorts de fin de partie ou submerger l'adversaire par le nombre.",
+      "gameplan": "Accélérer avec les dorks T1/T2, installer Elvish Archdruid ou Tyvar, puis activer Ezuri pour piétiner l'adversaire.",
+      "keyCards": [
+        "6734497c-16f0-4c4b-ba24-337333511fc6",
+        "5a242eab-204c-4411-860f-c0f3582a8f38",
+        "bda83ef4-e345-495d-878c-4da171f997ba",
+        "6e2c2423-d854-4478-99e6-64f29851f026"
+      ],
+      "supportCards": [
+        "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+        "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+        "032ec6e2-6cc3-4a97-9cc7-3233f5e11904"
+      ],
+      "recommendedCreatureCount": [18, 22],
+      "recommendedRemovalCount": [3, 5]
+    },
+    {
+      "id": "titou:tribal_werewolves",
+      "name": "Gruul Loups & Garous Midrange",
+      "primaryColors": ["R", "G"],
+      "category": "midrange",
+      "description": "Mélange d'agressivité et de gestion du cycle jour/nuit. Établir une présence sur table et retourner ses bêtes pour un maximum de valeur.",
+      "gameplan": "Poser des loups agressifs T2/T3, passer la main pour déclencher la nuit et transformer la meute sous l'autorité de Tovolar.",
+      "keyCards": [
+        "45d49831-548a-4a0e-9a18-9f7397913895",
+        "3c2445ee-84d5-47de-8b09-dbdc89ca2db7",
+        "582328cd-660d-47a4-bb23-e91e80b9a907",
+        "18563bc9-6090-4629-b304-89a67d93f635"
+      ],
+      "supportCards": [
+        "9545f126-062f-4410-a362-e16255a128d6",
+        "6e638587-30b3-4c4b-b463-fb415ea048f7",
+        "6bb7d0df-7a9f-4e17-8c31-7628c4b12356"
+      ],
+      "recommendedCreatureCount": [16, 19],
+      "recommendedRemovalCount": [4, 6]
+    },
+    {
+      "id": "titou:tribal_angels",
+      "name": "Orzhov/Mono-W Anges & Clercs",
+      "primaryColors": ["W"],
+      "splashColors": ["B"],
+      "category": "midrange",
+      "description": "Synergies tribales aériennes et gain de vie exponentiel grâce aux anges et clercs.",
+      "gameplan": "Développer des créatures clercs à bas coût pour activer les seuils de PV, puis déployer les anges pour buffer l'ensemble du board aérien.",
+      "keyCards": [
+        "216cb26e-8da9-478b-bfbc-8030f7adee72",
+        "891d2690-7144-4f87-b6ef-96f2469780a9",
+        "592c91fc-6430-4c76-9460-65f047350f67",
+        "24697554-02fa-48ba-b51d-6bba3f85c293"
+      ],
+      "supportCards": [
+        "f3fad295-1af2-4ecc-8546-b121ad6be27b",
+        "6d37ba4b-ff56-4eec-9dc2-2d7f357dc9c9",
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+        "0e11792b-7fe5-4208-aa0b-e5d09b2b65fe"
+      ],
+      "recommendedCreatureCount": [16, 19],
+      "recommendedRemovalCount": [4, 6]
+    },
+    {
+      "id": "titou:tribal_dragons",
+      "name": "Temur/5-Color Dragons Ramp & Bombes",
+      "primaryColors": ["R", "G", "U"],
+      "category": "ramp",
+      "description": "Accélération de mana et réducteurs de coût pour poser des menaces volantes colossales.",
+      "gameplan": "Fixer son mana et accélérer les premiers tours pour enchaîner Miirym, Tiamat ou Atarka avec Dragon Tempest.",
+      "keyCards": [
+        "f00e4df1-13fb-4514-8abb-92954068689a",
+        "daff70a4-a990-47c9-b6ef-2c379272c8a3",
+        "880fcf86-e6a9-482c-b91d-750f293127b2",
+        "b9bacb46-fd1d-459b-81c2-d7d08fe73848"
+      ],
+      "supportCards": [
+        "716b3ea2-45b7-4a8f-af72-de7f4e510eff",
+        "b75c3902-633e-4d24-acde-d7a9cc8f466e",
+        "074cbe14-a0c8-4772-955a-b4052333d6ce"
+      ],
+      "recommendedCreatureCount": [14, 17],
+      "recommendedRemovalCount": [4, 6]
+    },
+    {
+      "id": "titou:tribal_humans",
+      "name": "Mono-W / Selesnya Humains Aggro",
+      "primaryColors": ["W"],
+      "splashColors": ["G"],
+      "category": "aggro",
+      "description": "Deck agressif ultra-synergique empilant des compteurs +1/+1 sur chaque humain joué.",
+      "gameplan": "Sortir vite avec Champion of the Parish et Mother of Runes, puis enchaîner Thalia's Lieutenant et Adeline pour submerger l'adversaire.",
+      "keyCards": [
+        "faeaa3eb-6eb8-4621-98c7-0c6f58bbff85",
+        "91508175-fa1d-4c51-99d4-036a2de6abb0",
+        "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+        "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee"
+      ],
+      "supportCards": [
+        "60433b48-d27f-413c-905c-43839b1943f1",
+        "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
+        "cada3481-cc2b-4412-b9b5-0436af53aad2"
+      ],
+      "recommendedCreatureCount": [17, 20],
+      "recommendedRemovalCount": [3, 5]
+    },
+    {
+      "id": "titou:tribal_glue",
+      "name": "Changelins & Liant Universel (The Glue)",
+      "primaryColors": ["W", "U", "B", "R", "G"],
+      "category": "midrange",
+      "description": "Les créatures polymorphes et artefacts tribaux qui s'adaptent à toutes les familles et lient le cube.",
+      "gameplan": "Combler les trous de synergies tribales et fluidifier la sélection en s'insérant dans n'importe quelle famille.",
+      "keyCards": [
+        "17e905ca-c0bd-473d-95a7-e180ba5fea43",
+        "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
+        "9b2cdbed-c733-409b-b0e4-2c8960c25111",
+        "1f91297a-ec2b-4ea8-9198-aa1daac20ff8"
+      ],
+      "supportCards": [
+        "53c730c6-2f8c-4af8-b400-b9d573a71e60",
+        "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
+        "d50b1d2e-1825-432a-ab73-068fdc356f50"
+      ],
+      "recommendedCreatureCount": [14, 18],
+      "recommendedRemovalCount": [4, 6]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 2.2,
+    "comboSynergyMultiplier": 0.6,
+    "fixingPriorityBonus": 1.5,
+    "curveStrictness": 1.8
+  }
+}

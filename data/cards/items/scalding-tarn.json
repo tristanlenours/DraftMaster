@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "slug": "scalding-tarn",
+  "name": "Scalding Tarn",
+  "oracleId": "cb027150-848c-4a66-88ad-e20222304dd8",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/327cf118-cc92-4073-85d0-94d2a0a6989a/normal.webp",
+    "localPath": "data/cards/images/cards/scalding-tarn.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/327cf118-cc92-4073-85d0-94d2a0a6989a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/scalding-tarn.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/327cf118-cc92-4073-85d0-94d2a0a6989a/normal.webp",
+  "powerScore": {
+    "score": 44,
+    "source": "untapped",
+    "rawSourceScore": 44,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1743).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 8.7,
+    "ceilingRating": 9.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "tutor-land-mountain",
+        "tutor-land",
+        "tutor"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "77.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "tutor-land-mountain",
+        "tutor-land",
+        "tutor"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

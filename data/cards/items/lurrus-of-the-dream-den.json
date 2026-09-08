@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "slug": "lurrus-of-the-dream-den",
+  "name": "Lurrus of the Dream-Den",
+  "oracleId": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+  "manaCost": "{W-B}{W-B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B",
+    "W"
+  ],
+  "colorIdentity": [
+    "B",
+    "W"
+  ],
+  "typeLine": "Legendary Creature — Cat Nightmare",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Cat",
+    "Nightmare"
+  ],
+  "oracleText": "Companion — Each permanent card in your starting deck has mana value 2 or less. (If this card is your chosen companion, you may put it into your hand from outside the game for {3} as a sorcery.)\nLifelink\nOnce during each of your turns, you may cast a permanent spell with mana value 2 or less from your graveyard.",
+  "keywords": [
+    "Lifelink",
+    "Companion"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/5ad36fb2-c44e-4085-ba0d-54277841ad3a/normal.webp",
+    "localPath": "data/cards/images/cards/lurrus-of-the-dream-den.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/5ad36fb2-c44e-4085-ba0d-54277841ad3a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/lurrus-of-the-dream-den.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/5ad36fb2-c44e-4085-ba0d-54277841ad3a/normal.webp",
+  "powerScore": {
+    "score": 35.8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1448.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1448).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "gives-castable-from-graveyard"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "62.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "build_around",
+      "tier": "A",
+      "archetypes": [
+        "cedric:orzhov_attrition_tokens"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "gives-castable-from-graveyard"
+      ],
+      "scoreModifier": 10,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "W"
+            ],
+            "archetype": "ORZHOV ATTRITION TOKENS",
+            "grade": "A",
+            "winrateOrScore": "62.4 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

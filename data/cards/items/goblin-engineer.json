@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "goblin-engineer",
+  "name": "Goblin Engineer",
+  "oracleId": "c1d6cce8-085f-42cb-8b0c-b6fbbf88b16a",
+  "manaCost": "{R}{1}",
+  "cmc": 2,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Goblin Artificer",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Goblin",
+    "Artificer"
+  ],
+  "oracleText": "When this creature enters, you may search your library for an artifact card, put it into your graveyard, then shuffle.\n{R}, {T}, Sacrifice an artifact: Return target artifact card with mana value 3 or less from your graveyard to the battlefield.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/cae12ba4-80d9-4c2d-af64-d88d003a0d6f/normal.webp",
+    "localPath": "data/cards/images/cards/goblin-engineer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/cae12ba4-80d9-4c2d-af64-d88d003a0d6f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/goblin-engineer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/cae12ba4-80d9-4c2d-af64-d88d003a0d6f/normal.webp",
+  "powerScore": {
+    "score": 6.7,
+    "source": "untapped",
+    "rawSourceScore": 6.7,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1267).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "reanimate-artifact",
+        "recursion-artifact",
+        "recursion"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "53.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

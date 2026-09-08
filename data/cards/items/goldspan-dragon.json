@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "slug": "goldspan-dragon",
+  "name": "Goldspan Dragon",
+  "oracleId": "716b3ea2-45b7-4a8f-af72-de7f4e510eff",
+  "manaCost": "{R}{R}{3}",
+  "cmc": 5,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Creature — Dragon",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Dragon"
+  ],
+  "oracleText": "Flying, haste\nWhenever this creature attacks or becomes the target of a spell, create a Treasure token.\nTreasures you control have \"{T}, Sacrifice this artifact: Add two mana of any one color.\"",
+  "keywords": [
+    "Flying",
+    "Treasure",
+    "Haste"
+  ],
+  "power": "4",
+  "toughness": "4",
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/a7cec498-e2ac-4ca0-9aa2-ef98ba634c32/normal.webp",
+    "localPath": "data/cards/images/cards/goldspan-dragon.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/a7cec498-e2ac-4ca0-9aa2-ef98ba634c32/art_crop.webp",
+    "localArtPath": "data/cards/images/art/goldspan-dragon.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/a7cec498-e2ac-4ca0-9aa2-ef98ba634c32/normal.webp",
+  "powerScore": {
+    "score": 13,
+    "source": "untapped",
+    "rawSourceScore": 13,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1344).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "hate-target",
+        "hate",
+        "repeatable-treasures"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "57.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

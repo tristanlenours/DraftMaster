@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "etali-primal-conqueror",
+  "name": "Etali, Primal Conqueror",
+  "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+  "manaCost": "{R}{R}{5}",
+  "cmc": 7,
+  "colors": [
+    "R"
+  ],
+  "colorIdentity": [
+    "G",
+    "R"
+  ],
+  "typeLine": "Legendary Creature — Elder Dinosaur",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elder",
+    "Dinosaur"
+  ],
+  "oracleText": "Trample\nWhen Etali enters, each player exiles cards from the top of their library until they exile a nonland card. You may cast any number of spells from among the nonland cards exiled this way without paying their mana costs.\n{9}{G/P}: Transform Etali. Activate only as a sorcery.\nTrample, indestructible\nWhenever Etali deals combat damage to a player, they get that many poison counters. (A player with ten or more poison counters loses the game.)",
+  "keywords": [
+    "Indestructible",
+    "Transform",
+    "Trample"
+  ],
+  "power": "7",
+  "toughness": "7",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/95c14c4d-6c16-4826-8d93-d89ad04aee09/normal.webp",
+    "localPath": "data/cards/images/cards/etali-primal-conqueror.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/95c14c4d-6c16-4826-8d93-d89ad04aee09/art_crop.webp",
+    "localArtPath": "data/cards/images/art/etali-primal-conqueror.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/95c14c4d-6c16-4826-8d93-d89ad04aee09/normal.webp",
+  "powerScore": {
+    "score": 27,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1401,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1401).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "unique-type-line",
+        "fun-ruling"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "60.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "nightveil-theft",
+        "unique-type-line",
+        "fun-ruling"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "60.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

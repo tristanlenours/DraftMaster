@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "slug": "boogie-bomb",
+  "name": "Boogie Bomb",
+  "oracleId": "2c10cae2-951a-4f4f-94e4-8713b58d07dd",
+  "manaCost": "{1}",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [
+    "R"
+  ],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{R}, Sacrifice this artifact: It deals 2 damage to any target.\n{1}, Sacrifice this artifact: Draw a card.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/6ac01b7b-7f0c-44ce-a183-28b52dd09833/normal.webp",
+    "localPath": "data/cards/images/cards/boogie-bomb.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/6ac01b7b-7f0c-44ce-a183-28b52dd09833/art_crop.webp",
+    "localArtPath": "data/cards/images/art/boogie-bomb.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/6ac01b7b-7f0c-44ce-a183-28b52dd09833/normal.webp",
+  "powerScore": {
+    "score": 10.3,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1349.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1349).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "bombard-self",
+        "sacrifice-self",
+        "burn"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "57.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

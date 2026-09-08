@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "slug": "blade-splicer",
+  "name": "Blade Splicer",
+  "oracleId": "194166ad-0179-42a3-86b9-ba7f322ec576",
+  "manaCost": "{W}{2}",
+  "cmc": 3,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Phyrexian Human Artificer",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Phyrexian",
+    "Human",
+    "Artificer"
+  ],
+  "oracleText": "When this creature enters, create a 3/3 colorless Phyrexian Golem artifact creature token.\nGolems you control have first strike.",
+  "keywords": [],
+  "power": "1",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b8e56a28-713b-4a13-a601-1128cf117539/normal.webp",
+    "localPath": "data/cards/images/cards/blade-splicer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b8e56a28-713b-4a13-a601-1128cf117539/art_crop.webp",
+    "localArtPath": "data/cards/images/art/blade-splicer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b8e56a28-713b-4a13-a601-1128cf117539/normal.webp",
+  "powerScore": {
+    "score": 15,
+    "source": "untapped",
+    "rawSourceScore": 15,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1379).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.9,
+    "ceilingRating": 7.9,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "keyword-anthem",
+        "token-errata",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "59.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:selesnya_tokens_midrange"
+      ],
+      "synergyTags": [
+        "keyword-anthem",
+        "token-errata",
+        "triggered-ability"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "SELESNYA TOKENS MIDRANGE",
+            "grade": "A",
+            "winrateOrScore": "59.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

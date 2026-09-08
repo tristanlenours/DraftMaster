@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "mold-shambler",
+  "name": "Mold Shambler",
+  "oracleId": "7aba1039-f108-423e-8aa4-d9d8b4da2414",
+  "manaCost": "{G}{3}",
+  "cmc": 4,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Fungus Beast",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Fungus",
+    "Beast"
+  ],
+  "oracleText": "Kicker {1}{G} (You may pay an additional {1}{G} as you cast this spell.)\nWhen this creature enters, if it was kicked, destroy target noncreature permanent.",
+  "keywords": [
+    "Kicker"
+  ],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/903cb570-d769-4d7f-afbe-90ebad96657c/normal.webp",
+    "localPath": "data/cards/images/cards/mold-shambler.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/903cb570-d769-4d7f-afbe-90ebad96657c/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mold-shambler.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/903cb570-d769-4d7f-afbe-90ebad96657c/normal.webp",
+  "powerScore": {
+    "score": 8,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1199.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1199).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "removal-noncreature",
+        "removal-battle",
+        "removal"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "50.0 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "removal-noncreature",
+        "removal-battle",
+        "removal"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "50.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Escogriffe de moisissure",
+  "frenchText": "Kick {1}{G} (Vous pouvez payer {1}{G} supplémentaires au moment où vous lancez ce sort.)Quand l'Escogriffe de moisissure arrive sur le champ de bataille, s'il a été kické, détruisez le permanent non-créature ciblé."
+}

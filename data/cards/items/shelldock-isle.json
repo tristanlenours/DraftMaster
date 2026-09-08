@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "slug": "shelldock-isle",
+  "name": "Shelldock Isle",
+  "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {U}.\n{U}, {T}: You may play the exiled card without paying its mana cost if a library has twenty or fewer cards in it.",
+  "keywords": [
+    "Hideaway"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/4216656e-90e8-45fc-a0f6-0d0d79d0a021/normal.webp",
+    "localPath": "data/cards/images/cards/shelldock-isle.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/4216656e-90e8-45fc-a0f6-0d0d79d0a021/art_crop.webp",
+    "localArtPath": "data/cards/images/art/shelldock-isle.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/4216656e-90e8-45fc-a0f6-0d0d79d0a021/normal.webp",
+  "powerScore": {
+    "score": 24,
+    "source": "untapped",
+    "rawSourceScore": 24,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1414).",
+    "roles": [
+      "mana_ramp",
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "free-cast-another",
+        "cost-ignorer",
+        "triggered-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "60.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "free-cast-another",
+        "cost-ignorer",
+        "triggered-ability"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "60.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

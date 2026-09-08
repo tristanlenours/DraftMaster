@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "cubeKey": "nico_candyshop",
+  "name": "Nico's Vintage Candyshop Cube",
+  "owner": "nico",
+  "coverImage": "data/cubes/nico_candyshop/candyShop.jpg",
+  "activeSnapshotId": "nico_candyshop@2026-03-01.1",
+  "cardCount": 730,
+  "powerTier": "powered_vintage",
+  "pacing": "blistering_fast",
+  "fundamentalTurn": {
+    "targetTurn": 2,
+    "criticalWindow": "T1-T3",
+    "pacingDescription": "Format ultra-rapide dominé par le fast mana (Moxen, Lotus, Sol Ring), les réanimations précoces et les combos en un tour. La partie bascule ou se verrouille souvent dès le tour 2.",
+    "deckExpectation": "Un deck viable DOIT impérativement développer des actions proactives ou disposer d'interactions gratuites/à 1 mana (Force of Will, Daze, Swords to Plowshares, Lightning Bolt, Thoughtseize) dès le T1/T2 sous peine de défaite instantanée."
+  },
+  "technicalAxes": {
+    "speedIndex": 9.8,
+    "interactionDensityPercentage": 24.5,
+    "averageCmcEstimate": 2.1,
+    "fixingQuality": "fast_fetches_duals",
+    "comboPotential": "infinite_turn1_3"
+  },
+  "fixingDensityPercentage": 18,
+  "dominantMechanics": [
+    "Storm",
+    "Artifact Ramp",
+    "Blink / Value",
+    "Reanimator",
+    "Fast Mana"
+  ],
+  "archetypes": [
+    {
+      "id": "nico:storm_combo",
+      "name": "Izzet / Grixis Storm",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "splashColors": [
+        "B"
+      ],
+      "category": "combo",
+      "description": "Génération de mana rituel, pioche en chaîne et clôture via Brain Freeze, Tendrils of Agony ou Underworld Breach.",
+      "gameplan": "Sculpter une main critique avec des cantrips, assembler Underworld Breach / Lion's Eye Diamond / Brain Freeze, et meuler ou vider les PV en un tour.",
+      "keyCards": [
+        "3d76e3cc-a9e9-4e78-be7f-a63e26bb5b3c",
+        "018595a8-ef01-4475-8025-a1c1d81b94e3",
+        "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b"
+      ],
+      "supportCards": [
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+      ],
+      "recommendedCreatureCount": [
+        3,
+        8
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "nico:artifact_ramp",
+      "name": "Mono-Blue / Colorless Artifact Ramp",
+      "primaryColors": [
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Accélération brutale via mana rocks, Tinker dans de gros payoffs comme Blightsteel ou Bolas's Citadel.",
+      "gameplan": "Déposer des cailloux T1/T2, sacrifier un artefact pour Tinker ou lancer Urza pour dominer la table.",
+      "keyCards": [
+        "b3208538-8924-4ab2-b258-29ceeead2a99",
+        "44444444-5555-4666-8777-888888888888"
+      ],
+      "supportCards": [
+        "99999999-aaaa-4bbb-8ccc-dddddddddddd"
+      ],
+      "recommendedCreatureCount": [
+        8,
+        12
+      ],
+      "recommendedRemovalCount": [
+        4,
+        6
+      ]
+    }
+  ],
+  "scoringProfile": {
+    "tribalSynergyMultiplier": 0.4,
+    "comboSynergyMultiplier": 2.5,
+    "fixingPriorityBonus": 2.2,
+    "curveStrictness": 2
+  }
+}

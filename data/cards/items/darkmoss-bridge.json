@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "slug": "darkmoss-bridge",
+  "name": "Darkmoss Bridge",
+  "oracleId": "2065cada-4078-41c4-9e06-2460d2a2e8ee",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Artifact Land",
+  "types": [
+    "Artifact",
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped.\nIndestructible\n{T}: Add {B} or {G}.",
+  "keywords": [
+    "Indestructible"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "B",
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/f11f0be9-b9f7-45d2-9499-c5d849d7289f/normal.webp",
+    "localPath": "data/cards/images/cards/darkmoss-bridge.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/f11f0be9-b9f7-45d2-9499-c5d849d7289f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/darkmoss-bridge.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/f11f0be9-b9f7-45d2-9499-c5d849d7289f/normal.webp",
+  "powerScore": {
+    "score": 21.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1222.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1222).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "creature-ability-noncreature",
+        "activated-ability",
+        "cycle-mh2-bridge"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "51.1 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Pont de Sombremousse",
+  "frenchText": "Le Pont de Sombremousse arrive engagé.\nIndestructible (Les effets qui disent « détruisez » ne détruisent pas ce terrain.)\n{T} : Ajoutez {B} ou {G}."
+}

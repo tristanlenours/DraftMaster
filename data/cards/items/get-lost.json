@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "get-lost",
+  "name": "Get Lost",
+  "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6",
+  "manaCost": "{W}{1}",
+  "cmc": 2,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+  "keywords": [
+    "Explore"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/522aa72b-2b8c-484c-872b-f082101cee35/normal.webp",
+    "localPath": "data/cards/images/cards/get-lost.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/522aa72b-2b8c-484c-872b-f082101cee35/art_crop.webp",
+    "localArtPath": "data/cards/images/art/get-lost.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/522aa72b-2b8c-484c-872b-f082101cee35/normal.webp",
+  "powerScore": {
+    "score": 27,
+    "source": "untapped",
+    "rawSourceScore": 27,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1418).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7.1,
+    "ceilingRating": 8.1,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "donate-token",
+        "removal-planeswalker"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "60.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

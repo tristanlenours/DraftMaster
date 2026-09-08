@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "elegant-parlor",
+  "name": "Elegant Parlor",
+  "oracleId": "9ea747cf-5d04-4aa7-bdc3-8145860cd1ba",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "W"
+  ],
+  "typeLine": "Land — Mountain Plains",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [
+    "Mountain",
+    "Plains"
+  ],
+  "oracleText": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+  "keywords": [
+    "Surveil"
+  ],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1f0cef88-50bd-4baa-8d02-26ec4967a7be/normal.webp",
+    "localPath": "data/cards/images/cards/elegant-parlor.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1f0cef88-50bd-4baa-8d02-26ec4967a7be/art_crop.webp",
+    "localArtPath": "data/cards/images/art/elegant-parlor.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1f0cef88-50bd-4baa-8d02-26ec4967a7be/normal.webp",
+  "powerScore": {
+    "score": 41,
+    "source": "untapped",
+    "rawSourceScore": 41,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1352).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "triggered-ability",
+        "utility-land",
+        "cycle-dual-surveil-land"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "57.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

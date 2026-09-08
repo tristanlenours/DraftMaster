@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "disciple-of-freyalise",
+  "name": "Disciple of Freyalise",
+  "oracleId": "2699005b-a471-429f-a9d8-fbf2077ee2fd",
+  "manaCost": "{G}{G}{G}{3}",
+  "cmc": 6,
+  "colors": [
+    "G"
+  ],
+  "colorIdentity": [
+    "G"
+  ],
+  "typeLine": "Creature — Elf Druid",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Druid"
+  ],
+  "oracleText": "When this creature enters, you may sacrifice another creature. If you do, you gain X life and draw X cards, where X is that creature's power.\nAs this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {G}.",
+  "keywords": [],
+  "power": "3",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [
+    "G"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/a8e9ea5a-5e10-4b77-baef-0352ff035483/normal.webp",
+    "localPath": "data/cards/images/cards/disciple-of-freyalise.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/a8e9ea5a-5e10-4b77-baef-0352ff035483/art_crop.webp",
+    "localArtPath": "data/cards/images/art/disciple-of-freyalise.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/a8e9ea5a-5e10-4b77-baef-0352ff035483/normal.webp",
+  "powerScore": {
+    "score": 17.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1271.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1271).",
+    "roles": [
+      "mana_ramp",
+      "card_advantage"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "cycle-mh3-mdfc-mono-land",
+        "boltland",
+        "conditional-tapland"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

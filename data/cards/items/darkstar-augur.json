@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "darkstar-augur",
+  "name": "Darkstar Augur",
+  "oracleId": "67d2a021-a042-4e5f-b6e4-39cb35514794",
+  "manaCost": "{B}{2}",
+  "cmc": 3,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Bat Warlock",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Bat",
+    "Warlock"
+  ],
+  "oracleText": "Offspring {B} (You may pay an additional {B} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nFlying\nAt the beginning of your upkeep, reveal the top card of your library and put that card into your hand. You lose life equal to its mana value.",
+  "keywords": [
+    "Flying",
+    "Offspring"
+  ],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/1c603751-1e2b-4c8e-a8d2-5c0876e7254f/normal.webp",
+    "localPath": "data/cards/images/cards/darkstar-augur.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/1c603751-1e2b-4c8e-a8d2-5c0876e7254f/art_crop.webp",
+    "localArtPath": "data/cards/images/art/darkstar-augur.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/1c603751-1e2b-4c8e-a8d2-5c0876e7254f/normal.webp",
+  "powerScore": {
+    "score": 16.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1298.6,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1299).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.5,
+    "ceilingRating": 7.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.9 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

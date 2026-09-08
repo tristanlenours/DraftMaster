@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "arcane-proxy",
+  "name": "Arcane Proxy",
+  "oracleId": "792f8235-f23b-4858-bdd4-c7a186b7a470",
+  "manaCost": "{7}",
+  "cmc": 7,
+  "colors": [],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Artifact Creature — Wizard",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Wizard"
+  ],
+  "oracleText": "Prototype {1}{U}{U} — 2/1 (You may cast this spell with different mana cost, color, and size. It keeps its abilities and types.)\nWhen this creature enters, if you cast it, exile target instant or sorcery card with mana value less than or equal to this creature's power from your graveyard. Copy that card. You may cast the copy without paying its mana cost.",
+  "keywords": [
+    "Prototype"
+  ],
+  "power": "4",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d6d74d2e-7382-4fe3-ac3e-6906203ffcc7/normal.webp",
+    "localPath": "data/cards/images/cards/arcane-proxy.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d6d74d2e-7382-4fe3-ac3e-6906203ffcc7/art_crop.webp",
+    "localArtPath": "data/cards/images/art/arcane-proxy.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d6d74d2e-7382-4fe3-ac3e-6906203ffcc7/normal.webp",
+  "powerScore": {
+    "score": 9.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1362,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1362).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "cycle-bro-m-color-artifact",
+        "cycle",
+        "demilich-effect"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "58.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

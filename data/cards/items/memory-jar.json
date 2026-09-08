@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "slug": "memory-jar",
+  "name": "Memory Jar",
+  "oracleId": "eb9c9a34-88a8-4afe-a053-806f6b29834f",
+  "manaCost": "{5}",
+  "cmc": 5,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}, Sacrifice this artifact: Each player exiles all cards from their hand face down and draws seven cards. At the beginning of the next end step, each player discards their hand and returns to their hand each card they exiled this way.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/a15d33d6-7213-4482-a1be-ac0a73644af6/normal.webp",
+    "localPath": "data/cards/images/cards/memory-jar.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/a15d33d6-7213-4482-a1be-ac0a73644af6/art_crop.webp",
+    "localArtPath": "data/cards/images/art/memory-jar.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/a15d33d6-7213-4482-a1be-ac0a73644af6/normal.webp",
+  "powerScore": {
+    "score": 5.3,
+    "source": "untapped",
+    "rawSourceScore": 5.3,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1341).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "discard-outlet",
+        "burst-draw",
+        "draw"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "57.0 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "sundering-titan",
+  "name": "Sundering Titan",
+  "oracleId": "d17d071d-dbee-4d65-8435-137f35cd89ca",
+  "manaCost": "{8}",
+  "cmc": 8,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Golem",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Golem"
+  ],
+  "oracleText": "When this creature enters or leaves the battlefield, choose a land of each basic land type, then destroy those lands.",
+  "keywords": [],
+  "power": "7",
+  "toughness": "10",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/e57d74ba-0ce6-4cad-b4da-fa4a401410cd/normal.webp",
+    "localPath": "data/cards/images/cards/sundering-titan.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/e57d74ba-0ce6-4cad-b4da-fa4a401410cd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/sundering-titan.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/e57d74ba-0ce6-4cad-b4da-fa4a401410cd/normal.webp",
+  "powerScore": {
+    "score": 22.9,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1392,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1392).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "removal-destroy",
+        "removal",
+        "multi-removal"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "A",
+            "winrateOrScore": "59.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "removal-destroy",
+        "removal",
+        "multi-removal"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "59.6 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "relic-of-sauron",
+  "name": "Relic of Sauron",
+  "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+  "manaCost": "{4}",
+  "cmc": 4,
+  "colors": [],
+  "colorIdentity": [
+    "B",
+    "R",
+    "U"
+  ],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{T}: Add two mana in any combination of {U}, {B}, and/or {R}.\n{3}, {T}: Draw two cards, then discard a card.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "R",
+    "U"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
+    "localPath": "data/cards/images/cards/relic-of-sauron.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/art_crop.webp",
+    "localArtPath": "data/cards/images/art/relic-of-sauron.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
+  "powerScore": {
+    "score": 11,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1432.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1432).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7.2,
+    "ceilingRating": 8.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "61.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

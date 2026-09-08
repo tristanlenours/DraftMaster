@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "slug": "mardu-skullhunter",
+  "name": "Mardu Skullhunter",
+  "oracleId": "2a87e3a9-10e3-4b00-aeb9-d3336b2fa3b3",
+  "manaCost": "{B}{1}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Creature — Human Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Warrior"
+  ],
+  "oracleText": "This creature enters tapped.\nRaid — When this creature enters, if you attacked this turn, target opponent discards a card.",
+  "keywords": [
+    "Raid"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dd3ca5e7-96f3-4326-9315-34bb396a054c/normal.webp",
+    "localPath": "data/cards/images/cards/mardu-skullhunter.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dd3ca5e7-96f3-4326-9315-34bb396a054c/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mardu-skullhunter.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dd3ca5e7-96f3-4326-9315-34bb396a054c/normal.webp",
+  "powerScore": {
+    "score": 6.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1168.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1168).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 5.8,
+    "ceilingRating": 6.8,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:pauper_staple"
+      ],
+      "synergyTags": [
+        "intervening-if-clause",
+        "triggered-ability",
+        "discard-with-set-s-mechanic"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "PAUPER STAPLE",
+            "grade": "C",
+            "winrateOrScore": "48.4 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Chasseur de crânes marduen",
+  "frenchText": "Le Chasseur de crânes marduen arrive sur le champ de bataille engagé.\nSaccage — Quand le Chasseur de crânes marduen arrive sur le champ de bataille, si vous avez attaqué avec une créature ce tour-ci, l'adversaire ciblé se défausse d'une carte."
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "slug": "mindslaver",
+  "name": "Mindslaver",
+  "oracleId": "a806f4ee-f48a-46c3-8772-5aaabebe4c7e",
+  "manaCost": "{6}",
+  "cmc": 6,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Artifact",
+  "types": [
+    "Legendary",
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{4}, {T}, Sacrifice Mindslaver: You control target player during that player's next turn. (You see all cards that player could see and make all decisions for them.)",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/00d03b17-75ae-40d2-8570-b219ef0dfd4a/normal.webp",
+    "localPath": "data/cards/images/cards/mindslaver.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/00d03b17-75ae-40d2-8570-b219ef0dfd4a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/mindslaver.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/00d03b17-75ae-40d2-8570-b219ef0dfd4a/normal.webp",
+  "powerScore": {
+    "score": 2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1269.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1269).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "egg",
+        "sacrifice-self",
+        "turn-control"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "53.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

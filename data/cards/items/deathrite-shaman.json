@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "slug": "deathrite-shaman",
+  "name": "Deathrite Shaman",
+  "oracleId": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+  "manaCost": "{B/G}",
+  "cmc": 1,
+  "colors": [
+    "B",
+    "G"
+  ],
+  "colorIdentity": [
+    "B",
+    "G"
+  ],
+  "typeLine": "Creature — Elf Shaman",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Shaman"
+  ],
+  "oracleText": "{T}: Exile target land card from a graveyard. Add one mana of any color. (Activate only as an instant.)\n{B}, {T}: Exile target instant or sorcery card from a graveyard. Each opponent loses 2 life.\n{G}, {T}: Exile target creature card from a graveyard. You gain 2 life.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://cards.scryfall.io/normal/front/c/f/cfdb1c47-14be-491f-88b3-bed03489dbc5.jpg?1783913292",
+    "localPath": "data/cards/images/cards/deathrite-shaman.jpg",
+    "artCropUrl": "https://cards.scryfall.io/art_crop/front/c/f/cfdb1c47-14be-491f-88b3-bed03489dbc5.jpg?1783913292",
+    "localArtPath": "data/cards/images/art/deathrite-shaman.jpg",
+    "localFrenchPath": "data/cards/images/fr/cards/deathrite-shaman.jpg",
+    "localFrenchArtPath": "data/cards/images/fr/art/deathrite-shaman.jpg"
+  },
+  "imageUrl": "https://cards.scryfall.io/normal/front/c/f/cfdb1c47-14be-491f-88b3-bed03489dbc5.jpg?1783913292",
+  "powerScore": {
+    "score": 39.2,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1442.2,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "titou_tribal",
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Deathrite Shaman est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "roles": [
+      "synergy_enabler"
+    ],
+    "floorRating": 3.7,
+    "ceilingRating": 4.5,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.5,
+      "developing": 4,
+      "parity": 3.8,
+      "behind": 3
+    }
+  },
+  "cubeAnalyses": {
+    "titou_tribal": {
+      "cubeKey": "titou_tribal",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [],
+      "synergyTags": [],
+      "scoreModifier": 3,
+      "analysis": "Carte de rang A (ELO: 1442) dans l'environnement tribal et interactif de Titou.",
+      "pedagogy": {
+        "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "TRIBAL SYNERGY",
+            "grade": "A",
+            "winrateOrScore": "62.7 %",
+            "comment": "Alignement au métagame Titou Tribal (A)."
+          }
+        ]
+      }
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "graveyard-fuel-instant"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "62.1 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:golgari_rock_graveyard"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "graveyard-fuel-instant"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B",
+              "G"
+            ],
+            "archetype": "GOLGARI ROCK GRAVEYARD",
+            "grade": "A",
+            "winrateOrScore": "62.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Deathrite Shaman",
+  "frenchText": "{T}: Exile target land card from a graveyard. Add one mana of any color. (Activate only as an instant.)\n{B}, {T}: Exile target instant or sorcery card from a graveyard. Each opponent loses 2 life.\n{G}, {T}: Exile target creature card from a graveyard. You gain 2 life.",
+  "localFrenchPath": "data/cards/images/fr/cards/deathrite-shaman.jpg"
+}

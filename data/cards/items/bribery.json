@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "bribery",
+  "name": "Bribery",
+  "oracleId": "6d194882-ca37-49bb-ac9f-a751c53850a8",
+  "manaCost": "{U}{U}{3}",
+  "cmc": 5,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Search target opponent's library for a creature card and put that card onto the battlefield under your control. Then that player shuffles.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/dfc0ea8a-62f6-49e8-8eec-9748870bc596/normal.webp",
+    "localPath": "data/cards/images/cards/bribery.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/dfc0ea8a-62f6-49e8-8eec-9748870bc596/art_crop.webp",
+    "localArtPath": "data/cards/images/art/bribery.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/dfc0ea8a-62f6-49e8-8eec-9748870bc596/normal.webp",
+  "powerScore": {
+    "score": 21,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1474.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1475).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 7.4,
+    "ceilingRating": 8.4,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "tutor-from-opponent",
+        "tutor",
+        "single-target-instant-sorcery"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "63.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "tutor-from-opponent",
+        "tutor",
+        "single-target-instant-sorcery"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "63.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "slug": "angel-of-indemnity",
+  "name": "Angel of Indemnity",
+  "oracleId": "4f57a320-b6b5-49de-af0a-f2e2649758a7",
+  "manaCost": "{W}{5}",
+  "cmc": 6,
+  "colors": [
+    "W"
+  ],
+  "colorIdentity": [
+    "W"
+  ],
+  "typeLine": "Creature — Angel Warrior",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Angel",
+    "Warrior"
+  ],
+  "oracleText": "Flying, lifelink\nWhen this creature enters, return target permanent card with mana value 4 or less from your graveyard to the battlefield.\nEncore {6}{W}{W} ({6}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+  "keywords": [
+    "Flying",
+    "Lifelink",
+    "Encore"
+  ],
+  "power": "5",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8d8b415e-d077-4548-9738-15d8828e49e3/normal.webp",
+    "localPath": "data/cards/images/cards/angel-of-indemnity.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8d8b415e-d077-4548-9738-15d8828e49e3/art_crop.webp",
+    "localArtPath": "data/cards/images/art/angel-of-indemnity.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8d8b415e-d077-4548-9738-15d8828e49e3/normal.webp",
+  "powerScore": {
+    "score": 17,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1251.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1252).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.3,
+    "ceilingRating": 7.3,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "renew",
+        "graveyard-fuel-self",
+        "exile-self"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "52.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

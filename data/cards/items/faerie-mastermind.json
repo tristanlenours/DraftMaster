@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "slug": "faerie-mastermind",
+  "name": "Faerie Mastermind",
+  "oracleId": "a984db23-40ea-428d-829f-e944267280f8",
+  "manaCost": "{U}{1}",
+  "cmc": 2,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Creature — Faerie Rogue",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Faerie",
+    "Rogue"
+  ],
+  "oracleText": "Flash\nFlying\nWhenever an opponent draws their second card each turn, you draw a card.\n{3}{U}: Each player draws a card.",
+  "keywords": [
+    "Flying",
+    "Flash"
+  ],
+  "power": "2",
+  "toughness": "1",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/ddb3321c-6b3f-4e7e-8557-b90855ff48cd/normal.webp",
+    "localPath": "data/cards/images/cards/faerie-mastermind.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/ddb3321c-6b3f-4e7e-8557-b90855ff48cd/art_crop.webp",
+    "localArtPath": "data/cards/images/art/faerie-mastermind.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/ddb3321c-6b3f-4e7e-8557-b90855ff48cd/normal.webp",
+  "powerScore": {
+    "score": 23,
+    "source": "untapped",
+    "rawSourceScore": 23,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1403).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 7,
+    "ceilingRating": 8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "draw-engine",
+        "repeatable-draw",
+        "repeatable-card-advantage"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "60.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "slug": "myr-battlesphere",
+  "name": "Myr Battlesphere",
+  "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+  "manaCost": "{7}",
+  "cmc": 7,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact Creature — Myr Construct",
+  "types": [
+    "Artifact",
+    "Creature"
+  ],
+  "subtypes": [
+    "Myr",
+    "Construct"
+  ],
+  "oracleText": "When this creature enters, create four 1/1 colorless Myr artifact creature tokens.\nWhenever this creature attacks, you may tap X untapped Myr you control. If you do, this creature gets +X/+0 until end of turn and deals X damage to the player or planeswalker it's attacking.",
+  "keywords": [],
+  "power": "4",
+  "toughness": "7",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/b0ae94ed-7314-470b-baba-f2f58bbc894a/normal.webp",
+    "localPath": "data/cards/images/cards/myr-battlesphere.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/b0ae94ed-7314-470b-baba-f2f58bbc894a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/myr-battlesphere.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/b0ae94ed-7314-470b-baba-f2f58bbc894a/normal.webp",
+  "powerScore": {
+    "score": 17.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1325.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1326).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "tap-fuel-creature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "56.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "burn-player",
+        "burn",
+        "tap-fuel-creature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

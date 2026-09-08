@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "slug": "bloodbraid-elf",
+  "name": "Bloodbraid Elf",
+  "oracleId": "3f0c9466-5ab9-4205-a84f-b4b27b5a678e",
+  "scryfallId": "7ef67487-c8e5-49bb-b0f7-e073ff2e31f1",
+  "manaCost": "{G}{R}{2}",
+  "cmc": 4,
+  "colors": [
+    "G",
+    "R"
+  ],
+  "colorIdentity": [
+    "G",
+    "R"
+  ],
+  "typeLine": "Creature — Elf Berserker",
+  "types": [
+    "Creature"
+  ],
+  "subtypes": [
+    "Elf",
+    "Berserker"
+  ],
+  "oracleText": "Haste (This creature can attack and {T} as soon as it comes under your control.)\nCascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)",
+  "keywords": [
+    "Haste",
+    "Cascade"
+  ],
+  "power": "3",
+  "toughness": "2",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/7ef67487-c8e5-49bb-b0f7-e073ff2e31f1/normal.webp",
+    "localPath": "data/cards/images/bloodbraid-elf.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/7ef67487-c8e5-49bb-b0f7-e073ff2e31f1/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/7ef67487-c8e5-49bb-b0f7-e073ff2e31f1/normal.webp",
+  "powerScore": {
+    "score": 26.7,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1339.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1340).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "cast-trigger-self",
+        "cast-trigger",
+        "triggered-ability"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "R"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "B",
+            "winrateOrScore": "57.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

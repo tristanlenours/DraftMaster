@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "restless-bivouac",
+  "name": "Restless Bivouac",
+  "oracleId": "b3c7b46f-c9ab-40ca-b50b-a4e0d0bd9be8",
+  "manaCost": "",
+  "cmc": 0,
+  "colors": [],
+  "colorIdentity": [
+    "R",
+    "W"
+  ],
+  "typeLine": "Land",
+  "types": [
+    "Land"
+  ],
+  "subtypes": [],
+  "oracleText": "This land enters tapped.\n{T}: Add {R} or {W}.\n{1}{R}{W}: This land becomes a 2/2 red and white Ox creature until end of turn. It's still a land.\nWhenever this land attacks, put a +1/+1 counter on target creature you control.",
+  "keywords": [],
+  "isLand": true,
+  "producesColors": [
+    "R",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/901796b2-c567-41e2-a87b-6147a966c9a8/normal.webp",
+    "localPath": "data/cards/images/cards/restless-bivouac.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/901796b2-c567-41e2-a87b-6147a966c9a8/art_crop.webp",
+    "localArtPath": "data/cards/images/art/restless-bivouac.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/901796b2-c567-41e2-a87b-6147a966c9a8/normal.webp",
+  "powerScore": {
+    "score": 32.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1276,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1276).",
+    "roles": [
+      "mana_ramp"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:storm_combo"
+      ],
+      "synergyTags": [
+        "color-change-self",
+        "color-change",
+        "creature-ability-noncreature"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "B",
+            "winrateOrScore": "53.8 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

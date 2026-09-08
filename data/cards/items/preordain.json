@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "slug": "preordain",
+  "name": "Preordain",
+  "oracleId": "11111111-aaaa-4000-8000-000000000009",
+  "manaCost": "{U}",
+  "cmc": 1,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Sorcery",
+  "types": [
+    "Sorcery"
+  ],
+  "subtypes": [],
+  "oracleText": "Scry 2, then draw a card.",
+  "keywords": [
+    "Scry"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://api.scryfall.com/cards/named?exact=Preordain&format=image",
+    "localPath": "data/cards/images/cards/preordain.jpg",
+    "artCropUrl": "https://api.scryfall.com/cards/named?exact=Preordain&format=image&version=art_crop",
+    "localArtPath": "data/cards/images/art/preordain.jpg"
+  },
+  "imageUrl": "https://api.scryfall.com/cards/named?exact=Preordain&format=image",
+  "powerScore": {
+    "score": 27,
+    "source": "untapped",
+    "rawSourceScore": 27,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "hugues_pauper",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Cantrip ultra-régulier offrant une sélection de 3 cartes profondes.",
+    "roles": [
+      "cantrip"
+    ],
+    "floorRating": 7.5,
+    "ceilingRating": 9.2,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.9,
+      "developing": 4.7,
+      "parity": 4.5,
+      "behind": 3.8
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "staple",
+      "tier": "A",
+      "archetypes": [
+        "hugues:faeries_ninjas_tempo",
+        "hugues:azorius_blink"
+      ],
+      "synergyTags": [
+        "scry",
+        "selection",
+        "cantrip"
+      ],
+      "scoreModifier": 9,
+      "analysis": "Le meilleur cantrip inconditionnel en Pauper où les fetchlands sont absents. Scry 2 garantit de trouver ses terrains ou ses réponses clés.",
+      "pedagogy": {
+        "howToPlay": "Ne le lancez pas machinalement au tour 1 si vous n'avez pas de plan précis. Gardez-le pour le tour 2 ou 3 afin de savoir exactement quelle carte vous cherchez à creuser avec Scry 2.",
+        "keySynergies": [],
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "All Blue Decks",
+            "grade": "A",
+            "winrateOrScore": "64.0 %",
+            "comment": "Régularise les départs et lisse la courbe de mana."
+          }
+        ]
+      },
+      "keyPairs": [
+        "Counterspell"
+      ]
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "cantrip"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "S",
+            "winrateOrScore": "65.2 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-english-word-name",
+        "card-names",
+        "cantrip"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "65.2 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Prédestination",
+  "frenchText": "Regard 2, puis piochez une carte."
+}

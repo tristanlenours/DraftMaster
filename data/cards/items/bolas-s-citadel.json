@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "slug": "bolas-s-citadel",
+  "name": "Bolas's Citadel",
+  "oracleId": "2bd111bb-ce02-414c-b5b7-e0e037d8d96b",
+  "manaCost": "{B}{B}{B}{3}",
+  "cmc": 6,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Legendary Artifact",
+  "types": [
+    "Legendary",
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "You may look at the top card of your library any time.\nYou may play lands and cast spells from the top of your library. If you cast a spell this way, pay life equal to its mana value rather than pay its mana cost.\n{T}, Sacrifice ten nonland permanents: Each opponent loses 10 life.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/d2124603-d20e-40eb-97f0-a66323397ac2/normal.webp",
+    "localPath": "data/cards/images/cards/bolas-s-citadel.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/d2124603-d20e-40eb-97f0-a66323397ac2/art_crop.webp",
+    "localArtPath": "data/cards/images/art/bolas-s-citadel.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/d2124603-d20e-40eb-97f0-a66323397ac2/normal.webp",
+  "powerScore": {
+    "score": 7.1,
+    "source": "untapped",
+    "rawSourceScore": 7.1,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1353).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "cycle-war-color-artifact",
+        "cycle",
+        "sacrifice-outlet-nonland"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "S",
+            "winrateOrScore": "57.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

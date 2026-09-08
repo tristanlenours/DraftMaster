@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "lethal-scheme",
+  "name": "Lethal Scheme",
+  "oracleId": "c4660b3c-a234-4a3e-83e7-e2fa9d556685",
+  "manaCost": "{B}{B}{2}",
+  "cmc": 4,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nDestroy target creature or planeswalker. Each creature that convoked this spell connives. (Draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on that creature.)",
+  "keywords": [
+    "Connive",
+    "Convoke"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/65864680-9520-4eb3-9774-fa478e54a290/normal.webp",
+    "localPath": "data/cards/images/cards/lethal-scheme.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/65864680-9520-4eb3-9774-fa478e54a290/art_crop.webp",
+    "localArtPath": "data/cards/images/art/lethal-scheme.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/65864680-9520-4eb3-9774-fa478e54a290/normal.webp",
+  "powerScore": {
+    "score": 18.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1331,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1331).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.7,
+    "ceilingRating": 7.7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "loot",
+        "draw"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "56.6 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

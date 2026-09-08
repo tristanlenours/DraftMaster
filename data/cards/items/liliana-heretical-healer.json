@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "liliana-heretical-healer",
+  "name": "Liliana, Heretical Healer",
+  "oracleId": "b96a8ad2-3d86-459b-a34f-19c9dc07c3c4",
+  "manaCost": "{B}{B}{1}",
+  "cmc": 3,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Legendary Creature — Human Cleric",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Human",
+    "Cleric"
+  ],
+  "oracleText": "Lifelink\nWhenever another nontoken creature you control dies, exile Liliana, Heretical Healer, then return her to the battlefield transformed under her owner's control. If you do, create a 2/2 black Zombie creature token.\n+2: Each player discards a card.\n−X: Return target nonlegendary creature card with mana value X from your graveyard to the battlefield.\n−8: You get an emblem with \"Whenever a creature dies, return it to the battlefield under your control at the beginning of the next end step.\"",
+  "keywords": [
+    "Lifelink",
+    "Transform"
+  ],
+  "power": "2",
+  "toughness": "3",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9f25e1cf-eeb4-458d-8fb2-b3a2f86bdd54/normal.webp",
+    "localPath": "data/cards/images/cards/liliana-heretical-healer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9f25e1cf-eeb4-458d-8fb2-b3a2f86bdd54/art_crop.webp",
+    "localArtPath": "data/cards/images/art/liliana-heretical-healer.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9f25e1cf-eeb4-458d-8fb2-b3a2f86bdd54/normal.webp",
+  "powerScore": {
+    "score": 15.5,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1286.3,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1286).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.4,
+    "ceilingRating": 7.4,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "death-trigger"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "B",
+            "winrateOrScore": "54.3 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:dimir_reanimator"
+      ],
+      "synergyTags": [
+        "repeatable-lifegain",
+        "lifegain",
+        "death-trigger"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "DIMIR REANIMATOR",
+            "grade": "B",
+            "winrateOrScore": "54.3 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

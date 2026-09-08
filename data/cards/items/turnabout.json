@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "slug": "turnabout",
+  "name": "Turnabout",
+  "oracleId": "715d0777-4d36-463b-9102-6bb6bb00b7e9",
+  "manaCost": "{U}{U}{2}",
+  "cmc": 4,
+  "colors": [
+    "U"
+  ],
+  "colorIdentity": [
+    "U"
+  ],
+  "typeLine": "Instant",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [],
+  "oracleText": "Choose artifact, creature, or land. Tap all untapped permanents of the chosen type target player controls, or untap all tapped permanents of that type that player controls.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/04cfc84b-88ae-4fb8-b568-e0635e2a194a/normal.webp",
+    "localPath": "data/cards/images/cards/turnabout.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/04cfc84b-88ae-4fb8-b568-e0635e2a194a/art_crop.webp",
+    "localArtPath": "data/cards/images/art/turnabout.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/04cfc84b-88ae-4fb8-b568-e0635e2a194a/normal.webp",
+  "powerScore": {
+    "score": 10.1,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1327.1,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1327).",
+    "roles": [
+      "engine"
+    ],
+    "floorRating": 6.6,
+    "ceilingRating": 7.6,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "untapper-land",
+        "untapper",
+        "untapper-artifact"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "B",
+            "winrateOrScore": "56.4 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "slug": "maelstrom-wanderer",
+  "name": "Maelstrom Wanderer",
+  "oracleId": "ad9b7fbc-61c8-43ee-a65c-99206fd1e4df",
+  "scryfallId": "9129baf5-ffa9-4ffb-bcab-19d6a42dbfcc",
+  "manaCost": "{R}{U}{G}{5}",
+  "cmc": 8,
+  "colors": [
+    "G",
+    "R",
+    "U"
+  ],
+  "colorIdentity": [
+    "G",
+    "R",
+    "U"
+  ],
+  "typeLine": "Legendary Creature — Elemental",
+  "types": [
+    "Legendary",
+    "Creature"
+  ],
+  "subtypes": [
+    "Elemental"
+  ],
+  "oracleText": "Creatures you control have haste.\nCascade, cascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order. Then do it again.)",
+  "keywords": [
+    "Cascade"
+  ],
+  "power": "7",
+  "toughness": "5",
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/9129baf5-ffa9-4ffb-bcab-19d6a42dbfcc/normal.webp",
+    "localPath": "data/cards/images/maelstrom-wanderer.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/9129baf5-ffa9-4ffb-bcab-19d6a42dbfcc/art_crop.webp"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/9129baf5-ffa9-4ffb-bcab-19d6a42dbfcc/normal.webp",
+  "powerScore": {
+    "score": 13,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1221.5,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1221).",
+    "roles": [
+      "premium_removal"
+    ],
+    "floorRating": 6.1,
+    "ceilingRating": 7.1,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4.1,
+      "parity": 3.9,
+      "behind": 3.4
+    }
+  },
+  "cubeAnalyses": {
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "B",
+      "archetypes": [
+        "cedric:gruul_stompy_sneak"
+      ],
+      "synergyTags": [
+        "keyword-anthem",
+        "cast-trigger-self",
+        "cast-trigger"
+      ],
+      "scoreModifier": 0,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "R",
+              "U"
+            ],
+            "archetype": "GRUUL STOMPY SNEAK",
+            "grade": "B",
+            "winrateOrScore": "51.1 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

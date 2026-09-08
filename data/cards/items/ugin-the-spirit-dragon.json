@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "slug": "ugin-the-spirit-dragon",
+  "name": "Ugin, the Spirit Dragon",
+  "oracleId": "eecb3047-a563-441a-9175-200421981ac3",
+  "manaCost": "{8}",
+  "cmc": 8,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Legendary Planeswalker — Ugin",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Ugin"
+  ],
+  "oracleText": "+2: Ugin deals 3 damage to any target.\n−X: Exile each permanent with mana value X or less that's one or more colors.\n−10: You gain 7 life, draw seven cards, then put up to seven permanent cards from your hand onto the battlefield.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8cec48b8-58b2-4894-96e4-8477b83d4cf6/normal.webp",
+    "localPath": "data/cards/images/cards/ugin-the-spirit-dragon.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8cec48b8-58b2-4894-96e4-8477b83d4cf6/art_crop.webp",
+    "localArtPath": "data/cards/images/art/ugin-the-spirit-dragon.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8cec48b8-58b2-4894-96e4-8477b83d4cf6/normal.webp",
+  "powerScore": {
+    "score": 8.6,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1353.8,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1354).",
+    "roles": [
+      "premium_removal",
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:vintage_staple"
+      ],
+      "synergyTags": [
+        "mana-value-matters",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "VINTAGE STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "mana-value-matters",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 7,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "A",
+            "winrateOrScore": "57.7 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}

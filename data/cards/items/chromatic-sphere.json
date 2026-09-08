@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "slug": "chromatic-sphere",
+  "name": "Chromatic Sphere",
+  "oracleId": "2e03e44a-9fff-4490-859f-b42e89e8563a",
+  "manaCost": "{1}",
+  "cmc": 1,
+  "colors": [],
+  "colorIdentity": [],
+  "typeLine": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "subtypes": [],
+  "oracleText": "{1}, {T}, Sacrifice this artifact: Add one mana of any color. Draw a card. (Activate only as an instant.)",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/920cd17f-9274-443e-906f-c9904f0658d5/normal.webp",
+    "localPath": "data/cards/images/cards/chromatic-sphere.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/920cd17f-9274-443e-906f-c9904f0658d5/art_crop.webp",
+    "localArtPath": "data/cards/images/art/chromatic-sphere.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/920cd17f-9274-443e-906f-c9904f0658d5/normal.webp",
+  "powerScore": {
+    "score": 5.4,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1353.7,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1354).",
+    "roles": [
+      "card_advantage"
+    ],
+    "floorRating": 6.8,
+    "ceilingRating": 7.8,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4,
+      "developing": 4.2,
+      "parity": 3.8,
+      "behind": 3.5
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "tier": "A",
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "mana-filter",
+        "pure-draw",
+        "draw"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "W"
+            ],
+            "archetype": "STORM COMBO",
+            "grade": "A",
+            "winrateOrScore": "57.7 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    }
+  }
+}

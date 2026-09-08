@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "slug": "death-denied",
+  "name": "Death Denied",
+  "oracleId": "94f23a93-cd98-4ee7-9e62-9b7b49ace6fd",
+  "manaCost": "{B}{B}{X}",
+  "cmc": 2,
+  "colors": [
+    "B"
+  ],
+  "colorIdentity": [
+    "B"
+  ],
+  "typeLine": "Instant — Arcane",
+  "types": [
+    "Instant"
+  ],
+  "subtypes": [
+    "Arcane"
+  ],
+  "oracleText": "Return X target creature cards from your graveyard to your hand.",
+  "keywords": [],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/8f66ddc5-f5e6-44de-8189-87b6521d1fea/normal.webp",
+    "localPath": "data/cards/images/cards/death-denied.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/8f66ddc5-f5e6-44de-8189-87b6521d1fea/art_crop.webp",
+    "localArtPath": "data/cards/images/art/death-denied.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/8f66ddc5-f5e6-44de-8189-87b6521d1fea/normal.webp",
+  "powerScore": {
+    "score": 11,
+    "source": "cubecobra_elo",
+    "rawSourceScore": 1198.4,
+    "harmonizationDegree": "calibrated_medium",
+    "confidence": 0.6,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "hugues_pauper"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1198).",
+    "roles": [
+      "beater"
+    ],
+    "floorRating": 6,
+    "ceilingRating": 7,
+    "tempoImpact": "medium",
+    "quadrantStrengths": {
+      "opening": 3.8,
+      "developing": 4,
+      "parity": 3.5,
+      "behind": 3.2
+    }
+  },
+  "cubeAnalyses": {
+    "hugues_pauper": {
+      "cubeKey": "hugues_pauper",
+      "fit": "filler",
+      "tier": "C",
+      "archetypes": [
+        "hugues:golgari_graveyard"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "regrowth-creature",
+        "recursion-creature"
+      ],
+      "scoreModifier": -5,
+      "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
+      "pedagogy": {
+        "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "B"
+            ],
+            "archetype": "GOLGARI GRAVEYARD",
+            "grade": "C",
+            "winrateOrScore": "49.9 %",
+            "comment": "Pilier du métagame Pauper équilibré."
+          }
+        ]
+      }
+    }
+  },
+  "frenchName": "Déni de la mort",
+  "frenchText": "Return X target creature cards from your graveyard to your hand."
+}

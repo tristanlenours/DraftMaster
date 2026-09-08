@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "oko-thief-of-crowns",
+  "name": "Oko, Thief of Crowns",
+  "oracleId": "60c60923-ff1b-43f7-8768-731499fcffc9",
+  "manaCost": "{U}{G}{1}",
+  "cmc": 3,
+  "colors": [
+    "G",
+    "U"
+  ],
+  "colorIdentity": [
+    "G",
+    "U"
+  ],
+  "typeLine": "Legendary Planeswalker — Oko",
+  "types": [
+    "Legendary",
+    "Planeswalker"
+  ],
+  "subtypes": [
+    "Oko"
+  ],
+  "oracleText": "+2: Create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\n+1: Target artifact or creature loses all abilities and becomes a green Elk creature with base power and toughness 3/3.\n−5: Exchange control of target artifact or creature you control and target creature an opponent controls with power 3 or less.",
+  "keywords": [
+    "Food"
+  ],
+  "isLand": false,
+  "producesColors": [],
+  "image": {
+    "url": "https://assets.cubecobra.com/cardimages/95da027e-34c1-4098-827d-1647693ad8f4/normal.webp",
+    "localPath": "data/cards/images/cards/oko-thief-of-crowns.jpg",
+    "artCropUrl": "https://assets.cubecobra.com/cardimages/95da027e-34c1-4098-827d-1647693ad8f4/art_crop.webp",
+    "localArtPath": "data/cards/images/art/oko-thief-of-crowns.jpg"
+  },
+  "imageUrl": "https://assets.cubecobra.com/cardimages/95da027e-34c1-4098-827d-1647693ad8f4/normal.webp",
+  "powerScore": {
+    "score": 48,
+    "source": "untapped",
+    "rawSourceScore": 48,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-06T00:00:00.000Z"
+  },
+  "presentInCubes": [
+    "nico_candyshop",
+    "cedric_cube"
+  ],
+  "objectiveAnalysis": {
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1691).",
+    "roles": [
+      "bomb"
+    ],
+    "floorRating": 8.5,
+    "ceilingRating": 9.5,
+    "tempoImpact": "high",
+    "quadrantStrengths": {
+      "opening": 4.8,
+      "developing": 4.9,
+      "parity": 3.8,
+      "behind": 4.2
+    }
+  },
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "repeatable-food",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 15,
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "U"
+            ],
+            "archetype": "ARTIFACT RAMP",
+            "grade": "S",
+            "winrateOrScore": "74.5 %",
+            "comment": "Alignement Vintage compétitif."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "synergyTags": [
+        "repeatable-food",
+        "repeatable-lifegain",
+        "lifegain"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "G",
+              "U"
+            ],
+            "archetype": "SIMIC RAMP GOODSTUFF",
+            "grade": "S",
+            "winrateOrScore": "68.0 %",
+            "comment": "Pilier compétitif du cube de Cédric."
+          }
+        ]
+      }
+    }
+  }
+}
