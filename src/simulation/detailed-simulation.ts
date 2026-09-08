@@ -1,4 +1,5 @@
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
+import { CubeMetaRegistry } from "../cubes/cube-meta.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
 import { MAX_POWER_SCORE } from "../cards/power-harmonizer.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
@@ -48,6 +49,7 @@ import type {
   CoachingScoreBreakdown,
   DeckArchetype,
   DeckEvaluationAudit,
+  DeckEvaluationOptions,
   KiviatRadarScores,
   MtGColor,
   PackEvaluationContext,
@@ -176,6 +178,7 @@ interface CubeBombClassification {
 
 export interface RunDetailedSimulationOptions {
   readonly cubePath?: string;
+  readonly cubeMetaPath?: string;
   readonly masterCatalogPath?: string;
   readonly seed?: number;
   readonly sessionId?: string;
@@ -198,6 +201,15 @@ export async function runDetailedDraftSimulation(
     return failure("INVALID_SNAPSHOT", snapshotResult.error.message, { ...snapshotResult.error });
   }
   const snapshot: CubeSnapshot = snapshotResult.value;
+
+  const cubeMetaPath = options.cubeMetaPath ?? `data/cubes/${snapshot.cubeKey}/cube-meta.json`;
+  const cubeMetaResult = await CubeMetaRegistry.fromFile(cubeMetaPath);
+  if (!cubeMetaResult.ok) {
+    return failure("INVALID_SNAPSHOT", cubeMetaResult.error.message, { ...cubeMetaResult.error });
+  }
+  const evaluationOptions: DeckEvaluationOptions = {
+    synergyProfile: cubeMetaResult.value.meta,
+  };
 
   // 2. Load master catalog
   const catalogResult = await CardCatalog.fromFile(catalogPath);
@@ -628,9 +640,11 @@ export async function runDetailedDraftSimulation(
     );
 
     // Recommend deck build (23 playables + 17 lands)
-    const deckOptions = recommendDeckBuilds(poolInputs, undefined, {
+    const deckEvaluationOptions: DeckEvaluationOptions = {
+      ...evaluationOptions,
       bombThreshold: bombClassification.definition.cutoffScore,
-    });
+    };
+    const deckOptions = recommendDeckBuilds(poolInputs, undefined, deckEvaluationOptions);
     const bestOption = deckOptions[0];
 
     // Build final deck summary
@@ -638,7 +652,7 @@ export async function runDetailedDraftSimulation(
       bestOption,
       poolInstanceIds,
       instanceToEnrichedMap,
-      bombClassification.definition.cutoffScore,
+      deckEvaluationOptions,
     );
 
     const profile = seatProfiles[sId] ?? THEO_PROFILE;
@@ -838,7 +852,7 @@ export function buildFinalDeckSummary(
   bestOption: ReturnType<typeof recommendDeckBuilds>[number] | undefined,
   allPoolInstanceIds: readonly string[],
   instanceToEnrichedMap: Map<string, EnrichedCard>,
-  bombThreshold: number,
+  evaluationOptions: DeckEvaluationOptions,
 ): FinalDeckSummary {
   if (!bestOption) {
     const allEnriched = allPoolInstanceIds.map(
@@ -871,7 +885,7 @@ export function buildFinalDeckSummary(
         cmc: c.cmc,
         isLand: c.isLand,
       })),
-      { bombThreshold },
+      evaluationOptions,
     );
 
     return {

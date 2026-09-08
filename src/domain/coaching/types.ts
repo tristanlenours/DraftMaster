@@ -98,8 +98,35 @@ export interface StrategicPackageAudit {
   readonly fragilityPenalty: number;
 }
 
+export interface DeckSynergyArchetypeProfile {
+  readonly id: string;
+  readonly name: string;
+  readonly keyCards: readonly string[];
+  readonly supportCards: readonly string[];
+  readonly targetPoints?: number | undefined;
+}
+
+export interface DeckSynergyProfile {
+  readonly archetypes: readonly DeckSynergyArchetypeProfile[];
+}
+
+export interface ArchetypeSynergyAudit {
+  readonly id: string;
+  readonly name: string;
+  readonly keyCards: readonly string[];
+  readonly supportCards: readonly string[];
+  readonly keyCardCount: number;
+  readonly supportCardCount: number;
+  readonly alignedCardCount: number;
+  readonly points: number;
+  readonly targetPoints: number;
+  readonly score: number;
+}
+
 export interface SynergyAxisAudit {
   readonly packages: readonly StrategicPackageAudit[];
+  readonly bestArchetype: ArchetypeSynergyAudit | null;
+  readonly archetypes: readonly ArchetypeSynergyAudit[];
 }
 
 export interface EffectiveCostAdjustment {
@@ -144,12 +171,27 @@ export interface ManaAcceleratorAuditEntry {
   readonly producesColors: readonly MtGColor[];
 }
 
+export interface ManaFixerAuditEntry {
+  readonly name: string;
+  readonly kind: "multicolor-land" | "accelerator" | "land-equivalent";
+  readonly colors: readonly MtGColor[];
+  readonly contribution: number;
+}
+
 export interface ManaAxisAudit {
   readonly landCount: number;
   readonly landEquivalentCards: readonly string[];
   readonly effectiveLandCount: number;
   readonly accelerators: readonly ManaAcceleratorAuditEntry[];
   readonly sourcesByColor: Readonly<Record<MtGColor, number>>;
+  readonly usedColors: readonly MtGColor[];
+  readonly targetSourcesByColor: Readonly<Record<MtGColor, number>>;
+  readonly sourceAdequacy: number;
+  readonly fixers: readonly ManaFixerAuditEntry[];
+  readonly fixerUnits: number;
+  readonly requiredFixerUnits: number;
+  readonly fixingAdequacy: number;
+  readonly landCountAdequacy: number;
 }
 
 export interface DeckScoreContribution {
@@ -160,7 +202,7 @@ export interface DeckScoreContribution {
 }
 
 export interface DeckEvaluationAudit {
-  readonly formulaVersion: "deck-evaluation@2";
+  readonly formulaVersion: "deck-evaluation@3";
   readonly scoreMeaning: string;
   readonly power: PowerAxisAudit;
   readonly synergy: SynergyAxisAudit;
@@ -173,6 +215,8 @@ export interface DeckEvaluationAudit {
 export interface DeckEvaluationOptions {
   /** Top-5% cutoff computed from the immutable cube snapshot, ties included. */
   readonly bombThreshold?: number;
+  /** Versioned, cube-specific archetype membership used by the Synergy axis. */
+  readonly synergyProfile?: DeckSynergyProfile;
 }
 
 export interface DeckEvaluation {

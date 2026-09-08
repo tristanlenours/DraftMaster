@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
+import { CubeMetaRegistry } from "../cubes/cube-meta.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
 import {
@@ -41,6 +42,8 @@ import { evaluateDeck } from "../domain/coaching/deck-evaluation.ts";
 import type {
   CardEvaluationInput,
   DeckEvaluation,
+  DeckEvaluationOptions,
+  DeckSynergyProfile,
   MtGColor,
   PackEvaluationContext,
 } from "../domain/coaching/types.ts";
@@ -88,6 +91,7 @@ export class SoloDraftSession {
   private readonly snapshot: CubeSnapshot;
   private readonly catalog: Readonly<CardCatalog>;
   private readonly bombDefinition: CubeBombDefinition;
+  private readonly synergyProfile: DeckSynergyProfile;
   private readonly bombOracleIds: ReadonlySet<string>;
   private readonly instanceToInputMap = new Map<string, CardEvaluationInput>();
   private readonly instanceToEnrichedMap = new Map<string, EnrichedCard>();
@@ -112,6 +116,7 @@ export class SoloDraftSession {
     catalog: Readonly<CardCatalog>;
     currentDraft: Draft;
     bombDefinition: CubeBombDefinition;
+    synergyProfile: DeckSynergyProfile;
     bombOracleIds: ReadonlySet<string>;
     instanceToInputMap: Map<string, CardEvaluationInput>;
     instanceToEnrichedMap: Map<string, EnrichedCard>;
@@ -127,6 +132,7 @@ export class SoloDraftSession {
     this.catalog = params.catalog;
     this.currentDraft = params.currentDraft;
     this.bombDefinition = params.bombDefinition;
+    this.synergyProfile = params.synergyProfile;
     this.bombOracleIds = params.bombOracleIds;
     this.instanceToInputMap = params.instanceToInputMap;
     this.instanceToEnrichedMap = params.instanceToEnrichedMap;
@@ -157,6 +163,11 @@ export class SoloDraftSession {
       throw new Error(`Failed to load snapshot: ${snapshotResult.error.message}`);
     }
     const snapshot: CubeSnapshot = snapshotResult.value;
+
+    const cubeMetaResult = await CubeMetaRegistry.fromFile(`data/cubes/${cubeKey}/cube-meta.json`);
+    if (!cubeMetaResult.ok) {
+      throw new Error(`Failed to load cube meta: ${cubeMetaResult.error.message}`);
+    }
 
     const catalogResult = await CardCatalog.fromFile(catalogPath);
     if (!catalogResult.ok) {
@@ -357,6 +368,7 @@ export class SoloDraftSession {
       catalog,
       currentDraft: startResult.value.draft,
       bombDefinition: bombClassification.definition,
+      synergyProfile: cubeMetaResult.value.meta,
       bombOracleIds: bombClassification.oracleIds,
       instanceToInputMap,
       instanceToEnrichedMap,
@@ -846,9 +858,11 @@ export class SoloDraftSession {
       };
     });
 
-    const humanEvaluation: DeckEvaluation = evaluateDeck(humanDeckInputs, {
+    const evaluationOptions: DeckEvaluationOptions = {
       bombThreshold: this.bombDefinition.cutoffScore,
-    });
+      synergyProfile: this.synergyProfile,
+    };
+    const humanEvaluation: DeckEvaluation = evaluateDeck(humanDeckInputs, evaluationOptions);
 
     const humanDeckSummary: FinalDeckSummary = {
       maindeckSpells,
@@ -893,16 +907,14 @@ export class SoloDraftSession {
         (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
       );
 
-      const botOptions = recommendDeckBuilds(poolInputs, undefined, {
-        bombThreshold: this.bombDefinition.cutoffScore,
-      });
+      const botOptions = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
       const bestBotOption = botOptions[0];
 
       const botSummary = buildFinalDeckSummary(
         bestBotOption,
         poolIds,
         this.instanceToEnrichedMap,
-        this.bombDefinition.cutoffScore,
+        evaluationOptions,
       );
 
       const profile = this.seatProfiles[sId] ??

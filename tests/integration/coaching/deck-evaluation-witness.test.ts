@@ -65,7 +65,7 @@ describe("Witness Deck Evaluation (SC-005)", () => {
   const historyPath = resolve("data/untapped_history/drafts_backup.json");
   const metaPath = resolve("data/untapped_history/card-metadata-v1.json");
 
-  it("evaluates the witness Esper draft deck into an Esper Control build with score >= 80", () => {
+  it("evaluates the witness Esper deck without inventing synergy when no cube profile exists", () => {
     if (!existsSync(historyPath) || !existsSync(metaPath)) {
       expect(true).toBe(true);
       return;
@@ -121,7 +121,8 @@ describe("Witness Deck Evaluation (SC-005)", () => {
 
     // 2. Full Deck Evaluation & Kiviat Radar
     const evaluation = evaluateDeck(deckCards);
-    expect(evaluation.overallScore).toBeGreaterThanOrEqual(80);
+    expect(evaluation.overallScore).toBeGreaterThanOrEqual(60);
+    expect(evaluation.overallScore).toBeLessThanOrEqual(70);
     expect(evaluation.overallScore).toBeLessThanOrEqual(100);
 
     // Verify 5 Kiviat axes (INV-006)
@@ -130,6 +131,7 @@ describe("Witness Deck Evaluation (SC-005)", () => {
     expect(power).toBeLessThanOrEqual(100);
     expect(synergy).toBeGreaterThanOrEqual(0);
     expect(synergy).toBeLessThanOrEqual(100);
+    expect(synergy).toBe(0);
     expect(curve).toBeGreaterThanOrEqual(0);
     expect(curve).toBeLessThanOrEqual(100);
     expect(mana).toBeGreaterThanOrEqual(0);

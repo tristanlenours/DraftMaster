@@ -38,6 +38,44 @@ for (const [moduleName, route, viewSelector] of moduleRoutes) {
   });
 }
 
+test("Records opens the selected deck without exposing report shortcuts", async ({ page }) => {
+  await page.route("**/api/leaderboard", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        entries: [
+          {
+            id: "record-browser-test",
+            rank: 1,
+            playerName: "Joueur",
+            isHomologated: true,
+            overallScore: 74,
+            archetype: { label: "Golgari Splash U/R Control" },
+            totalDurationSeconds: 306,
+            occurredAt: "2026-09-08T00:00:00.000Z",
+            reports: {
+              walkthroughUrl: "/reports/test.html",
+              boostersUrl: "/reports/test-boosters.html",
+            },
+            maindeckCards: [],
+          },
+        ],
+      }),
+    });
+  });
+
+  await page.goto("/records");
+
+  await expect(page.locator(".btn-review-deck")).toHaveCount(1);
+  await page.locator(".btn-review-deck").click();
+  await expect(page.locator("#deck-review-backdrop")).toBeVisible();
+  await expect(page.locator("#deck-review-modal-title")).toHaveText("Deck de Joueur");
+  await expect(page.locator(".record-actions-group a")).toHaveCount(0);
+  await page.locator("#deck-review-close-btn").click();
+  await expect(page.locator("#deck-review-backdrop")).toBeHidden();
+});
+
 test("Card Explorer filters cards and opens a loadable card image", async ({ page }) => {
   await emulateCleanDeploymentImages(page);
   await page.goto("/cards");

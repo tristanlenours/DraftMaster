@@ -431,12 +431,12 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
 
   it("evaluates Boros Aggro with high curve score adapted to aggro", () => {
     const evaluation = evaluateDeck(borosAggroDeck);
-    expect(evaluation.overallScore).toBeGreaterThanOrEqual(75);
+    expect(evaluation.overallScore).toBeGreaterThanOrEqual(60);
     expect(evaluation.overallScore).toBeLessThanOrEqual(100);
 
     // 5 Kiviat Axes must be within [0, 100]
     expect(evaluation.radar.power).toBeGreaterThan(60);
-    expect(evaluation.radar.synergy).toBeGreaterThan(70);
+    expect(evaluation.radar.synergy).toBe(0);
     expect(evaluation.radar.curve).toBeGreaterThan(80); // Low curve is rewarded in Aggro
     expect(evaluation.radar.mana).toBeGreaterThan(70);
     expect(evaluation.radar.interaction).toBeGreaterThan(70); // Has Bolt, Path, Swords, Helix, Abrade, Get Lost
@@ -537,7 +537,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
 
     expect(evaluation.radar.power).toBeGreaterThanOrEqual(82);
-    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@2");
+    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@3");
     expect(evaluation.audit.scoreMeaning).toContain("ni une probabilité de victoire");
     expect(evaluation.audit.power.meanStaticScore).toBeCloseTo(34.74, 2);
     expect(evaluation.audit.power.topFiveMean).toBeCloseTo(51.8, 2);
@@ -886,7 +886,150 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       "Mana Crypt",
       "Mana Vault",
     ]);
-    expect(evaluation.audit.mana.sourcesByColor.U).toBe(14);
+    expect(evaluation.audit.mana.sourcesByColor.U).toBe(14.75);
+  });
+
+  it("scores a well-sized mono-colored mana base at 100", () => {
+    const lands: readonly CardEvaluationInput[] = Array.from({ length: 17 }, (_, index) => ({
+      id: `mono-mana-land-${String(index)}`,
+      name: "Forest",
+      staticScore: 5,
+      colors: [] as const,
+      isLand: true,
+      producesColors: ["G"] as const,
+    }));
+    const spells: readonly CardEvaluationInput[] = Array.from({ length: 23 }, (_, index) => ({
+      id: `mono-mana-spell-${String(index)}`,
+      name: `Green spell ${String(index)}`,
+      staticScore: 30,
+      colors: ["G"] as const,
+      cmc: 2,
+      typeLine: "Creature",
+      types: ["Creature"] as const,
+    }));
+
+    expect(evaluateDeck([...lands, ...spells]).radar.mana).toBe(100);
+  });
+
+  it("scores cube archetype cards with key cards worth three and supports worth one", () => {
+    const lands: readonly CardEvaluationInput[] = Array.from({ length: 17 }, (_, index) => ({
+      id: `synergy-land-${String(index)}`,
+      name: "Forest",
+      staticScore: 5,
+      colors: [] as const,
+      isLand: true,
+      producesColors: ["G"] as const,
+    }));
+    const spells: readonly CardEvaluationInput[] = Array.from({ length: 23 }, (_, index) => ({
+      id: `synergy-spell-${String(index)}`,
+      oracleId: `synergy-oracle-${String(index)}`,
+      name: `Elf card ${String(index)}`,
+      staticScore: 30,
+      colors: ["G"] as const,
+      cmc: 2,
+      typeLine: "Creature — Elf",
+      types: ["Creature"] as const,
+      subtypes: ["Elf"] as const,
+    }));
+    const keyCards = spells.slice(0, 3).map((card) => card.oracleId ?? "");
+    const supportCards = spells.slice(3, 12).map((card) => card.oracleId ?? "");
+
+    const evaluation = evaluateDeck([...lands, ...spells], {
+      synergyProfile: {
+        archetypes: [
+          {
+            id: "test:elves",
+            name: "Elfes",
+            keyCards,
+            supportCards,
+            targetPoints: 18,
+          },
+        ],
+      },
+    });
+
+    expect(evaluation.radar.synergy).toBe(100);
+    expect(evaluation.audit.synergy.bestArchetype).toMatchObject({
+      id: "test:elves",
+      keyCardCount: 3,
+      supportCardCount: 9,
+      points: 18,
+      targetPoints: 18,
+    });
+  });
+
+  it("scores a five-color mana base without multicolor lands or fixers at 0", () => {
+    const colors = ["W", "U", "B", "R", "G"] as const;
+    const landNames = {
+      W: "Plains",
+      U: "Island",
+      B: "Swamp",
+      R: "Mountain",
+      G: "Forest",
+    } as const;
+    const lands: readonly CardEvaluationInput[] = Array.from({ length: 17 }, (_, index) => {
+      const color = colors[index % colors.length] ?? "W";
+      return {
+        id: `five-color-basic-${String(index)}`,
+        name: landNames[color],
+        staticScore: 5,
+        colors: [] as const,
+        isLand: true,
+        producesColors: [color],
+      };
+    });
+    const spells: readonly CardEvaluationInput[] = Array.from({ length: 23 }, (_, index) => {
+      const color = colors[index % colors.length] ?? "W";
+      return {
+        id: `five-color-spell-${String(index)}`,
+        name: `Five-color spell ${String(index)}`,
+        staticScore: 30,
+        colors: [color],
+        cmc: 2,
+        typeLine: "Creature",
+        types: ["Creature"] as const,
+      };
+    });
+
+    expect(evaluateDeck([...lands, ...spells]).radar.mana).toBe(0);
+  });
+
+  it("rewards the required density of multicolor lands in a five-color deck", () => {
+    const colors = ["W", "U", "B", "R", "G"] as const;
+    const rainbowLands: readonly CardEvaluationInput[] = Array.from({ length: 8 }, (_, index) => ({
+      id: `rainbow-land-${String(index)}`,
+      name: "City of Brass",
+      staticScore: 5,
+      colors: [] as const,
+      isLand: true,
+      producesColors: colors,
+    }));
+    const basics: readonly CardEvaluationInput[] = Array.from({ length: 9 }, (_, index) => {
+      const color = colors[index % colors.length] ?? "W";
+      return {
+        id: `five-color-fixed-basic-${String(index)}`,
+        name: "Basic land",
+        staticScore: 5,
+        colors: [] as const,
+        isLand: true,
+        producesColors: [color],
+      };
+    });
+    const spells: readonly CardEvaluationInput[] = Array.from({ length: 23 }, (_, index) => ({
+      id: `five-color-fixed-spell-${String(index)}`,
+      name: `Fixed spell ${String(index)}`,
+      staticScore: 30,
+      colors: [colors[index % colors.length] ?? "W"],
+      cmc: 2,
+      typeLine: "Creature",
+      types: ["Creature"] as const,
+    }));
+
+    const evaluation = evaluateDeck([...rainbowLands, ...basics, ...spells]);
+
+    expect(evaluation.radar.mana).toBe(100);
+    expect(evaluation.audit.mana.requiredFixerUnits).toBe(8);
+    expect(evaluation.audit.mana.fixerUnits).toBe(8);
   });
 
   it("publishes the five weighted contributions that produce the final score", () => {

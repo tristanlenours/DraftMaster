@@ -1805,18 +1805,30 @@ ${serializedReport}
         '<div>Bombes : ' + listNames(audit.power.bombCards) + '</div>' +
         '<div>Mana rapide : ' +
         (audit.power.fastManaCards.length > 0
-          ? audit.power.fastManaCards.map(card => escapeHtml(card.name) + ' (+' + card.manaGain + ')').join(', ')
+         ? audit.power.fastManaCards.map(card => escapeHtml(card.name) + ' (+' + card.manaGain + ')').join(', ')
           : 'aucun') + '</div>';
+      const bestSynergy = audit.synergy.bestArchetype;
       document.getElementById('deck-audit-synergy').innerHTML =
         '<h4>Synergie</h4>' +
+        (bestSynergy
+          ? '<div>Archétype : <strong>' + escapeHtml(bestSynergy.name) + '</strong></div>' +
+            '<div>Cartes clés × 3 : <strong>' + bestSynergy.keyCardCount +
+            ' × 3 = ' + (bestSynergy.keyCardCount * 3) + '</strong> — ' +
+            listNames(bestSynergy.keyCards) + '</div>' +
+            '<div>Supports × 1 : <strong>' + bestSynergy.supportCardCount + '</strong> — ' +
+            listNames(bestSynergy.supportCards) + '</div>' +
+            '<div>Points : <strong>' + bestSynergy.points + ' / ' +
+            bestSynergy.targetPoints + '</strong> · Score : <strong>' +
+            bestSynergy.score + '/100</strong></div>'
+          : '<div>Aucune carte clé ou support d’un archétype du cube.</div>') +
         (audit.synergy.packages.length > 0
           ? audit.synergy.packages.map(pkg =>
-              '<div><strong>' + escapeHtml(pkg.label) + '</strong> : +' + pkg.contribution +
+              '<hr><div><strong>' + escapeHtml(pkg.label) + '</strong> : +' + pkg.contribution +
               ', fragilité -' + pkg.fragilityPenalty + '<br>Enablers : ' + listNames(pkg.enablers) +
               '<br>Payoffs : ' + listNames(pkg.payoffs) + '<br>Soutien : ' +
               listNames(pkg.supportCards) + '</div>'
             ).join('<hr>')
-          : '<div>Aucun package structurant détecté.</div>');
+          : '<hr><div>Aucun package structurant détecté.</div>');
       document.getElementById('deck-audit-curve').innerHTML =
         '<h4>Courbe</h4>' +
         '<div>CMC moyen imprimé : <strong>' + audit.curve.printedAverageCmc + '</strong></div>' +
@@ -1830,12 +1842,23 @@ ${serializedReport}
           : 'aucun') + '</div>';
       const manaSources = Object.entries(audit.mana.sourcesByColor)
         .map(([color, count]) => color + ' ' + count).join(' · ');
+      const manaTargets = Object.entries(audit.mana.targetSourcesByColor)
+        .filter(([, count]) => count > 0)
+        .map(([color, count]) => color + ' ' + count).join(' · ');
       document.getElementById('deck-audit-mana').innerHTML =
         '<h4>Mana</h4>' +
         '<div>Terrains réels : <strong>' + audit.mana.landCount + '</strong></div>' +
         '<div>Équivalents-terrain : ' + listNames(audit.mana.landEquivalentCards) + '</div>' +
         '<div>Total effectif : <strong>' + audit.mana.effectiveLandCount + '</strong></div>' +
         '<div>Sources : ' + escapeHtml(manaSources) + '</div>' +
+        '<div>Sources requises : ' + escapeHtml(manaTargets) + '</div>' +
+        '<div>Fixeurs : <strong>' + audit.mana.fixerUnits + ' / ' +
+        audit.mana.requiredFixerUnits + '</strong> — ' +
+        listNames(audit.mana.fixers.map(card => card.name)) + '</div>' +
+        '<div>Adéquation terrains : <strong>' + Math.round(audit.mana.landCountAdequacy * 100) +
+        '%</strong> · sources : <strong>' + Math.round(audit.mana.sourceAdequacy * 100) +
+        '%</strong> · fixeurs : <strong>' + Math.round(audit.mana.fixingAdequacy * 100) +
+        '%</strong></div>' +
         '<div>Accélérateurs : ' +
         listNames(audit.mana.accelerators.map(card => card.name)) + '</div>';
       document.getElementById('deck-audit-interaction').innerHTML =

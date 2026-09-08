@@ -164,6 +164,6 @@ Le joueur consulte la composition intégrale des cubes de sa communauté locale 
 * **SC-002** : L'évaluation d'un pack complet de 15 cartes par le moteur de score et d'explication DOIT s'exécuter en moins de 1 milliseconde.
 * **SC-003** : Deux simulations complètes de 45 tours avec les 7 bots amis DOIVENT produire des journaux de draft fonctionnellement identiques bit-à-bit.
 * **SC-004** : 100 % des tests unitaires et d'intégration du module coaching, bots amis et évaluation de deck DOIVENT passer avec succès sous Vitest.
-* **SC-005** : L'évaluation du deck témoin Esper (40 cartes) DOIT produire un score global supérieur à 80/100 avec des notes détaillées sur les 5 axes conformes aux caractéristiques du deck.
+* **SC-005** : L'évaluation du deck témoin Esper (40 cartes) sans profil d'archétype de cube DOIT laisser la Synergie à 0, produire un score global cohérent avec les quatre autres axes et conserver leurs notes détaillées. Aucune synergie ne peut être présumée à partir des seules couleurs ou interactions.
 * **SC-006** : Le diagnostic stratégique compétitif (Quadrant, Tour Fondamental, Beatdown, Tempo) d'un deck de 40 cartes DOIT s'exécuter de manière synchrone en moins de 2 millisecondes sans régression sur le temps global d'évaluation.
 * **SC-007** : 100 % des documents de cartes individuels dans `data/cards/items/` DOIVENT satisfaire la validation de schéma JSON `card.schema.json` sans aucune exception.

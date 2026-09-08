@@ -53,6 +53,9 @@ describe("HTML Report Generator (Option A)", () => {
     expect(html).toContain("deck-audit-synergy");
     expect(html).toContain("deck-audit-mana");
     expect(html).toContain("deck-audit-interaction");
+    expect(html).toContain("Cartes clés × 3");
+    expect(html).toContain("Fixeurs :");
+    expect(html).toContain("Sources requises :");
     expect(html).toContain("selectedSeatId: 7");
 
     // All 8 bots present in the report
@@ -60,7 +63,7 @@ describe("HTML Report Generator (Option A)", () => {
       expect(html).toContain(seat.botName);
     }
     for (const seat of result.value.seats) {
-      expect(seat.finalDeck.audit.formulaVersion).toBe("deck-evaluation@2");
+      expect(seat.finalDeck.audit.formulaVersion).toBe("deck-evaluation@3");
       expect(seat.finalDeck.audit.power.bombThreshold).toBe(
         result.value.bombDefinition.cutoffScore,
       );

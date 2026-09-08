@@ -1,6 +1,7 @@
 import type {
   CardEvaluationInput,
   CurveAxisAudit,
+  DeckSynergyProfile,
   DeckArchetype,
   DeckEvaluation,
   DeckEvaluationOptions,
@@ -8,9 +9,11 @@ import type {
   InteractionCoverage,
   KiviatRadarScores,
   ManaAxisAudit,
+  ManaFixerAuditEntry,
   MtGColor,
   PowerAxisAudit,
   StrategicPackageAudit,
+  SynergyAxisAudit,
 } from "./types.ts";
 import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
@@ -81,10 +84,6 @@ function classifyInteraction(card: CardEvaluationInput): readonly InteractionCov
   }
   if (/(?:destroy|exile) all|players[^.]*sacrifice creatures/.test(text)) coverage.add("sweeper");
   return INTERACTION_COVERAGE_ORDER.filter((category) => coverage.has(category));
-}
-
-function isInteraction(card: CardEvaluationInput): boolean {
-  return classifyInteraction(card).length > 0;
 }
 
 function roundTo(value: number, digits = 2): number {
@@ -354,6 +353,53 @@ function analyzeStrategicPackages(
   return packages;
 }
 
+const DEFAULT_ARCHETYPE_TARGET_POINTS = 18;
+
+function analyzeArchetypeSynergy(
+  spells: readonly CardEvaluationInput[],
+  profile: DeckSynergyProfile | undefined,
+  packages: readonly StrategicPackageAudit[],
+): { readonly score: number; readonly audit: SynergyAxisAudit } {
+  const archetypes = (profile?.archetypes ?? [])
+    .map((archetype) => {
+      const keyIds = new Set(archetype.keyCards);
+      const supportIds = new Set(archetype.supportCards);
+      const keyCards = spells.filter((card) => card.oracleId && keyIds.has(card.oracleId));
+      const supportCards = spells.filter(
+        (card) => card.oracleId && !keyIds.has(card.oracleId) && supportIds.has(card.oracleId),
+      );
+      const keyCardCount = keyCards.length;
+      const supportCardCount = supportCards.length;
+      const alignedCardCount = keyCardCount + supportCardCount;
+      const points = keyCardCount * 3 + supportCardCount;
+      const targetPoints = archetype.targetPoints ?? DEFAULT_ARCHETYPE_TARGET_POINTS;
+      let score = clamp((points / targetPoints) * 100);
+      if (keyCardCount === 0) score = Math.min(score, 50);
+      if (alignedCardCount < 5) score = Math.min(score, 35);
+
+      return {
+        id: archetype.id,
+        name: archetype.name,
+        keyCards: keyCards.map((card) => card.name),
+        supportCards: supportCards.map((card) => card.name),
+        keyCardCount,
+        supportCardCount,
+        alignedCardCount,
+        points,
+        targetPoints,
+        score,
+      };
+    })
+    .filter((archetype) => archetype.alignedCardCount > 0)
+    .sort((left, right) => right.score - left.score || right.points - left.points);
+  const bestArchetype = archetypes[0] ?? null;
+
+  return {
+    score: bestArchetype?.score ?? 0,
+    audit: { packages, bestArchetype, archetypes },
+  };
+}
+
 function analyzeCurve(
   spells: readonly CardEvaluationInput[],
   packages: readonly StrategicPackageAudit[],
@@ -450,32 +496,130 @@ function isLandEquivalent(card: CardEvaluationInput): boolean {
   );
 }
 
+const BASIC_LAND_COLOR_BY_NAME: Readonly<Record<string, MtGColor>> = {
+  plains: "W",
+  island: "U",
+  swamp: "B",
+  mountain: "R",
+  forest: "G",
+};
+
+function getManaAccessColors(
+  card: CardEvaluationInput,
+  usedColors: readonly MtGColor[],
+): readonly MtGColor[] {
+  const colors = new Set(
+    getEffectiveProducingColors(card).filter((color) => usedColors.includes(color)),
+  );
+  const text = (card.oracleText ?? "").toLowerCase();
+
+  if (/basic land card|basic landcycling|mana of any color/.test(text)) {
+    for (const color of usedColors) colors.add(color);
+  } else if (/search your library|cycling/.test(text)) {
+    for (const [landName, color] of Object.entries(BASIC_LAND_COLOR_BY_NAME)) {
+      if (text.includes(landName)) colors.add(color);
+    }
+  }
+
+  return ALL_COLORS.filter((color) => colors.has(color));
+}
+
+function computeLandCountAdequacy(effectiveLandCount: number): number {
+  if (effectiveLandCount >= 16 && effectiveLandCount <= 18) return 1;
+  if (effectiveLandCount < 16) return Math.max(0, 1 - (16 - effectiveLandCount) * 0.15);
+  return Math.max(0, 1 - (effectiveLandCount - 18) * 0.1);
+}
+
 function analyzeMana(
   spells: readonly CardEvaluationInput[],
   lands: readonly CardEvaluationInput[],
 ): ManaAxisAudit {
+  const usedColors = ALL_COLORS.filter((color) =>
+    spells.some((card) => card.colors.includes(color)),
+  );
   const sourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
   for (const land of lands) {
-    for (const color of getEffectiveProducingColors(land).filter((candidate) =>
-      ALL_COLORS.includes(candidate),
-    )) {
+    for (const color of getManaAccessColors(land, usedColors)) {
       sourcesByColor[color] += 1;
     }
   }
 
   const accelerators = spells.filter(isManaDorkOrRock).map((card) => {
-    const producesColors = getEffectiveProducingColors(card).filter((candidate) =>
-      ALL_COLORS.includes(candidate),
-    );
+    const producesColors = getManaAccessColors(card, usedColors);
     for (const color of producesColors) sourcesByColor[color] += 0.6;
     return { name: card.name, cmc: card.cmc ?? 0, producesColors };
   });
-  const landEquivalentCards = spells.filter(isLandEquivalent).map((card) => card.name);
+  const landEquivalents = spells.filter(isLandEquivalent);
+  for (const card of landEquivalents) {
+    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.75;
+  }
+  const landEquivalentCards = landEquivalents.map((card) => card.name);
+  const effectiveLandCount = roundTo(lands.length + landEquivalentCards.length * 0.75);
+
+  const fixersById = new Map<string, ManaFixerAuditEntry>();
+  for (const land of lands) {
+    const colors = getManaAccessColors(land, usedColors);
+    if (colors.length >= 2) {
+      fixersById.set(land.id, {
+        name: land.name,
+        kind: "multicolor-land",
+        colors,
+        contribution: 1,
+      });
+    }
+  }
+  for (const card of spells.filter(isManaDorkOrRock)) {
+    const colors = getManaAccessColors(card, usedColors);
+    if (colors.length >= 2) {
+      fixersById.set(card.id, {
+        name: card.name,
+        kind: "accelerator",
+        colors,
+        contribution: 0.6,
+      });
+    }
+  }
+  for (const card of landEquivalents) {
+    const colors = getManaAccessColors(card, usedColors);
+    if (colors.length >= 2 && !fixersById.has(card.id)) {
+      fixersById.set(card.id, {
+        name: card.name,
+        kind: "land-equivalent",
+        colors,
+        contribution: 0.75,
+      });
+    }
+  }
+  const fixers = [...fixersById.values()];
+  const fixerUnits = roundTo(fixers.reduce((sum, fixer) => sum + fixer.contribution, 0));
+  const requiredFixerUnits = Math.max(0, (usedColors.length - 1) * 2);
+  const fixingAdequacy =
+    requiredFixerUnits === 0 ? 1 : roundTo(Math.min(1, fixerUnits / requiredFixerUnits));
+
+  const demandByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const spell of spells) {
+    for (const color of spell.colors) demandByColor[color] += 1;
+  }
+  const totalDemand = Object.values(demandByColor).reduce((sum, demand) => sum + demand, 0);
+  const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const color of usedColors) {
+    const demandShare = totalDemand === 0 ? 0 : demandByColor[color] / totalDemand;
+    targetSourcesByColor[color] = Math.max(2, Math.ceil(effectiveLandCount * demandShare));
+  }
+  const sourceAdequacy = roundTo(
+    usedColors.length === 0
+      ? 1
+      : Math.min(
+          ...usedColors.map((color) =>
+            Math.min(1, sourcesByColor[color] / targetSourcesByColor[color]),
+          ),
+        ),
+  );
 
   return {
     landCount: lands.length,
     landEquivalentCards,
-    effectiveLandCount: roundTo(lands.length + landEquivalentCards.length * 0.75),
+    effectiveLandCount,
     accelerators,
     sourcesByColor: {
       W: roundTo(sourcesByColor.W),
@@ -484,7 +628,21 @@ function analyzeMana(
       R: roundTo(sourcesByColor.R),
       G: roundTo(sourcesByColor.G),
     },
+    usedColors,
+    targetSourcesByColor,
+    sourceAdequacy,
+    fixers,
+    fixerUnits,
+    requiredFixerUnits,
+    fixingAdequacy,
+    landCountAdequacy: roundTo(computeLandCountAdequacy(effectiveLandCount)),
   };
+}
+
+function computeManaScore(mana: ManaAxisAudit): number {
+  const colorPressure = Math.max(0, (mana.usedColors.length - 1) / 4);
+  const fixingFactor = 1 - colorPressure * (1 - mana.fixingAdequacy);
+  return clamp(100 * mana.landCountAdequacy * mana.sourceAdequacy * fixingFactor);
 }
 
 /**
@@ -501,42 +659,13 @@ export function computeKiviatRadar(
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
+  const synergyAnalysis = analyzeArchetypeSynergy(spells, options.synergyProfile, packages);
 
   // 1. Puissance Brute (20%)
   const power = analyzePower(spells, options.bombThreshold).score;
 
-  // 2. Synergies d'Archétype (25%)
-  let baseSynergy = 85;
-  if (archetype.primaryColors.length === 1) {
-    baseSynergy = 95; // Mono-color consistency
-  } else if (archetype.primaryColors.length === 2 && archetype.splashColors.length === 0) {
-    baseSynergy = 88; // Clean two-color
-  } else if (archetype.primaryColors.length === 2 && archetype.splashColors.length > 0) {
-    baseSynergy = 82; // Two-color + splash
-  } else if (archetype.primaryColors.length >= 3) {
-    baseSynergy = 76; // Tricolor
-  }
-
-  // Bonus for archetypal focus and explicit strategic packages.
-  if (archetype.category === "aggro") {
-    const lowCurveCreatures = spells.filter(
-      (c) => (c.cmc ?? 0) <= 2 && (c.types?.includes("Creature") ?? true),
-    ).length;
-    if (lowCurveCreatures >= 6) baseSynergy += 6;
-  } else if (archetype.category === "ramp") {
-    const dorks = spells.filter(isManaDorkOrRock).length;
-    const payoffs = spells.filter((c) => (c.cmc ?? 0) >= 6).length;
-    if (dorks >= 4 && payoffs >= 3) baseSynergy += 8;
-  } else if (archetype.category === "control") {
-    const answers = spells.filter(isInteraction).length;
-    if (answers >= 6) baseSynergy += 6;
-  }
-  baseSynergy += packages.reduce(
-    (sum, strategicPackage) =>
-      sum + strategicPackage.contribution - strategicPackage.fragilityPenalty,
-    0,
-  );
-  const synergy = clamp(baseSynergy);
+  // 2. Synergies d'Archétype (25%) - 3 points per key card, 1 per support card.
+  const synergy = synergyAnalysis.score;
 
   // 3. Fluidité de Courbe (20%) - Adjusted to archetype
   let curveScore = 80;
@@ -578,33 +707,8 @@ export function computeKiviatRadar(
   }
   const curve = clamp(curveScore);
 
-  // 4. Base de Mana (20%) - Frank Karsten rules
-  let manaScore = 80;
-  const landCount = manaAnalysis.effectiveLandCount;
-  // Land ratio check: optimal is 16-18
-  if (landCount >= 16 && landCount <= 18) {
-    manaScore += 6;
-  } else if (landCount === 15 && archetype.category === "aggro") {
-    manaScore += 4; // Aggro 15 lands is valid
-  } else {
-    manaScore -= 12;
-  }
-
-  // Count sources per primary color (lands + 0.5 * dorks/rocks)
-  let minPrimarySources = 20;
-  for (const color of archetype.primaryColors) {
-    const count = manaAnalysis.sourcesByColor[color];
-    if (count < minPrimarySources) minPrimarySources = count;
-  }
-
-  if (minPrimarySources >= 8.5) {
-    manaScore += 10;
-  } else if (minPrimarySources >= 7.0) {
-    manaScore += 4;
-  } else if (minPrimarySources < 6.0) {
-    manaScore -= 15;
-  }
-  const mana = clamp(manaScore);
+  // 4. Base de Mana (20%) - land count, colored-source coverage, and fixing density
+  const mana = computeManaScore(manaAnalysis);
 
   // 5. Densité d'Interaction (15%)
   const interaction = interactionAnalysis.score;
@@ -633,6 +737,7 @@ export function evaluateDeck(
   const lands = deck.filter((c) => c.isLand);
   const powerAnalysis = analyzePower(spells, options.bombThreshold);
   const packages = analyzeStrategicPackages(spells);
+  const synergyAnalysis = analyzeArchetypeSynergy(spells, options.synergyProfile, packages);
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
@@ -652,7 +757,11 @@ export function evaluateDeck(
   const recommendations: string[] = [];
 
   if (radar.power >= 80) strengths.push("Très haute puissance brute globale.");
-  if (radar.synergy >= 85) strengths.push(`Excellente cohésion de l'archétype ${archetype.label}.`);
+  if (radar.synergy >= 85 && synergyAnalysis.audit.bestArchetype) {
+    strengths.push(
+      `Excellente cohésion de l'archétype ${synergyAnalysis.audit.bestArchetype.name}.`,
+    );
+  }
   if (radar.curve >= 85) strengths.push("Courbe de mana idéalement proportionnée.");
   if (radar.mana >= 85) strengths.push("Base de mana solide avec sources fiables.");
   if (radar.interaction >= 85) strengths.push("Riche panoplie de réponses et contresorts.");
@@ -680,11 +789,11 @@ export function evaluateDeck(
     radar,
     overallScore,
     audit: {
-      formulaVersion: "deck-evaluation@2",
+      formulaVersion: "deck-evaluation@3",
       scoreMeaning:
         "Heuristique explicable sur 100 : ni une probabilité de victoire, ni un percentile statistique.",
       power: powerAnalysis.audit,
-      synergy: { packages },
+      synergy: synergyAnalysis.audit,
       curve: curveAnalysis,
       interaction: interactionAnalysis.audit,
       mana: manaAnalysis,

@@ -14,7 +14,7 @@
 - Le rapport détaillé embarque 360 décisions. Chaque décision contient le `dynamicScore`, le détail du coaching, les contributions des biais, le `policyScore`, la probabilité, le rang, la température et le tirage déterministe.
 - Chaque étape se relie à un événement canonique `CardPicked` par `eventSequence`, `boosterId`, pack, pick, siège et carte ; le rapport canonique expose aussi son digest SHA-256 fonctionnel.
 - Les biais `colorDiscipline` et `tribalSynergyBonus`, auparavant déclarés mais inertes, produisent maintenant des contributions chiffrées couvertes par tests.
-- Le deck final affiche séparément Puissance, Synergie, Courbe, Mana et Interaction. Son audit `deck-evaluation@2` expose la formule pondérée, la distribution de puissance, les bombes top 5 %, le mana rapide, les packages, les CMC imprimés/effectifs, les sources de mana et les interactions reconnues avec leur qualité et leur cible par archétype.
+- Le deck final affiche séparément Puissance, Synergie, Courbe, Mana et Interaction. Son audit `deck-evaluation@3` expose la formule pondérée, la distribution de puissance, les bombes top 5 %, le mana rapide, les cartes clés/support d'archétype, les packages, les CMC imprimés/effectifs, les sources requises, les fixeurs et les interactions reconnues avec leur qualité et leur cible par archétype.
 - Les cinq decks trophées Powered Cube fournis sont conservés comme ancres qualitatives versionnées ; ils ne sont pas présentés comme une calibration numérique complète tant que 23 cartes manquent au catalogue maître de production.
 
 ## Commandes et résultats
@@ -31,9 +31,10 @@ npm run check
   Prettier: OK
   ESLint: OK
   TypeScript: OK
-  Vitest: 46 fichiers, 247 tests passés
-  V8: 86.53 % statements, 75.51 % branches, 91.37 % functions, 87.73 % lines
+  Vitest: 54 fichiers, 313 tests passés
+  V8: 86.52 % statements, 72.19 % branches, 90.97 % functions, 87.66 % lines
   Vérification des rapports: OK
+  Playwright: 14 parcours navigateur passés, dont l'ouverture du deck depuis le Mur des Records sans raccourcis 17Lands/Boosters
 
 git diff --check
   Aucune erreur d'espace ; seuls des avertissements de conversion CRLF/LF concernent CONTEXT.md et README.md.

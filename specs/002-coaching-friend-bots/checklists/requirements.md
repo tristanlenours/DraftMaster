@@ -35,7 +35,7 @@
 | SC-002 | Évaluation dynamique de 15 cartes en < 1 ms en moyenne | `tests/unit/coaching/dynamic-score.test.ts` (avg < 0.08 ms) | ✅ |
 | SC-003 | 2 simulations complètes avec 7 bots amis = journaux et SHA-256 identiques | `tests/integration/coaching/determinism.test.ts` | ✅ |
 | SC-004 | 100 % des tests passent sous Vitest avec couverture V8 active | `npm run check` (32 fichiers, 196 tests, coverage 88.8%) | ✅ |
-| SC-005 | Évaluation du deck témoin Esper Control avec overallScore >= 80/100 | `tests/integration/coaching/deck-evaluation-witness.test.ts` (Score 84/100) | ✅ |
+| SC-005 | Évaluation du deck témoin Esper sans profil de cube : Synergie = 0 et score global dérivé des quatre autres axes | `tests/integration/coaching/deck-evaluation-witness.test.ts` | ✅ |
 
 ---
 

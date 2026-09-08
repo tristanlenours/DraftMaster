@@ -78,9 +78,6 @@ export function renderLeaderboardTable(entries, tbodyElement, onReviewDeck) {
         year: "numeric",
       });
 
-      const walkthroughUrl = entry.reports?.walkthroughUrl || "#";
-      const boostersUrl = entry.reports?.boostersUrl || "#";
-
       return `
         <tr class="arcade-record-row ${rowHighlightClass}">
           <td class="cell-rank">${rankBadge}</td>
@@ -107,23 +104,9 @@ export function renderLeaderboardTable(entries, tbodyElement, onReviewDeck) {
           </td>
           <td class="cell-actions">
             <div class="record-actions-group">
-              <button class="btn-action-arcade btn-review-deck" data-entry-id="${entry.id}" title="Revoir la composition du deck">
+              <button type="button" class="btn-action-arcade btn-review-deck" data-entry-id="${entry.id}" title="Revoir la composition du deck">
                 🎴 Deck
               </button>
-              ${
-                walkthroughUrl !== "#"
-                  ? `<a href="${walkthroughUrl}" target="_blank" rel="noopener" class="btn-action-arcade" title="Ouvrir le rapport 17Lands (45 écrans)">
-                      📑 17Lands
-                    </a>`
-                  : ""
-              }
-              ${
-                boostersUrl !== "#"
-                  ? `<a href="${boostersUrl}" target="_blank" rel="noopener" class="btn-action-arcade" title="Ouvrir la répartition des 360 cartes en 24 boosters">
-                      📦 Boosters
-                    </a>`
-                  : ""
-              }
             </div>
           </td>
         </tr>

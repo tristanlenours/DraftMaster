@@ -59,6 +59,6 @@ export function computeStrategicDiagnosis(
 ### Invariants du Contrat
 * `evaluateDeck` accepte un tableau de 40 cartes valides et s'exécute de manière pure, synchrone et sans effet de bord.
 * La note `overallScore` et chaque composante du radar de Kiviat sont strictement comprises entre 0 et 100.
-* Le résultat contient un audit `deck-evaluation@2` : distribution de puissance, bombes, mana rapide, packages, courbe imprimée/effective, sources de mana, profil d'interaction et contributions pondérées.
+* Le résultat contient un audit `deck-evaluation@3` : distribution de puissance, bombes, mana rapide, cartes clés/support d'archétype, packages, courbe imprimée/effective, sources requises, fixeurs, profil d'interaction et contributions pondérées. Sans profil d'archétype du cube, la Synergie vaut 0.
 * Le score est explicitement présenté comme une heuristique, jamais comme une probabilité de victoire ou un percentile statistique.
 * La complexité de l'évaluation complète d'un deck de 40 cartes est bornée à $O(N)$ où $N=40$, avec un temps d'exécution $< 2$ ms.

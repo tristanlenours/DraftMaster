@@ -324,6 +324,7 @@ function openDeckReviewModal(entry) {
   }
 
   elements.deckReviewBackdrop.hidden = false;
+  elements.deckReviewBackdrop.classList.add("is-open");
 }
 
 function initSoloDraft() {
@@ -697,10 +698,16 @@ function setupEventListeners() {
   });
 
   elements.deckReviewCloseBtn?.addEventListener("click", () => {
-    if (elements.deckReviewBackdrop) elements.deckReviewBackdrop.hidden = true;
+    if (elements.deckReviewBackdrop) {
+      elements.deckReviewBackdrop.classList.remove("is-open");
+      elements.deckReviewBackdrop.hidden = true;
+    }
   });
   elements.deckReviewBackdrop?.addEventListener("click", (e) => {
-    if (e.target === elements.deckReviewBackdrop) elements.deckReviewBackdrop.hidden = true;
+    if (e.target === elements.deckReviewBackdrop) {
+      elements.deckReviewBackdrop.classList.remove("is-open");
+      elements.deckReviewBackdrop.hidden = true;
+    }
   });
 
   // Bots Filters (Style & Level)
@@ -2190,4 +2197,3 @@ if (document.readyState === "loading") {
 } else {
   initApp();
 }
-
