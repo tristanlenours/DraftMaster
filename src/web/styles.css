@@ -4523,18 +4523,32 @@ body {
   display: grid;
   position: absolute;
   top: 8px;
-  right: 8px;
+  left: 8px;
   z-index: 2;
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   place-items: center;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
   border-radius: 999px;
-  background: rgba(5, 9, 16, 0.9);
+  background: rgba(5, 9, 16, 0.85);
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.card-popover-close:hover {
+  background: rgba(220, 38, 38, 0.9);
+  border-color: #fff;
+  transform: scale(1.08);
+}
+
+.card-popover-close:active {
+  transform: scale(0.95);
 }
 
 /* Pool Drawer */
