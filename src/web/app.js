@@ -369,11 +369,41 @@ async function initApp() {
   }
   setupEventListeners();
   initSoloDraft();
+  initAuthControls();
   initWhaouFeatures();
   await loadData();
   renderMatrix();
   renderCubesPage();
   initRouter();
+}
+
+async function initAuthControls() {
+  const btnLogout = document.getElementById("nav-btn-logout");
+  const btnLogoutMobile = document.getElementById("mobile-nav-logout");
+
+  async function handleLogout() {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      window.location.reload();
+    }
+  }
+
+  btnLogout?.addEventListener("click", handleLogout);
+  btnLogoutMobile?.addEventListener("click", handleLogout);
+
+  try {
+    const res = await fetch("/api/auth/status");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.protectionEnabled && data.authenticated) {
+        if (btnLogout) btnLogout.style.display = "inline-flex";
+        if (btnLogoutMobile) btnLogoutMobile.style.display = "flex";
+      }
+    }
+  } catch {
+    // Mode hors-ligne ou test
+  }
 }
 
 function initWhaouFeatures() {
