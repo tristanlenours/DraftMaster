@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- Main SPA Navigation Tabs -->
+        <!-- Main SPA Navigation Tabs (Desktop) -->
         <nav class="site-nav" aria-label="Navigation principale">
           <button class="nav-tab-btn active" data-view="home" id="nav-btn-home">
             <span class="tab-icon">🏛️</span>
@@ -62,7 +62,56 @@
             <span class="tab-label">Mur des Records</span>
           </button>
         </nav>
+
+        <!-- Mobile Menu Toggle Button (Mobile <= 768px) -->
+        <button
+          class="mobile-menu-btn"
+          id="mobile-menu-btn"
+          aria-label="Ouvrir le menu de navigation"
+          aria-expanded="false"
+          aria-controls="mobile-nav-drawer"
+        >
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
+
+      <!-- Mobile Navigation Drawer (Dropdown / Slide-down) -->
+      <nav
+        class="mobile-nav-drawer"
+        id="mobile-nav-drawer"
+        aria-label="Navigation mobile"
+        hidden
+      >
+        <div class="mobile-nav-drawer-inner">
+          <button class="mobile-nav-item active" data-view="home" id="mobile-nav-home">
+            <span class="mobile-nav-icon">🏛️</span>
+            <span class="mobile-nav-label">Accueil</span>
+          </button>
+          <button class="mobile-nav-item" data-view="cubes" id="mobile-nav-cubes">
+            <span class="mobile-nav-icon">🎲</span>
+            <span class="mobile-nav-label">Les Cubes</span>
+          </button>
+          <button class="mobile-nav-item" data-view="cards" id="mobile-nav-cards">
+            <span class="mobile-nav-icon">🎴</span>
+            <span class="mobile-nav-label">Cartes & Ranking</span>
+          </button>
+          <button class="mobile-nav-item" data-view="bots" id="mobile-nav-bots">
+            <span class="mobile-nav-icon">🤖</span>
+            <span class="mobile-nav-label">Les 8 Bots</span>
+          </button>
+          <button class="mobile-nav-item" data-view="draft" id="mobile-nav-draft">
+            <span class="mobile-nav-icon">⚔️</span>
+            <span class="mobile-nav-label">Draft Solo</span>
+          </button>
+          <button class="mobile-nav-item" data-view="records" id="mobile-nav-records">
+            <span class="mobile-nav-icon">🏆</span>
+            <span class="mobile-nav-label">Mur des Records</span>
+          </button>
+        </div>
+      </nav>
+      <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" hidden></div>
     </header>
 
     <!-- ==========================================================================

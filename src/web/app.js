@@ -86,6 +86,16 @@ const COLOR_COLUMNS = [
   { key: "COLORLESS", label: "Incolore", symbol: "C", cssClass: "color-c" },
 ];
 
+const MANA_SVGS = {
+  W: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Blanc"><circle cx="50" cy="50" r="46" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/><path d="M50 22 L54 36 L68 26 L63 40 L78 44 L66 52 L76 64 L62 65 L64 80 L51 72 L47 86 L41 72 L28 80 L30 65 L16 64 L26 52 L14 44 L29 40 L24 26 L38 36 Z" fill="#ca8a04"/><circle cx="50" cy="50" r="13" fill="#ca8a04"/></svg>`,
+  U: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Bleu"><circle cx="50" cy="50" r="46" fill="#0284c7" stroke="#38bdf8" stroke-width="4"/><path d="M50 20 C42 34 26 54 26 68 C26 81 37 88 50 88 C63 88 74 81 74 68 C74 54 58 34 50 20 Z" fill="#ffffff"/></svg>`,
+  B: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Noir"><circle cx="50" cy="50" r="46" fill="#334155" stroke="#64748b" stroke-width="4"/><path d="M50 22 C35 22 27 34 27 48 C27 58 33 66 37 70 L37 80 L44 80 L44 74 L56 74 L56 80 L63 80 L63 70 C67 66 73 58 73 48 C73 34 65 22 50 22 Z M40 48 A6 8 0 1 1 40 47.9 Z M60 48 A6 8 0 1 1 60 47.9 Z M50 64 L46 68 L54 68 Z" fill="#0f172a"/></svg>`,
+  R: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Rouge"><circle cx="50" cy="50" r="46" fill="#dc2626" stroke="#f87171" stroke-width="4"/><path d="M48 18 C52 30 64 36 62 48 C68 42 70 34 68 28 C76 38 78 54 70 68 C62 82 46 86 38 78 C28 68 30 52 38 42 C38 52 44 58 48 54 C46 44 42 34 48 18 Z" fill="#ffffff"/></svg>`,
+  G: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Vert"><circle cx="50" cy="50" r="46" fill="#16a34a" stroke="#4ade80" stroke-width="4"/><path d="M50 18 C38 28 32 42 38 54 C30 56 26 64 30 72 C34 80 44 82 46 84 L46 88 L54 88 L54 84 C56 82 66 80 70 72 C74 64 70 56 62 54 C68 42 62 28 50 18 Z" fill="#ffffff"/></svg>`,
+  MULTI: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Multicolore"><circle cx="50" cy="50" r="46" fill="#d97706" stroke="#fbbf24" stroke-width="4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#ffffff" stroke-width="5"/><polygon points="50,18 58,40 82,50 58,60 50,82 42,60 18,50 42,40" fill="#ffffff"/></svg>`,
+  COLORLESS: `<svg viewBox="0 0 100 100" class="mana-svg" aria-label="Incolore"><circle cx="50" cy="50" r="46" fill="#475569" stroke="#94a3b8" stroke-width="4"/><polygon points="50,18 78,50 50,82 22,50" fill="#ffffff"/></svg>`,
+};
+
 // Local cache for French card translations & images (shared across app and solo draft)
 const localFrenchCache = new Map();
 try {
@@ -150,7 +160,7 @@ const elements = {
   viewRecords: document.getElementById("view-records"),
   viewAdmin: document.getElementById("view-admin"),
 
-  // Navigation Links
+  // Navigation Links (Desktop)
   brandHomeBtn: document.getElementById("brand-home-btn"),
   navBtnHome: document.getElementById("nav-btn-home"),
   navBtnCubes: document.getElementById("nav-btn-cubes"),
@@ -158,6 +168,17 @@ const elements = {
   navBtnBots: document.getElementById("nav-btn-bots"),
   navBtnDraft: document.getElementById("nav-btn-draft"),
   navBtnRecords: document.getElementById("nav-btn-records"),
+
+  // Navigation Links (Mobile Drawer)
+  mobileMenuBtn: document.getElementById("mobile-menu-btn"),
+  mobileNavDrawer: document.getElementById("mobile-nav-drawer"),
+  mobileNavBackdrop: document.getElementById("mobile-nav-backdrop"),
+  mobileNavHome: document.getElementById("mobile-nav-home"),
+  mobileNavCubes: document.getElementById("mobile-nav-cubes"),
+  mobileNavCards: document.getElementById("mobile-nav-cards"),
+  mobileNavBots: document.getElementById("mobile-nav-bots"),
+  mobileNavDraft: document.getElementById("mobile-nav-draft"),
+  mobileNavRecords: document.getElementById("mobile-nav-records"),
 
   // Home CTA Buttons
   homeCtaDraft: document.getElementById("home-cta-draft"),
@@ -395,13 +416,21 @@ function navigateTo(viewName, cubeKey = null) {
 
   state.currentView = viewName;
 
-  // Header active tabs
+  // Header active tabs (Desktop)
   elements.navBtnHome?.classList.toggle("active", viewName === "home");
   elements.navBtnCubes?.classList.toggle("active", viewName === "cubes");
   elements.navBtnCards?.classList.toggle("active", viewName === "cards");
   elements.navBtnBots?.classList.toggle("active", viewName === "bots");
   elements.navBtnDraft?.classList.toggle("active", viewName === "draft");
   elements.navBtnRecords?.classList.toggle("active", viewName === "records");
+
+  // Header active tabs (Mobile Drawer)
+  elements.mobileNavHome?.classList.toggle("active", viewName === "home");
+  elements.mobileNavCubes?.classList.toggle("active", viewName === "cubes");
+  elements.mobileNavCards?.classList.toggle("active", viewName === "cards");
+  elements.mobileNavBots?.classList.toggle("active", viewName === "bots");
+  elements.mobileNavDraft?.classList.toggle("active", viewName === "draft");
+  elements.mobileNavRecords?.classList.toggle("active", viewName === "records");
 
   // Show/Hide Views
   if (elements.viewHome) {
@@ -492,9 +521,27 @@ function initRouter() {
   });
 }
 
+// Mobile Navigation Drawer Helpers
+function toggleMobileNav(forceOpen = null) {
+  if (!elements.mobileNavDrawer) return;
+  const isCurrentlyOpen = elements.mobileMenuBtn?.classList.contains("open");
+  const shouldOpen = forceOpen !== null ? forceOpen : !isCurrentlyOpen;
+
+  elements.mobileMenuBtn?.classList.toggle("open", shouldOpen);
+  elements.mobileMenuBtn?.setAttribute("aria-expanded", String(shouldOpen));
+  elements.mobileNavDrawer.hidden = !shouldOpen;
+  if (elements.mobileNavBackdrop) {
+    elements.mobileNavBackdrop.hidden = !shouldOpen;
+  }
+}
+
+function closeMobileNav() {
+  toggleMobileNav(false);
+}
+
 // Event Listeners Setup
 function setupEventListeners() {
-  // SPA Navigation handlers
+  // SPA Navigation handlers (Desktop)
   elements.brandHomeBtn?.addEventListener("click", () => navigateTo("home"));
   elements.navBtnHome?.addEventListener("click", () => navigateTo("home"));
   elements.navBtnCubes?.addEventListener("click", () => navigateTo("cubes"));
@@ -502,6 +549,41 @@ function setupEventListeners() {
   elements.navBtnBots?.addEventListener("click", () => navigateTo("bots"));
   elements.navBtnDraft?.addEventListener("click", () => navigateTo("draft"));
   elements.navBtnRecords?.addEventListener("click", () => navigateTo("records"));
+
+  // SPA Navigation handlers (Mobile Drawer)
+  elements.mobileMenuBtn?.addEventListener("click", () => toggleMobileNav());
+  elements.mobileNavBackdrop?.addEventListener("click", () => closeMobileNav());
+  elements.mobileNavHome?.addEventListener("click", () => {
+    navigateTo("home");
+    closeMobileNav();
+  });
+  elements.mobileNavCubes?.addEventListener("click", () => {
+    navigateTo("cubes");
+    closeMobileNav();
+  });
+  elements.mobileNavCards?.addEventListener("click", () => {
+    navigateTo("cards");
+    closeMobileNav();
+  });
+  elements.mobileNavBots?.addEventListener("click", () => {
+    navigateTo("bots");
+    closeMobileNav();
+  });
+  elements.mobileNavDraft?.addEventListener("click", () => {
+    navigateTo("draft");
+    closeMobileNav();
+  });
+  elements.mobileNavRecords?.addEventListener("click", () => {
+    navigateTo("records");
+    closeMobileNav();
+  });
+
+  // Close mobile drawer on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMobileNav();
+    }
+  });
 
   elements.homeCtaDraft?.addEventListener("click", () => navigateTo("draft"));
   elements.homeCtaCubes?.addEventListener("click", () => navigateTo("cubes"));
@@ -1169,10 +1251,21 @@ function renderMatrix() {
 
     elements.matrixTbody.appendChild(tr);
 
-    // 2. Build Mobile Tier Accordion Section
-    const mobileSection = createMobileTierSection(tier, tierTotalCount, buckets[tier]);
-    elements.mobileTierList.appendChild(mobileSection);
+    // 2. Build Mobile LimitedGrades Section
+    if (tierTotalCount > 0) {
+      const mobileSection = createLimitedGradesMobileTierSection(tier, tierTotalCount, buckets[tier]);
+      elements.mobileTierList.appendChild(mobileSection);
+    }
   });
+
+  if (filteredCards.length === 0) {
+    elements.mobileTierList.innerHTML = `
+      <div style="text-align: center; padding: 40px 16px; color: var(--text-muted);">
+        <p style="font-size: 1.05rem; font-weight: 600; color: var(--text-secondary);">Aucune carte ne correspond aux filtres</p>
+        <p style="font-size: 0.8rem; margin-top: 6px;">Essayez d'ajuster votre recherche ou vos critères.</p>
+      </div>
+    `;
+  }
 }
 
 // Create Card Matrix Item (Interactive, with hover popover and click modal)
@@ -1243,43 +1336,119 @@ function formatCostPip(manaCost, cmc) {
   return manaCost.replace(/[{}]/g, "");
 }
 
-// Mobile Accordion Section
-function createMobileTierSection(tier, count, colorBuckets) {
+// Build Mobile LimitedGrades Tier Section
+function createLimitedGradesMobileTierSection(tier, count, colorBuckets) {
   const section = document.createElement("div");
-  section.className = "mobile-tier-section";
+  section.className = "lg-tier-section";
+  section.dataset.tier = tier;
 
-  const toggleBtn = document.createElement("button");
-  toggleBtn.className = "mobile-tier-toggle";
-  toggleBtn.innerHTML = `
-    <span>
-      <span class="mobile-tier-badge tier-${tier.toLowerCase()}-row">${tier}</span>
-      ${tier}-Tier
-    </span>
-    <span style="font-size: 0.8rem; color: var(--text-secondary);">${count} cartes ▾</span>
+  // Prominent Tier Header
+  const header = document.createElement("div");
+  header.className = "lg-tier-header";
+  header.innerHTML = `
+    <span class="lg-tier-title">${tier}</span>
+    <span class="lg-tier-count-pill">${count} carte${count > 1 ? "s" : ""}</span>
   `;
+  section.appendChild(header);
 
-  const cardsContainer = document.createElement("div");
-  cardsContainer.className = "mobile-cards-grid";
-  // Start expanded for S and A, collapsed for others if many
-  const isExpanded = tier === "S" || tier === "A";
-  cardsContainer.hidden = !isExpanded;
+  const groupsContainer = document.createElement("div");
+  groupsContainer.className = "lg-tier-groups";
 
   COLOR_COLUMNS.forEach((col) => {
-    colorBuckets[col.key].forEach((card) => {
-      const item = createCardMatrixItem(card, col.cssClass);
-      cardsContainer.appendChild(item);
+    const cards = colorBuckets[col.key];
+    if (!cards || cards.length === 0) return;
+
+    const colorGroup = document.createElement("div");
+    colorGroup.className = `lg-color-group ${col.cssClass}`;
+
+    // Left Column: Badge with Mana SVG
+    const badgeCol = document.createElement("div");
+    badgeCol.className = "lg-color-badge-col";
+    badgeCol.title = col.label;
+
+    const symbolWrap = document.createElement("div");
+    symbolWrap.className = "lg-mana-symbol-wrap";
+    symbolWrap.innerHTML = MANA_SVGS[col.key] || "";
+    badgeCol.appendChild(symbolWrap);
+    colorGroup.appendChild(badgeCol);
+
+    // Right Column: Stack of Cards
+    const cardsList = document.createElement("div");
+    cardsList.className = "lg-cards-list";
+
+    cards.forEach((card) => {
+      const cardRow = createLimitedGradesCardRow(card, tier);
+      cardsList.appendChild(cardRow);
     });
+
+    colorGroup.appendChild(cardsList);
+    groupsContainer.appendChild(colorGroup);
   });
 
-  toggleBtn.addEventListener("click", () => {
-    cardsContainer.hidden = !cardsContainer.hidden;
-    toggleBtn.querySelector("span:last-child").textContent =
-      `${count} cartes ${cardsContainer.hidden ? "▸" : "▾"}`;
-  });
-
-  section.appendChild(toggleBtn);
-  section.appendChild(cardsContainer);
+  section.appendChild(groupsContainer);
   return section;
+}
+
+// Create LimitedGrades Card Row (Compact, Interactive, with localized name & score)
+function createLimitedGradesCardRow(card, tier) {
+  const row = document.createElement("div");
+  row.className = "lg-card-row";
+  row.setAttribute("role", "button");
+  row.setAttribute("tabindex", "0");
+
+  if (localFrenchCache.has(card.name)) {
+    const cached = localFrenchCache.get(card.name);
+    if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
+    if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+  }
+
+  const isFr = (state.cardExplorerLang || "FR") === "FR";
+  const displayName = isFr && card.frenchName ? card.frenchName : card.name;
+  row.setAttribute("aria-label", displayName);
+
+  if (isFr && card.frenchName && card.frenchName !== card.name) {
+    row.title = `${card.frenchName} (VO: ${card.name})`;
+  } else if (!isFr && card.frenchName && card.frenchName !== card.name) {
+    row.title = `${card.name} (FR: ${card.frenchName})`;
+  } else {
+    row.title = card.name;
+  }
+
+  const isShared = (card.presentInCubes || []).length > 1;
+  const rawScore = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
+  const score = Math.round(rawScore * 10) / 10;
+
+  row.innerHTML = `
+    <span class="lg-card-tick"></span>
+    <span class="lg-card-name">${escapeHtml(displayName)}</span>
+    ${isShared ? '<span class="lg-card-shared" title="Présente dans plusieurs cubes">🔄</span>' : ""}
+    <span class="lg-card-score" title="Power score : ${score}">${score}</span>
+  `;
+
+  // Click opens Educational Modal
+  row.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    hideCardPopover();
+    openCardModal(card);
+  });
+
+  row.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      e.stopPropagation();
+      hideCardPopover();
+      openCardModal(card);
+    }
+  });
+
+  // Hover popover for pointer devices
+  row.addEventListener("mouseenter", (e) => showCardPopover(card, e));
+  row.addEventListener("mousemove", (e) => positionCardPopover(e));
+  row.addEventListener("mouseleave", hideCardPopover);
+
+  return row;
 }
 
 // Image URL Resolvers (Local First with CDN Fallback)
