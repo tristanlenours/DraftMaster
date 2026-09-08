@@ -6,8 +6,6 @@ import {
   renderLeaderboardTable,
   renderAdminReportsTable,
   initSupabaseRealtime,
-  fetchMagiciens,
-  renderPantheonGrid,
 } from "./leaderboard.js";
 import { initAdminView } from "./admin.js";
 import { isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
@@ -426,30 +424,7 @@ function initWhaouFeatures() {
     }
   });
 
-  // 2. Subnav Records : Général vs Panthéon
-  const tabGeneral = document.getElementById("tab-btn-records-general");
-  const tabPantheon = document.getElementById("tab-btn-records-pantheon");
-  const cardGeneral = document.getElementById("general-records-table-card");
-  const cardPantheon = document.getElementById("pantheon-table-card");
-  const pantheonGrid = document.getElementById("pantheon-cards-grid");
-
-  tabGeneral?.addEventListener("click", () => {
-    tabGeneral.classList.add("active");
-    tabPantheon?.classList.remove("active");
-    if (cardGeneral) cardGeneral.hidden = false;
-    if (cardPantheon) cardPantheon.hidden = true;
-  });
-
-  tabPantheon?.addEventListener("click", async () => {
-    tabPantheon.classList.add("active");
-    tabGeneral?.classList.remove("active");
-    if (cardGeneral) cardGeneral.hidden = true;
-    if (cardPantheon) cardPantheon.hidden = false;
-    const magiciens = await fetchMagiciens();
-    renderPantheonGrid(magiciens, pantheonGrid);
-  });
-
-  // 3. Consultation d'un deck via lien partagé ?deck=<id>
+  // 2. Consultation d'un deck via lien partagé ?deck=<id>
   const urlParams = new URLSearchParams(window.location.search);
   const deckParam = urlParams.get("deck");
   if (deckParam) {
