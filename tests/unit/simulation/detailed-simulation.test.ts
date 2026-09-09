@@ -10,6 +10,12 @@ describe("Detailed Draft Simulation & 17Lands Walkthrough", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
 
+    expect(result.value.seats[0]?.finalDeck.audit.synergy.profile).toEqual({
+      modelVersion: "archetype-synergy@1",
+      cubeKey: "titou_tribal",
+      cubeSnapshotId: "titou_tribal@2026-02-24.1",
+    });
+
     const report = result.value;
     expect(report.schemaVersion).toBe(2);
     expect(report.cubeKey).toBe("titou_tribal");
@@ -102,6 +108,21 @@ describe("Detailed Draft Simulation & 17Lands Walkthrough", () => {
     }
     expect(report.draftReport.functionalDigest).toMatch(/^[a-f0-9]{64}$/);
   }, 15000);
+
+  it("rejects an archetype profile from a different cube snapshot", async () => {
+    const result = await runDetailedDraftSimulation({
+      seed: 42,
+      archetypeSynergyProfilePath: "data/cubes/nico_candyshop/archetype-synergy-v1.json",
+    });
+
+    expect(result).toMatchObject({
+      ok: false,
+      error: {
+        code: "INVALID_SNAPSHOT",
+        message: "Archetype synergy profile does not match the cube snapshot.",
+      },
+    });
+  });
 
   it("guarantees strict determinism across multiple runs with the exact same seed", async () => {
     const runA = await runDetailedDraftSimulation({ seed: 777 });

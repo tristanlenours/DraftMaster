@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://draftmaster.local/schemas/archetype-synergy-profile-v1.json",
+  "title": "DraftMaster Archetype Synergy Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "modelVersion", "cubeKey", "cubeSnapshotId", "archetypes"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "modelVersion": { "const": "archetype-synergy@1" },
+    "cubeKey": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "cubeSnapshotId": { "type": "string", "minLength": 1 },
+    "archetypes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/archetype" }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "minimum"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "minimum": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "detail"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["owner_tag", "owner_description", "oracle_rule", "curated_inference"]
+        },
+        "detail": { "type": "string", "minLength": 1 }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oracleId",
+        "name",
+        "strength",
+        "roles",
+        "families",
+        "evidence",
+        "confidence"
+      ],
+      "properties": {
+        "oracleId": { "$ref": "#/$defs/uuid" },
+        "name": { "type": "string", "minLength": 1 },
+        "strength": { "type": "string", "enum": ["key", "support"] },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "payoff",
+              "enabler",
+              "body",
+              "bridge",
+              "fixer",
+              "combo_piece",
+              "outlet",
+              "target",
+              "mana",
+              "velocity",
+              "interaction",
+              "fodder",
+              "recursion"
+            ]
+          }
+        },
+        "families": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9_:-]+$" }
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "confidence": { "type": "string", "enum": ["A", "B", "C", "D"] }
+      }
+    },
+    "archetype": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "targetPoints", "requiredFamilies", "cards"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_:-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "targetPoints": { "type": "integer", "minimum": 1 },
+        "requiredFamilies": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/family" }
+        },
+        "cards": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/card" }
+        }
+      }
+    }
+  }
+}

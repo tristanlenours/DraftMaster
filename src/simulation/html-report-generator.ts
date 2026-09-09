@@ -1810,6 +1810,10 @@ ${serializedReport}
       const bestSynergy = audit.synergy.bestArchetype;
       document.getElementById('deck-audit-synergy').innerHTML =
         '<h4>Synergie</h4>' +
+        (audit.synergy.profile
+          ? '<div>Référentiel : <strong>' + escapeHtml(audit.synergy.profile.modelVersion) +
+            '</strong> · ' + escapeHtml(audit.synergy.profile.cubeSnapshotId) + '</div>'
+          : '<div>Référentiel : <strong>aucun</strong></div>') +
         (bestSynergy
           ? '<div>Archétype : <strong>' + escapeHtml(bestSynergy.name) + '</strong></div>' +
             '<div>Cartes clés × 3 : <strong>' + bestSynergy.keyCardCount +
@@ -1819,7 +1823,11 @@ ${serializedReport}
             listNames(bestSynergy.supportCards) + '</div>' +
             '<div>Points : <strong>' + bestSynergy.points + ' / ' +
             bestSynergy.targetPoints + '</strong> · Score : <strong>' +
-            bestSynergy.score + '/100</strong></div>'
+            bestSynergy.score + '/100</strong></div>' +
+            '<div>Familles de rôles : ' + bestSynergy.families.map(family =>
+              (family.complete ? '✓ ' : '✗ ') + escapeHtml(family.name) + ' (' +
+              family.matchedCount + '/' + family.minimum + ')'
+            ).join(' · ') + '</div>'
           : '<div>Aucune carte clé ou support d’un archétype du cube.</div>') +
         (audit.synergy.packages.length > 0
           ? audit.synergy.packages.map(pkg =>

@@ -104,10 +104,30 @@ export interface DeckSynergyArchetypeProfile {
   readonly keyCards: readonly string[];
   readonly supportCards: readonly string[];
   readonly targetPoints?: number | undefined;
+  readonly requiredFamilies?: readonly DeckSynergyFamilyProfile[] | undefined;
+}
+
+export interface DeckSynergyFamilyProfile {
+  readonly id: string;
+  readonly name: string;
+  readonly minimum: number;
+  readonly cardIds: readonly string[];
 }
 
 export interface DeckSynergyProfile {
+  readonly modelVersion?: string | undefined;
+  readonly cubeKey?: string | undefined;
+  readonly cubeSnapshotId?: string | undefined;
   readonly archetypes: readonly DeckSynergyArchetypeProfile[];
+}
+
+export interface ArchetypeSynergyFamilyAudit {
+  readonly id: string;
+  readonly name: string;
+  readonly minimum: number;
+  readonly matchedCards: readonly string[];
+  readonly matchedCount: number;
+  readonly complete: boolean;
 }
 
 export interface ArchetypeSynergyAudit {
@@ -120,10 +140,17 @@ export interface ArchetypeSynergyAudit {
   readonly alignedCardCount: number;
   readonly points: number;
   readonly targetPoints: number;
+  readonly families: readonly ArchetypeSynergyFamilyAudit[];
+  readonly missingRequiredFamilyCount: number;
   readonly score: number;
 }
 
 export interface SynergyAxisAudit {
+  readonly profile: {
+    readonly modelVersion: string;
+    readonly cubeKey: string;
+    readonly cubeSnapshotId: string;
+  } | null;
   readonly packages: readonly StrategicPackageAudit[];
   readonly bestArchetype: ArchetypeSynergyAudit | null;
   readonly archetypes: readonly ArchetypeSynergyAudit[];
@@ -202,7 +229,7 @@ export interface DeckScoreContribution {
 }
 
 export interface DeckEvaluationAudit {
-  readonly formulaVersion: "deck-evaluation@3";
+  readonly formulaVersion: "deck-evaluation@4";
   readonly scoreMeaning: string;
   readonly power: PowerAxisAudit;
   readonly synergy: SynergyAxisAudit;

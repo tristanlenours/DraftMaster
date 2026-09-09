@@ -1,6 +1,6 @@
 # QA Evidence — Visualiseur HTML du Draft Titou
 
-**Date**: 2026-09-07  
+**Date**: 2026-09-09
 **Seed vérifiée**: `42`  
 **Statut**: automatisation verte ; validation visuelle humaine encore possible dans le navigateur local choisi par le reviewer.
 
@@ -14,15 +14,18 @@
 - Le rapport détaillé embarque 360 décisions. Chaque décision contient le `dynamicScore`, le détail du coaching, les contributions des biais, le `policyScore`, la probabilité, le rang, la température et le tirage déterministe.
 - Chaque étape se relie à un événement canonique `CardPicked` par `eventSequence`, `boosterId`, pack, pick, siège et carte ; le rapport canonique expose aussi son digest SHA-256 fonctionnel.
 - Les biais `colorDiscipline` et `tribalSynergyBonus`, auparavant déclarés mais inertes, produisent maintenant des contributions chiffrées couvertes par tests.
-- Le deck final affiche séparément Puissance, Synergie, Courbe, Mana et Interaction. Son audit `deck-evaluation@3` expose la formule pondérée, la distribution de puissance, les bombes top 5 %, le mana rapide, les cartes clés/support d'archétype, les packages, les CMC imprimés/effectifs, les sources requises, les fixeurs et les interactions reconnues avec leur qualité et leur cible par archétype.
+- Le deck final affiche séparément Puissance, Synergie, Courbe, Mana et Interaction. Son audit `deck-evaluation@4` expose la formule pondérée, la distribution de puissance, les bombes top 5 %, le mana rapide, le référentiel versionné, les cartes clés/support d'archétype, les familles de rôles requises et manquantes, les packages, les CMC imprimés/effectifs, les sources requises, les fixeurs et les interactions reconnues avec leur qualité et leur cible par archétype. La Synergie constate qu'une idée a assemblé ses bonnes briques ; elle ne prédit pas la force de l'archétype.
 - Les cinq decks trophées Powered Cube fournis sont conservés comme ancres qualitatives versionnées ; ils ne sont pas présentés comme une calibration numérique complète tant que 23 cartes manquent au catalogue maître de production.
 
 ## Commandes et résultats
 
 ```text
 npm run simulate:html -- --seed 42
-  Simulation: 360 décisions en 162 ms
+  Simulation: 360 décisions en 190 ms
   Artefacts seed 42 régénérés
+
+npm run synergy:profiles:verify
+  Profils Titou et Nico identiques à leur génération depuis les archives sources
 
 npm run reports:verify
   Verified schema v2 reports for seed 42: 24 boosters, 21 bombs, 360 traced decisions.
@@ -31,8 +34,8 @@ npm run check
   Prettier: OK
   ESLint: OK
   TypeScript: OK
-  Vitest: 54 fichiers, 313 tests passés
-  V8: 86.52 % statements, 72.19 % branches, 90.97 % functions, 87.66 % lines
+  Vitest: 56 fichiers, 322 tests passés
+  V8: 86.56 % statements, 72.43 % branches, 91.33 % functions, 87.68 % lines
   Vérification des rapports: OK
   Playwright: 14 parcours navigateur passés, dont l'ouverture du deck depuis le Mur des Records sans raccourcis 17Lands/Boosters
 

@@ -1,5 +1,5 @@
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
-import { CubeMetaRegistry } from "../cubes/cube-meta.ts";
+import { ArchetypeSynergyProfileRegistry } from "../cubes/archetype-synergy-profile.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
 import { MAX_POWER_SCORE } from "../cards/power-harmonizer.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
@@ -178,7 +178,7 @@ interface CubeBombClassification {
 
 export interface RunDetailedSimulationOptions {
   readonly cubePath?: string;
-  readonly cubeMetaPath?: string;
+  readonly archetypeSynergyProfilePath?: string;
   readonly masterCatalogPath?: string;
   readonly seed?: number;
   readonly sessionId?: string;
@@ -202,13 +202,32 @@ export async function runDetailedDraftSimulation(
   }
   const snapshot: CubeSnapshot = snapshotResult.value;
 
-  const cubeMetaPath = options.cubeMetaPath ?? `data/cubes/${snapshot.cubeKey}/cube-meta.json`;
-  const cubeMetaResult = await CubeMetaRegistry.fromFile(cubeMetaPath);
-  if (!cubeMetaResult.ok) {
-    return failure("INVALID_SNAPSHOT", cubeMetaResult.error.message, { ...cubeMetaResult.error });
+  const synergyProfilePath =
+    options.archetypeSynergyProfilePath ??
+    `data/cubes/${snapshot.cubeKey}/archetype-synergy-v1.json`;
+  const synergyProfileResult = await ArchetypeSynergyProfileRegistry.fromFile(synergyProfilePath);
+  if (!synergyProfileResult.ok) {
+    return failure("INVALID_SNAPSHOT", synergyProfileResult.error.message, {
+      ...synergyProfileResult.error,
+    });
+  }
+  if (
+    synergyProfileResult.value.document.cubeKey !== snapshot.cubeKey ||
+    synergyProfileResult.value.document.cubeSnapshotId !== snapshot.snapshotId
+  ) {
+    return failure(
+      "INVALID_SNAPSHOT",
+      "Archetype synergy profile does not match the cube snapshot.",
+      {
+        expectedCubeKey: snapshot.cubeKey,
+        expectedSnapshotId: snapshot.snapshotId,
+        profileCubeKey: synergyProfileResult.value.document.cubeKey,
+        profileSnapshotId: synergyProfileResult.value.document.cubeSnapshotId,
+      },
+    );
   }
   const evaluationOptions: DeckEvaluationOptions = {
-    synergyProfile: cubeMetaResult.value.meta,
+    synergyProfile: synergyProfileResult.value.evaluationProfile,
   };
 
   // 2. Load master catalog

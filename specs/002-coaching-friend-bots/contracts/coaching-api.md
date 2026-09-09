@@ -10,15 +10,14 @@ export function evaluateCard(
   context: PackEvaluationContext,
 ): CardEvaluation;
 
-export function evaluatePack(
-  context: PackEvaluationContext,
-): readonly CardEvaluation[];
+export function evaluatePack(context: PackEvaluationContext): readonly CardEvaluation[];
 ```
 
 ### Invariants du Contrat
-* `evaluatePack` renvoie une liste ordonnée par `dynamicScore` décroissant.
-* L'opération est une fonction pure, sans effet de bord, sans mutation des objets passés en entrée.
-* Au tour $1$ ($P=1, K=1$), `dynamicScore === staticScore` pour $100\%$ des cartes.
+
+- `evaluatePack` renvoie une liste ordonnée par `dynamicScore` décroissant.
+- L'opération est une fonction pure, sans effet de bord, sans mutation des objets passés en entrée.
+- Au tour $1$ ($P=1, K=1$), `dynamicScore === staticScore` pour $100\%$ des cartes.
 
 ---
 
@@ -33,9 +32,10 @@ export function createFriendTablePolicies(
 ```
 
 ### Invariants du Contrat
-* Le siège 0 renvoie `null` lorsqu'il est contrôlé par le joueur humain.
-* Les sièges 1 à 7 renvoient une instance de `PickPolicy` immuable avec un identifiant préfixé `friend:<id>` et une version `1`.
-* La sélection d'une carte est strictement déterministe pour un triplet `(derivedSeed, packNumber, pickNumber)` donné.
+
+- Le siège 0 renvoie `null` lorsqu'il est contrôlé par le joueur humain.
+- Les sièges 1 à 7 renvoient une instance de `PickPolicy` immuable avec un identifiant préfixé `friend:<id>` et une version `1`.
+- La sélection d'une carte est strictement déterministe pour un triplet `(derivedSeed, packNumber, pickNumber)` donné.
 
 ---
 
@@ -57,8 +57,9 @@ export function computeStrategicDiagnosis(
 ```
 
 ### Invariants du Contrat
-* `evaluateDeck` accepte un tableau de 40 cartes valides et s'exécute de manière pure, synchrone et sans effet de bord.
-* La note `overallScore` et chaque composante du radar de Kiviat sont strictement comprises entre 0 et 100.
-* Le résultat contient un audit `deck-evaluation@3` : distribution de puissance, bombes, mana rapide, cartes clés/support d'archétype, packages, courbe imprimée/effective, sources requises, fixeurs, profil d'interaction et contributions pondérées. Sans profil d'archétype du cube, la Synergie vaut 0.
-* Le score est explicitement présenté comme une heuristique, jamais comme une probabilité de victoire ou un percentile statistique.
-* La complexité de l'évaluation complète d'un deck de 40 cartes est bornée à $O(N)$ où $N=40$, avec un temps d'exécution $< 2$ ms.
+
+- `evaluateDeck` accepte un tableau de 40 cartes valides et s'exécute de manière pure, synchrone et sans effet de bord.
+- La note `overallScore` et chaque composante du radar de Kiviat sont strictement comprises entre 0 et 100.
+- Le résultat contient un audit `deck-evaluation@4` : distribution de puissance, bombes, mana rapide, cartes clés/support d'archétype, familles de rôles requises et manquantes, packages, courbe imprimée/effective, sources requises, fixeurs, profil d'interaction et contributions pondérées. La Synergie mesure l'assemblage cohérent des briques d'un archétype, pas sa puissance ni son taux de victoire. Sans profil d'archétype du cube, la Synergie vaut 0.
+- Le score est explicitement présenté comme une heuristique, jamais comme une probabilité de victoire ou un percentile statistique.
+- La complexité de l'évaluation complète d'un deck de 40 cartes est bornée à $O(N)$ où $N=40$, avec un temps d'exécution $< 2$ ms.

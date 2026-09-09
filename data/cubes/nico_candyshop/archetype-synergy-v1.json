@@ -1,0 +1,1973 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "archetype-synergy@1",
+  "cubeKey": "nico_candyshop",
+  "cubeSnapshotId": "nico_candyshop@2026-03-01.1",
+  "archetypes": [
+    {
+      "id": "nico:storm_combo",
+      "name": "Izzet / Grixis Storm",
+      "targetPoints": 15,
+      "requiredFamilies": [
+        {
+          "id": "mana",
+          "name": "Mana explosif",
+          "minimum": 2
+        },
+        {
+          "id": "velocity",
+          "name": "Pioche et recyclage",
+          "minimum": 2
+        },
+        {
+          "id": "payoff",
+          "name": "Condition de victoire Storm",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+          "name": "Brain Freeze",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit la chaîne de sorts en condition de victoire."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+          "name": "Cabal Ritual",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+          "name": "Dark Ritual",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3620ab8f-b693-4225-bb96-5ca3cb3fa465",
+          "name": "Desperate Ritual",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+          "name": "Frantic Search",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dc671205-f2fa-454f-9957-921a6069ad53",
+          "name": "High Tide",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
+          "name": "Lion's Eye Diamond",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "89c83a6d-f6c8-4984-a888-0db62dfb93b1",
+          "name": "Manamorphose",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "86ef6474-613f-41fb-931c-d4279b03ed99",
+          "name": "Pyretic Ritual",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
+          "name": "Seething Song",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit un surplus de mana pendant le tour de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "78db3190-59bc-4033-95bc-32d8ed872b6a",
+          "name": "Tendrils of Agony",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit la chaîne de sorts en condition de victoire."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
+          "name": "Time Spiral",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c823e687-6311-4c99-974b-fd77d204141a",
+          "name": "Timetwister",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "715d0777-4d36-463b-9102-6bb6bb00b7e9",
+          "name": "Turnabout",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+          "name": "Underworld Breach",
+          "strength": "key",
+          "roles": [
+            "velocity",
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "velocity",
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            },
+            {
+              "source": "curated_inference",
+              "detail": "Convertit la chaîne de sorts en condition de victoire."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
+          "name": "Wheel of Fortune",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "322f0459-f394-44f0-977b-55fd0cbe0712",
+          "name": "Yawgmoth's Will",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "velocity"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Prolonge la chaîne de sorts ou rejoue le cimetière."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "nico:artifact_ramp",
+      "name": "Mono-Blue / Colorless Artifacts",
+      "targetPoints": 16,
+      "requiredFamilies": [
+        {
+          "id": "fodder",
+          "name": "Artefacts et accélérateurs",
+          "minimum": 3
+        },
+        {
+          "id": "enabler",
+          "name": "Moteur de conversion",
+          "minimum": 1
+        },
+        {
+          "id": "payoff",
+          "name": "Menace ou moteur artefact",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "5089ec1a-f881-4d55-af14-5d996171203b",
+          "name": "Black Lotus",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e80772e2-8623-4094-81a2-70828b2b151c",
+          "name": "Blightsteel Colossus",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense directement une forte densité d'artefacts."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "2bd111bb-ce02-414c-b5b7-e0e037d8d96b",
+          "name": "Bolas's Citadel",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense directement une forte densité d'artefacts."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "c1d6cce8-085f-42cb-8b0c-b6fbbf88b16a",
+          "name": "Goblin Engineer",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Transforme les petits artefacts en ressource ou menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "9fc28e1f-f4ea-4bf8-9442-a36dba3b3b29",
+          "name": "Goblin Welder",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Transforme les petits artefacts en ressource ou menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+          "name": "Kappa Cannoneer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense directement une forte densité d'artefacts."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b0f99367-4313-4bb1-a9fd-7711bc4ce40e",
+          "name": "Kuldotha Forgemaster",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Transforme les petits artefacts en ressource ou menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "736892cb-a34b-4bb9-b56c-e26e3db207a2",
+          "name": "Mana Vault",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9ed9accb-9f0c-40fa-aeea-2d1e1c9d1bd1",
+          "name": "Metalworker",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ba284fe6-bb29-455c-8321-9714a0cdc05e",
+          "name": "Mishra's Workshop",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "376ee366-e082-402f-b4db-6592fcfcacd2",
+          "name": "Mox Emerald",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0677f49e-f8bf-4349-af52-2ccde9287c2e",
+          "name": "Mox Jet",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "824597b8-c89a-47ec-8526-7efc6e24ef0e",
+          "name": "Mox Pearl",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ed85fa82-e4fa-434b-92a8-36b6075708d1",
+          "name": "Mox Ruby",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d5ed1233-df87-4b90-8918-13922ec95249",
+          "name": "Mox Sapphire",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6ad8011d-3471-4369-9d68-b264cc027487",
+          "name": "Sol Ring",
+          "strength": "support",
+          "roles": [
+            "mana",
+            "fodder"
+          ],
+          "families": [
+            "fodder"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère le plan artefact ou fournit une ressource à convertir."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
+          "name": "Tinker",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Transforme les petits artefacts en ressource ou menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "dba4fd31-8931-42dd-bd86-45479c2abf74",
+          "name": "Tolarian Academy",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense directement une forte densité d'artefacts."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
+          "name": "Urza, Lord High Artificer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense directement une forte densité d'artefacts."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "nico:reanimator",
+      "name": "Reanimator",
+      "targetPoints": 13,
+      "requiredFamilies": [
+        {
+          "id": "outlet",
+          "name": "Mise au cimetière",
+          "minimum": 1
+        },
+        {
+          "id": "reanimation",
+          "name": "Effet de réanimation",
+          "minimum": 1
+        },
+        {
+          "id": "target",
+          "name": "Cible à réanimer",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+          "name": "Animate Dead",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "recursion"
+          ],
+          "families": [
+            "reanimation"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remet une créature du cimetière sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+          "name": "Archon of Cruelty",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Cible à très fort impact pour contourner son coût de mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
+          "name": "Atraxa, Grand Unifier",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Cible à très fort impact pour contourner son coût de mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
+          "name": "Collective Brutality",
+          "strength": "support",
+          "roles": [
+            "outlet"
+          ],
+          "families": [
+            "outlet"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Place volontairement une cible au cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "299fc083-0834-4064-8344-f895aff68867",
+          "name": "Entomb",
+          "strength": "support",
+          "roles": [
+            "outlet"
+          ],
+          "families": [
+            "outlet"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Place volontairement une cible au cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fbe61f74-1b3c-4e12-8758-7029872c9ff1",
+          "name": "Exhume",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "recursion"
+          ],
+          "families": [
+            "reanimation"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remet une créature du cimetière sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
+          "name": "Faithless Looting",
+          "strength": "support",
+          "roles": [
+            "outlet"
+          ],
+          "families": [
+            "outlet"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Place volontairement une cible au cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+          "name": "Frantic Search",
+          "strength": "support",
+          "roles": [
+            "outlet"
+          ],
+          "families": [
+            "outlet"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Place volontairement une cible au cimetière."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+          "name": "Griselbrand",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Cible à très fort impact pour contourner son coût de mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
+          "name": "Necromancy",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "recursion"
+          ],
+          "families": [
+            "reanimation"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remet une créature du cimetière sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+          "name": "Reanimate",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "recursion"
+          ],
+          "families": [
+            "reanimation"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remet une créature du cimetière sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "nico:sneak_show",
+      "name": "Sneak Attack / Show and Tell",
+      "targetPoints": 12,
+      "requiredFamilies": [
+        {
+          "id": "enabler",
+          "name": "Mise en jeu contournant le coût",
+          "minimum": 1
+        },
+        {
+          "id": "target",
+          "name": "Menace à tricher en jeu",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+          "name": "Archon of Cruelty",
+          "strength": "support",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace dont le coût élevé est contourné par le moteur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
+          "name": "Atraxa, Grand Unifier",
+          "strength": "support",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace dont le coût élevé est contourné par le moteur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e80772e2-8623-4094-81a2-70828b2b151c",
+          "name": "Blightsteel Colossus",
+          "strength": "support",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace dont le coût élevé est contourné par le moteur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
+          "name": "Emrakul, the Aeons Torn",
+          "strength": "support",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace dont le coût élevé est contourné par le moteur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+          "name": "Griselbrand",
+          "strength": "support",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace dont le coût élevé est contourné par le moteur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6d4e7943-1fdf-4085-8af0-658badbd0cb8",
+          "name": "Monster Manual",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Met en jeu une menace en contournant son coût normal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "cf0dcb27-f02e-4065-81dc-75fbbb09ea3f",
+          "name": "Oath of Druids",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Met en jeu une menace en contournant son coût normal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+          "name": "Show and Tell",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Met en jeu une menace en contournant son coût normal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+          "name": "Sneak Attack",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Met en jeu une menace en contournant son coût normal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "c207aaee-0b67-4520-ad02-2c289228be2a",
+          "name": "Through the Breach",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Met en jeu une menace en contournant son coût normal."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "nico:twin_kiki",
+      "name": "Twin / Kiki Combo",
+      "targetPoints": 8,
+      "requiredFamilies": [
+        {
+          "id": "copier",
+          "name": "Copieur répétable",
+          "minimum": 1
+        },
+        {
+          "id": "untapper",
+          "name": "Créature qui dégage le copieur",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "3c939ea6-68b7-4965-b1d3-af1d3dc79778",
+          "name": "Deceiver Exarch",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "untapper"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Dégage ou réinitialise le copieur pour former une boucle."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4d6a1391-817a-4ddc-840d-886b138eeb3f",
+          "name": "Imperial Recruiter",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Trouve l'une des créatures nécessaires sans remplacer une pièce de combo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a34b7416-cfe3-4a1e-a8c1-a3056b747519",
+          "name": "Kiki-Jiki, Mirror Breaker",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "copier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Crée une copie avec la célérité de manière répétable."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "83cf4235-eb4e-4c55-839a-f2740d41ed5e",
+          "name": "Pestermite",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "untapper"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Dégage ou réinitialise le copieur pour former une boucle."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+          "name": "Restoration Angel",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "untapper"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Dégage ou réinitialise le copieur pour former une boucle."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "2df3187b-4b91-4de9-9b26-d48a30700cec",
+          "name": "Splinter Twin",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "copier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Crée une copie avec la célérité de manière répétable."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "1dae6f39-2cbd-485c-b190-017a26401fd4",
+          "name": "Zealous Conscripts",
+          "strength": "key",
+          "roles": [
+            "combo_piece"
+          ],
+          "families": [
+            "untapper"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Dégage ou réinitialise le copieur pour former une boucle."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "nico:blink",
+      "name": "Azorius Blink / Value",
+      "targetPoints": 13,
+      "requiredFamilies": [
+        {
+          "id": "enabler",
+          "name": "Effet de blink",
+          "minimum": 2
+        },
+        {
+          "id": "target",
+          "name": "Permanent à effet d'arrivée",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "c48d844c-3976-4fa5-8e0d-3f0e535e7619",
+          "name": "Charming Prince",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "target"
+          ],
+          "families": [
+            "enabler",
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            },
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "09ef446c-a13d-49d9-a94c-cd5f5a2d440b",
+          "name": "Displacer Kitten",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "0fd57894-b917-41c8-a394-360d1d31b236",
+          "name": "Ephemerate",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
+          "name": "Flickerwisp",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "target"
+          ],
+          "families": [
+            "enabler",
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            },
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+          "name": "Palace Jailer",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5d86a59a-ba1f-45f7-b829-dca6f9f3e624",
+          "name": "Phelia, Exuberant Shepherd",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d521a329-a53a-4962-810a-2abed80df260",
+          "name": "Recruiter of the Guard",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+          "name": "Restoration Angel",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "target"
+          ],
+          "families": [
+            "enabler",
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            },
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
+          "name": "Solitude",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit une nouvelle valeur lorsqu'il revient sur le champ de bataille."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "92019547-f6db-4ea6-8356-d0a90ace5662",
+          "name": "Soulherder",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Exile puis renvoie un permanent pour répéter ses effets."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "nico:lands",
+      "name": "Lands / Graveyard Lands",
+      "targetPoints": 12,
+      "requiredFamilies": [
+        {
+          "id": "enabler",
+          "name": "Accélération ou sacrifice de terrains",
+          "minimum": 1
+        },
+        {
+          "id": "recursion",
+          "name": "Récursion de terrains",
+          "minimum": 1
+        },
+        {
+          "id": "payoff",
+          "name": "Payoff de terrains",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
+          "name": "Crucible of Worlds",
+          "strength": "key",
+          "roles": [
+            "recursion"
+          ],
+          "families": [
+            "recursion"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Permet de rejouer les terrains depuis le cimetière."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "c9b82110-7dfd-4617-9399-9510be449043",
+          "name": "Dark Depths",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit les synergies de terrains en avantage décisif."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "e27193b7-1a47-4555-865d-b1fd4c6d597f",
+          "name": "Fastbond",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère, sacrifie ou exploite les terrains comme ressource."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+          "name": "Ramunap Excavator",
+          "strength": "key",
+          "roles": [
+            "recursion"
+          ],
+          "families": [
+            "recursion"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Permet de rejouer les terrains depuis le cimetière."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d21a89eb-7c5b-459a-acc7-12b20b13bf79",
+          "name": "Strip Mine",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère, sacrifie ou exploite les terrains comme ressource."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b01e698b-608a-4fc7-8073-b01d044743ec",
+          "name": "Thespian's Stage",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit les synergies de terrains en avantage décisif."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d0ade00d-a496-441d-9b7e-7dc033d3292c",
+          "name": "Titania, Protector of Argoth",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "combo_piece"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit les synergies de terrains en avantage décisif."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "108ae90a-50fa-4cfd-b751-d630e41425fe",
+          "name": "Wrenn and Six",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "recursion"
+          ],
+          "families": [
+            "enabler",
+            "recursion"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère, sacrifie ou exploite les terrains comme ressource."
+            },
+            {
+              "source": "curated_inference",
+              "detail": "Permet de rejouer les terrains depuis le cimetière."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
+          "name": "Zuran Orb",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère, sacrifie ou exploite les terrains comme ressource."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "nico:green_ramp",
+      "name": "Green Ramp / Natural Order",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "mana",
+          "name": "Accélération verte",
+          "minimum": 2
+        },
+        {
+          "id": "enabler",
+          "name": "Moteur de conversion",
+          "minimum": 1
+        },
+        {
+          "id": "target",
+          "name": "Menace de haut de courbe",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
+          "name": "Arbor Elf",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+          "name": "Birds of Paradise",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d1b815d1-2848-40d4-a555-66822d1becbc",
+          "name": "Channel",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit une ressource précoce en menace de haut de courbe."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8c52bd39-0586-48ca-b263-17210cf9feb6",
+          "name": "Craterhoof Behemoth",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui récompense l'accélération ou la mise en jeu contournée."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+          "name": "Elvish Mystic",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
+          "name": "Gaea's Cradle",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+          "name": "Llanowar Elves",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+          "name": "Natural Order",
+          "strength": "key",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Convertit une ressource précoce en menace de haut de courbe."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "98aa9424-5912-4bd6-9300-b3972a31d8af",
+          "name": "Noble Hierarch",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
+          "name": "Primeval Titan",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui récompense l'accélération ou la mise en jeu contournée."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
+          "name": "Rofellos, Llanowar Emissary",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélère la production de mana du plan vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "17975a20-2c13-4325-be1e-0bcda5063a2d",
+          "name": "Terastodon",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui récompense l'accélération ou la mise en jeu contournée."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+          "name": "Woodfall Primus",
+          "strength": "key",
+          "roles": [
+            "target",
+            "payoff"
+          ],
+          "families": [
+            "target"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui récompense l'accélération ou la mise en jeu contournée."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    }
+  ]
+}

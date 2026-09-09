@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "npm run web",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run test:coverage && npm run reports:verify && npm run test:browser",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run synergy:profiles:verify && npm run test && npm run test:coverage && npm run reports:verify && npm run test:browser",
     "cards:download-images": "node scripts/download-card-images.mjs",
     "cube:fetch": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts fetch",
     "cube:normalize": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts normalize",
@@ -31,6 +31,8 @@
     "reports:verify": "node --no-warnings --experimental-strip-types scripts/verify-html-reports.ts",
     "simulate": "node --no-warnings --experimental-strip-types src/cli/simulate-draft.ts",
     "simulate:html": "node --no-warnings --experimental-strip-types scripts/simulate-html-report.ts",
+    "synergy:profiles:build": "node scripts/build-archetype-synergy-profiles.mjs",
+    "synergy:profiles:verify": "node scripts/build-archetype-synergy-profiles.mjs --check",
     "test": "vitest run",
     "test:audit": "vitest run tests/integration/report-audit.test.ts",
     "test:browser": "playwright test",

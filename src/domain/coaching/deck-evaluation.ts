@@ -374,8 +374,25 @@ function analyzeArchetypeSynergy(
       const points = keyCardCount * 3 + supportCardCount;
       const targetPoints = archetype.targetPoints ?? DEFAULT_ARCHETYPE_TARGET_POINTS;
       let score = clamp((points / targetPoints) * 100);
+      const families = (archetype.requiredFamilies ?? []).map((family) => {
+        const familyIds = new Set(family.cardIds);
+        const matchedCards = spells
+          .filter((card) => card.oracleId && familyIds.has(card.oracleId))
+          .map((card) => card.name);
+        return {
+          id: family.id,
+          name: family.name,
+          minimum: family.minimum,
+          matchedCards,
+          matchedCount: matchedCards.length,
+          complete: matchedCards.length >= family.minimum,
+        };
+      });
+      const missingRequiredFamilyCount = families.filter((family) => !family.complete).length;
       if (keyCardCount === 0) score = Math.min(score, 50);
       if (alignedCardCount < 5) score = Math.min(score, 35);
+      if (missingRequiredFamilyCount === 1) score = Math.min(score, 45);
+      if (missingRequiredFamilyCount >= 2) score = Math.min(score, 25);
 
       return {
         id: archetype.id,
@@ -387,6 +404,8 @@ function analyzeArchetypeSynergy(
         alignedCardCount,
         points,
         targetPoints,
+        families,
+        missingRequiredFamilyCount,
         score,
       };
     })
@@ -396,7 +415,19 @@ function analyzeArchetypeSynergy(
 
   return {
     score: bestArchetype?.score ?? 0,
-    audit: { packages, bestArchetype, archetypes },
+    audit: {
+      profile:
+        profile?.modelVersion && profile.cubeKey && profile.cubeSnapshotId
+          ? {
+              modelVersion: profile.modelVersion,
+              cubeKey: profile.cubeKey,
+              cubeSnapshotId: profile.cubeSnapshotId,
+            }
+          : null,
+      packages,
+      bestArchetype,
+      archetypes,
+    },
   };
 }
 
@@ -659,7 +690,7 @@ export function computeKiviatRadar(
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
-  const synergyAnalysis = analyzeArchetypeSynergy(spells, options.synergyProfile, packages);
+  const synergyAnalysis = analyzeArchetypeSynergy(deck, options.synergyProfile, packages);
 
   // 1. Puissance Brute (20%)
   const power = analyzePower(spells, options.bombThreshold).score;
@@ -737,7 +768,7 @@ export function evaluateDeck(
   const lands = deck.filter((c) => c.isLand);
   const powerAnalysis = analyzePower(spells, options.bombThreshold);
   const packages = analyzeStrategicPackages(spells);
-  const synergyAnalysis = analyzeArchetypeSynergy(spells, options.synergyProfile, packages);
+  const synergyAnalysis = analyzeArchetypeSynergy(deck, options.synergyProfile, packages);
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
@@ -760,6 +791,20 @@ export function evaluateDeck(
   if (radar.synergy >= 85 && synergyAnalysis.audit.bestArchetype) {
     strengths.push(
       `Excellente cohésion de l'archétype ${synergyAnalysis.audit.bestArchetype.name}.`,
+    );
+  }
+  if (
+    synergyAnalysis.audit.bestArchetype &&
+    synergyAnalysis.audit.bestArchetype.missingRequiredFamilyCount > 0
+  ) {
+    const missingFamilies = synergyAnalysis.audit.bestArchetype.families
+      .filter((family) => !family.complete)
+      .map((family) => family.name);
+    weaknesses.push(
+      `Archétype ${synergyAnalysis.audit.bestArchetype.name} amorcé, mais incomplet : ${missingFamilies.join(", ")}.`,
+    );
+    recommendations.push(
+      "Compléter les familles de rôles manquantes avant d'ajouter du soutien redondant.",
     );
   }
   if (radar.curve >= 85) strengths.push("Courbe de mana idéalement proportionnée.");
@@ -789,7 +834,7 @@ export function evaluateDeck(
     radar,
     overallScore,
     audit: {
-      formulaVersion: "deck-evaluation@3",
+      formulaVersion: "deck-evaluation@4",
       scoreMeaning:
         "Heuristique explicable sur 100 : ni une probabilité de victoire, ni un percentile statistique.",
       power: powerAnalysis.audit,

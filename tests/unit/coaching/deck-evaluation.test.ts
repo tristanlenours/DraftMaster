@@ -537,7 +537,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
 
     expect(evaluation.radar.power).toBeGreaterThanOrEqual(82);
-    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@3");
+    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@4");
     expect(evaluation.audit.scoreMeaning).toContain("ni une probabilité de victoire");
     expect(evaluation.audit.power.meanStaticScore).toBeCloseTo(34.74, 2);
     expect(evaluation.audit.power.topFiveMean).toBeCloseTo(51.8, 2);
@@ -955,6 +955,93 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       supportCardCount: 9,
       points: 18,
       targetPoints: 18,
+    });
+  });
+
+  it("recognizes an assembled archetype and caps a pile missing required bricks", () => {
+    const lands: readonly CardEvaluationInput[] = Array.from({ length: 17 }, (_, index) => ({
+      id: `intent-land-${String(index)}`,
+      name: "Swamp",
+      staticScore: 5,
+      colors: [] as const,
+      isLand: true,
+      producesColors: ["B"] as const,
+    }));
+    const makeSpell = (oracleId: string): CardEvaluationInput => ({
+      id: `intent-${oracleId}`,
+      oracleId,
+      name: oracleId,
+      staticScore: 30,
+      colors: ["B"],
+      cmc: 2,
+      types: ["Sorcery"],
+    });
+    const fillDeck = (taggedIds: readonly string[]): readonly CardEvaluationInput[] => [
+      ...lands,
+      ...taggedIds.map(makeSpell),
+      ...Array.from({ length: 23 - taggedIds.length }, (_, index) =>
+        makeSpell(`unassigned-${String(index)}`),
+      ),
+    ];
+    const reanimationIds = Array.from({ length: 6 }, (_, index) => `reanimation-${String(index)}`);
+    const profile = {
+      modelVersion: "archetype-synergy@1",
+      cubeKey: "test_cube",
+      cubeSnapshotId: "test_cube@1",
+      archetypes: [
+        {
+          id: "test:reanimator",
+          name: "Reanimator",
+          keyCards: [...reanimationIds, "outlet-key", "target-key"],
+          supportCards: ["outlet-support", "target-support", "velocity-support"],
+          targetPoints: 18,
+          requiredFamilies: [
+            {
+              id: "outlet",
+              name: "Mise au cimetière",
+              minimum: 1,
+              cardIds: ["outlet-key", "outlet-support"],
+            },
+            {
+              id: "reanimation",
+              name: "Effet de réanimation",
+              minimum: 1,
+              cardIds: reanimationIds,
+            },
+            {
+              id: "target",
+              name: "Cible",
+              minimum: 1,
+              cardIds: ["target-key", "target-support"],
+            },
+          ],
+        },
+      ],
+    } as const;
+
+    const assembled = evaluateDeck(
+      fillDeck([
+        ...reanimationIds.slice(0, 3),
+        "outlet-key",
+        "target-key",
+        "outlet-support",
+        "target-support",
+        "velocity-support",
+      ]),
+      { synergyProfile: profile },
+    );
+    const oneBrickPile = evaluateDeck(fillDeck(reanimationIds), { synergyProfile: profile });
+
+    expect(assembled.radar.synergy).toBe(100);
+    expect(assembled.audit.synergy.bestArchetype).toMatchObject({
+      id: "test:reanimator",
+      missingRequiredFamilyCount: 0,
+    });
+    expect(oneBrickPile.radar.synergy).toBe(25);
+    expect(oneBrickPile.audit.synergy.bestArchetype).toMatchObject({
+      id: "test:reanimator",
+      points: 18,
+      missingRequiredFamilyCount: 2,
     });
   });
 

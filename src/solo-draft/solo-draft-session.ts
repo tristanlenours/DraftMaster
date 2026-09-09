@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
-import { CubeMetaRegistry } from "../cubes/cube-meta.ts";
+import { ArchetypeSynergyProfileRegistry } from "../cubes/archetype-synergy-profile.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
 import {
@@ -164,9 +164,17 @@ export class SoloDraftSession {
     }
     const snapshot: CubeSnapshot = snapshotResult.value;
 
-    const cubeMetaResult = await CubeMetaRegistry.fromFile(`data/cubes/${cubeKey}/cube-meta.json`);
-    if (!cubeMetaResult.ok) {
-      throw new Error(`Failed to load cube meta: ${cubeMetaResult.error.message}`);
+    const synergyProfileResult = await ArchetypeSynergyProfileRegistry.fromFile(
+      `data/cubes/${cubeKey}/archetype-synergy-v1.json`,
+    );
+    if (!synergyProfileResult.ok) {
+      throw new Error(`Failed to load synergy profile: ${synergyProfileResult.error.message}`);
+    }
+    if (
+      synergyProfileResult.value.document.cubeKey !== snapshot.cubeKey ||
+      synergyProfileResult.value.document.cubeSnapshotId !== snapshot.snapshotId
+    ) {
+      throw new Error("Archetype synergy profile does not match the cube snapshot.");
     }
 
     const catalogResult = await CardCatalog.fromFile(catalogPath);
@@ -368,7 +376,7 @@ export class SoloDraftSession {
       catalog,
       currentDraft: startResult.value.draft,
       bombDefinition: bombClassification.definition,
-      synergyProfile: cubeMetaResult.value.meta,
+      synergyProfile: synergyProfileResult.value.evaluationProfile,
       bombOracleIds: bombClassification.oracleIds,
       instanceToInputMap,
       instanceToEnrichedMap,
