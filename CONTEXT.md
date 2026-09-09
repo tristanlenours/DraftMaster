@@ -1,11 +1,11 @@
 # DraftMaster & LMCDEU Domain
 
-Canonical vocabulary for DraftMaster and the LMCDEU (*Les Magiciens : Cube Digital Extended Universe*) product and drafting domain.
+Canonical vocabulary for DraftMaster and the LMCDEU (_Les Magiciens : Cube Digital Extended Universe_) product and drafting domain.
 
 ## Product Scope
 
 **LMCDEU**:
-*Les Magiciens : Cube Digital Extended Universe*. The official universe umbrella encompassing the community cubes (Titou Tribal, Nico's Candyshop, Hugues Pauper), the friend bots table, and the interactive Limited Grades matrix.
+_Les Magiciens : Cube Digital Extended Universe_. The official universe umbrella encompassing the community cubes (Titou Tribal, Nico's Candyshop, Hugues Pauper), the friend bots table, and the interactive Limited Grades matrix.
 
 **Solo Draft Coach**:
 The first product milestone: one player completes a 45-pick cube draft against bots, understands recommendations, builds a deck, and records scores and trophies.
@@ -42,6 +42,14 @@ _Avoid_: Draft score, match score, global score
 **Axes de deck**:
 The five dimensions of a Score de deck: Puissance, Synergie, Courbe, Mana, and Interaction.
 _Avoid_: Kiviat metrics, performance stats
+
+**Affinité d'archétype**:
+The cube-specific association between a card and a supported game plan. A card may have several affinities, but raw power alone never creates one.
+_Avoid_: Card archetype when referring to a universal property of the card
+
+**Rôle d'archétype**:
+The function a card serves inside one Affinité d'archétype. A Carte clé is a build-around, major payoff, or combo piece worth three Synergy points; a Carte support is an enabler, tribal body, bridge, or required resource worth one point.
+_Avoid_: Objective card role, tier, power role
 
 ## Draft Sessions
 
