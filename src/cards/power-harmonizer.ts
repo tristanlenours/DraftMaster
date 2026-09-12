@@ -1,7 +1,7 @@
 import type { PowerScoreMeta } from "./types.ts";
 
 export const MIN_POWER_SCORE = 1.0;
-export const MAX_POWER_SCORE = 53.0;
+export const MAX_POWER_SCORE = 55.0;
 
 export function clampScore(score: number): number {
   const clamped = Math.max(MIN_POWER_SCORE, Math.min(MAX_POWER_SCORE, score));
@@ -20,7 +20,7 @@ export function createUntappedScore(score: number, updatedAt?: string): PowerSco
 }
 
 /**
- * Harmonizes a 17Lands Game-In-Hand Win Rate (GIH WR, e.g. 0.56 or 56.0) into the DraftMaster 1-53 scale.
+ * Harmonizes a 17Lands Game-In-Hand Win Rate (GIH WR, e.g. 0.56 or 56.0) into the DraftMaster 1-55 scale.
  * The baseline 55% WR maps around 28.0 (Gold tier), with top bombs (>=65%) reaching Fire (>=46.0).
  */
 export function harmonize17LandsGihWr(gihWrInput: number, updatedAt?: string): PowerScoreMeta {

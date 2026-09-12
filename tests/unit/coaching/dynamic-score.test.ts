@@ -116,17 +116,17 @@ describe("Dynamic Scoring Engine", () => {
     expect(evaluated.dynamicScore).toBeGreaterThan(35);
   });
 
-  it("caps contextual bonuses at Black Lotus' maximum power score", () => {
-    const blackLotusCeilingFixer: CardEvaluationInput = {
+  it("caps contextual bonuses at the theoretical maximum power score", () => {
+    const theoreticalCeilingFixer: CardEvaluationInput = {
       ...floodfarmVerge,
-      id: "black-lotus-ceiling-fixer",
-      name: "Black Lotus Ceiling Fixer",
-      staticScore: 53,
+      id: "theoretical-ceiling-fixer",
+      name: "Theoretical Ceiling Fixer",
+      staticScore: 55,
     };
     const context: PackEvaluationContext = {
       packNumber: 2,
       pickNumber: 2,
-      offeredCards: [blackLotusCeilingFixer],
+      offeredCards: [theoreticalCeilingFixer],
       priorPool: [
         { id: "w1", name: "White 1", staticScore: 30, colors: ["W"], cmc: 2 },
         { id: "w2", name: "White 2", staticScore: 30, colors: ["W"], cmc: 2 },
@@ -137,9 +137,9 @@ describe("Dynamic Scoring Engine", () => {
       ],
     };
 
-    const evaluated = evaluateCard(blackLotusCeilingFixer, context);
+    const evaluated = evaluateCard(theoreticalCeilingFixer, context);
     expect(evaluated.breakdown.manaFixingBonus).toBeGreaterThan(0);
-    expect(evaluated.dynamicScore).toBe(53);
+    expect(evaluated.dynamicScore).toBe(55);
   });
 
   it("preserves full value for colorless cards", () => {
@@ -281,5 +281,127 @@ describe("Dynamic Scoring Engine", () => {
     const avgMs = duration / iterations;
 
     expect(avgMs).toBeLessThan(1.0);
+  });
+
+  it("correctly parses Scryfall standard braces syntax in parseManaCostPips", async () => {
+    const { parseManaCostPips } = await import("../../../src/domain/coaching/dynamic-score.ts");
+
+    expect(
+      parseManaCostPips({
+        id: "1",
+        name: "Brutal Cathar",
+        staticScore: 28,
+        colors: ["W"],
+        manaCost: "{2}{W}",
+      }),
+    ).toEqual([["W"]]);
+    expect(
+      parseManaCostPips({
+        id: "2",
+        name: "Finale of Devastation",
+        staticScore: 22,
+        colors: ["G"],
+        manaCost: "{X}{G}{G}",
+      }),
+    ).toEqual([["G"], ["G"]]);
+    expect(
+      parseManaCostPips({
+        id: "3",
+        name: "Teferi",
+        staticScore: 40,
+        colors: ["W", "U"],
+        manaCost: "{1}{W}{U}",
+      }),
+    ).toEqual([["W"], ["U"]]);
+    expect(
+      parseManaCostPips({
+        id: "4",
+        name: "Hybrid",
+        staticScore: 30,
+        colors: ["W", "U"],
+        manaCost: "{W/U}{1}",
+      }),
+    ).toEqual([["W", "U"]]);
+    expect(
+      parseManaCostPips({
+        id: "5",
+        name: "Sol Ring",
+        staticScore: 50,
+        colors: [],
+        manaCost: "{1}",
+      }),
+    ).toEqual([]);
+  });
+
+  it("penalizes off-color cards with Scryfall costs in calculateColorOverlap", async () => {
+    const { calculateColorOverlap } = await import("../../../src/domain/coaching/dynamic-score.ts");
+
+    const bluePoolDominant = ["U"] as const;
+    const brutalCathar: CardEvaluationInput = {
+      id: "bc",
+      name: "Brutal Cathar",
+      staticScore: 30,
+      colors: ["W"],
+      manaCost: "{2}{W}",
+    };
+    const finale: CardEvaluationInput = {
+      id: "fin",
+      name: "Finale of Devastation",
+      staticScore: 30,
+      colors: ["G"],
+      manaCost: "{X}{G}{G}",
+    };
+    const spellseeker: CardEvaluationInput = {
+      id: "ss",
+      name: "Spellseeker",
+      staticScore: 30,
+      colors: ["U"],
+      manaCost: "{2}{U}",
+    };
+
+    expect(calculateColorOverlap(brutalCathar, bluePoolDominant, 1)).toBe(0);
+    expect(calculateColorOverlap(finale, bluePoolDominant, 1)).toBe(0);
+    expect(calculateColorOverlap(spellseeker, bluePoolDominant, 1)).toBe(1);
+  });
+
+  it("ensures coaching explanation never describes off-color or colorless cards as in player colors", () => {
+    const brutalCathar: CardEvaluationInput = {
+      id: "bc",
+      name: "Brutal Cathar",
+      staticScore: 35,
+      colors: ["W"],
+      manaCost: "{2}{W}",
+    };
+    const finale: CardEvaluationInput = {
+      id: "fin",
+      name: "Finale of Devastation",
+      staticScore: 32,
+      colors: ["G"],
+      manaCost: "{X}{G}{G}",
+    };
+    const spellseeker: CardEvaluationInput = {
+      id: "ss",
+      name: "Spellseeker",
+      staticScore: 30,
+      colors: ["U"],
+      manaCost: "{2}{U}",
+    };
+
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [brutalCathar, finale, spellseeker],
+      priorPool: [{ id: "p1", name: "Brainstorm", staticScore: 35, colors: ["U"], cmc: 1 }],
+    };
+
+    const results = evaluatePack(context);
+    for (const card of results) {
+      if (card.id === "bc" || card.id === "fin") {
+        expect(card.explanation).not.toContain("dans vos couleurs (U)");
+      }
+      if (card.id === "ss") {
+        expect(card.explanation).toContain("dans vos couleurs (U)");
+      }
+    }
   });
 });

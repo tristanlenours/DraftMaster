@@ -2,6 +2,12 @@
 
 import { formatDuration, getScoreGrade } from "./leaderboard.js";
 import { loadImageWithFallback, isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
+import {
+  getCardDisplayName,
+  getCardImageFallbackUrl,
+  getCardImageUrl,
+  readCardLanguage,
+} from "./card-language.js";
 
 // Local cache for French card translations & images
 const localFrenchCache = new Map();
@@ -33,33 +39,18 @@ function saveFrenchCache(key, data) {
   }
 }
 
-function getSoloCardImage(card, isLarge = false) {
-  if (!card) return "/data/cards/images/default.jpg";
-  if (card.localFrenchImagePath) {
-    return "/" + card.localFrenchImagePath;
-  }
-  if (card.image?.localFrenchPath) {
-    return "/" + card.image.localFrenchPath;
-  }
-  if (!card.frenchImageUrl && localFrenchCache.has(card.name)) {
+function getSoloCardImage(card, language, isLarge = false) {
+  if (language === "FR" && !card?.frenchImageUrl && localFrenchCache.has(card?.name)) {
     const cached = localFrenchCache.get(card.name);
     if (cached.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
     if (cached.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
   }
-  if (isLarge && card.frenchLargeImageUrl) return card.frenchLargeImageUrl;
-  if (card.frenchImageUrl) return card.frenchImageUrl;
-  if (card.localImagePath) return "/" + card.localImagePath;
-  if (card.image?.localPath) return "/" + card.image.localPath;
-  return card.imageUrl || "/data/cards/images/default.jpg";
+  return getCardImageUrl(card, language, isLarge);
 }
 
-function getSoloCardFallbackImage(card) {
-  return (
-    card?.frenchImageUrl ||
-    card?.imageUrl ||
-    `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(card?.name || "")}&format=image`
-  );
+function getSoloCardFallbackImage(card, language) {
+  return getCardImageFallbackUrl(card, language);
 }
 
 async function fetchFrenchCard(card, onUpdate) {
@@ -161,8 +152,53 @@ export class SoloDraftController {
     // Magicien Identity & Last Result
     this.magicienSlug = "titou";
     this.lastResult = null;
+    this.isCoachAdviceEnabled = false;
+    this.adviceRequestId = 0;
+    this.adviceAbortController = null;
+    this.isConfirmingPick = false;
 
     this.bindEvents();
+  }
+
+  get cardLanguage() {
+    return this.callbacks.getCardLanguage?.() || readCardLanguage();
+  }
+
+  setCardLanguage() {
+    this.hideCardHoverPreview();
+    if (this.status === "deckbuilding") {
+      this.renderDeckbuilder();
+    } else if (this.status !== "lobby" && this.status !== "completed" && this.currentBooster.length > 0) {
+      this.refreshRenderedCardLanguage();
+    }
+
+    if (this.cardLanguage === "FR") {
+      for (const card of [...this.currentBooster, ...this.playerPool]) {
+        if (!card.frenchImageUrl) {
+          fetchFrenchCard(card, () => this.refreshRenderedCardLanguage());
+        }
+      }
+    }
+  }
+
+  refreshRenderedCardLanguage() {
+    const language = this.cardLanguage;
+    const cards = [...this.currentBooster, ...this.playerPool];
+    for (const element of document.querySelectorAll("[data-instance-id]")) {
+      const card = cards.find((candidate) => candidate.instanceId === element.dataset.instanceId);
+      if (!card) continue;
+      const name = getCardDisplayName(card, language);
+      element.setAttribute("title", name);
+      const image = element.querySelector("img");
+      if (image) {
+        image.alt = name;
+        loadImageWithFallback(
+          image,
+          getSoloCardImage(card, language),
+          getSoloCardFallbackImage(card, language),
+        );
+      }
+    }
   }
 
   bindEvents() {
@@ -221,6 +257,17 @@ export class SoloDraftController {
       this.renderDeckbuilder();
     });
 
+    // 11. AI Coach Advice button
+    this.dom.coachAdviceBtn?.addEventListener("click", () => this.handleRequestAdvice());
+    this.dom.coachAdviceCloseBtn?.addEventListener("click", () => this.handleCloseCoachAdvice());
+
+    // 12. AI Deck Recommendation button
+    this.dom.deckAiRecommendBtn?.addEventListener("click", () => this.handleRequestDeckRecommendation());
+
+    // 13. Abandon / Quit Draft buttons
+    this.dom.abandonBtn?.addEventListener("click", () => this.handleAbandonDraft());
+    this.dom.deckAbandonBtn?.addEventListener("click", () => this.handleAbandonDraft());
+
     document.getElementById("card-hover-close-btn")?.addEventListener("click", (event) => {
       event.stopPropagation();
       this.hideCardHoverPreview();
@@ -228,10 +275,53 @@ export class SoloDraftController {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") this.hideCardHoverPreview();
     });
+
+    this.checkActiveSession();
   }
 
-  startTimer() {
-    this.startTimestamp = Date.now();
+  async checkActiveSession() {
+    try {
+      const storedId = localStorage.getItem("draftmaster_active_session_id");
+      if (!storedId) return;
+
+      const res = await fetch(`/api/draft/session?sessionId=${encodeURIComponent(storedId)}`);
+      if (!res.ok) {
+        localStorage.removeItem("draftmaster_active_session_id");
+        return;
+      }
+
+      const data = await res.json();
+      if (!data.ok || !data.session) {
+        localStorage.removeItem("draftmaster_active_session_id");
+        return;
+      }
+
+      const s = data.session;
+      this.sessionId = s.sessionId;
+      this.seed = s.seed;
+      this.status = s.status;
+      this.playerName = s.playerName;
+      this.magicienSlug = s.magicienSlug || "titou";
+      this.currentBooster = s.currentBooster || [];
+      this.playerPool = s.playerPool || [];
+
+      if (s.status === "deckbuilding" || s.roundIndex >= 45) {
+        this.draftDuration = s.elapsedSeconds;
+        this.setupDeckbuilder(s.playerPool, s.deckRecommendation);
+        this.showStage("deck");
+      } else if (s.status === "drafting") {
+        const resumeTime = Date.now() - (s.elapsedSeconds || 0) * 1000;
+        this.startTimer(resumeTime);
+        this.renderArena(s);
+        this.showStage("arena");
+      }
+    } catch {
+      // Graceful fallback if background check fails
+    }
+  }
+
+  startTimer(resumeTimestamp) {
+    this.startTimestamp = resumeTimestamp || Date.now();
     this.stopTimer();
     this.timerInterval = setInterval(() => {
       const elapsed = Math.round((Date.now() - this.startTimestamp) / 1000);
@@ -254,11 +344,50 @@ export class SoloDraftController {
     this.sessionId = null;
     this.selectedCardToPick = null;
     this.maindeckSpellIds.clear();
+    this.isCoachAdviceEnabled = false;
+    this.hideCoachAdvice();
+    try {
+      localStorage.removeItem("draftmaster_active_session_id");
+    } catch {}
+
+    if (this.dom.deckAiBanner) {
+      this.dom.deckAiBanner.hidden = true;
+    }
+
+    if (this.dom.arenaHomologatedBadge) {
+      this.dom.arenaHomologatedBadge.textContent = "🛡️ Homologué";
+      this.dom.arenaHomologatedBadge.className = "hud-pill pill-homologated";
+    }
 
     const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
     if (publishToggle) publishToggle.checked = false;
 
     this.showStage("lobby");
+  }
+
+  async handleAbandonDraft() {
+    const confirmed = window.confirm(
+      "Voulez-vous vraiment quitter ce draft ? Votre progression sera annulée et réinitialisée."
+    );
+    if (!confirmed) return;
+    await this.abandonDraft();
+  }
+
+  async abandonDraft() {
+    const sessionId = this.sessionId;
+    this.resetToLobby();
+
+    if (sessionId) {
+      try {
+        await fetch("/api/draft/abandon", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId }),
+        });
+      } catch (err) {
+        console.warn("Erreur abandon draft:", err?.message || err);
+      }
+    }
   }
 
   showStage(stageName) {
@@ -309,6 +438,9 @@ export class SoloDraftController {
       this.status = s.status;
       this.currentBooster = s.currentBooster;
       this.playerPool = s.playerPool;
+      try {
+        localStorage.setItem("draftmaster_active_session_id", this.sessionId);
+      } catch {}
 
       this.startTimer();
       this.renderArena(s);
@@ -322,6 +454,15 @@ export class SoloDraftController {
   }
 
   renderArena(session) {
+    if (this.adviceAbortController) {
+      this.adviceAbortController.abort();
+      this.adviceAbortController = null;
+    }
+    this.packNumber = session.packNumber;
+    this.pickNumber = session.pickNumber;
+    this.currentBooster = session.currentBooster || [];
+    this.playerPool = session.playerPool || [];
+
     // 1. Header HUD
     if (this.dom.hudPackNumber) this.dom.hudPackNumber.textContent = `Pack ${String(session.packNumber)} / 3`;
     if (this.dom.hudPickNumber) this.dom.hudPickNumber.textContent = `Pick ${String(session.pickNumber)} / 15`;
@@ -337,8 +478,18 @@ export class SoloDraftController {
     const progressPct = Math.round((session.roundIndex / 45) * 100);
     if (this.dom.hudProgressBar) this.dom.hudProgressBar.style.width = `${String(progressPct)}%`;
 
-    // Prefetch French cards & images for all cards in the booster in background
-    for (const card of session.currentBooster) {
+    if (this.dom.coachAdviceBtn) {
+      if (session.packNumber >= 2 && session.pickNumber === 1) {
+        this.dom.coachAdviceBtn.innerHTML = `<span>📊 Bilan Pack ${session.packNumber} & Conseil IA ✨</span>`;
+        this.dom.coachAdviceBtn.classList.add("btn-coach-review-highlight");
+      } else {
+        this.dom.coachAdviceBtn.innerHTML = "<span>💡 Conseil IA</span>";
+        this.dom.coachAdviceBtn.classList.remove("btn-coach-review-highlight");
+      }
+    }
+
+    // French assets are fetched only when the global preference asks for them.
+    for (const card of this.cardLanguage === "FR" ? session.currentBooster : []) {
       if (localFrenchCache.has(card.name)) {
         const cached = localFrenchCache.get(card.name);
         if (cached.frenchName) card.frenchName = cached.frenchName;
@@ -352,11 +503,14 @@ export class SoloDraftController {
           );
           if (itemEl) {
             const img = itemEl.querySelector(".booster-card-img");
-            if (img && updatedCard.frenchImageUrl) {
+            if (this.cardLanguage === "FR" && img && updatedCard.frenchImageUrl) {
               img.src = updatedCard.frenchImageUrl;
             }
           }
-          if (this.activeHoveredCard?.instanceId === updatedCard.instanceId) {
+          if (
+            this.cardLanguage === "FR" &&
+            this.activeHoveredCard?.instanceId === updatedCard.instanceId
+          ) {
             const popoverImg = document.getElementById("popover-img");
             if (popoverImg && updatedCard.frenchLargeImageUrl) {
               popoverImg.src = updatedCard.frenchLargeImageUrl;
@@ -368,6 +522,19 @@ export class SoloDraftController {
 
     // 2. Booster Cards Grid (No power level, no bomb ribbons — pure unassisted draft)
     this.selectedCardToPick = null;
+    if (!this.isCoachAdviceEnabled) {
+      this.hideCoachAdvice();
+    }
+    if (this.dom.arenaHomologatedBadge) {
+      if (session.isHomologated === false) {
+        this.dom.arenaHomologatedBadge.textContent = "🎓 Entraînement (Conseil IA)";
+        this.dom.arenaHomologatedBadge.className = "hud-pill pill-training";
+      } else {
+        this.dom.arenaHomologatedBadge.textContent = "🛡️ Homologué";
+        this.dom.arenaHomologatedBadge.className = "hud-pill pill-homologated";
+      }
+    }
+
     if (this.dom.confirmPickBtn) {
       this.dom.confirmPickBtn.disabled = true;
       this.dom.confirmPickBtn.innerHTML = "<span>Sélectionnez une carte</span>";
@@ -376,7 +543,7 @@ export class SoloDraftController {
     if (!this.dom.boosterGrid) return;
     this.dom.boosterGrid.innerHTML = session.currentBooster
       .map((card) => {
-        const displayName = card.frenchName || card.name;
+        const displayName = getCardDisplayName(card, this.cardLanguage);
 
         return `
           <div class="booster-card-item" data-instance-id="${card.instanceId}" role="button" tabindex="0">
@@ -401,7 +568,11 @@ export class SoloDraftController {
 
       const image = el.querySelector(".booster-card-img");
       if (card && image) {
-        loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+        loadImageWithFallback(
+          image,
+          getSoloCardImage(card, this.cardLanguage),
+          getSoloCardFallbackImage(card, this.cardLanguage),
+        );
       }
 
       el.addEventListener("click", () => {
@@ -409,6 +580,7 @@ export class SoloDraftController {
         this.selectCardForPick(id);
       });
       el.addEventListener("dblclick", () => {
+        if (this.isConfirmingPick) return;
         this.selectCardForPick(id);
         this.handleConfirmPick();
       });
@@ -425,9 +597,207 @@ export class SoloDraftController {
 
     // 3. Pool Drawer
     this.renderPoolDrawer(session.playerPool);
+
+    // 4. Auto-trigger Coach Advice if user has activated it and not closed it
+    if (this.isCoachAdviceEnabled) {
+      if (this.dom.coachAdviceBox) {
+        this.dom.coachAdviceBox.hidden = false;
+        if (this.dom.coachAdviceContent) {
+          this.dom.coachAdviceContent.innerHTML = `
+            <div class="coach-advice-loading" style="padding: 1.25rem; color: #94a3b8; text-align: center; font-style: italic;">
+              🧠 Analyse du nouveau booster par le coach IA en cours...
+            </div>
+          `;
+        }
+      }
+      this.handleRequestAdvice();
+    }
+  }
+
+  async handleRequestAdvice() {
+    if (!this.sessionId || this.status !== "drafting") return;
+
+    this.isCoachAdviceEnabled = true;
+
+    const btn = this.dom.coachAdviceBtn;
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = "<span>Analyse en cours... 🧠</span>";
+    }
+
+    if (this.adviceAbortController) {
+      this.adviceAbortController.abort();
+    }
+    this.adviceAbortController = new AbortController();
+    const signal = this.adviceAbortController.signal;
+    const currentReqId = ++this.adviceRequestId;
+    const currentPack = this.packNumber;
+    const currentPick = this.pickNumber;
+
+    try {
+      const res = await fetch("/api/draft/advice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: this.sessionId }),
+        signal,
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "Impossible d'obtenir le conseil de l'IA.");
+
+      if (currentReqId !== this.adviceRequestId) return;
+      if (!this.isCoachAdviceEnabled || this.status !== "drafting") return;
+      if (this.packNumber !== currentPack || this.pickNumber !== currentPick) return;
+
+      if (this.dom.arenaHomologatedBadge) {
+        this.dom.arenaHomologatedBadge.textContent = "🎓 Entraînement (Conseil IA)";
+        this.dom.arenaHomologatedBadge.className = "hud-pill pill-training";
+      }
+
+      this.displayCoachAdvice(data.advice);
+    } catch (err) {
+      if (err?.name === "AbortError") {
+        return;
+      }
+      if (this.isCoachAdviceEnabled) {
+        console.warn("Erreur conseil IA:", err?.message || err);
+      }
+    } finally {
+      if (currentReqId === this.adviceRequestId && btn) {
+        btn.disabled = false;
+        if (this.packNumber >= 2 && this.pickNumber === 1) {
+          btn.innerHTML = `<span>📊 Bilan Pack ${this.packNumber} & Conseil IA ✨</span>`;
+        } else {
+          btn.innerHTML = "<span>💡 Conseil IA</span>";
+        }
+      }
+    }
+  }
+
+  displayCoachAdvice(advice) {
+    if (!this.dom.coachAdviceBox || !this.dom.coachAdviceContent) return;
+    if (!advice || !this.currentBooster || this.currentBooster.length === 0) return;
+
+    const topId = advice.topPickId;
+    const topName = (advice.topPickName || "").trim().toLowerCase();
+    const boosterHasTopPick = this.currentBooster.some(
+      (c) => c.instanceId === topId || (c.name && c.name.trim().toLowerCase() === topName),
+    );
+
+    if (!boosterHasTopPick) {
+      console.warn("Conseil IA ignoré : la carte recommandée n'est pas dans le booster actuel.", advice.topPickName);
+      return;
+    }
+
+    const altIds = new Set((advice.alternatives || []).map((a) => a.id));
+
+    this.dom.boosterGrid?.querySelectorAll(".booster-card-item").forEach((el) => {
+      const id = el.dataset.instanceId;
+      el.classList.remove("ai-top-pick", "ai-alt-pick");
+      if (id === topId) {
+        el.classList.add("ai-top-pick");
+      } else if (altIds.has(id)) {
+        el.classList.add("ai-alt-pick");
+      }
+    });
+
+    const altsHtml = (advice.alternatives || [])
+      .map(
+        (alt) => `
+        <div class="coach-alt-item">
+          <span class="coach-alt-name">🔄 ${escapeHtml(alt.name)}</span>
+          <span class="coach-alt-reason">— ${escapeHtml(alt.reason)}</span>
+        </div>
+      `
+      )
+      .join("");
+
+    let packReviewHtml = "";
+    if (advice.packReview) {
+      const pr = advice.packReview;
+      const prioritiesList = (pr.priorities || [])
+        .map((p) => `<li class="coach-review-p-item">${escapeHtml(p)}</li>`)
+        .join("");
+
+      packReviewHtml = `
+        <div class="coach-pack-review">
+          <div class="coach-review-header">
+            <span class="coach-review-badge">📊 Bilan Début de Tour (Pack ${pr.packNumber})</span>
+            <span class="coach-review-archetype">${escapeHtml(pr.archetypeLabel)}</span>
+          </div>
+          <div class="coach-review-summary">${escapeHtml(pr.poolSummary)}</div>
+
+          <div class="coach-review-grid">
+            <div class="coach-review-card">
+              <div class="coach-review-card-title">📉 Courbe de Mana</div>
+              <div class="coach-review-card-text">${escapeHtml(pr.curveAnalysis)}</div>
+              <div class="coach-curve-pills">
+                <span class="curve-pill">1: <strong>${pr.curveStats.oneDrops}</strong></span>
+                <span class="curve-pill">2: <strong>${pr.curveStats.twoDrops}</strong></span>
+                <span class="curve-pill">3: <strong>${pr.curveStats.threeDrops}</strong></span>
+                <span class="curve-pill">4+: <strong>${pr.curveStats.fourPlusDrops}</strong></span>
+                <span class="curve-pill">CMC: <strong>${pr.curveStats.avgCmc}</strong></span>
+              </div>
+            </div>
+
+            <div class="coach-review-card">
+              <div class="coach-review-card-title">⚡ Fixeurs & Terrains</div>
+              <div class="coach-review-card-text">${escapeHtml(pr.fixingAnalysis)}</div>
+              <div class="coach-fixing-pill ${pr.fixingStats?.isProportionGood ? "fixing-good" : "fixing-warning"}">
+                ${pr.fixingStats?.isProportionGood ? "✅ Manabase saine" : "⚠️ Manabase à surveiller"} (${pr.fixingStats?.fixersCount || 0} fixeur(s) — Cible : ${escapeHtml(pr.fixingStats?.targetRecommendation || "")})
+              </div>
+            </div>
+          </div>
+
+          <div class="coach-review-priorities">
+            <div class="coach-review-subtitle">🎯 Ce qu'il faut prioriser dans ce pack :</div>
+            <ul class="coach-review-priorities-list">
+              ${prioritiesList}
+            </ul>
+          </div>
+
+          <div class="coach-review-signals">
+            <span class="coach-review-signals-icon">💡</span>
+            <em>${escapeHtml(pr.signalTip)}</em>
+          </div>
+        </div>
+      `;
+    }
+
+    this.dom.coachAdviceContent.innerHTML = `
+      ${packReviewHtml}
+      <div class="coach-advice-top-pick">
+        <div class="coach-top-pick-title">⭐ Recommandation Prioritaire : <strong>${escapeHtml(advice.topPickName)}</strong></div>
+        <div class="coach-top-pick-reason">${escapeHtml(advice.reason)}</div>
+      </div>
+      ${
+        advice.alternatives && advice.alternatives.length > 0
+          ? `<div class="coach-advice-alts">
+               <div style="font-weight: 700; color: #94a3b8; margin-bottom: 2px;">Alternatives viables :</div>
+               ${altsHtml}
+             </div>`
+          : ""
+      }
+    `;
+
+    this.dom.coachAdviceBox.hidden = false;
+  }
+
+  handleCloseCoachAdvice() {
+    this.isCoachAdviceEnabled = false;
+    this.hideCoachAdvice();
+  }
+
+  hideCoachAdvice() {
+    if (this.dom.coachAdviceBox) {
+      this.dom.coachAdviceBox.hidden = true;
+    }
+    this.dom.boosterGrid?.querySelectorAll(".booster-card-item").forEach((el) => {
+      el.classList.remove("ai-top-pick", "ai-alt-pick");
+    });
   }
 
   selectCardForPick(instanceId) {
+    if (this.isConfirmingPick) return;
     this.selectedCardToPick = instanceId;
     this.dom.boosterGrid.querySelectorAll(".booster-card-item").forEach((el) => {
       el.classList.toggle("selected-pick", el.dataset.instanceId === instanceId);
@@ -435,16 +805,25 @@ export class SoloDraftController {
 
     const chosen = this.currentBooster.find((c) => c.instanceId === instanceId);
     if (this.dom.confirmPickBtn && chosen) {
-      const chosenName = chosen.frenchName || chosen.name;
+      const chosenName = getCardDisplayName(chosen, this.cardLanguage);
       this.dom.confirmPickBtn.disabled = false;
       this.dom.confirmPickBtn.innerHTML = `<span>Choisir <strong>${escapeHtml(chosenName)}</strong> ✨</span>`;
     }
   }
 
   async handleConfirmPick() {
-    if (!this.selectedCardToPick) return;
+    if (this.isConfirmingPick || !this.selectedCardToPick) return;
+    this.isConfirmingPick = true;
+
+    if (this.adviceAbortController) {
+      this.adviceAbortController.abort();
+      this.adviceAbortController = null;
+    }
 
     this.hideCardHoverPreview();
+    if (!this.isCoachAdviceEnabled) {
+      this.hideCoachAdvice();
+    }
     const cardId = this.selectedCardToPick;
     this.dom.confirmPickBtn.disabled = true;
     this.dom.confirmPickBtn.textContent = "Traitement des 7 bots...";
@@ -469,14 +848,48 @@ export class SoloDraftController {
 
       if (s.status === "deckbuilding" || s.roundIndex >= 45) {
         this.draftDuration = s.elapsedSeconds;
-        this.setupDeckbuilder(s.playerPool);
+        this.isCoachAdviceEnabled = false;
+        this.hideCoachAdvice();
+        this.setupDeckbuilder(s.playerPool, s.deckRecommendation);
         this.showStage("deck");
       } else {
         this.renderArena(s);
       }
     } catch (err) {
+      console.error("Erreur lors du pick:", err);
       alert(`Erreur : ${err.message}`);
-      this.dom.confirmPickBtn.disabled = false;
+      if (this.dom.confirmPickBtn) {
+        this.dom.confirmPickBtn.disabled = false;
+        this.dom.confirmPickBtn.innerHTML = "<span>Sélectionnez une carte</span>";
+      }
+      await this.resyncSession();
+    } finally {
+      this.isConfirmingPick = false;
+    }
+  }
+
+  async resyncSession() {
+    if (!this.sessionId) return;
+    try {
+      const res = await fetch(`/api/draft/session?sessionId=${encodeURIComponent(this.sessionId)}`);
+      const data = await res.json();
+      if (data.ok && data.session) {
+        const s = data.session;
+        this.currentBooster = s.currentBooster;
+        this.playerPool = s.playerPool;
+        this.status = s.status;
+        if (s.status === "deckbuilding" || s.roundIndex >= 45) {
+          this.draftDuration = s.elapsedSeconds;
+          this.isCoachAdviceEnabled = false;
+          this.hideCoachAdvice();
+          this.setupDeckbuilder(s.playerPool, s.deckRecommendation);
+          this.showStage("deck");
+        } else {
+          this.renderArena(s);
+        }
+      }
+    } catch (e) {
+      console.warn("Échec resynchronisation session:", e);
     }
   }
 
@@ -492,7 +905,7 @@ export class SoloDraftController {
           if (cached.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
           if (cached.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
         }
-        const displayName = card.frenchName || card.name;
+        const displayName = getCardDisplayName(card, this.cardLanguage);
         return `
           <div class="pool-mini-card" data-instance-id="${card.instanceId}" role="button" tabindex="0" title="${escapeHtml(displayName)}">
             <img alt="${escapeHtml(displayName)}" loading="lazy" />
@@ -507,7 +920,11 @@ export class SoloDraftController {
       if (card) {
         const image = el.querySelector("img");
         if (image) {
-          loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+          loadImageWithFallback(
+            image,
+            getSoloCardImage(card, this.cardLanguage),
+            getSoloCardFallbackImage(card, this.cardLanguage),
+          );
         }
         el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
         el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
@@ -522,10 +939,10 @@ export class SoloDraftController {
     if (!popover || !popoverImg || !card) return;
     this.activeHoveredCard = card;
 
-    const targetSrc = getSoloCardImage(card, true);
-    const fallbackSrc = getSoloCardFallbackImage(card);
+    const targetSrc = getSoloCardImage(card, this.cardLanguage, true);
+    const fallbackSrc = getSoloCardFallbackImage(card, this.cardLanguage);
 
-    popoverImg.alt = card.frenchName || card.name;
+    popoverImg.alt = getCardDisplayName(card, this.cardLanguage);
     popoverImg.onerror = () => {
       if (fallbackSrc && popoverImg.src !== fallbackSrc) {
         popoverImg.src = fallbackSrc;
@@ -538,9 +955,9 @@ export class SoloDraftController {
     popover.setAttribute("aria-hidden", "false");
     this.positionCardHoverPreview(e);
 
-    if (!card.frenchImageUrl) {
+    if (this.cardLanguage === "FR" && !card.frenchImageUrl) {
       fetchFrenchCard(card, (updated) => {
-        if (this.activeHoveredCard?.instanceId === updated.instanceId) {
+        if (this.cardLanguage === "FR" && this.activeHoveredCard?.instanceId === updated.instanceId) {
           const newSrc = updated.frenchLargeImageUrl || updated.frenchImageUrl;
           if (newSrc) {
             popoverImg.src = newSrc;
@@ -594,15 +1011,77 @@ export class SoloDraftController {
     el.setAttribute("aria-hidden", "true");
   }
 
-  setupDeckbuilder(pool) {
-    // Default 23 spells: take top 23 non-land cards by static score
-    const nonLands = pool.filter((c) => !c.isLand);
-    const sortedNonLands = [...nonLands].sort((a, b) => b.staticScore - a.staticScore);
-    const initialMaindeck = sortedNonLands.slice(0, 23);
+  setupDeckbuilder(pool, recommendation) {
+    if (
+      recommendation &&
+      Array.isArray(recommendation.maindeckCardInstanceIds) &&
+      recommendation.maindeckCardInstanceIds.length > 0
+    ) {
+      this.applyDeckRecommendation(recommendation);
+      return;
+    }
 
-    this.maindeckSpellIds = new Set(initialMaindeck.map((c) => c.instanceId));
-    this.autoCalculateLands();
+    // Attempt fetching recommendation asynchronously if not provided
+    this.handleRequestDeckRecommendation(true).catch(() => {
+      // Fallback: top 23 non-land cards by static score
+      const nonLands = pool.filter((c) => !c.isLand);
+      const sortedNonLands = [...nonLands].sort((a, b) => b.staticScore - a.staticScore);
+      const initialMaindeck = sortedNonLands.slice(0, 23);
+
+      this.maindeckSpellIds = new Set(initialMaindeck.map((c) => c.instanceId));
+      this.autoCalculateLands();
+      this.renderDeckbuilder();
+    });
+  }
+
+  applyDeckRecommendation(recommendation) {
+    this.maindeckSpellIds = new Set(recommendation.maindeckCardInstanceIds);
+    if (recommendation.basicLands) {
+      this.basicLands = { ...recommendation.basicLands };
+    } else {
+      this.autoCalculateLands();
+    }
+
+    if (this.dom.deckAiBanner && this.dom.deckAiBannerText) {
+      const arch = recommendation.archetype?.label || "Synergique";
+      const tier = recommendation.overallTier ? ` • TIER ${recommendation.overallTier}` : "";
+      this.dom.deckAiBannerText.textContent = `✨ Pré-construction IA appliquée : Archétype ${arch}${tier}`;
+      this.dom.deckAiBanner.hidden = false;
+    }
+
+    this.updateLandsDisplay();
     this.renderDeckbuilder();
+  }
+
+  async handleRequestDeckRecommendation(silent = false) {
+    if (!this.sessionId) return;
+    const btn = this.dom.deckAiRecommendBtn;
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = "<span>Analyse en cours... 🧠</span>";
+    }
+
+    try {
+      const res = await fetch("/api/draft/recommend-deck", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: this.sessionId }),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "Impossible d'obtenir la pré-construction IA.");
+
+      this.applyDeckRecommendation(data.recommendation);
+    } catch (err) {
+      if (!silent) {
+        alert(`Erreur IA : ${err.message}`);
+      }
+      throw err;
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = "<span>🧙 Pré-construire avec l'IA</span>";
+      }
+    }
   }
 
   autoCalculateLands() {
@@ -715,7 +1194,11 @@ export class SoloDraftController {
         if (card) {
           const image = el.querySelector(".deck-card-img");
           if (image) {
-            loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+            loadImageWithFallback(
+              image,
+              getSoloCardImage(card, this.cardLanguage),
+              getSoloCardFallbackImage(card, this.cardLanguage),
+            );
           }
           el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
           el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
@@ -742,7 +1225,11 @@ export class SoloDraftController {
         if (card) {
           const image = el.querySelector(".deck-card-img");
           if (image) {
-            loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+            loadImageWithFallback(
+              image,
+              getSoloCardImage(card, this.cardLanguage),
+              getSoloCardFallbackImage(card, this.cardLanguage),
+            );
           }
           el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
           el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
@@ -763,7 +1250,7 @@ export class SoloDraftController {
   createDeckCardItem(card, actionType, tooltip) {
     const actionIcon = actionType === "remove" ? "➖" : "➕";
     const badgeClass = actionType === "remove" ? "btn-remove-card" : "btn-add-card";
-    const displayName = card.frenchName || card.name;
+    const displayName = getCardDisplayName(card, this.cardLanguage);
 
     return `
       <div class="deck-card-item" data-instance-id="${card.instanceId}" title="${tooltip}">
@@ -809,6 +1296,10 @@ export class SoloDraftController {
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Échec de l'évaluation du deck.");
 
+      try {
+        localStorage.removeItem("draftmaster_active_session_id");
+      } catch {}
+
       this.renderResult(data.result);
       this.showStage("result");
     } catch (err) {
@@ -826,12 +1317,15 @@ export class SoloDraftController {
       this.dom.resultHighScoreBanner.hidden = !result.isNewHighScore;
     }
 
-    // Overall Score & Grade
+    // Overall Tier (Tiers only)
     const { grade, css } = getScoreGrade(d.overallScore);
-    if (this.dom.resultScoreVal) this.dom.resultScoreVal.textContent = String(d.overallScore);
+    const overallTier = d.overallTier || grade;
     if (this.dom.resultScoreGrade) {
-      this.dom.resultScoreGrade.textContent = `TIER ${grade}`;
+      this.dom.resultScoreGrade.textContent = `TIER ${overallTier}`;
       this.dom.resultScoreGrade.className = `result-grade-badge ${css}`;
+    }
+    if (this.dom.resultScoreVal) {
+      this.dom.resultScoreVal.textContent = `TIER ${overallTier}`;
     }
 
     // Archetype
@@ -842,20 +1336,31 @@ export class SoloDraftController {
       this.dom.resultArchetypeDesc.textContent = d.archetype?.description || "";
     }
 
-    // Radar 5 Axes
+    // Radar 5 Axes - Tiers only
+    const radarTiers = d.radarTiers || {
+      power: getScoreGrade(d.radar.power).grade,
+      synergy: getScoreGrade(d.radar.synergy).grade,
+      curve: getScoreGrade(d.radar.curve).grade,
+      mana: getScoreGrade(d.radar.mana).grade,
+      interaction: getScoreGrade(d.radar.interaction).grade,
+    };
+
     const axes = [
-      { id: "power", label: "Puissance", val: d.radar.power },
-      { id: "synergy", label: "Synergie", val: d.radar.synergy },
-      { id: "curve", label: "Courbe", val: d.radar.curve },
-      { id: "mana", label: "Mana", val: d.radar.mana },
-      { id: "interaction", label: "Interaction", val: d.radar.interaction },
+      { id: "power", label: "Puissance", val: d.radar.power, tier: radarTiers.power },
+      { id: "synergy", label: "Synergie", val: d.radar.synergy, tier: radarTiers.synergy },
+      { id: "curve", label: "Courbe", val: d.radar.curve, tier: radarTiers.curve },
+      { id: "mana", label: "Mana", val: d.radar.mana, tier: radarTiers.mana },
+      { id: "interaction", label: "Interaction", val: d.radar.interaction, tier: radarTiers.interaction },
     ];
 
     axes.forEach((axis) => {
       const bar = document.getElementById(`result-radar-bar-${axis.id}`);
       const val = document.getElementById(`result-radar-val-${axis.id}`);
       if (bar) bar.style.width = `${String(axis.val)}%`;
-      if (val) val.textContent = `${String(axis.val)} / 100`;
+      if (val) {
+        val.textContent = `TIER ${axis.tier}`;
+        val.className = `axis-tier-badge grade-${axis.tier.toLowerCase()}`;
+      }
     });
 
     // Time & Rank
@@ -928,6 +1433,97 @@ export class SoloDraftController {
         .join("");
     }
 
+    // 8-Seat Final Decks Comparison
+    if (this.dom.resultSeatsGrid && Array.isArray(result.seats)) {
+      const SEAT_AVATARS = ["🧙", "🤖", "🤖", "🤖", "🤖", "👑", "🏆", "📜"];
+      const SEAT_LABELS = [
+        "Vous (Siège 0)",
+        "Bot 1 (Gauche)",
+        "Bot 2 (Face)",
+        "Bot 3 (Face)",
+        "Bot 4 (Face)",
+        "Bot 5 (Face)",
+        "Bot 6 (Face)",
+        "Bot 7 (Droite)",
+      ];
+
+      this.dom.resultSeatsGrid.innerHTML = result.seats
+        .map((seat) => {
+          const deck = seat.deck;
+          const seatTier = deck?.overallTier || (deck?.overallScore ? getScoreGrade(deck.overallScore).grade : "B");
+          const tierCss = `grade-${seatTier.toLowerCase()}`;
+          const isHuman = seat.seatId === 0;
+          const avatar = SEAT_AVATARS[seat.seatId] || (isHuman ? "🧙" : "🤖");
+          const label = SEAT_LABELS[seat.seatId] || `Siège ${seat.seatId}`;
+          const name = seat.botName || (isHuman ? this.playerName : `Bot ${seat.seatId}`);
+          const arch = deck?.archetype?.label || "Libre";
+
+          const sRadar = deck?.radarTiers || {
+            power: getScoreGrade(deck?.radar?.power ?? 70).grade,
+            synergy: getScoreGrade(deck?.radar?.synergy ?? 70).grade,
+            curve: getScoreGrade(deck?.radar?.curve ?? 70).grade,
+            mana: getScoreGrade(deck?.radar?.mana ?? 70).grade,
+            interaction: getScoreGrade(deck?.radar?.interaction ?? 70).grade,
+          };
+
+          return `
+            <div class="seat-comparison-card ${isHuman ? "is-human" : ""}">
+              <div class="seat-card-header">
+                <div class="seat-card-identity">
+                  <span class="seat-card-avatar">${avatar}</span>
+                  <div class="seat-card-name-wrap">
+                    <span class="seat-card-name">${escapeHtml(name)}</span>
+                    <span class="seat-card-label">${escapeHtml(label)}</span>
+                  </div>
+                </div>
+                <span class="seat-card-tier-pill ${tierCss}">TIER ${seatTier}</span>
+              </div>
+              <div class="seat-card-archetype">🎭 ${escapeHtml(arch)}</div>
+              <div class="seat-card-axes-mini">
+                <div class="mini-axis-col" title="Puissance">
+                  <span class="mini-axis-label">PWR</span>
+                  <span class="mini-axis-tier grade-${sRadar.power.toLowerCase()}">${sRadar.power}</span>
+                </div>
+                <div class="mini-axis-col" title="Synergie">
+                  <span class="mini-axis-label">SYN</span>
+                  <span class="mini-axis-tier grade-${sRadar.synergy.toLowerCase()}">${sRadar.synergy}</span>
+                </div>
+                <div class="mini-axis-col" title="Courbe">
+                  <span class="mini-axis-label">CRV</span>
+                  <span class="mini-axis-tier grade-${sRadar.curve.toLowerCase()}">${sRadar.curve}</span>
+                </div>
+                <div class="mini-axis-col" title="Mana">
+                  <span class="mini-axis-label">MAN</span>
+                  <span class="mini-axis-tier grade-${sRadar.mana.toLowerCase()}">${sRadar.mana}</span>
+                </div>
+                <div class="mini-axis-col" title="Interaction">
+                  <span class="mini-axis-label">INT</span>
+                  <span class="mini-axis-tier grade-${sRadar.interaction.toLowerCase()}">${sRadar.interaction}</span>
+                </div>
+              </div>
+              <button type="button" class="btn-inspect-deck" data-seat-id="${seat.seatId}">
+                <span>🔍 Inspecter le Deck (40 Cartes)</span>
+              </button>
+            </div>
+          `;
+        })
+        .join("");
+
+      this.dom.resultSeatsGrid.querySelectorAll(".btn-inspect-deck").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const seatId = Number(btn.dataset.seatId);
+          const targetSeat = result.seats.find((s) => s.seatId === seatId);
+          if (targetSeat && targetSeat.deck) {
+            const displayName = targetSeat.botName || (seatId === 0 ? this.playerName : `Bot ${seatId}`);
+            openDeckShowcaseModal({
+              playerName: displayName,
+              evaluation: targetSeat.deck,
+            });
+          }
+        });
+      });
+    }
+
     // Report Links
     if (this.dom.openWalkthroughBtn) {
       this.dom.openWalkthroughBtn.href = result.reports.walkthroughUrl;
@@ -955,17 +1551,20 @@ export function openDeckShowcaseModal(resultOrDeck) {
   if (!modal || !body) return;
 
   const evaluation = resultOrDeck.evaluation || resultOrDeck;
+  const cardLanguage = readCardLanguage();
   const overallScore = evaluation.overallScore ?? resultOrDeck.overallScore ?? 75;
   const archetype = evaluation.archetype || resultOrDeck.archetype || { label: "Deck Libre" };
   const playerName = resultOrDeck.playerName || "Magicien";
   const { grade, css } = getScoreGrade(overallScore);
 
+  const tier = evaluation.overallTier || grade;
+
   if (titleEl) titleEl.textContent = `${playerName} • Deck Showcase`;
-  if (subEl) subEl.textContent = `${archetype.label || "Libre"} • Score ${String(overallScore)} (Tier ${grade})`;
+  if (subEl) subEl.textContent = `${archetype.label || "Libre"} • TIER ${tier}`;
 
   const deckId = resultOrDeck.leaderboardEntry?.id || resultOrDeck.sessionId || resultOrDeck.id;
   const shareUrl = `${window.location.origin}/?deck=${deckId}`;
-  const shareText = `🔥 Regarde le deck ${archetype.label || "Magic"} que je viens de drafter sur LMCDEU ! Score : ${String(overallScore)}/100 (Tier ${grade}) 🏆\n${shareUrl}`;
+  const shareText = `🔥 Regarde le deck ${archetype.label || "Magic"} que je viens de drafter sur LMCDEU ! TIER ${tier} 🏆\n${shareUrl}`;
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
 
   const maindeckCards =
@@ -976,7 +1575,7 @@ export function openDeckShowcaseModal(resultOrDeck) {
 
   const cardsHtml = maindeckCards
     .map((c) => {
-      const name = c.frenchName || c.name || "Carte";
+      const name = getCardDisplayName(c, cardLanguage);
       return `
         <div class="deck-card-item" title="${escapeHtml(name)}">
           <img alt="${escapeHtml(name)}" loading="lazy" class="deck-card-img" />
@@ -992,11 +1591,16 @@ export function openDeckShowcaseModal(resultOrDeck) {
   body.innerHTML = `
     <div class="deck-showcase-score-row">
       <div>
-        <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Score Global du Deck</span>
-        <div class="dssr-score">${String(overallScore)} <span style="font-size: 1rem; color: #94a3b8;">/ 100</span></div>
+        <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Évaluation Globale</span>
+        <div class="score-grade-pill ${css}" style="font-size: 1.4rem; padding: 6px 18px; margin-top: 4px; display: inline-block;">
+          TIER ${tier}
+        </div>
       </div>
-      <div class="score-grade-pill ${css}" style="font-size: 1.4rem; padding: 6px 18px;">
-        TIER ${grade}
+      <div style="text-align: right;">
+        <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Archétype</span>
+        <div style="font-size: 1rem; color: #93c5fd; font-weight: 700; margin-top: 4px;">
+          ${escapeHtml(archetype.label || "Libre")}
+        </div>
       </div>
     </div>
 
@@ -1025,7 +1629,11 @@ export function openDeckShowcaseModal(resultOrDeck) {
   body.querySelectorAll(".deck-card-img").forEach((image, index) => {
     const card = maindeckCards[index];
     if (card) {
-      loadImageWithFallback(image, getSoloCardImage(card), getSoloCardFallbackImage(card));
+      loadImageWithFallback(
+        image,
+        getSoloCardImage(card, cardLanguage),
+        getSoloCardFallbackImage(card, cardLanguage),
+      );
     }
   });
 

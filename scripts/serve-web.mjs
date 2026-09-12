@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
 import { join, extname, resolve } from "node:path";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
@@ -20,10 +20,16 @@ try {
 } catch {
   // .env is optional
 }
+try {
+  process.loadEnvFile?.(".env.local");
+} catch {
+  // .env.local is optional
+}
 
 const rootDir = process.cwd();
 const webDir = resolve(rootDir, "src", "web");
 const reportsDir = resolve(rootDir, "reports");
+const draftSessionsDir = resolve(rootDir, "data", "draft-sessions");
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -39,6 +45,44 @@ const MIME_TYPES = {
 
 // In-memory active draft sessions
 const activeSessions = new Map();
+
+async function saveSessionToDisk(session) {
+  try {
+    await mkdir(draftSessionsDir, { recursive: true });
+    const snapshot = session.getPersistenceSnapshot();
+    const filePath = join(draftSessionsDir, `${snapshot.sessionId}.json`);
+    await writeFile(filePath, JSON.stringify(snapshot, null, 2), "utf-8");
+  } catch (err) {
+    console.error("[Persistence] Erreur sauvegarde session:", err?.message || err);
+  }
+}
+
+async function getOrRestoreSession(sessionId) {
+  if (!sessionId) return null;
+  let session = activeSessions.get(sessionId);
+  if (session) return session;
+
+  try {
+    const filePath = join(draftSessionsDir, `${sessionId}.json`);
+    const content = await readFile(filePath, "utf-8");
+    const snapshot = JSON.parse(content);
+    session = await SoloDraftSession.restore(snapshot);
+    activeSessions.set(session.sessionId, session);
+    console.log(
+      `[Persistence] Session ${sessionId} restaurée depuis le disque (${snapshot.humanPicks?.length ?? 0} picks)`
+    );
+    return session;
+  } catch {
+    return null;
+  }
+}
+
+async function removeSessionFromDisk(sessionId) {
+  try {
+    const filePath = join(draftSessionsDir, `${sessionId}.json`);
+    await unlink(filePath).catch(() => {});
+  } catch {}
+}
 
 function computeAuthToken(password) {
   return createHmac("sha256", "draftmaster_guild_passcode_salt_2026")
@@ -572,6 +616,29 @@ export function createRequestHandler(options = {}) {
         });
 
         activeSessions.set(session.sessionId, session);
+        await saveSessionToDisk(session);
+        sendJson(res, 200, { ok: true, session: session.getStateDto() });
+      } catch (err) {
+        sendJson(res, 500, { ok: false, error: err.message });
+      }
+      return;
+    }
+
+    // 3b. Draft Session State Check / Resume
+    if (pathname === "/api/draft/session" && req.method === "GET") {
+      try {
+        const sessionId = url.searchParams.get("sessionId");
+        if (!sessionId) {
+          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
+          return;
+        }
+
+        const session = await getOrRestoreSession(sessionId);
+        if (!session) {
+          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
+          return;
+        }
+
         sendJson(res, 200, { ok: true, session: session.getStateDto() });
       } catch (err) {
         sendJson(res, 500, { ok: false, error: err.message });
@@ -591,14 +658,68 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
-        const session = activeSessions.get(body.sessionId);
+        const session = await getOrRestoreSession(body.sessionId);
         if (!session) {
           sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
           return;
         }
 
         const nextState = session.makePick(body.cardInstanceId);
+        await saveSessionToDisk(session);
         sendJson(res, 200, { ok: true, session: nextState });
+      } catch (err) {
+        sendJson(res, 400, { ok: false, error: err.message });
+      }
+      return;
+    }
+
+    // 4b. Draft Pick Advice (Coaching IA)
+    if (pathname === "/api/draft/advice" && req.method === "POST") {
+      try {
+        const body = await readJsonBody(req);
+        if (!body.sessionId) {
+          sendJson(res, 400, {
+            ok: false,
+            error: "Le paramètre 'sessionId' est obligatoire.",
+          });
+          return;
+        }
+
+        const session = await getOrRestoreSession(body.sessionId);
+        if (!session) {
+          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
+          return;
+        }
+
+        const advice = await session.getPickAdvice();
+        await saveSessionToDisk(session);
+        sendJson(res, 200, { ok: true, advice });
+      } catch (err) {
+        sendJson(res, 400, { ok: false, error: err.message });
+      }
+      return;
+    }
+
+    // 4c. Draft Deck Recommendation (Pré-construction IA)
+    if (pathname === "/api/draft/recommend-deck" && req.method === "POST") {
+      try {
+        const body = await readJsonBody(req);
+        if (!body.sessionId) {
+          sendJson(res, 400, {
+            ok: false,
+            error: "Le paramètre 'sessionId' est obligatoire.",
+          });
+          return;
+        }
+
+        const session = await getOrRestoreSession(body.sessionId);
+        if (!session) {
+          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
+          return;
+        }
+
+        const recommendation = session.getDeckRecommendation();
+        sendJson(res, 200, { ok: true, recommendation });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
       }
@@ -618,24 +739,28 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
-        const session = activeSessions.get(body.sessionId);
+        const session = await getOrRestoreSession(body.sessionId);
         if (!session) {
           sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
           return;
         }
 
-        const finalResult = await session.buildDeckAndFinalize({
-          sessionId: body.sessionId,
-          maindeckCardInstanceIds: body.maindeckCardInstanceIds,
-          basicLands: body.basicLands,
-          publishToLeaderboard: Boolean(body.publishToLeaderboard),
-        }, {
-          customReportsDir: handlerReportsDir,
-          reportsUrlPrefix: "/reports",
-          customAdminDraftsPath: adminDraftsPath,
-          customLeaderboardPath: leaderboardPath,
-        });
+        const finalResult = await session.buildDeckAndFinalize(
+          {
+            sessionId: body.sessionId,
+            maindeckCardInstanceIds: body.maindeckCardInstanceIds,
+            basicLands: body.basicLands,
+            publishToLeaderboard: Boolean(body.publishToLeaderboard),
+          },
+          {
+            customReportsDir: handlerReportsDir,
+            reportsUrlPrefix: "/reports",
+            customAdminDraftsPath: adminDraftsPath,
+            customLeaderboardPath: leaderboardPath,
+          }
+        );
 
+        await removeSessionFromDisk(body.sessionId);
         sendJson(res, 200, { ok: true, result: finalResult });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
@@ -652,14 +777,30 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
-        const session = activeSessions.get(body.sessionId);
+        const session = await getOrRestoreSession(body.sessionId);
         if (!session) {
           sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
           return;
         }
 
         const publishResult = await session.publishToLeaderboard(leaderboardPath);
+        await removeSessionFromDisk(body.sessionId);
         sendJson(res, 200, { ok: true, result: publishResult });
+      } catch (err) {
+        sendJson(res, 400, { ok: false, error: err.message });
+      }
+      return;
+    }
+
+    // 6. Draft Abandon (Quitter et réinitialiser complètement)
+    if (pathname === "/api/draft/abandon" && req.method === "POST") {
+      try {
+        const body = await readJsonBody(req);
+        if (body.sessionId) {
+          activeSessions.delete(body.sessionId);
+          await removeSessionFromDisk(body.sessionId);
+        }
+        sendJson(res, 200, { ok: true, message: "Draft abandonné avec succès." });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
       }

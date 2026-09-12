@@ -1,6 +1,6 @@
 # QA Evidence — Socle transversal et Solo Draft Coach
 
-**Date**: 2026-09-08  
+**Date**: 2026-09-09
 **Statut**: gate automatisé vert ; couverture navigateur minimale sur toutes les surfaces produit.
 
 ## Couverture produit minimale
@@ -16,7 +16,7 @@
 | Administration | Ouverture de `/admin`, vue visible, aucune erreur navigateur | Smoke |
 | Draft Multi | Ouverture de `/multi`, vue visible, aucune erreur navigateur | Smoke |
 | Tournois | Ouverture de `/tournaments`, vue visible, aucune erreur navigateur | Smoke |
-| Moteur, bots, coaching, cubes, CLI, rapports, stockage | 299 tests unitaires, contractuels, intégration et E2E Vitest | Comportemental |
+| Moteur, bots, coaching, cubes, CLI, rapports, stockage | 322 tests unitaires, contractuels, intégration et E2E Vitest | Comportemental |
 
 ## Garde-fous ajoutés
 
@@ -33,10 +33,10 @@ npm run check
   Prettier: OK
   ESLint: OK
   TypeScript: OK
-  Vitest: 54 fichiers, 299 tests passés
-  V8: 86.36 % statements, 72.07 % branches, 90.76 % functions, 87.54 % lines
+  Vitest: 56 fichiers, 322 tests passés
+  V8: 86.56 % statements, 72.43 % branches, 91.33 % functions, 87.68 % lines
   Rapports seed 42: 24 boosters, 21 bombes, 360 décisions tracées
-  Playwright Chromium: 12 tests passés
+  Playwright Chromium: 14 tests passés
 
 npm run test:performance
   1 fichier, 2 tests passés

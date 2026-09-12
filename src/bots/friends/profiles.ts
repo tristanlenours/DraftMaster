@@ -144,10 +144,10 @@ export const THEO_PROFILE: Readonly<FriendProfile> = Object.freeze({
     "Tu croyais que ma bête était morte ? Monte les amplis à 11, elle revient direct du cimetière !",
   level: "ambitious",
   temperature: 1.2,
-  preferredColors: ["B", "R"] as const,
+  preferredColors: ["B"] as const,
   biases: {
     reanimationBonus: 5.0,
-    colorDiscipline: 1.15,
+    colorDiscipline: 0.9,
   },
 });
 

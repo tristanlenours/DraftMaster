@@ -77,18 +77,26 @@
           </button>
         </nav>
 
-        <!-- Mobile Menu Toggle Button (Mobile <= 768px) -->
-        <button
-          class="mobile-menu-btn"
-          id="mobile-menu-btn"
-          aria-label="Ouvrir le menu de navigation"
-          aria-expanded="false"
-          aria-controls="mobile-nav-drawer"
-        >
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </button>
+        <div class="header-tools">
+          <div class="global-language-switch" role="group" aria-label="Langue des cartes">
+            <span class="global-language-label">Cartes</span>
+            <button type="button" class="global-language-option" id="global-lang-fr" aria-pressed="false" title="Afficher les cartes en français">FR</button>
+            <button type="button" class="global-language-option active" id="global-lang-en" aria-pressed="true" title="Afficher les cartes en anglais">EN</button>
+          </div>
+
+          <!-- Mobile Menu Toggle Button (Mobile <= 768px) -->
+          <button
+            class="mobile-menu-btn"
+            id="mobile-menu-btn"
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded="false"
+            aria-controls="mobile-nav-drawer"
+          >
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Navigation Drawer (Dropdown / Slide-down) -->
@@ -213,7 +221,7 @@
             <div class="pillar-icon">⚖️</div>
             <h3 class="pillar-title">Rigueur Mathématique du Ranking</h3>
             <p class="pillar-desc">
-              Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 53, avec Black Lotus au plafond) croise les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise compétitive pour refléter la valeur absolue réelle de chaque pièce.
+              Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 55) croise les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise compétitive pour refléter la valeur absolue réelle de chaque pièce. Black Lotus est actuellement la carte la mieux notée du catalogue avec 53.
             </p>
           </div>
           <div class="pillar-card">
@@ -324,7 +332,7 @@
             <span class="stat-caption">Cartes Référencées</span>
           </div>
           <div class="stat-box">
-            <span class="stat-number">1 – 53</span>
+            <span class="stat-number">1 – 55</span>
             <span class="stat-caption">Échelle de Puissance</span>
           </div>
           <div class="stat-box">
@@ -846,17 +854,17 @@
           </button>
         </div>
 
-        <!-- Language Selector (FR / EN) -->
+        <!-- Global card language selector (mirrors the persistent header switch) -->
         <div class="control-group lang-filter-group">
           <span class="control-group-label">Langue</span>
           <div
             class="lang-chips-group"
             id="card-lang-toggle-group"
             role="group"
-            aria-label="Sélectionner la langue des cartes dans l'explorateur"
+            aria-label="Sélectionner la langue des cartes dans toute l'application"
           >
             <button
-              class="lang-chip active"
+              class="lang-chip"
               id="lang-chip-fr"
               data-lang="FR"
               title="Afficher les cartes en Français (titres et illustrations FR)"
@@ -864,7 +872,7 @@
               🇫🇷 FR
             </button>
             <button
-              class="lang-chip"
+              class="lang-chip active"
               id="lang-chip-en"
               data-lang="EN"
               title="Display cards in English (titles and original art)"
@@ -1756,10 +1764,16 @@
               <span class="hud-pill pill-direction" id="hud-direction">🥛 Nourri au bon lait de : TitouBot</span>
             </div>
             <div class="hud-right">
-              <span class="hud-pill pill-homologated">🛡️ Homologué</span>
+              <span class="hud-pill pill-homologated" id="arena-homologated-badge">🛡️ Homologué</span>
               <span class="hud-pill pill-timer" id="arena-timer">⏱️ 00:00</span>
+              <button type="button" class="btn-coach-advice" id="draft-coach-advice-btn" title="Demander conseil au Coach IA">
+                <span>💡 Conseil IA</span>
+              </button>
               <button class="btn-confirm-pick" id="draft-confirm-pick-btn" disabled>
                 <span>Sélectionnez une carte</span>
+              </button>
+              <button type="button" class="btn-abandon-draft" id="draft-abandon-btn" title="Abandonner et quitter le draft">
+                <span>✕ Quitter</span>
               </button>
             </div>
           </div>
@@ -1774,6 +1788,18 @@
             <p class="booster-hint">
               Cliquez sur une carte pour la sélectionner, ou double-cliquez pour la drafter directement. La loupe 🔍 ouvre l’agrandissement.
             </p>
+          </div>
+
+          <!-- Interactive AI Coach Advice Panel -->
+          <div class="arena-coach-advice-box" id="arena-coach-advice-box" hidden>
+            <div class="coach-advice-header">
+              <div class="coach-advice-title-wrap">
+                <span class="coach-advice-icon">🧙‍♂️</span>
+                <h4 class="coach-advice-title">Conseil de l'IA Coach</h4>
+              </div>
+              <button type="button" class="coach-advice-close-btn" id="coach-advice-close-btn" aria-label="Fermer">✕</button>
+            </div>
+            <div class="coach-advice-body" id="coach-advice-content"></div>
           </div>
 
           <!-- Booster Grid -->
@@ -1802,10 +1828,22 @@
             <span class="deck-stage-desc">Sélectionnez exactement 23 cartes actives parmi votre pool de 45 cartes draftées.</span>
           </div>
           <div class="dh-right">
+            <button type="button" class="btn-coach-advice" id="deck-ai-recommend-btn" title="Reconstruire les 23 meilleures cartes et les terrains optimaux avec l'IA Coach">
+              <span>🧙 Pré-construire avec l'IA</span>
+            </button>
             <span class="counter-badge" id="deck-spells-counter">0 / 23 cartes</span>
             <span class="counter-badge" id="total-lands-badge">17 / 17 terrains</span>
             <span class="hud-pill pill-timer" id="deck-timer">⏱️ 00:00</span>
+            <button type="button" class="btn-abandon-draft" id="deck-abandon-btn" title="Abandonner et quitter le draft">
+              <span>✕ Quitter</span>
+            </button>
           </div>
+        </div>
+
+        <!-- Banner for AI Pre-construction feedback -->
+        <div class="deckbuilder-ai-banner" id="deckbuilder-ai-banner" hidden>
+          <span class="ai-banner-icon">✨</span>
+          <span class="ai-banner-text" id="deckbuilder-ai-banner-text">Deck pré-construit par l'IA Coach avec succès !</span>
         </div>
 
         <div class="deckbuilder-studio-grid">
@@ -1923,10 +1961,9 @@
         </div>
 
         <div class="result-hero-card">
-          <div class="result-score-circle">
-            <span class="score-main-value" id="result-score-val">88</span>
-            <span class="score-denom">/ 100</span>
+          <div class="result-score-circle result-score-tier-only">
             <span class="result-grade-badge grade-s" id="result-score-grade">TIER S</span>
+            <span class="score-sub-label">Évaluation Globale</span>
           </div>
 
           <div class="result-meta-info">
@@ -1952,35 +1989,35 @@
               <div class="axis-track">
                 <div class="axis-fill fill-power" id="result-radar-bar-power" style="width: 85%"></div>
               </div>
-              <span class="axis-val" id="result-radar-val-power">85 / 100</span>
+              <span class="axis-tier-badge grade-a" id="result-radar-val-power">TIER A</span>
             </div>
             <div class="radar-axis-row">
               <span class="axis-lbl">🔗 Synergie & Thèmes</span>
               <div class="axis-track">
                 <div class="axis-fill fill-synergy" id="result-radar-bar-synergy" style="width: 90%"></div>
               </div>
-              <span class="axis-val" id="result-radar-val-synergy">90 / 100</span>
+              <span class="axis-tier-badge grade-s" id="result-radar-val-synergy">TIER S</span>
             </div>
             <div class="radar-axis-row">
               <span class="axis-lbl">📈 Courbe de Mana</span>
               <div class="axis-track">
                 <div class="axis-fill fill-curve" id="result-radar-bar-curve" style="width: 88%"></div>
               </div>
-              <span class="axis-val" id="result-radar-val-curve">88 / 100</span>
+              <span class="axis-tier-badge grade-a" id="result-radar-val-curve">TIER A</span>
             </div>
             <div class="radar-axis-row">
               <span class="axis-lbl">💧 Stabilité du Mana</span>
               <div class="axis-track">
                 <div class="axis-fill fill-mana" id="result-radar-bar-mana" style="width: 86%"></div>
               </div>
-              <span class="axis-val" id="result-radar-val-mana">86 / 100</span>
+              <span class="axis-tier-badge grade-a" id="result-radar-val-mana">TIER A</span>
             </div>
             <div class="radar-axis-row">
               <span class="axis-lbl">🛡️ Densité d'Interaction</span>
               <div class="axis-track">
                 <div class="axis-fill fill-interaction" id="result-radar-bar-interaction" style="width: 92%"></div>
               </div>
-              <span class="axis-val" id="result-radar-val-interaction">92 / 100</span>
+              <span class="axis-tier-badge grade-s" id="result-radar-val-interaction">TIER S</span>
             </div>
           </div>
         </div>
@@ -1994,6 +2031,19 @@
           <div class="feedback-card feedback-weaknesses">
             <h4 class="feedback-title">Points d'Amélioration</h4>
             <ul class="feedback-list" id="result-weaknesses-list"></ul>
+          </div>
+        </div>
+
+        <!-- 8-Seat Final Decks Comparison Table & Interactive Inspection -->
+        <div class="result-table-decks-section">
+          <div class="table-decks-header">
+            <h3 class="axes-card-title">🏛️ Analyse Finale des 8 Decks de la Table</h3>
+            <p class="table-decks-subtitle">
+              Comparez le résultat de votre deck face aux 7 bots de la table. Cliquez sur <strong>Inspecter 🔍</strong> pour visualiser les 40 cartes, la courbe et les caractéristiques de chaque deck.
+            </p>
+          </div>
+          <div class="seats-comparison-grid" id="result-seats-comparison-grid">
+            <!-- Populated dynamically with Challenger + 7 Bots -->
           </div>
         </div>
 
@@ -2461,7 +2511,7 @@
                   <span class="hero-metric-label">Power Ranking</span>
                   <div class="hero-metric-val-wrap">
                     <span class="hero-metric-number" id="modal-hero-power-score">53</span>
-                    <span class="hero-metric-denom">/ 53</span>
+                    <span class="hero-metric-denom">/ 55</span>
                   </div>
                   <div class="hero-metric-bar">
                     <div
@@ -2487,14 +2537,14 @@
               </div>
             </div>
 
-            <!-- Rules Text Section (French by default, with FR/EN toggle) -->
+            <!-- Rules Text Section (synchronized with the global card language) -->
             <div class="modal-oracle-section">
               <div class="oracle-lang-bar">
                 <span class="oracle-lang-title">📜 Texte de la carte :</span>
                 <div class="lang-toggle-chips">
                   <button
                     type="button"
-                    class="lang-chip active"
+                    class="lang-chip"
                     id="lang-btn-fr"
                     title="Afficher le texte officiel en français"
                   >
@@ -2502,7 +2552,7 @@
                   </button>
                   <button
                     type="button"
-                    class="lang-chip"
+                    class="lang-chip active"
                     id="lang-btn-en"
                     title="Afficher le texte original en anglais"
                   >

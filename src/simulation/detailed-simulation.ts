@@ -50,9 +50,11 @@ import type {
   DeckArchetype,
   DeckEvaluationAudit,
   DeckEvaluationOptions,
+  DeckTier,
   KiviatRadarScores,
   MtGColor,
   PackEvaluationContext,
+  RadarTiers,
 } from "../domain/coaching/types.ts";
 import { createSessionIdentityGenerator } from "../cli/session-identity.ts";
 
@@ -116,7 +118,9 @@ export interface FinalDeckSummary {
   readonly sideboard: readonly EnrichedCard[]; // ~22 cards
   readonly archetype: DeckArchetype;
   readonly overallScore: number;
+  readonly overallTier: DeckTier;
   readonly radar: KiviatRadarScores;
+  readonly radarTiers: RadarTiers;
   readonly audit: DeckEvaluationAudit;
   readonly macroAxes: {
     readonly power: number;
@@ -247,7 +251,7 @@ export async function runDetailedDraftSimulation(
     const doc = catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
     const name = doc?.name ?? card.name;
     const staticScore = doc ? doc.powerScore.score : 28;
-    const colors = (doc?.colors ?? []) as MtGColor[];
+    let colors = (doc?.colors ?? []) as MtGColor[];
     const cmc = doc?.cmc ?? 0;
     const types = doc?.types ?? [];
     const subtypes = doc?.subtypes ?? [];
@@ -257,6 +261,10 @@ export async function runDetailedDraftSimulation(
     const oracleText = doc?.oracleText ?? "";
     const manaCost = doc?.manaCost ?? "";
     const oracleId = doc?.oracleId ?? card.oracleId;
+
+    if (colors.length === 0 && !isLand && doc?.colorIdentity && doc.colorIdentity.length > 0) {
+      colors = [...doc.colorIdentity] as MtGColor[];
+    }
     const slug = doc?.slug;
     const imageUrl =
       doc?.image?.url ??
@@ -914,7 +922,9 @@ export function buildFinalDeckSummary(
       sideboard,
       archetype: defaultEval.archetype,
       overallScore: defaultEval.overallScore,
+      overallTier: defaultEval.overallTier,
       radar: defaultEval.radar,
+      radarTiers: defaultEval.radarTiers,
       audit: defaultEval.audit,
       macroAxes: {
         power: defaultEval.radar.power,
@@ -998,7 +1008,9 @@ export function buildFinalDeckSummary(
     sideboard,
     archetype: bestOption.evaluation.archetype,
     overallScore: bestOption.evaluation.overallScore,
+    overallTier: bestOption.evaluation.overallTier,
     radar,
+    radarTiers: bestOption.evaluation.radarTiers,
     audit: bestOption.evaluation.audit,
     macroAxes,
     strengths: bestOption.evaluation.strengths,

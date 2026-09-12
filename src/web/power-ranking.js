@@ -1,4 +1,4 @@
-export const MAX_POWER_SCORE = 53;
+export const MAX_POWER_SCORE = 55;
 
 export function toPowerBarPercentage(score) {
   const finiteScore = Number.isFinite(score) ? score : 1;

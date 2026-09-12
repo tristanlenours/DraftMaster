@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DraftMaster Companion — Coach IA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="brand">
+          <span class="logo-icon">⚡</span>
+          <h1>DraftMaster <span class="badge-sub">Live Companion</span></h1>
+        </div>
+        <div class="status-group">
+          <div id="mode-badge" class="badge badge-idle">● IDLE (En attente d'Arena)</div>
+          <div id="provider-badge" class="badge badge-provider">🤖 Gemini Flash / DeepSeek</div>
+        </div>
+      </header>
+
+      <!-- Main Workspace -->
+      <main class="main-content">
+        <!-- Left Panel: Game Context & Visuals -->
+        <section class="panel context-panel">
+          <div class="panel-header">
+            <h2 id="context-title">🎲 État du Jeu</h2>
+            <div id="pack-info" class="meta-tag">Pack 1 | Pick 1</div>
+          </div>
+
+          <div id="context-body" class="panel-body">
+            <!-- Draft View -->
+            <div id="draft-view" class="view-section">
+              <div class="section-label">
+                Booster Actuel (<span id="pack-count">0</span> cartes)
+              </div>
+              <div id="cards-grid" class="cards-grid">
+                <!-- Dynamically populated card cards -->
+              </div>
+
+              <div class="pool-summary-box">
+                <div class="section-label">
+                  Deck en cours (<span id="pool-count">0</span> cartes)
+                </div>
+                <div id="pool-chips" class="pool-chips">
+                  <!-- Pool list -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Match View -->
+            <div id="match-view" class="view-section hidden">
+              <div class="match-scoreboard">
+                <div class="player-box you">
+                  <span class="p-label">Toi</span>
+                  <span id="player-life" class="p-life">20</span>
+                </div>
+                <div class="turn-box">
+                  <span class="turn-label">Tour</span>
+                  <span id="match-turn" class="turn-num">1</span>
+                  <span id="turn-active-badge" class="turn-active-badge">Ton tour</span>
+                </div>
+                <div class="player-box opp">
+                  <span id="opp-name" class="p-label">Adversaire</span>
+                  <span id="opp-life" class="p-life">20</span>
+                </div>
+              </div>
+
+              <div class="section-label">Cartes en Main (<span id="hand-count">0</span>)</div>
+              <div id="hand-cards-grid" class="cards-grid"></div>
+
+              <div class="section-label">
+                Ton Champ de Bataille (<span id="my-board-count">0</span>)
+              </div>
+              <div id="my-board-chips" class="pool-chips"></div>
+
+              <div class="section-label">
+                Champ de Bataille Adverse (<span id="opp-board-count">0</span>)
+              </div>
+              <div id="opp-board-chips" class="pool-chips"></div>
+
+              <div class="section-label">Actions de jeu récentes</div>
+              <ul id="match-events-list" class="match-events-list">
+                <li>Partie démarrée</li>
+              </ul>
+            </div>
+
+            <!-- Idle View -->
+            <div id="idle-view" class="view-section">
+              <div class="idle-card">
+                <div class="idle-icon">🎴</div>
+                <h3>Prêt pour MTG Arena</h3>
+                <p>
+                  Lance un Draft ou démarre un Match sur Arena. Le Companion détecte automatiquement
+                  l'activité via <code>Player.log</code> et t'accompagnera en direct !
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel Footer with Quick Actions -->
+          <div class="panel-footer">
+            <button id="btn-advice" class="btn btn-primary">💡 Demander un conseil</button>
+            <button id="btn-summarize-draft" class="btn btn-secondary">📜 Résumer le draft</button>
+            <button id="btn-summarize-match" class="btn btn-secondary">⚔️ Résumer le match</button>
+          </div>
+        </section>
+
+        <!-- Right Panel: Interactive AI Chat -->
+        <section class="panel chat-panel">
+          <div class="panel-header">
+            <h2>💬 Coach IA Interactif</h2>
+            <button id="btn-clear-chat" class="btn-icon" title="Effacer l'historique">🗑️</button>
+          </div>
+
+          <div id="chat-messages" class="chat-messages">
+            <!-- Chat messages rendered here -->
+          </div>
+
+          <form id="chat-form" class="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Pose une question à ton Coach IA (ex: Est-ce que j'attaque ? Quel est le meilleur T1 ?)..."
+              autocomplete="off"
+            />
+            <button type="submit" id="btn-send" class="btn btn-primary">Envoyer</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

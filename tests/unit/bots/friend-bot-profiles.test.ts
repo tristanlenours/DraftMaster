@@ -34,8 +34,9 @@ describe("FriendBotProfiles", () => {
     expect(TITOU_PROFILE.botName).toBe("TitouBot");
 
     expect(THEO_PROFILE.botName).toBe("Le Rockeur");
-    expect(THEO_PROFILE.preferredColors).toEqual(["B", "R"]);
+    expect(THEO_PROFILE.preferredColors).toEqual(["B"]);
     expect(THEO_PROFILE.biases.reanimationBonus).toBe(5.0);
+    expect(THEO_PROFILE.biases.colorDiscipline).toBe(0.9);
   });
 
   it("verifies seat assignments at the 8-player table", () => {

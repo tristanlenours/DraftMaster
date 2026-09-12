@@ -25,10 +25,14 @@
   "philosophy": "Le Vintage Candyshop est conçu pour offrir l'expérience Vintage Cube la plus explosive et interactive possible. Les Moxen, Black Lotus et Time Walk créent des accélérations phénoménales où la partie peut basculer dès le premier ou second tour. Chaque deck doit être proactif dès le Tour 1 ou armé d'interactions gratuites (Force of Will, Daze, Mindbreak Trap) sous peine d'écrasement immédiat.",
   "dominantMechanics": [
     "Storm",
-    "Artifact Ramp",
-    "Blink / Value",
+    "Artifact Ramp & Tinker",
     "Reanimator",
-    "Fast Mana"
+    "Sneak & Show",
+    "Twin Combo",
+    "Blink / Value",
+    "Lands & Depths",
+    "Green Ramp",
+    "Power 9 & Fast Mana"
   ],
   "fixingDensityPercentage": 18,
   "archetypes": [
@@ -43,19 +47,52 @@
         "B"
       ],
       "category": "combo",
-      "description": "Génération de mana rituel, pioche en chaîne et clôture via Brain Freeze, Tendrils of Agony ou Underworld Breach.",
-      "gameplan": "Sculpter une main critique avec des cantrips, assembler Underworld Breach / Lion's Eye Diamond / Brain Freeze, et meuler ou vider les PV en un tour.",
+      "description": "Génération exponentielle de mana rituel, enchaînement de cantrips et clôture dévastatrice via Underworld Breach, Brain Freeze ou Tendrils of Agony.",
+      "gameplan": "Sculpter une main critique avec des cantrips, générer un storm count élevé via rituels et artefacts à coût zéro, puis boucler Underworld Breach avec Lion's Eye Diamond et Brain Freeze pour vider la bibliothèque ou infliger 20 dégâts létaux.",
       "keyCards": [
         "3d76e3cc-a9e9-4e78-be7f-a63e26bb5b3c",
-        "018595a8-ef01-4475-8025-a1c1d81b94e3",
-        "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b"
+        "78db3190-59bc-4033-95bc-32d8ed872b6a",
+        "018595a8-ef01-4475-8025-a1c1d81b94e3"
       ],
       "supportCards": [
-        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+        "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b",
+        "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+        "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+        "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c"
       ],
       "recommendedCreatureCount": [
+        2,
+        6
+      ],
+      "recommendedRemovalCount": [
         3,
-        8
+        6
+      ]
+    },
+    {
+      "id": "nico:artifact_ramp",
+      "name": "Mono-Blue / Colorless Artifacts & Tinker",
+      "primaryColors": [
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Accélération brutale via cailloux de mana, manipulation d'artefacts et déploiement ultra-précoce de colosses via Tinker, Urza ou Bolas's Citadel.",
+      "gameplan": "Déposer des cailloux T1/T2, sacrifier une babiole ou un jeton trésor pour lancer Tinker et chercher Blightsteel Colossus ou Bolas's Citadel, ou stabiliser avec Urza et Kappa Cannoneer.",
+      "keyCards": [
+        "b3208538-8924-4ab2-b258-29ceeead2a99",
+        "e80772e2-8623-4094-81a2-70828b2b151c",
+        "44444444-5555-4666-8777-888888888888",
+        "2bd111bb-ce02-414c-b5b7-e0e037d8d96b"
+      ],
+      "supportCards": [
+        "99999999-aaaa-4bbb-8ccc-dddddddddddd",
+        "dba4fd31-8931-42dd-bd86-45479c2abf74",
+        "736892cb-a34b-4bb9-b56c-e26e3db207a2",
+        "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0"
+      ],
+      "recommendedCreatureCount": [
+        8,
+        14
       ],
       "recommendedRemovalCount": [
         4,
@@ -63,28 +100,189 @@
       ]
     },
     {
-      "id": "nico:artifact_ramp",
-      "name": "Mono-Blue / Colorless Artifact Ramp",
+      "id": "nico:reanimator",
+      "name": "Dimir / Grixis Reanimator",
       "primaryColors": [
-        "U"
+        "B"
       ],
-      "category": "ramp",
-      "description": "Accélération brutale via mana rocks, Tinker dans de gros payoffs comme Blightsteel ou Bolas's Citadel.",
-      "gameplan": "Déposer des cailloux T1/T2, sacrifier un artefact pour Tinker ou lancer Urza pour dominer la table.",
+      "splashColors": [
+        "U",
+        "R"
+      ],
+      "category": "combo",
+      "description": "Mise au cimetière instantanée de menaces mythiques et résurrection précoce dès le tour 1 ou 2 protégée par des contres ou de la défausse.",
+      "gameplan": "Enterrer Griselbrand, Archon of Cruelty ou Atraxa avec Entomb, Faithless Looting ou Thoughtseize ciblant soi-même, puis lancer Reanimate, Animate Dead ou Exhume dès le T1/T2 avec protection.",
       "keyCards": [
-        "b3208538-8924-4ab2-b258-29ceeead2a99",
-        "44444444-5555-4666-8777-888888888888"
+        "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+        "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+        "299fc083-0834-4064-8344-f895aff68867",
+        "f759d112-76db-4091-a22b-b9f19ab6fa5f"
       ],
       "supportCards": [
-        "99999999-aaaa-4bbb-8ccc-dddddddddddd"
+        "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+        "abbcb153-0763-44c6-964f-b4ff0eb64257",
+        "fbe61f74-1b3c-4e12-8758-7029872c9ff1"
       ],
       "recommendedCreatureCount": [
-        8,
+        6,
+        11
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "nico:sneak_show",
+      "name": "Sneak Attack / Show and Tell",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "splashColors": [
+        "G"
+      ],
+      "category": "combo",
+      "description": "Contournement total du coût de mana pour poser des créatures légendaires surpuissantes directement de la main avec célérité ou indestructible.",
+      "gameplan": "Fixer la main avec des cantrips, puis résoudre Sneak Attack, Show and Tell, Through the Breach ou Oath of Druids pour poser Emrakul ou Atraxa et plier immédiatement la partie.",
+      "keyCards": [
+        "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+        "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+        "c207aaee-0b67-4520-ad02-2c289228be2a"
+      ],
+      "supportCards": [
+        "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
+        "cf0dcb27-f02e-4065-81dc-75fbbb09ea3f",
+        "abbcb153-0763-44c6-964f-b4ff0eb64257"
+      ],
+      "recommendedCreatureCount": [
+        7,
         12
       ],
       "recommendedRemovalCount": [
         4,
-        6
+        7
+      ]
+    },
+    {
+      "id": "nico:twin_kiki",
+      "name": "Izzet / Jeskai Twin & Kiki Combo",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "splashColors": [
+        "W"
+      ],
+      "category": "combo",
+      "description": "Combo infinie à deux cartes basée sur le flash, capable de basculer d'une posture de contrôle / tempo à une victoire instantanée en fin de tour adverse.",
+      "gameplan": "Poser Deceiver Exarch ou Pestermite en flash à la fin du tour adverse en engageant un terrain clé, puis enchanter avec Splinter Twin ou copier avec Kiki-Jiki au tour suivant pour créer une infinité de jetons avec célérité.",
+      "keyCards": [
+        "2df3187b-4b91-4de9-9b26-d48a30700cec",
+        "a34b7416-cfe3-4a1e-a8c1-a3056b747519",
+        "3c939ea6-68b7-4965-b1d3-af1d3dc79778"
+      ],
+      "supportCards": [
+        "83cf4235-eb4e-4c55-839a-f2740d41ed5e",
+        "1dae6f39-2cbd-485c-b190-017a26401fd4",
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+      ],
+      "recommendedCreatureCount": [
+        8,
+        14
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "nico:blink",
+      "name": "Azorius Blink / Value",
+      "primaryColors": [
+        "W",
+        "U"
+      ],
+      "category": "midrange",
+      "description": "Contrôle de tempo générant un avantage récurrent démesuré en réactivant en chaîne les capacités d'arrivée en jeu de créatures et planeswalkers.",
+      "gameplan": "Contester le début de partie avec des créatures polyvalentes (Phelia, Charming Prince), puis enclencher le moteur avec Ephemerate, Soulherder, Restoration Angel ou Displacer Kitten pour réutiliser Solitude et Palace Jailer à chaque tour.",
+      "keyCards": [
+        "0fd57894-b917-41c8-a394-360d1d31b236",
+        "09ef446c-a13d-49d9-a94c-cd5f5a2d440b",
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa"
+      ],
+      "supportCards": [
+        "5d86a59a-ba1f-45f7-b829-dca6f9f3e624",
+        "92019547-f6db-4ea6-8356-d0a90ace5662",
+        "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366"
+      ],
+      "recommendedCreatureCount": [
+        12,
+        18
+      ],
+      "recommendedRemovalCount": [
+        5,
+        8
+      ]
+    },
+    {
+      "id": "nico:lands",
+      "name": "Gruul / Jund Lands & Dark Depths",
+      "primaryColors": [
+        "R",
+        "G"
+      ],
+      "splashColors": [
+        "B"
+      ],
+      "category": "combo",
+      "description": "Exploitation du cimetière et des synergies de terrains pour générer du card advantage, verrouiller les manas adverses ou invoquer Marit Lage (20/20 vol).",
+      "gameplan": "Utiliser Wrenn and Six et Crucible of Worlds / Ramunap pour recycler Fetchlands et Strip Mine, ou assembler Dark Depths + Thespian's Stage pour créer immédiatement le jeton 20/20 indestructible Marit Lage.",
+      "keyCards": [
+        "108ae90a-50fa-4cfd-b751-d630e41425fe",
+        "c9b82110-7dfd-4617-9399-9510be449043",
+        "b01e698b-608a-4fc7-8073-b01d044743ec"
+      ],
+      "supportCards": [
+        "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
+        "4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+        "d21a89eb-7c5b-459a-acc7-12b20b13bf79"
+      ],
+      "recommendedCreatureCount": [
+        9,
+        15
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "nico:green_ramp",
+      "name": "Mono-Green Ramp & Natural Order",
+      "primaryColors": [
+        "G"
+      ],
+      "category": "ramp",
+      "description": "Production accélérée de mana via elfes et dorks pour tutoriser ou lancer des bombes vertes inarrêtables comme Craterhoof Behemoth ou Primeval Titan.",
+      "gameplan": "Accélérer dès le T1 avec Arbor Elf, Llanowar Elves ou Birds of Paradise, puis sacrifier un dork sur Natural Order pour aller chercher Craterhoof Behemoth ou Terastodon dès le tour 3, ou abuser de Channel pour poser un titan.",
+      "keyCards": [
+        "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+        "8c52bd39-0586-48ca-b263-17210cf9feb6",
+        "ae83ef2c-960f-4c5b-97cc-52465c687c18"
+      ],
+      "supportCards": [
+        "d1b815d1-2848-40d4-a555-66822d1becbc",
+        "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
+        "17975a20-2c13-4325-be1e-0bcda5063a2d"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        20
+      ],
+      "recommendedRemovalCount": [
+        3,
+        5
       ]
     }
   ],

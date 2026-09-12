@@ -45,6 +45,40 @@ export interface FriendBotPolicyOptions {
 }
 
 /**
+ * Checks whether reanimator strategies exist in the cube context.
+ * In cubes like Titou Tribal, reanimation spells do not exist.
+ */
+export function isReanimatorSupportedInCube(
+  evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">,
+): boolean {
+  if (!evaluationContext) return true;
+  const { cubeKey, catalog } = evaluationContext;
+  if (cubeKey === "titou_tribal") return false;
+  if (catalog && cubeKey) {
+    const cat = catalog as {
+      getCardsInCube?: (
+        key: string,
+      ) => readonly { oracleText?: string; oracleId?: string; slug?: string; name?: string }[];
+    };
+    const cards = cat.getCardsInCube?.(cubeKey) ?? [];
+    if (cards.length > 0) {
+      return cards.some((c) => {
+        const text = (c.oracleText ?? "").toLowerCase();
+        return (
+          /return .* from (your |a )?graveyard to the battlefield|put .* from a graveyard onto the battlefield/i.test(
+            text,
+          ) ||
+          (c.oracleId?.includes("reanimate") ?? false) ||
+          (c.slug?.includes("reanimate") ?? false) ||
+          (c.name?.toLowerCase().includes("reanimate") ?? false)
+        );
+      });
+    }
+  }
+  return true;
+}
+
+/**
  * Lists every personality rule that affected a candidate. Keeping the
  * contributions structured makes the bot decision auditable by callers.
  */
@@ -53,6 +87,7 @@ export function computeFriendCardBiasContributions(
   profile: FriendProfile,
   priorPool: readonly CardEvaluationInput[] = [],
   colorPenalty = 0,
+  context: { isReanimatorSupported?: boolean } = {},
 ): readonly Readonly<PickBiasContribution>[] {
   const contributions: PickBiasContribution[] = [];
   const { biases } = profile;
@@ -151,7 +186,7 @@ export function computeFriendCardBiasContributions(
   }
 
   // 6. Théo: Reanimation spells, big reanimation targets & discard enablers
-  if (biases.reanimationBonus) {
+  if (biases.reanimationBonus && context.isReanimatorSupported !== false) {
     const text = (card.oracleText ?? "").toLowerCase();
     const isReanimatorSpell =
       /return .* from (your |a )?graveyard to the battlefield|put .* from a graveyard onto the battlefield/i.test(
@@ -203,8 +238,9 @@ export function computeFriendCardBonus(
   profile: FriendProfile,
   priorPool: readonly CardEvaluationInput[] = [],
   colorPenalty = 0,
+  context: { isReanimatorSupported?: boolean } = {},
 ): number {
-  return computeFriendCardBiasContributions(card, profile, priorPool, colorPenalty).reduce(
+  return computeFriendCardBiasContributions(card, profile, priorPool, colorPenalty, context).reduce(
     (sum, contribution) => sum + contribution.points,
     0,
   );
@@ -261,6 +297,7 @@ export function createFriendBotPolicy(options: FriendBotPolicyOptions): PickPoli
 
       // 2. Evaluate pack with base dynamic score engine
       const baseEvaluations = evaluatePack(evalContext);
+      const isReanimatorSupported = isReanimatorSupportedInCube(options.evaluationContext);
 
       // 3. Apply friend's individual personality biases
       const candidates = baseEvaluations.map((evaluation) => {
@@ -271,6 +308,7 @@ export function createFriendBotPolicy(options: FriendBotPolicyOptions): PickPoli
               profile,
               priorPool,
               evaluation.breakdown.colorPenalty,
+              { isReanimatorSupported },
             )
           : [];
         const personalityBonus = biasContributions.reduce(

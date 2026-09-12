@@ -31,10 +31,12 @@ import type {
 } from "../bots/pick-policy.ts";
 import { createCoachedBotPolicy } from "../bots/coached-bot-policy.ts";
 import {
+  buildTableSeatAssignments,
   createFriendTablePolicies,
   DEFAULT_FRIEND_SEAT_PROFILES,
   type FriendProfile,
 } from "../bots/friends/index.ts";
+import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
 import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
@@ -71,7 +73,9 @@ import type {
   BasicLandCounts,
   LeaderboardEntry,
   SoloDeckBuildInput,
+  SoloDraftDeckRecommendation,
   SoloDraftFinalResult,
+  SoloDraftPickAdvice,
   SoloDraftStartInput,
   SoloDraftStateDto,
   SoloDraftStatus,
@@ -102,6 +106,8 @@ export class SoloDraftSession {
   private lastLeaderboardPayload: Omit<LeaderboardEntry, "id" | "rank"> | null = null;
   private lastCustomLeaderboardPath?: string | undefined;
 
+  public readonly humanPicks: string[] = [];
+  private cachedAdvicePromise: Promise<SoloDraftPickAdvice> | null = null;
   public roundIndex = 0;
   public readonly startedAtTimestamp: number;
   public draftDurationSeconds = 0;
@@ -192,16 +198,26 @@ export class SoloDraftSession {
       const doc = catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
       const name = doc?.name ?? card.name;
       const staticScore = doc ? doc.powerScore.score : 28;
-      const colors = (doc?.colors ?? []) as MtGColor[];
+      let colors = (doc?.colors ?? []) as MtGColor[];
       const cmc = doc?.cmc ?? 0;
       const types = doc?.types ?? [];
       const subtypes = doc?.subtypes ?? [];
       const typeLine = doc?.typeLine ?? "Card";
       const isLand = doc?.isLand ?? false;
       const producesColors = (doc?.producesColors ?? []) as MtGColor[];
-      const oracleText = doc?.oracleText ?? "";
+      const oracleText =
+        doc?.oracleText && doc.oracleText.length > 0 ? doc.oracleText : (doc?.frenchText ?? "");
       const manaCost = doc?.manaCost ?? "";
       const oracleId = doc?.oracleId ?? card.oracleId;
+
+      if (
+        colors.length === 0 &&
+        (!isLand || typeLine.includes("//")) &&
+        doc?.colorIdentity &&
+        doc.colorIdentity.length > 0
+      ) {
+        colors = [...doc.colorIdentity] as MtGColor[];
+      }
       const slug = doc?.slug;
       const imageUrl =
         doc?.image?.url ??
@@ -258,7 +274,14 @@ export class SoloDraftSession {
 
     const resolveCard = (id: string): CardEvaluationInput | undefined => instanceToInputMap.get(id);
     const evaluationContext = { cubeKey: snapshot.cubeKey, catalog } as const;
-    const friendTable = createFriendTablePolicies({ resolveCard, evaluationContext });
+    const seatAssignments = input.magicienSlug
+      ? buildTableSeatAssignments(input.magicienSlug)
+      : DEFAULT_FRIEND_SEAT_PROFILES;
+    const friendTable = createFriendTablePolicies({
+      resolveCard,
+      evaluationContext,
+      seatAssignments,
+    });
 
     // Seat 0: Human Player (represented as fallback Coached bot for policy descriptor)
     const policies: PickPolicy[] = [
@@ -286,7 +309,7 @@ export class SoloDraftSession {
         temperature: 1.0,
         biases: {},
       },
-      ...DEFAULT_FRIEND_SEAT_PROFILES.slice(1).map(
+      ...seatAssignments.slice(1).map(
         (p, i) =>
           p ?? {
             id: `seat-${String(i + 1)}`,
@@ -316,7 +339,7 @@ export class SoloDraftSession {
 
     const identityGenerator = createSessionIdentityGenerator();
     const identity = identityGenerator.create(seed);
-    const sessionId = identity.sessionId;
+    const sessionId = input.explicitSessionId ?? identity.sessionId;
     const startedAt = new Date().toISOString();
 
     const startInput: StartDraftInput = {
@@ -367,7 +390,7 @@ export class SoloDraftSession {
       };
     });
 
-    return new SoloDraftSession({
+    const session = new SoloDraftSession({
       sessionId,
       seed,
       playerName,
@@ -384,6 +407,8 @@ export class SoloDraftSession {
       seatProfiles,
       initialBoosters,
     });
+    session.prefetchPickAdvice();
+    return session;
   }
 
   public getStateDto(lastPickedCard?: EnrichedCard): SoloDraftStateDto {
@@ -424,6 +449,7 @@ export class SoloDraftSession {
       elapsedSeconds,
       isHomologated: this.isHomologated,
       lastPickedCard,
+      deckRecommendation: this.status === "deckbuilding" ? this.getDeckRecommendation() : undefined,
     };
   }
 
@@ -459,6 +485,7 @@ export class SoloDraftSession {
     const roundSteps = new Map<SeatId, Omit<PickWalkthroughStep, "eventSequence">>();
 
     // 1. Human Decision (Seat 0)
+    this.humanPicks.push(cardInstanceId);
     const humanEnriched = this.getEnrichedCard(cardInstanceId);
     decisions.push({
       seatId: 0,
@@ -720,10 +747,13 @@ export class SoloDraftSession {
 
     this.currentDraft = roundResult.value.draft;
     this.roundIndex++;
+    this.cachedAdvicePromise = null;
 
     if (this.roundIndex >= 45) {
       this.status = "deckbuilding";
       this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    } else {
+      this.prefetchPickAdvice();
     }
 
     return this.getStateDto(humanEnriched);
@@ -879,7 +909,9 @@ export class SoloDraftSession {
       sideboard,
       archetype: humanEvaluation.archetype,
       overallScore: humanEvaluation.overallScore,
+      overallTier: humanEvaluation.overallTier,
       radar: humanEvaluation.radar,
+      radarTiers: humanEvaluation.radarTiers,
       audit: humanEvaluation.audit,
       macroAxes: {
         power: humanEvaluation.radar.power,
@@ -1085,6 +1117,182 @@ export class SoloDraftSession {
         walkthroughUrl,
         boostersUrl,
       },
+      seats: adminSeats,
+    };
+  }
+
+  public prefetchPickAdvice(): void {
+    if (this.status !== "drafting") return;
+    const view = getDraftView(this.currentDraft);
+    const seat0 = view.seats[0];
+    const booster0 = seat0?.currentBooster;
+    if (!booster0 || booster0.remainingCardInstanceIds.length === 0) return;
+
+    // Start advice computation in the background
+    this.cachedAdvicePromise = this.computePickAdvice();
+  }
+
+  private async computePickAdvice(
+    options: { skipLlm?: boolean } = {},
+  ): Promise<SoloDraftPickAdvice> {
+    const view = getDraftView(this.currentDraft);
+    const seat0 = view.seats[0];
+    const booster0 = seat0?.currentBooster;
+    if (!booster0 || booster0.remainingCardInstanceIds.length === 0) {
+      throw new Error("No booster available for pick advice");
+    }
+
+    const offeredInputs: CardEvaluationInput[] = booster0.remainingCardInstanceIds.map(
+      (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+    );
+    const priorInputs: CardEvaluationInput[] = seat0.priorPool.map(
+      (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+    );
+
+    const advice = await getUnifiedDraftAdvice({
+      packCards: offeredInputs,
+      priorPool: priorInputs,
+      packNumber: view.packNumber,
+      pickNumber: view.pickNumber,
+      evaluationContext: {
+        cubeKey: this.snapshot.cubeKey,
+        catalog: this.catalog,
+      },
+      skipLlm: options.skipLlm,
+    });
+
+    return {
+      topPickId: advice.topPickId,
+      topPickName: advice.topPickName,
+      reason: advice.reason,
+      alternatives: advice.alternatives.map((alt) => ({
+        id: alt.id,
+        name: alt.name,
+        reason: alt.reason,
+      })),
+      provider: advice.provider,
+      packReview: advice.packReview,
+    };
+  }
+
+  public async getPickAdvice(options: { skipLlm?: boolean } = {}): Promise<SoloDraftPickAdvice> {
+    if (this.status !== "drafting") {
+      throw new Error(`Cannot get pick advice: draft status is '${this.status}'`);
+    }
+
+    this.isHomologated = false;
+
+    // If advice was pre-calculated in the background, return it immediately (0ms wait)
+    if (this.cachedAdvicePromise && !options.skipLlm) {
+      try {
+        const cached = await this.cachedAdvicePromise;
+        return cached;
+      } catch {
+        // Fall back to on-demand computation if background promise threw
+      }
+    }
+
+    return this.computePickAdvice(options);
+  }
+
+  public getPersistenceSnapshot(): {
+    readonly sessionId: string;
+    readonly seed: number;
+    readonly playerName: string;
+    readonly magicienSlug?: string | undefined;
+    readonly cubeKey: string;
+    readonly humanPicks: readonly string[];
+    readonly isHomologated: boolean;
+    readonly startedAtTimestamp: number;
+  } {
+    return {
+      sessionId: this.sessionId,
+      seed: this.seed,
+      playerName: this.playerName,
+      magicienSlug: this.magicienSlug,
+      cubeKey: this.snapshot.cubeKey,
+      humanPicks: [...this.humanPicks],
+      isHomologated: this.isHomologated,
+      startedAtTimestamp: this.startedAtTimestamp,
+    };
+  }
+
+  public static async restore(saved: {
+    readonly sessionId: string;
+    readonly seed: number;
+    readonly playerName: string;
+    readonly magicienSlug?: string | undefined;
+    readonly cubeKey?: string | undefined;
+    readonly humanPicks: readonly string[];
+    readonly isHomologated?: boolean | undefined;
+  }): Promise<SoloDraftSession> {
+    const session = await SoloDraftSession.create({
+      playerName: saved.playerName,
+      magicienSlug: saved.magicienSlug,
+      cubeKey: saved.cubeKey ?? "titou_tribal",
+      seed: saved.seed,
+      explicitSessionId: saved.sessionId,
+    });
+
+    for (const pickId of saved.humanPicks) {
+      if (session.status === "drafting") {
+        session.makePick(pickId);
+      }
+    }
+
+    if (saved.isHomologated !== undefined) {
+      session.isHomologated = saved.isHomologated;
+    }
+
+    return session;
+  }
+
+  public getDeckRecommendation(): SoloDraftDeckRecommendation {
+    const view = getDraftView(this.currentDraft);
+    const seat0 = view.seats[0];
+    const poolIds = seat0?.priorPool ?? [];
+    const poolInputs = poolIds.map(
+      (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+    );
+
+    const evaluationOptions: DeckEvaluationOptions = {
+      bombThreshold: this.bombDefinition.cutoffScore,
+      synergyProfile: this.synergyProfile,
+    };
+
+    const options = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
+    const bestOption = options[0];
+    if (!bestOption) {
+      throw new Error("No deck recommendation available");
+    }
+
+    const nonBasicDrafted: string[] = bestOption.maindeck.filter((id) => !id.startsWith("basic-"));
+    const nonLandSpells = nonBasicDrafted.filter((id) => !this.getEnrichedCard(id).isLand);
+    const maindeckCardInstanceIds: string[] = nonLandSpells.slice(0, 23);
+    if (maindeckCardInstanceIds.length < 23) {
+      for (const id of nonBasicDrafted) {
+        if (maindeckCardInstanceIds.length >= 23) break;
+        if (!maindeckCardInstanceIds.includes(id)) {
+          maindeckCardInstanceIds.push(id);
+        }
+      }
+      for (const id of poolIds) {
+        if (maindeckCardInstanceIds.length >= 23) break;
+        if (!maindeckCardInstanceIds.includes(id)) {
+          maindeckCardInstanceIds.push(id);
+        }
+      }
+    }
+
+    const basicLands = this.calculateOptimalBasicLands(maindeckCardInstanceIds);
+
+    return {
+      maindeckCardInstanceIds,
+      basicLands,
+      archetype: bestOption.evaluation.archetype,
+      overallTier: bestOption.evaluation.overallTier,
+      radarTiers: bestOption.evaluation.radarTiers,
+      justification: `Recommandation IA basée sur l'archétype ${bestOption.evaluation.archetype.label} (${bestOption.evaluation.overallTier})`,
     };
   }
 

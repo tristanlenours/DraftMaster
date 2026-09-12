@@ -1,0 +1,37 @@
+{
+  "leagueId": "powered_vintage",
+  "calibrationVersion": "1.0.0",
+  "status": "provisional",
+  "memberCubes": [
+    "arena_powered",
+    "candyshop"
+  ],
+  "tierThresholds": {
+    "S": 90,
+    "A": 80,
+    "B": 70,
+    "C": 60
+  },
+  "readinessPolicy": {
+    "minWitnessesPerTier": 3,
+    "minDraftWitnessesPerCube": 10,
+    "minDeckWitnessesPerCube": 15
+  },
+  "evidenceCounts": {
+    "tierCoverage": {
+      "S": 0,
+      "A": 1,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    },
+    "draftsByCube": {
+      "arena_powered": 1,
+      "candyshop": 0
+    },
+    "decksByCube": {
+      "arena_powered": 1,
+      "candyshop": 0
+    }
+  }
+}

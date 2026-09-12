@@ -1,4 +1,4 @@
-﻿import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -79,5 +79,24 @@ describe("Reference Draft Non-Regression (T042)", () => {
     expect(replayedReport.finalPools).toEqual(reference.finalPools);
     expect(replayedReport.unusedCardInstanceIds).toEqual(reference.unusedCardInstanceIds);
     expect(replayedReport.invariants).toEqual(reference.invariants);
+  });
+
+  it("strictly keeps the seed-42 reference draft outside golden-dataset witness manifests (FR-015, SC-007)", () => {
+    const goldenDatasetsDir = resolve(import.meta.dirname, "../fixtures/golden-datasets");
+    const arenaCorpusPath = resolve(
+      goldenDatasetsDir,
+      "powered-vintage/arena-powered/2026-09-08/corpus.json",
+    );
+    const rawCorpus = readFileSync(arenaCorpusPath, "utf8");
+    const corpus = JSON.parse(rawCorpus) as {
+      readonly draftWitnesses: readonly { readonly draftId: string }[];
+    };
+
+    const draftIds = corpus.draftWitnesses.map((d) => d.draftId);
+    expect(draftIds).not.toContain("0c0e1a78c4d6");
+    expect(draftIds).not.toContain("titou-2026-02-24.1-seed-42");
+
+    const seed42Path = resolve(goldenDatasetsDir, "titou-2026-02-24.1-seed-42.json");
+    expect(existsSync(seed42Path)).toBe(false);
   });
 });

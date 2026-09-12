@@ -43,6 +43,22 @@ _Avoid_: Draft score, match score, global score
 The five dimensions of a Score de deck: Puissance, Synergie, Courbe, Mana, and Interaction.
 _Avoid_: Kiviat metrics, performance stats
 
+**Ligue de cubes**:
+A named family of cubes whose drafted decks share comparable power expectations and Tier de deck calibration. Cubes in the same league may have different card lists and archetypes; cubes in different leagues are not tier-comparable.
+_Avoid_: Cube category, format, power tier
+
+**Tier de deck**:
+The ordinal evaluation of a deck as S, A, B, C, or D relative to its Ligue de cubes. Decks from different cubes are tier-comparable when their snapshots belong to the same league; the tier does not redefine the intrinsic power evaluation of individual cards.
+_Avoid_: Universal deck grade, card tier
+
+**Deck témoin**:
+An expert-reviewed final deck tied to one Snapshot de cube and its Ligue de cubes, with an expected Tier de deck and evidence describing its build, strengths, weaknesses, and relevant draft context. It calibrates and tests deck evaluation; it is not training data by default.
+_Avoid_: Golden deck, benchmark deck
+
+**Corpus témoin de ligue**:
+A versioned collection of Decks témoins from one or more cubes in the same Ligue de cubes and, when available, their source Journaux de draft. It preserves each cube and snapshot provenance while providing shared expected outcomes for regression and model comparison.
+_Avoid_: Golden dataset, generic fixture folder
+
 **Affinité d'archétype**:
 The cube-specific association between a card and a supported game plan. A card may have several affinities, but raw power alone never creates one.
 _Avoid_: Card archetype when referring to a universal property of the card

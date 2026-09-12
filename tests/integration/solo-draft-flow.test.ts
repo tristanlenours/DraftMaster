@@ -80,6 +80,28 @@ describe("Solo Draft Web API & Flow Integration", () => {
     expect(startData.session.currentBooster.length).toBe(15);
     expect(startData.session.playerPool.length).toBe(0);
 
+    // 1b. Test AI Coach Advice endpoint
+    const adviceRes = await fetch(`${baseUrl}/api/draft/advice`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId }),
+    });
+    expect(adviceRes.status).toBe(200);
+    const adviceData = (await adviceRes.json()) as {
+      ok: boolean;
+      advice: {
+        topPickId: string;
+        topPickName: string;
+        reason: string;
+        alternatives: { id: string; name: string; reason: string }[];
+      };
+    };
+    expect(adviceData.ok).toBe(true);
+    expect(adviceData.advice.topPickId).toBeDefined();
+    expect(adviceData.advice.topPickName).toBeDefined();
+    expect(adviceData.advice.reason.length).toBeGreaterThan(0);
+    expect(Array.isArray(adviceData.advice.alternatives)).toBe(true);
+
     // 2. Play all 45 rounds
     let currentBooster = startData.session.currentBooster;
     let pool: { instanceId: string }[] = [];
@@ -114,8 +136,41 @@ describe("Solo Draft Web API & Flow Integration", () => {
 
     expect(pool.length).toBe(45);
 
-    // 3. Finalize Deck with 23 cards
-    const maindeck23 = pool.slice(0, 23).map((c) => c.instanceId);
+    // 2b. Test AI Pre-construction Recommendation endpoint
+    const recoRes = await fetch(`${baseUrl}/api/draft/recommend-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId }),
+    });
+    expect(recoRes.status).toBe(200);
+    const recoData = (await recoRes.json()) as {
+      ok: boolean;
+      recommendation: {
+        maindeckCardInstanceIds: string[];
+        basicLands: {
+          Plains: number;
+          Island: number;
+          Swamp: number;
+          Mountain: number;
+          Forest: number;
+        };
+        archetype: { label: string };
+        overallTier: string;
+      };
+    };
+    expect(recoData.ok).toBe(true);
+    expect(recoData.recommendation.maindeckCardInstanceIds.length).toBe(23);
+    const totalLands =
+      recoData.recommendation.basicLands.Plains +
+      recoData.recommendation.basicLands.Island +
+      recoData.recommendation.basicLands.Swamp +
+      recoData.recommendation.basicLands.Mountain +
+      recoData.recommendation.basicLands.Forest;
+    expect(totalLands).toBe(17);
+    expect(recoData.recommendation.overallTier).toMatch(/^[SABCD]$/);
+
+    // 3. Finalize Deck with 23 recommended cards
+    const maindeck23 = recoData.recommendation.maindeckCardInstanceIds;
     const deckRes = await fetch(`${baseUrl}/api/draft/deck`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -130,14 +185,37 @@ describe("Solo Draft Web API & Flow Integration", () => {
       ok: boolean;
       result: {
         playerName: string;
-        evaluation: { overallScore: number };
+        evaluation: {
+          overallScore: number;
+          overallTier: string;
+          radarTiers: {
+            power: string;
+            synergy: string;
+            curve: string;
+            mana: string;
+            interaction: string;
+          };
+        };
         reports: { walkthroughUrl: string; boostersUrl: string };
+        seats: {
+          seatId: number;
+          isBot: boolean;
+          deck: {
+            overallTier: string;
+            radarTiers: { power: string };
+          };
+        }[];
       };
     };
 
     expect(deckData.ok).toBe(true);
     expect(deckData.result.playerName).toBe("API Tester");
     expect(deckData.result.evaluation.overallScore).toBeGreaterThan(0);
+    expect(deckData.result.evaluation.overallTier).toMatch(/^[SABCD]$/);
+    expect(deckData.result.evaluation.radarTiers.power).toMatch(/^[SABCD]$/);
+    expect(deckData.result.seats.length).toBe(8);
+    expect(deckData.result.seats[0]?.deck.overallTier).toMatch(/^[SABCD]$/);
+    expect(deckData.result.seats[1]?.deck.overallTier).toMatch(/^[SABCD]$/);
 
     // 4. Fetch the generated HTML report through the server
     const reportRes = await fetch(`${baseUrl}${deckData.result.reports.walkthroughUrl}`);

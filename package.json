@@ -44,7 +44,10 @@
     "test:reference": "vitest run tests/integration/reference-draft.test.ts",
     "test:replay": "vitest run tests/contract/replay-draft.test.ts tests/integration/replay-equivalence.test.ts tests/integration/replay-properties.test.ts tests/integration/determinism.test.ts",
     "typecheck": "tsc --noEmit",
-    "web": "node --no-warnings --experimental-strip-types scripts/serve-web.mjs"
+    "companion": "node --no-warnings --experimental-strip-types src/companion/server.ts",
+    "web": "node --no-warnings --experimental-strip-types scripts/serve-web.mjs",
+    "witness:validate": "vitest run tests/unit/coaching/witness-corpus.test.ts",
+    "witness:import:arena": "node scripts/import-arena-witness.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.116.0",

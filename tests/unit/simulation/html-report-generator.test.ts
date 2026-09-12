@@ -65,7 +65,7 @@ describe("HTML Report Generator (Option A)", () => {
       expect(html).toContain(seat.botName);
     }
     for (const seat of result.value.seats) {
-      expect(seat.finalDeck.audit.formulaVersion).toBe("deck-evaluation@4");
+      expect(seat.finalDeck.audit.formulaVersion).toBe("deck-evaluation@5");
       expect(seat.finalDeck.audit.power.bombThreshold).toBe(
         result.value.bombDefinition.cutoffScore,
       );

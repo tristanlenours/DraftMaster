@@ -8,7 +8,7 @@
 
 - Le siège 0 du rapport autonome est `Le Rockeur` (`botId: theo`) ; Tristan reste le siège humain de l'application produit.
 - La définition d'une bombe est le top 5 % des identités canoniques classées par `powerScore.score`, égalités au seuil incluses.
-- Le snapshot classe 542 identités ; le seuil seed-independent est 44/53 et rend 29 identités éligibles.
+- Le snapshot classe 542 identités ; le seuil seed-independent est 44/55 et rend 29 identités éligibles.
 - Le tirage seed 42 distribue 21 instances de bombes dans les 24 boosters ; 9 boosters n'en contiennent aucune.
 - Le rapport boosters embarque 24 boosters de 15 cartes et aucun champ ni ruban de premier pick.
 - Le rapport détaillé embarque 360 décisions. Chaque décision contient le `dynamicScore`, le détail du coaching, les contributions des biais, le `policyScore`, la probabilité, le rang, la température et le tirage déterministe.

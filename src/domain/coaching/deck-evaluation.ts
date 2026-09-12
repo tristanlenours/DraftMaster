@@ -1,23 +1,29 @@
-import type {
-  CardEvaluationInput,
-  CurveAxisAudit,
-  DeckSynergyProfile,
-  DeckArchetype,
-  DeckEvaluation,
-  DeckEvaluationOptions,
-  InteractionAxisAudit,
-  InteractionCoverage,
-  KiviatRadarScores,
-  ManaAxisAudit,
-  ManaFixerAuditEntry,
-  MtGColor,
-  PowerAxisAudit,
-  StrategicPackageAudit,
-  SynergyAxisAudit,
+import {
+  scoreToTier,
+  type CardEvaluationInput,
+  type CurveAxisAudit,
+  type DeckSynergyProfile,
+  type DeckArchetype,
+  type DeckEvaluation,
+  type DeckEvaluationOptions,
+  type InteractionAxisAudit,
+  type InteractionCoverage,
+  type KiviatRadarScores,
+  type ManaAxisAudit,
+  type ManaFixerAuditEntry,
+  type MtGColor,
+  type PowerAxisAudit,
+  type StrategicPackageAudit,
+  type SynergyAxisAudit,
 } from "./types.ts";
 import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
+import {
+  assertCubeLeagueMembership,
+  classifyLeagueTier,
+  validateLeagueCalibration,
+} from "./league-calibration.ts";
 
 function clamp(value: number, min = 0, max = 100): number {
   return Math.min(max, Math.max(min, Math.round(value)));
@@ -686,14 +692,16 @@ export function computeKiviatRadar(
 ): KiviatRadarScores {
   const spells = deck.filter((c) => !c.isLand);
   const lands = deck.filter((c) => c.isLand);
+  const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
+  const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
   const packages = analyzeStrategicPackages(spells);
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
-  const synergyAnalysis = analyzeArchetypeSynergy(deck, options.synergyProfile, packages);
+  const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
 
   // 1. Puissance Brute (20%)
-  const power = analyzePower(spells, options.bombThreshold).score;
+  const power = analyzePower(spells, bombThreshold).score;
 
   // 2. Synergies d'Archétype (25%) - 3 points per key card, 1 per support card.
   const synergy = synergyAnalysis.score;
@@ -761,14 +769,24 @@ export function evaluateDeck(
   deck: readonly CardEvaluationInput[],
   options: DeckEvaluationOptions = {},
 ): DeckEvaluation {
+  if (options.leagueCalibration) {
+    validateLeagueCalibration(options.leagueCalibration);
+    if (options.cubeContext) {
+      assertCubeLeagueMembership(options.cubeContext, options.leagueCalibration);
+    }
+  }
+
+  const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
+  const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
+
   const archetype = detectArchetype(deck);
   const radar = computeKiviatRadar(deck, archetype, options);
 
   const spells = deck.filter((c) => !c.isLand);
   const lands = deck.filter((c) => c.isLand);
-  const powerAnalysis = analyzePower(spells, options.bombThreshold);
+  const powerAnalysis = analyzePower(spells, bombThreshold);
   const packages = analyzeStrategicPackages(spells);
-  const synergyAnalysis = analyzeArchetypeSynergy(deck, options.synergyProfile, packages);
+  const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
@@ -826,6 +844,17 @@ export function evaluateDeck(
     recommendations.push("Ajuster le ratio de créatures à 2 manas pour assurer un départ fluide.");
   }
 
+  const overallTier = options.leagueCalibration
+    ? classifyLeagueTier(overallScore, options.leagueCalibration)
+    : scoreToTier(overallScore).tier;
+  const radarTiers = {
+    power: scoreToTier(radar.power).tier,
+    synergy: scoreToTier(radar.synergy).tier,
+    curve: scoreToTier(radar.curve).tier,
+    mana: scoreToTier(radar.mana).tier,
+    interaction: scoreToTier(radar.interaction).tier,
+  };
+
   return {
     deckSize: deck.length,
     spellsCount: spells.length,
@@ -833,8 +862,10 @@ export function evaluateDeck(
     archetype,
     radar,
     overallScore,
+    overallTier,
+    radarTiers,
     audit: {
-      formulaVersion: "deck-evaluation@4",
+      formulaVersion: "deck-evaluation@5",
       scoreMeaning:
         "Heuristique explicable sur 100 : ni une probabilité de victoire, ni un percentile statistique.",
       power: powerAnalysis.audit,
@@ -843,6 +874,19 @@ export function evaluateDeck(
       interaction: interactionAnalysis.audit,
       mana: manaAnalysis,
       contributions,
+      ...(options.leagueCalibration
+        ? {
+            leagueId: options.leagueCalibration.leagueId,
+            calibrationVersion: options.leagueCalibration.calibrationVersion,
+            calibrationStatus: options.leagueCalibration.status,
+          }
+        : {}),
+      ...(options.cubeContext
+        ? {
+            cubeKey: options.cubeContext.cubeKey,
+            cubeSnapshotId: options.cubeContext.cubeSnapshotId,
+          }
+        : {}),
     },
     strengths,
     weaknesses,

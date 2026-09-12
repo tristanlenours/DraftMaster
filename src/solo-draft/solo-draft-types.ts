@@ -1,5 +1,12 @@
 import type { EnrichedCard, FinalDeckSummary } from "../simulation/detailed-simulation.ts";
-import type { DeckArchetype, KiviatRadarScores, MtGColor } from "../domain/coaching/types.ts";
+import type {
+  DeckArchetype,
+  DeckTier,
+  KiviatRadarScores,
+  MidDraftReview,
+  MtGColor,
+  RadarTiers,
+} from "../domain/coaching/types.ts";
 
 export type SoloDraftStatus = "drafting" | "deckbuilding" | "completed";
 
@@ -11,11 +18,21 @@ export interface BasicLandCounts {
   readonly Forest: number;
 }
 
+export interface SoloDraftDeckRecommendation {
+  readonly maindeckCardInstanceIds: readonly string[];
+  readonly basicLands: BasicLandCounts;
+  readonly archetype: DeckArchetype;
+  readonly overallTier: DeckTier;
+  readonly radarTiers: RadarTiers;
+  readonly justification?: string | undefined;
+}
+
 export interface SoloDraftStartInput {
   readonly playerName: string;
   readonly cubeKey?: string | undefined;
   readonly seed?: number | undefined;
   readonly magicienSlug?: string | undefined;
+  readonly explicitSessionId?: string | undefined;
 }
 
 export interface SoloDraftPickInput {
@@ -49,6 +66,7 @@ export interface SoloDraftStateDto {
   readonly elapsedSeconds: number;
   readonly isHomologated: boolean;
   readonly lastPickedCard?: EnrichedCard | undefined;
+  readonly deckRecommendation?: SoloDraftDeckRecommendation | undefined;
 }
 
 export interface LeaderboardDeckCard {
@@ -88,6 +106,19 @@ export interface LeaderboardEntry {
   readonly basicLands: BasicLandCounts;
 }
 
+export interface SoloDraftPickAdvice {
+  readonly topPickId: string;
+  readonly topPickName: string;
+  readonly reason: string;
+  readonly alternatives: readonly {
+    readonly id: string;
+    readonly name: string;
+    readonly reason: string;
+  }[];
+  readonly provider?: string | undefined;
+  readonly packReview?: MidDraftReview | undefined;
+}
+
 export interface SoloDraftFinalResult {
   readonly sessionId: string;
   readonly playerName: string;
@@ -102,6 +133,7 @@ export interface SoloDraftFinalResult {
     readonly walkthroughUrl: string;
     readonly boostersUrl: string;
   };
+  readonly seats: readonly AdminDraftSeatSummary[];
 }
 
 export interface AdminDraftSeatSummary {

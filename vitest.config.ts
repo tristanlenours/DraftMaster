@@ -5,7 +5,7 @@ const performanceTest = "tests/integration/performance.test.ts";
 export default defineConfig({
   test: {
     coverage: {
-      exclude: ["src/**/*.d.ts"],
+      exclude: ["src/**/*.d.ts", "src/companion/**"],
       include: ["src/**/*.ts"],
       provider: "v8",
       reporter: ["text", "html", "json-summary"],

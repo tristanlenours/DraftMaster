@@ -28,7 +28,7 @@
       "additionalProperties": false,
       "required": ["score", "source", "harmonizationDegree", "confidence", "updatedAt"],
       "properties": {
-        "score": { "type": "number", "minimum": 1.0, "maximum": 53.0 },
+        "score": { "type": "number", "minimum": 1.0, "maximum": 55.0 },
         "source": {
           "type": "string",
           "enum": ["untapped", "draftsmith", "17lands_normalized", "cubecobra_elo", "expert_heuristic"]

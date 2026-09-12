@@ -1,0 +1,6050 @@
+{
+  "schemaVersion": 1,
+  "corpusId": "arena-powered-2026-09-08-corpus",
+  "corpusVersion": "1.0.0",
+  "leagueCalibration": {
+    "leagueId": "powered_vintage",
+    "calibrationVersion": "1.0.0",
+    "status": "provisional",
+    "memberCubes": [
+      "arena_powered",
+      "candyshop"
+    ],
+    "tierThresholds": {
+      "S": 90,
+      "A": 80,
+      "B": 70,
+      "C": 60
+    },
+    "readinessPolicy": {
+      "minWitnessesPerTier": 3,
+      "minDraftWitnessesPerCube": 10,
+      "minDeckWitnessesPerCube": 15
+    },
+    "evidenceCounts": {
+      "tierCoverage": {
+        "S": 0,
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "draftsByCube": {
+        "arena_powered": 1,
+        "candyshop": 0
+      },
+      "decksByCube": {
+        "arena_powered": 1,
+        "candyshop": 0
+      }
+    }
+  },
+  "cubes": [
+    {
+      "cubeKey": "arena_powered",
+      "snapshotId": "2026-09-08",
+      "name": "Arena Powered Cube"
+    },
+    {
+      "cubeKey": "candyshop",
+      "snapshotId": "2026-08-30",
+      "name": "Nico's Vintage Candyshop"
+    }
+  ],
+  "draftWitnesses": [
+    {
+      "draftId": "bc4cdb9d-6412-43a1-84a2-d66b5dbed559",
+      "source": "mtga_untapped",
+      "startedAt": "2026-09-11T16:35:43.287Z",
+      "leagueId": "powered_vintage",
+      "cubeKey": "arena_powered",
+      "cubeSnapshotId": "2026-09-08",
+      "picks": [
+        {
+          "packNumber": 1,
+          "pickNumber": 1,
+          "offeredCardIds": [
+            "90810",
+            "83402",
+            "84315",
+            "78446",
+            "101029",
+            "87308",
+            "93804",
+            "77825",
+            "76189",
+            "89181",
+            "92361",
+            "71320",
+            "6947",
+            "36682",
+            "19679"
+          ],
+          "pickedCardId": "90810",
+          "staticScore": 45,
+          "dynamicScore": 45
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 2,
+          "offeredCardIds": [
+            "90709",
+            "70732",
+            "90889",
+            "88075",
+            "84795",
+            "87258",
+            "90716",
+            "77014",
+            "77535",
+            "91113",
+            "60303",
+            "89182",
+            "75662",
+            "10035"
+          ],
+          "pickedCardId": "90709",
+          "staticScore": 45,
+          "dynamicScore": 43.4
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 3,
+          "offeredCardIds": [
+            "86811",
+            "76158",
+            "71795",
+            "90704",
+            "69505",
+            "100574",
+            "69670",
+            "71293",
+            "69396",
+            "55477",
+            "77138",
+            "93905",
+            "84861"
+          ],
+          "pickedCardId": "69670",
+          "staticScore": 47,
+          "dynamicScore": 34.7
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 4,
+          "offeredCardIds": [
+            "104909",
+            "105664",
+            "91172",
+            "84939",
+            "102795",
+            "77035",
+            "92356",
+            "105171",
+            "87246",
+            "56597",
+            "89134",
+            "76594"
+          ],
+          "pickedCardId": "89134",
+          "staticScore": 43,
+          "dynamicScore": 40.4
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 5,
+          "offeredCardIds": [
+            "71486",
+            "83875",
+            "57373",
+            "90934",
+            "10583",
+            "82997",
+            "89191",
+            "96172",
+            "102606",
+            "78549",
+            "82649"
+          ],
+          "pickedCardId": "89191",
+          "staticScore": 40,
+          "dynamicScore": 22.5
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 6,
+          "offeredCardIds": [
+            "37374",
+            "105741",
+            "71558",
+            "90428",
+            "94435",
+            "105165",
+            "82586",
+            "89131",
+            "78989",
+            "94152"
+          ],
+          "pickedCardId": "105165",
+          "staticScore": 41,
+          "dynamicScore": 26.2
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 7,
+          "offeredCardIds": [
+            "92104",
+            "75763",
+            "86606",
+            "100632",
+            "70257",
+            "102625",
+            "83948",
+            "72434",
+            "70015"
+          ],
+          "pickedCardId": "92104",
+          "staticScore": 13,
+          "dynamicScore": 13.7
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 8,
+          "offeredCardIds": [
+            "104913",
+            "92904",
+            "90686",
+            "92064",
+            "95902",
+            "86993",
+            "102471",
+            "77004"
+          ],
+          "pickedCardId": "104913",
+          "staticScore": 16,
+          "dynamicScore": 29.9
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 9,
+          "offeredCardIds": [
+            "83402",
+            "84315",
+            "78446",
+            "93804",
+            "77825",
+            "92361",
+            "6947"
+          ],
+          "pickedCardId": "84315",
+          "staticScore": 20,
+          "dynamicScore": 24.4
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 10,
+          "offeredCardIds": [
+            "70732",
+            "87258",
+            "77014",
+            "77535",
+            "60303",
+            "89182"
+          ],
+          "pickedCardId": "89182",
+          "staticScore": 41,
+          "dynamicScore": 17.5
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 11,
+          "offeredCardIds": [
+            "76158",
+            "71795",
+            "69505",
+            "55477",
+            "93905"
+          ],
+          "pickedCardId": "69505",
+          "staticScore": 5.2,
+          "dynamicScore": 12.1
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 12,
+          "offeredCardIds": [
+            "104909",
+            "102795",
+            "92356",
+            "76594"
+          ],
+          "pickedCardId": "76594",
+          "staticScore": 40,
+          "dynamicScore": 22.2
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 13,
+          "offeredCardIds": [
+            "57373",
+            "102606",
+            "82649"
+          ],
+          "pickedCardId": "102606",
+          "staticScore": 21,
+          "dynamicScore": 10
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 14,
+          "offeredCardIds": [
+            "89131",
+            "78989"
+          ],
+          "pickedCardId": "89131",
+          "staticScore": 43,
+          "dynamicScore": 38.1
+        },
+        {
+          "packNumber": 1,
+          "pickNumber": 15,
+          "offeredCardIds": [
+            "72434"
+          ],
+          "pickedCardId": "72434",
+          "staticScore": 9.7,
+          "dynamicScore": 15.6
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 1,
+          "offeredCardIds": [
+            "70186",
+            "67518",
+            "77492",
+            "99689",
+            "100171",
+            "73935",
+            "47035",
+            "48165",
+            "75864",
+            "101113",
+            "95066",
+            "92066",
+            "101033",
+            "82833",
+            "77673"
+          ],
+          "pickedCardId": "67518",
+          "staticScore": 42,
+          "dynamicScore": 39.9
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 2,
+          "offeredCardIds": [
+            "75695",
+            "38197",
+            "47485",
+            "55531",
+            "12385",
+            "78895",
+            "105106",
+            "91893",
+            "64171",
+            "89193",
+            "60311",
+            "78196",
+            "84699",
+            "34952"
+          ],
+          "pickedCardId": "64171",
+          "staticScore": 18,
+          "dynamicScore": 20.4
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 3,
+          "offeredCardIds": [
+            "91167",
+            "92314",
+            "102673",
+            "105806",
+            "75185",
+            "71294",
+            "96118",
+            "11867",
+            "80405",
+            "77058",
+            "87809",
+            "84803",
+            "95112"
+          ],
+          "pickedCardId": "71294",
+          "staticScore": 30,
+          "dynamicScore": 37.3
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 4,
+          "offeredCardIds": [
+            "79464",
+            "58009",
+            "98365",
+            "79570",
+            "91019",
+            "105162",
+            "71326",
+            "77062",
+            "101030",
+            "78335",
+            "39976",
+            "76953"
+          ],
+          "pickedCardId": "79464",
+          "staticScore": 29,
+          "dynamicScore": 30.4
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 5,
+          "offeredCardIds": [
+            "102572",
+            "90673",
+            "60053",
+            "100563",
+            "98546",
+            "28707",
+            "35639",
+            "75858",
+            "68739",
+            "82141",
+            "12615"
+          ],
+          "pickedCardId": "35639",
+          "staticScore": 41,
+          "dynamicScore": 38.1
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 6,
+          "offeredCardIds": [
+            "84281",
+            "103472",
+            "72447",
+            "104959",
+            "77495",
+            "69530",
+            "70262",
+            "69394",
+            "71572",
+            "78374"
+          ],
+          "pickedCardId": "77495",
+          "staticScore": 41,
+          "dynamicScore": 38.6
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 7,
+          "offeredCardIds": [
+            "78352",
+            "87088",
+            "94993",
+            "87223",
+            "76228",
+            "91103",
+            "69407",
+            "95072",
+            "28339"
+          ],
+          "pickedCardId": "28339",
+          "staticScore": 29,
+          "dynamicScore": 30.7
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 8,
+          "offeredCardIds": [
+            "88914",
+            "77533",
+            "76410",
+            "102474",
+            "82076",
+            "35657",
+            "76988",
+            "84752"
+          ],
+          "pickedCardId": "102474",
+          "staticScore": 34,
+          "dynamicScore": 36.5
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 9,
+          "offeredCardIds": [
+            "70186",
+            "47035",
+            "75864",
+            "95066",
+            "92066",
+            "82833",
+            "77673"
+          ],
+          "pickedCardId": "70186",
+          "staticScore": 24,
+          "dynamicScore": 25.7
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 10,
+          "offeredCardIds": [
+            "47485",
+            "55531",
+            "12385",
+            "78895",
+            "60311",
+            "84699"
+          ],
+          "pickedCardId": "55531",
+          "staticScore": 22,
+          "dynamicScore": 26.3
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 11,
+          "offeredCardIds": [
+            "92314",
+            "105806",
+            "96118",
+            "87809",
+            "95112"
+          ],
+          "pickedCardId": "92314",
+          "staticScore": 28,
+          "dynamicScore": 25.7
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 12,
+          "offeredCardIds": [
+            "58009",
+            "98365",
+            "105162",
+            "71326"
+          ],
+          "pickedCardId": "58009",
+          "staticScore": 12,
+          "dynamicScore": 7.9
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 13,
+          "offeredCardIds": [
+            "90673",
+            "100563",
+            "28707"
+          ],
+          "pickedCardId": "28707",
+          "staticScore": 20,
+          "dynamicScore": 23.1
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 14,
+          "offeredCardIds": [
+            "104959",
+            "78374"
+          ],
+          "pickedCardId": "78374",
+          "staticScore": 18,
+          "dynamicScore": 17.4
+        },
+        {
+          "packNumber": 2,
+          "pickNumber": 15,
+          "offeredCardIds": [
+            "95072"
+          ],
+          "pickedCardId": "95072",
+          "staticScore": 40,
+          "dynamicScore": 18.1
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 1,
+          "offeredCardIds": [
+            "91170",
+            "103392",
+            "86635",
+            "98430",
+            "75182",
+            "60163",
+            "83896",
+            "77487",
+            "90728",
+            "91021",
+            "29589",
+            "83949",
+            "84763",
+            "82684",
+            "91011"
+          ],
+          "pickedCardId": "86635",
+          "staticScore": 35,
+          "dynamicScore": 35.9
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 2,
+          "offeredCardIds": [
+            "91164",
+            "78322",
+            "77484",
+            "100142",
+            "12349",
+            "95648",
+            "76254",
+            "92359",
+            "58403",
+            "18932",
+            "98428",
+            "71571",
+            "90589",
+            "76260"
+          ],
+          "pickedCardId": "91164",
+          "staticScore": 45,
+          "dynamicScore": 42
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 3,
+          "offeredCardIds": [
+            "96583",
+            "90887",
+            "66029",
+            "81701",
+            "103427",
+            "60981",
+            "83000",
+            "70747",
+            "89186",
+            "89190",
+            "92360",
+            "104919",
+            "69512"
+          ],
+          "pickedCardId": "89186",
+          "staticScore": 41,
+          "dynamicScore": 26.4
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 4,
+          "offeredCardIds": [
+            "91165",
+            "92230",
+            "98574",
+            "75964",
+            "92218",
+            "86990",
+            "80401",
+            "102776",
+            "71573",
+            "20551",
+            "99488",
+            "86653"
+          ],
+          "pickedCardId": "75964",
+          "staticScore": 35,
+          "dynamicScore": 23.1
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 5,
+          "offeredCardIds": [
+            "91882",
+            "70344",
+            "60275",
+            "71354",
+            "82496",
+            "77513",
+            "95623",
+            "80411",
+            "71315",
+            "82235",
+            "82810"
+          ],
+          "pickedCardId": "60275",
+          "staticScore": 27,
+          "dynamicScore": 33.2
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 6,
+          "offeredCardIds": [
+            "91166",
+            "90952",
+            "92191",
+            "105051",
+            "95538",
+            "94610",
+            "69669",
+            "82839",
+            "21603",
+            "97544"
+          ],
+          "pickedCardId": "95538",
+          "staticScore": 42,
+          "dynamicScore": 20.8
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 7,
+          "offeredCardIds": [
+            "82149",
+            "87145",
+            "98368",
+            "95949",
+            "76955",
+            "73481",
+            "75876",
+            "89185",
+            "29970"
+          ],
+          "pickedCardId": "87145",
+          "staticScore": 20,
+          "dynamicScore": 8.6
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 8,
+          "offeredCardIds": [
+            "100908",
+            "87204",
+            "91611",
+            "77510",
+            "105456",
+            "38307",
+            "90614",
+            "79050"
+          ],
+          "pickedCardId": "87204",
+          "staticScore": 23,
+          "dynamicScore": 22.1
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 9,
+          "offeredCardIds": [
+            "103392",
+            "98430",
+            "60163",
+            "77487",
+            "83949",
+            "84763",
+            "91011"
+          ],
+          "pickedCardId": "77487",
+          "staticScore": 28,
+          "dynamicScore": 15.8
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 10,
+          "offeredCardIds": [
+            "78322",
+            "100142",
+            "12349",
+            "76254",
+            "92359",
+            "98428"
+          ],
+          "pickedCardId": "92359",
+          "staticScore": 42,
+          "dynamicScore": 27.8
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 11,
+          "offeredCardIds": [
+            "66029",
+            "81701",
+            "60981",
+            "89190",
+            "104919"
+          ],
+          "pickedCardId": "66029",
+          "staticScore": 7.2,
+          "dynamicScore": 12.4
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 12,
+          "offeredCardIds": [
+            "91165",
+            "98574",
+            "71573",
+            "86653"
+          ],
+          "pickedCardId": "91165",
+          "staticScore": 25,
+          "dynamicScore": 26.5
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 13,
+          "offeredCardIds": [
+            "71354",
+            "77513",
+            "82810"
+          ],
+          "pickedCardId": "82810",
+          "staticScore": 9.1,
+          "dynamicScore": 9.1
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 14,
+          "offeredCardIds": [
+            "94610",
+            "82839"
+          ],
+          "pickedCardId": "82839",
+          "staticScore": 3.6,
+          "dynamicScore": 9.4
+        },
+        {
+          "packNumber": 3,
+          "pickNumber": 15,
+          "offeredCardIds": [
+            "98368"
+          ],
+          "pickedCardId": "98368",
+          "staticScore": 11,
+          "dynamicScore": 16.6
+        }
+      ],
+      "poolCardIds": [
+        "90810",
+        "90709",
+        "69670",
+        "89134",
+        "89191",
+        "105165",
+        "92104",
+        "104913",
+        "84315",
+        "89182",
+        "69505",
+        "76594",
+        "102606",
+        "89131",
+        "72434",
+        "67518",
+        "64171",
+        "71294",
+        "79464",
+        "35639",
+        "77495",
+        "28339",
+        "102474",
+        "70186",
+        "55531",
+        "92314",
+        "58009",
+        "28707",
+        "78374",
+        "95072",
+        "86635",
+        "91164",
+        "89186",
+        "75964",
+        "60275",
+        "95538",
+        "87145",
+        "87204",
+        "77487",
+        "92359",
+        "66029",
+        "91165",
+        "82810",
+        "82839",
+        "98368"
+      ],
+      "finalDeckCardIds": [
+        "90810",
+        "90709",
+        "69670",
+        "89134",
+        "92104",
+        "84315",
+        "67518",
+        "64171",
+        "55531",
+        "79464",
+        "35639",
+        "77495",
+        "28339",
+        "102474",
+        "70186",
+        "28707",
+        "58009",
+        "86635",
+        "91164",
+        "89186",
+        "75964",
+        "60275",
+        "87145",
+        "87204",
+        "77487",
+        "92359",
+        "66029",
+        "91165",
+        "89191",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95192",
+        "95192",
+        "95192",
+        "95192",
+        "95192"
+      ],
+      "sideboardCardIds": [
+        "105165",
+        "104913",
+        "89182",
+        "69505",
+        "76594",
+        "102606",
+        "89131",
+        "72434",
+        "71294",
+        "92314",
+        "78374",
+        "95072",
+        "95538",
+        "82810",
+        "82839",
+        "98368"
+      ],
+      "cardIdentities": {
+        "6947": {
+          "id": "6947",
+          "name": "Enlightened Tutor",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "10035": {
+          "id": "10035",
+          "name": "Wasteland",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "10583": {
+          "id": "10583",
+          "name": "Recurring Nightmare",
+          "manaCost": "{B}{2}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "11867": {
+          "id": "11867",
+          "name": "Gaea's Cradle",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Legendary",
+            "Land"
+          ],
+          "isLand": true
+        },
+        "12349": {
+          "id": "12349",
+          "name": "Yawgmoth's Will",
+          "manaCost": "{B}{2}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "12385": {
+          "id": "12385",
+          "name": "Time Spiral",
+          "manaCost": "{U}{U}{4}",
+          "cmc": 6,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "12615": {
+          "id": "12615",
+          "name": "Frantic Search",
+          "manaCost": "{U}{2}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "18932": {
+          "id": "18932",
+          "name": "Brain Freeze",
+          "manaCost": "o1oU",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "19679": {
+          "id": "19679",
+          "name": "Talisman of Dominance",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "20551": {
+          "id": "20551",
+          "name": "Skullclamp",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "21603": {
+          "id": "21603",
+          "name": "Umezawa's Jitte",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Legendary",
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "28339": {
+          "id": "28339",
+          "name": "Ponder",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "28707": {
+          "id": "28707",
+          "name": "Shelldock Isle",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "29589": {
+          "id": "29589",
+          "name": "Woodfall Primus",
+          "manaCost": "{G}{G}{G}{5}",
+          "cmc": 8,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "29970": {
+          "id": "29970",
+          "name": "Flickerwisp",
+          "manaCost": "{W}{W}{1}",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "34952": {
+          "id": "34952",
+          "name": "Snuff Out",
+          "manaCost": "{3}{B}",
+          "cmc": 4,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "35639": {
+          "id": "35639",
+          "name": "Celestial Colonnade",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "35657": {
+          "id": "35657",
+          "name": "Creeping Tar Pit",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "36682": {
+          "id": "36682",
+          "name": "Oust",
+          "manaCost": "oW",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "37374": {
+          "id": "37374",
+          "name": "Grave Titan",
+          "manaCost": "{B}{B}{4}",
+          "cmc": 6,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "38197": {
+          "id": "38197",
+          "name": "Mox Opal",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "38307": {
+          "id": "38307",
+          "name": "Myr Battlesphere",
+          "manaCost": "{7}",
+          "cmc": 7,
+          "colors": [],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "39976": {
+          "id": "39976",
+          "name": "Gitaxian Probe",
+          "manaCost": "{U-P}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "47035": {
+          "id": "47035",
+          "name": "Noble Hierarch",
+          "manaCost": "oG",
+          "cmc": 1,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "47485": {
+          "id": "47485",
+          "name": "Thalia, Guardian of Thraben",
+          "manaCost": "o1oW",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "48165": {
+          "id": "48165",
+          "name": "Coalition Relic",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "55477": {
+          "id": "55477",
+          "name": "Mana Confluence",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "55531": {
+          "id": "55531",
+          "name": "Unexpectedly Absent",
+          "manaCost": "{W}{W}{X}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "56597": {
+          "id": "56597",
+          "name": "Pyrokinesis",
+          "manaCost": "{R}{R}{4}",
+          "cmc": 6,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "57373": {
+          "id": "57373",
+          "name": "Sword of Fire and Ice",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "58009": {
+          "id": "58009",
+          "name": "Dig Through Time",
+          "manaCost": "{U}{U}{6}",
+          "cmc": 8,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "58403": {
+          "id": "58403",
+          "name": "Flooded Strand",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "60053": {
+          "id": "60053",
+          "name": "Wheel of Fortune",
+          "manaCost": "{R}{2}",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "60163": {
+          "id": "60163",
+          "name": "Dack Fayden",
+          "manaCost": "o1oUoR",
+          "cmc": 3,
+          "colors": [
+            "U",
+            "R"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "60275": {
+          "id": "60275",
+          "name": "Library of Alexandria",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "60303": {
+          "id": "60303",
+          "name": "Taiga",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "60311": {
+          "id": "60311",
+          "name": "Tropical Island",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "60981": {
+          "id": "60981",
+          "name": "Kolaghan's Command",
+          "manaCost": "o1oBoR",
+          "cmc": 3,
+          "colors": [
+            "B",
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "64171": {
+          "id": "64171",
+          "name": "Smuggler's Copter",
+          "manaCost": "o2",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "66029": {
+          "id": "66029",
+          "name": "Settle the Wreckage",
+          "manaCost": "{W}{W}{2}",
+          "cmc": 4,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "67518": {
+          "id": "67518",
+          "name": "Teferi, Hero of Dominaria",
+          "manaCost": "{U}{W}{3}",
+          "cmc": 5,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "68739": {
+          "id": "68739",
+          "name": "Temple Garden",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "69394": {
+          "id": "69394",
+          "name": "Breeding Pool",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "69396": {
+          "id": "69396",
+          "name": "Godless Shrine",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "69407": {
+          "id": "69407",
+          "name": "Stomping Ground",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "69505": {
+          "id": "69505",
+          "name": "Jace, Wielder of Mysteries",
+          "manaCost": "{U}{U}{U}{1}",
+          "cmc": 4,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "69512": {
+          "id": "69512",
+          "name": "Narset, Parter of Veils",
+          "manaCost": "o1oUoU",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "69530": {
+          "id": "69530",
+          "name": "Bolas's Citadel",
+          "manaCost": "{B}{B}{B}{3}",
+          "cmc": 6,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Legendary",
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "69669": {
+          "id": "69669",
+          "name": "Tamiyo, Collector of Tales",
+          "manaCost": "{2}{G}{U}",
+          "cmc": 4,
+          "colors": [
+            "G",
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "69670": {
+          "id": "69670",
+          "name": "Teferi, Time Raveler",
+          "manaCost": "o1oWoU",
+          "cmc": 3,
+          "colors": [
+            "W",
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "70015": {
+          "id": "70015",
+          "name": "Manifold Key",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "70186": {
+          "id": "70186",
+          "name": "Brazen Borrower",
+          "manaCost": "{U}{1}{SPLIT}{U}{U}{1}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "70257": {
+          "id": "70257",
+          "name": "Wishclaw Talisman",
+          "manaCost": "{B}{1}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "70262": {
+          "id": "70262",
+          "name": "Bonecrusher Giant",
+          "manaCost": "{R}{1}{SPLIT}{R}{2}",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "70344": {
+          "id": "70344",
+          "name": "Oko, Thief of Crowns",
+          "manaCost": "{U}{G}{1}",
+          "cmc": 3,
+          "colors": [
+            "G",
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "70732": {
+          "id": "70732",
+          "name": "Kroxa, Titan of Death's Hunger",
+          "manaCost": "{B}{R}",
+          "cmc": 2,
+          "colors": [
+            "B",
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "70747": {
+          "id": "70747",
+          "name": "Shadowspear",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "71293": {
+          "id": "71293",
+          "name": "Lurrus of the Dream-Den",
+          "manaCost": "{W-B}{W-B}{1}",
+          "cmc": 3,
+          "colors": [
+            "B",
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "71294": {
+          "id": "71294",
+          "name": "Lutri, the Spellchaser",
+          "manaCost": "{U-R}{U-R}{1}",
+          "cmc": 3,
+          "colors": [
+            "R",
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "71315": {
+          "id": "71315",
+          "name": "Indatha Triome",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "71320": {
+          "id": "71320",
+          "name": "Savai Triome",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "71326": {
+          "id": "71326",
+          "name": "Zagoth Triome",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "71354": {
+          "id": "71354",
+          "name": "Giver of Runes",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "71486": {
+          "id": "71486",
+          "name": "Seasoned Pyromancer",
+          "manaCost": "{R}{R}{1}",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "71558": {
+          "id": "71558",
+          "name": "Wrenn and Six",
+          "manaCost": "{G}{R}",
+          "cmc": 2,
+          "colors": [
+            "G",
+            "R"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "71571": {
+          "id": "71571",
+          "name": "Talisman of Conviction",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "71572": {
+          "id": "71572",
+          "name": "Talisman of Creativity",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "71573": {
+          "id": "71573",
+          "name": "Talisman of Curiosity",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "71795": {
+          "id": "71795",
+          "name": "Containment Priest",
+          "manaCost": "{W}{1}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "72434": {
+          "id": "72434",
+          "name": "Young Pyromancer",
+          "manaCost": "{R}{1}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "72447": {
+          "id": "72447",
+          "name": "Craterhoof Behemoth",
+          "manaCost": "o5oGoGoG",
+          "cmc": 8,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "73481": {
+          "id": "73481",
+          "name": "Riverglide Pathway",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "73935": {
+          "id": "73935",
+          "name": "Glorybringer",
+          "manaCost": "o3oRoR",
+          "cmc": 5,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "75182": {
+          "id": "75182",
+          "name": "Goldspan Dragon",
+          "manaCost": "{R}{R}{3}",
+          "cmc": 5,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "75185": {
+          "id": "75185",
+          "name": "Magda, Brazen Outlaw",
+          "manaCost": "{R}{1}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "75662": {
+          "id": "75662",
+          "name": "Fatal Push",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "75695": {
+          "id": "75695",
+          "name": "Chandra, Torch of Defiance",
+          "manaCost": "{R}{R}{2}",
+          "cmc": 4,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "75763": {
+          "id": "75763",
+          "name": "Verdurous Gearhulk",
+          "manaCost": "{G}{G}{3}",
+          "cmc": 5,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "75858": {
+          "id": "75858",
+          "name": "Blooming Marsh",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "75864": {
+          "id": "75864",
+          "name": "Inspiring Vantage",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "75876": {
+          "id": "75876",
+          "name": "Spirebluff Canal",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "75964": {
+          "id": "75964",
+          "name": "Esper Sentinel",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "76158": {
+          "id": "76158",
+          "name": "Grist, the Hunger Tide",
+          "manaCost": "{G}{B}{1}",
+          "cmc": 3,
+          "colors": [
+            "B",
+            "G"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "76189": {
+          "id": "76189",
+          "name": "Nettlecyst",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "76228": {
+          "id": "76228",
+          "name": "Upheaval",
+          "manaCost": "{U}{U}{4}",
+          "cmc": 6,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "76254": {
+          "id": "76254",
+          "name": "Vindicate",
+          "manaCost": "o1oWoB",
+          "cmc": 3,
+          "colors": [
+            "W",
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "76260": {
+          "id": "76260",
+          "name": "Zuran Orb",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "76410": {
+          "id": "76410",
+          "name": "Elite Spellbinder",
+          "manaCost": "{W}{2}",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "76594": {
+          "id": "76594",
+          "name": "Expressive Iteration",
+          "manaCost": "oUoR",
+          "cmc": 2,
+          "colors": [
+            "U",
+            "R"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "76953": {
+          "id": "76953",
+          "name": "Bone Shards",
+          "manaCost": "oB",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "76955": {
+          "id": "76955",
+          "name": "Dauthi Voidwalker",
+          "manaCost": "{B}{B}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "76988": {
+          "id": "76988",
+          "name": "Dragon's Rage Channeler",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "77004": {
+          "id": "77004",
+          "name": "Mine Collapse",
+          "manaCost": "{R}{3}",
+          "cmc": 4,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "77014": {
+          "id": "77014",
+          "name": "Ignoble Hierarch",
+          "manaCost": "{G}",
+          "cmc": 1,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "77035": {
+          "id": "77035",
+          "name": "Territorial Kavu",
+          "manaCost": "{G}{R}",
+          "cmc": 2,
+          "colors": [
+            "G",
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "77058": {
+          "id": "77058",
+          "name": "Misty Rainforest",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "77062": {
+          "id": "77062",
+          "name": "Scalding Tarn",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "77138": {
+          "id": "77138",
+          "name": "Portable Hole",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "77484": {
+          "id": "77484",
+          "name": "Ephemerate",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "77487": {
+          "id": "77487",
+          "name": "Mana Tithe",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "77492": {
+          "id": "77492",
+          "name": "Brainstorm",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "77495": {
+          "id": "77495",
+          "name": "Memory Lapse",
+          "manaCost": "{U}{1}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "77510": {
+          "id": "77510",
+          "name": "Inquisition of Kozilek",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "77513": {
+          "id": "77513",
+          "name": "Tendrils of Agony",
+          "manaCost": "{B}{B}{2}",
+          "cmc": 4,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "77533": {
+          "id": "77533",
+          "name": "Natural Order",
+          "manaCost": "{G}{G}{2}",
+          "cmc": 4,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "77535": {
+          "id": "77535",
+          "name": "Regrowth",
+          "manaCost": "{1}{G}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "77673": {
+          "id": "77673",
+          "name": "Fall from Favor",
+          "manaCost": "{U}{2}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "77825": {
+          "id": "77825",
+          "name": "Court of Bounty",
+          "manaCost": "{2}{G}{G}",
+          "cmc": 4,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "78196": {
+          "id": "78196",
+          "name": "Manamorphose",
+          "manaCost": "{R-G}{1}",
+          "cmc": 2,
+          "colors": [
+            "G",
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "78322": {
+          "id": "78322",
+          "name": "Adeline, Resplendent Cathar",
+          "manaCost": "o1oWoW",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "78335": {
+          "id": "78335",
+          "name": "Cathar Commando",
+          "manaCost": "{W}{1}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "78352": {
+          "id": "78352",
+          "name": "Intrepid Adversary",
+          "manaCost": "o1oW",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "78374": {
+          "id": "78374",
+          "name": "Consider",
+          "manaCost": "oU",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "78446": {
+          "id": "78446",
+          "name": "Graveyard Trespasser",
+          "manaCost": "{B}{2}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "78549": {
+          "id": "78549",
+          "name": "Outland Liberator",
+          "manaCost": "{G}{1}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "78895": {
+          "id": "78895",
+          "name": "Concealing Curtains",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "78989": {
+          "id": "78989",
+          "name": "Voldaren Epicure",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "79050": {
+          "id": "79050",
+          "name": "Bloodtithe Harvester",
+          "manaCost": "oBoR",
+          "cmc": 2,
+          "colors": [
+            "B",
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "79464": {
+          "id": "79464",
+          "name": "The Wandering Emperor",
+          "manaCost": "{W}{W}{2}",
+          "cmc": 4,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "79570": {
+          "id": "79570",
+          "name": "Fable of the Mirror-Breaker",
+          "manaCost": "",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "80401": {
+          "id": "80401",
+          "name": "Jetmir's Garden",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "80405": {
+          "id": "80405",
+          "name": "Raffine's Tower",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "80411": {
+          "id": "80411",
+          "name": "Xander's Lounge",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "81701": {
+          "id": "81701",
+          "name": "Displacer Kitten",
+          "manaCost": "{U}{3}",
+          "cmc": 4,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "82076": {
+          "id": "82076",
+          "name": "Leyline Binding",
+          "manaCost": "{W}{5}",
+          "cmc": 6,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "82141": {
+          "id": "82141",
+          "name": "Cut Down",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "82149": {
+          "id": "82149",
+          "name": "Liliana of the Veil",
+          "manaCost": "{B}{B}{1}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "82235": {
+          "id": "82235",
+          "name": "Tear Asunder",
+          "manaCost": "{1}{G}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "82496": {
+          "id": "82496",
+          "name": "Loran of the Third Path",
+          "manaCost": "o2oW",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "82586": {
+          "id": "82586",
+          "name": "Go for the Throat",
+          "manaCost": "o1oB",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "82649": {
+          "id": "82649",
+          "name": "Scrapwork Mutt",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "82684": {
+          "id": "82684",
+          "name": "Haywire Mite",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "82810": {
+          "id": "82810",
+          "name": "Chromatic Star",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "82833": {
+          "id": "82833",
+          "name": "Mishra's Bauble",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "82839": {
+          "id": "82839",
+          "name": "Phyrexian Revoker",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "colors": [],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "82997": {
+          "id": "82997",
+          "name": "Coveted Jewel",
+          "manaCost": "{6}",
+          "cmc": 6,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "83000": {
+          "id": "83000",
+          "name": "Retrofitter Foundry",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "83402": {
+          "id": "83402",
+          "name": "Leovold, Emissary of Trest",
+          "manaCost": "{U}{G}{B}",
+          "cmc": 3,
+          "colors": [
+            "B",
+            "G",
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "83875": {
+          "id": "83875",
+          "name": "Nissa, Ascended Animist",
+          "manaCost": "{G-P}{G-P}{G}{G}{3}",
+          "cmc": 7,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "83896": {
+          "id": "83896",
+          "name": "Atraxa, Grand Unifier",
+          "manaCost": "o3oGoWoUoB",
+          "cmc": 7,
+          "colors": [
+            "W",
+            "U",
+            "B",
+            "G"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "83948": {
+          "id": "83948",
+          "name": "Blackcleave Cliffs",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "83949": {
+          "id": "83949",
+          "name": "Copperline Gorge",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "84281": {
+          "id": "84281",
+          "name": "Monastery Mentor",
+          "manaCost": "{W}{2}",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84315": {
+          "id": "84315",
+          "name": "Faerie Mastermind",
+          "manaCost": "{U}{1}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84699": {
+          "id": "84699",
+          "name": "Eagles of the North",
+          "manaCost": "{W}{5}",
+          "cmc": 6,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84752": {
+          "id": "84752",
+          "name": "Lórien Revealed",
+          "manaCost": "{U}{U}{3}",
+          "cmc": 5,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "84763": {
+          "id": "84763",
+          "name": "Stern Scolding",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "84795": {
+          "id": "84795",
+          "name": "Orcish Bowmasters",
+          "manaCost": "{1}{B}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84803": {
+          "id": "84803",
+          "name": "Troll of Khazad-dûm",
+          "manaCost": "{B}{5}",
+          "cmc": 6,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84861": {
+          "id": "84861",
+          "name": "Generous Ent",
+          "manaCost": "{G}{5}",
+          "cmc": 6,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "84939": {
+          "id": "84939",
+          "name": "Palantír of Orthanc",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "86606": {
+          "id": "86606",
+          "name": "Emrakul, the Promised End",
+          "manaCost": "{13}",
+          "cmc": 13,
+          "colors": [],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "86635": {
+          "id": "86635",
+          "name": "Snapcaster Mage",
+          "manaCost": "o1oU",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "86653": {
+          "id": "86653",
+          "name": "Faithless Looting",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "86811": {
+          "id": "86811",
+          "name": "Virtue of Persistence",
+          "manaCost": "o5oBoB",
+          "cmc": 7,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "86990": {
+          "id": "86990",
+          "name": "Restless Cottage",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "86993": {
+          "id": "86993",
+          "name": "Restless Vinestalk",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "87088": {
+          "id": "87088",
+          "name": "Sneak Attack",
+          "manaCost": "{R}{3}",
+          "cmc": 4,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Enchantment"
+          ],
+          "isLand": false
+        },
+        "87145": {
+          "id": "87145",
+          "name": "Get Lost",
+          "manaCost": "{W}{1}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "87204": {
+          "id": "87204",
+          "name": "Malcolm, Alluring Scoundrel",
+          "manaCost": "{U}{1}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "87223": {
+          "id": "87223",
+          "name": "Tishana's Tidebinder",
+          "manaCost": "{2}{U}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "87246": {
+          "id": "87246",
+          "name": "Deep-Cavern Bat",
+          "manaCost": "{B}{1}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "87258": {
+          "id": "87258",
+          "name": "Preacher of the Schism",
+          "manaCost": "o2oB",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "87308": {
+          "id": "87308",
+          "name": "Inti, Seneschal of the Sun",
+          "manaCost": "{R}{1}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "87809": {
+          "id": "87809",
+          "name": "Eternal Witness",
+          "manaCost": "{G}{G}{1}",
+          "cmc": 3,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "88075": {
+          "id": "88075",
+          "name": "Flash",
+          "manaCost": "{1}{U}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "88914": {
+          "id": "88914",
+          "name": "Show and Tell",
+          "manaCost": "{U}{2}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "89131": {
+          "id": "89131",
+          "name": "Lightning Helix",
+          "manaCost": "{W}{R}",
+          "cmc": 2,
+          "colors": [
+            "R",
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "89134": {
+          "id": "89134",
+          "name": "No More Lies",
+          "manaCost": "{U}{W}",
+          "cmc": 2,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "89181": {
+          "id": "89181",
+          "name": "Commercial District",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89182": {
+          "id": "89182",
+          "name": "Elegant Parlor",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89185": {
+          "id": "89185",
+          "name": "Lush Portico",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89186": {
+          "id": "89186",
+          "name": "Meticulous Archive",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89190": {
+          "id": "89190",
+          "name": "Shadowy Backstreet",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89191": {
+          "id": "89191",
+          "name": "Thundering Falls",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "89193": {
+          "id": "89193",
+          "name": "Underground Mortuary",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "90428": {
+          "id": "90428",
+          "name": "Caustic Bronco",
+          "manaCost": "{B}{1}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "90589": {
+          "id": "90589",
+          "name": "Lavaspur Boots",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "90614": {
+          "id": "90614",
+          "name": "Botanical Sanctum",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "90673": {
+          "id": "90673",
+          "name": "Legion Extruder",
+          "manaCost": "{R}{1}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "90686": {
+          "id": "90686",
+          "name": "Nexus of Becoming",
+          "manaCost": "{6}",
+          "cmc": 6,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "90704": {
+          "id": "90704",
+          "name": "Path to Exile",
+          "manaCost": "oW",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "90709": {
+          "id": "90709",
+          "name": "Mana Drain",
+          "manaCost": "oUoU",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "90716": {
+          "id": "90716",
+          "name": "Reanimate",
+          "manaCost": "oB",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "90728": {
+          "id": "90728",
+          "name": "Pest Infestation",
+          "manaCost": "{G}{X}{X}",
+          "cmc": 1,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "90810": {
+          "id": "90810",
+          "name": "Tamiyo, Inquisitive Student",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "90887": {
+          "id": "90887",
+          "name": "Ocelot Pride",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "90889": {
+          "id": "90889",
+          "name": "Phelia, Exuberant Shepherd",
+          "manaCost": "{W}{1}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "90934": {
+          "id": "90934",
+          "name": "Crabomination",
+          "manaCost": "{B}{B}{4}",
+          "cmc": 6,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "90952": {
+          "id": "90952",
+          "name": "Nethergoyf",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "91011": {
+          "id": "91011",
+          "name": "Malevolent Rumble",
+          "manaCost": "o1oG",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "91019": {
+          "id": "91019",
+          "name": "Six",
+          "manaCost": "{G}{2}",
+          "cmc": 3,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91021": {
+          "id": "91021",
+          "name": "Springheart Nantuko",
+          "manaCost": "{G}{1}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Enchantment",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91103": {
+          "id": "91103",
+          "name": "Toxic Deluge",
+          "manaCost": "{B}{2}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "91113": {
+          "id": "91113",
+          "name": "Sylvan Safekeeper",
+          "manaCost": "{G}",
+          "cmc": 1,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "91164": {
+          "id": "91164",
+          "name": "Solitude",
+          "manaCost": "{W}{W}{3}",
+          "cmc": 5,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91165": {
+          "id": "91165",
+          "name": "Subtlety",
+          "manaCost": "{U}{U}{2}",
+          "cmc": 4,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91166": {
+          "id": "91166",
+          "name": "Grief",
+          "manaCost": "{B}{B}{2}",
+          "cmc": 4,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91167": {
+          "id": "91167",
+          "name": "Fury",
+          "manaCost": "{R}{R}{3}",
+          "cmc": 5,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "91170": {
+          "id": "91170",
+          "name": "Prismatic Ending",
+          "manaCost": "{X}{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "91172": {
+          "id": "91172",
+          "name": "Persist",
+          "manaCost": "{B}{1}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "91611": {
+          "id": "91611",
+          "name": "Stormchaser's Talent",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "91882": {
+          "id": "91882",
+          "name": "Jace, the Mind Sculptor",
+          "manaCost": "{U}{U}{2}",
+          "cmc": 4,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "isLand": false
+        },
+        "91893": {
+          "id": "91893",
+          "name": "Baleful Strix",
+          "manaCost": "{B}{U}",
+          "cmc": 2,
+          "colors": [
+            "B",
+            "U"
+          ],
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "92064": {
+          "id": "92064",
+          "name": "Enduring Innocence",
+          "manaCost": "{W}{W}{1}",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Enchantment",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "92066": {
+          "id": "92066",
+          "name": "Exorcise",
+          "manaCost": "{1}{W}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "92104": {
+          "id": "92104",
+          "name": "Abhorrent Oculus",
+          "manaCost": "{2}{U}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "92191": {
+          "id": "92191",
+          "name": "Overlord of the Balemurk",
+          "manaCost": "{3}{B}{B}",
+          "cmc": 5,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "92218": {
+          "id": "92218",
+          "name": "Fear of Missing Out",
+          "manaCost": "{R}{1}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Enchantment",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "92230": {
+          "id": "92230",
+          "name": "Overlord of the Boilerbilges",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "92314": {
+          "id": "92314",
+          "name": "Kaito, Bane of Nightmares",
+          "manaCost": "{2}{U}{B}",
+          "cmc": 4,
+          "colors": [
+            "U",
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "92356": {
+          "id": "92356",
+          "name": "Blazemire Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "92359": {
+          "id": "92359",
+          "name": "Floodfarm Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "92360": {
+          "id": "92360",
+          "name": "Gloomlake Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "92361": {
+          "id": "92361",
+          "name": "Hushwood Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "92904": {
+          "id": "92904",
+          "name": "Dark Confidant",
+          "manaCost": "{B}{1}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "93804": {
+          "id": "93804",
+          "name": "Kellan, Planar Trailblazer",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "93905": {
+          "id": "93905",
+          "name": "Burst Lightning",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "94152": {
+          "id": "94152",
+          "name": "Expedition Map",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "94435": {
+          "id": "94435",
+          "name": "Sylvan Caryatid",
+          "manaCost": "{G}{1}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "94610": {
+          "id": "94610",
+          "name": "Dark Petition",
+          "manaCost": "{3}{B}{B}",
+          "cmc": 5,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "94993": {
+          "id": "94993",
+          "name": "Brightglass Gearhulk",
+          "manaCost": "{G}{G}{W}{W}",
+          "cmc": 4,
+          "colors": [
+            "G",
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "95066": {
+          "id": "95066",
+          "name": "Sunbillow Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "95072": {
+          "id": "95072",
+          "name": "Willowrush Verge",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "95112": {
+          "id": "95112",
+          "name": "Galvanic Blast",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "95192": {
+          "id": "95192",
+          "name": "Plains",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "95194": {
+          "id": "95194",
+          "name": "Island",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "95538": {
+          "id": "95538",
+          "name": "Sage of the Skies",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "95623": {
+          "id": "95623",
+          "name": "Cori-Steel Cutter",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "95648": {
+          "id": "95648",
+          "name": "Tersa Lightshatter",
+          "manaCost": "{2}{R}",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "95902": {
+          "id": "95902",
+          "name": "Astrologian's Planisphere",
+          "manaCost": "{1}{U}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "95949": {
+          "id": "95949",
+          "name": "Cecil, Dark Knight",
+          "manaCost": "oB",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "96118": {
+          "id": "96118",
+          "name": "Sin, Spira's Punishment",
+          "manaCost": "{4}{B}{G}{U}",
+          "cmc": 7,
+          "colors": [
+            "B",
+            "G",
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "96172": {
+          "id": "96172",
+          "name": "Starting Town",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "96583": {
+          "id": "96583",
+          "name": "Cosmogrand Zenith",
+          "manaCost": "o2oW",
+          "cmc": 3,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "97544": {
+          "id": "97544",
+          "name": "Abandoned Air Temple",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "98365": {
+          "id": "98365",
+          "name": "Flitterwing Nuisance",
+          "manaCost": "{U}",
+          "cmc": 1,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "98368": {
+          "id": "98368",
+          "name": "Glen Elendra Guardian",
+          "manaCost": "{2}{U}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "98428": {
+          "id": "98428",
+          "name": "Iron-Shield Elf",
+          "manaCost": "{1}{B}",
+          "cmc": 2,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "98430": {
+          "id": "98430",
+          "name": "Moonshadow",
+          "manaCost": "{B}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "98546": {
+          "id": "98546",
+          "name": "Figure of Fable",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "98574": {
+          "id": "98574",
+          "name": "Wistfulness",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "99488": {
+          "id": "99488",
+          "name": "Chain Lightning",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "99689": {
+          "id": "99689",
+          "name": "Barrowgoyf",
+          "manaCost": "{B}{2}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "100142": {
+          "id": "100142",
+          "name": "Staff of the Storyteller",
+          "manaCost": "{W}{1}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "100171": {
+          "id": "100171",
+          "name": "Broadside Bombardiers",
+          "manaCost": "o2oR",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "100563": {
+          "id": "100563",
+          "name": "Ravenous Robots",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "100574": {
+          "id": "100574",
+          "name": "Leatherhead, Swamp Stalker",
+          "manaCost": "{2}{G}{G}",
+          "cmc": 4,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "100632": {
+          "id": "100632",
+          "name": "Krang, Utrom Warlord",
+          "manaCost": "{9}",
+          "cmc": 9,
+          "colors": [],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "100908": {
+          "id": "100908",
+          "name": "Torsten, Founder of Benalia",
+          "manaCost": "{W}{G}{5}",
+          "cmc": 7,
+          "colors": [
+            "G",
+            "W"
+          ],
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "101029": {
+          "id": "101029",
+          "name": "Mind Twist",
+          "manaCost": "{B}{X}",
+          "cmc": 1,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "101030": {
+          "id": "101030",
+          "name": "Urza's Bauble",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Artifact"
+          ],
+          "isLand": false
+        },
+        "101033": {
+          "id": "101033",
+          "name": "Dismember",
+          "manaCost": "o1o(B/P)o(B/P)",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "101113": {
+          "id": "101113",
+          "name": "Plateau",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "102471": {
+          "id": "102471",
+          "name": "Elite Interceptor",
+          "manaCost": "{W}{1}{SPLIT}{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "102474": {
+          "id": "102474",
+          "name": "Erode",
+          "manaCost": "{W}",
+          "cmc": 1,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Instant"
+          ],
+          "isLand": false
+        },
+        "102572": {
+          "id": "102572",
+          "name": "Emeritus of Conflict",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "102606": {
+          "id": "102606",
+          "name": "Environmental Scientist",
+          "manaCost": "{G}{1}",
+          "cmc": 2,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Creature"
+          ],
+          "isLand": false
+        },
+        "102625": {
+          "id": "102625",
+          "name": "Vastlands Scavenger",
+          "manaCost": "{1}{G}{G}",
+          "cmc": 3,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "102673": {
+          "id": "102673",
+          "name": "Professor Dellian Fel",
+          "manaCost": "{2}{B}{G}",
+          "cmc": 4,
+          "colors": [
+            "B",
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "102776": {
+          "id": "102776",
+          "name": "Stock Up",
+          "manaCost": "{U}{2}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Sorcery"
+          ],
+          "isLand": false
+        },
+        "102795": {
+          "id": "102795",
+          "name": "Empty the Warrens",
+          "manaCost": "{3}{R}",
+          "cmc": 4,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "103392": {
+          "id": "103392",
+          "name": "The Queen of Dale",
+          "manaCost": "{1}{W}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "103427": {
+          "id": "103427",
+          "name": "Riddles in the Dark",
+          "manaCost": "{2}{U}",
+          "cmc": 3,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "103472": {
+          "id": "103472",
+          "name": "Gandalf, Goblins' Bane",
+          "manaCost": "{2}{R}",
+          "cmc": 3,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "104909": {
+          "id": "104909",
+          "name": "Jennifer Walters",
+          "manaCost": "{1}{W}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "104913": {
+          "id": "104913",
+          "name": "The Mind Stone",
+          "manaCost": "{1}{W}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "104919": {
+          "id": "104919",
+          "name": "Night Nurse, Healer of Heroes",
+          "manaCost": "{1}{W}",
+          "cmc": 2,
+          "colors": [
+            "W"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "104959": {
+          "id": "104959",
+          "name": "Loki, God of Mischief",
+          "manaCost": "{1}{U}",
+          "cmc": 2,
+          "colors": [
+            "U"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105051": {
+          "id": "105051",
+          "name": "Thor, God of Thunder",
+          "manaCost": "{3}{R}{R}",
+          "cmc": 5,
+          "colors": [
+            "R"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105106": {
+          "id": "105106",
+          "name": "Cloak and Dagger, Entwined",
+          "manaCost": "{1}{W}{B}",
+          "cmc": 3,
+          "colors": [
+            "W",
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105162": {
+          "id": "105162",
+          "name": "Gathering Place",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "105165": {
+          "id": "105165",
+          "name": "Hidden Lair",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "105171": {
+          "id": "105171",
+          "name": "Training Compound",
+          "manaCost": "",
+          "cmc": 0,
+          "colors": [],
+          "types": [
+            "Land"
+          ],
+          "isLand": true
+        },
+        "105456": {
+          "id": "105456",
+          "name": "Archnemesis",
+          "manaCost": "{1}{U}{B}",
+          "cmc": 3,
+          "colors": [
+            "U",
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105664": {
+          "id": "105664",
+          "name": "Doctor Doom, Unrivaled",
+          "manaCost": "{2}{B}{B}",
+          "cmc": 4,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105741": {
+          "id": "105741",
+          "name": "Sauron, Dino Devotee",
+          "manaCost": "{3}{G}{G}",
+          "cmc": 5,
+          "colors": [
+            "G"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        },
+        "105806": {
+          "id": "105806",
+          "name": "Doomsday",
+          "manaCost": "{B}{B}{B}",
+          "cmc": 3,
+          "colors": [
+            "B"
+          ],
+          "types": [
+            "Spell"
+          ],
+          "isLand": false
+        }
+      },
+      "deckEvaluationCards": [
+        {
+          "id": "90810",
+          "name": "Tamiyo, Inquisitive Student",
+          "staticScore": 43,
+          "colors": [
+            "U"
+          ],
+          "cmc": 1,
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "typeLine": "Legendary Creature — Moonfolk Wizard",
+          "isLand": false,
+          "producesColors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "oracleText": "Flying\nWhenever Tamiyo attacks, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nWhen you draw your third card in a turn, exile Tamiyo, then return her to the battlefield transformed under her owner's control.\n+2: Until your next turn, whenever a creature attacks you or a planeswalker you control, it gets -1/-0 until end of turn.\n−3: Return target instant or sorcery card from your graveyard to your hand. If it's a green card, add one mana of any color.\n−7: Draw cards equal to half the number of cards in your library, rounded up. You get an emblem with \"You have no maximum hand size.\"",
+          "manaCost": "{U}",
+          "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a"
+        },
+        {
+          "id": "90709",
+          "name": "Mana Drain",
+          "staticScore": 45,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+          "manaCost": "oUoU",
+          "oracleId": "74d3277a-38e5-4732-afed-084a56148f20"
+        },
+        {
+          "id": "69670",
+          "name": "Teferi, Time Raveler",
+          "staticScore": 47,
+          "colors": [
+            "W",
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker — Teferi",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Each opponent can cast spells only any time they could cast a sorcery.\n+1: Until your next turn, you may cast sorcery spells as though they had flash.\n−3: Return up to one target artifact, creature, or enchantment to its owner's hand. Draw a card.",
+          "manaCost": "o1oWoU",
+          "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964"
+        },
+        {
+          "id": "89134",
+          "name": "No More Lies",
+          "staticScore": 43,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.",
+          "manaCost": "{U}{W}",
+          "oracleId": "ead1ee6a-e0da-46d5-89e8-31e8c0270bc2"
+        },
+        {
+          "id": "92104",
+          "name": "Abhorrent Oculus",
+          "staticScore": 42,
+          "colors": [
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Spell",
+          "isLand": false,
+          "oracleText": "As an additional cost to cast this spell, exile six cards from your graveyard.\nFlying\nAt the beginning of each opponent's upkeep, manifest dread.",
+          "manaCost": "{2}{U}"
+        },
+        {
+          "id": "84315",
+          "name": "Faerie Mastermind",
+          "staticScore": 35.9,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Faerie Rogue",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhenever an opponent draws their second card each turn, you draw a card.\n{3}{U}: Each player draws a card.",
+          "manaCost": "{U}{1}",
+          "oracleId": "a984db23-40ea-428d-829f-e944267280f8"
+        },
+        {
+          "id": "67518",
+          "name": "Teferi, Hero of Dominaria",
+          "staticScore": 45,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "cmc": 5,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker — Teferi",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "+1: Draw a card. At the beginning of the next end step, untap up to two lands.\n−3: Put target nonland permanent into its owner's library third from the top.\n−8: You get an emblem with \"Whenever you draw a card, exile target permanent an opponent controls.\"",
+          "manaCost": "{U}{W}{3}",
+          "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0"
+        },
+        {
+          "id": "64171",
+          "name": "Smuggler's Copter",
+          "staticScore": 36,
+          "colors": [],
+          "cmc": 2,
+          "types": [
+            "Artifact"
+          ],
+          "typeLine": "Artifact — Vehicle",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flying\nWhenever this Vehicle attacks or blocks, you may draw a card. If you do, discard a card.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
+          "manaCost": "o2",
+          "oracleId": "49136bdc-bc50-49a2-999a-1ef9c16ea130"
+        },
+        {
+          "id": "55531",
+          "name": "Unexpectedly Absent",
+          "staticScore": 20,
+          "colors": [
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Put target nonland permanent into its owner's library just beneath the top X cards of that library.",
+          "manaCost": "{W}{W}{X}",
+          "oracleId": "e8d78a83-c932-4b55-8f75-7094c672c3a9"
+        },
+        {
+          "id": "79464",
+          "name": "The Wandering Emperor",
+          "staticScore": 40,
+          "colors": [
+            "W"
+          ],
+          "cmc": 4,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nAs long as The Wandering Emperor entered this turn, you may activate her loyalty abilities any time you could cast an instant.\n+1: Put a +1/+1 counter on up to one target creature. It gains first strike until end of turn.\n−1: Create a 2/2 white Samurai creature token with vigilance.\n−2: Exile target tapped creature. You gain 2 life.",
+          "manaCost": "{W}{W}{2}",
+          "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215"
+        },
+        {
+          "id": "35639",
+          "name": "Celestial Colonnade",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U",
+            "W"
+          ],
+          "oracleText": "This land enters tapped.\n{T}: Add {W} or {U}.\n{3}{W}{U}: Until end of turn, this land becomes a 4/4 white and blue Elemental creature with flying and vigilance. It's still a land.",
+          "manaCost": "",
+          "oracleId": "876ac6f6-74de-4666-84c6-83d81f054723"
+        },
+        {
+          "id": "77495",
+          "name": "Memory Lapse",
+          "staticScore": 40,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell. If that spell is countered this way, put it on top of its owner's library instead of into that player's graveyard.",
+          "manaCost": "{U}{1}",
+          "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0"
+        },
+        {
+          "id": "28339",
+          "name": "Ponder",
+          "staticScore": 41,
+          "colors": [
+            "U"
+          ],
+          "cmc": 1,
+          "types": [
+            "Sorcery"
+          ],
+          "typeLine": "Sorcery",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card.",
+          "manaCost": "{U}",
+          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2"
+        },
+        {
+          "id": "102474",
+          "name": "Erode",
+          "staticScore": 36,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Spell",
+          "isLand": false,
+          "oracleText": "Destroy target tapped creature or enchantment.",
+          "manaCost": "{W}"
+        },
+        {
+          "id": "70186",
+          "name": "Brazen Borrower",
+          "staticScore": 36,
+          "colors": [
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Faerie Rogue",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nThis creature can block only creatures with flying.\nReturn target nonland permanent an opponent controls to its owner's hand.",
+          "manaCost": "{U}{1}{SPLIT}{U}{U}{1}",
+          "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b"
+        },
+        {
+          "id": "28707",
+          "name": "Shelldock Isle",
+          "staticScore": 36,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {U}.\n{U}, {T}: You may play the exiled card without paying its mana cost if a library has twenty or fewer cards in it.",
+          "manaCost": "",
+          "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80"
+        },
+        {
+          "id": "58009",
+          "name": "Dig Through Time",
+          "staticScore": 25.5,
+          "colors": [
+            "U"
+          ],
+          "cmc": 8,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Delve (Each card you exile from your graveyard while casting this spell pays for {1}.)\nLook at the top seven cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order.",
+          "manaCost": "{U}{U}{6}",
+          "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640"
+        },
+        {
+          "id": "86635",
+          "name": "Snapcaster Mage",
+          "staticScore": 41,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Human Wizard",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nWhen CARDNAME enters, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.",
+          "manaCost": "o1oU",
+          "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5"
+        },
+        {
+          "id": "91164",
+          "name": "Solitude",
+          "staticScore": 43,
+          "colors": [
+            "W"
+          ],
+          "cmc": 5,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Elemental Incarnation",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nLifelink\nWhen this creature enters, exile up to one other target creature. That creature's controller gains life equal to its power.\nEvoke—Exile a white card from your hand.",
+          "manaCost": "{W}{W}{3}",
+          "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366"
+        },
+        {
+          "id": "89186",
+          "name": "Meticulous Archive",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land — Plains Island",
+          "isLand": true,
+          "producesColors": [
+            "U",
+            "W"
+          ],
+          "oracleText": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+          "manaCost": "",
+          "oracleId": "ccfb8b4d-651c-418a-aa19-cb23105b3f2f"
+        },
+        {
+          "id": "75964",
+          "name": "Esper Sentinel",
+          "staticScore": 42,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "typeLine": "Artifact Creature — Human Soldier",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Whenever an opponent casts their first noncreature spell each turn, draw a card unless that player pays {X}, where X is this creature's power.",
+          "manaCost": "{W}",
+          "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4"
+        },
+        {
+          "id": "60275",
+          "name": "Library of Alexandria",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [],
+          "oracleText": "{oT}: Add {oC}.\n{oT}: Draw a card. Activate only if you have exactly seven cards in hand.",
+          "manaCost": "{0}",
+          "oracleId": "2111588d-9af5-4a33-989e-b074d83f0463"
+        },
+        {
+          "id": "87145",
+          "name": "Get Lost",
+          "staticScore": 27,
+          "colors": [
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+          "manaCost": "{W}{1}",
+          "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6"
+        },
+        {
+          "id": "87204",
+          "name": "Malcolm, Alluring Scoundrel",
+          "staticScore": 27,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "typeLine": "Legendary Creature — Siren Pirate",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhenever Malcolm deals combat damage to a player, put a chorus counter on it. Draw a card, then discard a card. If there are four or more chorus counters on Malcolm, you may cast the discarded card without paying its mana cost.",
+          "manaCost": "{U}{1}",
+          "oracleId": "3bba3b36-f8d7-4fd6-892a-797226210b6e"
+        },
+        {
+          "id": "77487",
+          "name": "Mana Tithe",
+          "staticScore": 32,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell unless its controller pays {1}.",
+          "manaCost": "{W}",
+          "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345"
+        },
+        {
+          "id": "92359",
+          "name": "Floodfarm Verge",
+          "staticScore": 35,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W",
+            "U"
+          ],
+          "oracleText": "{T}: Add {C}.\n{T}: Add {W} or {U}. Activate only if you control a Plains or an Island.",
+          "manaCost": ""
+        },
+        {
+          "id": "66029",
+          "name": "Settle the Wreckage",
+          "staticScore": 25.5,
+          "colors": [
+            "W"
+          ],
+          "cmc": 4,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Exile all attacking creatures target player controls. That player may search their library for that many basic land cards, put those cards onto the battlefield tapped, then shuffle.",
+          "manaCost": "{W}{W}{2}",
+          "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71"
+        },
+        {
+          "id": "91165",
+          "name": "Subtlety",
+          "staticScore": 28,
+          "colors": [
+            "U"
+          ],
+          "cmc": 4,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Elemental Incarnation",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhen this creature enters, choose up to one target creature spell or planeswalker spell. Its owner puts it on their choice of the top or bottom of their library.\nEvoke—Exile a blue card from your hand.",
+          "manaCost": "{U}{U}{2}",
+          "oracleId": "377179d5-ac83-4d34-b5b1-f3d8caa60f79"
+        },
+        {
+          "id": "89191",
+          "name": "Thundering Falls",
+          "staticScore": 38,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land — Island Mountain",
+          "isLand": true,
+          "producesColors": [
+            "R",
+            "U"
+          ],
+          "oracleText": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+          "manaCost": "",
+          "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e"
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        }
+      ],
+      "observedResults": {
+        "wins": 0,
+        "losses": 3,
+        "matchCount": 3,
+        "context": "Arena Powered Cube draft match record 0-3"
+      },
+      "provenance": {
+        "extractedAt": "2026-09-12T09:23:17.375Z",
+        "method": "scripts/import-arena-witness.mjs",
+        "sourceHashes": {
+          "untappedDrafts": "sha256:a16ebaaf8bfac93c289d0b2f4fedee638bcfc3188b1be54849f03a225b3e0ff3",
+          "playerLog": "sha256:b051b3f17ac149df23f65202acabb579f852c616d170371ed8faedb93406822f"
+        }
+      }
+    }
+  ],
+  "deckWitnesses": [
+    {
+      "deckWitnessId": "deck-bc4cdb9d-6412-43a1-84a2-d66b5dbed559",
+      "draftId": "bc4cdb9d-6412-43a1-84a2-d66b5dbed559",
+      "leagueId": "powered_vintage",
+      "cubeKey": "arena_powered",
+      "cubeSnapshotId": "2026-09-08",
+      "expectedTier": "A",
+      "tierPlacement": "upper",
+      "annotation": {
+        "author": "Tristan",
+        "role": "expert_curator",
+        "reviewedAt": "2026-09-12T10:00:00.000Z",
+        "rationale": "High-quality Azorius control/tempo deck built on 11 September 2026 without any Power Nine cards. Coherent proactive curve and disruption package. The observed 0-3 match record is contextual variance and does not define the deck's intrinsic tier.",
+        "strengths": [
+          "Proactive tempo curve with Tamiyo, Inquisitive Student and cheap disruption",
+          "Strong card selection and interaction package",
+          "Clean Azorius mana base"
+        ],
+        "weaknesses": [
+          "Absence of Power Nine artifacts or fast mana",
+          "High vulnerability to aggressive early starts"
+        ],
+        "confidence": "high"
+      },
+      "hasPowerNine": false,
+      "observedResult": {
+        "wins": 0,
+        "losses": 3,
+        "matchCount": 3,
+        "context": "CubeDraft_Powered_20260908 0-3 run"
+      },
+      "usagePolicy": "evaluation_only",
+      "finalDeckCardIds": [
+        "90810",
+        "90709",
+        "69670",
+        "89134",
+        "92104",
+        "84315",
+        "67518",
+        "64171",
+        "55531",
+        "79464",
+        "35639",
+        "77495",
+        "28339",
+        "102474",
+        "70186",
+        "28707",
+        "58009",
+        "86635",
+        "91164",
+        "89186",
+        "75964",
+        "60275",
+        "87145",
+        "87204",
+        "77487",
+        "92359",
+        "66029",
+        "91165",
+        "89191",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95194",
+        "95192",
+        "95192",
+        "95192",
+        "95192",
+        "95192"
+      ],
+      "deckEvaluationCards": [
+        {
+          "id": "90810",
+          "name": "Tamiyo, Inquisitive Student",
+          "staticScore": 43,
+          "colors": [
+            "U"
+          ],
+          "cmc": 1,
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "typeLine": "Legendary Creature — Moonfolk Wizard",
+          "isLand": false,
+          "producesColors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "oracleText": "Flying\nWhenever Tamiyo attacks, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nWhen you draw your third card in a turn, exile Tamiyo, then return her to the battlefield transformed under her owner's control.\n+2: Until your next turn, whenever a creature attacks you or a planeswalker you control, it gets -1/-0 until end of turn.\n−3: Return target instant or sorcery card from your graveyard to your hand. If it's a green card, add one mana of any color.\n−7: Draw cards equal to half the number of cards in your library, rounded up. You get an emblem with \"You have no maximum hand size.\"",
+          "manaCost": "{U}",
+          "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a"
+        },
+        {
+          "id": "90709",
+          "name": "Mana Drain",
+          "staticScore": 45,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+          "manaCost": "oUoU",
+          "oracleId": "74d3277a-38e5-4732-afed-084a56148f20"
+        },
+        {
+          "id": "69670",
+          "name": "Teferi, Time Raveler",
+          "staticScore": 47,
+          "colors": [
+            "W",
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker — Teferi",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Each opponent can cast spells only any time they could cast a sorcery.\n+1: Until your next turn, you may cast sorcery spells as though they had flash.\n−3: Return up to one target artifact, creature, or enchantment to its owner's hand. Draw a card.",
+          "manaCost": "o1oWoU",
+          "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964"
+        },
+        {
+          "id": "89134",
+          "name": "No More Lies",
+          "staticScore": 43,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.",
+          "manaCost": "{U}{W}",
+          "oracleId": "ead1ee6a-e0da-46d5-89e8-31e8c0270bc2"
+        },
+        {
+          "id": "92104",
+          "name": "Abhorrent Oculus",
+          "staticScore": 42,
+          "colors": [
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Spell",
+          "isLand": false,
+          "oracleText": "As an additional cost to cast this spell, exile six cards from your graveyard.\nFlying\nAt the beginning of each opponent's upkeep, manifest dread.",
+          "manaCost": "{2}{U}"
+        },
+        {
+          "id": "84315",
+          "name": "Faerie Mastermind",
+          "staticScore": 35.9,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Faerie Rogue",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhenever an opponent draws their second card each turn, you draw a card.\n{3}{U}: Each player draws a card.",
+          "manaCost": "{U}{1}",
+          "oracleId": "a984db23-40ea-428d-829f-e944267280f8"
+        },
+        {
+          "id": "67518",
+          "name": "Teferi, Hero of Dominaria",
+          "staticScore": 45,
+          "colors": [
+            "U",
+            "W"
+          ],
+          "cmc": 5,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker — Teferi",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "+1: Draw a card. At the beginning of the next end step, untap up to two lands.\n−3: Put target nonland permanent into its owner's library third from the top.\n−8: You get an emblem with \"Whenever you draw a card, exile target permanent an opponent controls.\"",
+          "manaCost": "{U}{W}{3}",
+          "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0"
+        },
+        {
+          "id": "64171",
+          "name": "Smuggler's Copter",
+          "staticScore": 36,
+          "colors": [],
+          "cmc": 2,
+          "types": [
+            "Artifact"
+          ],
+          "typeLine": "Artifact — Vehicle",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flying\nWhenever this Vehicle attacks or blocks, you may draw a card. If you do, discard a card.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
+          "manaCost": "o2",
+          "oracleId": "49136bdc-bc50-49a2-999a-1ef9c16ea130"
+        },
+        {
+          "id": "55531",
+          "name": "Unexpectedly Absent",
+          "staticScore": 20,
+          "colors": [
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Put target nonland permanent into its owner's library just beneath the top X cards of that library.",
+          "manaCost": "{W}{W}{X}",
+          "oracleId": "e8d78a83-c932-4b55-8f75-7094c672c3a9"
+        },
+        {
+          "id": "79464",
+          "name": "The Wandering Emperor",
+          "staticScore": 40,
+          "colors": [
+            "W"
+          ],
+          "cmc": 4,
+          "types": [
+            "Legendary",
+            "Planeswalker"
+          ],
+          "typeLine": "Legendary Planeswalker",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nAs long as The Wandering Emperor entered this turn, you may activate her loyalty abilities any time you could cast an instant.\n+1: Put a +1/+1 counter on up to one target creature. It gains first strike until end of turn.\n−1: Create a 2/2 white Samurai creature token with vigilance.\n−2: Exile target tapped creature. You gain 2 life.",
+          "manaCost": "{W}{W}{2}",
+          "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215"
+        },
+        {
+          "id": "35639",
+          "name": "Celestial Colonnade",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U",
+            "W"
+          ],
+          "oracleText": "This land enters tapped.\n{T}: Add {W} or {U}.\n{3}{W}{U}: Until end of turn, this land becomes a 4/4 white and blue Elemental creature with flying and vigilance. It's still a land.",
+          "manaCost": "",
+          "oracleId": "876ac6f6-74de-4666-84c6-83d81f054723"
+        },
+        {
+          "id": "77495",
+          "name": "Memory Lapse",
+          "staticScore": 40,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell. If that spell is countered this way, put it on top of its owner's library instead of into that player's graveyard.",
+          "manaCost": "{U}{1}",
+          "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0"
+        },
+        {
+          "id": "28339",
+          "name": "Ponder",
+          "staticScore": 41,
+          "colors": [
+            "U"
+          ],
+          "cmc": 1,
+          "types": [
+            "Sorcery"
+          ],
+          "typeLine": "Sorcery",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card.",
+          "manaCost": "{U}",
+          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2"
+        },
+        {
+          "id": "102474",
+          "name": "Erode",
+          "staticScore": 36,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Spell",
+          "isLand": false,
+          "oracleText": "Destroy target tapped creature or enchantment.",
+          "manaCost": "{W}"
+        },
+        {
+          "id": "70186",
+          "name": "Brazen Borrower",
+          "staticScore": 36,
+          "colors": [
+            "U"
+          ],
+          "cmc": 3,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Faerie Rogue",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nThis creature can block only creatures with flying.\nReturn target nonland permanent an opponent controls to its owner's hand.",
+          "manaCost": "{U}{1}{SPLIT}{U}{U}{1}",
+          "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b"
+        },
+        {
+          "id": "28707",
+          "name": "Shelldock Isle",
+          "staticScore": 36,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {U}.\n{U}, {T}: You may play the exiled card without paying its mana cost if a library has twenty or fewer cards in it.",
+          "manaCost": "",
+          "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80"
+        },
+        {
+          "id": "58009",
+          "name": "Dig Through Time",
+          "staticScore": 25.5,
+          "colors": [
+            "U"
+          ],
+          "cmc": 8,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Delve (Each card you exile from your graveyard while casting this spell pays for {1}.)\nLook at the top seven cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order.",
+          "manaCost": "{U}{U}{6}",
+          "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640"
+        },
+        {
+          "id": "86635",
+          "name": "Snapcaster Mage",
+          "staticScore": 41,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Human Wizard",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nWhen CARDNAME enters, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.",
+          "manaCost": "o1oU",
+          "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5"
+        },
+        {
+          "id": "91164",
+          "name": "Solitude",
+          "staticScore": 43,
+          "colors": [
+            "W"
+          ],
+          "cmc": 5,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Elemental Incarnation",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nLifelink\nWhen this creature enters, exile up to one other target creature. That creature's controller gains life equal to its power.\nEvoke—Exile a white card from your hand.",
+          "manaCost": "{W}{W}{3}",
+          "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366"
+        },
+        {
+          "id": "89186",
+          "name": "Meticulous Archive",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land — Plains Island",
+          "isLand": true,
+          "producesColors": [
+            "U",
+            "W"
+          ],
+          "oracleText": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+          "manaCost": "",
+          "oracleId": "ccfb8b4d-651c-418a-aa19-cb23105b3f2f"
+        },
+        {
+          "id": "75964",
+          "name": "Esper Sentinel",
+          "staticScore": 42,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Artifact",
+            "Creature"
+          ],
+          "typeLine": "Artifact Creature — Human Soldier",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Whenever an opponent casts their first noncreature spell each turn, draw a card unless that player pays {X}, where X is this creature's power.",
+          "manaCost": "{W}",
+          "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4"
+        },
+        {
+          "id": "60275",
+          "name": "Library of Alexandria",
+          "staticScore": 41,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [],
+          "oracleText": "{oT}: Add {oC}.\n{oT}: Draw a card. Activate only if you have exactly seven cards in hand.",
+          "manaCost": "{0}",
+          "oracleId": "2111588d-9af5-4a33-989e-b074d83f0463"
+        },
+        {
+          "id": "87145",
+          "name": "Get Lost",
+          "staticScore": 27,
+          "colors": [
+            "W"
+          ],
+          "cmc": 2,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+          "manaCost": "{W}{1}",
+          "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6"
+        },
+        {
+          "id": "87204",
+          "name": "Malcolm, Alluring Scoundrel",
+          "staticScore": 27,
+          "colors": [
+            "U"
+          ],
+          "cmc": 2,
+          "types": [
+            "Legendary",
+            "Creature"
+          ],
+          "typeLine": "Legendary Creature — Siren Pirate",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhenever Malcolm deals combat damage to a player, put a chorus counter on it. Draw a card, then discard a card. If there are four or more chorus counters on Malcolm, you may cast the discarded card without paying its mana cost.",
+          "manaCost": "{U}{1}",
+          "oracleId": "3bba3b36-f8d7-4fd6-892a-797226210b6e"
+        },
+        {
+          "id": "77487",
+          "name": "Mana Tithe",
+          "staticScore": 32,
+          "colors": [
+            "W"
+          ],
+          "cmc": 1,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Counter target spell unless its controller pays {1}.",
+          "manaCost": "{W}",
+          "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345"
+        },
+        {
+          "id": "92359",
+          "name": "Floodfarm Verge",
+          "staticScore": 35,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W",
+            "U"
+          ],
+          "oracleText": "{T}: Add {C}.\n{T}: Add {W} or {U}. Activate only if you control a Plains or an Island.",
+          "manaCost": ""
+        },
+        {
+          "id": "66029",
+          "name": "Settle the Wreckage",
+          "staticScore": 25.5,
+          "colors": [
+            "W"
+          ],
+          "cmc": 4,
+          "types": [
+            "Instant"
+          ],
+          "typeLine": "Instant",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Exile all attacking creatures target player controls. That player may search their library for that many basic land cards, put those cards onto the battlefield tapped, then shuffle.",
+          "manaCost": "{W}{W}{2}",
+          "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71"
+        },
+        {
+          "id": "91165",
+          "name": "Subtlety",
+          "staticScore": 28,
+          "colors": [
+            "U"
+          ],
+          "cmc": 4,
+          "types": [
+            "Creature"
+          ],
+          "typeLine": "Creature — Elemental Incarnation",
+          "isLand": false,
+          "producesColors": [],
+          "oracleText": "Flash\nFlying\nWhen this creature enters, choose up to one target creature spell or planeswalker spell. Its owner puts it on their choice of the top or bottom of their library.\nEvoke—Exile a blue card from your hand.",
+          "manaCost": "{U}{U}{2}",
+          "oracleId": "377179d5-ac83-4d34-b5b1-f3d8caa60f79"
+        },
+        {
+          "id": "89191",
+          "name": "Thundering Falls",
+          "staticScore": 38,
+          "colors": [],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land — Island Mountain",
+          "isLand": true,
+          "producesColors": [
+            "R",
+            "U"
+          ],
+          "oracleText": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)",
+          "manaCost": "",
+          "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e"
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95194",
+          "name": "Island",
+          "staticScore": 25,
+          "colors": [
+            "U"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "U"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        },
+        {
+          "id": "95192",
+          "name": "Plains",
+          "staticScore": 25,
+          "colors": [
+            "W"
+          ],
+          "cmc": 0,
+          "types": [
+            "Land"
+          ],
+          "typeLine": "Land",
+          "isLand": true,
+          "producesColors": [
+            "W"
+          ],
+          "oracleText": "",
+          "manaCost": ""
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "extractedAt": "2026-09-12T09:23:17.375Z",
+    "method": "scripts/import-arena-witness.mjs",
+    "sourceHashes": {
+      "untappedDrafts": "sha256:a16ebaaf8bfac93c289d0b2f4fedee638bcfc3188b1be54849f03a225b3e0ff3",
+      "playerLog": "sha256:b051b3f17ac149df23f65202acabb579f852c616d170371ed8faedb93406822f"
+    }
+  },
+  "usagePolicy": "evaluation_only"
+}

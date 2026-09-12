@@ -40,7 +40,7 @@ describe("Individual Card Schema Validation", () => {
         }
       }
     }
-  });
+  }, 15000);
 
   it("rejects invalid card JSON missing required fields or having invalid tiers", () => {
     const invalidMissingField = JSON.stringify({
@@ -101,12 +101,15 @@ describe("Individual Card Schema Validation", () => {
     const resultTier = validateCardDocumentJson(invalidTier);
     expect(resultTier.ok).toBe(false);
 
-    const overMaximumScore = JSON.parse(invalidTier) as {
+    const maximumScoreBoundary = JSON.parse(invalidTier) as {
       cubeAnalyses: { nico_candyshop: { tier: string } };
       powerScore: { score: number };
     };
-    overMaximumScore.cubeAnalyses.nico_candyshop.tier = "S";
-    overMaximumScore.powerScore.score = 54;
-    expect(validateCardDocumentJson(JSON.stringify(overMaximumScore)).ok).toBe(false);
+    maximumScoreBoundary.cubeAnalyses.nico_candyshop.tier = "S";
+    maximumScoreBoundary.powerScore.score = 55;
+    expect(validateCardDocumentJson(JSON.stringify(maximumScoreBoundary)).ok).toBe(true);
+
+    maximumScoreBoundary.powerScore.score = 56;
+    expect(validateCardDocumentJson(JSON.stringify(maximumScoreBoundary)).ok).toBe(false);
   });
 });

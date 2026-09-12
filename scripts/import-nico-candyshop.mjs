@@ -6,7 +6,7 @@ const itemsDir = resolve(rootDir, 'data/cards/items');
 const rawPath = resolve(rootDir, 'data/cubes/nico_candyshop/cubecobra-raw.json');
 const nicoMetaPath = resolve(rootDir, 'data/cubes/nico_candyshop/cube-meta.json');
 const nicoCubePath = resolve(rootDir, 'data/cubes/nico_candyshop/cube.json');
-const MAX_POWER_SCORE = 53;
+const MAX_POWER_SCORE = 55;
 
 export function cardNameToSlug(name) {
   return name

@@ -9,6 +9,11 @@ import type { CardCatalog } from "../../cards/card-catalog.ts";
 import { MAX_POWER_SCORE, MIN_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import type { CubeMetaRegistry } from "../../cubes/cube-meta.ts";
 import { generateCoachingExplanation } from "./coaching-explainer.ts";
+import {
+  isTribalCube,
+  detectDraftedTribalContext,
+  isCardTriballyIncompatible,
+} from "./tribal-compatibility.ts";
 
 export const ALL_COLORS: readonly MtGColor[] = ["W", "U", "B", "R", "G"] as const;
 
@@ -173,9 +178,9 @@ export function getDominantColors(
 }
 
 /**
- * Parses mana cost for hybrid and strict colored pips.
+ * Parses mana cost for hybrid and strict colored pips (supporting Scryfall and Arena formats).
  */
-function parseManaCostPips(card: CardEvaluationInput): readonly (readonly MtGColor[])[] {
+export function parseManaCostPips(card: CardEvaluationInput): readonly (readonly MtGColor[])[] {
   const cost = card.manaCost ?? "";
   if (!cost) {
     // Fallback on colors array if manaCost string is not supplied
@@ -183,19 +188,50 @@ function parseManaCostPips(card: CardEvaluationInput): readonly (readonly MtGCol
   }
 
   const pips: (readonly MtGColor[])[] = [];
-  // Regular colored pips: oW, oU, oB, oR, oG (not followed by /)
-  for (const match of cost.matchAll(/o([WUBRG])(?!\/)/g)) {
+
+  // 1. Scryfall standard braces format: {W}, {U}, {B}, {R}, {G}
+  for (const match of cost.matchAll(/\{([WUBRG])\}/gi)) {
     if (match[1]) {
-      pips.push([match[1] as MtGColor]);
+      pips.push([match[1].toUpperCase() as MtGColor]);
     }
   }
-  // Hybrid pips: o(X/Y)
-  for (const match of cost.matchAll(/o\(([WUBRG])\/([WUBRG])\)/g)) {
+  // Scryfall Hybrid format: {W/U}, {B/G}, {R/W}, etc.
+  for (const match of cost.matchAll(/\{([WUBRG])\/([WUBRG])\}/gi)) {
     if (match[1] && match[2]) {
-      pips.push([match[1] as MtGColor, match[2] as MtGColor]);
+      pips.push([match[1].toUpperCase() as MtGColor, match[2].toUpperCase() as MtGColor]);
     }
   }
-  // If phyrexian only or generic only, pips is empty (colorless requirement)
+  // Scryfall 2-brid format: {2/W}, {2/U}, etc.
+  for (const match of cost.matchAll(/\{2\/([WUBRG])\}/gi)) {
+    if (match[1]) {
+      pips.push([match[1].toUpperCase() as MtGColor]);
+    }
+  }
+  // Scryfall Phyrexian format: {W/P}, {U/P}, etc.
+  for (const match of cost.matchAll(/\{([WUBRG])\/P\}/gi)) {
+    if (match[1]) {
+      pips.push([match[1].toUpperCase() as MtGColor]);
+    }
+  }
+
+  // 2. Legacy / Arena format: oW, oU, o(W/U), etc.
+  for (const match of cost.matchAll(/o([WUBRG])(?!\/)/gi)) {
+    if (match[1]) {
+      pips.push([match[1].toUpperCase() as MtGColor]);
+    }
+  }
+  for (const match of cost.matchAll(/o\(([WUBRG])\/([WUBRG])\)/gi)) {
+    if (match[1] && match[2]) {
+      pips.push([match[1].toUpperCase() as MtGColor, match[2].toUpperCase() as MtGColor]);
+    }
+  }
+
+  // If cost had non-empty string but no colored pips matched (e.g. "{2}", "{X}"),
+  // check if card has colors property:
+  if (pips.length === 0 && card.colors.length > 0) {
+    return card.colors.map((c) => [c]);
+  }
+
   return pips;
 }
 
@@ -218,11 +254,6 @@ export function calculateColorOverlap(
     [c1, c2, splashColor].filter((c): c is MtGColor => Boolean(c)),
   );
   const dominantSet = new Set<MtGColor>([c1, c2].filter((c): c is MtGColor => Boolean(c)));
-
-  // Colorless spells fit in any deck
-  if (card.colors.length === 0 && !card.isLand) {
-    return 1.0;
-  }
 
   // If card is a Land (or mana fixer rock)
   if (card.isLand) {
@@ -247,7 +278,21 @@ export function calculateColorOverlap(
   // For Spells & Creatures: check pips (hybrid aware)
   const pips = parseManaCostPips(card);
   if (pips.length === 0) {
-    return 1.0; // Colorless or phyrexian mana cost (e.g. Dismember, Gitaxian Probe)
+    // Truly colorless spells (no colored mana requirements) fit in any deck
+    if (card.colors.length === 0) {
+      return 1.0;
+    }
+    if (card.colors.length === 1) {
+      const col = card.colors[0];
+      if (col && dominantSet.has(col)) return 1.0;
+      if (col && col === splashColor) return 0.65;
+      return 0.0;
+    }
+    const matchingColors = card.colors.filter((col) => activeSet.has(col));
+    const offColors = card.colors.filter((col) => !activeSet.has(col));
+    if (offColors.length === 0) return 1.0;
+    if (matchingColors.length > 0) return 0.45;
+    return 0.0;
   }
 
   let totalScore = 0;
@@ -425,12 +470,26 @@ export function evaluateCard(
   // 3. Curve Bonus (placeholder for CMC gap detection)
   const curveBonus = 0;
 
-  // 4. Raw Dynamic Score with Cube and Synergy modifiers
+  // 4. Tribal Incompatibility Penalty (on tribal cubes like Titou Tribal)
+  let tribalPenalty = 0;
+  if (isTribalCube(cubeKey, cubeMeta)) {
+    const tribalCtx = detectDraftedTribalContext(priorPool, cubeKey, cubeMeta);
+    if (tribalCtx.isTribalEngaged && isCardTriballyIncompatible(card, tribalCtx)) {
+      tribalPenalty = 15.0;
+    }
+  }
+
+  // 5. Raw Dynamic Score with Cube, Synergy, and Tribal modifiers
   const rawDynamicScore = Math.max(
     MIN_POWER_SCORE,
     Math.min(
       MAX_POWER_SCORE,
-      scoreAfterColor + manaFixingBonus + curveBonus + cubeScoreModifier + synergyBonus,
+      scoreAfterColor +
+        manaFixingBonus +
+        curveBonus +
+        cubeScoreModifier +
+        synergyBonus -
+        tribalPenalty,
     ),
   );
 
@@ -446,6 +505,7 @@ export function evaluateCard(
     rawDynamicScore,
     cubeScoreModifier: cubeScoreModifier !== 0 ? cubeScoreModifier : undefined,
     synergyBonus: synergyBonus !== 0 ? synergyBonus : undefined,
+    tribalPenalty: tribalPenalty !== 0 ? tribalPenalty : undefined,
     powerSource,
     harmonizationConfidence,
   };

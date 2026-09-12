@@ -13,7 +13,7 @@ export interface PowerRankingEntry {
   readonly percentile: number;
 }
 
-export const MAX_POWER_SCORE: 53;
+export const MAX_POWER_SCORE: 55;
 export function toPowerBarPercentage(score: number): number;
 export function computePowerRankings(
   cards: readonly PowerRankableCard[],

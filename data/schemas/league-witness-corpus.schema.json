@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://draftmaster.local/schemas/league-witness-corpus-v1.json",
+  "title": "DraftMaster League Witness Corpus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "corpusId",
+    "corpusVersion",
+    "leagueCalibration",
+    "cubes",
+    "draftWitnesses",
+    "deckWitnesses",
+    "provenance",
+    "usagePolicy"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "corpusId": { "type": "string", "minLength": 1 },
+    "corpusVersion": { "type": "string", "minLength": 1 },
+    "leagueCalibration": { "$ref": "#/$defs/leagueCalibration" },
+    "cubes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/memberCube" }
+    },
+    "draftWitnesses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/draftWitness" }
+    },
+    "deckWitnesses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/deckWitness" }
+    },
+    "provenance": { "$ref": "#/$defs/provenance" },
+    "usagePolicy": {
+      "type": "string",
+      "enum": ["evaluation_only", "calibration_eligible", "training_allowed"]
+    }
+  },
+  "$defs": {
+    "memberCube": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cubeKey", "snapshotId"],
+      "properties": {
+        "cubeKey": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "snapshotId": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "leagueCalibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "leagueId",
+        "calibrationVersion",
+        "status",
+        "memberCubes",
+        "tierThresholds",
+        "readinessPolicy"
+      ],
+      "properties": {
+        "leagueId": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "calibrationVersion": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["provisional", "ready"] },
+        "memberCubes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "tierThresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["S", "A", "B", "C"],
+          "properties": {
+            "S": { "type": "number", "minimum": 0, "maximum": 100 },
+            "A": { "type": "number", "minimum": 0, "maximum": 100 },
+            "B": { "type": "number", "minimum": 0, "maximum": 100 },
+            "C": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        },
+        "readinessPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "minWitnessesPerTier",
+            "minDraftWitnessesPerCube",
+            "minDeckWitnessesPerCube"
+          ],
+          "properties": {
+            "minWitnessesPerTier": { "type": "integer", "minimum": 1 },
+            "minDraftWitnessesPerCube": { "type": "integer", "minimum": 1 },
+            "minDeckWitnessesPerCube": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "evidenceCounts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tierCoverage", "draftsByCube", "decksByCube"],
+          "properties": {
+            "tierCoverage": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["S", "A", "B", "C", "D"],
+              "properties": {
+                "S": { "type": "integer", "minimum": 0 },
+                "A": { "type": "integer", "minimum": 0 },
+                "B": { "type": "integer", "minimum": 0 },
+                "C": { "type": "integer", "minimum": 0 },
+                "D": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "draftsByCube": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 }
+            },
+            "decksByCube": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["extractedAt", "method", "sourceHashes"],
+      "properties": {
+        "extractedAt": { "type": "string" },
+        "method": { "type": "string" },
+        "sourceHashes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "generatorVersion": { "type": "string" }
+      }
+    },
+    "observedResults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wins", "losses", "matchCount"],
+      "properties": {
+        "wins": { "type": "integer", "minimum": 0 },
+        "losses": { "type": "integer", "minimum": 0 },
+        "matchCount": { "type": "integer", "minimum": 0 },
+        "drawCount": { "type": "integer", "minimum": 0 },
+        "context": { "type": "string" }
+      }
+    },
+    "draftPick": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packNumber", "pickNumber", "offeredCardIds", "pickedCardId"],
+      "properties": {
+        "packNumber": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "pickNumber": { "type": "integer", "minimum": 1, "maximum": 15 },
+        "offeredCardIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 15,
+          "items": { "type": "string" }
+        },
+        "pickedCardId": { "type": "string" },
+        "staticScore": { "type": "number" },
+        "dynamicScore": { "type": "number" }
+      }
+    },
+    "cardIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "manaCost": { "type": "string" },
+        "cmc": { "type": "number" },
+        "colors": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["W", "U", "B", "R", "G"] }
+        },
+        "types": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "isLand": { "type": "boolean" }
+      }
+    },
+    "cardEvaluationInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "staticScore", "colors"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "staticScore": { "type": "number" },
+        "colors": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["W", "U", "B", "R", "G"] }
+        },
+        "cmc": { "type": "number" },
+        "types": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "subtypes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "typeLine": { "type": "string" },
+        "isLand": { "type": "boolean" },
+        "producesColors": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["W", "U", "B", "R", "G"] }
+        },
+        "oracleText": { "type": "string" },
+        "manaCost": { "type": "string" },
+        "oracleId": { "type": "string" }
+      }
+    },
+    "draftWitness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draftId",
+        "source",
+        "startedAt",
+        "leagueId",
+        "cubeKey",
+        "cubeSnapshotId",
+        "picks",
+        "poolCardIds",
+        "finalDeckCardIds",
+        "sideboardCardIds",
+        "cardIdentities",
+        "deckEvaluationCards",
+        "provenance"
+      ],
+      "properties": {
+        "draftId": { "type": "string" },
+        "source": { "type": "string" },
+        "startedAt": { "type": "string" },
+        "leagueId": { "type": "string" },
+        "cubeKey": { "type": "string" },
+        "cubeSnapshotId": { "type": "string" },
+        "picks": {
+          "type": "array",
+          "minItems": 45,
+          "maxItems": 45,
+          "items": { "$ref": "#/$defs/draftPick" }
+        },
+        "poolCardIds": {
+          "type": "array",
+          "minItems": 45,
+          "maxItems": 45,
+          "items": { "type": "string" }
+        },
+        "finalDeckCardIds": {
+          "type": "array",
+          "minItems": 40,
+          "maxItems": 40,
+          "items": { "type": "string" }
+        },
+        "sideboardCardIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "cardIdentities": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/cardIdentity" }
+        },
+        "deckEvaluationCards": {
+          "type": "array",
+          "minItems": 40,
+          "items": { "$ref": "#/$defs/cardEvaluationInput" }
+        },
+        "observedResults": { "$ref": "#/$defs/observedResults" },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "deckWitness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deckWitnessId",
+        "leagueId",
+        "cubeKey",
+        "cubeSnapshotId",
+        "expectedTier",
+        "annotation",
+        "hasPowerNine",
+        "usagePolicy"
+      ],
+      "properties": {
+        "deckWitnessId": { "type": "string" },
+        "draftId": { "type": "string" },
+        "leagueId": { "type": "string" },
+        "cubeKey": { "type": "string" },
+        "cubeSnapshotId": { "type": "string" },
+        "expectedTier": { "type": "string", "enum": ["S", "A", "B", "C", "D"] },
+        "tierPlacement": { "type": "string", "enum": ["lower", "middle", "upper"] },
+        "hasPowerNine": { "type": "boolean" },
+        "annotation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["author", "role", "reviewedAt", "rationale", "confidence"],
+          "properties": {
+            "author": { "type": "string" },
+            "role": { "type": "string" },
+            "reviewedAt": { "type": "string" },
+            "rationale": { "type": "string" },
+            "strengths": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "weaknesses": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+          }
+        },
+        "observedResult": { "$ref": "#/$defs/observedResults" },
+        "usagePolicy": {
+          "type": "string",
+          "enum": ["evaluation_only", "calibration_eligible", "training_allowed"]
+        },
+        "finalDeckCardIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deckEvaluationCards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/cardEvaluationInput" }
+        }
+      }
+    }
+  }
+}

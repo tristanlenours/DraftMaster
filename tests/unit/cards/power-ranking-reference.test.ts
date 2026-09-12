@@ -50,6 +50,6 @@ describe("power ranking reference", () => {
     }
 
     expect(Math.max(...cards.map((card) => card.powerScore.score))).toBe(53);
-    expect(cards.every((card) => card.powerScore.score <= 53)).toBe(true);
+    expect(cards.every((card) => card.powerScore.score <= 55)).toBe(true);
   });
 });

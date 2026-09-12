@@ -3,6 +3,8 @@ import {
   detectArchetype,
   evaluateDeck,
   type CardEvaluationInput,
+  type CubeEvaluationContext,
+  type LeagueCalibration,
 } from "../../../src/domain/coaching/index.ts";
 
 describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
@@ -537,7 +539,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
 
     expect(evaluation.radar.power).toBeGreaterThanOrEqual(82);
-    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@4");
+    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@5");
     expect(evaluation.audit.scoreMeaning).toContain("ni une probabilité de victoire");
     expect(evaluation.audit.power.meanStaticScore).toBeCloseTo(34.74, 2);
     expect(evaluation.audit.power.topFiveMean).toBeCloseTo(51.8, 2);
@@ -1358,5 +1360,78 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     expect(coverageByName["Elite Spellbinder"]).toContain("main");
     expect(coverageByName["Teferi, Hero of Dominaria"]).toContain("permanents");
     expect(coverageByName["Thieving Skydiver"]).toContain("permanents");
+  });
+
+  describe("League-relative deck evaluation & audit metadata", () => {
+    const customCalibration: LeagueCalibration = {
+      leagueId: "powered_vintage",
+      calibrationVersion: "1.0.0",
+      status: "provisional",
+      memberCubes: ["arena_powered", "candyshop"],
+      tierThresholds: {
+        S: 95,
+        A: 85,
+        B: 75,
+        C: 65,
+      },
+      readinessPolicy: {
+        minWitnessesPerTier: 3,
+        minDraftWitnessesPerCube: 10,
+        minDeckWitnessesPerCube: 15,
+      },
+    };
+
+    const validContext: CubeEvaluationContext = {
+      cubeKey: "arena_powered",
+      cubeSnapshotId: "2026-09-08",
+      leagueId: "powered_vintage",
+    };
+
+    it("evaluates legacy decks with deck-evaluation@5 formula and default thresholds", () => {
+      const evaluation = evaluateDeck(borosAggroDeck);
+      expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@5");
+      expect(evaluation.overallTier).toBeDefined();
+      expect(evaluation.audit.leagueId).toBeUndefined();
+    });
+
+    it("applies league-relative thresholds to overallTier while leaving radarTiers unchanged", () => {
+      // Evaluate Boros Aggro deck under custom calibration
+      const legacyEval = evaluateDeck(borosAggroDeck);
+      const leagueEval = evaluateDeck(borosAggroDeck, {
+        leagueCalibration: customCalibration,
+        cubeContext: validContext,
+      });
+
+      expect(leagueEval.overallScore).toBe(legacyEval.overallScore);
+      expect(leagueEval.radarTiers).toEqual(legacyEval.radarTiers);
+      // If score is between 80 and 85, legacy is A, but under custom (A: 85) it is B!
+      if (legacyEval.overallScore >= 80 && legacyEval.overallScore < 85) {
+        expect(legacyEval.overallTier).toBe("A");
+        expect(leagueEval.overallTier).toBe("B");
+      }
+
+      // Check audit metadata
+      expect(leagueEval.audit.formulaVersion).toBe("deck-evaluation@5");
+      expect(leagueEval.audit.leagueId).toBe("powered_vintage");
+      expect(leagueEval.audit.calibrationVersion).toBe("1.0.0");
+      expect(leagueEval.audit.calibrationStatus).toBe("provisional");
+      expect(leagueEval.audit.cubeKey).toBe("arena_powered");
+      expect(leagueEval.audit.cubeSnapshotId).toBe("2026-09-08");
+    });
+
+    it("rejects mismatched cubeContext league or membership without fallback", () => {
+      const invalidContext: CubeEvaluationContext = {
+        cubeKey: "arena_powered",
+        cubeSnapshotId: "2026-09-08",
+        leagueId: "peasant_league",
+      };
+
+      expect(() =>
+        evaluateDeck(borosAggroDeck, {
+          leagueCalibration: customCalibration,
+          cubeContext: invalidContext,
+        }),
+      ).toThrow(/mismatched league/i);
+    });
   });
 });

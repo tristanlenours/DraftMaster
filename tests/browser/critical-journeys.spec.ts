@@ -81,7 +81,8 @@ test("Card Explorer filters cards and opens a loadable card image", async ({ pag
   await page.goto("/cards");
 
   await expect(page.locator("#view-cards")).toBeVisible();
-  await page.locator("#lang-chip-en").click();
+  await expect(page.locator("#global-lang-en")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#lang-chip-en")).toHaveClass(/active/);
   await page.locator("#card-search-input").fill("Ancient Tomb");
 
   const result = page.locator(".card-matrix-item");
@@ -140,7 +141,19 @@ test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", a
     (card) => card.frenchImageUrl && card.frenchImageUrl !== card.imageUrl,
   );
   expect(localizedCard).toBeDefined();
-  if (!localizedCard?.frenchImageUrl) throw new Error("No localized card in seeded booster");
+  if (!localizedCard?.frenchImageUrl || !localizedCard.imageUrl) {
+    throw new Error("No localized card in seeded booster");
+  }
+  await expect
+    .poll(() =>
+      page
+        .locator(`.booster-card-item[data-instance-id="${localizedCard.instanceId}"] img`)
+        .getAttribute("src"),
+    )
+    .toBe(localizedCard.imageUrl);
+
+  await page.locator("#global-lang-fr").click();
+  await expect(page.locator("#global-lang-fr")).toHaveAttribute("aria-pressed", "true");
   await expect
     .poll(() =>
       page
@@ -170,6 +183,21 @@ test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", a
 
   await expect(page.locator("#pool-count-badge")).toHaveText("1 / 45");
   await expect(page.locator("#hud-pick-num")).toHaveText("Pick 2 / 15");
+});
+
+test("The global card-language switch persists across modules and reloads", async ({ page }) => {
+  await page.goto("/cards");
+  await page.locator("#global-lang-fr").click();
+
+  await page.goto("/draft");
+  await expect(page.locator("#global-lang-fr")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#global-lang-en")).toHaveAttribute("aria-pressed", "false");
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem("draftmaster_card_language")))
+    .toBe("FR");
+
+  await page.reload();
+  await expect(page.locator("#global-lang-fr")).toHaveAttribute("aria-pressed", "true");
 });
 
 test.describe("Solo Draft Coach on mobile", () => {

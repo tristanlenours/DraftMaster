@@ -26,7 +26,7 @@ describe("Master Card & Cube Referential System", () => {
       expect(normal.confidence).toBe(1.0);
 
       const high = createUntappedScore(60.0);
-      expect(high.score).toBe(53.0);
+      expect(high.score).toBe(55.0);
 
       const low = createUntappedScore(0.5);
       expect(low.score).toBe(1.0);

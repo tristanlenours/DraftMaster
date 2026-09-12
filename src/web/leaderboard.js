@@ -32,9 +32,9 @@ export function formatDuration(totalSeconds) {
 
 export function getScoreGrade(score) {
   if (score >= 90) return { grade: "S", css: "grade-s" };
-  if (score >= 82) return { grade: "A", css: "grade-a" };
-  if (score >= 74) return { grade: "B", css: "grade-b" };
-  if (score >= 65) return { grade: "C", css: "grade-c" };
+  if (score >= 80) return { grade: "A", css: "grade-a" };
+  if (score >= 70) return { grade: "B", css: "grade-b" };
+  if (score >= 60) return { grade: "C", css: "grade-c" };
   return { grade: "D", css: "grade-d" };
 }
 

@@ -141,6 +141,22 @@ describe("SoloDraftSession", () => {
     expect(deckState.status).toBe("deckbuilding");
     expect(deckState.playerPool.length).toBe(45);
 
+    // Verify AI Deck Recommendation is populated
+    expect(deckState.deckRecommendation).toBeDefined();
+    expect(deckState.deckRecommendation?.maindeckCardInstanceIds.length).toBe(23);
+    const totalRecoLands =
+      (deckState.deckRecommendation?.basicLands.Plains ?? 0) +
+      (deckState.deckRecommendation?.basicLands.Island ?? 0) +
+      (deckState.deckRecommendation?.basicLands.Swamp ?? 0) +
+      (deckState.deckRecommendation?.basicLands.Mountain ?? 0) +
+      (deckState.deckRecommendation?.basicLands.Forest ?? 0);
+    expect(totalRecoLands).toBe(17);
+    expect(deckState.deckRecommendation?.archetype).toBeDefined();
+    expect(["S", "A", "B", "C", "D"]).toContain(deckState.deckRecommendation?.overallTier);
+
+    const directReco = session.getDeckRecommendation();
+    expect(directReco.maindeckCardInstanceIds.length).toBe(23);
+
     // Reject finalizing with < 23 cards
     await expect(
       session.buildDeckAndFinalize({
@@ -217,5 +233,72 @@ describe("SoloDraftSession", () => {
     const published = await session.publishToLeaderboard(TEST_LEADERBOARD_PATH);
     expect(published.entry.playerName).toBe("Training Hero");
     expect(published.entry.rank).toBeDefined();
+  }, 15000);
+
+  it("provides AI pick advice on demand during drafting and flags session as unhomologated", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "Curious Drafter",
+      seed: 42,
+    });
+
+    expect(session.isHomologated).toBe(true);
+
+    const advice = await session.getPickAdvice();
+    expect(advice.topPickId).toBeDefined();
+    expect(advice.topPickName).toBeDefined();
+    expect(advice.reason.length).toBeGreaterThan(0);
+    expect(Array.isArray(advice.alternatives)).toBe(true);
+    expect(session.isHomologated).toBe(false);
+  });
+
+  it("includes all 8 seats with overallTier and radarTiers in final buildDeckAndFinalize result", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "Tier Challenger",
+      seed: 42,
+    });
+
+    for (let round = 0; round < 45; round++) {
+      const state = session.getStateDto();
+      const cardToPick = state.currentBooster[0];
+      if (!cardToPick) throw new Error("Booster card missing");
+      session.makePick(cardToPick.instanceId);
+    }
+
+    const deckState = session.getStateDto();
+    const chosen23 = deckState.playerPool.slice(0, 23).map((c) => c.instanceId);
+    const result = await session.buildDeckAndFinalize(
+      {
+        sessionId: session.sessionId,
+        maindeckCardInstanceIds: chosen23,
+        publishToLeaderboard: false,
+      },
+      {
+        customReportsDir: TEST_REPORTS_DIR,
+        customLeaderboardPath: TEST_LEADERBOARD_PATH,
+        customAdminDraftsPath: TEST_ADMIN_DRAFTS_PATH,
+      },
+    );
+
+    // Human evaluation has overallTier and radarTiers
+    expect(result.evaluation.overallTier).toMatch(/^[SABCD]$/);
+    expect(result.evaluation.radarTiers.power).toMatch(/^[SABCD]$/);
+    expect(result.evaluation.radarTiers.synergy).toMatch(/^[SABCD]$/);
+    expect(result.evaluation.radarTiers.curve).toMatch(/^[SABCD]$/);
+    expect(result.evaluation.radarTiers.mana).toMatch(/^[SABCD]$/);
+    expect(result.evaluation.radarTiers.interaction).toMatch(/^[SABCD]$/);
+
+    // 8 seats are returned in result
+    expect(result.seats.length).toBe(8);
+    expect(result.seats[0]?.seatId).toBe(0);
+    expect(result.seats[0]?.isBot).toBe(false);
+    expect(result.seats[0]?.deck.overallTier).toMatch(/^[SABCD]$/);
+
+    for (let s = 1; s < 8; s++) {
+      const botSeat = result.seats[s];
+      expect(botSeat).toBeDefined();
+      expect(botSeat?.isBot).toBe(true);
+      expect(botSeat?.deck.overallTier).toMatch(/^[SABCD]$/);
+      expect(botSeat?.deck.allMaindeck.length).toBe(40);
+    }
   }, 15000);
 });

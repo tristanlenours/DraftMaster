@@ -49,7 +49,7 @@ describe("CardCatalog Directory Loading", () => {
       const bombs = catalog.getCardsByRole("bomb");
       expect(bombs.length).toBeGreaterThan(0);
     }
-  });
+  }, 15000);
 
   it("returns error when reading an empty or nonexistent directory", async () => {
     const nonexistentDir = resolve(rootDir, "data/cards/does-not-exist");

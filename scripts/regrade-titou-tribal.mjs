@@ -6,7 +6,7 @@ const itemsDir = resolve(rootDir, 'data/cards/items');
 const rawPath = resolve(rootDir, 'data/cubes/titou_tribal/cubecobra-raw.json');
 const titouMetaPath = resolve(rootDir, 'data/cubes/titou_tribal/cube-meta.json');
 const titouCubePath = resolve(rootDir, 'data/cubes/titou_tribal/cube.json');
-const MAX_POWER_SCORE = 53;
+const MAX_POWER_SCORE = 55;
 
 export function cardNameToSlug(name) {
   return name

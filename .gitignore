@@ -14,8 +14,14 @@ playwright-report/
 test-results/
 *.log
 
+# Generated draft reports (keep locked reference fixture reports)
+reports/*.html
+!reports/draft-titou-seed-42.html
+!reports/draft-titou-seed-42-boosters.html
+
 # Environnement local & secrets
 .env*
+data/draft-sessions/
 
 # OS / IDE
 .DS_Store
@@ -28,8 +34,3 @@ Thumbs.db
 
 # Card images (downloaded binaries, fetched via CDN or cards:download-images)
 data/cards/images/
-
-# Generated draft reports (keep locked reference fixture reports)
-reports/*.html
-!reports/draft-titou-seed-42.html
-!reports/draft-titou-seed-42-boosters.html

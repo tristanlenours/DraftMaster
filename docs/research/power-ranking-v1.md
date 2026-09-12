@@ -1,6 +1,6 @@
 # Power Ranking v1
 
-État au 6 septembre 2026. Cette version attribue aux 1 105 cartes du catalogue un score de puissance sur l'échelle produit DraftMaster de 1 à 53, tout en conservant la note source Untapped sur son échelle historique de 1 à 55. Le score absolu reste séparé des tiers et bonus propres à chaque cube ; Black Lotus fixe le plafond à 53.
+État au 6 septembre 2026. Cette version attribue aux 1 105 cartes du catalogue un score de puissance sur l'échelle produit DraftMaster de 1 à 55, alignée sur l'échelle historique d'Untapped. Le score absolu reste séparé des tiers et bonus propres à chaque cube. La valeur 55 reste théoriquement possible ; Black Lotus est actuellement la carte la mieux notée du catalogue avec 53.
 
 ## Référentiel
 
@@ -22,6 +22,6 @@ Dans le cube Nico, les premières cartes suivent globalement le classement fourn
 
 ## Utilisation dans l'explorateur
 
-Le `Power Ranking` affiché reprend désormais directement `powerScore.score` sur 53. Son rang compare ce score aux autres cartes du cube. Le tier, le `scoreModifier` et le plafond éditorial restent visibles comme informations contextuelles mais ne changent plus le Power Ranking.
+Le `Power Ranking` affiché reprend désormais directement `powerScore.score` sur 55. Son rang compare ce score aux autres cartes du cube. Le tier, le `scoreModifier` et le plafond éditorial restent visibles comme informations contextuelles mais ne changent plus le Power Ranking.
 
 Le futur `dynamicScore` peut utiliser ce score comme point de départ versionné. Il doit conserver séparément les ajustements de couleur, courbe et synergie afin qu'un changement de contexte ne réécrive jamais la valeur absolue v1.
