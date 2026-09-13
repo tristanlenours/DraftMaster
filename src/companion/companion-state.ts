@@ -1,4 +1,5 @@
 import type { CompanionCard } from "./card-resolver.ts";
+import type { MidDraftReview } from "../domain/coaching/types.ts";
 
 export type GameMode = "idle" | "draft" | "match";
 
@@ -19,6 +20,7 @@ export interface DraftState {
     reason: string;
     alternatives: DraftAlternative[];
     provider: string;
+    packReview?: MidDraftReview | undefined;
   } | null;
 }
 

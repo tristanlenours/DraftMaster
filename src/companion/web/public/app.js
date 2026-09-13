@@ -55,7 +55,7 @@ function formatMarkdown(text) {
     .replace(/\n/g, "<br/>");
 }
 
-// Render Chat Entry
+// Render Chat Entry (Newest on top)
 function appendChatMessage(role, content, provider = "") {
   const div = document.createElement("div");
   div.className = `msg ${role}`;
@@ -63,8 +63,8 @@ function appendChatMessage(role, content, provider = "") {
     <div class="msg-bubble">${formatMarkdown(content)}</div>
     <div class="msg-meta">${role === "user" ? "Toi" : provider || "Coach IA"} • ${new Date().toLocaleTimeString()}</div>
   `;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  chatMessages.prepend(div);
+  chatMessages.scrollTop = 0;
   return div.querySelector(".msg-bubble");
 }
 
@@ -125,6 +125,55 @@ function renderState(state) {
       advice.alternatives.forEach((a, idx) => {
         altMap.set(a.name.toLowerCase().trim(), { idx: idx + 1, reason: a.reason });
       });
+    }
+
+    // Render Strategic Mid-Draft Review (P2P1 / P3P1)
+    const coachPackReviewEl = document.getElementById("coach-pack-review");
+    if (coachPackReviewEl) {
+      const pr = advice?.packReview;
+      if (pr) {
+        coachPackReviewEl.classList.remove("hidden");
+        coachPackReviewEl.innerHTML = `
+          <div class="coach-review-header">
+            <span class="coach-review-badge">📊 Bilan Début de Tour (Pack ${pr.packNumber})</span>
+            <span class="coach-review-archetype">${escapeHtml(pr.archetypeLabel)}</span>
+          </div>
+          <div class="coach-review-summary">${escapeHtml(pr.poolSummary)}</div>
+          <div class="coach-review-grid">
+            <div class="coach-review-card">
+              <div class="coach-review-card-title">📉 Courbe de Mana</div>
+              <div class="coach-review-card-text">${escapeHtml(pr.curveAnalysis)}</div>
+              <div class="coach-curve-pills">
+                <span class="curve-pill">1: <strong>${pr.curveStats?.oneDrops ?? 0}</strong></span>
+                <span class="curve-pill">2: <strong>${pr.curveStats?.twoDrops ?? 0}</strong></span>
+                <span class="curve-pill">3: <strong>${pr.curveStats?.threeDrops ?? 0}</strong></span>
+                <span class="curve-pill">4+: <strong>${pr.curveStats?.fourPlusDrops ?? 0}</strong></span>
+                <span class="curve-pill" style="opacity: 0.7;">CMC moy: <strong>${pr.curveStats?.avgCmc ?? "?"}</strong></span>
+              </div>
+            </div>
+            <div class="coach-review-card">
+              <div class="coach-review-card-title">⚡ Fixeurs & Terrains</div>
+              <div class="coach-review-card-text">${escapeHtml(pr.fixingAnalysis)}</div>
+              <div class="coach-fixing-pill ${pr.fixingStats?.isProportionGood ? "fixing-good" : "fixing-warning"}">
+                Fixeurs : ${pr.fixingStats?.fixersCount ?? 0} (${pr.fixingStats?.targetRecommendation ?? "Recommandé"})
+              </div>
+            </div>
+          </div>
+          <div class="coach-review-priorities">
+            <div class="coach-review-subtitle">🎯 Ce qu'il faut prioriser dans ce pack :</div>
+            <ul class="coach-review-priorities-list">
+              ${(pr.priorities || []).map((p) => `<li>${escapeHtml(p)}</li>`).join("")}
+            </ul>
+          </div>
+          <div class="coach-review-signals">
+            <span class="coach-review-signals-icon">💡</span>
+            <span class="coach-review-signals-text">${escapeHtml(pr.signalTip)}</span>
+          </div>
+        `;
+      } else {
+        coachPackReviewEl.classList.add("hidden");
+        coachPackReviewEl.innerHTML = "";
+      }
     }
 
     // Cards Grid with Badges

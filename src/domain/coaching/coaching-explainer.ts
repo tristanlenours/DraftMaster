@@ -72,6 +72,9 @@ export function generateCoachingExplanation(
     if (dominant.length <= 1) {
       return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}) — excellente opportunité d'ouvrir votre seconde couleur avec votre base (${dominantStr}).`;
     }
+    if (context.packNumber >= 2 || context.pickNumber >= 8) {
+      return `Choix d'antidraft / hatepick : carte hors de vos couleurs (${dominantStr}) que vous ne jouerez pas, mais à couper pour priver un adversaire d'une bombe menaçante.`;
+    }
     return `Choix prioritaire recommandé : bombe individuelle hors de vos couleurs (${dominantStr}) — envisageable comme pivot ou splash si vous changez de cap.`;
   }
 

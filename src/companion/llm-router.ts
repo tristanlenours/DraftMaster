@@ -5,11 +5,12 @@ import path from "node:path";
 export interface LlmResponse<T> {
   success: boolean;
   content: T | null;
-  provider: "Gemini Flash" | "DeepSeek V3 (OpenRouter)" | "None";
+  provider: string;
   rawText?: string;
   error?: string;
 }
 
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-v4.1-flash";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 export class LlmRouter {
@@ -23,17 +24,21 @@ export class LlmRouter {
 
   private loadEnv() {
     this.geminiKey = process.env.GEMINI_API_KEY || "";
-    this.openrouterKey = process.env.OPENROUTER_API_KEY || "";
+    this.openrouterKey =
+      process.env.OPENROUTER_PREMIUM_API_KEY || process.env.OPENROUTER_API_KEY || "";
 
-    // If keys not in process.env, look in .env.local
-    if (!this.geminiKey || !this.openrouterKey) {
-      const envPath = path.resolve(process.cwd(), ".env.local");
+    // If keys not in process.env, look in .env.local and .env
+    for (const envFile of [".env.local", ".env"]) {
+      const envPath = path.resolve(process.cwd(), envFile);
       if (fs.existsSync(envPath)) {
         const content = fs.readFileSync(envPath, "utf8");
         for (const line of content.split("\n")) {
           const trimmed = line.trim();
           if (trimmed.startsWith("GEMINI_API_KEY=") && !this.geminiKey) {
             this.geminiKey = trimmed.replace("GEMINI_API_KEY=", "").trim();
+          }
+          if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
+            this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
           }
           if (trimmed.startsWith("OPENROUTER_API_KEY=") && !this.openrouterKey) {
             this.openrouterKey = trimmed.replace("OPENROUTER_API_KEY=", "").trim();
@@ -47,9 +52,15 @@ export class LlmRouter {
     return Boolean(this.geminiKey || this.openrouterKey);
   }
 
-  public async generateJson<T>(systemPrompt: string, userPrompt: string): Promise<LlmResponse<T>> {
-    // 1. Try Gemini Flash (if not in rate limit cooldown)
-    if (this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
+  public async generateJson<T>(
+    systemPrompt: string,
+    userPrompt: string,
+    options?: { preferBaseTier?: boolean; maxTokens?: number },
+  ): Promise<LlmResponse<T>> {
+    const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
+
+    // If base tier explicitly preferred (e.g. bots), try Gemini first
+    if (options?.preferBaseTier && this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
       try {
         const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt);
         if (gemRes) {
@@ -60,15 +71,27 @@ export class LlmRouter {
       }
     }
 
-    // 2. Try OpenRouter DeepSeek
+    // 1. Try OpenRouter Premium (DeepSeek V4.1 Flash)
     if (this.openrouterKey) {
       try {
-        const deepRes = await this.callOpenRouterJson<T>(systemPrompt, userPrompt);
+        const deepRes = await this.callOpenRouterJson<T>(systemPrompt, userPrompt, maxTokens);
         if (deepRes) {
-          return { success: true, content: deepRes, provider: "DeepSeek V3 (OpenRouter)" };
+          return { success: true, content: deepRes, provider: "DeepSeek V4.1 Flash (OpenRouter)" };
         }
       } catch (err: any) {
-        console.error("[LlmRouter] OpenRouter JSON failed:", err.message);
+        console.warn("[LlmRouter] OpenRouter JSON failed, falling back to Gemini:", err.message);
+      }
+    }
+
+    // 2. Fallback to Gemini Flash
+    if (this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
+      try {
+        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt);
+        if (gemRes) {
+          return { success: true, content: gemRes, provider: "Gemini Flash" };
+        }
+      } catch (err: any) {
+        console.error("[LlmRouter] Gemini JSON failed:", err.message);
       }
     }
 
@@ -78,9 +101,12 @@ export class LlmRouter {
   public async generateText(
     systemPrompt: string,
     userPrompt: string,
+    options?: { preferBaseTier?: boolean; maxTokens?: number },
   ): Promise<LlmResponse<string>> {
-    // 1. Try Gemini Flash
-    if (this.geminiKey) {
+    const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
+
+    // If base tier explicitly preferred (e.g. bots), try Gemini first
+    if (options?.preferBaseTier && this.geminiKey) {
       try {
         const gemRes = await this.callGeminiText(systemPrompt, userPrompt);
         if (gemRes) {
@@ -91,15 +117,27 @@ export class LlmRouter {
       }
     }
 
-    // 2. Try OpenRouter DeepSeek
+    // 1. Try OpenRouter Premium (DeepSeek V4.1 Flash)
     if (this.openrouterKey) {
       try {
-        const deepRes = await this.callOpenRouterText(systemPrompt, userPrompt);
+        const deepRes = await this.callOpenRouterText(systemPrompt, userPrompt, maxTokens);
         if (deepRes) {
-          return { success: true, content: deepRes, provider: "DeepSeek V3 (OpenRouter)" };
+          return { success: true, content: deepRes, provider: "DeepSeek V4.1 Flash (OpenRouter)" };
         }
       } catch (err: any) {
-        console.error("[LlmRouter] OpenRouter text failed:", err.message);
+        console.warn("[LlmRouter] OpenRouter text failed, falling back to Gemini:", err.message);
+      }
+    }
+
+    // 2. Fallback to Gemini Flash
+    if (this.geminiKey) {
+      try {
+        const gemRes = await this.callGeminiText(systemPrompt, userPrompt);
+        if (gemRes) {
+          return { success: true, content: gemRes, provider: "Gemini Flash" };
+        }
+      } catch (err: any) {
+        console.error("[LlmRouter] Gemini text failed:", err.message);
       }
     }
 
@@ -109,12 +147,27 @@ export class LlmRouter {
   public async streamChat(
     messages: { role: "system" | "user" | "assistant"; content: string }[],
     onToken: (token: string) => void,
+    options?: { preferBaseTier?: boolean; maxTokens?: number },
   ): Promise<{
     success: boolean;
     fullText: string;
-    provider: "Gemini Flash" | "DeepSeek V3 (OpenRouter)" | "None";
+    provider: "DeepSeek V4.1 Flash (OpenRouter)" | "Gemini Flash" | "None";
   }> {
-    // 1. Try Gemini Flash SSE
+    const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
+
+    // 1. Try OpenRouter Premium (DeepSeek V4.1 Flash) SSE
+    if (!options?.preferBaseTier && this.openrouterKey) {
+      try {
+        const full = await this.streamOpenRouter(messages, onToken, maxTokens);
+        if (full && full.length > 0) {
+          return { success: true, fullText: full, provider: "DeepSeek V4.1 Flash (OpenRouter)" };
+        }
+      } catch (err: any) {
+        console.warn("[LlmRouter] OpenRouter stream failed, falling back to Gemini:", err.message);
+      }
+    }
+
+    // 2. Fallback Gemini Flash SSE
     if (this.geminiKey) {
       try {
         const full = await this.streamGemini(messages, onToken);
@@ -122,19 +175,19 @@ export class LlmRouter {
           return { success: true, fullText: full, provider: "Gemini Flash" };
         }
       } catch (err: any) {
-        console.warn("[LlmRouter] Gemini stream failed, falling back to OpenRouter:", err.message);
+        console.error("[LlmRouter] Gemini stream failed:", err.message);
       }
     }
 
-    // 2. Fallback OpenRouter SSE
-    if (this.openrouterKey) {
+    // 3. Fallback OpenRouter if base tier failed
+    if (options?.preferBaseTier && this.openrouterKey) {
       try {
         const full = await this.streamOpenRouter(messages, onToken);
         if (full && full.length > 0) {
-          return { success: true, fullText: full, provider: "DeepSeek V3 (OpenRouter)" };
+          return { success: true, fullText: full, provider: "DeepSeek V4.1 Flash (OpenRouter)" };
         }
       } catch (err: any) {
-        console.error("[LlmRouter] OpenRouter stream failed:", err.message);
+        console.error("[LlmRouter] OpenRouter stream fallback failed:", err.message);
       }
     }
 
@@ -327,17 +380,21 @@ export class LlmRouter {
     });
   }
 
-  private callOpenRouterJson<T>(systemPrompt: string, userPrompt: string): Promise<T | null> {
+  private callOpenRouterJson<T>(
+    systemPrompt: string,
+    userPrompt: string,
+    maxTokens = 6000,
+  ): Promise<T | null> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
-        model: "deepseek/deepseek-chat",
+        model: OPENROUTER_MODEL,
         response_format: { type: "json_object" },
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
         temperature: 0.1,
-        max_tokens: 600,
+        max_tokens: maxTokens,
       });
 
       const req = https.request(
@@ -360,7 +417,11 @@ export class LlmRouter {
               try {
                 const data = JSON.parse(body);
                 const text = data.choices?.[0]?.message?.content;
-                resolve(JSON.parse(text));
+                const cleaned = (text || "")
+                  .trim()
+                  .replace(/^```(?:json)?\s*/i, "")
+                  .replace(/\s*```$/, "");
+                resolve(JSON.parse(cleaned));
               } catch {
                 resolve(null);
               }
@@ -374,7 +435,7 @@ export class LlmRouter {
       req.on("error", () => {
         resolve(null);
       });
-      req.setTimeout(6000, () => {
+      req.setTimeout(25000, () => {
         req.destroy();
         resolve(null);
       });
@@ -383,15 +444,20 @@ export class LlmRouter {
     });
   }
 
-  private callOpenRouterText(systemPrompt: string, userPrompt: string): Promise<string | null> {
+  private callOpenRouterText(
+    systemPrompt: string,
+    userPrompt: string,
+    maxTokens = 6000,
+  ): Promise<string | null> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
-        model: "deepseek/deepseek-chat",
+        model: OPENROUTER_MODEL,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
         temperature: 0.3,
+        max_tokens: maxTokens,
       });
 
       const req = https.request(
@@ -427,7 +493,7 @@ export class LlmRouter {
       req.on("error", () => {
         resolve(null);
       });
-      req.setTimeout(10000, () => {
+      req.setTimeout(25000, () => {
         req.destroy();
         resolve(null);
       });
@@ -439,13 +505,15 @@ export class LlmRouter {
   private streamOpenRouter(
     messages: { role: "system" | "user" | "assistant"; content: string }[],
     onToken: (token: string) => void,
+    maxTokens = 6000,
   ): Promise<string> {
     return new Promise((resolve, reject) => {
       const payload = JSON.stringify({
-        model: "deepseek/deepseek-chat",
+        model: OPENROUTER_MODEL,
         stream: true,
         messages,
         temperature: 0.3,
+        max_tokens: maxTokens,
       });
 
       const req = https.request(

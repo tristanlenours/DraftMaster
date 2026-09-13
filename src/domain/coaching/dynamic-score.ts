@@ -270,7 +270,14 @@ export function calculateColorOverlap(
 
     if (dominantMatches.length >= 2) return 1.0; // Perfect on-color dual
     if (dominantMatches.length === 1 && splashMatches > 0) return 0.85; // Fixes main + splash
-    if (dominantMatches.length === 1) return 0.75; // Half-color dual
+    if (dominantMatches.length === 1) {
+      // If already committed to 2 dominant colors without a splash for the other color,
+      // a half-color land has an unusable off-color component
+      if (dominantSet.size >= 2 && totalColorCardsInPool >= 4) {
+        return 0.45;
+      }
+      return 0.75; // Half-color dual when flexible / exploring a 2nd color
+    }
     if (splashMatches > 0) return 0.4; // Only fixes splash
     return 0.0; // Off-color land (e.g. UG fetch in RW pool)
   }
@@ -456,14 +463,16 @@ export function evaluateCard(
     } else if (produced.length >= 5) {
       manaFixingBonus = 3.0; // Prismatic / Rainbow (Fabled Passage)
     } else if (
-      c1 &&
-      produced.includes(c1) &&
       profile.splashColor &&
-      produced.includes(profile.splashColor)
+      produced.includes(profile.splashColor) &&
+      ((c1 && produced.includes(c1)) || (c2 && produced.includes(c2)))
     ) {
       manaFixingBonus = 2.5; // Main + splash dual
-    } else if ((c1 && produced.includes(c1)) || (c2 && produced.includes(c2))) {
-      manaFixingBonus = 1.0; // Half-color dual
+    } else if (
+      dominantColors.filter(Boolean).length < 2 &&
+      ((c1 && produced.includes(c1)) || (c2 && produced.includes(c2)))
+    ) {
+      manaFixingBonus = 1.0; // Half-color dual when flexible / exploring a 2nd color
     }
   }
 

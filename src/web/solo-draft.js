@@ -1,7 +1,11 @@
 // DraftMaster — Solo Draft Client Controller & State Machine
 
 import { formatDuration, getScoreGrade } from "./leaderboard.js";
-import { loadImageWithFallback, isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
+import {
+  loadImageWithFallback,
+  isMatchingScryfallPrint,
+  sanitizeFrenchCache,
+} from "./card-image.js";
 import {
   getCardDisplayName,
   getCardImageFallbackUrl,
@@ -53,6 +57,17 @@ function getSoloCardFallbackImage(card, language) {
   return getCardImageFallbackUrl(card, language);
 }
 
+const DEFAULT_LOBBY_BOTS = [
+  { id: "nico", name: "Big Nixos", role: "Spike Impitoyable", avatar: "⚡" },
+  { id: "remi", name: "Le Rouxeleur", role: "Maître Rouxelettes", avatar: "🎲" },
+  { id: "hugues", name: "HugE", role: "Turbo Rien / Combo", avatar: "🎭" },
+  { id: "ivan", name: "Le Gourmand", role: "4-Couleurs Ramp", avatar: "🌲" },
+  { id: "papayou", name: "Papayourt", role: "Légendaires Bombs", avatar: "👑" },
+  { id: "cedric", name: "Jakko", role: "Meilleur Joueur", avatar: "🏆" },
+  { id: "titou", name: "TitouBot", role: "Architecte Tribal", avatar: "📜" },
+  { id: "theo", name: "Le Rockeur", role: "Virtuose Reanimator", avatar: "🎸" },
+];
+
 async function fetchFrenchCard(card, onUpdate) {
   if (!card || !card.name) return;
   if (card.frenchImageUrl) return;
@@ -63,7 +78,8 @@ async function fetchFrenchCard(card, onUpdate) {
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
     if (onUpdate) onUpdate(card);
     if (card.frenchImageUrl) return;
   }
@@ -81,21 +97,25 @@ async function fetchFrenchCard(card, onUpdate) {
       const data = await res.json();
       const prints = data.data || [];
       const match = prints.find(
-        (p) => isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris)
+        (p) =>
+          isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris),
       );
 
       if (match) {
         let fName = match.printed_name || card.name;
         let fText = match.printed_text || match.oracle_text || card.oracleText;
         const fImg = match.image_uris?.normal || match.card_faces?.[0]?.image_uris?.normal || null;
-        const fLargeImg = match.image_uris?.large || match.card_faces?.[0]?.image_uris?.large || fImg;
+        const fLargeImg =
+          match.image_uris?.large || match.card_faces?.[0]?.image_uris?.large || fImg;
 
         if (match.card_faces && match.card_faces.length > 0) {
           fName =
             match.printed_name ||
             match.card_faces.map((f) => f.printed_name || f.name).join(" // ");
           fText = match.card_faces
-            .map((f) => `${f.printed_name || f.name}\n${f.printed_text || f.oracle_text || ""}`.trim())
+            .map((f) =>
+              `${f.printed_name || f.name}\n${f.printed_text || f.oracle_text || ""}`.trim(),
+            )
             .join("\n\n---\n\n");
         }
         card.frenchName = fName;
@@ -157,6 +177,10 @@ export class SoloDraftController {
     this.adviceAbortController = null;
     this.isConfirmingPick = false;
 
+    // Lobby top-down table state
+    this.currentLobbyBots = [...DEFAULT_LOBBY_BOTS.filter((b) => b.id !== "titou")];
+    this.initLobbyTable();
+
     this.bindEvents();
   }
 
@@ -168,7 +192,11 @@ export class SoloDraftController {
     this.hideCardHoverPreview();
     if (this.status === "deckbuilding") {
       this.renderDeckbuilder();
-    } else if (this.status !== "lobby" && this.status !== "completed" && this.currentBooster.length > 0) {
+    } else if (
+      this.status !== "lobby" &&
+      this.status !== "completed" &&
+      this.currentBooster.length > 0
+    ) {
       this.refreshRenderedCardLanguage();
     }
 
@@ -202,15 +230,27 @@ export class SoloDraftController {
   }
 
   bindEvents() {
-    // 0. Player Name input sanitization (16 chars max, no special characters)
+    // 0. Player Name input sanitization (16 chars max, no special characters) & live table preview update
     if (this.dom.playerNameInput) {
       this.dom.playerNameInput.addEventListener("input", (e) => {
         const cleaned = e.target.value.replace(/[^a-zA-Z0-9À-ÿ _-]/g, "").slice(0, 16);
         if (e.target.value !== cleaned) {
           e.target.value = cleaned;
         }
+        const humanNameEl = document.getElementById("preview-human-name");
+        if (humanNameEl) {
+          humanNameEl.textContent = cleaned.trim() || "Vous";
+        }
       });
     }
+
+    // Shuffle buttons for topdown lobby table
+    document
+      .getElementById("btn-shuffle-lobby-table")
+      ?.addEventListener("click", () => this.shuffleLobbyTable());
+    document
+      .getElementById("btn-shuffle-lobby-table-top")
+      ?.addEventListener("click", () => this.shuffleLobbyTable());
 
     // 1. Start button in lobby
     this.dom.startBtn?.addEventListener("click", () => this.handleStartDraft());
@@ -262,7 +302,9 @@ export class SoloDraftController {
     this.dom.coachAdviceCloseBtn?.addEventListener("click", () => this.handleCloseCoachAdvice());
 
     // 12. AI Deck Recommendation button
-    this.dom.deckAiRecommendBtn?.addEventListener("click", () => this.handleRequestDeckRecommendation());
+    this.dom.deckAiRecommendBtn?.addEventListener("click", () =>
+      this.handleRequestDeckRecommendation(),
+    );
 
     // 13. Abandon / Quit Draft buttons
     this.dom.abandonBtn?.addEventListener("click", () => this.handleAbandonDraft());
@@ -277,6 +319,46 @@ export class SoloDraftController {
     });
 
     this.checkActiveSession();
+  }
+
+  initLobbyTable() {
+    this.shuffleLobbyTable();
+  }
+
+  shuffleLobbyTable() {
+    const activeMagicien = (this.magicienSlug || "titou").toLowerCase();
+    const pool = DEFAULT_LOBBY_BOTS.filter((b) => b.id !== activeMagicien);
+    const array = [...(pool.length >= 7 ? pool : DEFAULT_LOBBY_BOTS).slice(0, 7)];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    this.currentLobbyBots = array;
+    this.renderLobbyTable();
+  }
+
+  renderLobbyTable() {
+    if (!this.currentLobbyBots || this.currentLobbyBots.length < 7) return;
+    for (let seatIdx = 1; seatIdx <= 7; seatIdx++) {
+      const bot = this.currentLobbyBots[seatIdx - 1];
+      if (!bot) continue;
+      const card = document.querySelector(`.draft-topdown-table [data-seat-idx="${seatIdx}"]`);
+      if (!card) continue;
+      const avatarEl = card.querySelector(".seat-avatar");
+      const nameEl = card.querySelector(".seat-name");
+      const roleEl = card.querySelector(".seat-role");
+      if (avatarEl) avatarEl.textContent = bot.avatar;
+      if (nameEl) nameEl.textContent = bot.name;
+      if (roleEl) roleEl.textContent = bot.role;
+
+      card.style.transition = "transform 0.15s ease";
+      card.style.transform = "scale(0.96)";
+      setTimeout(() => {
+        card.style.transform = "";
+      }, 150);
+    }
   }
 
   async checkActiveSession() {
@@ -362,12 +444,13 @@ export class SoloDraftController {
     const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
     if (publishToggle) publishToggle.checked = false;
 
+    this.shuffleLobbyTable();
     this.showStage("lobby");
   }
 
   async handleAbandonDraft() {
     const confirmed = window.confirm(
-      "Voulez-vous vraiment quitter ce draft ? Votre progression sera annulée et réinitialisée."
+      "Voulez-vous vraiment quitter ce draft ? Votre progression sera annulée et réinitialisée.",
     );
     if (!confirmed) return;
     await this.abandonDraft();
@@ -403,7 +486,10 @@ export class SoloDraftController {
   async handleStartDraft() {
     let rawName = this.dom.playerNameInput?.value?.trim() || "";
     // Sanitize: max 16 chars, alphanumeric, french accented letters, spaces, hyphens, underscores
-    rawName = rawName.replace(/[^a-zA-Z0-9À-ÿ _-]/g, "").slice(0, 16).trim();
+    rawName = rawName
+      .replace(/[^a-zA-Z0-9À-ÿ _-]/g, "")
+      .slice(0, 16)
+      .trim();
     if (!rawName) {
       rawName = "Joueur";
     }
@@ -426,6 +512,8 @@ export class SoloDraftController {
           playerName: this.playerName,
           magicienSlug,
           seed,
+          botIds: this.currentLobbyBots ? this.currentLobbyBots.map((b) => b.id) : undefined,
+          randomizeSeats: true,
         }),
       });
 
@@ -464,8 +552,10 @@ export class SoloDraftController {
     this.playerPool = session.playerPool || [];
 
     // 1. Header HUD
-    if (this.dom.hudPackNumber) this.dom.hudPackNumber.textContent = `Pack ${String(session.packNumber)} / 3`;
-    if (this.dom.hudPickNumber) this.dom.hudPickNumber.textContent = `Pick ${String(session.pickNumber)} / 15`;
+    if (this.dom.hudPackNumber)
+      this.dom.hudPackNumber.textContent = `Pack ${String(session.packNumber)} / 3`;
+    if (this.dom.hudPickNumber)
+      this.dom.hudPickNumber.textContent = `Pick ${String(session.pickNumber)} / 15`;
     if (this.dom.hudDirection) {
       const feederName =
         session.nextBoosterFromBotName ||
@@ -499,7 +589,7 @@ export class SoloDraftController {
       if (!card.frenchImageUrl) {
         fetchFrenchCard(card, (updatedCard) => {
           const itemEl = this.dom.boosterGrid?.querySelector(
-            `.booster-card-item[data-instance-id="${updatedCard.instanceId}"]`
+            `.booster-card-item[data-instance-id="${updatedCard.instanceId}"]`,
           );
           if (itemEl) {
             const img = itemEl.querySelector(".booster-card-img");
@@ -684,7 +774,10 @@ export class SoloDraftController {
     );
 
     if (!boosterHasTopPick) {
-      console.warn("Conseil IA ignoré : la carte recommandée n'est pas dans le booster actuel.", advice.topPickName);
+      console.warn(
+        "Conseil IA ignoré : la carte recommandée n'est pas dans le booster actuel.",
+        advice.topPickName,
+      );
       return;
     }
 
@@ -707,7 +800,7 @@ export class SoloDraftController {
           <span class="coach-alt-name">🔄 ${escapeHtml(alt.name)}</span>
           <span class="coach-alt-reason">— ${escapeHtml(alt.reason)}</span>
         </div>
-      `
+      `,
       )
       .join("");
 
@@ -895,7 +988,8 @@ export class SoloDraftController {
 
   renderPoolDrawer(pool) {
     if (!this.dom.poolContainer) return;
-    if (this.dom.poolCountBadge) this.dom.poolCountBadge.textContent = `${String(pool.length)} / 45`;
+    if (this.dom.poolCountBadge)
+      this.dom.poolCountBadge.textContent = `${String(pool.length)} / 45`;
 
     this.dom.poolContainer.innerHTML = pool
       .map((card) => {
@@ -957,7 +1051,10 @@ export class SoloDraftController {
 
     if (this.cardLanguage === "FR" && !card.frenchImageUrl) {
       fetchFrenchCard(card, (updated) => {
-        if (this.cardLanguage === "FR" && this.activeHoveredCard?.instanceId === updated.instanceId) {
+        if (
+          this.cardLanguage === "FR" &&
+          this.activeHoveredCard?.instanceId === updated.instanceId
+        ) {
           const newSrc = updated.frenchLargeImageUrl || updated.frenchImageUrl;
           if (newSrc) {
             popoverImg.src = newSrc;
@@ -1350,7 +1447,12 @@ export class SoloDraftController {
       { id: "synergy", label: "Synergie", val: d.radar.synergy, tier: radarTiers.synergy },
       { id: "curve", label: "Courbe", val: d.radar.curve, tier: radarTiers.curve },
       { id: "mana", label: "Mana", val: d.radar.mana, tier: radarTiers.mana },
-      { id: "interaction", label: "Interaction", val: d.radar.interaction, tier: radarTiers.interaction },
+      {
+        id: "interaction",
+        label: "Interaction",
+        val: d.radar.interaction,
+        tier: radarTiers.interaction,
+      },
     ];
 
     axes.forEach((axis) => {
@@ -1377,7 +1479,9 @@ export class SoloDraftController {
     if (result.isPublished && rec) {
       if (rankBadge) {
         rankBadge.hidden = false;
-        rankBadge.textContent = rec.rank ? `Rang #${String(rec.rank)} au Mur des Records` : "Inscrit au Mur des Records";
+        rankBadge.textContent = rec.rank
+          ? `Rang #${String(rec.rank)} au Mur des Records`
+          : "Inscrit au Mur des Records";
       }
       if (trainingBadge) trainingBadge.hidden = true;
       if (publishTrainingBtn) publishTrainingBtn.style.display = "none";
@@ -1450,7 +1554,9 @@ export class SoloDraftController {
       this.dom.resultSeatsGrid.innerHTML = result.seats
         .map((seat) => {
           const deck = seat.deck;
-          const seatTier = deck?.overallTier || (deck?.overallScore ? getScoreGrade(deck.overallScore).grade : "B");
+          const seatTier =
+            deck?.overallTier ||
+            (deck?.overallScore ? getScoreGrade(deck.overallScore).grade : "B");
           const tierCss = `grade-${seatTier.toLowerCase()}`;
           const isHuman = seat.seatId === 0;
           const avatar = SEAT_AVATARS[seat.seatId] || (isHuman ? "🧙" : "🤖");
@@ -1514,7 +1620,8 @@ export class SoloDraftController {
           const seatId = Number(btn.dataset.seatId);
           const targetSeat = result.seats.find((s) => s.seatId === seatId);
           if (targetSeat && targetSeat.deck) {
-            const displayName = targetSeat.botName || (seatId === 0 ? this.playerName : `Bot ${seatId}`);
+            const displayName =
+              targetSeat.botName || (seatId === 0 ? this.playerName : `Bot ${seatId}`);
             openDeckShowcaseModal({
               playerName: displayName,
               evaluation: targetSeat.deck,
@@ -1568,10 +1675,7 @@ export function openDeckShowcaseModal(resultOrDeck) {
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
 
   const maindeckCards =
-    evaluation.allMaindeck ||
-    resultOrDeck.maindeckCards ||
-    resultOrDeck.maindeck_cards ||
-    [];
+    evaluation.allMaindeck || resultOrDeck.maindeckCards || resultOrDeck.maindeck_cards || [];
 
   const cardsHtml = maindeckCards
     .map((c) => {

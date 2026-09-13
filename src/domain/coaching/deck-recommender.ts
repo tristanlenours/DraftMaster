@@ -143,8 +143,12 @@ function assembleDeckOption(
   // Sort spells by static score descending, favoring higher quality
   const sortedSpells = [...candidate.spells].sort((a, b) => b.staticScore - a.staticScore);
 
-  // Target 23 spells and 17 lands
-  const targetLands = 17;
+  const curveSample = sortedSpells.slice(0, 24);
+  const averageManaValue =
+    curveSample.length === 0
+      ? 3
+      : curveSample.reduce((sum, card) => sum + (card.cmc ?? 3), 0) / curveSample.length;
+  const targetLands = averageManaValue <= 2.25 ? 16 : averageManaValue >= 3.75 ? 18 : 17;
   const nonBasicLands = [...candidate.lands]
     .sort((a, b) => b.staticScore - a.staticScore)
     .slice(0, targetLands);
@@ -178,9 +182,14 @@ function assembleDeckOption(
       } else {
         const ratio =
           totalActivePips > 0 ? pipTotals[color] / totalActivePips : 1 / activeColors.length;
-        count = Math.max(1, Math.round(ratio * neededBasicLands));
-        count = Math.min(count, remainingToDistribute - (activeColors.length - i - 1));
+        const ideal = Math.round(ratio * neededBasicLands);
+        const maxAllowed = Math.max(0, remainingToDistribute - (activeColors.length - i - 1));
+        count = Math.min(ideal, maxAllowed);
+        if (remainingToDistribute > 0 && count === 0 && maxAllowed > 0 && pipTotals[color] > 0) {
+          count = 1;
+        }
       }
+      count = Math.max(0, Math.min(remainingToDistribute, count));
       remainingToDistribute -= count;
       const basicDef = basics[color];
       for (let k = 0; k < count; k++) {

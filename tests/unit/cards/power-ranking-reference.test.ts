@@ -29,6 +29,7 @@ const expectedReferenceScores = new Map<string, number>([
   ["Phelia, Exuberant Shepherd", 47],
   ["Wooded Foothills", 46],
   ["Ancient Tomb", 31],
+  ["Fabled Passage", 15],
   ["Thriving Bluff", 10],
   ["Thriving Grove", 10],
   ["Thriving Heath", 10],

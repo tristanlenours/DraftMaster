@@ -301,4 +301,49 @@ describe("SoloDraftSession", () => {
       expect(botSeat?.deck.allMaindeck.length).toBe(40);
     }
   }, 15000);
+
+  it("randomizes bot seats and returns full seats DTO with matching feeder", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "RandomTester",
+      seed: 8888,
+      randomizeSeats: true,
+    });
+
+    const state = session.getStateDto();
+    expect(state.seats).toHaveLength(8);
+    expect(state.seats?.[0]?.isHuman).toBe(true);
+    expect(state.seats?.[0]?.name).toBe("RandomTester");
+
+    // All 7 bot seats are populated
+    for (let i = 1; i <= 7; i++) {
+      expect(state.seats?.[i]?.isHuman).toBe(false);
+      expect(state.seats?.[i]?.name).toBeTruthy();
+      expect(state.seats?.[i]?.avatar).toBeTruthy();
+    }
+
+    // Feeder in pack 1 is seat 7
+    const seat7Bot = state.seats?.[7];
+    expect(state.nextBoosterFromBotName).toBe(seat7Bot?.botName ?? seat7Bot?.name);
+  });
+
+  it("assigns explicit botIds to seats 1 through 7 when provided", async () => {
+    // Put Le Gourmand at seat 1 (left) and Big Nixos at seat 7 (right)
+    const explicitBots = ["ivan", "cedric", "hugues", "papayou", "remi", "theo", "nico"];
+    const session = await SoloDraftSession.create({
+      playerName: "CustomOrderPlayer",
+      seed: 1234,
+      botIds: explicitBots,
+    });
+
+    const state = session.getStateDto();
+    expect(state.seats).toHaveLength(8);
+    expect(state.seats?.[1]?.id).toBe("ivan");
+    expect(state.seats?.[1]?.name).toBe("Le Gourmand");
+
+    expect(state.seats?.[7]?.id).toBe("nico");
+    expect(state.seats?.[7]?.name).toBe("Big Nixos");
+
+    // In Pack 1, booster is fed from seat 7 (Big Nixos)
+    expect(state.nextBoosterFromBotName).toBe("Big Nixos");
+  });
 });

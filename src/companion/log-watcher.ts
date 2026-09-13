@@ -36,6 +36,8 @@ export class LogWatcher {
   private handCardsMap = new Map<number, number>();
   private gameObjectCatalog = new Map<number, { grpId: number; ownerSeatId: number }>();
   private seenTransferIds = new Set<number>();
+  private isCatchingUp = false;
+  private latestDraftPack: { pack: number; pick: number; cardIds: number[] } | null = null;
 
   constructor(customPath?: string, events: LogWatcherEvents = {}) {
     this.logPath =
@@ -65,10 +67,22 @@ export class LogWatcher {
       const stats = fs.statSync(this.logPath);
       // Read file to immediately discover user ID and reconstruct active match/draft state
       const initialContent = fs.readFileSync(this.logPath, "utf8");
+      this.isCatchingUp = true;
       this.processChunk(initialContent);
+      this.isCatchingUp = false;
       this.lastOffset = stats.size;
+
+      // If we finished catchup with an active unpicked draft pack, emit it now
+      if (this.latestDraftPack) {
+        this.events.onDraftPack?.(
+          this.latestDraftPack.pack,
+          this.latestDraftPack.pick,
+          this.latestDraftPack.cardIds,
+        );
+      }
     } catch {
       this.lastOffset = 0;
+      this.isCatchingUp = false;
     }
 
     this.timer = setInterval(() => {
@@ -178,7 +192,10 @@ export class LogWatcher {
             .filter((n) => !isNaN(n));
 
           if (cardIds.length > 0) {
-            this.events.onDraftPack?.(pack, pick, cardIds);
+            this.latestDraftPack = { pack, pick, cardIds };
+            if (!this.isCatchingUp) {
+              this.events.onDraftPack?.(pack, pick, cardIds);
+            }
           }
         } catch {}
       }
@@ -194,6 +211,9 @@ export class LogWatcher {
         const pack = parseInt(m[2], 10);
         const pick = parseInt(m[3], 10);
         if (!isNaN(grpId)) {
+          if (this.latestDraftPack?.pack === pack && this.latestDraftPack.pick === pick) {
+            this.latestDraftPack = null;
+          }
           this.events.onDraftPick?.(grpId, pack, pick);
         }
       } else {

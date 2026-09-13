@@ -613,6 +613,9 @@ export function createRequestHandler(options = {}) {
           magicienSlug: body.magicienSlug,
           cubeKey: body.cubeKey || "titou_tribal",
           seed: body.seed,
+          randomizeSeats: body.randomizeSeats ?? true,
+          seatAssignments: body.seatAssignments,
+          botIds: body.botIds,
         });
 
         activeSessions.set(session.sessionId, session);

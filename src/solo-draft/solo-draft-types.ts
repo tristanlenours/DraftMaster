@@ -27,12 +27,30 @@ export interface SoloDraftDeckRecommendation {
   readonly justification?: string | undefined;
 }
 
+import type { FriendProfile } from "../bots/friends/profiles.ts";
+
+export interface SoloDraftSeatDto {
+  readonly seatNumber: number;
+  readonly id: string;
+  readonly name: string;
+  readonly botName?: string | undefined;
+  readonly title: string;
+  readonly role?: string | undefined;
+  readonly quote?: string | undefined;
+  readonly avatar: string;
+  readonly isHuman: boolean;
+  readonly level?: string | undefined;
+}
+
 export interface SoloDraftStartInput {
   readonly playerName: string;
   readonly cubeKey?: string | undefined;
   readonly seed?: number | undefined;
   readonly magicienSlug?: string | undefined;
   readonly explicitSessionId?: string | undefined;
+  readonly randomizeSeats?: boolean | undefined;
+  readonly seatAssignments?: readonly (FriendProfile | null)[] | undefined;
+  readonly botIds?: readonly string[] | undefined;
 }
 
 export interface SoloDraftPickInput {
@@ -67,6 +85,7 @@ export interface SoloDraftStateDto {
   readonly isHomologated: boolean;
   readonly lastPickedCard?: EnrichedCard | undefined;
   readonly deckRecommendation?: SoloDraftDeckRecommendation | undefined;
+  readonly seats?: readonly SoloDraftSeatDto[] | undefined;
 }
 
 export interface LeaderboardDeckCard {

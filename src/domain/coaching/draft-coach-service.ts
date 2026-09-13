@@ -370,7 +370,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       compPoolCards,
       packNumber,
       pickNumber,
-      { cubeKey, tribalContext },
+      { cubeKey, tribalContext, packReview: deterministicReview },
     );
 
     const res = await router.generateJson<{

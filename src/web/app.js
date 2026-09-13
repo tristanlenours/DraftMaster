@@ -810,10 +810,87 @@ async function initApp() {
   initSoloDraft();
   initAuthControls();
   initWhaouFeatures();
+  initColibriPopin();
   await loadData();
   renderMatrix();
   renderCubesPage();
   initRouter();
+}
+
+function dismissColibriPopin() {
+  const modal = document.getElementById("colibri-ad-modal");
+  if (!modal || modal.hasAttribute("hidden") || modal.classList.contains("is-closing")) {
+    return;
+  }
+  try {
+    localStorage.setItem("lmcdeu_colibri_pub_seen", "true");
+  } catch {
+    // Mode privé ou sans localStorage
+  }
+  modal.classList.add("is-closing");
+  setTimeout(() => {
+    modal.setAttribute("hidden", "");
+    modal.classList.remove("is-closing");
+  }, 220);
+}
+
+function initColibriPopin() {
+  const STORAGE_KEY = "lmcdeu_colibri_pub_seen";
+  const modal = document.getElementById("colibri-ad-modal");
+  if (!modal) return;
+
+  // Helpers globaux exposés pour tester, déboguer ou relancer le gag
+  window.showColibriPopin = (force = true) => {
+    if (force) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {}
+    }
+    modal.removeAttribute("hidden");
+    modal.classList.remove("is-closing");
+  };
+
+  window.resetColibriPopin = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {}
+  };
+
+  // Fermeture immédiate dès le moindre clic n'importe où
+  modal.addEventListener("click", () => {
+    dismissColibriPopin();
+  });
+
+  // Touche Échap pour l'accessibilité
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hasAttribute("hidden")) {
+      dismissColibriPopin();
+    }
+  });
+
+  // Éviter l'affichage automatique dans les tests headless Playwright
+  if (navigator.webdriver) {
+    return;
+  }
+
+  // Ne l'afficher qu'une seule fois
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === "true") {
+      return;
+    }
+  } catch {
+    // Continue si indisponible
+  }
+
+  // Déclenchement naturel après 750ms
+  setTimeout(() => {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === "true") {
+        return;
+      }
+    } catch {}
+    modal.removeAttribute("hidden");
+  }, 750);
 }
 
 async function initAuthControls() {

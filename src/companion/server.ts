@@ -8,9 +8,10 @@ import { LlmRouter } from "./llm-router.ts";
 import { CompanionState, type MatchState } from "./companion-state.ts";
 import { LogWatcher } from "./log-watcher.ts";
 import {
-  buildDraftAdvicePrompt,
   buildDraftSummaryPrompt,
+  buildLiveReactionPrompt,
   buildMatchAdvicePrompt,
+  buildOpeningHandPrompt,
   buildTurnCommentaryPrompt,
 } from "./coach-prompts.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
@@ -54,11 +55,6 @@ function resetChatForNewGame(initialMessage: string) {
   broadcastEvent("chat_reset", {});
   state.addChatMessage("assistant", initialMessage, "Coach IA");
   broadcastState();
-}
-
-function formatHandList(hand: readonly ReturnType<typeof resolver.resolve>[]): string {
-  if (hand.length === 0) return "Aucune carte en main";
-  return hand.map((c) => `- ${c.name} (${c.manaCost || "Terrain"}, CMC: ${c.cmc})`).join("\n");
 }
 
 export function saveMatchRecord(match: MatchState, aiDebrief?: string) {
@@ -135,6 +131,8 @@ const watcher = new LogWatcher(undefined, {
     broadcastState();
 
     // Auto-ask Unified AI Coach for draft advice (Primary + Secondary Choices)
+    const targetPack = pack;
+    const targetPick = pick;
     try {
       const advice = await getUnifiedDraftAdvice({
         packCards: state.draft.packCards,
@@ -144,12 +142,17 @@ const watcher = new LogWatcher(undefined, {
         llmRouter: llm,
       });
 
+      if (state.draft.pack !== targetPack || state.draft.pick !== targetPick) {
+        return;
+      }
+
       const alts = advice.alternatives.map((a) => ({ name: a.name, reason: a.reason }));
       state.draft.advice = {
         topPick: advice.topPickName,
         reason: advice.reason,
         alternatives: alts,
         provider: advice.provider,
+        packReview: advice.packReview,
       };
 
       let coachMsg = `💡 **Pack ${pack} Pick ${pick}**\n\n⭐ **Recommandation Principale** : **${advice.topPickName}**\n*${advice.reason}*`;
@@ -208,16 +211,71 @@ const watcher = new LogWatcher(undefined, {
     if (isPlayer) {
       state.match.playerRecentPlays.push(card.name);
       state.match.recentEvents.push(`Tu as joué ${card.name}`);
+      if (state.match.playerRecentPlays.length > 10) {
+        state.match.playerRecentPlays = state.match.playerRecentPlays.slice(-10);
+      }
     } else {
       state.match.opponentRecentPlays.push(card.name);
       state.match.recentEvents.push(`${state.match.opponentName} a joué ${card.name}`);
+      if (state.match.opponentRecentPlays.length > 10) {
+        state.match.opponentRecentPlays = state.match.opponentRecentPlays.slice(-10);
+      }
+
       // Live alert if opponent casts a non-land spell
       if (!isLand && state.mode === "match") {
+        const isTheOneRing = /the one ring/i.test(card.name);
+        const isTogetherAsOne = /together as one/i.test(card.name);
+        const isEvoke = /fury|solitude|grief|subtlety|endurance/i.test(card.name);
+        const isCounter = /force of will|force of negation|daze|counterspell|mana drain/i.test(
+          card.name,
+        );
+        const isGameSwingCard =
+          isTheOneRing ||
+          isTogetherAsOne ||
+          isEvoke ||
+          isCounter ||
+          /time walk|ugin|atraxa|cruel ultimatum|archon of cruelty/i.test(card.name) ||
+          (state.match.opponentLife <= 4 &&
+            (card.oracleText?.toLowerCase().includes("gain") ||
+              card.oracleText?.toLowerCase().includes("life")));
+
+        let badge = "";
+        let icon = "⚡";
+        if (isTheOneRing) {
+          icon = "💍";
+          badge = " *(Topdeck / Bombe absolue ! Protection contre tout)*";
+        } else if (isTogetherAsOne) {
+          icon = "💥";
+          badge = " *(Miracle 5 couleurs / Gain de PV & Pioche massive !)*";
+        } else if (isEvoke) {
+          icon = "💥";
+          badge = " *(Évocation gratuite / Blowout !)*";
+        } else if (isCounter) {
+          icon = "🛡️";
+          badge = " *(Contre-sort !)*";
+        }
+
         state.addChatMessage(
           "assistant",
-          `⚡ **${state.match.opponentName} a joué** : **${card.name}** (${card.manaCost || "Sort"})`,
+          `${icon} **${state.match.opponentName} a joué** : **${card.name}** (${card.manaCost || "Sort"})${badge}`,
           "Live Observer",
         );
+
+        // Immediate Live Coach Reaction to high-impact / miracle / blowout plays
+        if (isGameSwingCard) {
+          const { system, user } = buildLiveReactionPrompt(state.match, card);
+          void (async () => {
+            try {
+              const res = await llm.generateText(system, user, { maxTokens: 1500 });
+              if (res.success && res.content) {
+                state.addChatMessage("assistant", `😱 **Coach** : ${res.content}`, res.provider);
+                broadcastState();
+              }
+            } catch (err: any) {
+              console.error("[Companion] Live reaction commentary error:", err.message);
+            }
+          })();
+        }
       }
     }
     broadcastState();
@@ -258,8 +316,8 @@ const watcher = new LogWatcher(undefined, {
               `🎯 **Tour ${gameTurn}** : ${res.content}`,
               res.provider,
             );
-            // Clear recent opponent plays now that they've been incorporated into this turn's commentary
-            state.match.opponentRecentPlays = [];
+            // Retain a rolling window of recent plays instead of wiping completely
+            state.match.opponentRecentPlays = state.match.opponentRecentPlays.slice(-6);
             broadcastState();
           }
         } catch (err: any) {
@@ -283,19 +341,7 @@ const watcher = new LogWatcher(undefined, {
     if (state.mode === "match" && !openingHandCommented && state.match.playerHand.length >= 7) {
       openingHandCommented = true;
       const opp = state.match.opponentName;
-      const handText = formatHandList(state.match.playerHand);
-
-      const system = `Tu es un coach Pro Tour MTG assistant le joueur lors de la phase de mulligan.
-Règles strictes :
-- Réponds en 2 phrases concises.
-- 1. Évalue la main de départ (Keep ou Mulligan).
-- 2. Donne la stratégie d'ouverture pour les tours 1 et 2.`;
-
-      const user = `Match contre ${opp}.
-Voici ma main de départ de 7 cartes :
-${handText}
-
-Donne ton évaluation d'ouverture.`;
+      const { system, user } = buildOpeningHandPrompt(state.match.playerHand, opp);
 
       void (async () => {
         try {
@@ -494,27 +540,52 @@ Tu analyses en direct la partie du joueur et réponds de façon concise, tactiqu
 
         if (action === "advice") {
           if (state.mode === "draft" && state.draft.packCards.length > 0) {
-            const { system, user } = buildDraftAdvicePrompt(
-              state.draft.packCards,
-              state.draft.pool,
-              state.draft.pack,
-              state.draft.pick,
-            );
-            const res = await llm.generateJson<{
-              topPick: string;
-              reason: string;
-              alternatives?: { name: string; reason: string }[];
-            }>(system, user);
+            const currentPack = state.draft.pack;
+            const currentPick = state.draft.pick;
+            try {
+              const advice = await getUnifiedDraftAdvice({
+                packCards: state.draft.packCards,
+                priorPool: state.draft.pool,
+                packNumber: currentPack,
+                pickNumber: currentPick,
+                llmRouter: llm,
+              });
 
-            if (res.success && res.content) {
-              const alts = res.content.alternatives ?? [];
-              let msg = `💡 Conseil : Choisis **${res.content.topPick}**.\n\n*${res.content.reason}*`;
-              if (alts.length > 0) {
-                msg +=
-                  `\n\n🔄 **Alternatives** :\n` +
-                  alts.map((a) => `- **${a.name}** : ${a.reason}`).join("\n");
+              if (state.draft.pack === currentPack && state.draft.pick === currentPick) {
+                const alts = advice.alternatives.map((a) => ({ name: a.name, reason: a.reason }));
+                state.draft.advice = {
+                  topPick: advice.topPickName,
+                  reason: advice.reason,
+                  alternatives: alts,
+                  provider: advice.provider,
+                  packReview: advice.packReview,
+                };
+
+                let coachMsg = `💡 **Pack ${currentPack} Pick ${currentPick}**\n\n⭐ **Recommandation Principale** : **${advice.topPickName}**\n*${advice.reason}*`;
+                if (alts.length > 0) {
+                  coachMsg +=
+                    `\n\n🔄 **Choix Secondaires Valides** :\n` +
+                    alts.map((a) => `- **${a.name}** : ${a.reason}`).join("\n");
+                }
+
+                if (advice.packReview) {
+                  let reviewMsg = `📊 **Bilan Début de Pack ${currentPack} — ${advice.packReview.archetypeLabel}**\n\n`;
+                  reviewMsg += `${advice.packReview.poolSummary}\n\n`;
+                  reviewMsg += `📉 **Courbe de Mana** : ${advice.packReview.curveAnalysis}\n`;
+                  reviewMsg += `⚡ **Fixeurs de Mana** : ${advice.packReview.fixingAnalysis}\n\n`;
+                  reviewMsg += `🎯 **Priorités pour ce Pack** :\n`;
+                  for (const p of advice.packReview.priorities) {
+                    reviewMsg += `- ${p}\n`;
+                  }
+                  reviewMsg += `\n💡 *${advice.packReview.signalTip}*`;
+                  state.addChatMessage("assistant", reviewMsg, advice.provider);
+                }
+
+                state.addChatMessage("assistant", coachMsg, advice.provider);
+                broadcastState();
               }
-              state.addChatMessage("assistant", msg, res.provider);
+            } catch (err: any) {
+              console.error("[Companion] Manual advice error:", err.message);
             }
           } else if (state.mode === "match") {
             const { system, user } = buildMatchAdvicePrompt(
@@ -584,7 +655,7 @@ server.listen(PORT, () => {
   console.log("⚡ DraftMaster Companion démarré avec succès !");
   console.log(`🌐 Accède à l'interface de chat sur : http://localhost:${PORT}`);
   console.log("📡 Log MTGA surveillé en direct.");
-  console.log("🤖 IA : Gemini Flash (Priorité Gratuite) + DeepSeek V3 (Secours).");
+  console.log("🤖 IA : DeepSeek V4.1 Flash Premium (OpenRouter) + Gemini Flash (Secours).");
   console.log("💾 Historique des Matchs enregistré dans data/match-history.json.");
   console.log("=======================================================");
 });

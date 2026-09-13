@@ -31,6 +31,7 @@ import type {
 } from "../bots/pick-policy.ts";
 import { createCoachedBotPolicy } from "../bots/coached-bot-policy.ts";
 import {
+  ALL_FRIEND_PROFILES,
   buildTableSeatAssignments,
   createFriendTablePolicies,
   DEFAULT_FRIEND_SEAT_PROFILES,
@@ -76,10 +77,36 @@ import type {
   SoloDraftDeckRecommendation,
   SoloDraftFinalResult,
   SoloDraftPickAdvice,
+  SoloDraftSeatDto,
   SoloDraftStartInput,
   SoloDraftStateDto,
   SoloDraftStatus,
 } from "./solo-draft-types.ts";
+
+function getBotAvatar(profileId?: string): string {
+  switch (profileId) {
+    case "human":
+      return "🧙‍♂️";
+    case "nico":
+      return "⚡";
+    case "cedric":
+      return "🏆";
+    case "hugues":
+      return "🎭";
+    case "remi":
+      return "🎲";
+    case "papayou":
+      return "👑";
+    case "ivan":
+      return "🌲";
+    case "titou":
+      return "📜";
+    case "theo":
+      return "🎸";
+    default:
+      return "🤖";
+  }
+}
 
 export class SoloDraftSession {
   public readonly sessionId: string;
@@ -274,9 +301,19 @@ export class SoloDraftSession {
 
     const resolveCard = (id: string): CardEvaluationInput | undefined => instanceToInputMap.get(id);
     const evaluationContext = { cubeKey: snapshot.cubeKey, catalog } as const;
-    const seatAssignments = input.magicienSlug
-      ? buildTableSeatAssignments(input.magicienSlug)
-      : DEFAULT_FRIEND_SEAT_PROFILES;
+    let seatAssignments: readonly (FriendProfile | null)[];
+    if (input.seatAssignments) {
+      seatAssignments = input.seatAssignments;
+    } else if (input.botIds?.length === 7) {
+      const profileMap = new Map(ALL_FRIEND_PROFILES.map((p) => [p.id, p]));
+      seatAssignments = [null, ...input.botIds.map((id) => profileMap.get(id) ?? null)];
+    } else if (input.randomizeSeats) {
+      seatAssignments = buildTableSeatAssignments(input.magicienSlug, { seed, randomize: true });
+    } else if (input.magicienSlug) {
+      seatAssignments = buildTableSeatAssignments(input.magicienSlug);
+    } else {
+      seatAssignments = DEFAULT_FRIEND_SEAT_PROFILES;
+    }
     const friendTable = createFriendTablePolicies({
       resolveCard,
       evaluationContext,
@@ -429,6 +466,18 @@ export class SoloDraftSession {
       this.status === "completed"
         ? this.totalDurationSeconds
         : Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    const seats: readonly SoloDraftSeatDto[] = this.seatProfiles.map((p, idx) => ({
+      seatNumber: idx,
+      id: p.id,
+      name: idx === 0 ? this.playerName : (p.botName ?? p.name),
+      botName: p.botName,
+      title: p.title,
+      quote: p.quote,
+      role: p.title,
+      avatar: idx === 0 ? "🧙‍♂️" : getBotAvatar(p.id),
+      isHuman: idx === 0,
+      level: p.level,
+    }));
 
     return {
       sessionId: this.sessionId,
@@ -450,6 +499,7 @@ export class SoloDraftSession {
       isHomologated: this.isHomologated,
       lastPickedCard,
       deckRecommendation: this.status === "deckbuilding" ? this.getDeckRecommendation() : undefined,
+      seats,
     };
   }
 

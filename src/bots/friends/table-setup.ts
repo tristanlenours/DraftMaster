@@ -43,20 +43,55 @@ export const DEFAULT_FRIEND_SEAT_PROFILES: readonly (FriendProfile | null)[] = O
   TITOU_PROFILE, // Seat 7
 ]);
 
+export interface TableSeatOptions {
+  readonly seed?: number | undefined;
+  readonly randomize?: boolean | undefined;
+}
+
+export function shuffleProfiles<T>(items: readonly T[], seed?: number): T[] {
+  const copy = [...items];
+  if (seed !== undefined && Number.isInteger(seed)) {
+    let s = (seed ^ 0x9e3779b9) >>> 0;
+    for (let i = copy.length - 1; i > 0; i--) {
+      s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+      const j = s % (i + 1);
+      const itemI = copy[i];
+      const itemJ = copy[j];
+      if (itemI !== undefined && itemJ !== undefined) {
+        copy[i] = itemJ;
+        copy[j] = itemI;
+      }
+    }
+  } else {
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const itemI = copy[i];
+      const itemJ = copy[j];
+      if (itemI !== undefined && itemJ !== undefined) {
+        copy[i] = itemJ;
+        copy[j] = itemI;
+      }
+    }
+  }
+  return copy;
+}
+
 /**
  * Builds the 8 seat assignments (Seat 0: human, Seats 1-7: 7 distinct bots from ALL_FRIEND_PROFILES).
  * If humanIdentifier is provided (e.g. "titou", "tristan", "theo", etc.), the matching magicien
  * is assigned to Seat 0 and excluded from the bot pool, ensuring all 8 Magiciens are represented without duplicates.
+ * If options.randomize is true, the 7 bots are shuffled randomly (or deterministically if options.seed is provided).
  */
 export function buildTableSeatAssignments(
   humanIdentifier?: string,
+  options?: TableSeatOptions,
 ): readonly (FriendProfile | null)[] {
   const norm = (humanIdentifier ?? "").toLowerCase().trim();
   const isTitou = norm === "titou" || norm === "tristan" || norm === "";
 
+  let bots: FriendProfile[];
   if (isTitou) {
-    return [
-      null,
+    bots = [
       NICO_PROFILE,
       REMI_PROFILE,
       HUGUES_PROFILE,
@@ -65,24 +100,31 @@ export function buildTableSeatAssignments(
       CEDRIC_PROFILE,
       THEO_PROFILE,
     ];
+  } else {
+    const matching = ALL_FRIEND_PROFILES.find(
+      (p) => p.id === norm || p.name.toLowerCase() === norm,
+    );
+    if (matching) {
+      bots = ALL_FRIEND_PROFILES.filter((p) => p.id !== matching.id);
+    } else {
+      bots = [
+        NICO_PROFILE,
+        REMI_PROFILE,
+        HUGUES_PROFILE,
+        IVAN_PROFILE,
+        PAPAYOU_PROFILE,
+        CEDRIC_PROFILE,
+        THEO_PROFILE,
+      ];
+    }
   }
 
-  const matching = ALL_FRIEND_PROFILES.find((p) => p.id === norm || p.name.toLowerCase() === norm);
-  if (matching) {
-    const bots = ALL_FRIEND_PROFILES.filter((p) => p.id !== matching.id);
-    return [null, ...bots.slice(0, 7)];
-  }
+  const selectedBots = bots.slice(0, 7);
+  const orderedBots = options?.randomize
+    ? shuffleProfiles(selectedBots, options.seed)
+    : selectedBots;
 
-  return [
-    null,
-    NICO_PROFILE,
-    REMI_PROFILE,
-    HUGUES_PROFILE,
-    IVAN_PROFILE,
-    PAPAYOU_PROFILE,
-    CEDRIC_PROFILE,
-    THEO_PROFILE,
-  ];
+  return [null, ...orderedBots];
 }
 
 /**

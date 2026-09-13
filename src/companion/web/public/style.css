@@ -560,3 +560,163 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* Strategic Mid-Draft Review Banner */
+.coach-pack-review {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(88, 166, 255, 0.3);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.coach-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.coach-review-badge {
+  background: rgba(88, 166, 255, 0.2);
+  color: var(--accent-blue);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(88, 166, 255, 0.4);
+}
+
+.coach-review-archetype {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent-gold);
+}
+
+.coach-review-summary {
+  font-size: 12px;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.coach-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+  .coach-review-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coach-review-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.coach-review-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.coach-review-card-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.coach-curve-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.curve-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text-light);
+}
+
+.coach-fixing-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.coach-fixing-pill.fixing-good {
+  background: rgba(46, 160, 67, 0.2);
+  border: 1px solid rgba(46, 160, 67, 0.4);
+  color: #3fb950;
+}
+
+.coach-fixing-pill.fixing-warning {
+  background: rgba(210, 153, 34, 0.2);
+  border: 1px solid rgba(210, 153, 34, 0.4);
+  color: #d29922;
+}
+
+.coach-review-priorities {
+  background: rgba(229, 169, 60, 0.08);
+  border: 1px solid rgba(229, 169, 60, 0.25);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.coach-review-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 6px;
+}
+
+.coach-review-priorities-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.coach-review-priorities-list li {
+  font-size: 11px;
+  color: var(--text-main);
+  padding: 3px 0;
+  position: relative;
+  padding-left: 16px;
+}
+
+.coach-review-priorities-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--accent-gold);
+}
+
+.coach-review-signals {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(56, 139, 253, 0.1);
+  border: 1px solid rgba(56, 139, 253, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #79c0ff;
+  font-style: italic;
+}

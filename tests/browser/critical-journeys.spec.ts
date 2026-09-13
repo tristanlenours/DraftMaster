@@ -115,6 +115,7 @@ test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", a
   await page.locator("#start-solo-draft-btn").click();
   const startPayload = (await (await startResponsePromise).json()) as {
     session: {
+      nextBoosterFromBotName?: string;
       currentBooster: {
         frenchImageUrl?: string;
         imageUrl?: string;
@@ -175,7 +176,10 @@ test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", a
   await page.locator("#card-hover-close-btn").evaluate((button: HTMLButtonElement) => {
     button.click();
   });
-  await expect(page.locator("#hud-direction")).toContainText("Nourri au bon lait de : TitouBot");
+  const expectedFeeder = startPayload.session.nextBoosterFromBotName ?? "TitouBot";
+  await expect(page.locator("#hud-direction")).toContainText(
+    `Nourri au bon lait de : ${expectedFeeder}`,
+  );
 
   await cards.first().click();
   await expect(page.locator("#draft-confirm-pick-btn")).toBeEnabled();
@@ -220,6 +224,31 @@ test.describe("Solo Draft Coach on mobile", () => {
     await page.locator("#card-hover-close-btn").tap();
     await expect(page.locator("#card-hover-popover")).toBeHidden();
     await expect(page.locator(".booster-card-item").nth(3)).toBeVisible();
+  });
+
+  test("renders topdown draft table cleanly on mobile without horizontal scroll", async ({
+    page,
+  }) => {
+    await emulateCleanDeploymentImages(page);
+    await page.goto("/draft");
+    await expect(page.locator("#draft-lobby-stage")).toBeVisible();
+    await expect(page.locator(".draft-topdown-table")).toBeVisible();
+
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+    expect(scrollWidth).toBeLessThanOrEqual(clientWidth);
+
+    // Verify all 8 seats are visible
+    const seatCards = page.locator(".draft-topdown-table .preview-seat-card");
+    await expect(seatCards).toHaveCount(8);
+
+    // Verify Seat 0 is visible and has human badge
+    await expect(page.locator(".seat-pos-0")).toBeVisible();
+
+    // Verify shuffle button works on mobile
+    const shuffleBtn = page.locator("#btn-shuffle-lobby-table-top");
+    await expect(shuffleBtn).toBeVisible();
+    await shuffleBtn.tap();
   });
 });
 
@@ -266,5 +295,56 @@ test.describe("Cubes view on mobile", () => {
     // Body scroll width does not overflow mobile viewport
     const bodyScrollWidth = await page.evaluate(() => document.body.scrollWidth);
     expect(bodyScrollWidth).toBeLessThanOrEqual(390);
+  });
+
+  test("Maison Colibri ad pop-in displays, dismisses on click, sets localStorage, and scales responsively on mobile", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    // Initially hidden
+    await expect(page.locator("#colibri-ad-modal")).toBeHidden();
+
+    // Trigger popin via window helper
+    await page.evaluate(() => {
+      interface WindowWithColibri {
+        showColibriPopin?: (force: boolean) => void;
+      }
+      const win = window as unknown as WindowWithColibri;
+      win.showColibriPopin?.(true);
+    });
+
+    await expect(page.locator("#colibri-ad-modal")).toBeVisible();
+    await expect(page.locator("#colibri-ad-img")).toBeVisible();
+    await expect(page.locator(".colibri-ad-tag")).toContainText("Partenaire Officiel");
+
+    // Check image loaded correctly
+    await expect
+      .poll(() =>
+        page
+          .locator("#colibri-ad-img")
+          .evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0),
+      )
+      .toBe(true);
+
+    // Responsive check: card must fit mobile screen with no horizontal overflow
+    const cardBox = await page.locator("#colibri-ad-card").boundingBox();
+    expect(cardBox).not.toBeNull();
+    if (cardBox) {
+      expect(cardBox.width).toBeLessThanOrEqual(390);
+    }
+    const bodyScrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    expect(bodyScrollWidth).toBeLessThanOrEqual(390);
+
+    // Click anywhere on the card to dismiss
+    await page.locator("#colibri-ad-card").click();
+
+    // Modal becomes hidden
+    await expect(page.locator("#colibri-ad-modal")).toBeHidden();
+
+    // Storage is set to true
+    const seen = await page.evaluate(() => localStorage.getItem("lmcdeu_colibri_pub_seen"));
+    expect(seen).toBe("true");
   });
 });

@@ -64,7 +64,7 @@ export const CEDRIC_PROFILE: Readonly<FriendProfile> = Object.freeze({
 export const HUGUES_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "hugues",
   name: "Hugues",
-  botName: "Hugo",
+  botName: "HugE",
   title: "Turbo Rien / Le Johnny Osé",
   quote: "J'ai vu une combo avec cette saga et ce caillou. Si ça passe, c'est du génie !",
   level: "ambitious",
@@ -91,7 +91,7 @@ export const REMI_PROFILE: Readonly<FriendProfile> = Object.freeze({
 export const PAPAYOU_PROFILE: Readonly<FriendProfile> = Object.freeze({
   id: "papayou",
   name: "Papayou",
-  botName: "LaPapapaie",
+  botName: "Papayourt",
   title: "L'Amateur de High-Power & Triathlète",
   quote: "Une bombe légendaire 6/6 qui rase la table ? Donne-moi ça tout de suite !",
   level: "medium",

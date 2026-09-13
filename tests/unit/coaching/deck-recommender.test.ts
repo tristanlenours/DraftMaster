@@ -115,4 +115,29 @@ describe("Deck Recommender (FR-015)", () => {
     // Position numbering is 1, 2, 3
     expect(options.map((o) => o.position)).toEqual([1, 2, 3].slice(0, options.length));
   });
+
+  it("adapte le nombre de terrains a une courbe tres basse au lieu d'imposer 23/17", () => {
+    const pool = [
+      ...Array.from({ length: 30 }, (_, index) =>
+        makeCard(
+          `R_${String(index)}`,
+          `Red Aggro ${String(index)}`,
+          ["R"],
+          45 - index / 10,
+          index % 3 === 0 ? 2 : 1,
+          false,
+          index % 3 === 0 ? "o1oR" : "oR",
+        ),
+      ),
+      ...Array.from({ length: 15 }, (_, index) =>
+        makeCard(`G_${String(index)}`, `Green Card ${String(index)}`, ["G"], 20, 4),
+      ),
+    ];
+
+    const option = recommendDeckBuilds(pool)[0];
+
+    expect(option?.maindeck).toHaveLength(40);
+    expect(option?.maindeck.filter((id) => id.startsWith("basic-"))).toHaveLength(16);
+    expect(option?.maindeck.filter((id) => !id.startsWith("basic-"))).toHaveLength(24);
+  });
 });
