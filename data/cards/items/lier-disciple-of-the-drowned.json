@@ -33,51 +33,60 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/b/8/b8b70585-e0ea-4cb4-9360-a8ab47626696.jpg?1783907103",
   "powerScore": {
-    "score": 17.2,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1281.2,
-    "harmonizationDegree": "calibrated_medium",
-    "confidence": 0.6,
+    "score": 39,
+    "source": "untapped",
+    "rawSourceScore": 39,
+    "harmonizationDegree": "native",
+    "confidence": 1,
     "updatedAt": "2026-09-06T00:00:00.000Z"
   },
   "presentInCubes": [
     "titou_tribal"
   ],
   "objectiveAnalysis": {
-    "summary": "Lier, Disciple of the Drowned est une carte solide offrant un bon tempo et une flexibilité appréciable.",
+    "summary": "Lier, Disciple of the Drowned est une bombe majeure pour les archétypes Sorts et Sorciers, accordant le flashback à tous les éphémères et rituels.",
     "roles": [
-      "synergy_enabler"
+      "synergy_enabler",
+      "finisher"
     ],
-    "floorRating": 3.7,
-    "ceilingRating": 4.5,
-    "tempoImpact": "medium",
+    "floorRating": 4,
+    "ceilingRating": 5,
+    "tempoImpact": "high",
     "quadrantStrengths": {
-      "opening": 3.5,
-      "developing": 4,
-      "parity": 3.8,
-      "behind": 3
+      "opening": 3,
+      "developing": 4.5,
+      "parity": 5,
+      "behind": 4
     }
   },
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "support",
-      "tier": "B",
-      "archetypes": [],
-      "synergyTags": [],
-      "scoreModifier": 0,
-      "analysis": "Carte de rang B (ELO: 1281) dans l'environnement tribal et interactif de Titou.",
+      "fit": "build_around",
+      "tier": "A",
+      "archetypes": [
+        "titou:tribal_humans"
+      ],
+      "synergyTags": [
+        "tribe:wizard",
+        "tribe:human",
+        "spellslinger",
+        "flashback"
+      ],
+      "scoreModifier": 3,
+      "analysis": "Bombe de rang A dans Titou Tribal : moteur ultime pour Izzet Sorciers et decks à forte densité d'éphémères et rituels.",
       "pedagogy": {
-        "howToPlay": "Jouez Lier, Disciple of the Drowned sur courbe de mana pour consolider la présence sur table.",
+        "howToPlay": "Pièce maîtresse d'archétype Sorciers / Sorts : déployez Lier avec du mana disponible pour recycler immédiatement vos sorts du cimetière.",
         "archetypeFit": [
           {
             "colors": [
-              "U"
+              "U",
+              "R"
             ],
-            "archetype": "TRIBAL SYNERGY",
-            "grade": "B",
-            "winrateOrScore": "56.2 %",
-            "comment": "Alignement au métagame Titou Tribal (B)."
+            "archetype": "TRIBAL WIZARDS / SPELLSLINGER",
+            "grade": "A",
+            "winrateOrScore": "62.5 %",
+            "comment": "Pilier central de l'archétype Izzet Sorciers."
           }
         ]
       }

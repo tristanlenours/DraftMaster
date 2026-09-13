@@ -32,11 +32,11 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/3/0/30104836-1e9d-4533-98f8-d5c4e6484b52.jpg?1783939274",
   "powerScore": {
-    "score": 11.5,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1330.3,
-    "harmonizationDegree": "calibrated_medium",
-    "confidence": 0.6,
+    "score": 35,
+    "source": "untapped",
+    "rawSourceScore": 35,
+    "harmonizationDegree": "native",
+    "confidence": 1,
     "updatedAt": "2026-09-06T00:00:00.000Z"
   },
   "presentInCubes": [
@@ -60,23 +60,26 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "support",
-      "tier": "B",
+      "fit": "build_around",
+      "tier": "A",
       "archetypes": [],
-      "synergyTags": [],
-      "scoreModifier": 0,
-      "analysis": "Carte de rang B (ELO: 1330) dans l'environnement tribal et interactif de Titou.",
+      "synergyTags": [
+        "tribe:goblin",
+        "ramp"
+      ],
+      "scoreModifier": 5,
+      "analysis": "Moteur d'accélération et pièce maîtresse incontournable de l'archétype Gobelin dans Titou Tribal.",
       "pedagogy": {
-        "howToPlay": "Jouez Goblin Lackey sur courbe de mana pour consolider la présence sur table.",
+        "howToPlay": "Jouez Goblin Lackey au Tour 1 pour connecter et tricher un gros Gobelin en jeu.",
         "archetypeFit": [
           {
             "colors": [
               "R"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "B",
-            "winrateOrScore": "58.2 %",
-            "comment": "Alignement au métagame Titou Tribal (B)."
+            "grade": "A",
+            "winrateOrScore": "66.5 %",
+            "comment": "Pilier d'accélération majeur Gobelins."
           }
         ]
       }

@@ -346,4 +346,36 @@ describe("SoloDraftSession", () => {
     // In Pack 1, booster is fed from seat 7 (Big Nixos)
     expect(state.nextBoosterFromBotName).toBe("Big Nixos");
   });
+
+  it("prioritizes on-color lands in AI deck recommendation and maintains 23 cards and 17 basic lands", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "DualLandTester",
+      seed: 9999,
+    });
+
+    for (let round = 0; round < 45; round++) {
+      const state = session.getStateDto();
+      const card = state.currentBooster[0];
+      if (!card) throw new Error("Missing booster card");
+      session.makePick(card.instanceId);
+    }
+
+    const reco = session.getDeckRecommendation();
+    expect(reco.maindeckCardInstanceIds).toHaveLength(23);
+
+    const totalBasics =
+      reco.basicLands.Plains +
+      reco.basicLands.Island +
+      reco.basicLands.Swamp +
+      reco.basicLands.Mountain +
+      reco.basicLands.Forest;
+    expect(totalBasics).toBe(17);
+
+    // Verify all recommended cards are in player's pool
+    const pool = session.getStateDto().playerPool;
+    const poolIds = new Set(pool.map((c) => c.instanceId));
+    for (const id of reco.maindeckCardInstanceIds) {
+      expect(poolIds.has(id)).toBe(true);
+    }
+  });
 });

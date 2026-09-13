@@ -27,6 +27,7 @@ export interface CoachingScoreBreakdown {
   readonly rawDynamicScore: number;
   readonly cubeScoreModifier?: number | undefined;
   readonly synergyBonus?: number | undefined;
+  readonly tribalBonus?: number | undefined;
   readonly tribalPenalty?: number | undefined;
   readonly powerSource?: string | undefined;
   readonly harmonizationConfidence?: number | undefined;

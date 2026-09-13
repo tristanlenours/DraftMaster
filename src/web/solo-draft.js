@@ -162,6 +162,9 @@ export class SoloDraftController {
     // Deckbuilder State
     this.maindeckSpellIds = new Set();
     this.basicLands = { Plains: 4, Island: 4, Swamp: 3, Mountain: 3, Forest: 3 };
+    this.sideboardFilter = "all";
+    this.inspectorActiveCard = null;
+    this.inspectorCardList = [];
 
     // Timer
     this.timerInterval = null;
@@ -316,6 +319,55 @@ export class SoloDraftController {
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") this.hideCardHoverPreview();
+    });
+
+    // 14. Sideboard Filter Buttons
+    document.querySelectorAll(".sb-filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".sb-filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        this.sideboardFilter = btn.dataset.filter || "all";
+        this.renderDeckbuilder();
+      });
+    });
+
+    // 15. Card Inspector Controls
+    document.getElementById("ci-close-btn")?.addEventListener("click", () => {
+      this.closeCardInspector();
+    });
+    document.getElementById("card-inspector-modal")?.addEventListener("click", (e) => {
+      if (e.target.id === "card-inspector-modal") {
+        this.closeCardInspector();
+      }
+    });
+    document.getElementById("ci-prev-btn")?.addEventListener("click", () => {
+      this.prevInspectorCard();
+    });
+    document.getElementById("ci-next-btn")?.addEventListener("click", () => {
+      this.nextInspectorCard();
+    });
+    document.getElementById("ci-toggle-deck-btn")?.addEventListener("click", () => {
+      this.toggleInspectorCard();
+    });
+
+    // Keyboard navigation for card inspector
+    window.addEventListener("keydown", (e) => {
+      const modal = document.getElementById("card-inspector-modal");
+      if (!modal || modal.hidden) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        this.closeCardInspector();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        this.prevInspectorCard();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        this.nextInspectorCard();
+      } else if (e.key === " " || e.key === "Enter") {
+        if (document.activeElement?.tagName === "BUTTON") return;
+        e.preventDefault();
+        this.toggleInspectorCard();
+      }
     });
 
     this.checkActiveSession();
@@ -1120,10 +1172,25 @@ export class SoloDraftController {
 
     // Attempt fetching recommendation asynchronously if not provided
     this.handleRequestDeckRecommendation(true).catch(() => {
-      // Fallback: top 23 non-land cards by static score
+      // Fallback: top 23 cards by score, including on-color lands
+      const lands = pool.filter((c) => c.isLand);
       const nonLands = pool.filter((c) => !c.isLand);
       const sortedNonLands = [...nonLands].sort((a, b) => b.staticScore - a.staticScore);
-      const initialMaindeck = sortedNonLands.slice(0, 23);
+
+      const colorCounts = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+      sortedNonLands
+        .slice(0, 15)
+        .forEach((c) => (c.colors || []).forEach((col) => colorCounts[col]++));
+      const activeCols = new Set(Object.keys(colorCounts).filter((c) => colorCounts[c] >= 2));
+
+      const onColorLands = lands.filter((l) => {
+        const prod = l.producesColors || [];
+        return prod.some((c) => activeCols.has(c));
+      });
+
+      const chosenLands = onColorLands.slice(0, 2);
+      const chosenSpells = sortedNonLands.slice(0, 23 - chosenLands.length);
+      const initialMaindeck = [...chosenLands, ...chosenSpells];
 
       this.maindeckSpellIds = new Set(initialMaindeck.map((c) => c.instanceId));
       this.autoCalculateLands();
@@ -1250,6 +1317,182 @@ export class SoloDraftController {
     }
   }
 
+  getDeckDominantColors() {
+    const counts = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    for (const id of this.maindeckSpellIds) {
+      const card = this.playerPool.find((c) => c.instanceId === id);
+      if (!card || card.isLand) continue;
+      for (const col of card.colors || []) {
+        if (counts[col] !== undefined) counts[col]++;
+      }
+    }
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    if (total === 0) {
+      for (const card of this.playerPool) {
+        if (!card || card.isLand) continue;
+        for (const col of card.colors || []) {
+          if (counts[col] !== undefined) counts[col]++;
+        }
+      }
+    }
+    const sorted = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    const active = sorted.filter((c) => counts[c] >= 2);
+    return new Set(active.length > 0 ? active : sorted.slice(0, 2));
+  }
+
+  getLandSynergyInfo(card, activeColors) {
+    if (!card || !card.isLand) return { isOnColor: false, label: "" };
+    const produces = card.producesColors || [];
+    if (produces.length === 0) return { isOnColor: false, label: "" };
+    const matching = produces.filter((c) => activeColors.has(c));
+    const off = produces.filter((c) => !activeColors.has(c));
+    const isDual = matching.length >= 2;
+    const isPureSingle = matching.length >= 1 && off.length === 0;
+    if (!isDual && !isPureSingle) return { isOnColor: false, label: "" };
+
+    const guilds = {
+      "U,W": "Azorius",
+      "B,U": "Dimir",
+      "B,R": "Rakdos",
+      "G,R": "Gruul",
+      "G,W": "Selesnya",
+      "B,W": "Orzhov",
+      "R,U": "Izzet",
+      "B,G": "Golgari",
+      "R,W": "Boros",
+      "G,U": "Simic",
+    };
+    const sortedKey = [...matching].sort().join(",");
+    const guild = guilds[sortedKey];
+    const label = guild ? `Terrain ${guild}` : "Terrain Synergique";
+    return { isOnColor: true, label };
+  }
+
+  openCardInspector(card, contextList = null) {
+    if (!card) return;
+    this.hideCardHoverPreview();
+    this.inspectorActiveCard = card;
+    this.inspectorCardList = contextList && contextList.length > 0 ? contextList : this.playerPool;
+    this.updateInspectorContent();
+
+    const modal = document.getElementById("card-inspector-modal");
+    if (modal) {
+      modal.hidden = false;
+      modal.setAttribute("aria-hidden", "false");
+    }
+  }
+
+  closeCardInspector() {
+    const modal = document.getElementById("card-inspector-modal");
+    if (modal) {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    }
+    this.inspectorActiveCard = null;
+  }
+
+  nextInspectorCard() {
+    if (!this.inspectorActiveCard || !this.inspectorCardList?.length) return;
+    const idx = this.inspectorCardList.findIndex(
+      (c) => c.instanceId === this.inspectorActiveCard.instanceId,
+    );
+    const nextIdx = (idx + 1) % this.inspectorCardList.length;
+    this.inspectorActiveCard = this.inspectorCardList[nextIdx];
+    this.updateInspectorContent();
+  }
+
+  prevInspectorCard() {
+    if (!this.inspectorActiveCard || !this.inspectorCardList?.length) return;
+    const idx = this.inspectorCardList.findIndex(
+      (c) => c.instanceId === this.inspectorActiveCard.instanceId,
+    );
+    const prevIdx = (idx - 1 + this.inspectorCardList.length) % this.inspectorCardList.length;
+    this.inspectorActiveCard = this.inspectorCardList[prevIdx];
+    this.updateInspectorContent();
+  }
+
+  toggleInspectorCard() {
+    if (!this.inspectorActiveCard) return;
+    const id = this.inspectorActiveCard.instanceId;
+    if (this.maindeckSpellIds.has(id)) {
+      this.maindeckSpellIds.delete(id);
+    } else {
+      this.maindeckSpellIds.add(id);
+    }
+    this.renderDeckbuilder();
+    this.updateInspectorContent();
+  }
+
+  updateInspectorContent() {
+    const card = this.inspectorActiveCard;
+    if (!card) return;
+
+    const img = document.getElementById("ci-card-image");
+    if (img) {
+      loadImageWithFallback(
+        img,
+        getSoloCardImage(card, this.cardLanguage, true),
+        getSoloCardFallbackImage(card, this.cardLanguage),
+      );
+      img.alt = getCardDisplayName(card, this.cardLanguage);
+    }
+
+    const nameEl = document.getElementById("ci-card-name");
+    if (nameEl) nameEl.textContent = getCardDisplayName(card, this.cardLanguage);
+
+    const cmcEl = document.getElementById("ci-card-cmc-badge");
+    if (cmcEl) cmcEl.textContent = card.isLand ? "🏔️ Terrain" : `⚡ CMC ${String(card.cmc ?? 0)}`;
+
+    const typeEl = document.getElementById("ci-card-type");
+    if (typeEl) typeEl.textContent = card.typeLine || (card.types || []).join(" ");
+
+    const oracleEl = document.getElementById("ci-card-oracle");
+    if (oracleEl) oracleEl.textContent = card.oracleText || "Aucun texte de règle.";
+
+    const locBadge = document.getElementById("ci-card-location-badge");
+    const toggleBtn = document.getElementById("ci-toggle-deck-btn");
+    const toggleIcon = document.getElementById("ci-toggle-icon");
+    const toggleText = document.getElementById("ci-toggle-text");
+
+    const inDeck = this.maindeckSpellIds.has(card.instanceId);
+    if (locBadge) {
+      locBadge.textContent = inDeck ? "Dans le Main Deck" : "Dans la Réserve";
+      locBadge.className = `ci-card-location-badge ${inDeck ? "in-deck" : "in-sideboard"}`;
+    }
+
+    if (toggleBtn) {
+      toggleBtn.className = `btn-ci-toggle-deck ${inDeck ? "is-remove" : "is-add"}`;
+    }
+    if (toggleIcon) toggleIcon.textContent = inDeck ? "➖" : "➕";
+    if (toggleText)
+      toggleText.textContent = inDeck ? "Basculer dans la Réserve" : "Ajouter au Main Deck";
+
+    // Tags
+    const tagsEl = document.getElementById("ci-meta-tags");
+    if (tagsEl) {
+      const activeColors = this.getDeckDominantColors();
+      const synergy = this.getLandSynergyInfo(card, activeColors);
+      const tags = [];
+      if (synergy.isOnColor) {
+        tags.push(`<span class="ci-tag-pill ci-tag-synergy">✨ ${escapeHtml(synergy.label)}</span>`);
+      }
+      if (card.power !== undefined && card.toughness !== undefined) {
+        tags.push(`<span class="ci-tag-pill ci-tag-pt">⚔️ ${card.power}/${card.toughness}</span>`);
+      }
+      if (card.staticScore) {
+        tags.push(`<span class="ci-tag-pill ci-tag-score">⭐ Score : ${String(card.staticScore)}</span>`);
+      }
+      tagsEl.innerHTML = tags.join("");
+    }
+
+    // Index
+    const indexEl = document.getElementById("ci-card-index-pill");
+    if (indexEl && this.inspectorCardList?.length) {
+      const idx = this.inspectorCardList.findIndex((c) => c.instanceId === card.instanceId);
+      indexEl.textContent = `Carte ${String(idx + 1)} / ${String(this.inspectorCardList.length)}`;
+    }
+  }
+
   renderDeckbuilder() {
     const maindeckCards = this.playerPool.filter((c) => this.maindeckSpellIds.has(c.instanceId));
     const sideboardCards = this.playerPool.filter((c) => !this.maindeckSpellIds.has(c.instanceId));
@@ -1257,6 +1500,8 @@ export class SoloDraftController {
     // Sort by CMC then name
     maindeckCards.sort((a, b) => a.cmc - b.cmc || a.name.localeCompare(b.name));
     sideboardCards.sort((a, b) => a.cmc - b.cmc || a.name.localeCompare(b.name));
+
+    const activeColors = this.getDeckDominantColors();
 
     // Counter badge
     const spellCount = maindeckCards.length;
@@ -1279,29 +1524,113 @@ export class SoloDraftController {
       }
     }
 
-    // Render Maindeck Container
+    // 1. Group Maindeck into 7 Mana Curve Columns: [0/Lands, 1, 2, 3, 4, 5, 6+]
+    const curveGroups = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+    let creaturesCount = 0;
+    let spellsCount = 0;
+    let landsCount = 0;
+
+    for (const card of maindeckCards) {
+      if (card.isLand) {
+        landsCount++;
+        curveGroups[0].push(card);
+      } else {
+        const types = card.types || [];
+        if (types.includes("Creature")) {
+          creaturesCount++;
+        } else {
+          spellsCount++;
+        }
+        const cmc = Math.max(0, Math.floor(card.cmc || 0));
+        const slot = Math.min(6, cmc);
+        curveGroups[slot].push(card);
+      }
+    }
+
+    // Maindeck Stats Banner
+    const statsEl = document.getElementById("deck-maindeck-curve-stats");
+    if (statsEl) {
+      statsEl.textContent = `${String(creaturesCount)} Créatures · ${String(spellsCount)} Sorts · ${String(landsCount)} Terrains`;
+    }
+
+    // Render Maindeck Mana Curve Board
     if (this.dom.maindeckContainer) {
-      this.dom.maindeckContainer.innerHTML = maindeckCards
-        .map((c) => this.createDeckCardItem(c, "remove", "Retirer du Deck"))
+      const maxCol = Math.max(1, ...Object.values(curveGroups).map((g) => g.length));
+      const colLabels = [
+        { key: 0, title: "🏔️ Terrains / 0", isLand: true },
+        { key: 1, title: "⚡ 1", isLand: false },
+        { key: 2, title: "⚡ 2", isLand: false },
+        { key: 3, title: "⚡ 3", isLand: false },
+        { key: 4, title: "⚡ 4", isLand: false },
+        { key: 5, title: "⚡ 5", isLand: false },
+        { key: 6, title: "⚡ 6+", isLand: false },
+      ];
+
+      this.dom.maindeckContainer.innerHTML = colLabels
+        .map(({ key, title, isLand }) => {
+          const colCards = curveGroups[key] || [];
+          const count = colCards.length;
+          const pct = Math.round((count / maxCol) * 100);
+          const landPillClass = isLand ? " mana-land" : "";
+          const cardsHtml =
+            colCards.length > 0
+              ? `<div class="curve-col-cards">
+                  ${colCards
+                    .map((c) =>
+                      this.createDeckCardItem(
+                        c,
+                        "remove",
+                        "Retirer du Deck",
+                        this.getLandSynergyInfo(c, activeColors),
+                      ),
+                    )
+                    .join("")}
+                </div>`
+              : `<div class="curve-col-empty">— Vide —</div>`;
+
+          return `
+            <div class="mana-curve-col" data-curve-slot="${String(key)}">
+              <div class="curve-col-header">
+                <div class="curve-col-title-row">
+                  <span class="curve-mana-pill${landPillClass}">${title}</span>
+                  <span class="curve-count-badge">(${String(count)})</span>
+                </div>
+                <div class="curve-bar-container">
+                  <div class="curve-bar-fill" style="width: ${String(pct)}%;"></div>
+                </div>
+              </div>
+              ${cardsHtml}
+            </div>
+          `;
+        })
         .join("");
 
+      // Bind events for maindeck cards
       this.dom.maindeckContainer.querySelectorAll(".deck-card-item").forEach((el) => {
         const id = el.dataset.instanceId;
         const card = this.playerPool.find((c) => c.instanceId === id);
-        if (card) {
-          const image = el.querySelector(".deck-card-img");
-          if (image) {
-            loadImageWithFallback(
-              image,
-              getSoloCardImage(card, this.cardLanguage),
-              getSoloCardFallbackImage(card, this.cardLanguage),
-            );
-          }
-          el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
-          el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
-          el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
+        if (!card) return;
+
+        const image = el.querySelector(".deck-card-img");
+        if (image) {
+          loadImageWithFallback(
+            image,
+            getSoloCardImage(card, this.cardLanguage),
+            getSoloCardFallbackImage(card, this.cardLanguage),
+          );
         }
 
+        el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
+        el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
+        el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
+
+        // Inspect button click
+        el.querySelector(".btn-inspect-overlay")?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.openCardInspector(card, maindeckCards);
+        });
+
+        // Click card or action button to remove
         el.addEventListener("click", () => {
           this.hideCardHoverPreview();
           this.maindeckSpellIds.delete(id);
@@ -1310,16 +1639,58 @@ export class SoloDraftController {
       });
     }
 
+    // 2. Sideboard Filtering and Counts
+    const sbAllCount = sideboardCards.length;
+    const sbCreatures = sideboardCards.filter(
+      (c) => !c.isLand && (c.types || []).includes("Creature"),
+    );
+    const sbSpells = sideboardCards.filter(
+      (c) => !c.isLand && !(c.types || []).includes("Creature"),
+    );
+    const sbLands = sideboardCards.filter((c) => c.isLand);
+
+    const updateFilterBadge = (id, count) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = String(count);
+    };
+    updateFilterBadge("sb-count-all", sbAllCount);
+    updateFilterBadge("sb-count-creatures", sbCreatures.length);
+    updateFilterBadge("sb-count-spells", sbSpells.length);
+    updateFilterBadge("sb-count-lands", sbLands.length);
+
+    const sbPill = document.getElementById("sideboard-count-pill");
+    if (sbPill) sbPill.textContent = `${String(sbAllCount)} cartes disponibles`;
+
+    let filteredSideboard = sideboardCards;
+    if (this.sideboardFilter === "creatures") {
+      filteredSideboard = sbCreatures;
+    } else if (this.sideboardFilter === "spells") {
+      filteredSideboard = sbSpells;
+    } else if (this.sideboardFilter === "lands") {
+      filteredSideboard = sbLands;
+    }
+
     // Render Sideboard Container
     if (this.dom.sideboardContainer) {
-      this.dom.sideboardContainer.innerHTML = sideboardCards
-        .map((c) => this.createDeckCardItem(c, "add", "Ajouter au Deck"))
-        .join("");
+      if (filteredSideboard.length === 0) {
+        this.dom.sideboardContainer.innerHTML = `<div class="curve-col-empty" style="grid-column: 1 / -1; padding: 2rem;">Aucune carte dans cette catégorie.</div>`;
+      } else {
+        this.dom.sideboardContainer.innerHTML = filteredSideboard
+          .map((c) =>
+            this.createDeckCardItem(
+              c,
+              "add",
+              "Ajouter au Deck",
+              this.getLandSynergyInfo(c, activeColors),
+            ),
+          )
+          .join("");
 
-      this.dom.sideboardContainer.querySelectorAll(".deck-card-item").forEach((el) => {
-        const id = el.dataset.instanceId;
-        const card = this.playerPool.find((c) => c.instanceId === id);
-        if (card) {
+        this.dom.sideboardContainer.querySelectorAll(".deck-card-item").forEach((el) => {
+          const id = el.dataset.instanceId;
+          const card = this.playerPool.find((c) => c.instanceId === id);
+          if (!card) return;
+
           const image = el.querySelector(".deck-card-img");
           if (image) {
             loadImageWithFallback(
@@ -1328,36 +1699,53 @@ export class SoloDraftController {
               getSoloCardFallbackImage(card, this.cardLanguage),
             );
           }
+
           el.addEventListener("mouseenter", (e) => this.showCardHoverPreview(card, e));
           el.addEventListener("mousemove", (e) => this.positionCardHoverPreview(e));
           el.addEventListener("mouseleave", () => this.hideCardHoverPreview());
-        }
 
-        el.addEventListener("click", () => {
-          this.hideCardHoverPreview();
-          this.maindeckSpellIds.add(id);
-          this.renderDeckbuilder();
+          // Inspect button
+          el.querySelector(".btn-inspect-overlay")?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            this.openCardInspector(card, filteredSideboard);
+          });
+
+          // Click to add
+          el.addEventListener("click", () => {
+            this.hideCardHoverPreview();
+            this.maindeckSpellIds.add(id);
+            this.renderDeckbuilder();
+          });
         });
-      });
+      }
     }
 
     this.updateLandsDisplay();
   }
 
-  createDeckCardItem(card, actionType, tooltip) {
+  createDeckCardItem(card, actionType, tooltip, landSynergy = { isOnColor: false, label: "" }) {
     const actionIcon = actionType === "remove" ? "➖" : "➕";
     const badgeClass = actionType === "remove" ? "btn-remove-card" : "btn-add-card";
     const displayName = getCardDisplayName(card, this.cardLanguage);
+    const onColorClass = landSynergy.isOnColor ? " is-on-color-land" : "";
+    const synergyTag = landSynergy.isOnColor
+      ? `<span class="card-synergy-tag">✨ ${escapeHtml(landSynergy.label)}</span>`
+      : "";
+    const cmcText = card.isLand ? "🏔️" : String(card.cmc ?? 0);
 
     return `
-      <div class="deck-card-item" data-instance-id="${card.instanceId}" title="${tooltip}">
+      <div class="deck-card-item${onColorClass}" data-instance-id="${card.instanceId}" title="${escapeHtml(displayName)}">
+        ${synergyTag}
         <img alt="${escapeHtml(displayName)}" loading="lazy" class="deck-card-img" />
         <button class="deck-action-overlay ${badgeClass}" aria-label="${tooltip}">
           ${actionIcon}
         </button>
+        <button class="btn-inspect-overlay" title="Inspecter la carte (Zoom)">
+          🔍
+        </button>
         <div class="deck-card-footer">
           <span class="deck-card-name">${escapeHtml(displayName)}</span>
-          <span class="deck-card-cmc">${String(card.cmc)}</span>
+          <span class="deck-card-cmc">${cmcText}</span>
         </div>
       </div>
     `;

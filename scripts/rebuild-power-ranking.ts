@@ -254,7 +254,11 @@ function predictCalibratedScore(
     knnLayout,
     knnConfiguration,
   );
-  return roundPowerScore(ridgeWeight * ridge + (1 - ridgeWeight) * knn);
+  const iso = predictIsotonicScore(calibration, details.elo);
+  const ensemble = ridgeWeight * ridge + (1 - ridgeWeight) * knn;
+  const bounded = Math.max(iso - 4, Math.min(iso + 8, ensemble));
+  const blended = 0.5 * iso + 0.5 * bounded;
+  return roundPowerScore(blended);
 }
 
 function meanAbsoluteError(predictions: readonly number[], targets: readonly number[]): number {

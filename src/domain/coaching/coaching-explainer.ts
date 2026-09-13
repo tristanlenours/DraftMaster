@@ -4,7 +4,12 @@ import type {
   PackEvaluationContext,
   MtGColor,
 } from "./types.ts";
-import { computeColorFrequencies, getDominantColors, parseManaCostPips } from "./dynamic-score.ts";
+import {
+  computeColorFrequencies,
+  getDominantColors,
+  getEffectiveProducingColors,
+  parseManaCostPips,
+} from "./dynamic-score.ts";
 
 /**
  * Generates a concise, pedagogical coaching explanation in French
@@ -22,20 +27,28 @@ export function generateCoachingExplanation(
   const isP1P1 = context.packNumber === 1 && context.pickNumber === 1;
 
   if (isP1P1) {
+    const cubeBonus = breakdown.cubeScoreModifier ?? 0;
     if (isTopPick) {
-      return `Meilleure carte du booster en valeur intrinsèque (${String(Math.round(staticScore))}). Un excellent point de départ pour orienter votre draft.`;
+      if (cubeBonus > 0) {
+        return `Meilleure carte du booster pour ce cube (${String(Math.round(staticScore))} pts + ${String(Math.round(cubeBonus))} pts bonus d'environnement). Un excellent point de départ pour orienter votre draft.`;
+      }
+      return `Meilleure carte du booster en valeur intrinsèque (${String(Math.round(staticScore))} pts). Un excellent point de départ pour orienter votre draft.`;
     }
     if (staticScore >= 40) {
-      return `Très forte puissance brute (${String(Math.round(staticScore))}). Excellente option si vous préférez cette couleur ou cet archétype.`;
+      return `Très forte puissance brute (${String(Math.round(staticScore))} pts). Excellente option si vous préférez cette couleur ou cet archétype.`;
     }
-    return `Carte décente (${String(Math.round(staticScore))}), mais surclassée par les meilleures options du premier paquet.`;
+    return `Carte décente (${String(Math.round(staticScore))} pts), mais surclassée par les meilleures options du premier paquet.`;
   }
 
   const card = context.offeredCards.find((c) => c.id === evalCard.id);
   const isLand = card?.isLand ?? false;
+  const producedColors = card && isLand ? getEffectiveProducingColors(card) : [];
 
-  // Resolve card colors from explicit colors or mana cost pips
+  // Resolve card colors from explicit colors, produced land colors, or mana cost pips
   let cardColors: readonly MtGColor[] = card?.colors ?? [];
+  if (isLand && cardColors.length === 0 && producedColors.length > 0) {
+    cardColors = producedColors;
+  }
   if (cardColors.length === 0 && card && !isLand) {
     const pips = parseManaCostPips(card);
     const pipColors = [...new Set(pips.flat())];
@@ -45,6 +58,7 @@ export function generateCoachingExplanation(
   }
 
   const isColorless = !isLand && cardColors.length === 0;
+  const isColorlessLand = isLand && producedColors.length === 0;
   const cardColorsStr = cardColors.join("/");
 
   const dominant = getDominantColors(computeColorFrequencies(context.priorPool));
@@ -60,10 +74,19 @@ export function generateCoachingExplanation(
     if (breakdown.manaFixingBonus > 0) {
       return `Choix prioritaire recommandé : terrain clé (+${String(Math.round(breakdown.manaFixingBonus))} pts) qui stabilise parfaitement votre base de mana ${dominantStr}.`;
     }
+    if (isColorlessLand) {
+      return `Choix prioritaire recommandé : terrain utilitaire incolore (${String(Math.round(dynamicScore))} pts), flexible et intégrable dans n'importe quelle base de mana.`;
+    }
+    if (isLand) {
+      return `Terrain hors de vos couleurs (${dominantStr}) — aucun apport pour votre base de mana.`;
+    }
     if (isColorless) {
       return `Choix prioritaire recommandé : excellente option incolore (${String(Math.round(dynamicScore))} pts), flexible et jouable dans n'importe quel deck.`;
     }
     if (allInDominant) {
+      if ((breakdown.tribalBonus ?? 0) > 0) {
+        return `Choix prioritaire recommandé : carte maîtresse dans vos couleurs (${dominantStr}) et synergie clé pour votre tribu (+${String(Math.round(breakdown.tribalBonus ?? 0))} pts), qui renforce directement votre plan de jeu.`;
+      }
       return `Choix prioritaire recommandé : carte maîtresse dans vos couleurs (${dominantStr}), qui renforce directement votre plan de jeu.`;
     }
     if (sharesColor) {
@@ -72,10 +95,24 @@ export function generateCoachingExplanation(
     if (dominant.length <= 1) {
       return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}) — excellente opportunité d'ouvrir votre seconde couleur avec votre base (${dominantStr}).`;
     }
-    if (context.packNumber >= 2 || context.pickNumber >= 8) {
-      return `Choix d'antidraft / hatepick : carte hors de vos couleurs (${dominantStr}) que vous ne jouerez pas, mais à couper pour priver un adversaire d'une bombe menaçante.`;
+    if ((context.packNumber >= 2 || context.pickNumber >= 8) && staticScore >= 40) {
+      return `Choix d'antidraft / hatepick : bombe menaçante hors de vos couleurs (${dominantStr}) à couper pour priver vos adversaires d'un finisseur majeur.`;
+    }
+    const isOneDrop = (card?.cmc ?? 0) <= 1;
+    if (isOneDrop) {
+      return `Choix prioritaire recommandé : carte puissante hors de vos couleurs (${dominantStr}) — envisageable uniquement en cas de pivot complet vers cette couleur.`;
     }
     return `Choix prioritaire recommandé : bombe individuelle hors de vos couleurs (${dominantStr}) — envisageable comme pivot ou splash si vous changez de cap.`;
+  }
+
+  // Off-color land
+  if (isLand && producedColors.length > 0 && !sharesColor && hasDominant) {
+    return `Terrain hors de vos couleurs (${dominantStr}) : n'apporte aucune fixation utile pour votre base de mana.`;
+  }
+
+  // Colorless utility land
+  if (isColorlessLand) {
+    return `Terrain utilitaire incolore. S'intègre sans contrainte dans votre base de mana.`;
   }
 
   // Heavy off-color penalty on a strong card
@@ -84,8 +121,8 @@ export function generateCoachingExplanation(
   }
 
   // Tribal incompatibility penalty
-  if (breakdown.tribalPenalty && breakdown.tribalPenalty > 0) {
-    return `Tribu incompatible avec votre axe tribal en cours : carte déconseillée (-${String(Math.round(breakdown.tribalPenalty))} pts).`;
+  if ((breakdown.tribalPenalty ?? 0) > 0) {
+    return `Tribu incompatible avec votre axe tribal en cours : carte déconseillée (-${String(Math.round(breakdown.tribalPenalty ?? 0))} pts).`;
   }
 
   // Dual Land of correct colors

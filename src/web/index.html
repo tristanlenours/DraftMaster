@@ -2188,32 +2188,42 @@
           >
         </div>
 
-        <div class="deckbuilder-studio-grid">
-          <!-- Left Column: Main Deck (23 Playables) -->
-          <div class="deck-zone-col maindeck-col">
-            <div class="zone-header">
+        <div class="deckbuilder-vertical-layout">
+          <!-- TOP ZONE: Main Deck (23 Cards grouped by Mana Curve) -->
+          <div class="deck-zone-card maindeck-zone-full">
+            <div class="zone-header maindeck-header-flex">
               <div class="zone-title-wrap">
                 <span class="zone-icon">⚔️</span>
                 <span class="zone-title">Main Deck (23 Cartes Actives)</span>
+                <span class="zone-badge-pill" id="deck-maindeck-curve-stats">0 Créatures · 0 Sorts · 0 Terrains</span>
               </div>
-              <span class="zone-help">Cliquez sur une carte pour la basculer dans la réserve.</span>
+              <div class="zone-header-actions">
+                <span class="zone-help">Répartition par coût de mana (du plus petit au plus grand). Cliquez pour retirer, 🔍 pour inspecter.</span>
+              </div>
             </div>
-            <div class="deck-cards-flex" id="deck-maindeck-container">
-              <!-- Populated dynamically -->
+            <!-- Mana Curve Columns Container -->
+            <div class="deck-mana-curve-board" id="deck-maindeck-container">
+              <!-- Populated dynamically with Mana Curve columns (0, 1, 2, 3, 4, 5, 6+) -->
             </div>
           </div>
 
-          <!-- Right Column: Sideboard (22 Cards Reserve) -->
-          <div class="deck-zone-col sideboard-col">
-            <div class="zone-header">
+          <!-- BOTTOM ZONE: Sideboard / Reserve (Underneath Main Deck) -->
+          <div class="deck-zone-card sideboard-zone-full">
+            <div class="zone-header sideboard-header-flex">
               <div class="zone-title-wrap">
                 <span class="zone-icon">📦</span>
-                <span class="zone-title">Réserve / Sideboard (22 Cartes)</span>
+                <span class="zone-title">Réserve / Sideboard</span>
+                <span class="sideboard-count-pill" id="sideboard-count-pill">22 cartes disponibles</span>
               </div>
-              <span class="zone-help">Cliquez sur une carte pour l'ajouter au Main Deck.</span>
+              <div class="sideboard-filters-bar" id="sideboard-filters-bar">
+                <button type="button" class="sb-filter-btn active" data-filter="all">Tous (<span id="sb-count-all">22</span>)</button>
+                <button type="button" class="sb-filter-btn" data-filter="creatures">Créatures (<span id="sb-count-creatures">0</span>)</button>
+                <button type="button" class="sb-filter-btn" data-filter="spells">Sorts (<span id="sb-count-spells">0</span>)</button>
+                <button type="button" class="sb-filter-btn" data-filter="lands">Terrains (<span id="sb-count-lands">0</span>)</button>
+              </div>
             </div>
-            <div class="deck-cards-flex" id="deck-sideboard-container">
-              <!-- Populated dynamically -->
+            <div class="sideboard-cards-grid" id="deck-sideboard-container">
+              <!-- Populated dynamically sorted by Mana Cost -->
             </div>
           </div>
         </div>
@@ -2298,6 +2308,53 @@
           <button class="btn-validate-deck-epic" id="draft-validate-deck-btn" disabled>
             <span>⚡ Évaluer mon Deck (Mode Entraînement) (23/23)</span>
           </button>
+        </div>
+
+        <!-- Card Inspector & Fast Navigation Modal -->
+        <div class="card-inspector-backdrop" id="card-inspector-modal" hidden aria-hidden="true">
+          <div class="card-inspector-dialog" role="dialog" aria-modal="true" aria-labelledby="ci-card-name">
+            <button type="button" class="btn-ci-close" id="ci-close-btn" aria-label="Fermer l'inspecteur">✕</button>
+            <div class="card-inspector-layout">
+              <!-- Left: Previous Card Button -->
+              <button type="button" class="btn-ci-nav btn-ci-prev" id="ci-prev-btn" title="Carte précédente (Flèche Gauche ←)">
+                <span class="ci-nav-icon">◀</span>
+                <span class="ci-nav-hint">Précédente</span>
+              </button>
+
+              <!-- Center: Big Card Image -->
+              <div class="ci-card-visual-wrapper">
+                <img id="ci-card-image" class="ci-card-image" alt="Carte Magic" />
+                <div class="ci-card-location-badge" id="ci-card-location-badge">Main Deck</div>
+              </div>
+
+              <!-- Right: Next Card Button -->
+              <button type="button" class="btn-ci-nav btn-ci-next" id="ci-next-btn" title="Carte suivante (Flèche Droite →)">
+                <span class="ci-nav-hint">Suivante</span>
+                <span class="ci-nav-icon">▶</span>
+              </button>
+            </div>
+
+            <!-- Details & Action Bar -->
+            <div class="ci-details-bar">
+              <div class="ci-details-meta">
+                <div class="ci-meta-title-row">
+                  <h3 class="ci-card-name" id="ci-card-name">Nom de la Carte</h3>
+                  <span class="ci-card-cmc-badge" id="ci-card-cmc-badge">⚡ 2</span>
+                  <span class="ci-card-index-pill" id="ci-card-index-pill">Carte 1 / 45</span>
+                </div>
+                <div class="ci-card-type" id="ci-card-type">Type — Sous-type</div>
+                <div class="ci-card-oracle" id="ci-card-oracle">Texte de règles</div>
+                <div class="ci-meta-tags" id="ci-meta-tags"></div>
+              </div>
+              <div class="ci-action-col">
+                <button type="button" class="btn-ci-toggle-deck" id="ci-toggle-deck-btn">
+                  <span id="ci-toggle-icon">➖</span>
+                  <span id="ci-toggle-text">Basculer dans la Réserve</span>
+                </button>
+                <span class="ci-keyboard-shortcuts">Raccourcis : <strong>← / →</strong> pour naviguer · <strong>Espace</strong> pour basculer · <strong>Échap</strong> pour fermer</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

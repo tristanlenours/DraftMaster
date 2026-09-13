@@ -38,7 +38,7 @@ import {
   type FriendProfile,
 } from "../bots/friends/index.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
-import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
+import { evaluatePack, getEffectiveProducingColors } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
 import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
 import { evaluateDeck } from "../domain/coaching/deck-evaluation.ts";
@@ -1317,9 +1317,62 @@ export class SoloDraftSession {
     }
 
     const nonBasicDrafted: string[] = bestOption.maindeck.filter((id) => !id.startsWith("basic-"));
-    const nonLandSpells = nonBasicDrafted.filter((id) => !this.getEnrichedCard(id).isLand);
-    const maindeckCardInstanceIds: string[] = nonLandSpells.slice(0, 23);
+    const draftedSpells = nonBasicDrafted.filter((id) => !this.getEnrichedCard(id).isLand);
+
+    const deckColors = new Set<MtGColor>([
+      ...bestOption.evaluation.archetype.primaryColors,
+      ...bestOption.evaluation.archetype.splashColors,
+    ]);
+    if (deckColors.size === 0) {
+      for (const id of draftedSpells) {
+        const enriched = this.getEnrichedCard(id);
+        for (const col of enriched.colors) {
+          deckColors.add(col);
+        }
+      }
+    }
+
+    const evaluateLandSuitability = (
+      id: string,
+    ): { isMatch: boolean; isDual: boolean; score: number } => {
+      const card = this.instanceToInputMap.get(id);
+      if (!card?.isLand) return { isMatch: false, isDual: false, score: 0 };
+      const produced = getEffectiveProducingColors(card);
+      if (produced.length === 0) return { isMatch: false, isDual: false, score: 0 };
+      const matching = produced.filter((c) => deckColors.has(c));
+      const off = produced.filter((c) => !deckColors.has(c));
+      const isDual = matching.length >= 2;
+      const isPureSingle = matching.length >= 1 && off.length === 0;
+      const isMatch = isDual || isPureSingle;
+      return {
+        isMatch,
+        isDual,
+        score: (isDual ? 100 : 50) + card.staticScore - off.length * 15,
+      };
+    };
+
+    // Extract on-color lands available in pool, prioritized by dual fixing & score
+    const onColorLands = poolIds
+      .filter((id) => this.getEnrichedCard(id).isLand)
+      .map((id) => ({ id, ...evaluateLandSuitability(id) }))
+      .filter((l) => l.isMatch)
+      .sort((a, b) => b.score - a.score)
+      .map((l) => l.id);
+
+    // Prioritize up to 3 on-color lands in the 23-card active deck
+    const selectedLands = onColorLands.slice(0, 3);
+    const targetSpellCount = 23 - selectedLands.length;
+    const selectedSpells = draftedSpells.slice(0, targetSpellCount);
+
+    const maindeckCardInstanceIds: string[] = [...selectedLands, ...selectedSpells];
+
     if (maindeckCardInstanceIds.length < 23) {
+      for (const id of draftedSpells) {
+        if (maindeckCardInstanceIds.length >= 23) break;
+        if (!maindeckCardInstanceIds.includes(id)) {
+          maindeckCardInstanceIds.push(id);
+        }
+      }
       for (const id of nonBasicDrafted) {
         if (maindeckCardInstanceIds.length >= 23) break;
         if (!maindeckCardInstanceIds.includes(id)) {

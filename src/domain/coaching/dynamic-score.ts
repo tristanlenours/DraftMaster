@@ -13,6 +13,8 @@ import {
   isTribalCube,
   detectDraftedTribalContext,
   isCardTriballyIncompatible,
+  getCardRelevantTribes,
+  isChangeling,
 } from "./tribal-compatibility.ts";
 
 export const ALL_COLORS: readonly MtGColor[] = ["W", "U", "B", "R", "G"] as const;
@@ -167,14 +169,12 @@ export function buildColorProfile(priorPool: readonly CardEvaluationInput[]): Co
 /**
  * Returns the top 2 dominant colors in the player's drafted pool.
  */
-export function getDominantColors(
-  counts: Record<MtGColor, number>,
-): readonly (MtGColor | undefined)[] {
+export function getDominantColors(counts: Record<MtGColor, number>): readonly MtGColor[] {
   const sorted = (Object.entries(counts) as [MtGColor, number][])
     .filter(([, count]) => count > 0)
     .sort((a, b) => b[1] - a[1]);
 
-  return [sorted[0]?.[0], sorted[1]?.[0]];
+  return sorted.slice(0, 2).map(([c]) => c);
 }
 
 /**
@@ -444,6 +444,19 @@ export function evaluateCard(
     colorAffinityFactor = Math.max(0.05, 1.0 - commitment * (1.0 - overlap));
   }
 
+  // 1-drops with colored mana requirements cannot be splashed; if off-color from pool, heavily penalize
+  const isColoredOneDrop = (card.cmc ?? 0) <= 1 && !card.isLand && card.colors.length > 0;
+  if (isColoredOneDrop && overlap < 0.5 && dominantColors.length > 0) {
+    colorAffinityFactor = Math.min(colorAffinityFactor, 0.4);
+  }
+
+  // Colored lands that produce zero mana in the player's colors are completely unplayable.
+  // A player drafting U/B should never pick or splash a R/W tapped land.
+  const isOffColorLand = Boolean(card.isLand) && overlap === 0.0 && totalColorPicks > 0;
+  if (isOffColorLand) {
+    colorAffinityFactor = 0.05;
+  }
+
   // Natural decay factor for being in early packs vs locked in
   const naturalDecay = packNumber === 1 && pickNumber > 1 ? 0.92 : 0.95;
   const effectiveMultiplier = overlap === 1.0 ? naturalDecay : colorAffinityFactor;
@@ -479,28 +492,52 @@ export function evaluateCard(
   // 3. Curve Bonus (placeholder for CMC gap detection)
   const curveBonus = 0;
 
-  // 4. Tribal Incompatibility Penalty (on tribal cubes like Titou Tribal)
+  // 4. Tribal Synergy & Incompatibility (on tribal cubes like Titou Tribal)
   let tribalPenalty = 0;
+  let tribalBonus = 0;
   if (isTribalCube(cubeKey, cubeMeta)) {
     const tribalCtx = detectDraftedTribalContext(priorPool, cubeKey, cubeMeta);
-    if (tribalCtx.isTribalEngaged && isCardTriballyIncompatible(card, tribalCtx)) {
-      tribalPenalty = 15.0;
+    if (tribalCtx.isTribalEngaged) {
+      if (isCardTriballyIncompatible(card, tribalCtx)) {
+        tribalPenalty = 15.0;
+      } else {
+        const cardTribes = getCardRelevantTribes(card);
+        const isTribalMatch =
+          isChangeling(card) || cardTribes.some((t) => tribalCtx.dominantTribes.includes(t));
+        const isCompatibleMatch =
+          !isTribalMatch && cardTribes.some((t) => tribalCtx.compatibleTribes.includes(t));
+
+        if (isTribalMatch) {
+          tribalBonus = Math.min(
+            5.0,
+            Math.round((1.5 + tribalCtx.tribalCardsCount * 0.5) * 10) / 10,
+          );
+        } else if (isCompatibleMatch) {
+          tribalBonus = Math.min(
+            3.0,
+            Math.round((1.0 + tribalCtx.tribalCardsCount * 0.3) * 10) / 10,
+          );
+        }
+      }
     }
   }
 
   // 5. Raw Dynamic Score with Cube, Synergy, and Tribal modifiers
-  const rawDynamicScore = Math.max(
-    MIN_POWER_SCORE,
-    Math.min(
-      MAX_POWER_SCORE,
-      scoreAfterColor +
-        manaFixingBonus +
-        curveBonus +
-        cubeScoreModifier +
-        synergyBonus -
-        tribalPenalty,
-    ),
-  );
+  const rawDynamicScore = isOffColorLand
+    ? MIN_POWER_SCORE
+    : Math.max(
+        MIN_POWER_SCORE,
+        Math.min(
+          MAX_POWER_SCORE,
+          scoreAfterColor +
+            manaFixingBonus +
+            curveBonus +
+            cubeScoreModifier +
+            synergyBonus +
+            tribalBonus -
+            tribalPenalty,
+        ),
+      );
 
   // Round to 1 decimal place
   const dynamicScore = Math.round(rawDynamicScore * 10) / 10;
@@ -514,6 +551,7 @@ export function evaluateCard(
     rawDynamicScore,
     cubeScoreModifier: cubeScoreModifier !== 0 ? cubeScoreModifier : undefined,
     synergyBonus: synergyBonus !== 0 ? synergyBonus : undefined,
+    tribalBonus: tribalBonus !== 0 ? tribalBonus : undefined,
     tribalPenalty: tribalPenalty !== 0 ? tribalPenalty : undefined,
     powerSource,
     harmonizationConfidence,

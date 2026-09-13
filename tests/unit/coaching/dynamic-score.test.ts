@@ -404,4 +404,198 @@ describe("Dynamic Scoring Engine", () => {
       }
     }
   });
+
+  it("prioritizes on-color staples over off-color 1-drops at P1P2 after picking Lightning Bolt", () => {
+    const goblinLackey: CardEvaluationInput = {
+      id: "lackey",
+      name: "Goblin Lackey",
+      staticScore: 35,
+      colors: ["R"],
+      cmc: 1,
+      manaCost: "{R}",
+    };
+    const manaConfluence: CardEvaluationInput = {
+      id: "confluence",
+      name: "Mana Confluence",
+      staticScore: 18,
+      colors: [],
+      cmc: 0,
+      isLand: true,
+      producesColors: ["W", "U", "B", "R", "G"],
+    };
+    const elvishMystic: CardEvaluationInput = {
+      id: "mystic",
+      name: "Elvish Mystic",
+      staticScore: 38,
+      colors: ["G"],
+      cmc: 1,
+      manaCost: "{G}",
+    };
+    const dragonmasterOutcast: CardEvaluationInput = {
+      id: "outcast",
+      name: "Dragonmaster Outcast",
+      staticScore: 27,
+      colors: ["R"],
+      cmc: 1,
+      manaCost: "{R}",
+    };
+
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [elvishMystic, goblinLackey, manaConfluence, dragonmasterOutcast],
+      priorPool: [{ id: "bolt", name: "Lightning Bolt", staticScore: 43, colors: ["R"], cmc: 1 }],
+    };
+
+    const results = evaluatePack(context);
+    // Goblin Lackey must be recommended priority over Elvish Mystic
+    expect(results[0]?.name).toBe("Goblin Lackey");
+    expect(results[0]?.explanation).toContain("dans vos couleurs (R)");
+
+    const evaluatedMystic = results.find((c) => c.name === "Elvish Mystic");
+    expect(evaluatedMystic).toBeDefined();
+    // Mystic should be heavily penalized as an off-color 1-drop and never recommended to splash
+    expect(evaluatedMystic?.explanation).not.toContain("splash");
+    expect(evaluatedMystic?.dynamicScore).toBeLessThan(results[0]?.dynamicScore ?? 0);
+  });
+
+  it("recommends Sublime Epiphany over off-color lands and neutralizes off-color dual lands for U/B drafter", () => {
+    const sublimeEpiphany: CardEvaluationInput = {
+      id: "sublime",
+      name: "Sublime Epiphany",
+      staticScore: 40,
+      colors: ["U"],
+      cmc: 6,
+      manaCost: "{4}{U}{U}",
+    };
+    const windScarredCrag: CardEvaluationInput = {
+      id: "crag",
+      name: "Wind-Scarred Crag",
+      staticScore: 23.6,
+      colors: [],
+      cmc: 0,
+      isLand: true,
+      producesColors: ["R", "W"],
+    };
+    const welcomingVampire: CardEvaluationInput = {
+      id: "welcoming",
+      name: "Welcoming Vampire",
+      staticScore: 26.4,
+      colors: ["W"],
+      cmc: 3,
+      manaCost: "{2}{W}",
+    };
+    const consider: CardEvaluationInput = {
+      id: "consider",
+      name: "Consider",
+      staticScore: 15,
+      colors: ["U"],
+      cmc: 1,
+      manaCost: "{U}",
+    };
+
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 4,
+      offeredCards: [windScarredCrag, welcomingVampire, sublimeEpiphany, consider],
+      priorPool: [
+        { id: "1", name: "Baleful Strix", staticScore: 35, colors: ["U", "B"], cmc: 2 },
+        { id: "2", name: "Counterspell", staticScore: 35, colors: ["U"], cmc: 2 },
+        { id: "3", name: "Murder", staticScore: 30, colors: ["B"], cmc: 3 },
+      ],
+    };
+
+    const results = evaluatePack(context);
+
+    // Sublime Epiphany must be Top Pick
+    expect(results[0]?.name).toBe("Sublime Epiphany");
+    expect(results[0]?.dynamicScore).toBeGreaterThanOrEqual(35);
+    expect(results[0]?.explanation).toContain("dans vos couleurs (U/B)");
+
+    // Wind-Scarred Crag must be bottom rank and penalized to minimum
+    const cragResult = results.find((c) => c.name === "Wind-Scarred Crag");
+    expect(cragResult).toBeDefined();
+    expect(cragResult?.dynamicScore).toBeLessThanOrEqual(5);
+    expect(cragResult?.explanation).toContain("Terrain hors de vos couleurs (U/B)");
+    expect(cragResult?.explanation).not.toContain("bombe");
+    expect(cragResult?.explanation).not.toContain("splash");
+  });
+
+  it("recommends Lier, Disciple of the Drowned as top pick for an Izzet Wizards drafter", () => {
+    const lier: CardEvaluationInput = {
+      id: "lier",
+      name: "Lier, Disciple of the Drowned",
+      staticScore: 39,
+      colors: ["U"],
+      cmc: 5,
+      manaCost: "{3}{U}{U}",
+      subtypes: ["Human", "Wizard"],
+    };
+    const drownedCatacomb: CardEvaluationInput = {
+      id: "catacomb",
+      name: "Drowned Catacomb",
+      staticScore: 23.9,
+      colors: [],
+      cmc: 0,
+      isLand: true,
+      producesColors: ["U", "B"],
+    };
+    const pathToExile: CardEvaluationInput = {
+      id: "path",
+      name: "Path to Exile",
+      staticScore: 39,
+      colors: ["W"],
+      cmc: 1,
+      manaCost: "{W}",
+    };
+    const fastbond: CardEvaluationInput = {
+      id: "fastbond",
+      name: "Fastbond",
+      staticScore: 29,
+      colors: ["G"],
+      cmc: 1,
+      manaCost: "{G}",
+    };
+
+    const context: PackEvaluationContext = {
+      packNumber: 2,
+      pickNumber: 2,
+      offeredCards: [drownedCatacomb, pathToExile, fastbond, lier],
+      priorPool: [
+        { id: "1", name: "Lightning Bolt", staticScore: 43, colors: ["R"], cmc: 1 },
+        { id: "2", name: "Counterspell", staticScore: 35, colors: ["U"], cmc: 2 },
+        {
+          id: "3",
+          name: "Snapcaster Mage",
+          staticScore: 40,
+          colors: ["U"],
+          cmc: 2,
+          subtypes: ["Human", "Wizard"],
+        },
+        {
+          id: "4",
+          name: "Sprite Dragon",
+          staticScore: 30,
+          colors: ["U", "R"],
+          cmc: 2,
+          subtypes: ["Faerie", "Dragon"],
+        },
+      ],
+      cubeKey: "titou_tribal",
+    };
+
+    const results = evaluatePack(context);
+
+    // Lier must be Top Pick
+    expect(results[0]?.name).toBe("Lier, Disciple of the Drowned");
+    expect(results[0]?.dynamicScore).toBeGreaterThanOrEqual(35);
+    expect(results[0]?.explanation).toMatch(/dans vos couleurs \([UR]\/[UR]\)/);
+
+    // Drowned Catacomb must never be recommended as a hatepick
+    const catacombResult = results.find((c) => c.name === "Drowned Catacomb");
+    expect(catacombResult).toBeDefined();
+    expect(catacombResult?.explanation).not.toContain("hatepick");
+    expect(catacombResult?.explanation).not.toContain("antidraft");
+    expect(catacombResult?.dynamicScore).toBeLessThan(results[0]?.dynamicScore ?? 0);
+  });
 });
