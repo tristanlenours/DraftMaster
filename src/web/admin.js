@@ -3,6 +3,7 @@
  * Visualisation des sessions de draft, inspection complète des 8 decks (humain + 7 bots)
  * et audit des rapports HTML archivés.
  */
+import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 
 let allDrafts = [];
 let currentDraft = null;
@@ -298,67 +299,47 @@ function renderSeatDetail(seat) {
         : ""
     }
 
-    <!-- Decklist View: 23 Spells + 17 Lands -->
-    <div class="seat-decklist-container">
-      <div class="decklist-column spells-col">
-        <div class="decklist-col-header">
-          <h4>🪄 Sorts Actifs (${spells.length} cartes)</h4>
-          <span class="decklist-sub">Sélection principale</span>
+    <!-- 17Lands Mana Curve Deck View -->
+    <div style="margin-top: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h4 style="font-size: 1rem; color: #f8fafc; margin: 0;">🎴 Composition du Deck (Courbe de Mana & Terrains)</h4>
+        <span style="font-size: 0.8rem; color: #94a3b8;">Survolez une carte pour l'agrandir</span>
+      </div>
+      <div id="admin-seat-17lands-target"></div>
+    </div>
+
+    ${
+      sideboard.length > 0
+        ? `
+      <div class="sideboard-box" style="margin-top: 1.5rem;">
+        <div class="decklist-col-header" style="margin-bottom: 0.5rem;">
+          <h4 style="font-size: 0.95rem; color: #f8fafc;">🎒 Réserve (${sideboard.length} cartes)</h4>
         </div>
-        <div class="decklist-cards-list">
-          ${spells
+        <div class="sideboard-chips-wrap">
+          ${sideboard
             .map(
               (card) => `
-            <div class="decklist-card-item" title="${escapeHtml(card.frenchName && card.frenchName !== card.name ? `${card.frenchName} (VO: ${card.name})` : card.name)}">
-              <span class="dci-mana-cost">${formatManaCost(card.colors, card.cmc)}</span>
-              <span class="dci-name">${escapeHtml(card.frenchName || card.name)}</span>
-              <span class="dci-type">${escapeHtml(card.typeLine || "")}</span>
-              ${card.staticScore >= 80 ? '<span class="dci-bomb" title="Bombe du cube">💣</span>' : ""}
-            </div>
+            <span class="sideboard-chip" title="${escapeHtml(card.frenchName && card.frenchName !== card.name ? `${card.frenchName} (VO: ${card.name})` : card.name)}">
+              ${escapeHtml(card.frenchName || card.name)}
+            </span>
           `,
             )
             .join("")}
         </div>
       </div>
-
-      <div class="decklist-column lands-col">
-        <div class="decklist-col-header">
-          <h4>🌲 Terrains (${lands.length} cartes)</h4>
-          <span class="decklist-sub">17 Terrains de base</span>
-        </div>
-        <div class="lands-breakdown-list">
-          <div class="land-count-badge"><span>⚪ Plaine :</span> <strong>${basicCounts.Plains}</strong></div>
-          <div class="land-count-badge"><span>🔵 Île :</span> <strong>${basicCounts.Island}</strong></div>
-          <div class="land-count-badge"><span>⚫ Marais :</span> <strong>${basicCounts.Swamp}</strong></div>
-          <div class="land-count-badge"><span>🔴 Montagne :</span> <strong>${basicCounts.Mountain}</strong></div>
-          <div class="land-count-badge"><span>🟢 Forêt :</span> <strong>${basicCounts.Forest}</strong></div>
-        </div>
-
-        ${
-          sideboard.length > 0
-            ? `
-          <div class="sideboard-box">
-            <div class="decklist-col-header" style="margin-top: 1.5rem;">
-              <h4>🎒 Réserve (${sideboard.length} cartes)</h4>
-            </div>
-            <div class="sideboard-chips-wrap">
-              ${sideboard
-                .map(
-                  (card) => `
-                <span class="sideboard-chip" title="${escapeHtml(card.frenchName && card.frenchName !== card.name ? `${card.frenchName} (VO: ${card.name})` : card.name)}">
-                  ${escapeHtml(card.frenchName || card.name)}
-                </span>
-              `,
-                )
-                .join("")}
-            </div>
-          </div>
-        `
-            : ""
-        }
-      </div>
-    </div>
+    `
+        : ""
+    }
   `;
+
+  const target17Lands = container.querySelector("#admin-seat-17lands-target");
+  if (target17Lands) {
+    const allMaindeck = [...spells, ...lands];
+    render17LandsDeckView(target17Lands, allMaindeck, {
+      language: "FR",
+      basicLands: basicCounts,
+    });
+  }
 }
 
 async function loadAdminReports() {

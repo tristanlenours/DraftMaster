@@ -11,7 +11,7 @@ const rootDir = resolve(import.meta.dirname, "../../..");
 
 describe("Archetype Synergy Profile", () => {
   it.each([
-    ["titou_tribal", 7],
+    ["titou_tribal", 8],
     ["nico_candyshop", 8],
   ] as const)(
     "loads the versioned %s profile and resolves every card to its archive",

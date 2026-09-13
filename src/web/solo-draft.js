@@ -12,6 +12,7 @@ import {
   getCardImageUrl,
   readCardLanguage,
 } from "./card-language.js";
+import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 
 // Local cache for French card translations & images
 const localFrenchCache = new Map();
@@ -1940,7 +1941,7 @@ export class SoloDraftController {
         .join("");
     }
 
-    // 8-Seat Final Decks Comparison
+    // 8-Seat Final Decks Comparison & Table Leaderboard
     if (this.dom.resultSeatsGrid && Array.isArray(result.seats)) {
       const SEAT_AVATARS = ["🧙", "🤖", "🤖", "🤖", "🤖", "👑", "🏆", "📜"];
       const SEAT_LABELS = [
@@ -1954,83 +1955,180 @@ export class SoloDraftController {
         "Bot 7 (Droite)",
       ];
 
-      this.dom.resultSeatsGrid.innerHTML = result.seats
-        .map((seat) => {
-          const deck = seat.deck;
-          const seatTier =
-            deck?.overallTier ||
-            (deck?.overallScore ? getScoreGrade(deck.overallScore).grade : "B");
-          const tierCss = `grade-${seatTier.toLowerCase()}`;
-          const isHuman = seat.seatId === 0;
-          const avatar = SEAT_AVATARS[seat.seatId] || (isHuman ? "🧙" : "🤖");
-          const label = SEAT_LABELS[seat.seatId] || `Siège ${seat.seatId}`;
-          const name = seat.botName || (isHuman ? this.playerName : `Bot ${seat.seatId}`);
-          const arch = deck?.archetype?.label || "Libre";
+      // Calculate table ranking based on overallScore (and radar synergy/power tiebreakers)
+      const rankedSeats = [...result.seats].map((seat) => {
+        const score = seat.deck?.overallScore ?? 50;
+        const syn = seat.deck?.radar?.synergy ?? 50;
+        const pwr = seat.deck?.radar?.power ?? 50;
+        return { seat, score, syn, pwr };
+      });
 
-          const sRadar = deck?.radarTiers || {
-            power: getScoreGrade(deck?.radar?.power ?? 70).grade,
-            synergy: getScoreGrade(deck?.radar?.synergy ?? 70).grade,
-            curve: getScoreGrade(deck?.radar?.curve ?? 70).grade,
-            mana: getScoreGrade(deck?.radar?.mana ?? 70).grade,
-            interaction: getScoreGrade(deck?.radar?.interaction ?? 70).grade,
-          };
+      rankedSeats.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (b.syn !== a.syn) return b.syn - a.syn;
+        if (b.pwr !== a.pwr) return b.pwr - a.pwr;
+        return a.seat.seatId - b.seat.seatId;
+      });
 
-          return `
-            <div class="seat-comparison-card ${isHuman ? "is-human" : ""}">
-              <div class="seat-card-header">
-                <div class="seat-card-identity">
-                  <span class="seat-card-avatar">${avatar}</span>
-                  <div class="seat-card-name-wrap">
-                    <span class="seat-card-name">${escapeHtml(name)}</span>
-                    <span class="seat-card-label">${escapeHtml(label)}</span>
+      const seatRanks = new Map();
+      rankedSeats.forEach((item, index) => {
+        seatRanks.set(item.seat.seatId, index + 1);
+      });
+
+      // Update hero table rank badge
+      const humanRank = seatRanks.get(0) || 1;
+      const tableRankBadge = document.getElementById("result-table-rank-badge");
+      if (tableRankBadge) {
+        const rankSuffix = humanRank === 1 ? "1er" : `${humanRank}e`;
+        const medal = humanRank === 1 ? "🥇" : humanRank === 2 ? "🥈" : humanRank === 3 ? "🥉" : "🏆";
+        tableRankBadge.textContent = `${medal} ${rankSuffix} / 8 de la Table`;
+        tableRankBadge.className = `stat-tag tag-table-rank ${humanRank <= 3 ? `rank-${humanRank}` : ""}`;
+      }
+
+      // Render podium summary chips above 8 decks
+      const podiumEl = document.getElementById("table-podium-summary");
+      if (podiumEl && rankedSeats.length >= 3) {
+        const p1 = rankedSeats[0];
+        const p2 = rankedSeats[1];
+        const p3 = rankedSeats[2];
+        const getDisplayName = (s) => s.botName || (s.seatId === 0 ? this.playerName : `Bot ${s.seatId}`);
+        const getTier = (s) => s.deck?.overallTier || "B";
+
+        podiumEl.innerHTML = `
+          <div class="podium-summary-chip podium-gold">
+            <span>🥇 1er :</span>
+            <strong>${escapeHtml(getDisplayName(p1.seat))}</strong>
+            <span class="seat-card-tier-pill grade-${getTier(p1.seat).toLowerCase()}" style="font-size: 0.72rem; padding: 2px 6px;">TIER ${getTier(p1.seat)}</span>
+          </div>
+          <div class="podium-summary-chip podium-silver">
+            <span>🥈 2e :</span>
+            <strong>${escapeHtml(getDisplayName(p2.seat))}</strong>
+            <span class="seat-card-tier-pill grade-${getTier(p2.seat).toLowerCase()}" style="font-size: 0.72rem; padding: 2px 6px;">TIER ${getTier(p2.seat)}</span>
+          </div>
+          <div class="podium-summary-chip podium-bronze">
+            <span>🥉 3e :</span>
+            <strong>${escapeHtml(getDisplayName(p3.seat))}</strong>
+            <span class="seat-card-tier-pill grade-${getTier(p3.seat).toLowerCase()}" style="font-size: 0.72rem; padding: 2px 6px;">TIER ${getTier(p3.seat)}</span>
+          </div>
+        `;
+      }
+
+      let currentSort = "rank"; // 'rank' or 'seat'
+
+      const renderGrid = () => {
+        const displaySeats = currentSort === "rank"
+          ? rankedSeats.map((item) => item.seat)
+          : result.seats;
+
+        this.dom.resultSeatsGrid.innerHTML = displaySeats
+          .map((seat) => {
+            const deck = seat.deck;
+            const seatTier =
+              deck?.overallTier ||
+              (deck?.overallScore ? getScoreGrade(deck.overallScore).grade : "B");
+            const tierCss = `grade-${seatTier.toLowerCase()}`;
+            const isHuman = seat.seatId === 0;
+            const avatar = SEAT_AVATARS[seat.seatId] || (isHuman ? "🧙" : "🤖");
+            const label = SEAT_LABELS[seat.seatId] || `Siège ${seat.seatId}`;
+            const name = seat.botName || (isHuman ? this.playerName : `Bot ${seat.seatId}`);
+            const arch = deck?.archetype?.label || "Libre";
+            const sRank = seatRanks.get(seat.seatId) || 8;
+            const rankSuffix = sRank === 1 ? "1er" : `${sRank}e`;
+            const rankIcon = sRank === 1 ? "🥇" : sRank === 2 ? "🥈" : sRank === 3 ? "🥉" : `#${sRank}`;
+            const rankBadgeClass = sRank <= 3 ? `rank-${sRank}` : "rank-other";
+
+            const sRadar = deck?.radarTiers || {
+              power: getScoreGrade(deck?.radar?.power ?? 70).grade,
+              synergy: getScoreGrade(deck?.radar?.synergy ?? 70).grade,
+              curve: getScoreGrade(deck?.radar?.curve ?? 70).grade,
+              mana: getScoreGrade(deck?.radar?.mana ?? 70).grade,
+              interaction: getScoreGrade(deck?.radar?.interaction ?? 70).grade,
+            };
+
+            return `
+              <div class="seat-comparison-card ${isHuman ? "is-human" : ""}">
+                <div class="seat-card-header">
+                  <div class="seat-card-identity">
+                    <span class="seat-card-avatar">${avatar}</span>
+                    <div class="seat-card-name-wrap">
+                      <div style="display: flex; align-items: center; gap: 4px;">
+                        <span class="seat-card-rank-badge ${rankBadgeClass}">${rankIcon} ${rankSuffix}</span>
+                        <span class="seat-card-name">${escapeHtml(name)}</span>
+                      </div>
+                      <span class="seat-card-label">${escapeHtml(label)}</span>
+                    </div>
+                  </div>
+                  <span class="seat-card-tier-pill ${tierCss}">TIER ${seatTier}</span>
+                </div>
+                <div class="seat-card-archetype">🎭 ${escapeHtml(arch)}</div>
+                <div class="seat-card-axes-mini">
+                  <div class="mini-axis-col" title="Puissance">
+                    <span class="mini-axis-label">PWR</span>
+                    <span class="mini-axis-tier grade-${sRadar.power.toLowerCase()}">${sRadar.power}</span>
+                  </div>
+                  <div class="mini-axis-col" title="Synergie">
+                    <span class="mini-axis-label">SYN</span>
+                    <span class="mini-axis-tier grade-${sRadar.synergy.toLowerCase()}">${sRadar.synergy}</span>
+                  </div>
+                  <div class="mini-axis-col" title="Courbe">
+                    <span class="mini-axis-label">CRV</span>
+                    <span class="mini-axis-tier grade-${sRadar.curve.toLowerCase()}">${sRadar.curve}</span>
+                  </div>
+                  <div class="mini-axis-col" title="Mana">
+                    <span class="mini-axis-label">MAN</span>
+                    <span class="mini-axis-tier grade-${sRadar.mana.toLowerCase()}">${sRadar.mana}</span>
+                  </div>
+                  <div class="mini-axis-col" title="Interaction">
+                    <span class="mini-axis-label">INT</span>
+                    <span class="mini-axis-tier grade-${sRadar.interaction.toLowerCase()}">${sRadar.interaction}</span>
                   </div>
                 </div>
-                <span class="seat-card-tier-pill ${tierCss}">TIER ${seatTier}</span>
+                <button type="button" class="btn-inspect-deck" data-seat-id="${seat.seatId}">
+                  <span>🔍 Inspecter le Deck (40 Cartes)</span>
+                </button>
               </div>
-              <div class="seat-card-archetype">🎭 ${escapeHtml(arch)}</div>
-              <div class="seat-card-axes-mini">
-                <div class="mini-axis-col" title="Puissance">
-                  <span class="mini-axis-label">PWR</span>
-                  <span class="mini-axis-tier grade-${sRadar.power.toLowerCase()}">${sRadar.power}</span>
-                </div>
-                <div class="mini-axis-col" title="Synergie">
-                  <span class="mini-axis-label">SYN</span>
-                  <span class="mini-axis-tier grade-${sRadar.synergy.toLowerCase()}">${sRadar.synergy}</span>
-                </div>
-                <div class="mini-axis-col" title="Courbe">
-                  <span class="mini-axis-label">CRV</span>
-                  <span class="mini-axis-tier grade-${sRadar.curve.toLowerCase()}">${sRadar.curve}</span>
-                </div>
-                <div class="mini-axis-col" title="Mana">
-                  <span class="mini-axis-label">MAN</span>
-                  <span class="mini-axis-tier grade-${sRadar.mana.toLowerCase()}">${sRadar.mana}</span>
-                </div>
-                <div class="mini-axis-col" title="Interaction">
-                  <span class="mini-axis-label">INT</span>
-                  <span class="mini-axis-tier grade-${sRadar.interaction.toLowerCase()}">${sRadar.interaction}</span>
-                </div>
-              </div>
-              <button type="button" class="btn-inspect-deck" data-seat-id="${seat.seatId}">
-                <span>🔍 Inspecter le Deck (40 Cartes)</span>
-              </button>
-            </div>
-          `;
-        })
-        .join("");
+            `;
+          })
+          .join("");
 
-      this.dom.resultSeatsGrid.querySelectorAll(".btn-inspect-deck").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const seatId = Number(btn.dataset.seatId);
-          const targetSeat = result.seats.find((s) => s.seatId === seatId);
-          if (targetSeat && targetSeat.deck) {
-            const displayName =
-              targetSeat.botName || (seatId === 0 ? this.playerName : `Bot ${seatId}`);
-            openDeckShowcaseModal({
-              playerName: displayName,
-              evaluation: targetSeat.deck,
-            });
-          }
+        this.dom.resultSeatsGrid.querySelectorAll(".btn-inspect-deck").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const seatId = Number(btn.dataset.seatId);
+            const targetSeat = result.seats.find((s) => s.seatId === seatId);
+            if (targetSeat && targetSeat.deck) {
+              const displayName =
+                targetSeat.botName || (seatId === 0 ? this.playerName : `Bot ${seatId}`);
+              openDeckShowcaseModal({
+                playerName: displayName,
+                evaluation: targetSeat.deck,
+                seat: targetSeat,
+                rank: seatRanks.get(seatId),
+              });
+            }
+          });
         });
+      };
+
+      renderGrid();
+
+      // Sort Toggle Buttons
+      const btnSortRank = document.getElementById("btn-seats-sort-rank");
+      const btnSortSeat = document.getElementById("btn-seats-sort-seat");
+
+      btnSortRank?.addEventListener("click", () => {
+        if (currentSort === "rank") return;
+        currentSort = "rank";
+        btnSortRank.classList.add("active");
+        btnSortSeat?.classList.remove("active");
+        renderGrid();
+      });
+
+      btnSortSeat?.addEventListener("click", () => {
+        if (currentSort === "seat") return;
+        currentSort = "seat";
+        btnSortSeat.classList.add("active");
+        btnSortRank?.classList.remove("active");
+        renderGrid();
       });
     }
 
@@ -2061,57 +2159,142 @@ export function openDeckShowcaseModal(resultOrDeck) {
   if (!modal || !body) return;
 
   const evaluation = resultOrDeck.evaluation || resultOrDeck;
+  const seat = resultOrDeck.seat;
   const cardLanguage = readCardLanguage();
   const overallScore = evaluation.overallScore ?? resultOrDeck.overallScore ?? 75;
   const archetype = evaluation.archetype || resultOrDeck.archetype || { label: "Deck Libre" };
-  const playerName = resultOrDeck.playerName || "Magicien";
+  const playerName = resultOrDeck.playerName || seat?.botName || "Magicien";
+  const isHuman = seat ? seat.seatId === 0 : true;
   const { grade, css } = getScoreGrade(overallScore);
-
   const tier = evaluation.overallTier || grade;
+  const rank = resultOrDeck.rank;
 
-  if (titleEl) titleEl.textContent = `${playerName} • Deck Showcase`;
+  if (titleEl) {
+    const rankPrefix = rank ? `${rank === 1 ? "🥇 1er" : rank === 2 ? "🥈 2e" : rank === 3 ? "🥉 3e" : `${rank}e`} • ` : "";
+    titleEl.textContent = `${rankPrefix}${playerName} • Deck Showcase`;
+  }
   if (subEl) subEl.textContent = `${archetype.label || "Libre"} • TIER ${tier}`;
 
   const deckId = resultOrDeck.leaderboardEntry?.id || resultOrDeck.sessionId || resultOrDeck.id;
   const shareUrl = `${window.location.origin}/?deck=${deckId}`;
-  const shareText = `🔥 Regarde le deck ${archetype.label || "Magic"} que je viens de drafter sur LMCDEU ! TIER ${tier} 🏆\n${shareUrl}`;
+  const shareText = `🔥 Regarde le deck ${archetype.label || "Magic"} de ${playerName} sur DraftMaster ! TIER ${tier} 🏆\n${shareUrl}`;
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
 
   const maindeckCards =
     evaluation.allMaindeck || resultOrDeck.maindeckCards || resultOrDeck.maindeck_cards || [];
 
-  const cardsHtml = maindeckCards
-    .map((c) => {
-      const name = getCardDisplayName(c, cardLanguage);
-      return `
-        <div class="deck-card-item" title="${escapeHtml(name)}">
-          <img alt="${escapeHtml(name)}" loading="lazy" class="deck-card-img" />
-          <div class="deck-card-footer">
-            <span class="deck-card-name">${escapeHtml(name)}</span>
-            <span class="deck-card-cmc">${String(c.cmc ?? 0)}</span>
-          </div>
-        </div>
-      `;
-    })
-    .join("");
+  const avatar = isHuman ? "👤" : (seat?.avatar || "🤖");
+  const badgeLabel = isHuman
+    ? "Joueur Humain (Siège 0)"
+    : `Bot IA • Niveau ${escapeHtml(seat?.level || "Élite")}`;
+  const quote = seat?.quote || (isHuman ? "Deck construit et validé." : "Prêt au combat.");
+
+  const radar = evaluation.radar || {
+    power: 70,
+    synergy: 70,
+    curve: 70,
+    mana: 70,
+    interaction: 70,
+  };
+
+  const radarTiers = evaluation.radarTiers || {
+    power: getScoreGrade(radar.power).grade,
+    synergy: getScoreGrade(radar.synergy).grade,
+    curve: getScoreGrade(radar.curve).grade,
+    mana: getScoreGrade(radar.mana).grade,
+    interaction: getScoreGrade(radar.interaction).grade,
+  };
+
+  const strengths = evaluation.strengths || [];
+  const weaknesses = evaluation.weaknesses || [];
 
   body.innerHTML = `
-    <div class="deck-showcase-score-row">
-      <div>
-        <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Évaluation Globale</span>
-        <div class="score-grade-pill ${css}" style="font-size: 1.4rem; padding: 6px 18px; margin-top: 4px; display: inline-block;">
-          TIER ${tier}
+    <!-- Seat Detail Header Banner -->
+    <div class="seat-detail-header">
+      <div class="sdh-left">
+        <div class="sdh-avatar">${avatar}</div>
+        <div class="sdh-meta">
+          <div class="sdh-title-row">
+            <h3 class="sdh-name">${escapeHtml(playerName)}</h3>
+            <span class="sdh-badge ${isHuman ? "badge-human" : "badge-bot"}">
+              ${escapeHtml(badgeLabel)}
+            </span>
+          </div>
+          <p class="sdh-quote">« ${escapeHtml(quote)} »</p>
+          <div class="sdh-archetype-row">
+            <span class="sdh-arch-label">Archétype :</span>
+            <strong class="sdh-arch-val">${escapeHtml(archetype.label || "Libre")}</strong>
+            ${archetype.category ? `<span class="sdh-arch-cat">(${escapeHtml(archetype.category)})</span>` : ""}
+          </div>
         </div>
       </div>
-      <div style="text-align: right;">
-        <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Archétype</span>
-        <div style="font-size: 1rem; color: #93c5fd; font-weight: 700; margin-top: 4px;">
-          ${escapeHtml(archetype.label || "Libre")}
+      <div class="sdh-right">
+        <div class="sdh-score-box score-${css}">
+          <span class="sdh-score-val">TIER ${tier}</span>
+          <span class="sdh-score-max">${overallScore}/100</span>
         </div>
+        <span class="sdh-score-label">Score Global</span>
       </div>
     </div>
 
-    <div class="deck-share-actions">
+    <!-- 5-Axis Radar Breakdown -->
+    <div class="seat-radar-grid">
+      <div class="radar-bar-item">
+        <div class="rbi-header">
+          <span class="rbi-label">⚡ Puissance Brute</span>
+          <span class="rbi-val">${radar.power}/100 <small class="axis-tier-badge grade-${(radarTiers.power || "B").toLowerCase()}">${radarTiers.power || "B"}</small></span>
+        </div>
+        <div class="rbi-track"><div class="rbi-fill fill-power" style="width: ${radar.power}%;"></div></div>
+      </div>
+      <div class="radar-bar-item">
+        <div class="rbi-header">
+          <span class="rbi-label">🔄 Synergie & Thème</span>
+          <span class="rbi-val">${radar.synergy}/100 <small class="axis-tier-badge grade-${(radarTiers.synergy || "B").toLowerCase()}">${radarTiers.synergy || "B"}</small></span>
+        </div>
+        <div class="rbi-track"><div class="rbi-fill fill-synergy" style="width: ${radar.synergy}%;"></div></div>
+      </div>
+      <div class="radar-bar-item">
+        <div class="rbi-header">
+          <span class="rbi-label">📈 Courbe de Mana</span>
+          <span class="rbi-val">${radar.curve}/100 <small class="axis-tier-badge grade-${(radarTiers.curve || "B").toLowerCase()}">${radarTiers.curve || "B"}</small></span>
+        </div>
+        <div class="rbi-track"><div class="rbi-fill fill-curve" style="width: ${radar.curve}%;"></div></div>
+      </div>
+      <div class="radar-bar-item">
+        <div class="rbi-header">
+          <span class="rbi-label">💧 Base de Mana</span>
+          <span class="rbi-val">${radar.mana}/100 <small class="axis-tier-badge grade-${(radarTiers.mana || "B").toLowerCase()}">${radarTiers.mana || "B"}</small></span>
+        </div>
+        <div class="rbi-track"><div class="rbi-fill fill-mana" style="width: ${radar.mana}%;"></div></div>
+      </div>
+      <div class="radar-bar-item">
+        <div class="rbi-header">
+          <span class="rbi-label">🛡️ Interaction & Retraits</span>
+          <span class="rbi-val">${radar.interaction}/100 <small class="axis-tier-badge grade-${(radarTiers.interaction || "B").toLowerCase()}">${radarTiers.interaction || "B"}</small></span>
+        </div>
+        <div class="rbi-track"><div class="rbi-fill fill-interaction" style="width: ${radar.interaction}%;"></div></div>
+      </div>
+    </div>
+
+    <!-- Strengths and Weaknesses -->
+    ${(strengths.length > 0 || weaknesses.length > 0) ? `
+      <div class="seat-eval-notes" style="margin-top: 1rem; margin-bottom: 1rem;">
+        ${strengths.length > 0 ? `
+          <div class="eval-notes-col strengths">
+            <h4>✅ Points Forts</h4>
+            <ul>${strengths.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>
+          </div>
+        ` : ""}
+        ${weaknesses.length > 0 ? `
+          <div class="eval-notes-col weaknesses">
+            <h4>⚠️ Points de Vigilance</h4>
+            <ul>${weaknesses.map((w) => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
+          </div>
+        ` : ""}
+      </div>
+    ` : ""}
+
+    <div class="deck-share-actions" style="margin-bottom: 1rem;">
       <a href="${whatsappUrl}" target="_blank" rel="noopener" class="btn-share-social btn-share-whatsapp">
         <span>💬 Partager sur WhatsApp</span>
       </a>
@@ -2120,29 +2303,23 @@ export function openDeckShowcaseModal(resultOrDeck) {
       </button>
     </div>
 
-    <div style="font-size: 0.82rem; color: #cbd5e1; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px;">
-      <strong>Archétype :</strong> ${escapeHtml(archetype.label || "Libre")}<br>
-      <strong>Deck 40 cartes :</strong> Prêt pour le duel !
-    </div>
-
     <div>
-      <h4 style="font-size: 0.95rem; color: #f8fafc; margin-bottom: 10px;">Cartes du Deck</h4>
-      <div class="deck-cards-list-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px;">
-        ${cardsHtml}
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h4 style="font-size: 0.95rem; color: #f8fafc; margin: 0;">Cartes du Deck (Courbe de Mana & Terrains)</h4>
+        <span style="font-size: 0.78rem; color: #94a3b8;">Survolez une carte pour l'agrandir</span>
       </div>
+      <div id="deck-showcase-17lands-target"></div>
     </div>
   `;
 
-  body.querySelectorAll(".deck-card-img").forEach((image, index) => {
-    const card = maindeckCards[index];
-    if (card) {
-      loadImageWithFallback(
-        image,
-        getSoloCardImage(card, cardLanguage),
-        getSoloCardFallbackImage(card, cardLanguage),
-      );
-    }
-  });
+  // Render 17Lands style deck view
+  const target17Lands = body.querySelector("#deck-showcase-17lands-target");
+  if (target17Lands) {
+    render17LandsDeckView(target17Lands, maindeckCards, {
+      language: cardLanguage,
+      basicLands: evaluation.basicLands || resultOrDeck.basicLands,
+    });
+  }
 
   const copyBtn = document.getElementById("btn-copy-deck-link");
   copyBtn?.addEventListener("click", async () => {

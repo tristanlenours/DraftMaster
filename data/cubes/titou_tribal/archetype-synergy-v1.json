@@ -4396,6 +4396,571 @@
           "confidence": "A"
         }
       ]
+    },
+    {
+      "id": "titou:tribal_wizards",
+      "name": "Izzet Sorciers Spells & Tempo",
+      "targetPoints": 18,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "density",
+          "name": "Masse critique de la tribu",
+          "minimum": 6
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "53c730c6-2f8c-4af8-b400-b9d573a71e60",
+          "name": "Adaptive Automaton",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+          "name": "Aether Channeler",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8305d576-21d8-4ce7-8eda-a7cd9793aca5",
+          "name": "Archmage Emeritus",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "body"
+          ],
+          "families": [
+            "payoff",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "baf80db7-2ca8-4bfc-b5b6-25ed51878dd7",
+          "name": "Baral, Chief of Compliance",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "body"
+          ],
+          "families": [
+            "payoff",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "f98f7cb7-90ca-41e7-9f1d-8054931ecf0e",
+          "name": "Barrin, Tolarian Archmage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+          "name": "Delver of Secrets",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3d038f7c-95fa-4b71-8f74-b9b4dd45cde0",
+          "name": "Ertai Resurrected",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Phyrexian Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "ecd49d85-9c8c-4cc9-9a83-072ecd433677",
+          "name": "Flame of Anor",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "724bc69c-cd09-4ff8-91e7-70500b9474e1",
+          "name": "Frilled Mystic",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Elf Lizard Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "5f3f68b5-8c6a-4181-bb8a-9c73967d198a",
+          "name": "Glen Elendra Archmage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Faerie Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "81f06f84-1580-43c0-89d5-08d34541a519",
+          "name": "Goblin Electromancer",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "body"
+          ],
+          "families": [
+            "payoff",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Goblin Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
+          "name": "Grim Lavamancer",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "f224db3d-cdd2-43f2-b625-4b861efa6449",
+          "name": "Lier, Disciple of the Drowned",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "afd8ff3e-1d57-4fc5-91dc-1a8400c98787",
+          "name": "Linvala, Shield of Sea Gate",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Angel Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "51233ade-70cd-4539-9f41-5ffab761da54",
+          "name": "Malevolent Hermit",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
+          "name": "Maskwood Nexus",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "1f91297a-ec2b-4ea8-9198-aa1daac20ff8",
+          "name": "Metallic Mimic",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "17e905ca-c0bd-473d-95a7-e180ba5fea43",
+          "name": "Mirror Entity",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
+          "name": "Mutavault",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "43d7fcf3-acc2-4e9b-a466-c73b1b6c58af",
+          "name": "Omenspeaker",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
+          "name": "Realmwalker",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "ef893585-246c-4028-bd2b-14ac51ce29be",
+          "name": "Sage of Epityr",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "374f550a-a761-4994-a4aa-b05a2ec415de",
+          "name": "Sage's Dousing",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Tribal Instant — Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b333c194-d285-4dfb-984c-57b7e88393af",
+          "name": "Sea Gate Oracle",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+          "name": "Snapcaster Mage",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "body"
+          ],
+          "families": [
+            "payoff",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "owner_tag",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d50b1d2e-1825-432a-ab73-068fdc356f50",
+          "name": "Universal Automaton",
+          "strength": "support",
+          "roles": [
+            "bridge"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte de liant universel déclarée par le propriétaire du cube."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "0f41cefc-d6ff-4db7-ba35-502b7e081de1",
+          "name": "Venser, Shaper Savant",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "a720f3d3-c2d7-4e50-8cc6-600120380e9c",
+          "name": "Voldaren Bloodcaster",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "277aafa6-4270-4d24-a888-cf9e8e635d4b",
+          "name": "Watcher for Tomorrow",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
     }
   ]
 }

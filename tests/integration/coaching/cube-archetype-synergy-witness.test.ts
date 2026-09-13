@@ -66,6 +66,28 @@ describe("cube archetype synergy witnesses", () => {
     expect(samePowerPile.radar.synergy).toBe(0);
   });
 
+  it("rewards a Titou tribal Izzet Wizards deck that assembled Flame of Anor / Archmage Emeritus plus critical mass", async () => {
+    const registry = await loadProfile("titou_tribal");
+    const wizards = registry.document.archetypes.find(
+      (archetype) => archetype.id === "titou:tribal_wizards",
+    );
+    expect(wizards).toBeDefined();
+    if (!wizards) return;
+    const coherentCards = wizards.cards
+      .filter((card) => card.strength === "key")
+      .slice(0, 3)
+      .concat(wizards.cards.filter((card) => card.strength === "support").slice(0, 9))
+      .map((card, index) => spell(`wizard-${String(index)}`, card.name, card.oracleId));
+
+    const coherent = evaluateDeck(deckWith(coherentCards), {
+      synergyProfile: registry.evaluationProfile,
+    });
+
+    expect(coherent.radar.synergy).toBe(100);
+    expect(coherent.audit.synergy.bestArchetype?.id).toBe("titou:tribal_wizards");
+    expect(coherent.audit.synergy.bestArchetype?.missingRequiredFamilyCount).toBe(0);
+  });
+
   it("distinguishes complete Reanimator from a pile containing only reanimation spells", async () => {
     const registry = await loadProfile("nico_candyshop");
     const reanimator = registry.document.archetypes.find(

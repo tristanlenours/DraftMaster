@@ -82,6 +82,7 @@ async function buildTitouProfile() {
     "titou:tribal_angels": { types: ["Angel", "Cleric"], densityMinimum: 6 },
     "titou:tribal_dragons": { types: ["Dragon"], densityMinimum: 6 },
     "titou:tribal_humans": { types: ["Human"], densityMinimum: 8 },
+    "titou:tribal_wizards": { types: ["Wizard"], densityMinimum: 6 },
   };
 
   const archetypes = meta.archetypes

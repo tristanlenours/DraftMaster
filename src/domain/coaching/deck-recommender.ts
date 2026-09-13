@@ -6,6 +6,12 @@ import type {
 } from "./types.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
 import { evaluateDeck } from "./deck-evaluation.ts";
+import {
+  COMPATIBLE_TRIBE_MAP,
+  KNOWN_TRIBAL_SUBTYPES,
+  getCardRelevantTribes,
+  isChangeling,
+} from "./tribal-compatibility.ts";
 
 export interface BasicLandDefinitions {
   readonly W: CardEvaluationInput;
@@ -130,6 +136,115 @@ interface ColorPathCandidate {
   readonly spells: readonly CardEvaluationInput[];
   readonly lands: readonly CardEvaluationInput[];
   readonly score: number;
+  readonly focusTribe?: string;
+  readonly compatibleTribes?: readonly string[];
+}
+
+const TRIBE_PLURAL_LABELS: Record<string, string> = {
+  Elf: "Elfes",
+  Wolf: "Loups",
+  Werewolf: "Garous",
+  Goblin: "Gobelins",
+  Dragon: "Dragons",
+  Human: "Humains",
+  Angel: "Anges",
+  Wizard: "Sorciers",
+  Zombie: "Zombies",
+  Vampire: "Vampires",
+  Merfolk: "Ondins",
+  Spirit: "Esprits",
+  Faerie: "Fées",
+  Knight: "Chevaliers",
+  Sliver: "Slivoïdes",
+  Eldrazi: "Eldrazi",
+};
+
+interface TribeCluster {
+  readonly primaryTribe: string;
+  readonly compatibleTribes: readonly string[];
+  readonly count: number;
+}
+
+function detectViableTribeClusters(
+  spells: readonly CardEvaluationInput[],
+  threshold = 6,
+): readonly TribeCluster[] {
+  const clusters = new Map<string, TribeCluster>();
+
+  for (const tribe of KNOWN_TRIBAL_SUBTYPES) {
+    const compatible = COMPATIBLE_TRIBE_MAP[tribe] ?? [tribe];
+    const key = [...compatible].sort().join("+");
+
+    let count = 0;
+    for (const spell of spells) {
+      if (isChangeling(spell)) {
+        count++;
+        continue;
+      }
+      const cardTribes = getCardRelevantTribes(spell);
+      if (cardTribes.some((t) => compatible.includes(t))) {
+        count++;
+      }
+    }
+
+    if (count >= threshold) {
+      const existing = clusters.get(key);
+      if (!existing || count > existing.count) {
+        clusters.set(key, {
+          primaryTribe: tribe,
+          compatibleTribes: compatible,
+          count,
+        });
+      }
+    }
+  }
+
+  return [...clusters.values()].sort((a, b) => b.count - a.count);
+}
+
+function computeAdjustedSpellScore(
+  spell: CardEvaluationInput,
+  focusTribe: string | undefined,
+  compatibleTribes: readonly string[] | undefined,
+  bombThreshold = 45,
+): number {
+  if (!focusTribe || !compatibleTribes || compatibleTribes.length === 0) {
+    return spell.staticScore;
+  }
+
+  const isOnTribe =
+    isChangeling(spell) || getCardRelevantTribes(spell).some((t) => compatibleTribes.includes(t));
+
+  const isCreature =
+    (spell.types?.includes("Creature") ?? false) ||
+    (spell.typeLine ?? "").includes("Creature") ||
+    getCardRelevantTribes(spell).length > 0;
+
+  if (isOnTribe) {
+    return spell.staticScore + 8;
+  }
+
+  if (isCreature) {
+    const isBomb = spell.staticScore >= bombThreshold;
+    if (isBomb) {
+      return spell.staticScore;
+    }
+    return spell.staticScore - 30;
+  }
+
+  const text = (spell.oracleText ?? "").toLowerCase();
+  const isOffTribePayoff = KNOWN_TRIBAL_SUBTYPES.some(
+    (tribe) =>
+      !compatibleTribes.includes(tribe) &&
+      new RegExp(`\\b${tribe.toLowerCase()}s?\\b`, "i").test(text) &&
+      !new RegExp(`\\b${tribe.toLowerCase()}s?\\b`, "i").test(spell.name.toLowerCase()),
+  );
+
+  if (isOffTribePayoff) {
+    return spell.staticScore - 30;
+  }
+
+  return spell.staticScore;
 }
 
 function isModalLand(card: CardEvaluationInput): boolean {
@@ -158,9 +273,28 @@ function assembleDeckOption(
   candidate: ColorPathCandidate,
   allPool: readonly CardEvaluationInput[],
   basics: BasicLandDefinitions,
+  evaluationOptions: DeckEvaluationOptions = {},
 ): { maindeck: CardEvaluationInput[]; sideboard: CardEvaluationInput[] } {
-  // Sort spells by static score descending, favoring higher quality
-  const sortedSpells = [...candidate.spells].sort((a, b) => b.staticScore - a.staticScore);
+  const bombThreshold = evaluationOptions.bombThreshold ?? 45;
+
+  const scoredSpells = candidate.spells.map((c) => ({
+    card: c,
+    adjustedScore: computeAdjustedSpellScore(
+      c,
+      candidate.focusTribe,
+      candidate.compatibleTribes,
+      bombThreshold,
+    ),
+  }));
+
+  scoredSpells.sort((a, b) => {
+    if (b.adjustedScore !== a.adjustedScore) {
+      return b.adjustedScore - a.adjustedScore;
+    }
+    return b.card.staticScore - a.card.staticScore;
+  });
+
+  const sortedSpells = scoredSpells.map((s) => s.card);
 
   const targetLands = estimateTargetLandCount(sortedSpells);
   let targetSpellCards = 40 - targetLands;
@@ -177,10 +311,46 @@ function assembleDeckOption(
   const nonBasicLands = [...candidate.lands]
     .sort((a, b) => b.staticScore - a.staticScore)
     .slice(0, actualLandSlots);
-  const neededBasicLands = Math.max(0, actualLandSlots - nonBasicLands.length);
+  let neededBasicLands = Math.max(0, actualLandSlots - nonBasicLands.length);
   const targetSpells = 40 - nonBasicLands.length - neededBasicLands;
 
-  const chosenSpells = sortedSpells.slice(0, targetSpells);
+  let chosenSpells: CardEvaluationInput[] = [];
+  if (candidate.focusTribe && candidate.compatibleTribes) {
+    const primarySelected: CardEvaluationInput[] = [];
+    const overflow: CardEvaluationInput[] = [];
+    let offTribeCreatureCount = 0;
+    const compTribes = candidate.compatibleTribes;
+
+    for (const spell of sortedSpells) {
+      const isOffTribeCreature =
+        !isChangeling(spell) &&
+        !getCardRelevantTribes(spell).some((t) => compTribes.includes(t)) &&
+        ((spell.types?.includes("Creature") ?? false) ||
+          (spell.typeLine ?? "").includes("Creature") ||
+          getCardRelevantTribes(spell).length > 0);
+
+      if (isOffTribeCreature) {
+        if (offTribeCreatureCount < 1) {
+          offTribeCreatureCount++;
+          primarySelected.push(spell);
+        } else {
+          overflow.push(spell);
+        }
+      } else {
+        primarySelected.push(spell);
+      }
+    }
+
+    const candidateOrder = [...primarySelected, ...overflow];
+    chosenSpells = candidateOrder.slice(0, targetSpells);
+  } else {
+    chosenSpells = sortedSpells.slice(0, targetSpells);
+  }
+
+  // If pool has fewer compatible spells than targetSpells, compensate with basic lands to guarantee 40 cards
+  if (chosenSpells.length < targetSpells) {
+    neededBasicLands += targetSpells - chosenSpells.length;
+  }
 
   // Calculate pip distribution for basic land allocation
   const pipTotals: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
@@ -250,6 +420,7 @@ export function recommendDeckBuilds(
 ): readonly DeckBuildOption[] {
   const spells = pool.filter((c) => !c.isLand);
   const lands = pool.filter((c) => c.isLand);
+  const bombThreshold = evaluationOptions.bombThreshold ?? 45;
 
   // Evaluate candidate color paths (all pairs + trios)
   const candidatePaths: ColorPathCandidate[] = [];
@@ -264,21 +435,50 @@ export function recommendDeckBuilds(
       return produced.length === 0 || produced.some((c) => colorSet.has(c));
     });
 
-    // Score the playable core while allowing 22-24 spells depending on its curve.
     const targetSpellCount = 40 - estimateTargetLandCount(compatibleSpells);
-    const topSpells = [...compatibleSpells]
-      .sort((a, b) => b.staticScore - a.staticScore)
-      .slice(0, targetSpellCount);
-    const spellScore = topSpells.reduce((acc, c) => acc + c.staticScore, 0);
-    const fixersBonus = compatibleLands.length * 5;
-    const score = spellScore + fixersBonus;
+    const viableTribes = detectViableTribeClusters(compatibleSpells);
 
-    candidatePaths.push({
-      colors,
-      spells: compatibleSpells,
-      lands: compatibleLands,
-      score,
-    });
+    if (viableTribes.length > 0) {
+      for (const vt of viableTribes) {
+        const scored = compatibleSpells.map((c) => ({
+          card: c,
+          adjusted: computeAdjustedSpellScore(
+            c,
+            vt.primaryTribe,
+            vt.compatibleTribes,
+            bombThreshold,
+          ),
+        }));
+        scored.sort((a, b) => b.adjusted - a.adjusted);
+        const topSpells = scored.slice(0, targetSpellCount);
+        const spellScore = topSpells.reduce((acc, s) => acc + s.adjusted, 0);
+        const fixersBonus = compatibleLands.length * 5;
+        const score = spellScore + fixersBonus;
+
+        candidatePaths.push({
+          colors,
+          spells: compatibleSpells,
+          lands: compatibleLands,
+          score,
+          focusTribe: vt.primaryTribe,
+          compatibleTribes: vt.compatibleTribes,
+        });
+      }
+    } else {
+      const topSpells = [...compatibleSpells]
+        .sort((a, b) => b.staticScore - a.staticScore)
+        .slice(0, targetSpellCount);
+      const spellScore = topSpells.reduce((acc, c) => acc + c.staticScore, 0);
+      const fixersBonus = compatibleLands.length * 5;
+      const score = spellScore + fixersBonus;
+
+      candidatePaths.push({
+        colors,
+        spells: compatibleSpells,
+        lands: compatibleLands,
+        score,
+      });
+    }
   };
 
   // Check 2-color pairs
@@ -298,10 +498,12 @@ export function recommendDeckBuilds(
   const selectedPaths: ColorPathCandidate[] = [];
   for (const cand of candidatePaths) {
     if (selectedPaths.length >= 3) break;
-    // Check diversity: avoid picking 3 almost identical paths
+    // Check diversity: avoid picking identical color + focusTribe paths
     const isDuplicate = selectedPaths.some(
       (p) =>
-        p.colors.length === cand.colors.length && p.colors.every((c) => cand.colors.includes(c)),
+        p.colors.length === cand.colors.length &&
+        p.colors.every((c) => cand.colors.includes(c)) &&
+        p.focusTribe === cand.focusTribe,
     );
     if (!isDuplicate) {
       selectedPaths.push(cand);
@@ -321,10 +523,20 @@ export function recommendDeckBuilds(
 
   // Assemble and evaluate options
   const options: DeckBuildOption[] = selectedPaths.map((cand, idx) => {
-    const { maindeck, sideboard } = assembleDeckOption(cand, pool, customBasics);
+    const { maindeck, sideboard } = assembleDeckOption(cand, pool, customBasics, evaluationOptions);
     const evaluation = evaluateDeck(maindeck, evaluationOptions);
     const position = idx + 1;
-    const title = `Option ${String(position)} : ${evaluation.archetype.label}`;
+    let label = evaluation.archetype.label;
+    if (cand.focusTribe) {
+      const tribeLabel = TRIBE_PLURAL_LABELS[cand.focusTribe] ?? `${cand.focusTribe}s`;
+      if (
+        !label.toLowerCase().includes(cand.focusTribe.toLowerCase()) &&
+        !label.toLowerCase().includes(tribeLabel.toLowerCase())
+      ) {
+        label = `${label} (${tribeLabel})`;
+      }
+    }
+    const title = `Option ${String(position)} : ${label}`;
 
     return {
       position,
@@ -337,9 +549,13 @@ export function recommendDeckBuilds(
 
   // Re-sort options by overallScore descending and renumber positions
   options.sort((a, b) => b.evaluation.overallScore - a.evaluation.overallScore);
-  return options.map((opt, i) => ({
-    ...opt,
-    position: i + 1,
-    title: `Option ${String(i + 1)} : ${opt.evaluation.archetype.label}`,
-  }));
+  return options.map((opt, i) => {
+    const titleParts = opt.title.split(" : ");
+    const suffix = titleParts.slice(1).join(" : ") || opt.evaluation.archetype.label;
+    return {
+      ...opt,
+      position: i + 1,
+      title: `Option ${String(i + 1)} : ${suffix}`,
+    };
+  });
 }
