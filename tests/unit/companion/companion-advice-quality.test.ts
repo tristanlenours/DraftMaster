@@ -7,7 +7,7 @@ import {
 } from "../../../src/companion/coach-prompts.ts";
 
 describe("Companion Advice Quality and Resolution (Diagnosing Bugs Loop)", () => {
-  const resolver = new CardResolver();
+  const resolver = new CardResolver("non-existent-directory");
 
   it("resolves Ocelot Pride with oracle text, power score, and lifelink", () => {
     const card = resolver.resolve(90887);

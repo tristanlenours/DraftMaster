@@ -57,12 +57,26 @@ function parseOldSchoolMana(raw: string | null | undefined): {
   };
 }
 
+interface UntappedCardMeta {
+  readonly name?: string | undefined;
+  readonly mana_cost?: string | undefined;
+  readonly cmc?: number | undefined;
+  readonly type_line?: string | undefined;
+  readonly oracle_text?: string | undefined;
+  readonly colors?: readonly string[] | undefined;
+  readonly color_identity?: readonly string[] | undefined;
+  readonly produced_mana?: readonly string[] | undefined;
+  readonly keywords?: readonly string[] | undefined;
+  readonly subtypes?: readonly string[] | undefined;
+}
+
 export class CardResolver {
   private db: DatabaseSync | null = null;
   private cache = new Map<number, CompanionCard>();
   private stmt: any = null;
   private locStmt: any = null;
   private itemCatalog = new Map<string, any>();
+  private grpIdMetadata = new Map<number, UntappedCardMeta>();
 
   constructor(customPath?: string) {
     this.initCatalog();
@@ -89,6 +103,74 @@ export class CardResolver {
     } catch (e: any) {
       console.warn("[CardResolver] Could not load item catalog:", e.message);
     }
+
+    try {
+      const metadataPath = path.resolve(
+        process.cwd(),
+        "data",
+        "untapped_history",
+        "card-metadata-v1.json",
+      );
+      if (fs.existsSync(metadataPath)) {
+        const content = fs.readFileSync(metadataPath, "utf8");
+        const metadataObj = JSON.parse(content) as Record<string, UntappedCardMeta>;
+        for (const [key, val] of Object.entries(metadataObj)) {
+          const id = Number(key);
+          if (!isNaN(id)) {
+            this.grpIdMetadata.set(id, val);
+          }
+        }
+      }
+    } catch (e: any) {
+      console.warn("[CardResolver] Could not load untapped metadata:", e.message);
+    }
+  }
+
+  private buildCardFromMetadata(grpId: number, meta: UntappedCardMeta): CompanionCard {
+    const { manaCost, cmc, colors } = parseOldSchoolMana(meta.mana_cost);
+    const cleanName = (meta.name ?? "").trim();
+    const lower = cleanName.toLowerCase();
+    const isLand = (meta.type_line ?? "").includes("Land") || !manaCost;
+    const imageUrl = `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(cleanName)}&format=image&version=normal`;
+
+    const item = this.itemCatalog.get(lower);
+    const oracleText = item?.oracleText || meta.oracle_text || "";
+
+    const producesColors: string[] = item?.producesColors
+      ? [...item.producesColors]
+      : Array.isArray(meta.produced_mana)
+        ? [...meta.produced_mana]
+        : [];
+
+    const powerScore = item?.powerScore?.score ?? item?.staticScore;
+    const tier =
+      item?.cubeAnalyses?.nico_candyshop?.tier ??
+      (powerScore && powerScore >= 45 ? "S" : powerScore && powerScore >= 35 ? "A" : undefined);
+    const roles = item?.objectiveAnalysis?.roles;
+    const typeLine = item?.typeLine ?? meta.type_line ?? (isLand ? "Land" : "Spell");
+
+    const card: CompanionCard = {
+      grpId,
+      name: cleanName,
+      manaCost: manaCost || (meta.mana_cost ? parseOldSchoolMana(meta.mana_cost).manaCost : ""),
+      cmc: item?.cmc ?? (typeof meta.cmc === "number" ? meta.cmc : cmc),
+      rarity: typeof item?.rarity === "number" ? item.rarity : 3,
+      colors:
+        Array.isArray(meta.colors) && meta.colors.length > 0
+          ? meta.colors
+          : (item?.colors ?? colors),
+      isLand: item?.isLand ?? isLand,
+      imageUrl,
+      oracleText,
+      typeLine,
+      producesColors: producesColors.length > 0 ? producesColors : undefined,
+      powerScore,
+      tier,
+      roles,
+    };
+
+    this.cache.set(grpId, card);
+    return card;
   }
 
   private initDb(customPath?: string) {
@@ -127,7 +209,12 @@ export class CardResolver {
     const cached = this.cache.get(grpId);
     if (cached) return cached;
 
+    const meta = this.grpIdMetadata.get(grpId);
+
     if (!this.stmt) {
+      if (meta?.name) {
+        return this.buildCardFromMetadata(grpId, meta);
+      }
       const fallback: CompanionCard = {
         grpId,
         name: `Card #${grpId}`,
@@ -144,6 +231,9 @@ export class CardResolver {
     try {
       const row: any = this.stmt.get(grpId);
       if (!row || !row.Name) {
+        if (meta?.name) {
+          return this.buildCardFromMetadata(grpId, meta);
+        }
         const unknown: CompanionCard = {
           grpId,
           name: `Card #${grpId}`,
@@ -227,6 +317,9 @@ export class CardResolver {
       this.cache.set(grpId, card);
       return card;
     } catch (e: any) {
+      if (meta?.name) {
+        return this.buildCardFromMetadata(grpId, meta);
+      }
       console.error(`[CardResolver] Error resolving card ${grpId}:`, e.message);
       return {
         grpId,
