@@ -1,12 +1,9 @@
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 
 const rootDir = process.cwd();
 const itemsDir = resolve(rootDir, 'data/cards/items');
-const rawPath = resolve(rootDir, 'data/cubes/titou_tribal/cubecobra-raw.json');
-const titouMetaPath = resolve(rootDir, 'data/cubes/titou_tribal/cube-meta.json');
 const titouCubePath = resolve(rootDir, 'data/cubes/titou_tribal/cube.json');
-const MAX_POWER_SCORE = 55;
 
 export function cardNameToSlug(name) {
   return name
@@ -17,28 +14,23 @@ export function cardNameToSlug(name) {
     .replace(/^-+|-+$/g, '');
 }
 
-console.log('🏛️ Starting Titou Tribal Cube Balanced Regrading...');
-
-// 1. Load CubeCobra raw archive
-const rawCube = JSON.parse(readFileSync(rawPath, 'utf8'));
-const mainboard = rawCube.cards?.mainboard || [];
-console.log(`📦 Loaded ${mainboard.length} cards from Titou CubeCobra raw archive.`);
-
-// 2. Build map of ELO and details by canonical card name
-const eloByName = new Map();
-const eloByOracle = new Map();
-
-for (const entry of mainboard) {
-  const d = entry.details;
-  if (!d || !d.name) continue;
-  const elo = d.elo || 1200;
-  eloByName.set(d.name, elo);
-  if (d.oracle_id) {
-    eloByOracle.set(d.oracle_id, elo);
+function safeWriteFileSync(filePath, data, encoding = 'utf8') {
+  let attempts = 0;
+  while (attempts < 5) {
+    try {
+      writeFileSync(filePath, data, encoding);
+      return;
+    } catch (err) {
+      attempts++;
+      if (attempts >= 5) throw err;
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 15);
+    }
   }
 }
 
-// 3. Collect all cards in data/cards/items that belong to titou_tribal
+console.log('🏛️ Starting Titou Tribal Cube Balanced Regrading (Power Score driven)...');
+
+// 1. Collect all cards in data/cards/items that belong to titou_tribal
 const itemFiles = readdirSync(itemsDir).filter((f) => f.endsWith('.json'));
 const titouCards = [];
 
@@ -47,12 +39,12 @@ for (const file of itemFiles) {
   try {
     const doc = JSON.parse(readFileSync(p, 'utf8'));
     if (doc.presentInCubes && doc.presentInCubes.includes('titou_tribal')) {
-      const elo = eloByOracle.get(doc.oracleId) || eloByName.get(doc.name) || 1200;
+      const cardScore = doc.powerScore?.score ?? 25;
       titouCards.push({
         file,
         path: p,
         doc,
-        elo,
+        cardScore,
       });
     }
   } catch (err) {
@@ -62,52 +54,30 @@ for (const file of itemFiles) {
 
 console.log(`🔍 Found ${titouCards.length} Titou Tribal cards in items.`);
 
-// Sort by ELO descending to establish homogeneous percentiles
-titouCards.sort((a, b) => b.elo - a.elo);
-
-const total = titouCards.length;
-// Target distribution: ~8% S, ~22% A, ~40% B, ~20% C, ~10% D
-const sCount = Math.round(total * 0.08); // ~43 cards
-const aCount = Math.round(total * 0.22); // ~119 cards
-const bCount = Math.round(total * 0.40); // ~216 cards
-const cCount = Math.round(total * 0.20); // ~108 cards
-const dCount = total - sCount - aCount - bCount - cCount; // ~55 cards
-
-const sCutoffElo = titouCards[sCount - 1].elo;
-const aCutoffElo = titouCards[sCount + aCount - 1].elo;
-const bCutoffElo = titouCards[sCount + aCount + bCount - 1].elo;
-const cCutoffElo = titouCards[sCount + aCount + bCount + cCount - 1].elo;
-
-console.log(`📊 Balanced Cutoffs:`);
-console.log(`  Tier S (>= ${Math.round(sCutoffElo)} ELO): ${sCount} cards (Top 8%)`);
-console.log(`  Tier A (>= ${Math.round(aCutoffElo)} ELO): ${aCount} cards (Next 22%)`);
-console.log(`  Tier B (>= ${Math.round(bCutoffElo)} ELO): ${bCount} cards (Next 40%)`);
-console.log(`  Tier C (>= ${Math.round(cCutoffElo)} ELO): ${cCount} cards (Next 20%)`);
-console.log(`  Tier D (<  ${Math.round(cCutoffElo)} ELO): ${dCount} cards (Bottom 10%)`);
+// Sort by Power Score descending
+titouCards.sort((a, b) => b.cardScore - a.cardScore);
 
 const counts = { S: 0, A: 0, B: 0, C: 0, D: 0 };
 const titouCardIndex = [];
 
-for (let i = 0; i < titouCards.length; i++) {
-  const { path, doc, elo } = titouCards[i];
-
+for (const { path, doc, cardScore } of titouCards) {
   let tier = 'B';
   let fit = 'support';
   let scoreModifier = 0.0;
 
-  if (i < sCount) {
+  if (cardScore >= 38) {
     tier = 'S';
     fit = 'staple';
     scoreModifier = 6.0;
-  } else if (i < sCount + aCount) {
+  } else if (cardScore >= 26) {
     tier = 'A';
     fit = 'support';
     scoreModifier = 3.0;
-  } else if (i < sCount + aCount + bCount) {
+  } else if (cardScore >= 17) {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0.0;
-  } else if (i < sCount + aCount + bCount + cCount) {
+  } else if (cardScore >= 10) {
     tier = 'C';
     fit = 'filler';
     scoreModifier = -3.0;
@@ -115,6 +85,11 @@ for (let i = 0; i < titouCards.length; i++) {
     tier = 'D';
     fit = 'filler';
     scoreModifier = -6.0;
+  }
+
+  // Invariant: no card with power score < 38 in Tier S
+  if (tier === 'S' && cardScore < 38) {
+    tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
   }
 
   // Preserve Tribal synergy logic
@@ -161,7 +136,7 @@ for (let i = 0; i < titouCards.length; i++) {
     ? "Excellente pièce de l'archétype Anges, capitalise sur les synergies de gain de vie et le vol."
     : isHuman
     ? "Moteur de l'archétype Humains, prend rapidement de la valeur avec les synergies tribales."
-    : `Carte de rang ${tier} (ELO: ${Math.round(elo)}) dans l'environnement tribal et interactif de Titou.`;
+    : `Carte de rang ${tier} (Score : ${cardScore.toFixed(1)}) dans l'environnement tribal et interactif de Titou.`;
 
   doc.cubeAnalyses.titou_tribal = {
     cubeKey: 'titou_tribal',
@@ -187,31 +162,14 @@ for (let i = 0; i < titouCards.length; i++) {
           colors: doc.colors && doc.colors.length > 0 ? doc.colors : ['W'],
           archetype: isAngel ? 'ANGELS' : isHuman ? 'HUMANS' : 'TRIBAL SYNERGY',
           grade: tier,
-          winrateOrScore: `${(45 + (elo - 1000) / 25).toFixed(1)} %`,
+          winrateOrScore: `Score ${cardScore.toFixed(1)}`,
           comment: `Alignement au métagame Titou Tribal (${tier}).`,
         },
       ],
     },
   };
 
-  // Harmonize powerScore if expert_heuristic fallback, except for test cards with fixed fixtures
-  if (
-    doc.powerScore &&
-    doc.powerScore.source === 'expert_heuristic' &&
-    doc.name !== "Thalia's Lieutenant"
-  ) {
-    const harmonized = Math.min(
-      MAX_POWER_SCORE,
-      Math.max(1, Math.round(((elo - 900) / 14) * 10) / 10)
-    );
-    doc.powerScore.score = harmonized;
-    doc.powerScore.rawSourceScore = Math.round(elo);
-    doc.powerScore.source = 'cubecobra_elo';
-    doc.powerScore.harmonizationDegree = 'calibrated_medium';
-    doc.powerScore.confidence = 0.85;
-  }
-
-  writeFileSync(path, JSON.stringify(doc, null, 2) + '\n', 'utf8');
+  safeWriteFileSync(path, JSON.stringify(doc, null, 2) + '\n', 'utf8');
 
   titouCardIndex.push({
     slug: doc.slug || cardNameToSlug(doc.name),
@@ -228,5 +186,5 @@ console.log('✅ Updated card documents in data/cards/items/:', counts);
 // Update titou_tribal/cube.json
 const titouCube = JSON.parse(readFileSync(titouCubePath, 'utf8'));
 titouCube.cardIndex = titouCardIndex;
-writeFileSync(titouCubePath, JSON.stringify(titouCube, null, 2) + '\n', 'utf8');
+safeWriteFileSync(titouCubePath, JSON.stringify(titouCube, null, 2) + '\n', 'utf8');
 console.log(`✅ Updated titou_tribal/cube.json with ${titouCardIndex.length} cards indexed.`);

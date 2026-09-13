@@ -1,5 +1,6 @@
 import { computePowerRankings, toPowerBarPercentage } from "./power-ranking.js";
 import { SoloDraftController, openDeckShowcaseModal } from "./solo-draft.js";
+import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 import {
   fetchLeaderboard,
   fetchReports,
@@ -846,39 +847,65 @@ function openDeckReviewModal(entry) {
   if (elements.deckReviewTitle)
     elements.deckReviewTitle.textContent = `Deck de ${entry.playerName}`;
   if (elements.deckReviewMeta) {
-    const mins = Math.floor(entry.totalDurationSeconds / 60);
-    const secs = entry.totalDurationSeconds % 60;
+    const mins = Math.floor((entry.totalDurationSeconds || 0) / 60);
+    const secs = (entry.totalDurationSeconds || 0) % 60;
     elements.deckReviewMeta.textContent = `Score : ${entry.overallScore}/100 • ${entry.archetype?.label || "Archétype Libre"} • Durée : ${String(mins)}m ${String(secs)}s`;
+  }
+
+  const radarContainer = document.getElementById("deck-review-radar-container");
+  if (radarContainer) {
+    const radar = entry.radar || { power: 70, synergy: 70, curve: 70, mana: 70, interaction: 70 };
+    radarContainer.innerHTML = `
+      <div class="seat-radar-grid" style="margin-bottom: 1.25rem;">
+        <div class="radar-bar-item">
+          <div class="rbi-header">
+            <span class="rbi-label">⚡ Puissance Brute</span>
+            <span class="rbi-val">${radar.power}/100</span>
+          </div>
+          <div class="rbi-track"><div class="rbi-fill fill-power" style="width: ${radar.power}%;"></div></div>
+        </div>
+        <div class="radar-bar-item">
+          <div class="rbi-header">
+            <span class="rbi-label">🔄 Synergie & Thème</span>
+            <span class="rbi-val">${radar.synergy}/100</span>
+          </div>
+          <div class="rbi-track"><div class="rbi-fill fill-synergy" style="width: ${radar.synergy}%;"></div></div>
+        </div>
+        <div class="radar-bar-item">
+          <div class="rbi-header">
+            <span class="rbi-label">📈 Courbe de Mana</span>
+            <span class="rbi-val">${radar.curve}/100</span>
+          </div>
+          <div class="rbi-track"><div class="rbi-fill fill-curve" style="width: ${radar.curve}%;"></div></div>
+        </div>
+        <div class="radar-bar-item">
+          <div class="rbi-header">
+            <span class="rbi-label">💧 Base de Mana</span>
+            <span class="rbi-val">${radar.mana}/100</span>
+          </div>
+          <div class="rbi-track"><div class="rbi-fill fill-mana" style="width: ${radar.mana}%;"></div></div>
+        </div>
+        <div class="radar-bar-item">
+          <div class="rbi-header">
+            <span class="rbi-label">🛡️ Interaction & Retraits</span>
+            <span class="rbi-val">${radar.interaction}/100</span>
+          </div>
+          <div class="rbi-track"><div class="rbi-fill fill-interaction" style="width: ${radar.interaction}%;"></div></div>
+        </div>
+      </div>
+    `;
   }
 
   if (elements.deckReviewCardsGrid) {
     const cards = entry.maindeckCards || [];
     if (cards.length === 0) {
-      elements.deckReviewCardsGrid.innerHTML = `<p class="arcade-empty-cell">Composition des 23 cartes non détaillée pour ce record historique.</p>`;
+      elements.deckReviewCardsGrid.innerHTML = `<p class="arcade-empty-cell">Composition des cartes non détaillée pour ce record historique.</p>`;
     } else {
-      elements.deckReviewCardsGrid.innerHTML = cards
-        .map(
-          (c) => `
-            <div class="review-card-item">
-              <img src="${resolveCardImageUrl(c, state.cardLanguage)}" alt="${escapeHtml(getCardDisplayName(c, state.cardLanguage))}" loading="lazy" />
-              <div class="review-card-name">${escapeHtml(getCardDisplayName(c, state.cardLanguage))}</div>
-            </div>
-          `,
-        )
-        .join("");
-    }
-    elements.deckReviewCardsGrid
-      .querySelectorAll(".review-card-item img")
-      .forEach((image, index) => {
-        const card = cards[index];
-        if (card) {
-          loadImageWithFallback(
-            image,
-            resolveCardImageUrl(card, state.cardLanguage),
-            getCardImageFallbackUrl(card, state.cardLanguage),
-          );
-        }
+      render17LandsDeckView(elements.deckReviewCardsGrid, cards, {
+        language: state.cardLanguage,
+        basicLands: entry.basicLands,
       });
+    }
   }
 
   elements.deckReviewBackdrop.hidden = false;
@@ -2087,13 +2114,21 @@ function renderCubeDetail(cubeKey) {
 
 // Determine Tier from active Cube analysis if available, otherwise from Power Ranking score
 function getCardTier(card, cubeKey = state.activeCubeKey) {
+  const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
   if (cubeKey && card.cubeAnalyses && card.cubeAnalyses[cubeKey]?.tier) {
     const cubeTier = card.cubeAnalyses[cubeKey].tier;
     if (["S", "A", "B", "C", "D"].includes(cubeTier)) {
+      // Invariant: Tier S can never have a power score < 38
+      if (cubeTier === "S" && score < 38) {
+        return scoreToCardTier(score);
+      }
       return cubeTier;
     }
   }
-  const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
+  return scoreToCardTier(score);
+}
+
+function scoreToCardTier(score) {
   if (score >= 38) return "S";
   if (score >= 26) return "A";
   if (score >= 17) return "B";

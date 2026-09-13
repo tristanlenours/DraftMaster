@@ -35,9 +35,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/3028075c-5fc5-4942-a984-1ffcf7a8933d/normal.webp",
   "powerScore": {
-    "score": 19.9,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1130.3,
+    "score": 19.6,
+    "source": "expert_heuristic",
+    "rawSourceScore": 19.6,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -47,12 +47,12 @@
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1130).",
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : 19.6).",
     "roles": [
       "premium_removal"
     ],
-    "floorRating": 5.7,
-    "ceilingRating": 6.7,
+    "floorRating": 3,
+    "ceilingRating": 3.7,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 4,
@@ -64,8 +64,8 @@
   "cubeAnalyses": {
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "nico:artifact_ramp"
       ],
@@ -74,7 +74,7 @@
         "lifegain",
         "triggered-ability"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -85,8 +85,8 @@
               "W"
             ],
             "archetype": "ARTIFACT RAMP",
-            "grade": "C",
-            "winrateOrScore": "46.5 %",
+            "grade": "B",
+            "winrateOrScore": "Score 19.6",
             "comment": "Alignement Vintage compétitif."
           }
         ]
@@ -94,8 +94,8 @@
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "D",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:selesnya_tokens_midrange"
       ],
@@ -104,7 +104,7 @@
         "lifegain",
         "triggered-ability"
       ],
-      "scoreModifier": -10,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -115,8 +115,8 @@
               "W"
             ],
             "archetype": "SELESNYA TOKENS MIDRANGE",
-            "grade": "D",
-            "winrateOrScore": "48.0 %",
+            "grade": "B",
+            "winrateOrScore": "Score 19.6",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

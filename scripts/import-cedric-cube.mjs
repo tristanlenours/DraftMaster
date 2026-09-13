@@ -360,28 +360,28 @@ for (const entry of mainboard) {
     cardName = existingEntry.name;
   }
 
-  const elo = d.elo || 1200;
+  const cardScore = existingEntry?.doc?.powerScore?.score ?? 25;
   let tier = 'B';
   let fit = 'support';
   let scoreModifier = 0;
 
-  if (S_TIER_STAPLES.has(cardName) || elo >= 1650) {
+  if (S_TIER_STAPLES.has(cardName) || cardScore >= 38) {
     tier = 'S';
     fit = BUILD_AROUNDS.has(cardName) ? 'build_around' : 'staple';
     scoreModifier = 14;
   } else if (BUILD_AROUNDS.has(cardName)) {
-    tier = elo >= 1350 ? 'A' : 'B';
+    tier = cardScore >= 26 ? 'A' : 'B';
     fit = 'build_around';
     scoreModifier = 10;
-  } else if (elo >= 1350) {
+  } else if (cardScore >= 26) {
     tier = 'A';
     fit = 'support';
     scoreModifier = 7;
-  } else if (elo >= 1220) {
+  } else if (cardScore >= 17) {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0;
-  } else if (elo >= 1150) {
+  } else if (cardScore >= 10) {
     tier = 'C';
     fit = 'filler';
     scoreModifier = -5;
@@ -389,6 +389,13 @@ for (const entry of mainboard) {
     tier = 'D';
     fit = 'filler';
     scoreModifier = -10;
+  }
+
+  // Strict invariant: no card in Tier S with powerScore < 38
+  if (tier === 'S' && cardScore < 38) {
+    tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
+    fit = BUILD_AROUNDS.has(cardName) ? 'build_around' : 'support';
+    scoreModifier = tier === 'A' ? 7 : tier === 'B' ? 0 : -5;
   }
 
   // Determine Archetype
@@ -446,7 +453,7 @@ for (const entry of mainboard) {
           colors: colors.length > 0 ? colors : ['W'],
           archetype: archetypes[0].replace('cedric:', '').replace(/_/g, ' ').toUpperCase(),
           grade: tier,
-          winrateOrScore: `${Math.min(68, Math.max(48, Math.round((50 + (elo - 1200) / 20) * 10) / 10)).toFixed(1)} %`,
+          winrateOrScore: `Score ${cardScore.toFixed(1)}`,
           comment: `Pilier compétitif du cube de Cédric.`,
         },
       ],
@@ -503,11 +510,6 @@ for (const entry of mainboard) {
       roles.push(tier === 'S' || tier === 'A' ? 'bomb' : 'beater');
     }
 
-    const calculatedPowerScore = Math.min(
-      51,
-      Math.max(10, Math.round(((elo - 900) / 14.5) * 10) / 10)
-    );
-
     const imageUrl =
       d.image_normal ||
       `https://api.scryfall.com/cards/${d.scryfall_id}?format=image`;
@@ -542,19 +544,19 @@ for (const entry of mainboard) {
       },
       imageUrl,
       powerScore: {
-        score: calculatedPowerScore,
-        source: 'cubecobra_elo',
-        rawSourceScore: Math.round(elo),
+        score: cardScore,
+        source: 'expert_heuristic',
+        rawSourceScore: cardScore,
         harmonizationDegree: 'calibrated_high',
         confidence: 0.9,
         updatedAt: '2026-09-06T00:00:00.000Z',
       },
       presentInCubes: ['cedric_cube'],
       objectiveAnalysis: {
-        summary: `Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: ${Math.round(elo)}).`,
+        summary: `Carte High-Power sélectionnée pour le Cube de Cédric (Score : ${cardScore.toFixed(1)}).`,
         roles,
-        floorRating: Math.min(10, Math.max(1, Math.round((elo / 200) * 10) / 10)),
-        ceilingRating: Math.min(10, Math.max(1, Math.round(((elo + 200) / 200) * 10) / 10)),
+        floorRating: Math.min(9.5, Math.max(1, Math.round((cardScore / 5.5) * 0.85 * 10) / 10)),
+        ceilingRating: Math.min(10, Math.max(2, Math.round((cardScore / 5.5) * 1.05 * 10) / 10)),
         tempoImpact: tier === 'S' || tier === 'A' ? 'high' : 'medium',
         quadrantStrengths: {
           opening: tier === 'S' ? 4.7 : 3.8,

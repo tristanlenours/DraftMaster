@@ -30,9 +30,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/9736d6f4-5ff6-4006-b45d-8e630382d160/normal.webp",
   "powerScore": {
-    "score": 19,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1209.1,
+    "score": 19.8,
+    "source": "expert_heuristic",
+    "rawSourceScore": 19.8,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -42,12 +42,12 @@
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1209).",
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : 19.8).",
     "roles": [
       "premium_removal"
     ],
-    "floorRating": 6,
-    "ceilingRating": 7,
+    "floorRating": 3.1,
+    "ceilingRating": 3.8,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 4,
@@ -80,7 +80,7 @@
             ],
             "archetype": "VINTAGE STAPLE",
             "grade": "B",
-            "winrateOrScore": "50.5 %",
+            "winrateOrScore": "Score 19.8",
             "comment": "Alignement Vintage compétitif."
           }
         ]
@@ -88,8 +88,8 @@
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -98,7 +98,7 @@
         "toughness-boost-to-all",
         "cycle-mh1-force"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -108,8 +108,8 @@
               "W"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "C",
-            "winrateOrScore": "50.5 %",
+            "grade": "B",
+            "winrateOrScore": "Score 19.8",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

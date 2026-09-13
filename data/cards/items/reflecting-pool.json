@@ -32,9 +32,9 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/1/8/18a1b3f5-473d-45ca-be0d-e67e77ba30ce.jpg?1783922656",
   "powerScore": {
-    "score": 20.8,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1374.2,
+    "score": 21.9,
+    "source": "expert_heuristic",
+    "rawSourceScore": 21.9,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -62,20 +62,22 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": 3,
-      "analysis": "Carte de rang A (ELO: 1374) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 21.9) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
-        "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
+        "howToPlay": "Jouez Reflecting Pool sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
-            "colors": [],
+            "colors": [
+              "W"
+            ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "A",
-            "winrateOrScore": "60.0 %",
-            "comment": "Alignement au métagame Titou Tribal (A)."
+            "grade": "B",
+            "winrateOrScore": "Score 21.9",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }
@@ -83,7 +85,7 @@
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -92,7 +94,7 @@
         "card-names",
         "rainbow-land"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -102,8 +104,8 @@
               "W"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "A",
-            "winrateOrScore": "58.7 %",
+            "grade": "B",
+            "winrateOrScore": "Score 21.9",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

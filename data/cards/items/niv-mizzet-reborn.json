@@ -43,9 +43,9 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/5/6/56a2609d-b535-400b-81d9-72989a33c70f.jpg?1783933391",
   "powerScore": {
-    "score": 19.1,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1232,
+    "score": 20,
+    "source": "expert_heuristic",
+    "rawSourceScore": 20,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -72,23 +72,27 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -3,
-      "analysis": "Carte de rang C (ELO: 1232) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 20.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Niv-Mizzet Reborn sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
             "colors": [
+              "B",
+              "G",
+              "R",
+              "U",
               "W"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "C",
-            "winrateOrScore": "54.3 %",
-            "comment": "Alignement au métagame Titou Tribal (C)."
+            "grade": "B",
+            "winrateOrScore": "Score 20.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }
@@ -120,7 +124,7 @@
             ],
             "archetype": "VINTAGE STAPLE",
             "grade": "B",
-            "winrateOrScore": "51.6 %",
+            "winrateOrScore": "Score 20.0",
             "comment": "Alignement Vintage compétitif."
           }
         ]

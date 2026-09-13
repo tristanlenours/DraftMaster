@@ -29,8 +29,8 @@
   "imageUrl": "https://assets.cubecobra.com/cardimages/7eda1524-44dd-4f70-ac21-bac51578860e/normal.webp",
   "powerScore": {
     "score": 17.4,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1208.3,
+    "source": "expert_heuristic",
+    "rawSourceScore": 17.4,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -39,12 +39,12 @@
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1208).",
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (Score : 17.4).",
     "roles": [
       "premium_removal"
     ],
-    "floorRating": 6,
-    "ceilingRating": 7,
+    "floorRating": 2.7,
+    "ceilingRating": 3.3,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 3.8,
@@ -56,8 +56,8 @@
   "cubeAnalyses": {
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -66,7 +66,7 @@
         "burn",
         "single-target-instant-sorcery"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -76,8 +76,8 @@
               "R"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "C",
-            "winrateOrScore": "50.4 %",
+            "grade": "B",
+            "winrateOrScore": "Score 17.4",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

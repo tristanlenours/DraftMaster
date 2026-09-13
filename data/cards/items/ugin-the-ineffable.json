@@ -29,8 +29,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/2/e/2eb7e322-aba0-42f5-80a1-267f3444ac4d.jpg?1783915455",
   "powerScore": {
     "score": 23.8,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1393.2,
+    "source": "expert_heuristic",
+    "rawSourceScore": 23.8,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -59,20 +59,22 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": 3,
-      "analysis": "Carte de rang A (ELO: 1393) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 23.8) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
-        "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
+        "howToPlay": "Jouez Ugin, the Ineffable sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
-            "colors": [],
+            "colors": [
+              "W"
+            ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "A",
-            "winrateOrScore": "60.7 %",
-            "comment": "Alignement au métagame Titou Tribal (A)."
+            "grade": "B",
+            "winrateOrScore": "Score 23.8",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }
@@ -80,7 +82,7 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -89,16 +91,18 @@
         "passive-ability",
         "hate-colored"
       ],
-      "scoreModifier": 8,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
         "archetypeFit": [
           {
-            "colors": [],
+            "colors": [
+              "W"
+            ],
             "archetype": "VINTAGE STAPLE",
-            "grade": "A",
-            "winrateOrScore": "59.7 %",
+            "grade": "B",
+            "winrateOrScore": "Score 23.8",
             "comment": "Alignement Vintage compétitif."
           }
         ]
@@ -107,7 +111,7 @@
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -116,7 +120,7 @@
         "passive-ability",
         "hate-colored"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -126,8 +130,8 @@
               "W"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "A",
-            "winrateOrScore": "59.7 %",
+            "grade": "B",
+            "winrateOrScore": "Score 23.8",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

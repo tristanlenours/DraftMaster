@@ -103,9 +103,8 @@ for (const entry of rawMainboard) {
         produced_mana: doc.producesColors,
         oracle_text: doc.oracleText,
         keywords: doc.keywords,
-        elo: 1550,
         image_normal: doc.image?.url,
-        art_crop: doc.image?.artCropUrl,
+        artCropUrl: doc.image?.artCropUrl,
       },
     });
     replacedCount++;
@@ -407,28 +406,24 @@ for (const entry of mainboard) {
     cardName = existingEntry.name;
   }
 
-  const elo = d.elo || 1200;
+  const cardScore = existingEntry?.doc?.powerScore?.score ?? 25;
   let tier = 'B';
   let fit = 'support';
   let scoreModifier = 0;
 
-  if (SHOCKLAND_NAMES.has(cardName)) {
+  if (SHOCKLAND_NAMES.has(cardName) || cardScore >= 38) {
     tier = 'S';
     fit = 'staple';
     scoreModifier = 10;
-  } else if (elo >= 1400) {
-    tier = 'S';
-    fit = 'staple';
-    scoreModifier = 10;
-  } else if (elo >= 1300) {
+  } else if (cardScore >= 26) {
     tier = 'A';
     fit = 'support';
     scoreModifier = 6;
-  } else if (elo >= 1200) {
+  } else if (cardScore >= 17) {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0;
-  } else if (elo >= 1100) {
+  } else if (cardScore >= 10) {
     tier = 'C';
     fit = 'filler';
     scoreModifier = -5;
@@ -436,6 +431,13 @@ for (const entry of mainboard) {
     tier = 'D';
     fit = 'filler';
     scoreModifier = -10;
+  }
+
+  // Strict invariant: no card in Tier S with powerScore < 38
+  if (tier === 'S' && cardScore < 38) {
+    tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
+    fit = 'support';
+    scoreModifier = tier === 'A' ? 6 : tier === 'B' ? 0 : -5;
   }
 
   // Archetype matching
@@ -493,7 +495,7 @@ for (const entry of mainboard) {
           colors: colors.length > 0 ? colors : ['W'],
           archetype: cardArchetypes[0].replace('titou_peasant:', '').replace(/_/g, ' ').toUpperCase(),
           grade: tier,
-          winrateOrScore: `${Math.min(68, Math.max(48, Math.round((50 + (elo - 1200) / 20) * 10) / 10)).toFixed(1)} %`,
+          winrateOrScore: `Score ${cardScore.toFixed(1)}`,
           comment: `Pièce de valeur pour l'environnement Titou Peasant Plus.`,
         },
       ],
@@ -554,11 +556,6 @@ for (const entry of mainboard) {
       roles.push(tier === 'S' || tier === 'A' ? 'bomb' : 'beater');
     }
 
-    const calculatedPowerScore = Math.min(
-      50,
-      Math.max(10, Math.round(((elo - 900) / 14.5) * 10) / 10)
-    );
-
     const imageUrl =
       d.image_normal ||
       (d.scryfall_id ? `https://api.scryfall.com/cards/${d.scryfall_id}?format=image` : 'https://cards.scryfall.io/large/front/0/0/placeholder.jpg');
@@ -593,19 +590,19 @@ for (const entry of mainboard) {
       },
       imageUrl,
       powerScore: {
-        score: calculatedPowerScore,
-        source: 'cubecobra_elo',
-        rawSourceScore: Math.round(elo),
+        score: cardScore,
+        source: 'expert_heuristic',
+        rawSourceScore: cardScore,
         harmonizationDegree: 'calibrated_high',
         confidence: 0.9,
         updatedAt: '2026-09-08T00:00:00.000Z',
       },
       presentInCubes: ['titou_arena_peasant_plus'],
       objectiveAnalysis: {
-        summary: `Carte sélectionnée pour le Cube Titou Arena Peasant Plus (ELO CubeCobra: ${Math.round(elo)}).`,
+        summary: `Carte sélectionnée pour le Cube Titou Arena Peasant Plus (Score : ${cardScore.toFixed(1)}).`,
         roles,
-        floorRating: Math.min(10, Math.max(1, Math.round((elo / 200) * 10) / 10)),
-        ceilingRating: Math.min(10, Math.max(1, Math.round(((elo + 200) / 200) * 10) / 10)),
+        floorRating: Math.min(9.5, Math.max(1, Math.round((cardScore / 5.5) * 0.85 * 10) / 10)),
+        ceilingRating: Math.min(10, Math.max(2, Math.round((cardScore / 5.5) * 1.05 * 10) / 10)),
         tempoImpact: tier === 'S' || tier === 'A' ? 'high' : 'medium',
         quadrantStrengths: {
           opening: tier === 'S' ? 4.6 : 3.8,

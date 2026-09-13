@@ -101,7 +101,7 @@ for (const entry of mainboard) {
 
   processedSlugs.add(slug);
 
-  const elo = d.elo || 1200;
+  const cardScore = existingEntry?.doc?.powerScore?.score ?? 25;
   const isPreserved = PRESERVED_SEED_NAMES.has(cardName.toLowerCase().trim());
 
   let tier = 'B';
@@ -110,32 +110,36 @@ for (const entry of mainboard) {
 
   if (isPreserved && existingEntry?.doc?.cubeAnalyses?.hugues_pauper) {
     const prev = existingEntry.doc.cubeAnalyses.hugues_pauper;
-    tier = prev.tier || 'S';
+    tier = prev.tier || (cardScore >= 38 ? 'S' : 'A');
     fit = prev.fit || 'staple';
     scoreModifier = prev.scoreModifier ?? 10;
+  } else if (cardScore >= 38) {
+    tier = 'S';
+    fit = 'staple';
+    scoreModifier = 12;
+  } else if (cardScore >= 26) {
+    tier = 'A';
+    fit = 'support';
+    scoreModifier = 7;
+  } else if (cardScore >= 17) {
+    tier = 'B';
+    fit = 'support';
+    scoreModifier = 0;
+  } else if (cardScore >= 10) {
+    tier = 'C';
+    fit = 'filler';
+    scoreModifier = -5;
   } else {
-    // Determine Tier in Pauper Cube
-    if (elo >= 1420) {
-      tier = 'S';
-      fit = 'staple';
-      scoreModifier = 12;
-    } else if (elo >= 1300) {
-      tier = 'A';
-      fit = 'support';
-      scoreModifier = 7;
-    } else if (elo >= 1200) {
-      tier = 'B';
-      fit = 'support';
-      scoreModifier = 0;
-    } else if (elo >= 1100) {
-      tier = 'C';
-      fit = 'filler';
-      scoreModifier = -5;
-    } else {
-      tier = 'D';
-      fit = 'filler';
-      scoreModifier = -10;
-    }
+    tier = 'D';
+    fit = 'filler';
+    scoreModifier = -10;
+  }
+
+  // Strict invariant: no card in Tier S with powerScore < 38
+  if (tier === 'S' && cardScore < 38) {
+    tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
+    fit = 'support';
+    scoreModifier = tier === 'A' ? 7 : tier === 'B' ? 0 : -5;
   }
 
   // Determine Archetype
@@ -197,7 +201,7 @@ for (const entry of mainboard) {
             colors: colors.length > 0 ? colors : ['W'],
             archetype: (archetypes[0] || 'hugues:pauper_staple').replace('hugues:', '').replace(/_/g, ' ').toUpperCase(),
             grade: tier,
-            winrateOrScore: `${Math.min(68, Math.max(48, Math.round((50 + (elo - 1200) / 20) * 10) / 10)).toFixed(1)} %`,
+            winrateOrScore: `Score ${cardScore.toFixed(1)}`,
             comment: `Pilier du métagame Pauper équilibré.`,
           },
         ],
@@ -250,11 +254,6 @@ for (const entry of mainboard) {
       roles.push(tier === 'S' ? 'bomb' : 'beater');
     }
 
-    const calculatedPowerScore = Math.min(
-      50,
-      Math.max(1, Math.round(((elo - 900) / 15) * 10) / 10)
-    );
-
     const imageUrl =
       d.image_normal ||
       `https://api.scryfall.com/cards/${d.scryfall_id}?format=image`;
@@ -288,19 +287,19 @@ for (const entry of mainboard) {
       },
       imageUrl,
       powerScore: {
-        score: calculatedPowerScore,
-        source: 'cubecobra_elo',
-        rawSourceScore: Math.round(elo * 10) / 10,
+        score: cardScore,
+        source: 'expert_heuristic',
+        rawSourceScore: cardScore,
         harmonizationDegree: 'calibrated_medium',
         confidence: 0.6,
         updatedAt: '2026-09-06T00:00:00.000Z',
       },
       presentInCubes: ['hugues_pauper'],
       objectiveAnalysis: {
-        summary: `Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: ${Math.round(elo)}).`,
+        summary: `Carte commune sélectionnée pour le Pauper Cube de Hugues (Score : ${cardScore.toFixed(1)}).`,
         roles,
-        floorRating: Math.min(10, Math.max(1, Math.round((elo / 200) * 10) / 10)),
-        ceilingRating: Math.min(10, Math.max(1, Math.round(((elo + 200) / 200) * 10) / 10)),
+        floorRating: Math.min(9.5, Math.max(1, Math.round((cardScore / 5.5) * 0.85 * 10) / 10)),
+        ceilingRating: Math.min(10, Math.max(2, Math.round((cardScore / 5.5) * 1.05 * 10) / 10)),
         tempoImpact: tier === 'S' || tier === 'A' ? 'high' : 'medium',
         quadrantStrengths: {
           opening: tier === 'S' ? 4.5 : 3.8,

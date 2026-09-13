@@ -32,8 +32,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32fd8b7c-baf3-4d3d-be6f-044a917b11a0.jpg?1783913723",
   "powerScore": {
     "score": 24,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1404.1,
+    "source": "expert_heuristic",
+    "rawSourceScore": 24,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -60,20 +60,22 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": 3,
-      "analysis": "Carte de rang A (ELO: 1404) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 24.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
-        "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
+        "howToPlay": "Jouez Roaming Throne sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
-            "colors": [],
+            "colors": [
+              "W"
+            ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "A",
-            "winrateOrScore": "61.2 %",
-            "comment": "Alignement au métagame Titou Tribal (A)."
+            "grade": "B",
+            "winrateOrScore": "Score 24.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }

@@ -103,11 +103,10 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('id="mobile-nav-backdrop"');
     });
 
-    it("declares dedicated teaser presentation views and home teaser cards for multi and tournaments", () => {
+    it("declares dedicated presentation views and home teaser card for tournaments", () => {
       expect(htmlContent).toContain('id="view-multi"');
       expect(htmlContent).toContain('id="view-tournaments"');
       expect(htmlContent).toContain('class="home-teaser-section"');
-      expect(htmlContent).toContain('id="home-cta-multi"');
       expect(htmlContent).toContain('id="home-cta-tournaments"');
       expect(htmlContent).toContain('class="mystery-coming-soon-banner"');
     });

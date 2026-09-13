@@ -15,6 +15,7 @@ export interface PowerRankingEntry {
 
 export const MAX_POWER_SCORE: 55;
 export function toPowerBarPercentage(score: number): number;
+export function scoreToPowerTier(score?: number): string;
 export function computePowerRankings(
   cards: readonly PowerRankableCard[],
 ): Record<string, PowerRankingEntry>;

@@ -28,9 +28,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/ed140e5c-7e8c-4200-ad41-60ac39db8ed3/normal.webp",
   "powerScore": {
-    "score": 22.2,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1346.4,
+    "score": 22.5,
+    "source": "expert_heuristic",
+    "rawSourceScore": 22.5,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -39,12 +39,12 @@
     "hugues_pauper"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1346).",
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (Score : 22.5).",
     "roles": [
       "premium_removal"
     ],
-    "floorRating": 6.7,
-    "ceilingRating": 7.7,
+    "floorRating": 3.5,
+    "ceilingRating": 4.3,
     "tempoImpact": "high",
     "quadrantStrengths": {
       "opening": 3.8,
@@ -57,7 +57,7 @@
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [
         "hugues:pauper_staple"
       ],
@@ -66,7 +66,7 @@
         "trigger-from-graveyard",
         "triggered-ability"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
       "pedagogy": {
         "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
@@ -76,8 +76,8 @@
               "R"
             ],
             "archetype": "PAUPER STAPLE",
-            "grade": "A",
-            "winrateOrScore": "57.3 %",
+            "grade": "B",
+            "winrateOrScore": "Score 22.5",
             "comment": "Pilier du métagame Pauper équilibré."
           }
         ]

@@ -33,9 +33,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/2c7c2b5c-634a-4d83-81bc-c6128e3ac339/normal.webp",
   "powerScore": {
-    "score": 17.5,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1175.5,
+    "score": 17.9,
+    "source": "expert_heuristic",
+    "rawSourceScore": 17.9,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -44,12 +44,12 @@
     "hugues_pauper"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1175).",
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (Score : 17.9).",
     "roles": [
       "beater"
     ],
-    "floorRating": 5.9,
-    "ceilingRating": 6.9,
+    "floorRating": 2.8,
+    "ceilingRating": 3.4,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 3.8,
@@ -61,8 +61,8 @@
   "cubeAnalyses": {
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "hugues:pauper_staple"
       ],
@@ -71,7 +71,7 @@
         "typal-creature",
         "typal"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
       "pedagogy": {
         "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
@@ -81,8 +81,8 @@
               "W"
             ],
             "archetype": "PAUPER STAPLE",
-            "grade": "C",
-            "winrateOrScore": "48.8 %",
+            "grade": "B",
+            "winrateOrScore": "Score 17.9",
             "comment": "Pilier du métagame Pauper équilibré."
           }
         ]

@@ -41,9 +41,9 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/0/5/05c5a9a8-badd-43ab-8408-a13e75407681.jpg?1783913841",
   "powerScore": {
-    "score": 19.6,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1152.5,
+    "score": 20,
+    "source": "expert_heuristic",
+    "rawSourceScore": 20,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -70,31 +70,33 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "filler",
-      "tier": "D",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -6,
-      "analysis": "Carte de rang D (ELO: 1152) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 20.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Zacama, Primal Calamity sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
             "colors": [
+              "G",
+              "R",
               "W"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "D",
-            "winrateOrScore": "51.1 %",
-            "comment": "Alignement au métagame Titou Tribal (D)."
+            "grade": "B",
+            "winrateOrScore": "Score 20.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:gruul_stompy_sneak"
       ],
@@ -103,7 +105,7 @@
         "removal-creature",
         "removal"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -115,8 +117,8 @@
               "W"
             ],
             "archetype": "GRUUL STOMPY SNEAK",
-            "grade": "C",
-            "winrateOrScore": "48.0 %",
+            "grade": "B",
+            "winrateOrScore": "Score 20.0",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

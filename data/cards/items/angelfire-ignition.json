@@ -35,8 +35,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/8/4/84ec79d8-c8de-46be-9d82-5e6bd5de9cad.jpg?1783908082",
   "powerScore": {
     "score": 20,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1229.2,
+    "source": "expert_heuristic",
+    "rawSourceScore": 20,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -63,7 +63,7 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "build_around",
-      "tier": "C",
+      "tier": "B",
       "archetypes": [
         "titou:tribal_angels"
       ],
@@ -82,12 +82,13 @@
         "archetypeFit": [
           {
             "colors": [
+              "R",
               "W"
             ],
             "archetype": "ANGELS",
-            "grade": "C",
-            "winrateOrScore": "54.2 %",
-            "comment": "Alignement au métagame Titou Tribal (C)."
+            "grade": "B",
+            "winrateOrScore": "Score 20.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }

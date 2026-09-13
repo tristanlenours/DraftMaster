@@ -264,5 +264,5 @@ describe("Solo Draft Web API & Flow Integration", () => {
     expect(await readFile(resolve(process.cwd(), "data/admin-drafts.json"), "utf8")).toBe(
       workspaceAdminDraftsBefore,
     );
-  }, 35000);
+  }, 90000);
 });

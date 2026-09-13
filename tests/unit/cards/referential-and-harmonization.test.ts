@@ -242,7 +242,7 @@ describe("Master Card & Cube Referential System", () => {
         // Should receive cubeScoreModifier and synergyBonus from the prior 2 humans!
         expect(evaluated.breakdown.cubeScoreModifier).toBe(5.0);
         expect(evaluated.breakdown.synergyBonus).toBeGreaterThan(0);
-        expect(evaluated.breakdown.powerSource).toBe("cubecobra_elo");
+        expect(evaluated.breakdown.powerSource).toBe("expert_heuristic");
         expect(evaluated.breakdown.harmonizationConfidence).toBe(0.6);
         expect(evaluated.dynamicScore).toBeGreaterThan(cardToPick.staticScore);
 
@@ -298,7 +298,7 @@ describe("Master Card & Cube Referential System", () => {
           throw new Error("Missing combo fixture cards");
         }
 
-        // Player drafted LED and Underworld Breach, now sees Brain Freeze
+        // Player drafted LED, Underworld Breach, and Brainstorm (UR Storm), now sees Brain Freeze
         const priorPool: CardEvaluationInput[] = [
           {
             id: "101",
@@ -313,6 +313,13 @@ describe("Master Card & Cube Referential System", () => {
             staticScore: breach.powerScore.score,
             colors: ["R"],
             oracleId: breach.oracleId,
+          },
+          {
+            id: "100",
+            name: "Brainstorm",
+            staticScore: 42,
+            colors: ["U"],
+            oracleId: "b07693d2-be82-4148-a89e-2f54070a2f45",
           },
         ];
 

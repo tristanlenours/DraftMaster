@@ -42,8 +42,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/3/5/35db4bfe-78e1-46b1-a70b-728ceede94b2.jpg?1783917293",
   "powerScore": {
     "score": 21,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1131,
+    "source": "expert_heuristic",
+    "rawSourceScore": 21,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -69,23 +69,25 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "filler",
-      "tier": "D",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -6,
-      "analysis": "Carte de rang D (ELO: 1131) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 21.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Elenda and Azor sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
             "colors": [
+              "B",
+              "U",
               "W"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "D",
-            "winrateOrScore": "50.2 %",
-            "comment": "Alignement au métagame Titou Tribal (D)."
+            "grade": "B",
+            "winrateOrScore": "Score 21.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }

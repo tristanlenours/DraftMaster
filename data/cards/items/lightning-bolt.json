@@ -40,7 +40,8 @@
   "presentInCubes": [
     "nico_candyshop",
     "hugues_pauper",
-    "titou_tribal"
+    "titou_tribal",
+    "cedric_cube"
   ],
   "objectiveAnalysis": {
     "summary": "Sort d'interaction et de dégâts directs le plus efficient de l'histoire de Magic.",
@@ -95,7 +96,7 @@
             ],
             "archetype": "Boros Synth & Burn",
             "grade": "S",
-            "winrateOrScore": "66.2 %",
+            "winrateOrScore": "Score 43.0",
             "comment": "Removal premium et reach décisif pour fermer la partie."
           },
           {
@@ -104,8 +105,8 @@
               "R"
             ],
             "archetype": "Izzet Skred / Spells",
-            "grade": "A",
-            "winrateOrScore": "63.8 %",
+            "grade": "S",
+            "winrateOrScore": "Score 43.0",
             "comment": "Assure le contrôle du board avant le déploiement des serpents ou faeries."
           }
         ]
@@ -120,49 +121,29 @@
       "fit": "support",
       "tier": "B",
       "archetypes": [
-        "nico:storm_combo"
+        "nico:vintage_staple"
       ],
       "synergyTags": [
-        "cheap_removal",
-        "burn"
+        "single-target-instant-sorcery",
+        "cycle-lea-boon",
+        "cycle"
       ],
       "scoreModifier": 0,
-      "analysis": "Sort fair et économique, mais nettement en retrait dans un environnement dominé par le Fast Mana T1/T2 et les monstres colossaux (Griselbrand, Blightsteel). Reste une réponse honnête à Ragavan.",
+      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
-        "howToPlay": "En Vintage, gardez Bolt pour tuer Ragavan, Bowmasters ou Ocelot Pride au tour 1. Ne comptez pas dessus pour stopper les réanimations de monstres 7/7.",
-        "keySynergies": [
-          {
-            "cardName": "Underworld Breach",
-            "synergyType": "Mitraillage Escape",
-            "description": "Rejouable depuis le cimetière avec Breach pour vider les points de vie résiduels."
-          }
-        ],
+        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
         "archetypeFit": [
           {
             "colors": [
-              "U",
               "R"
             ],
-            "archetype": "Izzet Tempo / Breach",
+            "archetype": "VINTAGE STAPLE",
             "grade": "B",
-            "winrateOrScore": "56.4 %",
-            "comment": "Gère les menaces légères et augmente le storm count."
-          },
-          {
-            "colors": [
-              "R"
-            ],
-            "archetype": "Mono-Red Aggro",
-            "grade": "A",
-            "winrateOrScore": "59.1 %",
-            "comment": "Pilier indispensable de la courbe agressive directe."
+            "winrateOrScore": "Score 43.0",
+            "comment": "Alignement Vintage compétitif."
           }
         ]
-      },
-      "keyPairs": [
-        "Ragavan, Nimble Pilferer",
-        "Underworld Breach"
-      ]
+      }
     },
     "titou_tribal": {
       "cubeKey": "titou_tribal",
@@ -172,8 +153,8 @@
       "synergyTags": [
         "removal"
       ],
-      "scoreModifier": 0,
-      "analysis": "Carte de rang S (ELO: 1663) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 6,
+      "analysis": "Carte de rang S (Score : 43.0) dans l'environnement tribal et interactif de Titou.",
       "keyPairs": [],
       "pedagogy": {
         "howToPlay": "Menace ou ressource clé : déployez Lightning Bolt dès que possible en sécurisant votre avantage.",
@@ -184,8 +165,37 @@
             ],
             "archetype": "TRIBAL SYNERGY",
             "grade": "S",
-            "winrateOrScore": "71.5 %",
+            "winrateOrScore": "Score 43.0",
             "comment": "Alignement au métagame Titou Tribal (S)."
+          }
+        ]
+      }
+    },
+    "cedric_cube": {
+      "cubeKey": "cedric_cube",
+      "fit": "staple",
+      "tier": "S",
+      "archetypes": [
+        "cedric:high_power_staple"
+      ],
+      "synergyTags": [
+        "single-target-instant-sorcery",
+        "cycle-lea-boon",
+        "cycle"
+      ],
+      "scoreModifier": 14,
+      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "pedagogy": {
+        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "archetypeFit": [
+          {
+            "colors": [
+              "R"
+            ],
+            "archetype": "HIGH POWER STAPLE",
+            "grade": "S",
+            "winrateOrScore": "Score 43.0",
+            "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
       }

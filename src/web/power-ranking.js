@@ -5,6 +5,15 @@ export function toPowerBarPercentage(score) {
   return Math.round((Math.max(1, Math.min(MAX_POWER_SCORE, finiteScore)) / MAX_POWER_SCORE) * 100);
 }
 
+export function scoreToPowerTier(score) {
+  const finiteScore = Number.isFinite(score) ? score : 1;
+  if (finiteScore >= 38) return "S";
+  if (finiteScore >= 26) return "A";
+  if (finiteScore >= 17) return "B";
+  if (finiteScore >= 10) return "C";
+  return "D";
+}
+
 export function computePowerRankings(cards) {
   const ranked = cards
     .map((card) => ({

@@ -37,8 +37,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/7/6/7641f4d9-4614-41c8-87f5-4845bd78e9b3.jpg?1783921289",
   "powerScore": {
     "score": 21,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1186.6,
+    "source": "expert_heuristic",
+    "rawSourceScore": 21,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -64,23 +64,24 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "filler",
-      "tier": "D",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -6,
-      "analysis": "Carte de rang D (ELO: 1187) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 21.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Ajani, Sleeper Agent sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
             "colors": [
+              "G",
               "W"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "D",
-            "winrateOrScore": "52.5 %",
-            "comment": "Alignement au métagame Titou Tribal (D)."
+            "grade": "B",
+            "winrateOrScore": "Score 21.0",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }

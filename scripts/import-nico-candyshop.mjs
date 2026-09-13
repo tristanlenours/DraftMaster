@@ -19,16 +19,25 @@ export function cardNameToSlug(name) {
 
 console.log("🍬 Starting Nico's Candyshop (Fedor007) Import...");
 
-// Index existing cards by oracleId so alternate art / flavor skins reuse the canonical card
+// Index existing cards by oracleId, name, and slug so alternate art / flavor skins reuse canonical cards
 const existingByOracle = new Map();
+const existingByName = new Map();
+const existingBySlug = new Map();
+
 for (const file of readdirSync(itemsDir)) {
   if (!file.endsWith('.json')) continue;
   const p = join(itemsDir, file);
   try {
     const doc = JSON.parse(readFileSync(p, 'utf8'));
+    const slug = doc.slug || file.replace('.json', '');
+    const entry = { path: p, slug, name: doc.name, powerScore: doc.powerScore, doc };
     if (doc.oracleId) {
-      existingByOracle.set(doc.oracleId, { path: p, slug: doc.slug || file.replace('.json', ''), name: doc.name });
+      existingByOracle.set(doc.oracleId, entry);
     }
+    if (doc.name) {
+      existingByName.set(doc.name.toLowerCase().trim(), entry);
+    }
+    existingBySlug.set(slug, entry);
   } catch {}
 }
 
@@ -68,6 +77,7 @@ const VINTAGE_S_TIER = new Set([
   'Bolas\'s Citadel',
   'Yawgmoth\'s Will',
   'Time Vault',
+  'Underworld Breach',
 ]);
 
 const VALID_ROLES = [
@@ -99,15 +109,23 @@ for (const entry of mainboard) {
   let cardPath = join(itemsDir, `${slug}.json`);
   let cardName = d.name;
 
+  let existing = null;
   if (d.oracle_id && existingByOracle.has(d.oracle_id)) {
-    const existing = existingByOracle.get(d.oracle_id);
+    existing = existingByOracle.get(d.oracle_id);
+  } else if (existingByName.has(d.name.toLowerCase().trim())) {
+    existing = existingByName.get(d.name.toLowerCase().trim());
+  } else if (existingBySlug.has(slug)) {
+    existing = existingBySlug.get(slug);
+  }
+
+  if (existing) {
     slug = existing.slug;
     cardPath = existing.path;
     cardName = existing.name;
   }
 
-  // Calculate Tier in Candyshop
-  const elo = d.elo || 1200;
+  // Calculate Tier in Candyshop directly from Power Score and signatures
+  const cardScore = existing?.powerScore?.score ?? existing?.doc?.powerScore?.score ?? 25;
   let tier = 'B';
   let fit = 'support';
   let scoreModifier = 0;
@@ -128,19 +146,19 @@ for (const entry of mainboard) {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0;
-  } else if (VINTAGE_S_TIER.has(cardName) || elo >= 1480) {
+  } else if (VINTAGE_S_TIER.has(cardName) || cardScore >= 38) {
     tier = 'S';
     fit = 'staple';
     scoreModifier = 15;
-  } else if (elo >= 1340) {
+  } else if (cardScore >= 26) {
     tier = 'A';
     fit = 'support';
     scoreModifier = 8;
-  } else if (elo >= 1200) {
+  } else if (cardScore >= 17) {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0;
-  } else if (elo >= 1100) {
+  } else if (cardScore >= 10) {
     tier = 'C';
     fit = 'filler';
     scoreModifier = -5;
@@ -148,6 +166,13 @@ for (const entry of mainboard) {
     tier = 'D';
     fit = 'filler';
     scoreModifier = -10;
+  }
+
+  // Strict invariant: no card in Tier S with powerScore < 38
+  if (tier === 'S' && cardScore < 38) {
+    tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
+    fit = 'support';
+    scoreModifier = tier === 'A' ? 8 : tier === 'B' ? 0 : -5;
   }
 
   // Determine Archetypes
@@ -190,7 +215,7 @@ for (const entry of mainboard) {
           colors: d.colors && d.colors.length > 0 ? d.colors.filter((c) => VALID_MTG_COLORS.has(c)) : ['W'],
           archetype: archetypes[0].replace('nico:', '').replace('_', ' ').toUpperCase(),
           grade: tier,
-          winrateOrScore: `${(50 + (elo - 1200) / 20).toFixed(1)} %`,
+          winrateOrScore: `Score ${cardScore.toFixed(1)}`,
           comment: `Alignement Vintage compétitif.`,
         },
       ],
@@ -246,11 +271,6 @@ for (const entry of mainboard) {
       roles.push(tier === 'S' ? 'bomb' : 'engine');
     }
 
-    const calculatedPowerScore = Math.min(
-      MAX_POWER_SCORE,
-      Math.max(1, Math.round(((elo - 900) / 14) * 10) / 10)
-    );
-
     const imageUrl =
       d.image_normal ||
       `https://api.scryfall.com/cards/${d.scryfall_id}?format=image`;
@@ -283,19 +303,19 @@ for (const entry of mainboard) {
       },
       imageUrl,
       powerScore: {
-        score: calculatedPowerScore,
-        source: 'cubecobra_elo',
-        rawSourceScore: Math.round(elo),
-        harmonizationDegree: 'calibrated_high',
-        confidence: 0.95,
+        score: cardScore,
+        source: 'expert_heuristic',
+        rawSourceScore: cardScore,
+        harmonizationDegree: 'native',
+        confidence: 0.9,
         updatedAt: '2026-03-01T00:00:00.000Z',
       },
       presentInCubes: ['nico_candyshop'],
       objectiveAnalysis: {
-        summary: `Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: ${Math.round(elo)}).`,
+        summary: `Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : ${cardScore.toFixed(1)}).`,
         roles,
-        floorRating: Math.min(10, Math.max(1, Math.round((elo / 200) * 10) / 10)),
-        ceilingRating: Math.min(10, Math.max(1, Math.round(((elo + 200) / 200) * 10) / 10)),
+        floorRating: Math.min(9.5, Math.max(1, Math.round((cardScore / 5.5) * 0.85 * 10) / 10)),
+        ceilingRating: Math.min(10, Math.max(2, Math.round((cardScore / 5.5) * 1.05 * 10) / 10)),
         tempoImpact: tier === 'S' || tier === 'A' ? 'high' : 'medium',
         quadrantStrengths: {
           opening: tier === 'S' ? 4.8 : 4.0,

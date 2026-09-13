@@ -266,7 +266,7 @@
             <h3 class="pillar-title">Rigueur Mathématique du Ranking</h3>
             <p class="pillar-desc">
               Finies les appréciations subjectives isolées. Notre échelle harmonisée (1 à 55) croise
-              les observations empiriques d'Untapped, les indices ELO CubeCobra et l'expertise
+              les observations empiriques d'Untapped, l'analyse contextuelle de cube et l'expertise
               compétitive pour refléter la valeur absolue réelle de chaque pièce. Black Lotus est
               actuellement la carte la mieux notée du catalogue avec 53.
             </p>
@@ -415,32 +415,12 @@
             <span class="teaser-kicker">🔮 FEUILLE DE ROUTE & NOUVELLES EXPÉRIENCES</span>
             <h2 class="home-teaser-title">Bientôt dans le Cube Digital Extended Universe</h2>
             <p class="home-teaser-desc">
-              Deux révolutions majeures sont en cours de forgeage pour porter le plaisir de jeu à un
+              La prochaine révolution est en cours de forgeage pour porter le plaisir de jeu à un
               niveau inédit.
             </p>
           </div>
           <div class="home-teaser-cards">
-            <!-- Teaser Card 1: Multi Draft -->
-            <div class="home-teaser-card" id="home-teaser-multi">
-              <div class="teaser-card-badge">
-                <span class="pulse-dot-amber"></span><span>Disponible • Entre amis</span>
-              </div>
-              <div class="teaser-card-icon">👥</div>
-              <h3 class="teaser-card-title">Draft Multijoueur en Ligne</h3>
-              <p class="teaser-card-summary">
-                Réunissez 2 à 8 magiciens autour de vos cubes favoris. Prenez le temps de choisir :
-                aucun chrono, aucun remplacement humain, et les places libres sont confiées aux
-                Friend-Bots au départ.
-              </p>
-              <div class="teaser-card-meta">
-                <span>2 à 8 amis</span>
-                <span>Salon global</span>
-                <span>Sans chrono</span>
-              </div>
-              <button class="btn-teaser-action" id="home-cta-multi">Rejoindre le Salon ➔</button>
-            </div>
-
-            <!-- Teaser Card 2: Tournois -->
+            <!-- Teaser Card: Tournois -->
             <div class="home-teaser-card" id="home-teaser-tournaments">
               <div class="teaser-card-badge">
                 <span class="pulse-dot-amber"></span><span>Bientôt • IRL & Online</span>
@@ -2397,6 +2377,7 @@
               <p class="result-archetype-description" id="result-archetype-desc"></p>
             </div>
             <div class="result-stats-row">
+              <span class="stat-tag tag-table-rank rank-1" id="result-table-rank-badge">🏆 1er / 8 de la Table</span>
               <span class="stat-tag" id="result-rank-badge">Rang #1 au Mur des Records</span>
               <span class="stat-tag tag-training" id="result-training-badge" hidden
                 >🛡️ Mode Entraînement (Non publié)</span
@@ -2483,12 +2464,27 @@
         <!-- 8-Seat Final Decks Comparison Table & Interactive Inspection -->
         <div class="result-table-decks-section">
           <div class="table-decks-header">
-            <h3 class="axes-card-title">🏛️ Analyse Finale des 8 Decks de la Table</h3>
-            <p class="table-decks-subtitle">
-              Comparez le résultat de votre deck face aux 7 bots de la table. Cliquez sur
-              <strong>Inspecter 🔍</strong> pour visualiser les 40 cartes, la courbe et les
-              caractéristiques de chaque deck.
-            </p>
+            <div class="table-decks-title-row">
+              <div>
+                <h3 class="axes-card-title">🏛️ Analyse Finale des 8 Decks de la Table</h3>
+                <p class="table-decks-subtitle">
+                  Comparez le résultat de votre deck face aux 7 bots de la table. Cliquez sur
+                  <strong>Inspecter 🔍</strong> pour visualiser les 40 cartes, la courbe et les
+                  caractéristiques de chaque deck.
+                </p>
+              </div>
+              <div class="table-decks-sort-controls">
+                <button type="button" class="btn-sort-toggle active" id="btn-seats-sort-rank">
+                  🏆 Par Classement
+                </button>
+                <button type="button" class="btn-sort-toggle" id="btn-seats-sort-seat">
+                  🪑 Autour de la Table
+                </button>
+              </div>
+            </div>
+            <div class="table-podium-summary" id="table-podium-summary">
+              <!-- Populated dynamically with top 3 / table standing -->
+            </div>
           </div>
           <div class="seats-comparison-grid" id="result-seats-comparison-grid">
             <!-- Populated dynamically with Challenger + 7 Bots -->
@@ -3067,8 +3063,9 @@
               >
             </div>
           </div>
+          <div id="deck-review-radar-container"></div>
           <div class="deck-review-cards-grid" id="deck-review-cards-grid">
-            <!-- Populated dynamically -->
+            <!-- Populated dynamically with 17Lands mana curve view -->
           </div>
         </div>
       </div>

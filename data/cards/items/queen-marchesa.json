@@ -42,8 +42,8 @@
   "imageUrl": "https://assets.cubecobra.com/cardimages/03f4341c-088b-4f35-b82b-3d98d8a93de4/normal.webp",
   "powerScore": {
     "score": 21,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1187.8,
+    "source": "expert_heuristic",
+    "rawSourceScore": 21,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -52,12 +52,12 @@
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (ELO CubeCobra: 1188).",
+    "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (Score : 21.0).",
     "roles": [
       "beater"
     ],
-    "floorRating": 5.9,
-    "ceilingRating": 6.9,
+    "floorRating": 3.2,
+    "ceilingRating": 4,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 3.8,
@@ -69,8 +69,8 @@
   "cubeAnalyses": {
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:rakdos_aristocrats"
       ],
@@ -79,7 +79,7 @@
         "repeatable-draw",
         "repeatable-card-advantage"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -91,8 +91,8 @@
               "W"
             ],
             "archetype": "RAKDOS ARISTOCRATS",
-            "grade": "C",
-            "winrateOrScore": "49.4 %",
+            "grade": "B",
+            "winrateOrScore": "Score 21.0",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

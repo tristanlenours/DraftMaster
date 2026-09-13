@@ -39,8 +39,8 @@
   "imageUrl": "https://assets.cubecobra.com/cardimages/ff7301bd-05db-436b-8a49-5840c4cb9995/normal.webp",
   "powerScore": {
     "score": 20.5,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1195.1,
+    "source": "expert_heuristic",
+    "rawSourceScore": 20.5,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -49,12 +49,12 @@
     "nico_candyshop"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1195).",
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : 20.5).",
     "roles": [
       "engine"
     ],
-    "floorRating": 6,
-    "ceilingRating": 7,
+    "floorRating": 3.2,
+    "ceilingRating": 3.9,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 4,
@@ -66,8 +66,8 @@
   "cubeAnalyses": {
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -76,7 +76,7 @@
         "unique-type-line",
         "repeatable-crime"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -87,8 +87,8 @@
               "W"
             ],
             "archetype": "VINTAGE STAPLE",
-            "grade": "C",
-            "winrateOrScore": "49.8 %",
+            "grade": "B",
+            "winrateOrScore": "Score 20.5",
             "comment": "Alignement Vintage compétitif."
           }
         ]

@@ -44,9 +44,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/7d2e167f-7cb2-4f15-a1db-7ee56b7ba523/normal.webp",
   "powerScore": {
-    "score": 18.7,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1195.4,
+    "score": 18.4,
+    "source": "expert_heuristic",
+    "rawSourceScore": 18.4,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -55,12 +55,12 @@
     "nico_candyshop"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (ELO CubeCobra: 1195).",
+    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : 18.4).",
     "roles": [
       "engine"
     ],
-    "floorRating": 6,
-    "ceilingRating": 7,
+    "floorRating": 2.8,
+    "ceilingRating": 3.5,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 4,
@@ -72,8 +72,8 @@
   "cubeAnalyses": {
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "nico:storm_combo"
       ],
@@ -82,7 +82,7 @@
         "out-of-color-token",
         "cast-trigger-you"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -93,8 +93,8 @@
               "W"
             ],
             "archetype": "STORM COMBO",
-            "grade": "C",
-            "winrateOrScore": "49.8 %",
+            "grade": "B",
+            "winrateOrScore": "Score 18.4",
             "comment": "Alignement Vintage compétitif."
           }
         ]

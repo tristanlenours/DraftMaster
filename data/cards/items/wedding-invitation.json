@@ -27,8 +27,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/d/d/ddc22ff6-4081-47ce-bc8a-e063f5f4d044.jpg?1783924783",
   "powerScore": {
     "score": 15,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1197.3,
+    "source": "expert_heuristic",
+    "rawSourceScore": 15,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -55,20 +55,22 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "filler",
-      "tier": "D",
+      "tier": "C",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -6,
-      "analysis": "Carte de rang D (ELO: 1197) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": -3,
+      "analysis": "Carte de rang C (Score : 15.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Wedding Invitation sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
-            "colors": [],
+            "colors": [
+              "W"
+            ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "D",
-            "winrateOrScore": "52.9 %",
-            "comment": "Alignement au métagame Titou Tribal (D)."
+            "grade": "C",
+            "winrateOrScore": "Score 15.0",
+            "comment": "Alignement au métagame Titou Tribal (C)."
           }
         ]
       }

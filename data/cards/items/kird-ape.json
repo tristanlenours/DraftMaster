@@ -33,8 +33,8 @@
   "imageUrl": "https://assets.cubecobra.com/cardimages/27423c7b-d1fd-471b-9648-8ea5ed9ebaf2/normal.webp",
   "powerScore": {
     "score": 17.9,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1210.1,
+    "source": "expert_heuristic",
+    "rawSourceScore": 17.9,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -44,12 +44,12 @@
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (ELO CubeCobra: 1210).",
+    "summary": "Carte commune sélectionnée pour le Pauper Cube de Hugues (Score : 17.9).",
     "roles": [
       "beater"
     ],
-    "floorRating": 6.1,
-    "ceilingRating": 7.1,
+    "floorRating": 2.8,
+    "ceilingRating": 3.4,
     "tempoImpact": "medium",
     "quadrantStrengths": {
       "opening": 3.8,
@@ -80,7 +80,7 @@
             ],
             "archetype": "PAUPER STAPLE",
             "grade": "B",
-            "winrateOrScore": "50.5 %",
+            "winrateOrScore": "Score 17.9",
             "comment": "Pilier du métagame Pauper équilibré."
           }
         ]
@@ -88,15 +88,15 @@
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [
         "cedric:high_power_staple"
       ],
       "synergyTags": [
         "synergy-forest"
       ],
-      "scoreModifier": -5,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -106,8 +106,8 @@
               "R"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "C",
-            "winrateOrScore": "50.5 %",
+            "grade": "B",
+            "winrateOrScore": "Score 17.9",
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]

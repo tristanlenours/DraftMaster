@@ -38,8 +38,8 @@
   "imageUrl": "https://cards.scryfall.io/normal/front/6/3/63ba8eef-b834-4031-b0a1-0f8505d53813.jpg?1783924799",
   "powerScore": {
     "score": 21.2,
-    "source": "cubecobra_elo",
-    "rawSourceScore": 1250.1,
+    "source": "expert_heuristic",
+    "rawSourceScore": 21.2,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-06T00:00:00.000Z"
@@ -65,24 +65,23 @@
   "cubeAnalyses": {
     "titou_tribal": {
       "cubeKey": "titou_tribal",
-      "fit": "filler",
-      "tier": "C",
+      "fit": "support",
+      "tier": "B",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": -3,
-      "analysis": "Carte de rang C (ELO: 1250) dans l'environnement tribal et interactif de Titou.",
+      "scoreModifier": 0,
+      "analysis": "Carte de rang B (Score : 21.2) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Edgar, Charmed Groom sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
           {
             "colors": [
-              "B",
               "W"
             ],
             "archetype": "TRIBAL SYNERGY",
-            "grade": "C",
-            "winrateOrScore": "55.0 %",
-            "comment": "Alignement au métagame Titou Tribal (C)."
+            "grade": "B",
+            "winrateOrScore": "Score 21.2",
+            "comment": "Alignement au métagame Titou Tribal (B)."
           }
         ]
       }

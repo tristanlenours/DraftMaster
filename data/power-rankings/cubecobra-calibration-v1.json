@@ -3,7 +3,7 @@
   "calibrationId": "cubecobra-features-to-untapped-v1",
   "generatedAt": "2026-09-06T00:00:00.000Z",
   "referenceId": "untapped-reference-v1",
-  "sampleCount": 425,
+  "sampleCount": 426,
   "method": {
     "type": "ridge-knn-ensemble",
     "ridgeLambda": 3,
@@ -73,10 +73,10 @@
       "cheaper-than-mv",
       "lifegain",
       "recursion",
-      "attack-trigger",
-      "blue-effect",
       "tutor",
       "tutor-to",
+      "attack-trigger",
+      "blue-effect",
       "unique-type-line",
       "burn",
       "draw-engine",
@@ -88,28 +88,28 @@
       "repeatable-pure-draw",
       "alliteration",
       "attacking-matters-self",
+      "black-effect",
       "peek",
       "refund",
       "repeatable-creature-tokens",
       "repeatable-removal",
       "tapland",
-      "black-effect",
       "burn-creature",
       "namesake-spell",
       "mill",
+      "library-manipulation",
       "removal-enchantment",
       "burn-planeswalker",
       "burn-player",
-      "library-manipulation",
       "manaless-value",
       "repeatable-lifegain",
       "staple-with-set-s-mechanic",
       "flavors-of-vanilla",
       "gives-castable-from-nonhand",
       "intervening-if-clause",
+      "top-deck-manipulation",
       "type-change",
       "synergy-artifact",
-      "top-deck-manipulation",
       "mana-rock",
       "removal-destroy",
       "tutor-land",
@@ -150,10 +150,10 @@
     "min": 1163.23153104901,
     "max": 2474.4991358376833
   },
-  "isotonicInSampleMae": 9,
-  "isotonicFiveFoldCrossValidatedMae": 9.47,
-  "fiveFoldCrossValidatedMae": 8.07,
-  "eloTargetCorrelation": 0.552,
+  "isotonicInSampleMae": 8.05,
+  "isotonicFiveFoldCrossValidatedMae": 8.54,
+  "fiveFoldCrossValidatedMae": 7.45,
+  "eloTargetCorrelation": 0.599,
   "blocks": [
     {
       "inputMin": 1163.2,
@@ -188,7 +188,7 @@
     {
       "inputMin": 1329.9,
       "inputMax": 1379.5,
-      "score": 22.767
+      "score": 23.875
     },
     {
       "inputMin": 1381.1,
@@ -208,67 +208,52 @@
     {
       "inputMin": 1406.7,
       "inputMax": 1467.2,
-      "score": 29.77
+      "score": 30.262
     },
     {
       "inputMin": 1468,
-      "inputMax": 1483.6,
-      "score": 31.357
+      "inputMax": 1479.2,
+      "score": 32.333
     },
     {
-      "inputMin": 1487.4,
+      "inputMin": 1480.3,
+      "inputMax": 1483.5,
+      "score": 32.75
+    },
+    {
+      "inputMin": 1483.6,
       "inputMax": 1533.9,
-      "score": 33.059
+      "score": 37.657
     },
     {
       "inputMin": 1535.1,
-      "inputMax": 1547.6,
-      "score": 34.455
+      "inputMax": 1579.2,
+      "score": 41.4
     },
     {
-      "inputMin": 1551,
-      "inputMax": 1619.2,
-      "score": 37.217
+      "inputMin": 1580.2,
+      "inputMax": 1667.1,
+      "score": 43.211
     },
     {
-      "inputMin": 1620.7,
-      "inputMax": 1620.7,
-      "score": 40
+      "inputMin": 1670.2,
+      "inputMax": 1674.4,
+      "score": 44.75
     },
     {
-      "inputMin": 1624.4,
-      "inputMax": 1711.4,
-      "score": 40.485
-    },
-    {
-      "inputMin": 1728.4,
-      "inputMax": 1728.4,
-      "score": 44
-    },
-    {
-      "inputMin": 1743.4,
-      "inputMax": 1743.4,
-      "score": 44
-    },
-    {
-      "inputMin": 1753.4,
+      "inputMin": 1677.1,
       "inputMax": 1753.4,
-      "score": 44
+      "score": 46.063
     },
     {
       "inputMin": 1755,
-      "inputMax": 1840.2,
-      "score": 45.308
+      "inputMax": 1793.6,
+      "score": 46.25
     },
     {
-      "inputMin": 1859.9,
-      "inputMax": 1907,
-      "score": 45.5
-    },
-    {
-      "inputMin": 2048.8,
+      "inputMin": 1802.5,
       "inputMax": 2048.8,
-      "score": 46
+      "score": 48.375
     },
     {
       "inputMin": 2191,
