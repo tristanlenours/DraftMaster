@@ -2576,6 +2576,49 @@ body {
   margin: 6px 0;
 }
 
+.manifesto-quote p {
+  margin: 0;
+}
+
+.manifesto-author {
+  display: block;
+  margin-top: 14px;
+  text-align: right;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: normal;
+  color: #fbbf24;
+}
+
+.manifesto-footnote-ref {
+  color: #f59e0b;
+  text-decoration: none;
+  font-weight: 800;
+  margin-left: 2px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.manifesto-footnote-ref:hover {
+  color: #fef08a;
+  text-decoration: underline;
+}
+
+.home-page-footer {
+  margin-top: 48px;
+  padding: 24px 0 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.home-footnote {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
 /* 3 Pillars Grid */
 .home-pillars-grid {
   display: grid;

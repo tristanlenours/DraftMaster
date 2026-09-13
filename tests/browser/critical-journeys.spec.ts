@@ -38,6 +38,19 @@ for (const [moduleName, route, viewSelector] of moduleRoutes) {
   });
 }
 
+test("Accueil displays manifesto quote signed by Titou* and the Arena footnote", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const quoteAuthor = page.locator(".manifesto-author");
+  await expect(quoteAuthor).toBeVisible();
+  await expect(quoteAuthor).toContainText("Titou*");
+
+  const footnote = page.locator("#home-footnote");
+  await expect(footnote).toBeVisible();
+  await expect(footnote).toContainText("ex numéro 1 mondial sur Magic Arena");
+});
+
 test("Records opens the selected deck without exposing report shortcuts", async ({ page }) => {
   await page.route("**/api/leaderboard", async (route) => {
     await route.fulfill({
