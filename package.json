@@ -12,6 +12,7 @@
   "scripts": {
     "start": "npm run web",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run synergy:profiles:verify && npm run test && npm run test:coverage && npm run reports:verify && npm run test:browser",
+    "audit:vintage-grades": "node --no-warnings --experimental-strip-types src/cards/audit-vintage-grades.ts",
     "cards:download-images": "node scripts/download-card-images.mjs",
     "cube:fetch": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts fetch",
     "cube:normalize": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts normalize",
