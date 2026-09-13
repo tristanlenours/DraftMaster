@@ -8,7 +8,12 @@ import {
   initSupabaseRealtime,
 } from "./leaderboard.js";
 import { initAdminView } from "./admin.js";
-import { loadImageWithFallback, isMatchingScryfallPrint, sanitizeFrenchCache } from "./card-image.js";
+import { initMultiplayerDraftView } from "./multiplayer-draft.js";
+import {
+  loadImageWithFallback,
+  isMatchingScryfallPrint,
+  sanitizeFrenchCache,
+} from "./card-image.js";
 import {
   getCardDisplayName,
   getCardImageFallbackUrl,
@@ -94,10 +99,25 @@ const CUBE_STRATEGIC_ADVICE = {
     presentation:
       "Le Cube de Cédric (Strobinellus) est un environnement Vintage Non-Powered d'exception de 720 cartes célébrant le jeu interactif de haut niveau. Conçu pour maximiser la profondeur décisionnelle et la rejouabilité, il écarte délibérément le Power 9 (Black Lotus, Moxen originaux) et les verrous de stax non-interactifs (Winter Orb, Smokestack, Tangle Wire). En contrepartie, il rassemble l'excellence absolue de Magic : les 10 Dual Lands originaux d'Alpha/Beta/Revised, les 10 Fetchlands, une accélération sélective (Mana Vault, Grim Monolith, Mox Diamond), le cycle complet des 5 Incarnations d'Évocation MH2 (Solitude, Grief, Fury, Subtlety, Endurance) et 46 Planeswalkers prêts pour Superfriends.",
     keyFacts: [
-      { label: "Taille du Cube", value: "720 cartes (50% ouvert par draft de 8 = immense variété, pas de combos rigides A+B)" },
-      { label: "Base de Mana", value: "10 Vrais Duals + 10 Fetchlands + Fast Mana (Ancient Tomb, Strip Mine, Mox Diamond...)" },
-      { label: "Tour Pivot", value: "T3.5 - T4 (Stabilisation par sweepers & planeswalkers face aux départs explosifs)" },
-      { label: "Densité d'Interaction", value: "25% de sorts de gestion réactive (Swords to Plowshares, Thoughtseize, Force of Will...)" },
+      {
+        label: "Taille du Cube",
+        value:
+          "720 cartes (50% ouvert par draft de 8 = immense variété, pas de combos rigides A+B)",
+      },
+      {
+        label: "Base de Mana",
+        value:
+          "10 Vrais Duals + 10 Fetchlands + Fast Mana (Ancient Tomb, Strip Mine, Mox Diamond...)",
+      },
+      {
+        label: "Tour Pivot",
+        value: "T3.5 - T4 (Stabilisation par sweepers & planeswalkers face aux départs explosifs)",
+      },
+      {
+        label: "Densité d'Interaction",
+        value:
+          "25% de sorts de gestion réactive (Swords to Plowshares, Thoughtseize, Force of Will...)",
+      },
     ],
     rulesOfDraft: [
       {
@@ -131,48 +151,97 @@ const CUBE_STRATEGIC_ADVICE = {
         name: "Tinker & Colosses Mécaniques",
         description:
           "Sacrifiez une babiole ou un jeton pour déposer un Blightsteel Colossus ou un Sundering Titan dès le tour 2 ou 3.",
-        cards: ["Tinker", "Blightsteel Colossus", "Sundering Titan", "Urza, Lord High Artificer", "Grim Monolith"],
+        cards: [
+          "Tinker",
+          "Blightsteel Colossus",
+          "Sundering Titan",
+          "Urza, Lord High Artificer",
+          "Grim Monolith",
+        ],
       },
       {
         category: "Combo Cimetière",
         name: "Reanimator Express",
         description:
           "Enterrez Griselbrand ou Archon of Cruelty dès les premiers tours et relevez-les immédiatement à bas coût avec protection.",
-        cards: ["Entomb", "Reanimate", "Animate Dead", "Griselbrand", "Archon of Cruelty", "Shallow Grave"],
+        cards: [
+          "Entomb",
+          "Reanimate",
+          "Animate Dead",
+          "Griselbrand",
+          "Archon of Cruelty",
+          "Shallow Grave",
+        ],
       },
       {
         category: "Triche de Créatures",
         name: "Monster Cheat & Sneak Attack",
         description:
           "Contournez les coûts de mana de titans légendaires pour attaquer avec célérité ou envahir la table.",
-        cards: ["Sneak Attack", "Show and Tell", "Natural Order", "Channel", "Worldspine Wurm", "Emrakul, the Aeons Torn"],
+        cards: [
+          "Sneak Attack",
+          "Show and Tell",
+          "Natural Order",
+          "Channel",
+          "Worldspine Wurm",
+          "Emrakul, the Aeons Torn",
+        ],
       },
       {
         category: "Arsenal d'Élite",
         name: "Stoneforge Mystic & Équipements",
         description:
           "Tutorisez Skullclamp, Jitte, Batterskull ou Kaldra Compleat pour convertir n'importe quelle créature en menace majeure.",
-        cards: ["Stoneforge Mystic", "Skullclamp", "Umezawa's Jitte", "Batterskull", "Kaldra Compleat", "Sword of Fire and Ice"],
+        cards: [
+          "Stoneforge Mystic",
+          "Skullclamp",
+          "Umezawa's Jitte",
+          "Batterskull",
+          "Kaldra Compleat",
+          "Sword of Fire and Ice",
+        ],
       },
       {
         category: "Aggro & Disruption",
         name: "Armageddon & Sligh Agressif",
         description:
           "Prenez l'avantage tôt au sol avec Ragavan ou Thalia, puis détruisez tous les terrains avec Armageddon pour interdire tout retour adverse.",
-        cards: ["Armageddon", "Ravages of War", "Balance", "Ragavan, Nimble Pilferer", "Thalia, Guardian of Thraben", "Sulfuric Vortex"],
+        cards: [
+          "Armageddon",
+          "Ravages of War",
+          "Balance",
+          "Ragavan, Nimble Pilferer",
+          "Thalia, Guardian of Thraben",
+          "Sulfuric Vortex",
+        ],
       },
     ],
   },
   [CUBE_KEYS.TITOU_PEASANT]: {
     title: "Présentation du Cube & Conseils Stratégiques",
-    subtitle: "Arena Peasant Plus 360 cartes • Format optimisé par les 10 Shocklands & Synergies Fermées",
+    subtitle:
+      "Arena Peasant Plus 360 cartes • Format optimisé par les 10 Shocklands & Synergies Fermées",
     presentation:
       "Inspiré du célèbre Jank Diver Peasant Cube (JDGP), Titou Peasant Plus transcende le format Peasant en substituant aux bilands lents les 10 Shocklands rares, Fabled Passage et Mana Confluence. Associés aux Landscapes MH3 et aux créatures à cyclage de terrain, ces terrains offrent une base de mana parfaite sans temps mort. Le format est résolument orienté sur la synergie bicolore : sans bombes solitaires capables de plier la partie en solo, la victoire appartient aux packages cohérents et aux moteurs d'attrition.",
     keyFacts: [
-      { label: "Taille du Cube", value: "360 cartes (100% ouvert lors d'un draft à 8 = régularité et archétypes fiables)" },
-      { label: "Base de Mana", value: "10 Shocklands + 10 Ponts MH2 + 10 Landscapes MH3 + Fabled Passage + Mana Confluence" },
-      { label: "Tour Pivot", value: "T3 - T4 (Ne rien jouer au T2 est fatal : 128 cartes à CMC 2 composent le cœur du cube)" },
-      { label: "Règle de Synergie", value: "Les decks 'Good-Stuff' sans thème s'essoufflent face aux synergies fermées" },
+      {
+        label: "Taille du Cube",
+        value: "360 cartes (100% ouvert lors d'un draft à 8 = régularité et archétypes fiables)",
+      },
+      {
+        label: "Base de Mana",
+        value:
+          "10 Shocklands + 10 Ponts MH2 + 10 Landscapes MH3 + Fabled Passage + Mana Confluence",
+      },
+      {
+        label: "Tour Pivot",
+        value:
+          "T3 - T4 (Ne rien jouer au T2 est fatal : 128 cartes à CMC 2 composent le cœur du cube)",
+      },
+      {
+        label: "Règle de Synergie",
+        value: "Les decks 'Good-Stuff' sans thème s'essoufflent face aux synergies fermées",
+      },
     ],
     rulesOfDraft: [
       {
@@ -206,7 +275,13 @@ const CUBE_STRATEGIC_ADVICE = {
         name: "Sacrifice d'Artefacts & Portée Directe",
         description:
           "Moteur de sacrifice continu drainant l'adversaire à chaque départ d'artefact et terminant au blast direct.",
-        cards: ["Oni-Cult Anvil", "Marionette Apprentice", "Dubious Delicacy", "Improvised Club", "Blood Crypt"],
+        cards: [
+          "Oni-Cult Anvil",
+          "Marionette Apprentice",
+          "Dubious Delicacy",
+          "Improvised Club",
+          "Blood Crypt",
+        ],
       },
       {
         category: "Ressource & Vie",
@@ -220,21 +295,37 @@ const CUBE_STRATEGIC_ADVICE = {
         name: "Nuée de Jetons & Amplificateurs",
         description:
           "Inondation du champ de bataille de jetons variés amplifiés par des boosts de masse dévastateurs.",
-        cards: ["Rosie Cotton of South Lane", "Mighty Mutanimals", "A Killer Among Us", "Temple Garden"],
+        cards: [
+          "Rosie Cotton of South Lane",
+          "Mighty Mutanimals",
+          "A Killer Among Us",
+          "Temple Garden",
+        ],
       },
       {
         category: "Card Advantage",
         name: "Draw-Two & Contrôle d'Usure",
         description:
           "Removals inconditionnels couplés à des déclencheurs de pioche récurrente pour asphyxier l'adversaire.",
-        cards: ["Morbid Opportunist", "Shoreline Looter", "Sneaky Snacker", "The Bath Song", "Watery Grave"],
+        cards: [
+          "Morbid Opportunist",
+          "Shoreline Looter",
+          "Sneaky Snacker",
+          "The Bath Song",
+          "Watery Grave",
+        ],
       },
       {
         category: "Masse Agressive",
         name: "Boros Game Objects",
         description:
           "Production d'une multitude d'objets de jeu (jetons, auras, artefacts) convertis en volées de dégâts par Arabella.",
-        cards: ["Arabella, Abandoned Doll", "Case of the Gateway Express", "Mechanized Ninja Cavalry", "Sacred Foundry"],
+        cards: [
+          "Arabella, Abandoned Doll",
+          "Case of the Gateway Express",
+          "Mechanized Ninja Cavalry",
+          "Sacred Foundry",
+        ],
       },
     ],
   },
@@ -244,10 +335,22 @@ const CUBE_STRATEGIC_ADVICE = {
     presentation:
       "Le Titou Tribal & Chromatic Cube est une célébration des grandes familles de créatures de Magic (Gobelins, Elfes, Vampires, Zombies, Humains, Sorciers, Dragons...). Structuré autour des seigneurs tribaux et des récompenses d'archétypes, il privilégie l'effet boule de neige et le combat tactique. La base de mana généreuse permet aux tribus de s'étendre sur 2 ou 3 couleurs.",
     keyFacts: [
-      { label: "Taille du Cube", value: "545 cartes (Format Master Guild Challenge & Draft traditionnel)" },
-      { label: "Base de Mana", value: "Bilands tribaux, Cavern of Souls, Unclaimed Territory, fixers chromatiques" },
-      { label: "Tour Pivot", value: "T4 (Masse critique tribale, pose d'un seigneur ou d'une bombe tribale)" },
-      { label: "Interaction", value: "16% de removals ciblés (à réserver en priorité pour casser les moteurs adverses)" },
+      {
+        label: "Taille du Cube",
+        value: "545 cartes (Format Master Guild Challenge & Draft traditionnel)",
+      },
+      {
+        label: "Base de Mana",
+        value: "Bilands tribaux, Cavern of Souls, Unclaimed Territory, fixers chromatiques",
+      },
+      {
+        label: "Tour Pivot",
+        value: "T4 (Masse critique tribale, pose d'un seigneur ou d'une bombe tribale)",
+      },
+      {
+        label: "Interaction",
+        value: "16% de removals ciblés (à réserver en priorité pour casser les moteurs adverses)",
+      },
     ],
     rulesOfDraft: [
       {
@@ -288,14 +391,24 @@ const CUBE_STRATEGIC_ADVICE = {
         name: "Elfes & Mana Débridé",
         description:
           "Génération exponentielle de mana pour déborder l'adversaire ou poser un Craterhoof Behemoth.",
-        cards: ["Elvish Archdruid", "Priest of Titania", "Craterhoof Behemoth", "Ezuri, Renegade Leader"],
+        cards: [
+          "Elvish Archdruid",
+          "Priest of Titania",
+          "Craterhoof Behemoth",
+          "Ezuri, Renegade Leader",
+        ],
       },
       {
         category: "Aristocrates",
         name: "Vampires & Drain de Vie",
         description:
           "Guerre d'usure grattant les points de vie à chaque mort de créature tout en maintenant un total de PV élevé.",
-        cards: ["Blood Artist", "Captivating Vampire", "Vito, Thorn of the Dusk Rose", "Sorin, Imperious Bloodlord"],
+        cards: [
+          "Blood Artist",
+          "Captivating Vampire",
+          "Vito, Thorn of the Dusk Rose",
+          "Sorin, Imperious Bloodlord",
+        ],
       },
       {
         category: "Cimetière",
@@ -308,14 +421,28 @@ const CUBE_STRATEGIC_ADVICE = {
   },
   [CUBE_KEYS.NICO]: {
     title: "Présentation du Cube & Conseils Stratégiques",
-    subtitle: "Powered Vintage 730 cartes • Le summum de la puissance, du Fast Mana et des combos en un tour",
+    subtitle:
+      "Powered Vintage 730 cartes • Le summum de la puissance, du Fast Mana et des combos en un tour",
     presentation:
       "Le Nico's Vintage Candyshop Cube est un monument du Powered Vintage rassemblant 730 cartes parmi les plus redoutables de toute l'histoire de Magic. Avec le Power 9 intégral (Black Lotus, les 5 Moxen, Time Walk, Ancestral Recall, Timetwister), Sol Ring, Mana Crypt, Library of Alexandria, Bazaar of Baghdad et les combos les plus foudroyantes (Underworld Breach Storm, Tinker-Blightsteel, Sneak & Show, Reanimator T1), c'est un format à la vélocité supersonique où le Tour Fondamental T2 fait office de juge de paix. Pour triompher, vous devez soit initier une sortie proactive dévastatrice dès le T1/T2, soit disposer d'interactions gratuites (Force of Will, Force of Negation, Mindbreak Trap, Daze, Mental Misstep) pour survivre au premier assaut.",
     keyFacts: [
-      { label: "Taille du Cube", value: "730 cartes (50% ouvert par draft de 8 = immense rejouabilité, redondance indispensable)" },
-      { label: "Niveau de Puissance", value: "Powered Vintage (Power 9 complet + Fast Mana absolu)" },
-      { label: "Tour Pivot", value: "T2 (Critique T1-T3 : la partie peut se plier ou se verrouiller dès le tour 2)" },
-      { label: "Fixation de Mana", value: "10 Fetchlands + 10 Vrais Duals originaux + Fast Mana omniprésent" },
+      {
+        label: "Taille du Cube",
+        value:
+          "730 cartes (50% ouvert par draft de 8 = immense rejouabilité, redondance indispensable)",
+      },
+      {
+        label: "Niveau de Puissance",
+        value: "Powered Vintage (Power 9 complet + Fast Mana absolu)",
+      },
+      {
+        label: "Tour Pivot",
+        value: "T2 (Critique T1-T3 : la partie peut se plier ou se verrouiller dès le tour 2)",
+      },
+      {
+        label: "Fixation de Mana",
+        value: "10 Fetchlands + 10 Vrais Duals originaux + Fast Mana omniprésent",
+      },
     ],
     rulesOfDraft: [
       {
@@ -349,35 +476,67 @@ const CUBE_STRATEGIC_ADVICE = {
         name: "Fast Mana & Tricherie de Tempo",
         description:
           "Accélération brute brisant la courbe de mana dès le premier tour pour imposer une avance irrattrapable.",
-        cards: ["Black Lotus", "Sol Ring", "Time Walk", "Ancestral Recall", "Mana Crypt", "Mox Sapphire"],
+        cards: [
+          "Black Lotus",
+          "Sol Ring",
+          "Time Walk",
+          "Ancestral Recall",
+          "Mana Crypt",
+          "Mox Sapphire",
+        ],
       },
       {
         category: "Combo / Ramp",
         name: "Tinker & Colosses Mécaniques",
         description:
           "Conversion d'un artefact modeste en colosse létal ou moteur de jeu écrasant dès le tour 2.",
-        cards: ["Tinker", "Blightsteel Colossus", "Bolas's Citadel", "Urza, Lord High Artificer", "Tolarian Academy"],
+        cards: [
+          "Tinker",
+          "Blightsteel Colossus",
+          "Bolas's Citadel",
+          "Urza, Lord High Artificer",
+          "Tolarian Academy",
+        ],
       },
       {
         category: "Combo Cimetière",
         name: "Reanimator Foudroyant",
         description:
           "Dépose d'un monstre de légende au cimetière suivi d'une réanimation à bas coût protégée par des contres.",
-        cards: ["Entomb", "Reanimate", "Animate Dead", "Griselbrand", "Archon of Cruelty", "Atraxa, Grand Unifier"],
+        cards: [
+          "Entomb",
+          "Reanimate",
+          "Animate Dead",
+          "Griselbrand",
+          "Archon of Cruelty",
+          "Atraxa, Grand Unifier",
+        ],
       },
       {
         category: "Triche de Créatures",
         name: "Sneak Attack & Show and Tell",
         description:
           "Contournement des coûts de mana pour déployer Emrakul ou Atraxa avec célérité.",
-        cards: ["Sneak Attack", "Show and Tell", "Through the Breach", "Oath of Druids", "Emrakul, the Aeons Torn"],
+        cards: [
+          "Sneak Attack",
+          "Show and Tell",
+          "Through the Breach",
+          "Oath of Druids",
+          "Emrakul, the Aeons Torn",
+        ],
       },
       {
         category: "Combo Storm",
         name: "Underworld Breach & Storm",
         description:
           "Enchaînement de sorts rituels et de cantrips pour alimenter le cimetière et conclure avec Brain Freeze ou Tendrils.",
-        cards: ["Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Tendrils of Agony", "Lotus Petal"],
+        cards: [
+          "Underworld Breach",
+          "Lion's Eye Diamond",
+          "Brain Freeze",
+          "Tendrils of Agony",
+          "Lotus Petal",
+        ],
       },
     ],
   },
@@ -387,10 +546,22 @@ const CUBE_STRATEGIC_ADVICE = {
     presentation:
       "Le Pauper Cube de Hugues est un hommage vibrant à l'essence tactique de Magic. Composé exclusivement de cartes communes, il élimine délibérément le fast mana, les bombes solitaires incontrôlables et les combos dégénérés. Ici, chaque point de vie et chaque carte comptent double : les victoires s'arrachent au combat sur le champ de bataille, par le double-spelling et par l'accumulation méthodique d'avantages 2-pour-1 (Mulldrifter, Ninjutsu). Avec un Tour Pivot T4.5 - T5, c'est le format par excellence du jeu interactif et de la construction de courbe rigoureuse.",
     keyFacts: [
-      { label: "Taille du Cube", value: "357 cartes (100% ouvert lors d'un draft à 8 = régularité maximale des archétypes)" },
-      { label: "Niveau de Puissance", value: "Pauper (100% cartes communes, parties interactives et équilibrées)" },
-      { label: "Tour Pivot", value: "T4.5 - T5 (Stabilisation, double-spelling et bascule de l'avantage de cartes)" },
-      { label: "Fixation de Mana", value: "Bouncelands (Karoo), Bridges MH2, Campagnes & Terrains arrivant engagés" },
+      {
+        label: "Taille du Cube",
+        value: "357 cartes (100% ouvert lors d'un draft à 8 = régularité maximale des archétypes)",
+      },
+      {
+        label: "Niveau de Puissance",
+        value: "Pauper (100% cartes communes, parties interactives et équilibrées)",
+      },
+      {
+        label: "Tour Pivot",
+        value: "T4.5 - T5 (Stabilisation, double-spelling et bascule de l'avantage de cartes)",
+      },
+      {
+        label: "Fixation de Mana",
+        value: "Bouncelands (Karoo), Bridges MH2, Campagnes & Terrains arrivant engagés",
+      },
     ],
     rulesOfDraft: [
       {
@@ -672,7 +843,8 @@ function openDeckReviewModal(entry) {
   if (!elements.deckReviewBackdrop) return;
   state.selectedDeckReview = entry;
   if (elements.deckReviewRank) elements.deckReviewRank.textContent = `#${entry.rank || 1}`;
-  if (elements.deckReviewTitle) elements.deckReviewTitle.textContent = `Deck de ${entry.playerName}`;
+  if (elements.deckReviewTitle)
+    elements.deckReviewTitle.textContent = `Deck de ${entry.playerName}`;
   if (elements.deckReviewMeta) {
     const mins = Math.floor(entry.totalDurationSeconds / 60);
     const secs = entry.totalDurationSeconds % 60;
@@ -695,16 +867,18 @@ function openDeckReviewModal(entry) {
         )
         .join("");
     }
-    elements.deckReviewCardsGrid.querySelectorAll(".review-card-item img").forEach((image, index) => {
-      const card = cards[index];
-      if (card) {
-        loadImageWithFallback(
-          image,
-          resolveCardImageUrl(card, state.cardLanguage),
-          getCardImageFallbackUrl(card, state.cardLanguage),
-        );
-      }
-    });
+    elements.deckReviewCardsGrid
+      .querySelectorAll(".review-card-item img")
+      .forEach((image, index) => {
+        const card = cards[index];
+        if (card) {
+          loadImageWithFallback(
+            image,
+            resolveCardImageUrl(card, state.cardLanguage),
+            getCardImageFallbackUrl(card, state.cardLanguage),
+          );
+        }
+      });
   }
 
   elements.deckReviewBackdrop.hidden = false;
@@ -747,6 +921,7 @@ function initSoloDraft() {
       maindeckContainer: document.getElementById("deck-maindeck-container"),
       sideboardContainer: document.getElementById("deck-sideboard-container"),
       autoLandsBtn: document.getElementById("auto-calculate-lands-btn"),
+      landRationale: document.getElementById("solo-land-rationale"),
       validateDeckBtn: document.getElementById("draft-validate-deck-btn"),
 
       abandonBtn: document.getElementById("draft-abandon-btn"),
@@ -1045,6 +1220,8 @@ function navigateTo(viewName, cubeKey = null) {
     loadAndRenderLeaderboard();
   } else if (viewName === "admin") {
     initAdminView();
+  } else if (viewName === "multi") {
+    initMultiplayerDraftView();
   }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1181,7 +1358,8 @@ function setupEventListeners() {
       return;
     }
     if (elements.multiVipFeedback) {
-      elements.multiVipFeedback.textContent = "✨ Inscription enregistrée ! Vous serez averti en priorité dès l'ouverture des pods alpha.";
+      elements.multiVipFeedback.textContent =
+        "✨ Inscription enregistrée ! Vous serez averti en priorité dès l'ouverture des pods alpha.";
       elements.multiVipFeedback.style.color = "var(--accent-gold)";
     }
     if (typeof confetti === "function") {
@@ -1193,13 +1371,15 @@ function setupEventListeners() {
     const contact = elements.tournamentsPilotContact?.value?.trim();
     if (!contact) {
       if (elements.tournamentsPilotFeedback) {
-        elements.tournamentsPilotFeedback.textContent = "Veuillez renseigner votre association ou contact.";
+        elements.tournamentsPilotFeedback.textContent =
+          "Veuillez renseigner votre association ou contact.";
         elements.tournamentsPilotFeedback.style.color = "var(--accent-coral)";
       }
       return;
     }
     if (elements.tournamentsPilotFeedback) {
-      elements.tournamentsPilotFeedback.textContent = "🛡️ Candidature reçue ! Notre équipe prendra contact pour configurer votre premier tournoi test.";
+      elements.tournamentsPilotFeedback.textContent =
+        "🛡️ Candidature reçue ! Notre équipe prendra contact pour configurer votre premier tournoi test.";
       elements.tournamentsPilotFeedback.style.color = "var(--tier-s)";
     }
     if (typeof confetti === "function") {
@@ -1243,7 +1423,9 @@ function setupEventListeners() {
 
   document.querySelectorAll("#bots-style-filter .bot-filter-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      document.querySelectorAll("#bots-style-filter .bot-filter-btn").forEach((b) => b.classList.remove("active"));
+      document
+        .querySelectorAll("#bots-style-filter .bot-filter-btn")
+        .forEach((b) => b.classList.remove("active"));
       e.currentTarget.classList.add("active");
       activeBotStyle = e.currentTarget.dataset.style;
       applyBotFilters();
@@ -1252,13 +1434,14 @@ function setupEventListeners() {
 
   document.querySelectorAll("#bots-level-filter .bot-filter-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      document.querySelectorAll("#bots-level-filter .bot-filter-btn").forEach((b) => b.classList.remove("active"));
+      document
+        .querySelectorAll("#bots-level-filter .bot-filter-btn")
+        .forEach((b) => b.classList.remove("active"));
       e.currentTarget.classList.add("active");
       activeBotLevel = e.currentTarget.dataset.level;
       applyBotFilters();
     });
   });
-
 
   // Signature card chip click -> go to cards view with search query
   document.querySelectorAll(".sig-card-chip").forEach((chip) => {
@@ -1407,8 +1590,10 @@ async function loadData() {
               const cached = localFrenchCache.get(card.name);
               if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
               if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
-              if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-              if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+              if (cached.frenchImageUrl && !card.frenchImageUrl)
+                card.frenchImageUrl = cached.frenchImageUrl;
+              if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+                card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
             }
           });
         }
@@ -1635,7 +1820,8 @@ function renderCubeDetail(cubeKey) {
 
   const meta = state.cubesMeta[cubeKey];
   if (!meta) {
-    elements.cubeDetailPanel.innerHTML = '<p class="loading-state">Chargement des analyses du Cube...</p>';
+    elements.cubeDetailPanel.innerHTML =
+      '<p class="loading-state">Chargement des analyses du Cube...</p>';
     return;
   }
 
@@ -1653,7 +1839,8 @@ function renderCubeDetail(cubeKey) {
     fixingQuality: "custom",
   };
 
-  const cardCount = meta.cardCount || (cubeKey === CUBE_KEYS.TITOU ? 545 : cubeKey === CUBE_KEYS.NICO ? 730 : 450);
+  const cardCount =
+    meta.cardCount || (cubeKey === CUBE_KEYS.TITOU ? 545 : cubeKey === CUBE_KEYS.NICO ? 730 : 450);
 
   // Format details box (e.g. Titou's Master Guild Challenge)
   let formatBoxHtml = "";
@@ -1704,7 +1891,7 @@ function renderCubeDetail(cubeKey) {
             : "";
           const pip = formatCostPip(card.manaCost, card.cmc);
           return `
-            <button type="button" class="archetype-card-chip" data-oracle="${card.oracleId || ''}" data-name="${card.name}">
+            <button type="button" class="archetype-card-chip" data-oracle="${card.oracleId || ""}" data-name="${card.name}">
               <span class="chip-name">${card.name}</span>
               ${pip ? `<span class="chip-cost">${pip}</span>` : ""}
               ${score ? `<span class="chip-score">${score}</span>` : ""}
@@ -1723,7 +1910,7 @@ function renderCubeDetail(cubeKey) {
             : "";
           const pip = formatCostPip(card.manaCost, card.cmc);
           return `
-            <button type="button" class="archetype-card-chip support-chip" data-oracle="${card.oracleId || ''}" data-name="${card.name}">
+            <button type="button" class="archetype-card-chip support-chip" data-oracle="${card.oracleId || ""}" data-name="${card.name}">
               <span class="chip-name">${card.name}</span>
               ${pip ? `<span class="chip-cost">${pip}</span>` : ""}
               ${score ? `<span class="chip-score">${score}</span>` : ""}
@@ -2080,7 +2267,11 @@ function renderMatrix() {
 
     // 2. Build Mobile LimitedGrades Section
     if (tierTotalCount > 0) {
-      const mobileSection = createLimitedGradesMobileTierSection(tier, tierTotalCount, buckets[tier]);
+      const mobileSection = createLimitedGradesMobileTierSection(
+        tier,
+        tierTotalCount,
+        buckets[tier],
+      );
       elements.mobileTierList.appendChild(mobileSection);
     }
   });
@@ -2106,7 +2297,8 @@ function createCardMatrixItem(card, colClass) {
     const cached = localFrenchCache.get(card.name);
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
   }
 
   const isFr = state.cardLanguage === "FR";
@@ -2227,7 +2419,8 @@ function createLimitedGradesCardRow(card, tier) {
     const cached = localFrenchCache.get(card.name);
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
   }
 
   const isFr = state.cardLanguage === "FR";
@@ -2289,7 +2482,8 @@ function showCardPopover(card, e) {
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
   }
 
   const isFr = state.cardLanguage === "FR";
@@ -2435,7 +2629,8 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
     if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
     if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
     if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
+      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
     if (onUpdate) onUpdate(card);
     if (card.frenchImageUrl) return;
   }
@@ -2455,21 +2650,25 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
       const data = await res.json();
       const prints = data.data || [];
       const match = prints.find(
-        (p) => isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris)
+        (p) =>
+          isMatchingScryfallPrint(p, card.name) && (p.image_uris || p.card_faces?.[0]?.image_uris),
       );
 
       if (match) {
         let fName = match.printed_name || card.name;
         let fText = match.printed_text || match.oracle_text || card.oracleText;
         const fImg = match.image_uris?.normal || match.card_faces?.[0]?.image_uris?.normal || null;
-        const fLargeImg = match.image_uris?.large || match.card_faces?.[0]?.image_uris?.large || fImg;
+        const fLargeImg =
+          match.image_uris?.large || match.card_faces?.[0]?.image_uris?.large || fImg;
 
         if (match.card_faces && match.card_faces.length > 0) {
           fName =
             match.printed_name ||
             match.card_faces.map((f) => f.printed_name || f.name).join(" // ");
           fText = match.card_faces
-            .map((f) => `${f.printed_name || f.name}\n${f.printed_text || f.oracle_text || ""}`.trim())
+            .map((f) =>
+              `${f.printed_name || f.name}\n${f.printed_text || f.oracle_text || ""}`.trim(),
+            )
             .join("\n\n---\n\n");
         }
         card.frenchName = fName;

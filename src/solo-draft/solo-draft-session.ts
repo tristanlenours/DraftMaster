@@ -38,7 +38,7 @@ import {
   type FriendProfile,
 } from "../bots/friends/index.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
-import { evaluatePack, getEffectiveProducingColors } from "../domain/coaching/dynamic-score.ts";
+import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
 import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
 import { evaluateDeck } from "../domain/coaching/deck-evaluation.ts";
@@ -68,6 +68,7 @@ import { generateDetailedDraftHtml } from "../simulation/html-report-generator.t
 import { generateBoosterDistributionHtml } from "../simulation/booster-distribution-html.ts";
 import { saveUnifiedLeaderboardEntry } from "../storage/cloud-leaderboard.ts";
 import { saveAdminDraft } from "./admin-drafts.ts";
+import type { FinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
 import type {
   AdminDraftEntry,
   AdminDraftSeatSummary,
@@ -809,7 +810,10 @@ export class SoloDraftSession {
     return this.getStateDto(humanEnriched);
   }
 
-  public calculateOptimalBasicLands(maindeckCardInstanceIds: readonly string[]): BasicLandCounts {
+  public calculateOptimalBasicLands(
+    maindeckCardInstanceIds: readonly string[],
+    targetLands = 17,
+  ): BasicLandCounts {
     const counts: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
     for (const id of maindeckCardInstanceIds) {
       const card = this.instanceToInputMap.get(id);
@@ -821,30 +825,36 @@ export class SoloDraftSession {
 
     const totalPips = counts.W + counts.U + counts.B + counts.R + counts.G;
     if (totalPips === 0) {
-      return { Plains: 4, Island: 4, Swamp: 3, Mountain: 3, Forest: 3 };
+      const evenShare = Math.floor(targetLands / 5);
+      const remainder = targetLands % 5;
+      return {
+        Plains: evenShare + (remainder > 0 ? 1 : 0),
+        Island: evenShare + (remainder > 1 ? 1 : 0),
+        Swamp: evenShare + (remainder > 2 ? 1 : 0),
+        Mountain: evenShare + (remainder > 3 ? 1 : 0),
+        Forest: evenShare,
+      };
     }
 
-    const TARGET_LANDS = 17;
     const lands: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
     let allocated = 0;
 
     const colors: MtGColor[] = ["W", "U", "B", "R", "G"];
     for (const col of colors) {
       if (counts[col] > 0) {
-        const share = Math.max(1, Math.round((counts[col] / totalPips) * TARGET_LANDS));
+        const share = Math.max(1, Math.round((counts[col] / totalPips) * targetLands));
         lands[col] = share;
         allocated += share;
       }
     }
 
-    // Adjust to reach exactly TARGET_LANDS
-    while (allocated < TARGET_LANDS) {
+    while (allocated < targetLands) {
       const highestColor = colors.reduce((best, c) => (counts[c] > counts[best] ? c : best), "W");
       lands[highestColor]++;
       allocated++;
     }
 
-    while (allocated > TARGET_LANDS) {
+    while (allocated > targetLands) {
       const candidates = colors.filter((c) => lands[c] > 1);
       if (candidates.length === 0) break;
       const lowestColor = candidates.reduce(
@@ -877,12 +887,6 @@ export class SoloDraftSession {
       throw new Error(`Cannot finalize deck: status is '${this.status}'`);
     }
 
-    if (input.maindeckCardInstanceIds.length !== 23) {
-      throw new Error(
-        `Main deck must contain exactly 23 cards (received ${String(input.maindeckCardInstanceIds.length)})`,
-      );
-    }
-
     const finalDraftView = getDraftView(this.currentDraft);
     const humanPool = finalDraftView.seats[0]?.priorPool ?? [];
 
@@ -895,10 +899,39 @@ export class SoloDraftSession {
     this.totalDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
 
     // 1. Basic Lands
+    const targetBasicLands = 40 - input.maindeckCardInstanceIds.length;
     const basicLands: BasicLandCounts = {
-      ...this.calculateOptimalBasicLands(input.maindeckCardInstanceIds),
+      ...this.calculateOptimalBasicLands(input.maindeckCardInstanceIds, targetBasicLands),
       ...(input.basicLands ?? {}),
     };
+    const basicLandValues = [
+      basicLands.Plains,
+      basicLands.Island,
+      basicLands.Swamp,
+      basicLands.Mountain,
+      basicLands.Forest,
+    ];
+    const basicLandCount = basicLandValues.reduce((sum, count) => sum + count, 0);
+    if (
+      basicLandValues.some((count) => !Number.isInteger(count) || count < 0) ||
+      input.maindeckCardInstanceIds.length + basicLandCount !== 40
+    ) {
+      throw new Error("Main deck and basic lands must contain exactly 40 cards");
+    }
+    const draftedLandCount = input.maindeckCardInstanceIds.filter((id) => {
+      const card = this.instanceToInputMap.get(id);
+      return (
+        (card?.isLand ?? false) ||
+        /\/\/\s*(?:basic\s+)?land\b/i.test(card?.typeLine ?? "") ||
+        /\b(?:as|when) (?:this|that) land enters\b/i.test(card?.oracleText ?? "")
+      );
+    }).length;
+    const totalLandCount = basicLandCount + draftedLandCount;
+    if ((totalLandCount < 16 || totalLandCount > 18) && !input.landCountRationale?.trim()) {
+      throw new Error(
+        `A ${String(totalLandCount)}-land deck requires a concrete landCountRationale outside the normal 16 to 18 range`,
+      );
+    }
 
     // 2. Build Seat 0 Deck Summary
     const maindeckSpells: EnrichedCard[] = input.maindeckCardInstanceIds.map((id) =>
@@ -1316,78 +1349,14 @@ export class SoloDraftSession {
       throw new Error("No deck recommendation available");
     }
 
-    const nonBasicDrafted: string[] = bestOption.maindeck.filter((id) => !id.startsWith("basic-"));
-    const draftedSpells = nonBasicDrafted.filter((id) => !this.getEnrichedCard(id).isLand);
-
-    const deckColors = new Set<MtGColor>([
-      ...bestOption.evaluation.archetype.primaryColors,
-      ...bestOption.evaluation.archetype.splashColors,
-    ]);
-    if (deckColors.size === 0) {
-      for (const id of draftedSpells) {
-        const enriched = this.getEnrichedCard(id);
-        for (const col of enriched.colors) {
-          deckColors.add(col);
-        }
-      }
-    }
-
-    const evaluateLandSuitability = (
-      id: string,
-    ): { isMatch: boolean; isDual: boolean; score: number } => {
-      const card = this.instanceToInputMap.get(id);
-      if (!card?.isLand) return { isMatch: false, isDual: false, score: 0 };
-      const produced = getEffectiveProducingColors(card);
-      if (produced.length === 0) return { isMatch: false, isDual: false, score: 0 };
-      const matching = produced.filter((c) => deckColors.has(c));
-      const off = produced.filter((c) => !deckColors.has(c));
-      const isDual = matching.length >= 2;
-      const isPureSingle = matching.length >= 1 && off.length === 0;
-      const isMatch = isDual || isPureSingle;
-      return {
-        isMatch,
-        isDual,
-        score: (isDual ? 100 : 50) + card.staticScore - off.length * 15,
-      };
+    const maindeckCardInstanceIds = bestOption.maindeck.filter((id) => !id.startsWith("basic-"));
+    const basicLands: BasicLandCounts = {
+      Plains: bestOption.maindeck.filter((id) => id === "basic-plains").length,
+      Island: bestOption.maindeck.filter((id) => id === "basic-island").length,
+      Swamp: bestOption.maindeck.filter((id) => id === "basic-swamp").length,
+      Mountain: bestOption.maindeck.filter((id) => id === "basic-mountain").length,
+      Forest: bestOption.maindeck.filter((id) => id === "basic-forest").length,
     };
-
-    // Extract on-color lands available in pool, prioritized by dual fixing & score
-    const onColorLands = poolIds
-      .filter((id) => this.getEnrichedCard(id).isLand)
-      .map((id) => ({ id, ...evaluateLandSuitability(id) }))
-      .filter((l) => l.isMatch)
-      .sort((a, b) => b.score - a.score)
-      .map((l) => l.id);
-
-    // Prioritize up to 3 on-color lands in the 23-card active deck
-    const selectedLands = onColorLands.slice(0, 3);
-    const targetSpellCount = 23 - selectedLands.length;
-    const selectedSpells = draftedSpells.slice(0, targetSpellCount);
-
-    const maindeckCardInstanceIds: string[] = [...selectedLands, ...selectedSpells];
-
-    if (maindeckCardInstanceIds.length < 23) {
-      for (const id of draftedSpells) {
-        if (maindeckCardInstanceIds.length >= 23) break;
-        if (!maindeckCardInstanceIds.includes(id)) {
-          maindeckCardInstanceIds.push(id);
-        }
-      }
-      for (const id of nonBasicDrafted) {
-        if (maindeckCardInstanceIds.length >= 23) break;
-        if (!maindeckCardInstanceIds.includes(id)) {
-          maindeckCardInstanceIds.push(id);
-        }
-      }
-      for (const id of poolIds) {
-        if (maindeckCardInstanceIds.length >= 23) break;
-        if (!maindeckCardInstanceIds.includes(id)) {
-          maindeckCardInstanceIds.push(id);
-        }
-      }
-    }
-
-    const basicLands = this.calculateOptimalBasicLands(maindeckCardInstanceIds);
 
     return {
       maindeckCardInstanceIds,
@@ -1395,7 +1364,48 @@ export class SoloDraftSession {
       archetype: bestOption.evaluation.archetype,
       overallTier: bestOption.evaluation.overallTier,
       radarTiers: bestOption.evaluation.radarTiers,
-      justification: `Recommandation IA basée sur l'archétype ${bestOption.evaluation.archetype.label} (${bestOption.evaluation.overallTier})`,
+      source: "local",
+      provider: "DraftMaster local",
+      justification: `Recommandation locale auditable basee sur l'archetype ${bestOption.evaluation.archetype.label} (${bestOption.evaluation.overallTier})`,
+    };
+  }
+
+  public async getAssistedDeckRecommendation(
+    coach: FinalDeckCoach,
+  ): Promise<SoloDraftDeckRecommendation> {
+    if (this.status !== "deckbuilding") {
+      throw new Error(`Cannot recommend deck: status is '${this.status}'`);
+    }
+
+    // The homologation is removed before any external request or fallback can resolve.
+    this.isHomologated = false;
+    const view = getDraftView(this.currentDraft);
+    const pool = (view.seats[0]?.priorPool ?? []).map(
+      (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+    );
+    const recommendation = await coach.recommend({
+      cubeKey: this.snapshot.cubeKey,
+      snapshotId: this.snapshot.snapshotId,
+      pool,
+      evaluationOptions: {
+        bombThreshold: this.bombDefinition.cutoffScore,
+        synergyProfile: this.synergyProfile,
+      },
+    });
+
+    return {
+      maindeckCardInstanceIds: recommendation.maindeckCardInstanceIds,
+      basicLands: recommendation.basicLands,
+      archetype: recommendation.evaluation.archetype,
+      overallTier: recommendation.evaluation.overallTier,
+      radarTiers: recommendation.evaluation.radarTiers,
+      source: recommendation.source,
+      provider: recommendation.provider,
+      model: recommendation.model,
+      strategy: recommendation.strategy,
+      manaRationale: recommendation.manaRationale,
+      landCountRationale: recommendation.landCountRationale,
+      justification: `${recommendation.strategy} ${recommendation.manaRationale}`,
     };
   }
 

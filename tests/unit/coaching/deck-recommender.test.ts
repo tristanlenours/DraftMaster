@@ -140,4 +140,95 @@ describe("Deck Recommender (FR-015)", () => {
     expect(option?.maindeck.filter((id) => id.startsWith("basic-"))).toHaveLength(16);
     expect(option?.maindeck.filter((id) => !id.startsWith("basic-"))).toHaveLength(24);
   });
+
+  it("monte a 18 terrains pour une courbe haute", () => {
+    const pool = [
+      ...Array.from({ length: 27 }, (_, index) =>
+        makeCard(
+          `U_${String(index)}`,
+          `Blue Control ${String(index)}`,
+          ["U"],
+          45,
+          5,
+          false,
+          "o4oU",
+        ),
+      ),
+      ...Array.from({ length: 18 }, (_, index) =>
+        makeCard(`R_${String(index)}`, `Red Card ${String(index)}`, ["R"], 20, 2),
+      ),
+    ];
+
+    const option = recommendDeckBuilds(pool)[0];
+
+    expect(option?.maindeck).toHaveLength(40);
+    expect(option?.maindeck.filter((id) => id.startsWith("basic-"))).toHaveLength(18);
+  });
+
+  it("compte les terrains non-basiques dans la cible totale", () => {
+    const pool = [
+      ...Array.from({ length: 24 }, (_, index) =>
+        makeCard(`W_${String(index)}`, `White Spell ${String(index)}`, ["W"], 40, 3, false, "o2oW"),
+      ),
+      {
+        ...makeCard("land_1", "Hallowed Fountain", [], 40, 0, true),
+        producesColors: ["W", "U"] as const,
+      },
+      {
+        ...makeCard("land_2", "Tundra", [], 39, 0, true),
+        producesColors: ["W", "U"] as const,
+      },
+      ...Array.from({ length: 19 }, (_, index) =>
+        makeCard(`G_${String(index)}`, `Green Card ${String(index)}`, ["G"], 20, 3),
+      ),
+    ];
+
+    const option = recommendDeckBuilds(pool)[0];
+    const draftedLands = option?.maindeck.filter((id) => id.startsWith("land_")) ?? [];
+    const basics = option?.maindeck.filter((id) => id.startsWith("basic-")) ?? [];
+
+    expect(draftedLands).toHaveLength(2);
+    expect(basics).toHaveLength(15);
+    expect(draftedLands.length + basics.length).toBe(17);
+  });
+
+  it("traite un MDFC terrain-sort comme une source sans le sortir des sorts", () => {
+    const pool = [
+      ...Array.from({ length: 23 }, (_, index) =>
+        makeCard(`B_${String(index)}`, `Black Spell ${String(index)}`, ["B"], 40, 3, false, "o2oB"),
+      ),
+      {
+        ...makeCard("mdfc_1", "Agadeem's Awakening", ["B"], 50, 3, false, "oXoBoBoB"),
+        typeLine: "Sorcery // Land",
+        producesColors: ["B"] as const,
+        oracleText: "As this land enters, you may pay 3 life. {T}: Add {B}.",
+      },
+      ...Array.from({ length: 21 }, (_, index) =>
+        makeCard(`G_${String(index)}`, `Green Card ${String(index)}`, ["G"], 20, 3),
+      ),
+    ];
+
+    const option = recommendDeckBuilds(pool)[0];
+
+    expect(option?.maindeck).toContain("mdfc_1");
+    expect(option?.maindeck.filter((id) => id.startsWith("basic-"))).toHaveLength(16);
+    expect(option?.maindeck).toHaveLength(40);
+  });
+
+  it("conserve deux exemplaires selectionnes quand leurs IDs d'instance sont distincts", () => {
+    const pool = [
+      makeCard("bolt_1", "Lightning Bolt", ["R"], 55, 1, false, "oR"),
+      makeCard("bolt_2", "Lightning Bolt", ["R"], 54, 1, false, "oR"),
+      ...Array.from({ length: 28 }, (_, index) =>
+        makeCard(`R_${String(index)}`, `Red Spell ${String(index)}`, ["R"], 40, 2, false, "o1oR"),
+      ),
+      ...Array.from({ length: 15 }, (_, index) =>
+        makeCard(`G_${String(index)}`, `Green Card ${String(index)}`, ["G"], 20, 4),
+      ),
+    ];
+
+    const option = recommendDeckBuilds(pool)[0];
+
+    expect(option?.maindeck).toEqual(expect.arrayContaining(["bolt_1", "bolt_2"]));
+  });
 });

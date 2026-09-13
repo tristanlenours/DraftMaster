@@ -420,20 +420,21 @@
             <!-- Teaser Card 1: Multi Draft -->
             <div class="home-teaser-card" id="home-teaser-multi">
               <div class="teaser-card-badge">
-                <span class="pulse-dot-amber"></span><span>Bientôt • Temps Réel</span>
+                <span class="pulse-dot-amber"></span><span>Disponible • Entre amis</span>
               </div>
               <div class="teaser-card-icon">👥</div>
               <h3 class="teaser-card-title">Draft Multijoueur en Ligne</h3>
               <p class="teaser-card-summary">
-                Rassemblez jusqu'à 8 magiciens en direct autour de vos cubes favoris. Lobbies
-                privés, timer synchronisé et complétion intelligente par bots si un joueur manque.
+                Réunissez 2 à 8 magiciens autour de vos cubes favoris. Prenez le temps de choisir :
+                aucun chrono, aucun remplacement humain, et les places libres sont confiées aux
+                Friend-Bots au départ.
               </p>
               <div class="teaser-card-meta">
-                <span>Pods 4 à 8</span>
-                <span>WebSockets</span>
-                <span>Pick Timer</span>
+                <span>2 à 8 amis</span>
+                <span>Salon global</span>
+                <span>Sans chrono</span>
               </div>
-              <button class="btn-teaser-action" id="home-cta-multi">Découvrir la vision ➔</button>
+              <button class="btn-teaser-action" id="home-cta-multi">Rejoindre le Salon ➔</button>
             </div>
 
             <!-- Teaser Card 2: Tournois -->
@@ -2147,14 +2148,14 @@
         </div>
       </div>
 
-      <!-- STAGE 3: DECKBUILDER STUDIO (23 CARDS SELECTION + 17 LANDS) -->
+      <!-- STAGE 3: DECKBUILDER STUDIO (FLEXIBLE 40-CARD DECK) -->
       <div class="draft-stage" id="draft-deckbuilder-stage" hidden>
         <div class="deckbuilder-header-bar">
           <div class="dh-left">
             <h2 class="deck-stage-title">Atelier de Deckbuilding</h2>
             <span class="deck-stage-desc"
-              >Sélectionnez exactement 23 cartes actives parmi votre pool de 45 cartes
-              draftées.</span
+              >Composez librement 40 cartes avec votre pool et vos terrains de base. La cible
+              habituelle est de 16 à 18 terrains au total.</span
             >
           </div>
           <div class="dh-right">
@@ -2162,12 +2163,12 @@
               type="button"
               class="btn-coach-advice"
               id="deck-ai-recommend-btn"
-              title="Reconstruire les 23 meilleures cartes et les terrains optimaux avec l'IA Coach"
+              title="Demander au Coach Gemini ou DeepSeek une liste de 40 cartes validée localement"
             >
               <span>🧙 Pré-construire avec l'IA</span>
             </button>
-            <span class="counter-badge" id="deck-spells-counter">0 / 23 cartes</span>
-            <span class="counter-badge" id="total-lands-badge">17 / 17 terrains</span>
+            <span class="counter-badge" id="deck-spells-counter">0 / 40 cartes</span>
+            <span class="counter-badge" id="total-lands-badge">0 terrain</span>
             <span class="hud-pill pill-timer" id="deck-timer">⏱️ 00:00</span>
             <button
               type="button"
@@ -2189,16 +2190,16 @@
         </div>
 
         <div class="deckbuilder-vertical-layout">
-          <!-- TOP ZONE: Main Deck (23 Cards grouped by Mana Curve) -->
+          <!-- TOP ZONE: Main Deck (Cards grouped by Mana Curve) -->
           <div class="deck-zone-card maindeck-zone-full">
             <div class="zone-header maindeck-header-flex">
               <div class="zone-title-wrap">
                 <span class="zone-icon">⚔️</span>
-                <span class="zone-title">Main Deck (23 Cartes Actives)</span>
+                <span class="zone-title">Cartes draftées retenues</span>
                 <span class="zone-badge-pill" id="deck-maindeck-curve-stats">0 Créatures · 0 Sorts · 0 Terrains</span>
               </div>
               <div class="zone-header-actions">
-                <span class="zone-help">Répartition par coût de mana (du plus petit au plus grand). Cliquez pour retirer, 🔍 pour inspecter.</span>
+                <span class="zone-help">Répartition par coût de mana. Cliquez pour retirer, 🔍 pour inspecter.</span>
               </div>
             </div>
             <!-- Mana Curve Columns Container -->
@@ -2213,10 +2214,10 @@
               <div class="zone-title-wrap">
                 <span class="zone-icon">📦</span>
                 <span class="zone-title">Réserve / Sideboard</span>
-                <span class="sideboard-count-pill" id="sideboard-count-pill">22 cartes disponibles</span>
+                <span class="sideboard-count-pill" id="sideboard-count-pill">Cartes disponibles</span>
               </div>
               <div class="sideboard-filters-bar" id="sideboard-filters-bar">
-                <button type="button" class="sb-filter-btn active" data-filter="all">Tous (<span id="sb-count-all">22</span>)</button>
+                <button type="button" class="sb-filter-btn active" data-filter="all">Tous (<span id="sb-count-all">0</span>)</button>
                 <button type="button" class="sb-filter-btn" data-filter="creatures">Créatures (<span id="sb-count-creatures">0</span>)</button>
                 <button type="button" class="sb-filter-btn" data-filter="spells">Sorts (<span id="sb-count-spells">0</span>)</button>
                 <button type="button" class="sb-filter-btn" data-filter="lands">Terrains (<span id="sb-count-lands">0</span>)</button>
@@ -2232,7 +2233,7 @@
         <div class="lands-manager-box">
           <div class="lands-manager-header">
             <div>
-              <h3 class="lands-title">🏔️ Base de Mana (17 Terrains de Base)</h3>
+              <h3 class="lands-title">🏔️ Base de mana flexible</h3>
               <p class="lands-subtitle">
                 Ajustez manuellement la répartition des 5 terrains de base ou réinitialisez selon
                 les symboles de vos sorts.
@@ -2289,6 +2290,14 @@
               </div>
             </div>
           </div>
+          <label class="multi-field" for="solo-land-rationale">
+            <span>Explication si la liste sort de 16–18 terrains au total</span>
+            <input
+              id="solo-land-rationale"
+              type="text"
+              placeholder="Ex. courbe très basse, deux accélérateurs et trois MDFC"
+            />
+          </label>
         </div>
 
         <div class="deckbuilder-footer-cta">
@@ -2306,7 +2315,7 @@
             </label>
           </div>
           <button class="btn-validate-deck-epic" id="draft-validate-deck-btn" disabled>
-            <span>⚡ Évaluer mon Deck (Mode Entraînement) (23/23)</span>
+            <span>⚡ Évaluer mon Deck (Mode Entraînement) (0/40)</span>
           </button>
         </div>
 
@@ -2699,99 +2708,216 @@
     <!-- /view-admin -->
 
     <!-- ==========================================================================
-         VIEW 7: DRAFT MULTI (Teaser & Vision Produit)
+         VIEW 7: DRAFT MULTI — SALON GLOBAL
          ========================================================================== -->
     <section class="app-view view-multi" id="view-multi" hidden style="display: none">
-      <div class="teaser-page-container">
-        <!-- Hero Banner with mysterious Coming Soon -->
-        <div class="teaser-page-hero">
-          <div class="teaser-status-badge">
-            <span class="pulse-dot-amber"></span>
-            <span>PROJET EN COURS DE FORGEAGE • PHASE ALPHA</span>
+      <div class="multi-page-container">
+        <header class="multi-hero">
+          <div>
+            <span class="multi-kicker">DRAFT ENTRE AMIS • SANS CHRONO</span>
+            <h1>Salon de draft multijoueur</h1>
+            <p>
+              Rejoignez la table, retrouvez-vous sur Discord et prenez tout le temps nécessaire pour
+              chaque choix. Les places libres seront confiées aux Friend-Bots au départ.
+            </p>
           </div>
-          <h1 class="teaser-page-title">
-            <span class="gold-gradient">DRAFT MULTIJOUEUR</span>
-            <span class="white-text">EN TEMPS RÉEL</span>
-          </h1>
-          <p class="teaser-page-subtitle">
-            Partagez la magie du Cube en direct avec vos amis. Pods de 4 à 8 joueurs, rotation synchronisée et
-            adrénaline pure à chaque ouverture de booster.
-          </p>
-          <div class="mystery-coming-soon-banner">
-            <span class="mystery-icon">⏳</span>
-            <span class="mystery-text">COMING SOON</span>
-            <span class="mystery-subtext">Lancement prévu prochainement sur LMCDEU</span>
-          </div>
-        </div>
+          <span class="multi-status-pill" id="multi-lobby-status" aria-live="polite"
+            >Connexion…</span
+          >
+        </header>
 
-        <!-- Pillars / Teaser Features Grid -->
-        <div class="teaser-features-grid">
-          <div class="teaser-feature-card">
-            <div class="feature-icon">🌐</div>
-            <h3 class="feature-title">Lobbies Privés & Salons d'Amis</h3>
-            <p class="feature-desc">
-              Créez une table en un clic et partagez un code d'accès sécurisé ou un lien direct à vos amis.
-              Choisissez le Cube parmi les 4 collections de la communauté (Titou, Nico, Huge, Cédric) et personnalisez la taille
-              du pod (4, 6 ou 8 magiciens).
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3 class="feature-title">Remplacement IA Transparent</h3>
-            <p class="feature-desc">
-              Une table incomplète ou un ami déconnecté ? Un Friend-Bot doté d'une personnalité stratégique
-              distincte prend immédiatement le relais sans interrompre le rythme ni déséquilibrer la roue des choix.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">⏱️</div>
-            <h3 class="feature-title">Timer de Pick Synchronisé</h3>
-            <p class="feature-desc">
-              Retrouvez la véritable tension du draft sur table avec des fenêtres de sélection dynamiques (60s à
-              10s par pick), forçant des décisions instinctives et préservant un tempo fluide pour toute la table.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">🔄</div>
-            <h3 class="feature-title">Rotation Parfaite des Boosters</h3>
-            <p class="feature-desc">
-              Synchronisation instantanée ultra-rapide via WebSockets : rotation horaire au pack 1, antihoraire au
-              pack 2, horaire au pack 3, avec conservation stricte de chaque carte sans désynchronisation.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">💬</div>
-            <h3 class="feature-title">Tchat & Révélations Spectaculaires</h3>
-            <p class="feature-desc">
-              Canal de discussion en direct, célébration des cartes d'exception ouvertes et partage instantané de
-              vos decks construits dès la fin du troisième pack.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">🏆</div>
-            <h3 class="feature-title">Passerelle Directe vers le Tournoi</h3>
-            <p class="feature-desc">
-              Une fois les 45 cartes sélectionnées et les decks de 23 cartes montés, lancez le tournoi entre
-              joueurs en un clic sans ressaisie manuelle !
-            </p>
-          </div>
-        </div>
+        <div class="multi-lobby-grid">
+          <article class="multi-panel" id="multi-join-panel">
+            <span class="multi-panel-step">01 • REJOINDRE</span>
+            <h2>Entrez dans le Salon</h2>
+            <label class="multi-field" for="multi-player-name">
+              <span>Votre nom</span>
+              <input
+                id="multi-player-name"
+                type="text"
+                maxlength="40"
+                autocomplete="nickname"
+                placeholder="Ex. Alice"
+              />
+            </label>
+            <label class="multi-field" for="multi-cube-select">
+              <span>Cube du prochain draft</span>
+              <select id="multi-cube-select">
+                <option value="titou_tribal">Titou — Tribal & Chromatic</option>
+                <option value="nico_candyshop">Nico — Vintage Candyshop</option>
+                <option value="hugues_pauper" disabled>Hugues — Pauper (354/360 cartes)</option>
+                <option value="cedric_cube">Cédric — High Power</option>
+                <option value="titou_arena_peasant_plus">Titou — Arena Peasant+</option>
+              </select>
+            </label>
+            <button class="multi-primary-btn" id="multi-join-btn" type="button">
+              Rejoindre le draft
+            </button>
+            <details class="multi-resume-import">
+              <summary>J'ai déjà un code de reprise</summary>
+              <div class="multi-resume-row">
+                <input
+                  id="multi-import-code"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Collez votre code privé"
+                />
+                <button id="multi-import-resume" class="multi-secondary-btn" type="button">
+                  Reprendre
+                </button>
+              </div>
+            </details>
+            <p class="multi-feedback" id="multi-feedback" role="status" hidden></p>
+          </article>
 
-        <!-- VIP Access Call to Action -->
-        <div class="teaser-cta-card">
-          <div class="cta-inner">
-            <span class="cta-badge">🌟 ACCÈS PRIVILÉGIÉ</span>
-            <h2 class="cta-title">Soyez le premier prévenu de l'ouverture des pods</h2>
-            <p class="cta-desc">Les premières sessions de test alpha fermée seront réservées aux membres de la
-              communauté.</p>
-            <div class="cta-form-row">
-              <input type="email" id="multi-vip-email" placeholder="Entrez votre email ou pseudo Discord..."
-                class="teaser-input" />
-              <button class="btn-teaser-submit" id="btn-multi-vip">Rejoindre la Liste VIP ✨</button>
+          <article class="multi-panel multi-table-panel">
+            <div class="multi-panel-heading">
+              <div>
+                <span class="multi-panel-step">02 • LA TABLE</span>
+                <h2 id="multi-cube-name">Chargement du cube…</h2>
+              </div>
+              <span class="multi-lock-label" id="multi-cube-lock">Synchronisation…</span>
             </div>
-            <div class="teaser-feedback-msg" id="multi-vip-feedback" hidden></div>
-          </div>
+            <ol class="multi-seats" id="multi-participants" aria-label="Les huit sièges"></ol>
+            <p class="multi-waiting" id="multi-waiting-message" aria-live="polite">
+              Chargement du Salon…
+            </p>
+          </article>
         </div>
+
+        <article class="multi-panel multi-resume-panel" id="multi-resume-panel" hidden>
+          <div>
+            <span class="multi-panel-step">VOTRE ACCÈS PRIVÉ</span>
+            <h2>Gardez ce code pour retrouver votre siège</h2>
+            <p>
+              Ne le partagez qu'avec vous-même : le pseudo seul ne permet jamais de reprendre un
+              siège.
+            </p>
+          </div>
+          <div class="multi-resume-actions">
+            <button id="multi-ready-btn" class="multi-primary-btn" type="button">
+              Je suis prêt
+            </button>
+            <button id="multi-leave-btn" class="multi-secondary-btn" type="button">
+              Quitter le Salon
+            </button>
+            <div class="multi-resume-row">
+              <input
+                id="multi-resume-code"
+                type="text"
+                readonly
+                aria-label="Accès de reprise privé"
+              />
+              <button id="multi-copy-resume" class="multi-secondary-btn" type="button">
+                Copier le code
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="multi-panel multi-draft-panel" id="multi-draft-panel" hidden>
+          <div class="multi-panel-heading">
+            <div>
+              <span class="multi-panel-step">VOTRE BOOSTER PRIVÉ</span>
+              <h2 id="multi-round-title">Pack 1 • Choix 1</h2>
+            </div>
+            <span class="multi-status-pill" id="multi-pool-count">0 carte</span>
+          </div>
+          <p class="multi-waiting" id="multi-round-waiting" aria-live="polite"></p>
+          <div class="multi-booster-grid" id="multi-current-booster"></div>
+          <button class="multi-primary-btn" id="multi-confirm-pick" type="button" disabled>
+            Confirmer ce choix
+          </button>
+          <details class="multi-pool-drawer">
+            <summary>Votre pool drafté</summary>
+            <div class="multi-pool-grid" id="multi-drafted-pool"></div>
+          </details>
+          <button class="multi-danger-btn" id="multi-abandon-draft" type="button">
+            Abandonner et libérer le Salon
+          </button>
+          <section class="multi-deck-workshop" id="multi-deck-workshop" hidden>
+            <div class="multi-panel-heading">
+              <div>
+                <span class="multi-panel-step">CONSTRUCTEUR FINAL PARTAGÉ</span>
+                <h3>Votre Liste de 40 cartes</h3>
+              </div>
+              <span class="multi-status-pill" id="multi-deck-count">0 / 40</span>
+            </div>
+            <p class="multi-waiting" id="multi-deck-legality">
+              Demandez une première recommandation au Coach ou construisez votre liste.
+            </p>
+            <button class="multi-primary-btn" id="multi-recommend-deck" type="button">
+              Demander la meilleure liste au Coach
+            </button>
+            <div class="multi-coach-summary" id="multi-coach-summary" hidden>
+              <h4 id="multi-coach-strategy"></h4>
+              <p id="multi-coach-mana"></p>
+              <dl class="multi-radar" id="multi-coach-radar"></dl>
+              <div class="multi-reasons-grid">
+                <div>
+                  <strong>Inclusions clés</strong>
+                  <ul id="multi-included-reasons"></ul>
+                </div>
+                <div>
+                  <strong>Réserve structurante</strong>
+                  <ul id="multi-excluded-reasons"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="multi-deck-grid">
+              <div>
+                <h4>Deck drafté</h4>
+                <div class="multi-card-list" id="multi-deck-cards"></div>
+              </div>
+              <div>
+                <h4>Réserve</h4>
+                <div class="multi-card-list" id="multi-sideboard-cards"></div>
+              </div>
+            </div>
+            <fieldset class="multi-basic-lands">
+              <legend>Terrains basiques</legend>
+              <label
+                >Plains <input id="multi-basic-Plains" type="number" min="0" max="40" value="0"
+              /></label>
+              <label
+                >Island <input id="multi-basic-Island" type="number" min="0" max="40" value="0"
+              /></label>
+              <label
+                >Swamp <input id="multi-basic-Swamp" type="number" min="0" max="40" value="0"
+              /></label>
+              <label
+                >Mountain <input id="multi-basic-Mountain" type="number" min="0" max="40" value="0"
+              /></label>
+              <label
+                >Forest <input id="multi-basic-Forest" type="number" min="0" max="40" value="0"
+              /></label>
+            </fieldset>
+            <label class="multi-field" for="multi-land-rationale">
+              <span>Explication si vous sortez de 16–18 terrains</span>
+              <input
+                id="multi-land-rationale"
+                type="text"
+                placeholder="Ex. courbe très basse et deux MDFC"
+              />
+            </label>
+            <div class="multi-deck-actions">
+              <button class="multi-secondary-btn" id="multi-analyze-deck" type="button">
+                Analyser ma sélection
+              </button>
+              <button class="multi-primary-btn" id="multi-finalize-deck" type="button" disabled>
+                Finaliser les 40 cartes
+              </button>
+            </div>
+            <div class="multi-export-actions" id="multi-export-actions" hidden>
+              <button class="multi-secondary-btn" id="multi-copy-export" type="button">
+                Copier pour MTGA
+              </button>
+              <button class="multi-secondary-btn" id="multi-download-export" type="button">
+                Télécharger .txt
+              </button>
+            </div>
+          </section>
+        </article>
       </div>
     </section>
     <!-- /view-multi -->

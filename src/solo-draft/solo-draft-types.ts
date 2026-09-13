@@ -24,6 +24,12 @@ export interface SoloDraftDeckRecommendation {
   readonly archetype: DeckArchetype;
   readonly overallTier: DeckTier;
   readonly radarTiers: RadarTiers;
+  readonly source?: "local" | "external" | "fallback" | undefined;
+  readonly provider?: string | undefined;
+  readonly model?: string | null | undefined;
+  readonly strategy?: string | undefined;
+  readonly manaRationale?: string | undefined;
+  readonly landCountRationale?: string | undefined;
   readonly justification?: string | undefined;
 }
 
@@ -62,6 +68,7 @@ export interface SoloDeckBuildInput {
   readonly sessionId: string;
   readonly maindeckCardInstanceIds: readonly string[];
   readonly basicLands?: Partial<BasicLandCounts> | undefined;
+  readonly landCountRationale?: string | undefined;
   readonly publishToLeaderboard?: boolean | undefined;
 }
 

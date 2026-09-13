@@ -17,10 +17,10 @@ export interface CardInstance {
 
 export interface CubeSnapshotSource {
   readonly provider: "CubeCobra";
-  readonly cubeId: "5e1c13b67c22a016c25ff019";
-  readonly shortId: "6ht";
+  readonly cubeId: string;
+  readonly shortId: string;
   readonly cubeName: string;
-  readonly owner: "eltitou007";
+  readonly owner: string;
   readonly board: "mainboard";
   readonly url: string;
   readonly cubeRevision: number;
@@ -42,7 +42,7 @@ export interface CubeSnapshotIntegrity {
 export interface CubeSnapshot {
   readonly schemaVersion: 1;
   readonly snapshotId: string;
-  readonly cubeKey: "titou_tribal";
+  readonly cubeKey: string;
   readonly version: string;
   readonly source: CubeSnapshotSource;
   readonly cards: readonly CardInstance[];
@@ -108,7 +108,7 @@ function preflightFailure(input: unknown): SnapshotResult<never> | undefined {
   }
 
   if (Array.isArray(input.cards) && input.cards.length < 360) {
-    return failure("INSUFFICIENT_CARDS", "A Titou snapshot must contain at least 360 instances.", {
+    return failure("INSUFFICIENT_CARDS", "A draft snapshot must contain at least 360 instances.", {
       actual: input.cards.length,
       minimum: 360,
     });

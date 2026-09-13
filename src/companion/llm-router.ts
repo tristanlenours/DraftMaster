@@ -6,9 +6,12 @@ export interface LlmResponse<T> {
   success: boolean;
   content: T | null;
   provider: string;
+  model?: string;
   rawText?: string;
   error?: string;
 }
+
+export type LlmJsonProfile = "default" | "final-deck-coach@1";
 
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-v4.1-flash";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
@@ -55,16 +58,32 @@ export class LlmRouter {
   public async generateJson<T>(
     systemPrompt: string,
     userPrompt: string,
-    options?: { preferBaseTier?: boolean; maxTokens?: number },
+    options?: {
+      preferBaseTier?: boolean;
+      maxTokens?: number;
+      profile?: LlmJsonProfile;
+    },
   ): Promise<LlmResponse<T>> {
     const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
+    const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
+    const preferGemini = options?.preferBaseTier || isFinalDeckCoach;
 
-    // If base tier explicitly preferred (e.g. bots), try Gemini first
-    if (options?.preferBaseTier && this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
+    // Low-latency profiles try Gemini first, then retain DeepSeek as the configured fallback.
+    if (preferGemini && this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
       try {
-        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt);
+        const gemRes = await this.callGeminiJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          isFinalDeckCoach ? 8000 : 5000,
+        );
         if (gemRes) {
-          return { success: true, content: gemRes, provider: "Gemini Flash" };
+          return {
+            success: true,
+            content: gemRes,
+            provider: "Gemini Flash",
+            model: GEMINI_MODEL,
+          };
         }
       } catch (err: any) {
         console.warn("[LlmRouter] Gemini JSON failed, falling back to OpenRouter:", err.message);
@@ -74,9 +93,19 @@ export class LlmRouter {
     // 1. Try OpenRouter Premium (DeepSeek V4.1 Flash)
     if (this.openrouterKey) {
       try {
-        const deepRes = await this.callOpenRouterJson<T>(systemPrompt, userPrompt, maxTokens);
+        const deepRes = await this.callOpenRouterJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          isFinalDeckCoach ? 12000 : 25000,
+        );
         if (deepRes) {
-          return { success: true, content: deepRes, provider: "DeepSeek V4.1 Flash (OpenRouter)" };
+          return {
+            success: true,
+            content: deepRes,
+            provider: "DeepSeek V4.1 Flash (OpenRouter)",
+            model: OPENROUTER_MODEL,
+          };
         }
       } catch (err: any) {
         console.warn("[LlmRouter] OpenRouter JSON failed, falling back to Gemini:", err.message);
@@ -86,9 +115,19 @@ export class LlmRouter {
     // 2. Fallback to Gemini Flash
     if (this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
       try {
-        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt);
+        const gemRes = await this.callGeminiJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          isFinalDeckCoach ? 8000 : 5000,
+        );
         if (gemRes) {
-          return { success: true, content: gemRes, provider: "Gemini Flash" };
+          return {
+            success: true,
+            content: gemRes,
+            provider: "Gemini Flash",
+            model: GEMINI_MODEL,
+          };
         }
       } catch (err: any) {
         console.error("[LlmRouter] Gemini JSON failed:", err.message);
@@ -194,14 +233,19 @@ export class LlmRouter {
     return { success: false, fullText: "", provider: "None" };
   }
 
-  private callGeminiJson<T>(systemPrompt: string, userPrompt: string): Promise<T | null> {
+  private callGeminiJson<T>(
+    systemPrompt: string,
+    userPrompt: string,
+    maxTokens = 600,
+    timeoutMs = 5000,
+  ): Promise<T | null> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
         contents: [{ parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
         generationConfig: {
           responseMimeType: "application/json",
           temperature: 0.1,
-          maxOutputTokens: 600,
+          maxOutputTokens: maxTokens,
         },
       });
 
@@ -243,7 +287,7 @@ export class LlmRouter {
       req.on("error", () => {
         resolve(null);
       });
-      req.setTimeout(5000, () => {
+      req.setTimeout(timeoutMs, () => {
         req.destroy();
         resolve(null);
       });
@@ -384,6 +428,7 @@ export class LlmRouter {
     systemPrompt: string,
     userPrompt: string,
     maxTokens = 6000,
+    timeoutMs = 25000,
   ): Promise<T | null> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
@@ -435,7 +480,7 @@ export class LlmRouter {
       req.on("error", () => {
         resolve(null);
       });
-      req.setTimeout(25000, () => {
+      req.setTimeout(timeoutMs, () => {
         req.destroy();
         resolve(null);
       });
