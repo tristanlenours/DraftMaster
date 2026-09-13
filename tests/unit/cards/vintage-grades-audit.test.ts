@@ -25,7 +25,7 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
     expect(normalizeCardName("Orcish Bowmasters")).toBe("orcishbowmasters");
   });
 
-  it("identifies Bolas's Citadel and Griselbrand as critical overrated cards (Grade F vs Tier S)", async () => {
+  it("identifies Bolas's Citadel, Griselbrand and Yawgmoth's Will as calibrated draft traps (Grade F with fit: 'trap')", async () => {
     const audit = await runVintageGradesAudit({
       cubeKey: "nico_candyshop",
       offline: true,
@@ -33,21 +33,53 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
 
     expect(audit.totalCardsCompared).toBeGreaterThan(300);
 
-    // Bolas's Citadel must be flagged in criticalOverrated
-    const citadel = audit.criticalOverrated.find(
+    // Bolas's Citadel must be flagged in knownCalibratedTraps
+    const citadel = audit.knownCalibratedTraps.find(
       (c: { name: string }) => c.name === "Bolas's Citadel",
     );
-    expect(citadel, "Bolas's Citadel must be flagged as critical overrated").toBeDefined();
+    expect(citadel, "Bolas's Citadel must be flagged as known calibrated trap").toBeDefined();
     expect(citadel?.grade).toBe("F");
-    expect(citadel?.tier).toBe("S");
-    expect(citadel?.severity).toBe("CRITIQUE");
+    expect(citadel?.tier).toBe("C");
+    expect(citadel?.fit).toBe("trap");
+    expect(citadel?.powerScore).toBeLessThanOrEqual(15);
 
-    // Griselbrand must be flagged in criticalOverrated
-    const grisel = audit.criticalOverrated.find((c: { name: string }) => c.name === "Griselbrand");
-    expect(grisel, "Griselbrand must be flagged as critical overrated").toBeDefined();
+    // Griselbrand must be flagged in knownCalibratedTraps
+    const grisel = audit.knownCalibratedTraps.find(
+      (c: { name: string }) => c.name === "Griselbrand",
+    );
+    expect(grisel, "Griselbrand must be flagged as known calibrated trap").toBeDefined();
     expect(grisel?.grade).toBe("F");
-    expect(grisel?.tier).toBe("S");
-    expect(grisel?.severity).toBe("CRITIQUE");
+    expect(grisel?.tier).toBe("C");
+    expect(grisel?.fit).toBe("trap");
+    expect(grisel?.powerScore).toBeLessThanOrEqual(15);
+
+    // Yawgmoth's Will must be flagged in knownCalibratedTraps
+    const yawg = audit.knownCalibratedTraps.find(
+      (c: { name: string }) => c.name === "Yawgmoth's Will",
+    );
+    expect(yawg, "Yawgmoth's Will must be flagged as known calibrated trap").toBeDefined();
+    expect(yawg?.grade).toBe("F");
+    expect(yawg?.tier).toBe("C");
+    expect(yawg?.fit).toBe("trap");
+  });
+
+  it("detects remaining uncalibrated overrated cards like Fastbond and Vampiric Tutor (Grade D- in Tier S)", async () => {
+    const audit = await runVintageGradesAudit({
+      cubeKey: "nico_candyshop",
+      offline: true,
+    });
+
+    const fastbond = audit.criticalOverrated.find((c: { name: string }) => c.name === "Fastbond");
+    expect(fastbond, "Fastbond should be detected as uncalibrated overrated").toBeDefined();
+    expect(fastbond?.tier).toBe("S");
+    expect(fastbond?.grade).toBe("D-");
+
+    const vampiric = audit.criticalOverrated.find(
+      (c: { name: string }) => c.name === "Vampiric Tutor",
+    );
+    expect(vampiric, "Vampiric Tutor should be detected as uncalibrated overrated").toBeDefined();
+    expect(vampiric?.tier).toBe("S");
+    expect(vampiric?.grade).toBe("D-");
   });
 
   it("confirms Orcish Bowmasters is recognized as an aligned top staple (Grade A+ and Tier S)", async () => {
@@ -73,8 +105,9 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
 
     const report = formatAuditCliReport(audit);
     expect(report).toContain("AUDIT DE COHÉRENCE VINTAGE CUBE");
-    expect(report).toContain("BOLAS'S CITADEL");
-    expect(report).toContain("GRISELBRAND");
+    expect(report).toContain("PIÈGES DE DRAFT CONFIRMÉS ET CALIBRÉS");
+    expect(report).toContain("Bolas's Citadel");
+    expect(report).toContain("Griselbrand");
     expect(report).toContain("FASTBOND");
     expect(report).toContain("EXEMPLES DE STAPLES PARFAITEMENT ALIGNÉS");
   });

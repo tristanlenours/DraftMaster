@@ -42,6 +42,7 @@ export interface VintageAuditResults {
   readonly capturedAt: string;
   readonly cubeKey: string;
   readonly totalCardsCompared: number;
+  readonly knownCalibratedTraps: readonly AuditedDiscrepancyItem[];
   readonly criticalOverrated: readonly AuditedDiscrepancyItem[];
   readonly moderateOverrated: readonly AuditedDiscrepancyItem[];
   readonly criticalUnderrated: readonly AuditedDiscrepancyItem[];
@@ -205,6 +206,7 @@ export async function runVintageGradesAudit(
     lgMap.set(normalizeCardName(c.name), c);
   }
 
+  const knownCalibratedTraps: AuditedDiscrepancyItem[] = [];
   const criticalOverrated: AuditedDiscrepancyItem[] = [];
   const moderateOverrated: AuditedDiscrepancyItem[] = [];
   const criticalUnderrated: AuditedDiscrepancyItem[] = [];
@@ -244,7 +246,16 @@ export async function runVintageGradesAudit(
       takenAt,
     };
 
-    if ((grade === "F" || grade === "D-") && (powerScore >= 42 || tier === "S")) {
+    if (
+      (grade === "F" || grade === "D-") &&
+      (fit === "trap" || (tier === "C" && powerScore <= 20))
+    ) {
+      knownCalibratedTraps.push({
+        ...item,
+        severity: "FAIBLE",
+        diagnosis: `Piège de draft empirique correctement identifié et calibré (Tier ${tier}, Score ${powerScore.toFixed(1)}, fit: "${fit}")`,
+      });
+    } else if ((grade === "F" || grade === "D-") && (powerScore >= 42 || tier === "S")) {
       criticalOverrated.push({
         ...item,
         severity: grade === "F" ? "CRITIQUE" : "ÉLEVÉ",
@@ -284,6 +295,7 @@ export async function runVintageGradesAudit(
     }
   }
 
+  knownCalibratedTraps.sort((a, b) => (a.winrate ?? 0) - (b.winrate ?? 0));
   criticalOverrated.sort((a, b) => b.powerScore - a.powerScore);
   moderateOverrated.sort((a, b) => b.powerScore - a.powerScore);
   criticalUnderrated.sort((a, b) => a.powerScore - b.powerScore);
@@ -293,6 +305,7 @@ export async function runVintageGradesAudit(
     capturedAt: lgData.capturedAt,
     cubeKey,
     totalCardsCompared,
+    knownCalibratedTraps,
     criticalOverrated,
     moderateOverrated,
     criticalUnderrated,
@@ -313,9 +326,24 @@ export function formatAuditCliReport(results: VintageAuditResults): string {
     "═══════════════════════════════════════════════════════════════════════════════════\n",
   );
 
+  if (results.knownCalibratedTraps.length > 0) {
+    lines.push(
+      `🛡️ PIÈGES DE DRAFT CONFIRMÉS ET CALIBRÉS (${String(results.knownCalibratedTraps.length)}) :`,
+    );
+    lines.push(
+      "-----------------------------------------------------------------------------------",
+    );
+    for (const c of results.knownCalibratedTraps) {
+      lines.push(
+        `  ✔ ${c.name.padEnd(26)} : Score ${c.powerScore.toFixed(1)} (Tier ${c.tier}, fit: ${c.fit}) <=> 17lands Grade ${c.grade} (${String(c.winrate)}% WR)`,
+      );
+    }
+    lines.push("");
+  }
+
   if (results.criticalOverrated.length > 0) {
     lines.push(
-      `🚨 CARTES AVEC PUISSANCE SURÉVALUÉE / PIÈGES (${String(results.criticalOverrated.length)}) :`,
+      `🚨 CARTES AVEC PUISSANCE SURÉVALUÉE (NON CALIBRÉES) (${String(results.criticalOverrated.length)}) :`,
     );
     lines.push(
       "-----------------------------------------------------------------------------------",

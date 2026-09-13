@@ -36,37 +36,37 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/b51666ae-2aef-4cb1-9cd4-44aec81530f8/normal.webp",
   "powerScore": {
-    "score": 46,
+    "score": 10,
     "source": "untapped",
-    "rawSourceScore": 46,
+    "rawSourceScore": 10,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-13T00:00:00.000Z"
   },
   "presentInCubes": [
     "nico_candyshop",
     "cedric_cube"
   ],
   "objectiveAnalysis": {
-    "summary": "Carte Vintage sélectionnée pour le Candyshop de Fedor (Score : 46.0).",
+    "summary": "Ancienne superstar de réanimation devenue un piège de draft en cube moderne (Grade F / winrate 50.3% sur limitedgrades.com/powered), surclassée par Archon of Cruelty et Atraxa.",
     "roles": [
-      "card_advantage"
+      "finisher"
     ],
-    "floorRating": 7.1,
-    "ceilingRating": 8.8,
-    "tempoImpact": "high",
+    "floorRating": 2.5,
+    "ceilingRating": 7.0,
+    "tempoImpact": "low",
     "quadrantStrengths": {
-      "opening": 4.8,
-      "developing": 4.9,
-      "parity": 3.8,
-      "behind": 4.2
+      "opening": 1.0,
+      "developing": 1.5,
+      "parity": 3.5,
+      "behind": 2.5
     }
   },
   "cubeAnalyses": {
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
-      "fit": "staple",
-      "tier": "S",
+      "fit": "trap",
+      "tier": "C",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -75,27 +75,27 @@
         "repeatable-draw",
         "repeatable-card-advantage"
       ],
-      "scoreModifier": 15,
-      "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
+      "scoreModifier": -5,
+      "analysis": "Piège de draft avéré en Vintage Cube moderne : 8 manas (BBBB) incastable, vulnérable aux removals sans impact immédiat sur le board, supplanté par Archon of Cruelty et Atraxa.",
       "pedagogy": {
-        "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
+        "howToPlay": "À éviter sans plan de réanimation instantané ou Show and Tell. Ne fait rien à l'entrée en jeu face à un removal ou un Bowmasters.",
         "archetypeFit": [
           {
             "colors": [
               "B"
             ],
             "archetype": "VINTAGE STAPLE",
-            "grade": "S",
-            "winrateOrScore": "Score 46.0",
-            "comment": "Alignement Vintage compétitif."
+            "grade": "C",
+            "winrateOrScore": "Score 10.0 (Grade F)",
+            "comment": "Classé en Grade F (winrate 50.3%) sur limitedgrades.com/powered."
           }
         ]
       }
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
-      "fit": "staple",
-      "tier": "S",
+      "fit": "trap",
+      "tier": "C",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -104,19 +104,19 @@
         "repeatable-draw",
         "repeatable-card-advantage"
       ],
-      "scoreModifier": 14,
-      "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
+      "scoreModifier": -5,
+      "analysis": "Piège de draft : coût exorbitant, surpassé par des payoffs d'arrivée en jeu plus fiables.",
       "pedagogy": {
-        "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
+        "howToPlay": "Ne pas drafter comme staple générique. Nécessite une décharge de cimetière ou de réanimation dédiée.",
         "archetypeFit": [
           {
             "colors": [
               "B"
             ],
             "archetype": "HIGH POWER STAPLE",
-            "grade": "S",
-            "winrateOrScore": "Score 46.0",
-            "comment": "Pilier compétitif du cube de Cédric."
+            "grade": "C",
+            "winrateOrScore": "Score 10.0",
+            "comment": "Ajusté suite aux benchmarks empiriques."
           }
         ]
       }

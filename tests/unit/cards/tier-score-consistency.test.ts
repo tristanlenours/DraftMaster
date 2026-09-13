@@ -62,7 +62,6 @@ describe("Tier and Power Score Consistency", () => {
 
   it("verifies that iconic Vintage Cube staples have power scores >= 38 and Tier S in Candyshop", async () => {
     const iconicStaples = [
-      "Bolas's Citadel",
       "Orcish Bowmasters",
       "Underworld Breach",
       "Channel",
@@ -81,7 +80,6 @@ describe("Tier and Power Score Consistency", () => {
       "Minsc & Boo, Timeless Heroes",
       "Ragavan, Nimble Pilferer",
       "Library of Alexandria",
-      "Griselbrand",
       "Sneak Attack",
       "Archon of Cruelty",
     ];
@@ -143,27 +141,30 @@ describe("Tier and Power Score Consistency", () => {
     expect(cedricAnalysis?.fit).toBe("staple");
   });
 
-  it("enforces that Yawgmoth's Will is calibrated as a trap / Grade F (score <= 15, not Tier S)", async () => {
+  it("enforces that iconic draft traps (Yawgmoth's Will, Bolas's Citadel, Griselbrand) are calibrated as Grade F / traps (score <= 15, fit: 'trap', Tier C)", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
 
     const catalog = catalogResult.value;
-    const card = catalog.getCardByName("Yawgmoth's Will");
-    expect(card, "Yawgmoth's Will must exist in catalog").toBeDefined();
-    if (!card) return;
+    const trapCards = ["Yawgmoth's Will", "Bolas's Citadel", "Griselbrand"];
 
-    // Empirical Powered Cube draft data (limitedgrades.com/powered: Grade F, win rate < 46%)
-    expect(card.powerScore.score).toBeLessThanOrEqual(15);
-    expect(card.powerScore.score).toBe(10);
+    for (const cardName of trapCards) {
+      const card = catalog.getCardByName(cardName);
+      expect(card, `${cardName} must exist in catalog`).toBeDefined();
+      if (!card) continue;
 
-    const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
-    expect(nicoAnalysis).toBeDefined();
-    expect(nicoAnalysis?.tier).not.toBe("S");
-    expect(nicoAnalysis?.tier).not.toBe("A");
-    expect(nicoAnalysis?.fit).toBe("trap");
-    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.grade).toBe("C");
-    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.winrateOrScore).toContain("Grade F");
+      // Empirical Powered Cube draft data (limitedgrades.com/powered: Grade F)
+      expect(card.powerScore.score).toBeLessThanOrEqual(15);
+      expect(card.powerScore.score).toBe(10);
+
+      const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
+      expect(nicoAnalysis, `${cardName} must have analysis in nico_candyshop`).toBeDefined();
+      expect(nicoAnalysis?.tier).toBe("C");
+      expect(nicoAnalysis?.fit).toBe("trap");
+      expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.grade).toBe("C");
+      expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.winrateOrScore).toContain("Grade F");
+    }
   });
 
   it("enforces that all top non-land cards with score >= 45 in Nico's Candyshop are Tier S", async () => {
