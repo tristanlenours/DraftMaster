@@ -132,6 +132,25 @@ interface ColorPathCandidate {
   readonly score: number;
 }
 
+function isModalLand(card: CardEvaluationInput): boolean {
+  if (card.isLand) return false;
+  return (
+    /\/\/\s*(?:basic\s+)?land\b/i.test(card.typeLine ?? "") ||
+    /\b(?:as|when) (?:this|that) land enters\b/i.test(card.oracleText ?? "")
+  );
+}
+
+function estimateTargetLandCount(spells: readonly CardEvaluationInput[]): 16 | 17 | 18 {
+  const curveSample = [...spells].sort((a, b) => b.staticScore - a.staticScore).slice(0, 24);
+  const averageManaValue =
+    curveSample.length === 0
+      ? 3
+      : curveSample.reduce((sum, card) => sum + (card.cmc ?? 3), 0) / curveSample.length;
+  if (averageManaValue <= 2.25) return 16;
+  if (averageManaValue >= 3.75) return 18;
+  return 17;
+}
+
 /**
  * Builds a 40-card deck option from a given color path and drafted pool.
  */
@@ -143,16 +162,22 @@ function assembleDeckOption(
   // Sort spells by static score descending, favoring higher quality
   const sortedSpells = [...candidate.spells].sort((a, b) => b.staticScore - a.staticScore);
 
-  const curveSample = sortedSpells.slice(0, 24);
-  const averageManaValue =
-    curveSample.length === 0
-      ? 3
-      : curveSample.reduce((sum, card) => sum + (card.cmc ?? 3), 0) / curveSample.length;
-  const targetLands = averageManaValue <= 2.25 ? 16 : averageManaValue >= 3.75 ? 18 : 17;
+  const targetLands = estimateTargetLandCount(sortedSpells);
+  let targetSpellCards = 40 - targetLands;
+  for (let pass = 0; pass < 4; pass++) {
+    const modalLandCount = Math.min(
+      4,
+      sortedSpells.slice(0, targetSpellCards).filter(isModalLand).length,
+    );
+    const nextTargetSpellCards = 40 - Math.max(0, targetLands - modalLandCount);
+    if (nextTargetSpellCards === targetSpellCards) break;
+    targetSpellCards = nextTargetSpellCards;
+  }
+  const actualLandSlots = 40 - targetSpellCards;
   const nonBasicLands = [...candidate.lands]
     .sort((a, b) => b.staticScore - a.staticScore)
-    .slice(0, targetLands);
-  const neededBasicLands = Math.max(0, targetLands - nonBasicLands.length);
+    .slice(0, actualLandSlots);
+  const neededBasicLands = Math.max(0, actualLandSlots - nonBasicLands.length);
   const targetSpells = 40 - nonBasicLands.length - neededBasicLands;
 
   const chosenSpells = sortedSpells.slice(0, targetSpells);
@@ -232,17 +257,18 @@ export function recommendDeckBuilds(
   const evaluatePath = (colors: readonly MtGColor[]) => {
     const colorSet = new Set(colors);
     const compatibleSpells = spells.filter((c) => canCastWithColors(c, colorSet));
-    if (compatibleSpells.length < 23) return; // Not enough playables for a 23/17 deck
+    if (compatibleSpells.length < 22) return;
 
     const compatibleLands = lands.filter((land) => {
       const produced = getEffectiveProducingColors(land);
       return produced.length === 0 || produced.some((c) => colorSet.has(c));
     });
 
-    // Score based on sum of top 23 spell static scores + fixers bonus
+    // Score the playable core while allowing 22-24 spells depending on its curve.
+    const targetSpellCount = 40 - estimateTargetLandCount(compatibleSpells);
     const topSpells = [...compatibleSpells]
       .sort((a, b) => b.staticScore - a.staticScore)
-      .slice(0, 23);
+      .slice(0, targetSpellCount);
     const spellScore = topSpells.reduce((acc, c) => acc + c.staticScore, 0);
     const fixersBonus = compatibleLands.length * 5;
     const score = spellScore + fixersBonus;

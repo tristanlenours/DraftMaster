@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
 import { join, extname, resolve } from "node:path";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
 import { getLeaderboard } from "../src/solo-draft/leaderboard.ts";
 import {
@@ -9,11 +9,17 @@ import {
   getMagiciensProfilesWithStats,
   getDeckShareData,
 } from "../src/storage/cloud-leaderboard.ts";
-import {
-  getPublicSupabaseConfig,
-  isSupabaseConfigured,
-} from "../src/storage/supabase-client.ts";
+import { getPublicSupabaseConfig, isSupabaseConfigured } from "../src/storage/supabase-client.ts";
 import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-drafts.ts";
+import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
+import { CardCatalog } from "../src/cards/card-catalog.ts";
+import { LlmRouter } from "../src/companion/llm-router.ts";
+import {
+  createFinalDeckCoach,
+  createLocalFileMultiplayerDraftStore,
+  createMultiplayerDraftCoordinator,
+  createMultiplayerDraftHttpHandler,
+} from "../src/multiplayer-draft/index.ts";
 
 try {
   process.loadEnvFile?.();
@@ -30,6 +36,8 @@ const rootDir = process.cwd();
 const webDir = resolve(rootDir, "src", "web");
 const reportsDir = resolve(rootDir, "reports");
 const draftSessionsDir = resolve(rootDir, "data", "draft-sessions");
+const multiplayerDraftPath = resolve(rootDir, "data", "multiplayer-draft", "global.json");
+const fallbackMultiplayerResumeSecret = randomBytes(32);
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -69,7 +77,7 @@ async function getOrRestoreSession(sessionId) {
     session = await SoloDraftSession.restore(snapshot);
     activeSessions.set(session.sessionId, session);
     console.log(
-      `[Persistence] Session ${sessionId} restaurée depuis le disque (${snapshot.humanPicks?.length ?? 0} picks)`
+      `[Persistence] Session ${sessionId} restaurée depuis le disque (${snapshot.humanPicks?.length ?? 0} picks)`,
     );
     return session;
   } catch {
@@ -359,6 +367,118 @@ export function createRequestHandler(options = {}) {
   const handlerReportsDir = resolve(options.reportsDirectory ?? reportsDir);
   const adminDraftsPath = options.adminDraftsPath;
   const leaderboardPath = options.leaderboardPath;
+  const multiplayerResumeSecret =
+    options.multiplayerResumeSecret ??
+    process.env.MULTIPLAYER_RESUME_SECRET ??
+    fallbackMultiplayerResumeSecret;
+  let multiplayerCatalogPromise;
+  const loadMultiplayerCatalog = async () => {
+    multiplayerCatalogPromise ??= CardCatalog.fromFile(
+      resolve(rootDir, "data", "cards", "master-cards.json"),
+    );
+    const result = await multiplayerCatalogPromise;
+    if (!result.ok) throw new Error(result.error.message);
+    return result.value;
+  };
+  const multiplayerArenaMetadata = new Map();
+  const loadArenaMetadata = async (cubeKey) => {
+    if (!multiplayerArenaMetadata.has(cubeKey)) {
+      multiplayerArenaMetadata.set(
+        cubeKey,
+        readFile(resolve(rootDir, "data", "cubes", cubeKey, "cubecobra-raw.json"), "utf8").then(
+          (text) => {
+            const raw = JSON.parse(text);
+            return new Map(
+              (raw.cards?.mainboard ?? []).flatMap((entry) => {
+                const details = entry.details;
+                return details?.oracle_id ? [[details.oracle_id, details]] : [];
+              }),
+            );
+          },
+        ),
+      );
+    }
+    return multiplayerArenaMetadata.get(cubeKey);
+  };
+  const multiplayerLlm = new LlmRouter();
+  const finalDeckCoach =
+    options.finalDeckCoach ??
+    createFinalDeckCoach({
+      generateJson: (systemPrompt, userPrompt, profile) =>
+        multiplayerLlm.generateJson(systemPrompt, userPrompt, profile),
+    });
+  const multiplayerCoordinator =
+    options.multiplayerCoordinator ??
+    createMultiplayerDraftCoordinator({
+      store: createLocalFileMultiplayerDraftStore({
+        filePath: resolve(options.multiplayerDraftPath ?? multiplayerDraftPath),
+      }),
+      now: () => new Date().toISOString(),
+      createId: randomUUID,
+      createSessionId: () => randomBytes(6).toString("hex"),
+      createSeed: () => randomBytes(4).readInt32BE(0),
+      createResumeToken: (requestId) =>
+        createHmac("sha256", multiplayerResumeSecret).update(requestId).digest("base64url"),
+      finalDeckCoach,
+      loadCardPool: async (_cubeKey, cards) => {
+        const catalog = await loadMultiplayerCatalog();
+        return cards.map((card) => {
+          const document =
+            catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
+          return {
+            id: card.instanceId,
+            name: document?.name ?? card.name,
+            staticScore: document?.powerScore.score ?? 25,
+            colors: document?.colors ?? [],
+            cmc: document?.cmc ?? 0,
+            types: document?.types ?? [],
+            subtypes: document?.subtypes ?? [],
+            typeLine: document?.typeLine ?? "Card",
+            isLand: document?.isLand ?? false,
+            producesColors: document?.producesColors ?? [],
+            oracleText: document?.oracleText ?? "",
+            manaCost: document?.manaCost ?? "",
+            oracleId: document?.oracleId ?? card.oracleId,
+            roles: document?.objectiveAnalysis.roles ?? [],
+          };
+        });
+      },
+      loadMtgaPool: async (cubeKey, cards) => {
+        const [catalog, metadata] = await Promise.all([
+          loadMultiplayerCatalog(),
+          loadArenaMetadata(cubeKey),
+        ]);
+        return cards.map((card) => {
+          const details = metadata.get(card.oracleId);
+          const games = details?.gamesEverAvailable ?? details?.games ?? [];
+          const document =
+            catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
+          const hasArena = games.includes("arena");
+          return {
+            instanceId: card.instanceId,
+            name: card.name,
+            arenaName: details?.name ?? card.name,
+            arenaAvailability: details?.hasFlavorName
+              ? "ambiguous"
+              : details
+                ? hasArena
+                  ? "available"
+                  : "unavailable"
+                : "unknown",
+            cmc: document?.cmc ?? details?.cmc ?? 0,
+            isLand: document?.isLand ?? String(details?.type ?? "").includes("Land"),
+          };
+        });
+      },
+      loadSnapshot: async (cubeKey) => {
+        const result = await loadActiveCubeSnapshot(rootDir, cubeKey);
+        if (!result.ok) throw new Error(result.error.message);
+        return result.value;
+      },
+    });
+  const multiplayerHandler = createMultiplayerDraftHttpHandler({
+    coordinator: multiplayerCoordinator,
+  });
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
@@ -366,8 +486,8 @@ export function createRequestHandler(options = {}) {
 
     // Permissive CORS
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key");
 
     if (req.method === "OPTIONS") {
       res.writeHead(204);
@@ -508,6 +628,10 @@ export function createRequestHandler(options = {}) {
     // ==========================================
     // API ENDPOINTS
     // ==========================================
+
+    if (await multiplayerHandler(req, res)) {
+      return;
+    }
 
     // 0. Configuration Supabase pour le frontend (Client Realtime)
     if (pathname === "/api/config/supabase" && req.method === "GET") {
@@ -721,8 +845,13 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
-        const recommendation = session.getDeckRecommendation();
-        sendJson(res, 200, { ok: true, recommendation });
+        const recommendation = await session.getAssistedDeckRecommendation(finalDeckCoach);
+        await saveSessionToDisk(session);
+        sendJson(res, 200, {
+          ok: true,
+          recommendation,
+          isHomologated: session.isHomologated,
+        });
       } catch (err) {
         sendJson(res, 400, { ok: false, error: err.message });
       }
@@ -753,6 +882,7 @@ export function createRequestHandler(options = {}) {
             sessionId: body.sessionId,
             maindeckCardInstanceIds: body.maindeckCardInstanceIds,
             basicLands: body.basicLands,
+            landCountRationale: body.landCountRationale,
             publishToLeaderboard: Boolean(body.publishToLeaderboard),
           },
           {
@@ -760,7 +890,7 @@ export function createRequestHandler(options = {}) {
             reportsUrlPrefix: "/reports",
             customAdminDraftsPath: adminDraftsPath,
             customLeaderboardPath: leaderboardPath,
-          }
+          },
         );
 
         await removeSessionFromDisk(body.sessionId);

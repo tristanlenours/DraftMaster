@@ -1118,17 +1118,11 @@ export class SoloDraftController {
       return;
     }
 
-    // Attempt fetching recommendation asynchronously if not provided
-    this.handleRequestDeckRecommendation(true).catch(() => {
-      // Fallback: top 23 non-land cards by static score
-      const nonLands = pool.filter((c) => !c.isLand);
-      const sortedNonLands = [...nonLands].sort((a, b) => b.staticScore - a.staticScore);
-      const initialMaindeck = sortedNonLands.slice(0, 23);
-
-      this.maindeckSpellIds = new Set(initialMaindeck.map((c) => c.instanceId));
-      this.autoCalculateLands();
-      this.renderDeckbuilder();
-    });
+    // Safe local baseline: no external service and no impact on homologation.
+    const sortedPool = [...pool].sort((a, b) => b.staticScore - a.staticScore);
+    this.maindeckSpellIds = new Set(sortedPool.slice(0, 23).map((c) => c.instanceId));
+    this.autoCalculateLands();
+    this.renderDeckbuilder();
   }
 
   applyDeckRecommendation(recommendation) {
@@ -1142,7 +1136,14 @@ export class SoloDraftController {
     if (this.dom.deckAiBanner && this.dom.deckAiBannerText) {
       const arch = recommendation.archetype?.label || "Synergique";
       const tier = recommendation.overallTier ? ` • TIER ${recommendation.overallTier}` : "";
-      this.dom.deckAiBannerText.textContent = `✨ Pré-construction IA appliquée : Archétype ${arch}${tier}`;
+      const isAssisted =
+        recommendation.source === "external" || recommendation.source === "fallback";
+      const provenance = isAssisted
+        ? `${recommendation.provider || "Coach"}${recommendation.model ? ` / ${recommendation.model}` : ""}`
+        : "moteur local auditable";
+      this.dom.deckAiBannerText.textContent = isAssisted
+        ? `✨ Assistance ${provenance} appliquée : ${arch}${tier}. Ce draft n'est plus homologué.`
+        : `Pré-construction locale appliquée : ${arch}${tier}. Le draft reste homologué.`;
       this.dom.deckAiBanner.hidden = false;
     }
 
@@ -1152,6 +1153,14 @@ export class SoloDraftController {
 
   async handleRequestDeckRecommendation(silent = false) {
     if (!this.sessionId) return;
+    if (
+      !silent &&
+      !window.confirm(
+        "Le Coach peut consulter Gemini ou DeepSeek. Continuer retirera irréversiblement l'homologation de ce draft avant l'analyse.",
+      )
+    ) {
+      return;
+    }
     const btn = this.dom.deckAiRecommendBtn;
     if (btn) {
       btn.disabled = true;
@@ -1192,10 +1201,20 @@ export class SoloDraftController {
     }
 
     const totalPips = counts.W + counts.U + counts.B + counts.R + counts.G;
-    if (totalPips === 0) {
-      this.basicLands = { Plains: 4, Island: 4, Swamp: 3, Mountain: 3, Forest: 3 };
+    const TARGET = Math.max(0, 40 - this.maindeckSpellIds.size);
+    if (TARGET === 0) {
+      this.basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
+    } else if (totalPips === 0) {
+      const share = Math.floor(TARGET / 5);
+      const remainder = TARGET % 5;
+      this.basicLands = {
+        Plains: share + (remainder > 0 ? 1 : 0),
+        Island: share + (remainder > 1 ? 1 : 0),
+        Swamp: share + (remainder > 2 ? 1 : 0),
+        Mountain: share + (remainder > 3 ? 1 : 0),
+        Forest: share,
+      };
     } else {
-      const TARGET = 17;
       const lands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
       const map = { W: "Plains", U: "Island", B: "Swamp", R: "Mountain", G: "Forest" };
       let allocated = 0;
@@ -1208,7 +1227,7 @@ export class SoloDraftController {
         }
       }
 
-      // Adjust to 17
+      // Adjust to the number of basic lands required for exactly 40 cards.
       while (allocated < TARGET) {
         lands.Plains++;
         allocated++;
@@ -1236,17 +1255,24 @@ export class SoloDraftController {
   }
 
   updateLandsDisplay() {
-    let total = 0;
+    let basicCount = 0;
     ["Plains", "Island", "Swamp", "Mountain", "Forest"].forEach((land) => {
       const count = this.basicLands[land] || 0;
-      total += count;
+      basicCount += count;
       const countEl = document.getElementById(`land-count-${land.toLowerCase()}`);
       if (countEl) countEl.textContent = String(count);
     });
 
     if (this.dom.totalLandsBadge) {
-      this.dom.totalLandsBadge.textContent = `${String(total)} / 17 terrains`;
-      this.dom.totalLandsBadge.classList.toggle("valid-count", total === 17);
+      const draftedLandCount = this.playerPool.filter(
+        (card) => this.maindeckSpellIds.has(card.instanceId) && card.isLand,
+      ).length;
+      const totalLandCount = basicCount + draftedLandCount;
+      this.dom.totalLandsBadge.textContent = `${String(totalLandCount)} terrains (${String(basicCount)} basiques)`;
+      this.dom.totalLandsBadge.classList.toggle(
+        "valid-count",
+        totalLandCount >= 16 && totalLandCount <= 18,
+      );
     }
   }
 
@@ -1259,23 +1285,25 @@ export class SoloDraftController {
     sideboardCards.sort((a, b) => a.cmc - b.cmc || a.name.localeCompare(b.name));
 
     // Counter badge
-    const spellCount = maindeckCards.length;
+    const draftedCount = maindeckCards.length;
+    const basicCount = Object.values(this.basicLands).reduce((sum, count) => sum + count, 0);
+    const totalCount = draftedCount + basicCount;
     if (this.dom.deckSpellsCounter) {
-      this.dom.deckSpellsCounter.textContent = `${String(spellCount)} / 23 cartes actives`;
-      this.dom.deckSpellsCounter.classList.toggle("valid-count", spellCount === 23);
+      this.dom.deckSpellsCounter.textContent = `${String(totalCount)} / 40 cartes`;
+      this.dom.deckSpellsCounter.classList.toggle("valid-count", totalCount === 40);
     }
 
     if (this.dom.validateDeckBtn) {
-      this.dom.validateDeckBtn.disabled = spellCount !== 23;
+      this.dom.validateDeckBtn.disabled = totalCount !== 40;
       const isPublish = Boolean(document.getElementById("publish-to-leaderboard-toggle")?.checked);
-      if (spellCount === 23) {
+      if (totalCount === 40) {
         this.dom.validateDeckBtn.innerHTML = isPublish
-          ? "<span>🏆 Valider et Inscrire au Mur des Records (23/23)</span>"
-          : "<span>⚡ Évaluer mon Deck (Mode Entraînement) (23/23)</span>";
-      } else if (spellCount < 23) {
-        this.dom.validateDeckBtn.innerHTML = `<span>Ajoutez ${String(23 - spellCount)} carte(s) pour valider</span>`;
+          ? "<span>🏆 Valider et Inscrire au Mur des Records (40/40)</span>"
+          : "<span>⚡ Évaluer mon Deck (Mode Entraînement) (40/40)</span>";
+      } else if (totalCount < 40) {
+        this.dom.validateDeckBtn.innerHTML = `<span>Ajoutez ${String(40 - totalCount)} carte(s) pour valider</span>`;
       } else {
-        this.dom.validateDeckBtn.innerHTML = `<span>Retirez ${String(spellCount - 23)} carte(s) pour valider</span>`;
+        this.dom.validateDeckBtn.innerHTML = `<span>Retirez ${String(totalCount - 40)} carte(s) pour valider</span>`;
       }
     }
 
@@ -1364,8 +1392,9 @@ export class SoloDraftController {
   }
 
   async handleValidateDeck() {
-    if (this.maindeckSpellIds.size !== 23) {
-      alert("Votre deck doit comporter exactement 23 cartes actives avant validation.");
+    const basicCount = Object.values(this.basicLands).reduce((sum, count) => sum + count, 0);
+    if (this.maindeckSpellIds.size + basicCount !== 40) {
+      alert("Votre deck doit comporter exactement 40 cartes avant validation.");
       return;
     }
 
@@ -1386,6 +1415,7 @@ export class SoloDraftController {
           sessionId: this.sessionId,
           maindeckCardInstanceIds: Array.from(this.maindeckSpellIds),
           basicLands: this.basicLands,
+          landCountRationale: this.dom.landRationale?.value.trim() || undefined,
           publishToLeaderboard: isPublish,
         }),
       });

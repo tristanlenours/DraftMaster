@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { rm, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { SoloDraftSession } from "../../../src/solo-draft/solo-draft-session.ts";
+import { createFinalDeckCoach } from "../../../src/multiplayer-draft/final-deck-coach.ts";
 
 const TEST_REPORTS_DIR = ".scratch/test-reports";
 const TEST_LEADERBOARD_PATH = ".scratch/test-leaderboard.json";
@@ -121,7 +122,7 @@ describe("SoloDraftSession", () => {
     expect(totalLands).toBe(17);
   });
 
-  it("runs a full 45-pick draft, builds a 23-card deck, and generates reports & leaderboard", async () => {
+  it("runs a full 45-pick draft, builds a flexible 40-card deck, and generates reports & leaderboard", async () => {
     const session = await SoloDraftSession.create({
       playerName: "Tristan Champion",
       seed: 42,
@@ -143,27 +144,43 @@ describe("SoloDraftSession", () => {
 
     // Verify AI Deck Recommendation is populated
     expect(deckState.deckRecommendation).toBeDefined();
-    expect(deckState.deckRecommendation?.maindeckCardInstanceIds.length).toBe(23);
+    expect(deckState.deckRecommendation?.maindeckCardInstanceIds.length).toBeGreaterThan(0);
     const totalRecoLands =
       (deckState.deckRecommendation?.basicLands.Plains ?? 0) +
       (deckState.deckRecommendation?.basicLands.Island ?? 0) +
       (deckState.deckRecommendation?.basicLands.Swamp ?? 0) +
       (deckState.deckRecommendation?.basicLands.Mountain ?? 0) +
       (deckState.deckRecommendation?.basicLands.Forest ?? 0);
-    expect(totalRecoLands).toBe(17);
+    expect(
+      (deckState.deckRecommendation?.maindeckCardInstanceIds.length ?? 0) + totalRecoLands,
+    ).toBe(40);
+    const recommendedDraftedLands = deckState.playerPool.filter(
+      (card) =>
+        deckState.deckRecommendation?.maindeckCardInstanceIds.includes(card.instanceId) &&
+        card.isLand,
+    ).length;
+    expect(totalRecoLands + recommendedDraftedLands).toBeGreaterThanOrEqual(16);
+    expect(totalRecoLands + recommendedDraftedLands).toBeLessThanOrEqual(18);
     expect(deckState.deckRecommendation?.archetype).toBeDefined();
     expect(["S", "A", "B", "C", "D"]).toContain(deckState.deckRecommendation?.overallTier);
 
     const directReco = session.getDeckRecommendation();
-    expect(directReco.maindeckCardInstanceIds.length).toBe(23);
+    expect(
+      directReco.maindeckCardInstanceIds.length +
+        directReco.basicLands.Plains +
+        directReco.basicLands.Island +
+        directReco.basicLands.Swamp +
+        directReco.basicLands.Mountain +
+        directReco.basicLands.Forest,
+    ).toBe(40);
 
-    // Reject finalizing with < 23 cards
+    // Reject an unexplained 20-land build outside the normal range.
     await expect(
       session.buildDeckAndFinalize({
         sessionId: session.sessionId,
         maindeckCardInstanceIds: deckState.playerPool.slice(0, 20).map((c) => c.instanceId),
       }),
-    ).rejects.toThrow(/exactly 23 cards/);
+    ).rejects.toThrow(/landCountRationale/);
 
     // Select exactly 23 cards and publish
     const chosen23 = deckState.playerPool.slice(0, 23).map((c) => c.instanceId);
@@ -171,6 +188,7 @@ describe("SoloDraftSession", () => {
       {
         sessionId: session.sessionId,
         maindeckCardInstanceIds: chosen23,
+        landCountRationale: "Liste manuelle de non-regression avec ses terrains draftes.",
         publishToLeaderboard: true,
       },
       {
@@ -249,6 +267,33 @@ describe("SoloDraftSession", () => {
     expect(advice.reason.length).toBeGreaterThan(0);
     expect(Array.isArray(advice.alternatives)).toBe(true);
     expect(session.isHomologated).toBe(false);
+  });
+
+  it("retire l'homologation avant de demander la construction finale assistee", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "Assisted Builder",
+      seed: 42,
+    });
+    for (let round = 0; round < 45; round++) {
+      const card = session.getStateDto().currentBooster[0];
+      if (!card) throw new Error("Booster card missing");
+      session.makePick(card.instanceId);
+    }
+
+    expect(session.isHomologated).toBe(true);
+    const recommendationPromise = session.getAssistedDeckRecommendation(createFinalDeckCoach());
+    expect(session.isHomologated).toBe(false);
+
+    const recommendation = await recommendationPromise;
+    expect(recommendation.source).toBe("fallback");
+    expect(
+      recommendation.maindeckCardInstanceIds.length +
+        recommendation.basicLands.Plains +
+        recommendation.basicLands.Island +
+        recommendation.basicLands.Swamp +
+        recommendation.basicLands.Mountain +
+        recommendation.basicLands.Forest,
+    ).toBe(40);
   });
 
   it("includes all 8 seats with overallTier and radarTiers in final buildDeckAndFinalize result", async () => {

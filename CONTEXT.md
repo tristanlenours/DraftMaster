@@ -11,6 +11,14 @@ _Les Magiciens : Cube Digital Extended Universe_. The official universe umbrella
 The first product milestone: one player completes a 45-pick cube draft against bots, understands recommendations, builds a deck, and records scores and trophies.
 _Avoid_: Solo Challenge, solo mode, draft mode
 
+**Draft multijoueur**:
+Une Session de draft amicale a huit sieges dans laquelle deux a huit joueurs humains choisissent leurs cartes sans limite de temps, les sieges restants etant occupes par des bots, puis construisent chacun leur deck.
+_Avoid_: Draft multi, Multiplayer Draft, Draft entre amis
+
+**Salon de draft**:
+L'espace d'attente global unique d'un Draft multijoueur dans lequel les participants se rassemblent et confirment qu'ils sont prets avant le demarrage commun.
+_Avoid_: Lobby, file d'attente, salle
+
 **Coaching**:
 Pick-time assistance for players who know Magic and drafting but need guidance about unfamiliar cards, relative power, and the cube metagame. A session that uses Coaching is ineligible for the Wall of Records and trophies.
 _Avoid_: Draft Helper, hints
@@ -76,6 +84,14 @@ _Avoid_: Live cube, current cube list
 **Session de draft**:
 One identified execution of a draft using a fixed Snapshot de cube, seed, rules version, and participant configuration.
 _Avoid_: Game, run
+
+**Joueur pret**:
+Un participant present dans un Salon de draft qui a confirme vouloir commencer avec la composition de table actuellement affichee. Toute modification de cette composition annule cette confirmation.
+_Avoid_: Joueur demarre, joueur valide
+
+**Acces de reprise**:
+Le secret personnel remis a un participant humain pour retrouver son siege et son etat prive sans compte DraftMaster apres une deconnexion ou sur un autre appareil.
+_Avoid_: Pseudo de connexion, compte joueur, mot de passe du salon
 
 **Tour de draft**:
 The step in which every active seat chooses one card from its current booster before the remaining cards pass together.

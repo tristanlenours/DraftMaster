@@ -159,24 +159,25 @@ describe("Solo Draft Web API & Flow Integration", () => {
       };
     };
     expect(recoData.ok).toBe(true);
-    expect(recoData.recommendation.maindeckCardInstanceIds.length).toBe(23);
     const totalLands =
       recoData.recommendation.basicLands.Plains +
       recoData.recommendation.basicLands.Island +
       recoData.recommendation.basicLands.Swamp +
       recoData.recommendation.basicLands.Mountain +
       recoData.recommendation.basicLands.Forest;
-    expect(totalLands).toBe(17);
+    expect(recoData.recommendation.maindeckCardInstanceIds.length + totalLands).toBe(40);
+    expect(totalLands).toBeGreaterThanOrEqual(0);
+    expect(totalLands).toBeLessThanOrEqual(18);
     expect(recoData.recommendation.overallTier).toMatch(/^[SABCD]$/);
 
-    // 3. Finalize Deck with 23 recommended cards
-    const maindeck23 = recoData.recommendation.maindeckCardInstanceIds;
+    // 3. Finalize the flexible 40-card recommendation
+    const recommendedMaindeck = recoData.recommendation.maindeckCardInstanceIds;
     const deckRes = await fetch(`${baseUrl}/api/draft/deck`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sessionId,
-        maindeckCardInstanceIds: maindeck23,
+        maindeckCardInstanceIds: recommendedMaindeck,
       }),
     });
 

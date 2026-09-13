@@ -8401,14 +8401,16 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 
 .multi-booster-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
   gap: 0.7rem;
   margin: 1rem 0;
 }
 
 .multi-booster-card {
-  min-height: 118px;
-  padding: 0.9rem;
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+  padding: 0.35rem;
   color: var(--text-main);
   background: linear-gradient(145deg, #182132, #0c111b);
   border: 1px solid var(--border-color);
@@ -8418,6 +8420,23 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   font-weight: 750;
   line-height: 1.35;
   cursor: pointer;
+}
+
+.multi-booster-card img,
+.multi-pool-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 488 / 680;
+  object-fit: cover;
+  background: #090d14;
+  border-radius: 8px;
+}
+
+.multi-booster-card span {
+  padding: 0 0.25rem 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .multi-booster-card:hover,
@@ -8432,6 +8451,30 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   cursor: not-allowed;
   opacity: 0.62;
   transform: none;
+}
+
+.multi-pool-drawer {
+  margin-top: 1rem;
+  color: var(--text-muted);
+}
+
+.multi-pool-drawer summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.multi-pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 0.45rem;
+  max-height: 300px;
+  margin-top: 0.75rem;
+  padding-right: 0.25rem;
+  overflow-y: auto;
+}
+
+.multi-pool-card {
+  min-width: 0;
 }
 
 .multi-field input:focus,
@@ -8606,6 +8649,152 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   font-size: 0.74rem;
 }
 
+.multi-deck-workshop {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.multi-deck-workshop[hidden] {
+  display: none;
+}
+
+.multi-deck-workshop h3,
+.multi-deck-workshop h4 {
+  margin: 0.35rem 0 0.8rem;
+  color: var(--text-main);
+}
+
+.multi-coach-summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+}
+
+.multi-coach-summary[hidden],
+.multi-export-actions[hidden] {
+  display: none;
+}
+
+.multi-coach-summary p,
+.multi-reasons-grid li {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.multi-radar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 1rem 0;
+}
+
+.multi-radar div,
+.multi-radar dt,
+.multi-radar dd {
+  margin: 0;
+}
+
+.multi-radar dt {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  text-transform: capitalize;
+}
+
+.multi-radar dd {
+  color: var(--accent-gold);
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.multi-reasons-grid,
+.multi-deck-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.multi-reasons-grid ul {
+  padding-left: 1.1rem;
+}
+
+.multi-deck-grid {
+  margin-top: 1.25rem;
+}
+
+.multi-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.45rem;
+  align-content: start;
+  min-height: 110px;
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.multi-deck-card {
+  min-height: 48px;
+  padding: 0.55rem;
+  color: var(--text-main);
+  background: #111827;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.multi-deck-card:hover,
+.multi-deck-card:focus-visible {
+  border-color: var(--accent-gold);
+}
+
+.multi-basic-lands {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(90px, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.multi-basic-lands legend,
+.multi-basic-lands label {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.multi-basic-lands input {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.55rem;
+  color: var(--text-main);
+  background: #0b1019;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+}
+
+.multi-deck-actions,
+.multi-export-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.multi-deck-actions > *,
+.multi-export-actions > * {
+  flex: 1;
+  margin-top: 0;
+}
+
 @media (max-width: 800px) {
   .multi-page-container {
     width: min(100% - 1rem, 620px);
@@ -8626,6 +8815,21 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 
   .multi-seats {
     grid-template-columns: 1fr;
+  }
+
+  .multi-reasons-grid,
+  .multi-deck-grid,
+  .multi-basic-lands {
+    grid-template-columns: 1fr;
+  }
+
+  .multi-radar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .multi-deck-actions,
+  .multi-export-actions {
+    flex-direction: column;
   }
 
   .multi-lock-label,
