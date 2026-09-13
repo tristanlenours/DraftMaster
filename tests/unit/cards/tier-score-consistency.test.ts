@@ -63,7 +63,7 @@ describe("Tier and Power Score Consistency", () => {
   it("verifies that iconic Vintage Cube staples have power scores >= 38 and Tier S in Candyshop", async () => {
     const iconicStaples = [
       "Bolas's Citadel",
-      "Yawgmoth's Will",
+      "Orcish Bowmasters",
       "Underworld Breach",
       "Channel",
       "Tinker",
@@ -111,6 +111,83 @@ describe("Tier and Power Score Consistency", () => {
         ).toBe("S");
       }
     }
+  });
+
+  it("enforces that Orcish Bowmasters is Tier S with score 49 in Nico Candyshop and Cedric Cube", async () => {
+    const catalogResult = await CardCatalog.fromFile(masterPath);
+    expect(catalogResult.ok).toBe(true);
+    if (!catalogResult.ok) return;
+
+    const catalog = catalogResult.value;
+    const card = catalog.getCardByName("Orcish Bowmasters");
+    expect(card, "Orcish Bowmasters must exist in catalog").toBeDefined();
+    if (!card) return;
+
+    expect(card.powerScore.score).toBe(49);
+    expect(card.powerScore.score).toBeGreaterThanOrEqual(38);
+
+    // Nico Candyshop
+    expect(card.presentInCubes).toContain("nico_candyshop");
+    const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
+    expect(nicoAnalysis).toBeDefined();
+    expect(nicoAnalysis?.tier).toBe("S");
+    expect(nicoAnalysis?.fit).toBe("staple");
+    expect(nicoAnalysis?.scoreModifier).toBe(15);
+    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.grade).toBe("S");
+
+    // Cedric's Cube
+    expect(card.presentInCubes).toContain("cedric_cube");
+    const cedricAnalysis = card.cubeAnalyses.cedric_cube;
+    expect(cedricAnalysis).toBeDefined();
+    expect(cedricAnalysis?.tier).toBe("S");
+    expect(cedricAnalysis?.fit).toBe("staple");
+  });
+
+  it("enforces that Yawgmoth's Will is calibrated as a trap / Grade F (score <= 15, not Tier S)", async () => {
+    const catalogResult = await CardCatalog.fromFile(masterPath);
+    expect(catalogResult.ok).toBe(true);
+    if (!catalogResult.ok) return;
+
+    const catalog = catalogResult.value;
+    const card = catalog.getCardByName("Yawgmoth's Will");
+    expect(card, "Yawgmoth's Will must exist in catalog").toBeDefined();
+    if (!card) return;
+
+    // Empirical Powered Cube draft data (limitedgrades.com/powered: Grade F, win rate < 46%)
+    expect(card.powerScore.score).toBeLessThanOrEqual(15);
+    expect(card.powerScore.score).toBe(10);
+
+    const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
+    expect(nicoAnalysis).toBeDefined();
+    expect(nicoAnalysis?.tier).not.toBe("S");
+    expect(nicoAnalysis?.tier).not.toBe("A");
+    expect(nicoAnalysis?.fit).toBe("trap");
+    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.grade).toBe("C");
+    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.winrateOrScore).toContain("Grade F");
+  });
+
+  it("enforces that all top non-land cards with score >= 45 in Nico's Candyshop are Tier S", async () => {
+    const catalogResult = await CardCatalog.fromFile(masterPath);
+    expect(catalogResult.ok).toBe(true);
+    if (!catalogResult.ok) return;
+
+    const catalog = catalogResult.value;
+    const nicoCards = catalog.getCardsInCube("nico_candyshop");
+    const demotedTopCards: { name: string; score: number; tier: string }[] = [];
+
+    for (const card of nicoCards) {
+      if (card.isLand) continue;
+      const score = card.powerScore.score;
+      const tier = card.cubeAnalyses.nico_candyshop?.tier;
+      if (score >= 45 && tier !== "S") {
+        demotedTopCards.push({ name: card.name, score, tier: tier ?? "undefined" });
+      }
+    }
+
+    expect(
+      demotedTopCards,
+      `Cards with score >= 45 should be Tier S in Candyshop: ${JSON.stringify(demotedTopCards)}`,
+    ).toHaveLength(0);
   });
 
   it("ensures utility and lower-power cards in Candyshop are categorized below Tier S", async () => {

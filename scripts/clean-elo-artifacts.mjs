@@ -70,8 +70,8 @@ for (const file of files) {
         }
       }
 
-      // Strict invariant: no Tier S if powerScore < 38
-      if (analysis.tier === 'S' && score < 38) {
+      // Strict invariant: no Tier S if powerScore < 38 (excluding pauper)
+      if (cubeKey !== 'hugues_pauper' && analysis.tier === 'S' && score < 38) {
         analysis.tier = score >= 26 ? 'A' : score >= 17 ? 'B' : score >= 10 ? 'C' : 'D';
         analysis.fit = analysis.fit === 'build_around' ? 'build_around' : 'support';
         analysis.scoreModifier = analysis.tier === 'A' ? 6 : analysis.tier === 'B' ? 0 : -5;

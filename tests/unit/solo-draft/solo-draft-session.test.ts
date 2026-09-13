@@ -235,6 +235,7 @@ describe("SoloDraftSession", () => {
       {
         sessionId: session.sessionId,
         maindeckCardInstanceIds: chosen23,
+        landCountRationale: "Deck test manuel de non-régression avec terrains draftés.",
         publishToLeaderboard: false,
       },
       {
@@ -315,6 +316,7 @@ describe("SoloDraftSession", () => {
       {
         sessionId: session.sessionId,
         maindeckCardInstanceIds: chosen23,
+        landCountRationale: "Deck test manuel de non-régression avec terrains draftés.",
         publishToLeaderboard: false,
       },
       {

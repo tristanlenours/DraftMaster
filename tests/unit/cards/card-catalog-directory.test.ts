@@ -26,7 +26,7 @@ describe("CardCatalog Directory Loading", () => {
       expect(bowmasters).toBeDefined();
       expect(bowmasters?.name).toBe("Orcish Bowmasters");
       expect(bowmasters?.image?.url).toMatch(/^https?:\/\//);
-      expect(bowmasters?.cubeAnalyses.nico_candyshop?.tier).toBe("A");
+      expect(bowmasters?.cubeAnalyses.nico_candyshop?.tier).toBe("S");
 
       const lotus = catalog.getCardBySlug("black-lotus");
       expect(lotus).toBeDefined();

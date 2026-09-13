@@ -359,10 +359,11 @@ for (const { path, card } of cards) {
   } else if (details) {
     calibratedCount += 1;
     method = "cubecobra_feature_calibration_v1";
+    const calibratedScore = predictCalibratedScore(details);
     powerScore = {
-      score: predictCalibratedScore(details),
-      source: "cubecobra_elo",
-      rawSourceScore: Math.round(details.elo * 10) / 10,
+      score: calibratedScore,
+      source: "expert_heuristic",
+      rawSourceScore: calibratedScore,
       harmonizationDegree: "calibrated_medium",
       confidence: 0.6,
       updatedAt: generatedAt,

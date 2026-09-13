@@ -75,7 +75,7 @@ const VINTAGE_S_TIER = new Set([
   'Griselbrand',
   'Archon of Cruelty',
   'Bolas\'s Citadel',
-  'Yawgmoth\'s Will',
+  'Orcish Bowmasters',
   'Time Vault',
   'Underworld Breach',
 ]);
@@ -130,10 +130,10 @@ for (const entry of mainboard) {
   let fit = 'support';
   let scoreModifier = 0;
 
-  if (cardName === 'Orcish Bowmasters') {
-    tier = 'A';
-    fit = 'support';
-    scoreModifier = 8;
+  if (cardName === "Yawgmoth's Will") {
+    tier = 'C';
+    fit = 'trap';
+    scoreModifier = -5;
   } else if (cardName === 'Counterspell') {
     tier = 'B';
     fit = 'support';
@@ -207,16 +207,25 @@ for (const entry of mainboard) {
     archetypes,
     synergyTags,
     scoreModifier,
-    analysis: `Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).`,
+    analysis:
+      cardName === "Yawgmoth's Will"
+        ? "Piège de tempo en Vintage Cube moderne : coût en mana prohibitif, exile les cartes et winrate très défavorable."
+        : `Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).`,
     pedagogy: {
-      howToPlay: `Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.`,
+      howToPlay:
+        cardName === "Yawgmoth's Will"
+          ? "À éviter en premier pick. Nécessite une masse critique de rituels et de sorts à 0 mana pour rentabiliser son coût d'activation."
+          : `Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.`,
       archetypeFit: [
         {
           colors: d.colors && d.colors.length > 0 ? d.colors.filter((c) => VALID_MTG_COLORS.has(c)) : ['W'],
           archetype: archetypes[0].replace('nico:', '').replace('_', ' ').toUpperCase(),
           grade: tier,
-          winrateOrScore: `Score ${cardScore.toFixed(1)}`,
-          comment: `Alignement Vintage compétitif.`,
+          winrateOrScore: cardName === "Yawgmoth's Will" ? 'Score 10.0 (Grade F)' : `Score ${cardScore.toFixed(1)}`,
+          comment:
+            cardName === "Yawgmoth's Will"
+              ? 'Classé en Grade F (winrate < 46%) sur limitedgrades.com/powered.'
+              : `Alignement Vintage compétitif.`,
         },
       ],
     },
