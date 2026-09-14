@@ -495,7 +495,7 @@ export class SoloDraftController {
     }
 
     const publishToggle = document.getElementById("publish-to-leaderboard-toggle");
-    if (publishToggle) publishToggle.checked = false;
+    if (publishToggle) publishToggle.checked = true;
 
     this.shuffleLobbyTable();
     this.showStage("lobby");

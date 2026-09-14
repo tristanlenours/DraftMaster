@@ -194,10 +194,10 @@ describe("Detailed Draft Simulation & 17Lands Walkthrough", () => {
       includeCutoffTies: true,
       rankedUniqueCards: 542,
       cutoffScore: 44,
-      bombCardCount: 35,
+      bombCardCount: 30,
     });
     expect(
       boosters?.flatMap((booster) => booster.cards).filter((card) => card.isBomb),
-    ).toHaveLength(26);
+    ).toHaveLength(21);
   }, 15000);
 });

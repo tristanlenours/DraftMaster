@@ -217,6 +217,51 @@ export async function getUnifiedLeaderboard(customPath?: string): Promise<Leader
           }));
 
           return rankLeaderboardEntries(mappedEntries);
+        } else {
+          // Table Supabase vide : synchroniser automatiquement les entrées locales vers Supabase
+          const localEntries = await getLeaderboard(customPath);
+          if (localEntries.length > 0) {
+            for (const entry of localEntries) {
+              try {
+                const scoreTier =
+                  entry.overallScore >= 90
+                    ? "S"
+                    : entry.overallScore >= 82
+                      ? "A"
+                      : entry.overallScore >= 74
+                        ? "B"
+                        : entry.overallScore >= 65
+                          ? "C"
+                          : "D";
+
+                await supabase.from("draft_records").insert({
+                  id: entry.id,
+                  session_id: entry.id,
+                  magicien_slug:
+                    entry.magicienSlug ??
+                    (entry.playerName.toLowerCase() === "tristan" ? "titou" : null),
+                  player_name: entry.playerName,
+                  overall_score: entry.overallScore,
+                  tier: scoreTier,
+                  archetype: entry.archetype,
+                  radar: entry.radar,
+                  macro_axes: entry.macroAxes,
+                  draft_duration_seconds: entry.draftDurationSeconds,
+                  total_duration_seconds: entry.totalDurationSeconds,
+                  seed: entry.seed,
+                  cube_key: entry.cubeKey,
+                  is_homologated: entry.isHomologated,
+                  maindeck_cards: entry.maindeckCards,
+                  basic_lands: entry.basicLands,
+                  reports: entry.reports,
+                  created_at: entry.occurredAt,
+                });
+              } catch (seedErr) {
+                console.warn("⚠️ [Storage] Échec auto-sync local vers Supabase :", seedErr);
+              }
+            }
+            return rankLeaderboardEntries(localEntries);
+          }
         }
       }
     } catch (err) {
