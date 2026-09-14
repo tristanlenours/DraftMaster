@@ -9,7 +9,12 @@ import {
   getMagiciensProfilesWithStats,
   getDeckShareData,
 } from "../src/storage/cloud-leaderboard.ts";
-import { getPublicSupabaseConfig, isSupabaseConfigured } from "../src/storage/supabase-client.ts";
+import {
+  getPublicSupabaseConfig,
+  isSupabaseConfigured,
+  getCleanUrl,
+  getCleanKey,
+} from "../src/storage/supabase-client.ts";
 import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-drafts.ts";
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
 import { loadCoachContext } from "../src/cubes/coach-context.ts";
@@ -527,6 +532,17 @@ export function createRequestHandler(options = {}) {
         uptimeSeconds: Math.floor(process.uptime()),
         timestamp: new Date().toISOString(),
         supabaseConfigured: isSupabaseConfigured(),
+        supabaseDiagnostics: {
+          hasRawUrl: Boolean(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL),
+          hasRawKey: Boolean(
+            process.env.SUPABASE_SERVICE_ROLE_KEY ||
+              process.env.SUPABASE_ANON_KEY ||
+              process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+              process.env.SUPABASE_KEY,
+          ),
+          urlResolved: Boolean(getCleanUrl()),
+          keyResolved: Boolean(getCleanKey()),
+        },
       });
       return;
     }
