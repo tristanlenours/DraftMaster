@@ -12,6 +12,7 @@ import {
 import { getPublicSupabaseConfig, isSupabaseConfigured } from "../src/storage/supabase-client.ts";
 import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-drafts.ts";
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
+import { loadCoachContext } from "../src/cubes/coach-context.ts";
 import { CardCatalog } from "../src/cards/card-catalog.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
 import {
@@ -381,6 +382,22 @@ export function createRequestHandler(options = {}) {
     return result.value;
   };
   const multiplayerArenaMetadata = new Map();
+  const multiplayerCoachContexts = new Map();
+  const loadMultiplayerCoachContext = async (cubeKey) => {
+    if (!multiplayerCoachContexts.has(cubeKey)) {
+      multiplayerCoachContexts.set(
+        cubeKey,
+        loadCoachContext(rootDir, cubeKey).then((result) => {
+          if (!result.ok) {
+            multiplayerCoachContexts.delete(cubeKey);
+            throw new Error(`${result.error.code}: ${result.error.message}`);
+          }
+          return result.value;
+        }),
+      );
+    }
+    return multiplayerCoachContexts.get(cubeKey);
+  };
   const loadArenaMetadata = async (cubeKey) => {
     if (!multiplayerArenaMetadata.has(cubeKey)) {
       multiplayerArenaMetadata.set(
@@ -420,6 +437,7 @@ export function createRequestHandler(options = {}) {
       createResumeToken: (requestId) =>
         createHmac("sha256", multiplayerResumeSecret).update(requestId).digest("base64url"),
       finalDeckCoach,
+      loadCoachContext: loadMultiplayerCoachContext,
       loadCardPool: async (_cubeKey, cards) => {
         const catalog = await loadMultiplayerCatalog();
         return cards.map((card) => {

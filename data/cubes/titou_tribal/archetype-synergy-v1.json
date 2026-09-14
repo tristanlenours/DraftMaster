@@ -1,8 +1,12 @@
 {
   "schemaVersion": 1,
-  "modelVersion": "archetype-synergy@1",
+  "modelVersion": "archetype-synergy@2",
   "cubeKey": "titou_tribal",
   "cubeSnapshotId": "titou_tribal@2026-02-24.1",
+  "provenance": {
+    "sourceRawSha256": "866b873483b412a611f72d2f6e34c1949274ec628280b7e746c16581944cd354",
+    "generatorVersion": "build-archetype-synergy-profiles@2"
+  },
   "archetypes": [
     {
       "id": "titou:tribal_goblins",
@@ -12,6 +16,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -29,7 +38,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -55,7 +64,7 @@
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "8c22b218-cf40-47af-8c11-73c581a43390",
@@ -69,15 +78,15 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
-          "oracleId": "22a189a9-e755-4cbb-b419-5ba2e5acbe1b",
-          "name": "Cabal Slaver",
+          "oracleId": "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
+          "name": "Broadside Bombardiers",
           "strength": "support",
           "roles": [
             "body"
@@ -87,11 +96,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
-              "detail": "Creature — Human Cleric contribue à la masse critique Goblin."
+              "source": "oracle_rule",
+              "detail": "Creature — Goblin Pirate contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "22a189a9-e755-4cbb-b419-5ba2e5acbe1b",
+          "name": "Cabal Slaver",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_tag",
+              "detail": "Tag propriétaire reliant la carte au plan Goblin."
+            }
+          ],
+          "confidence": "C"
         },
         {
           "oracleId": "faf81ae0-0b35-45ef-a50d-6cecf0c0eeeb",
@@ -105,25 +132,31 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Shaman contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "368b4052-174e-4458-a6e6-eaf8093aa0fe",
           "name": "Goblin Chieftain",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
@@ -145,7 +178,7 @@
               "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "bab0ab8d-74d2-49a3-b258-b93d19925d99",
@@ -159,11 +192,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "81f06f84-1580-43c0-89d5-08d34541a519",
@@ -177,11 +210,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Wizard contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "20aecb7b-7e37-4efe-ac27-f9f9042203f4",
@@ -189,11 +222,11 @@
           "strength": "key",
           "roles": [
             "payoff",
-            "body"
+            "enabler"
           ],
           "families": [
             "payoff",
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -202,7 +235,7 @@
             },
             {
               "source": "owner_tag",
-              "detail": "Sorcery contribue à la masse critique Goblin."
+              "detail": "Tag propriétaire reliant la carte au plan Goblin."
             }
           ],
           "confidence": "A"
@@ -219,11 +252,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Scout contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "213fbbdd-f1bc-4bba-9124-7b26e9a706c8",
@@ -237,11 +270,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "145737a7-c597-4dec-b752-207c2d0501e3",
@@ -255,11 +288,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "24661b81-6bee-4ad8-b3ab-53cb65005c51",
@@ -279,7 +312,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
@@ -321,11 +354,47 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "10849bbb-50ca-4194-a7cb-fa872272b29b",
+          "name": "Goblin Wardriver",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "854bdd4a-d549-41d5-af43-0e2154ed017e",
+          "name": "Goro-Goro and Satoru",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Goblin Human contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "b80df711-af51-4f9a-9a3f-f7a4cddc9c2c",
@@ -343,7 +412,7 @@
               "detail": "Legendary Creature — Goblin Samurai contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "c6bdaf76-6a03-4695-9c4b-f040e73435af",
@@ -357,11 +426,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Shaman contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "68418069-f615-40ef-ae0d-764192acae00",
@@ -375,11 +444,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "e8065e1d-e937-4b56-8011-78f0d07328a0",
@@ -397,7 +466,7 @@
               "detail": "Legendary Creature — Goblin contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "560a5452-0dc3-421d-bf16-8843a35dae6f",
@@ -415,7 +484,7 @@
               "detail": "Creature — Goblin Soldier contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b582b696-17fa-4eea-8124-293f9bd3a208",
@@ -435,7 +504,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Shaman contribue à la masse critique Goblin."
             }
           ],
@@ -449,6 +518,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -467,7 +537,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -485,6 +555,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -507,11 +578,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a498bc70-36e7-4454-bc44-906893df38b8",
+          "name": "Murderous Redcap",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Goblin Assassin contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
@@ -521,7 +610,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -536,15 +625,45 @@
           "name": "Muxus, Goblin Grandee",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
           "families": [
-            "payoff"
+            "payoff",
+            "density"
           ],
           "evidence": [
             {
               "source": "owner_description",
               "detail": "Carte clé déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Goblin Noble contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "bdb94ccd-1bb5-4bb7-9539-e1b1c97c19c5",
+          "name": "Pashalik Mons",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Goblin Warrior contribue à la masse critique Goblin."
             }
           ],
           "confidence": "A"
@@ -557,6 +676,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -568,8 +688,8 @@
           "confidence": "A"
         },
         {
-          "oracleId": "4e93b23c-a7f7-4bdd-bbca-0dc48bb5c223",
-          "name": "Sling-Gang Lieutenant",
+          "oracleId": "86ec0b56-497f-481c-a03a-c4e64e8e7404",
+          "name": "Searslicer Goblin",
           "strength": "support",
           "roles": [
             "body"
@@ -578,6 +698,48 @@
             "density"
           ],
           "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Goblin Warrior contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c18013e4-0b99-44e3-a2b2-027ace68723a",
+          "name": "Skirk Prospector",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Goblin contribue à la masse critique Goblin."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4e93b23c-a7f7-4bdd-bbca-0dc48bb5c223",
+          "name": "Sling-Gang Lieutenant",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Rakdos Gobelins Aggro & Burn."
+            },
             {
               "source": "oracle_rule",
               "detail": "Creature — Goblin contribue à la masse critique Goblin."
@@ -597,11 +759,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Shaman contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b72fd535-0051-4f59-9d99-75895f751006",
@@ -619,7 +781,7 @@
               "detail": "Artifact Creature — Goblin Archer contribue à la masse critique Goblin."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "d50b1d2e-1825-432a-ab73-068fdc356f50",
@@ -629,6 +791,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -652,6 +815,11 @@
           "minimum": 1
         },
         {
+          "id": "support",
+          "name": "Support ou liant du plan",
+          "minimum": 1
+        },
+        {
           "id": "density",
           "name": "Masse critique de la tribu",
           "minimum": 7
@@ -666,7 +834,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -681,6 +849,30 @@
           "name": "Bloodtithe Harvester",
           "strength": "support",
           "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7292272d-6511-466b-aadd-c4fe7ed8df09",
+          "name": "Bloodvial Purveyor",
+          "strength": "support",
+          "roles": [
             "body"
           ],
           "families": [
@@ -692,7 +884,7 @@
               "detail": "Creature — Vampire contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "96c12c12-140a-462d-bff0-0554d192b1f4",
@@ -710,7 +902,7 @@
               "detail": "Creature — Vampire Warlock contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "96e25887-e556-423a-8a69-0cd148216f6a",
@@ -724,15 +916,63 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Vampire Assassin contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "89b24b5f-d837-4274-8877-8ff7dc2708ba",
+          "name": "Drana, Liberator of Malakir",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Vampire Ally contribue à la masse critique Vampire."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "89b24b5f-d837-4274-8877-8ff7dc2708ba",
-          "name": "Drana, Liberator of Malakir",
+          "oracleId": "96cb97ca-4ce0-4d33-86fb-4db4ce1956be",
+          "name": "Edgar, Charmed Groom",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Vampire Noble contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4b9f463f-3786-4374-bf77-739ae162b3ba",
+          "name": "Elenda and Azor",
           "strength": "support",
           "roles": [
             "body"
@@ -742,11 +982,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
-              "detail": "Legendary Creature — Vampire Ally contribue à la masse critique Vampire."
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Vampire Knight Sphinx contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "0c6a6587-2b3f-40d1-a5f2-06128da0d52e",
@@ -764,7 +1004,7 @@
               "detail": "Creature — Aetherborn Vampire contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "00d3fcdf-6959-4437-9bad-93a8625510a1",
@@ -778,11 +1018,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Vampire Rogue contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0dc158ba-7ec8-4558-91f5-0a87ef8380d4",
+          "name": "High-Society Hunter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Noble contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "fcb6c6d4-ea8d-49cf-b6df-377084bdb757",
@@ -826,7 +1084,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Vampire Warrior contribue à la masse critique Vampire."
             }
           ],
@@ -848,7 +1106,7 @@
               "detail": "Creature — Vampire Knight contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
@@ -858,6 +1116,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -876,7 +1135,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -894,6 +1153,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -912,7 +1172,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -938,7 +1198,7 @@
               "detail": "Creature — Vampire Rogue contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "c1111228-ef88-4b64-91e0-66ee32a1f5e4",
@@ -956,7 +1216,7 @@
               "detail": "Creature — Vampire Cleric contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "dd27d0f2-fe1e-4b63-9ba0-6264ca3c70f8",
@@ -976,11 +1236,29 @@
               "detail": "Carte clé déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Vampire contribue à la masse critique Vampire."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "74947e47-c4ff-4f47-9845-befa7403cbde",
+          "name": "Preacher of the Schism",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Cleric contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -990,6 +1268,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1026,6 +1305,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1035,6 +1315,24 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "fcb2a95b-cef0-4b29-8b2b-538f380aff2b",
+          "name": "Vampire Hexmage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Shaman contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "feb244f8-bcb1-44cf-9940-2719221a7309",
@@ -1048,11 +1346,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Vampire Shaman contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "5a938371-8428-48e3-85ed-6a84a39b29c6",
@@ -1068,6 +1366,30 @@
             {
               "source": "oracle_rule",
               "detail": "Creature — Vampire contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f83a768c-162d-46f0-8ebd-d9c6b2c69322",
+          "name": "Vein Ripper",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mardu Vampires Aristocrates & Drain."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Assassin contribue à la masse critique Vampire."
             }
           ],
           "confidence": "A"
@@ -1088,7 +1410,7 @@
               "detail": "Legendary Creature — Vampire Cleric contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "a720f3d3-c2d7-4e50-8cc6-600120380e9c",
@@ -1106,7 +1428,43 @@
               "detail": "Creature — Vampire Wizard contribue à la masse critique Vampire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b2f2645f-5f74-456a-bd02-83169d8b8a7e",
+          "name": "Vraan, Executioner Thane",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Phyrexian Vampire contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "605c1ee0-5e8a-4e0a-a99b-42a38873f822",
+          "name": "Welcoming Vampire",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire contribue à la masse critique Vampire."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     },
@@ -1118,6 +1476,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -1135,7 +1498,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1144,6 +1507,42 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "98295bdc-db58-4e1f-ad4c-63092aea207e",
+          "name": "Allosaurus Shepherd",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Elf Shaman contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9519a4ea-c4a0-4127-b06a-aac9ffaf7a32",
+          "name": "Arwen, Mortal Queen",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Noble contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
@@ -1157,11 +1556,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Elf Shaman contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "30d0d75f-e94c-460b-b957-9f1d655c0f65",
@@ -1175,11 +1574,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9a1de7e4-9930-4db3-a8f3-d146d0abf38b",
@@ -1193,11 +1592,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Elf Rogue contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "6e2c2423-d854-4478-99e6-64f29851f026",
@@ -1228,14 +1627,20 @@
           "name": "Elvish Mystic",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Golgari Elfes Ramp & Swarm."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Elf Druid contribue à la masse critique Elf."
             }
           ],
@@ -1305,7 +1710,7 @@
               "detail": "Creature — Elf Lizard Wizard contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "8859a692-d107-4de2-9110-4681fc2761c7",
@@ -1323,7 +1728,7 @@
               "detail": "Legendary Creature — Phyrexian Zombie Elf contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "3fa71348-fa4d-4f39-a451-cf1570591991",
@@ -1337,11 +1742,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "e2f98813-4f39-4135-b05b-407e9eb797f6",
@@ -1359,11 +1764,11 @@
               "detail": "Creature — Elf Rogue contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
-          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
-          "name": "Llanowar Elves",
+          "oracleId": "1bf08ba0-4235-4dea-9722-ed991a3b6044",
+          "name": "Kethis, the Hidden Hand",
           "strength": "support",
           "roles": [
             "body"
@@ -1373,7 +1778,49 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Advisor contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ef693b9f-11e3-49bf-8387-b8f480b9007a",
+          "name": "Leaf-Crowned Visionary",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Elf Druid contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+          "name": "Llanowar Elves",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Golgari Elfes Ramp & Swarm."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Elf Druid contribue à la masse critique Elf."
             }
           ],
@@ -1395,7 +1842,7 @@
               "detail": "Creature — Elf Druid contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
@@ -1405,6 +1852,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1423,7 +1871,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1441,6 +1889,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1459,7 +1908,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1468,6 +1917,24 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "c1fc5923-c3cd-448a-98d1-c154661c2812",
+          "name": "Nissa, Resurgent Animist",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Scout contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "e119869d-1f66-402b-8251-d351965cf0d3",
@@ -1485,7 +1952,7 @@
               "detail": "Creature — Elf Druid contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "2348f3d4-02cc-4611-a7e0-b77604d5f2e8",
@@ -1503,7 +1970,7 @@
               "detail": "Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "927fb139-0493-48be-8cc4-2c7d854d6a55",
@@ -1521,7 +1988,7 @@
               "detail": "Legendary Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -1531,6 +1998,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1546,14 +2014,20 @@
           "name": "Reclamation Sage",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Golgari Elfes Ramp & Swarm."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Elf Shaman contribue à la masse critique Elf."
             }
           ],
@@ -1571,11 +2045,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Elf Druid Ally contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
@@ -1593,7 +2067,7 @@
               "detail": "Creature — Elf Scout contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "3cef501b-5ce1-4699-89a5-3949f7e65bf1",
@@ -1611,22 +2085,46 @@
               "detail": "Legendary Creature — Elf Scout contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cd10ebc9-9f6c-4da2-9a86-263902002ebc",
+          "name": "Trelasarra, Moon Dancer",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Cleric contribue à la masse critique Elf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "5a242eab-204c-4411-860f-c0f3582a8f38",
           "name": "Tyvar, the Pummeler",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
           "families": [
-            "payoff"
+            "payoff",
+            "density"
           ],
           "evidence": [
             {
               "source": "owner_description",
               "detail": "Carte clé déclarée par le profil du cube pour Golgari Elfes Ramp & Swarm."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
           "confidence": "A"
@@ -1639,6 +2137,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1661,11 +2160,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Elf Shaman contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "d4d27fef-e86b-4dd3-a15e-a0db8d0725ee",
@@ -1679,11 +2178,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Elf Warrior contribue à la masse critique Elf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         }
       ]
     },
@@ -1695,6 +2194,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -1712,7 +2216,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1721,6 +2225,60 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "6bb7d0df-7a9f-4e17-8c31-7628c4b12356",
+          "name": "Arlinn Kord",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Gruul Loups & Garous Midrange."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7e81853c-d0c0-40bc-80fc-13a5964878b2",
+          "name": "Ascendant Packleader",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "730be0d6-2612-44d6-9d36-e1fc6510c6bd",
+          "name": "Avabruck Caretaker",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Werewolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "5604c475-6e01-4e9d-b4e6-8e8d72874581",
@@ -1734,11 +2292,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "1ed2d8e0-462b-468e-8fd3-1f3c6d99fb8a",
@@ -1756,7 +2314,7 @@
               "detail": "Creature — Human Soldier Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "fa53cc50-f06f-44b0-850f-cfa6e0caa4c5",
@@ -1774,7 +2332,7 @@
               "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "87c43776-dd98-4e12-9b95-82d2b8f4f1ab",
@@ -1792,7 +2350,7 @@
               "detail": "Creature — Human Warrior Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "582328cd-660d-47a4-bb23-e91e80b9a907",
@@ -1812,7 +2370,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Gruul Loups & Garous Midrange."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
@@ -1823,15 +2381,45 @@
           "name": "Immerwolf",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
           "families": [
-            "payoff"
+            "payoff",
+            "density"
           ],
           "evidence": [
             {
               "source": "owner_description",
               "detail": "Carte clé déclarée par le profil du cube pour Gruul Loups & Garous Midrange."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "54f8acb1-58f3-49d1-bff8-c1b578245936",
+          "name": "Kessig Naturalist",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Gruul Loups & Garous Midrange."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
           "confidence": "A"
@@ -1844,6 +2432,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1859,32 +2448,38 @@
           "name": "Master of the Wild Hunt",
           "strength": "support",
           "roles": [
-            "body"
+            "enabler"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
               "source": "owner_tag",
-              "detail": "Creature — Human Shaman contribue à la masse critique Werewolf/Wolf."
+              "detail": "Tag propriétaire reliant la carte au plan Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "C"
         },
         {
           "oracleId": "6e638587-30b3-4c4b-b463-fb415ea048f7",
           "name": "Mayor of Avabruck",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Gruul Loups & Garous Midrange."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Human Advisor Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
@@ -1898,7 +2493,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1916,6 +2511,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1934,7 +2530,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -1960,7 +2556,25 @@
               "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "087d6330-c9de-42b7-a804-1202bc6aa682",
+          "name": "Primal Adversary",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -1970,6 +2584,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -1996,7 +2611,7 @@
               "detail": "Creature — Human Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "789964f5-79c5-4329-b68f-b15b0d54b0b2",
@@ -2014,7 +2629,61 @@
               "detail": "Legendary Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3509171e-8d7d-4e9e-97a1-58e6c7d225ed",
+          "name": "Summon: Fenrir",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Enchantment Creature — Saga Wolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "da412474-1da8-409b-bd7b-87cbfc239fb0",
+          "name": "Suspicious Stowaway",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Rogue Werewolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
+          "name": "Torgal, A Fine Hound",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Wolf contribue à la masse critique Werewolf/Wolf."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "45d49831-548a-4a0e-9a18-9f7397913895",
@@ -2072,6 +2741,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -2094,11 +2764,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "086a911f-9ed4-4260-ae46-58c9333b95f5",
@@ -2116,7 +2786,7 @@
               "detail": "Creature — Human Werewolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "a5d3af88-2ca6-4e3d-8b6e-67482136a5c9",
@@ -2130,11 +2800,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Wolf contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "dccf9497-cc7b-42df-9b46-f5ffea0c7474",
@@ -2148,11 +2818,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Wolf Warrior contribue à la masse critique Werewolf/Wolf."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         }
       ]
     },
@@ -2164,6 +2834,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -2181,7 +2856,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -2196,18 +2871,18 @@
           "name": "Angelic Destiny",
           "strength": "support",
           "roles": [
-            "body"
+            "enabler"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
               "source": "owner_tag",
-              "detail": "Enchantment — Aura contribue à la masse critique Angel/Cleric."
+              "detail": "Tag propriétaire reliant la carte au plan Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "C"
         },
         {
           "oracleId": "432b37a5-d32a-4b78-91ab-860aa026b7cc",
@@ -2225,7 +2900,25 @@
               "detail": "Legendary Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
+          "name": "Atraxa, Grand Unifier",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Phyrexian Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "216cb26e-8da9-478b-bfbc-8030f7adee72",
@@ -2245,7 +2938,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
@@ -2256,14 +2949,20 @@
           "name": "Baneslayer Angel",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
@@ -2285,7 +2984,7 @@
               "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "22a189a9-e755-4cbb-b419-5ba2e5acbe1b",
@@ -2299,11 +2998,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "ad0f50d5-7b40-4fd8-8d13-4a0493398f53",
@@ -2317,29 +3016,89 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "24697554-02fa-48ba-b51d-6bba3f85c293",
           "name": "Errant and Giada",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
           "families": [
-            "payoff"
+            "payoff",
+            "density"
           ],
           "evidence": [
             {
               "source": "owner_description",
               "detail": "Carte clé déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Angel contribue à la masse critique Angel/Cleric."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "9ad730b5-8950-4215-9319-387e2970dd22",
+          "name": "Exemplar of Light",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b304ac72-7f40-40de-b8d6-6392909b6029",
+          "name": "Guide of Souls",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d646e42b-5635-4798-b633-29c093b66a55",
+          "name": "Inspiring Overseer",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel Cleric contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "cb8d80c9-ed58-4f2d-aa8c-c383370c7f1a",
@@ -2353,11 +3112,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Human Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "8c31fec9-e4b3-4761-990e-7be38eb05604",
@@ -2371,11 +3130,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Angel Spirit contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "88dadc31-dfac-41b3-bf2a-65fa89e3c16d",
@@ -2389,11 +3148,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "afd8ff3e-1d57-4fc5-91dc-1a8400c98787",
@@ -2411,7 +3170,7 @@
               "detail": "Legendary Creature — Angel Wizard contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "cb9994b9-924b-4e10-9075-9cfbec88f2bf",
@@ -2429,7 +3188,7 @@
               "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "592c91fc-6430-4c76-9460-65f047350f67",
@@ -2456,6 +3215,24 @@
           "confidence": "A"
         },
         {
+          "oracleId": "ac50ef98-1791-4dd4-9c1f-8cea7db7ade5",
+          "name": "Maelstrom Archangel",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
           "name": "Maskwood Nexus",
           "strength": "support",
@@ -2463,6 +3240,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -2481,7 +3259,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -2499,6 +3277,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -2521,11 +3300,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
@@ -2535,7 +3314,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -2561,7 +3340,25 @@
               "detail": "Creature — Vampire Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "74947e47-c4ff-4f47-9845-befa7403cbde",
+          "name": "Preacher of the Schism",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Vampire Cleric contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -2571,6 +3368,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -2586,14 +3384,20 @@
           "name": "Restoration Angel",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
@@ -2624,6 +3428,24 @@
           "confidence": "A"
         },
         {
+          "oracleId": "713bcfb6-e5ea-411e-b4b3-52e5eed5cdf1",
+          "name": "Sanctuary Warden",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel Soldier contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
           "oracleId": "71d785a9-ddc8-472e-a778-a551b444a4bd",
           "name": "Selfless Spirit",
           "strength": "support",
@@ -2639,7 +3461,43 @@
               "detail": "Creature — Spirit Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
+          "name": "Serra Paragon",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5fe07a76-f261-4f16-8a15-571bed707261",
+          "name": "Sigarda, Font of Blessings",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "79b56cf8-d573-40cf-b797-6b4eef2bed23",
@@ -2653,23 +3511,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f3fad295-1af2-4ecc-8546-b121ad6be27b",
           "name": "Soul Warden",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
+            },
             {
               "source": "oracle_rule",
               "detail": "Creature — Human Cleric contribue à la masse critique Angel/Cleric."
@@ -2693,7 +3557,7 @@
               "detail": "Artifact Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b5479c97-df19-49c7-b305-7a0336fd1cb3",
@@ -2707,11 +3571,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cd10ebc9-9f6c-4da2-9a86-263902002ebc",
+          "name": "Trelasarra, Moon Dancer",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Elf Cleric contribue à la masse critique Angel/Cleric."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "d50b1d2e-1825-432a-ab73-068fdc356f50",
@@ -2721,6 +3603,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -2747,6 +3630,30 @@
               "detail": "Legendary Creature — Vampire Cleric contribue à la masse critique Angel/Cleric."
             }
           ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6d37ba4b-ff56-4eec-9dc2-2d7f357dc9c9",
+          "name": "Youthful Valkyrie",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Orzhov/Mono-W Anges & Clercs."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Angel contribue à la masse critique Angel/Cleric."
+            }
+          ],
           "confidence": "A"
         }
       ]
@@ -2759,6 +3666,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -2776,7 +3688,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -2791,36 +3703,36 @@
           "name": "Descent of the Dragons",
           "strength": "support",
           "roles": [
-            "body"
+            "enabler"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
               "source": "owner_tag",
-              "detail": "Sorcery contribue à la masse critique Dragon."
+              "detail": "Tag propriétaire reliant la carte au plan Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "C"
         },
         {
           "oracleId": "843af5d3-447e-40e4-a562-f5a7ed09ca3e",
           "name": "Draconic Roar",
           "strength": "support",
           "roles": [
-            "body"
+            "enabler"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
               "source": "owner_tag",
-              "detail": "Instant contribue à la masse critique Dragon."
+              "detail": "Tag propriétaire reliant la carte au plan Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "C"
         },
         {
           "oracleId": "b9bacb46-fd1d-459b-81c2-d7d08fe73848",
@@ -2828,11 +3740,11 @@
           "strength": "key",
           "roles": [
             "payoff",
-            "body"
+            "enabler"
           ],
           "families": [
             "payoff",
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -2841,7 +3753,7 @@
             },
             {
               "source": "owner_tag",
-              "detail": "Enchantment contribue à la masse critique Dragon."
+              "detail": "Tag propriétaire reliant la carte au plan Dragon."
             }
           ],
           "confidence": "A"
@@ -2864,7 +3776,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Temur/5-Color Dragons Ramp & Bombes."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Elder Dragon contribue à la masse critique Dragon."
             }
           ],
@@ -2882,11 +3794,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Elder Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "44581d4f-746b-43b8-a34d-16dc383ab70e",
@@ -2900,11 +3812,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Elder Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f9217532-f7cf-4436-b476-72d97a3147dc",
@@ -2922,19 +3834,25 @@
               "detail": "Legendary Creature — Elder Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b75c3902-633e-4d24-acde-d7a9cc8f466e",
           "name": "Glorybringer",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Temur/5-Color Dragons Ramp & Bombes."
+            },
             {
               "source": "oracle_rule",
               "detail": "Creature — Dragon contribue à la masse critique Dragon."
@@ -2958,7 +3876,7 @@
               "detail": "Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "fcb6c6d4-ea8d-49cf-b6df-377084bdb757",
@@ -2976,7 +3894,7 @@
               "detail": "Creature — Vampire Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "242dfae4-504c-45d4-9a49-f7ab515fd23a",
@@ -2990,11 +3908,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "521b1598-58c6-47a0-a7b3-021d70bf2b05",
@@ -3008,11 +3926,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Dragon Spirit contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f6e160c1-b29f-4f3d-ab55-43ffe3ab4acf",
@@ -3026,11 +3944,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f426aa1a-e1dc-4563-b450-2e23d6bd980b",
@@ -3048,7 +3966,7 @@
               "detail": "Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
@@ -3058,6 +3976,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3076,7 +3995,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -3118,6 +4037,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3136,7 +4056,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -3145,6 +4065,24 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "10764b35-5c6c-4161-8579-1124d5963a0e",
+          "name": "Niv-Mizzet Reborn",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Dragon Avatar contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "022b42a6-ee0f-4080-b973-c1b68938c3be",
@@ -3162,7 +4100,7 @@
               "detail": "Artifact Creature — Phyrexian Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -3172,6 +4110,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3181,6 +4120,66 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "074cbe14-a0c8-4772-955a-b4052333d6ce",
+          "name": "Sarkhan, Fireblood",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Temur/5-Color Dragons Ramp & Bombes."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b7daa74c-6142-4107-9355-be98af6ccf13",
+          "name": "Shivan Devastator",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Temur/5-Color Dragons Ramp & Bombes."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Dragon Hydra contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7493d78c-26c4-402e-bec5-6449773d0344",
+          "name": "Smoldering Egg",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Dragon Egg contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "a9d8ab76-70a4-475e-b87e-4737c090553a",
@@ -3198,7 +4197,25 @@
               "detail": "Creature — Faerie Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "66f0f43c-829d-44d6-adda-d8885bfbfbaf",
+          "name": "Swashbuckler Extraordinaire",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Dragon Rogue Warrior contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "d60e14b4-f750-40cc-85b5-17c87ae8a584",
@@ -3216,7 +4233,7 @@
               "detail": "Creature — Serpent Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f8e17f4f-080d-4bba-bd05-ca27e94ccecc",
@@ -3234,7 +4251,25 @@
               "detail": "Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "87b22b09-4f6d-4bc5-9cfc-663e4c7c6981",
+          "name": "The Ur-Dragon",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Dragon Avatar contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "e958144e-01bc-46ff-8f56-ddf2eb098630",
@@ -3248,26 +4283,32 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f00e4df1-13fb-4514-8abb-92954068689a",
           "name": "Tiamat",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
           "families": [
-            "payoff"
+            "payoff",
+            "density"
           ],
           "evidence": [
             {
               "source": "owner_description",
               "detail": "Carte clé déclarée par le profil du cube pour Temur/5-Color Dragons Ramp & Bombes."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Dragon God contribue à la masse critique Dragon."
             }
           ],
           "confidence": "A"
@@ -3280,6 +4321,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3306,7 +4348,7 @@
               "detail": "Legendary Creature — Elder Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "fda3c312-1a76-425c-8b23-0196452c4a5e",
@@ -3320,11 +4362,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Dragon contribue à la masse critique Dragon."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "941c9acd-2773-456a-88d5-0537735f93c6",
+          "name": "Zurgo and Ojutai",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Orc Dragon contribue à la masse critique Dragon."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     },
@@ -3336,6 +4396,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -3353,7 +4418,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -3403,7 +4468,25 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3f31c423-d45c-4c3e-b7d4-ca125be0f92c",
+          "name": "Aragorn, the Uniter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Noble contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "8305d576-21d8-4ce7-8eda-a7cd9793aca5",
@@ -3421,7 +4504,25 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "730be0d6-2612-44d6-9d36-e1fc6510c6bd",
+          "name": "Avabruck Caretaker",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Werewolf contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "baf80db7-2ca8-4bfc-b5b6-25ed51878dd7",
@@ -3439,7 +4540,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f98f7cb7-90ca-41e7-9f1d-8054931ecf0e",
@@ -3457,7 +4558,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "314f0a96-5e91-42a3-9d75-3f641f22a9ee",
@@ -3475,7 +4576,7 @@
               "detail": "Creature — Human Cleric contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "1ed2d8e0-462b-468e-8fd3-1f3c6d99fb8a",
@@ -3493,7 +4594,7 @@
               "detail": "Creature — Human Soldier Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "22a189a9-e755-4cbb-b419-5ba2e5acbe1b",
@@ -3507,11 +4608,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Cleric contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e4719557-d94e-490f-8a56-c1867a01d2ef",
+          "name": "Cecil, Dark Knight",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Knight contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "faeaa3eb-6eb8-4621-98c7-0c6f58bbff85",
@@ -3531,7 +4650,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Soldier contribue à la masse critique Human."
             }
           ],
@@ -3553,7 +4672,7 @@
               "detail": "Creature — Human Noble contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "50863075-a30b-4238-8e31-5af32a39d886",
@@ -3571,7 +4690,25 @@
               "detail": "Legendary Creature — Human Rogue contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e2cd65f6-7cbc-497c-bdc9-698ff17da31e",
+          "name": "Cosmogrand Zenith",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Soldier contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "70973a2d-66e6-4662-ab10-99678775dda1",
@@ -3589,7 +4726,7 @@
               "detail": "Creature — Human Knight contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
@@ -3603,11 +4740,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b6fb79c3-cd32-4045-8177-e52841eea65b",
@@ -3621,11 +4758,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Shaman contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "87c43776-dd98-4e12-9b95-82d2b8f4f1ab",
@@ -3643,7 +4780,43 @@
               "detail": "Creature — Human Warrior Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "92dfeeb2-1117-422b-87ea-08a589f1134b",
+          "name": "Elite Guardmage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "24697554-02fa-48ba-b51d-6bba3f85c293",
+          "name": "Errant and Giada",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Angel contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "3d038f7c-95fa-4b71-8f74-b9b4dd45cde0",
@@ -3661,7 +4834,25 @@
               "detail": "Legendary Creature — Phyrexian Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "64c15098-f893-44f2-bf7f-162db8ab80e9",
+          "name": "General Ferrous Rokiric",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Soldier contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "91e71279-c9d2-4873-916a-59da03a65741",
@@ -3679,7 +4870,25 @@
               "detail": "Creature — Human Peasant contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "854bdd4a-d549-41d5-af43-0e2154ed017e",
+          "name": "Goro-Goro and Satoru",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Goblin Human contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
@@ -3693,11 +4902,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b304ac72-7f40-40de-b8d6-6392909b6029",
+          "name": "Guide of Souls",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Cleric contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "862af5c4-cb34-4bfa-a7ff-209e103defd6",
@@ -3711,11 +4938,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Warrior contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "c5c2d209-e3ef-4b0d-85f5-e7402dcf09eb",
@@ -3733,7 +4960,7 @@
               "detail": "Creature — Human Pirate contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "582328cd-660d-47a4-bb23-e91e80b9a907",
@@ -3747,11 +4974,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "4bba3663-7f3c-4589-88aa-cf0bfe36b171",
@@ -3765,11 +4992,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Noble contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b72fde5e-862a-45e8-9880-f2c16975a9ac",
@@ -3787,7 +5014,61 @@
               "detail": "Creature — Human Scout contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+          "name": "Jace, Vryn's Prodigy",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fb3defc0-c93a-4423-9ff9-c399f8a8ef1f",
+          "name": "Jadar, Ghoulcaller of Nephalia",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "490a8045-e160-4ccf-a05e-658ad2b7ac2d",
+          "name": "Jodah, the Unifier",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "cb8d80c9-ed58-4f2d-aa8c-c383370c7f1a",
@@ -3801,11 +5082,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Human Cleric contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "1990012e-2a92-4e76-917a-f90fb7a4ed66",
+          "name": "Katilda and Lier",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "d7407920-7596-497a-a135-b9343909a0cb",
@@ -3819,11 +5118,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Rogue contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "54f8acb1-58f3-49d1-bff8-c1b578245936",
+          "name": "Kessig Naturalist",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Werewolf contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "f224db3d-cdd2-43f2-b625-4b861efa6449",
@@ -3841,7 +5158,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b3d81980-76f2-44e2-b1c9-01e30c726312",
@@ -3859,7 +5176,7 @@
               "detail": "Legendary Creature — Human Artificer contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "cb9994b9-924b-4e10-9075-9cfbec88f2bf",
@@ -3877,7 +5194,25 @@
               "detail": "Creature — Human Cleric contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "953a2bd3-5bca-41fc-8785-66b2d7fa381a",
+          "name": "Mai, Scornful Striker",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Noble Ally contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "51233ade-70cd-4539-9f41-5ffab761da54",
@@ -3895,7 +5230,7 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
@@ -3905,6 +5240,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3927,11 +5263,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Shaman contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "6e638587-30b3-4c4b-b463-fb415ea048f7",
@@ -3945,11 +5281,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Advisor Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "1f91297a-ec2b-4ea8-9198-aa1daac20ff8",
@@ -3959,7 +5295,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -3977,6 +5313,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -3992,6 +5329,30 @@
           "name": "Mother of Runes",
           "strength": "support",
           "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Cleric contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "aaafcd69-6295-4d79-8e67-98df0c9bae88",
+          "name": "Mu Yanling, Wind Rider",
+          "strength": "support",
+          "roles": [
             "body"
           ],
           "families": [
@@ -3999,11 +5360,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
-              "detail": "Creature — Human Cleric contribue à la masse critique Human."
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard Pilot contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
@@ -4013,7 +5374,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -4035,11 +5396,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Assassin contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "98aa9424-5912-4bd6-9300-b3972a31d8af",
+          "name": "Noble Hierarch",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Druid contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "43d7fcf3-acc2-4e9b-a466-c73b1b6c58af",
@@ -4053,11 +5432,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "55eca80c-dcd8-4c2f-aa0f-fb0aec7b80f7",
@@ -4071,25 +5450,31 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Shaman contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b9c8b929-f3ee-457f-9cbc-9de18eb69dc5",
           "name": "Ranger of Eos",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Human Soldier contribue à la masse critique Human."
             }
           ],
@@ -4103,6 +5488,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4129,7 +5515,7 @@
               "detail": "Creature — Human Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "60dabe9e-4872-4aec-9e8e-35358b3b7dd5",
@@ -4143,11 +5529,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Knight contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cf5bd3a4-3899-4c25-ad1f-f1778c1d9c60",
+          "name": "Rona, Herald of Invasion",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "ef893585-246c-4028-bd2b-14ac51ce29be",
@@ -4161,11 +5565,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b333c194-d285-4dfb-984c-57b7e88393af",
@@ -4179,11 +5583,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
@@ -4197,11 +5601,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "f3fad295-1af2-4ecc-8546-b121ad6be27b",
@@ -4219,7 +5623,61 @@
               "detail": "Creature — Human Cleric contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "47a785ed-8095-4685-8daa-02c4e2b0ffcd",
+          "name": "Spellseeker",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "da412474-1da8-409b-bd7b-87cbfc239fb0",
+          "name": "Suspicious Stowaway",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Rogue Werewolf contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "598e3ed2-659f-4400-b41d-3aee8068fba6",
+          "name": "Tenacious Underdog",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Warrior contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
@@ -4239,7 +5697,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Legendary Creature — Human Soldier contribue à la masse critique Human."
             }
           ],
@@ -4263,7 +5721,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Soldier contribue à la masse critique Human."
             }
           ],
@@ -4274,12 +5732,18 @@
           "name": "Thraben Inspector",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Mono-W / Selesnya Humains Aggro."
+            },
             {
               "source": "oracle_rule",
               "detail": "Creature — Human Soldier contribue à la masse critique Human."
@@ -4303,7 +5767,7 @@
               "detail": "Legendary Creature — Human Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "18563bc9-6090-4629-b304-89a67d93f635",
@@ -4321,7 +5785,7 @@
               "detail": "Creature — Human Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "d50b1d2e-1825-432a-ab73-068fdc356f50",
@@ -4331,6 +5795,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4357,7 +5822,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "277aafa6-4270-4d24-a888-cf9e8e635d4b",
@@ -4375,7 +5840,7 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "086a911f-9ed4-4260-ae46-58c9333b95f5",
@@ -4393,7 +5858,43 @@
               "detail": "Creature — Human Werewolf contribue à la masse critique Human."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "78e65286-204d-43ab-8929-b8e2191b1fce",
+          "name": "Windrider Wizard",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9dd674a7-becf-4106-b53f-bca88426d92d",
+          "name": "Zimone, Paradox Sculptor",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Human."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     },
@@ -4405,6 +5906,11 @@
         {
           "id": "payoff",
           "name": "Payoff ou moteur tribal",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou liant du plan",
           "minimum": 1
         },
         {
@@ -4422,7 +5928,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -4448,7 +5954,7 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "8305d576-21d8-4ce7-8eda-a7cd9793aca5",
@@ -4514,7 +6020,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
@@ -4528,11 +6034,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "92dfeeb2-1117-422b-87ea-08a589f1134b",
+          "name": "Elite Guardmage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "3d038f7c-95fa-4b71-8f74-b9b4dd45cde0",
@@ -4550,7 +6074,7 @@
               "detail": "Legendary Creature — Phyrexian Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "ecd49d85-9c8c-4cc9-9a83-072ecd433677",
@@ -4586,7 +6110,7 @@
               "detail": "Creature — Elf Lizard Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "5f3f68b5-8c6a-4181-bb8a-9c73967d198a",
@@ -4604,7 +6128,7 @@
               "detail": "Creature — Faerie Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "81f06f84-1580-43c0-89d5-08d34541a519",
@@ -4624,7 +6148,7 @@
               "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Goblin Wizard contribue à la masse critique Wizard."
             }
           ],
@@ -4635,22 +6159,28 @@
           "name": "Grim Lavamancer",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "f224db3d-cdd2-43f2-b625-4b861efa6449",
-          "name": "Lier, Disciple of the Drowned",
+          "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+          "name": "Jace, Vryn's Prodigy",
           "strength": "support",
           "roles": [
             "body"
@@ -4659,6 +6189,66 @@
             "density"
           ],
           "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fb3defc0-c93a-4423-9ff9-c399f8a8ef1f",
+          "name": "Jadar, Ghoulcaller of Nephalia",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "490a8045-e160-4ccf-a05e-658ad2b7ac2d",
+          "name": "Jodah, the Unifier",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f224db3d-cdd2-43f2-b625-4b861efa6449",
+          "name": "Lier, Disciple of the Drowned",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
             {
               "source": "oracle_rule",
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
@@ -4682,7 +6272,7 @@
               "detail": "Legendary Creature — Angel Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "51233ade-70cd-4539-9f41-5ffab761da54",
@@ -4700,7 +6290,7 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "9b2cdbed-c733-409b-b0e4-2c8960c25111",
@@ -4710,6 +6300,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4728,7 +6319,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -4746,6 +6337,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4757,6 +6349,24 @@
           "confidence": "A"
         },
         {
+          "oracleId": "aaafcd69-6295-4d79-8e67-98df0c9bae88",
+          "name": "Mu Yanling, Wind Rider",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard Pilot contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
           "oracleId": "6b3cc59a-7ea5-4eb5-9bf9-5a9c07f80e2b",
           "name": "Mutavault",
           "strength": "support",
@@ -4764,7 +6374,7 @@
             "bridge"
           ],
           "families": [
-            "density"
+            "support"
           ],
           "evidence": [
             {
@@ -4786,11 +6396,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "b81eaa2f-0554-41c6-bdf6-d1cb73b8f56f",
@@ -4800,6 +6410,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4809,6 +6420,24 @@
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "cf5bd3a4-3899-4c25-ad1f-f1778c1d9c60",
+          "name": "Rona, Herald of Invasion",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "ef893585-246c-4028-bd2b-14ac51ce29be",
@@ -4822,23 +6451,29 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "374f550a-a761-4994-a4aa-b05a2ec415de",
           "name": "Sage's Dousing",
           "strength": "support",
           "roles": [
+            "enabler",
             "body"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
             {
               "source": "oracle_rule",
               "detail": "Tribal Instant — Wizard contribue à la masse critique Wizard."
@@ -4858,11 +6493,11 @@
           ],
           "evidence": [
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
@@ -4882,7 +6517,31 @@
               "detail": "Carte clé déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
             },
             {
-              "source": "owner_tag",
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "47a785ed-8095-4685-8daa-02c4e2b0ffcd",
+          "name": "Spellseeker",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "oracle_rule",
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
@@ -4896,6 +6555,7 @@
             "bridge"
           ],
           "families": [
+            "support",
             "density"
           ],
           "evidence": [
@@ -4922,7 +6582,7 @@
               "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "a720f3d3-c2d7-4e50-8cc6-600120380e9c",
@@ -4940,7 +6600,7 @@
               "detail": "Creature — Vampire Wizard contribue à la masse critique Wizard."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "277aafa6-4270-4d24-a888-cf9e8e635d4b",
@@ -4958,7 +6618,49 @@
               "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
             }
           ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "78e65286-204d-43ab-8929-b8e2191b1fce",
+          "name": "Windrider Wizard",
+          "strength": "support",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "support",
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée par le profil du cube pour Izzet Sorciers Spells & Tempo."
+            },
+            {
+              "source": "oracle_rule",
+              "detail": "Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "9dd674a7-becf-4106-b53f-bca88426d92d",
+          "name": "Zimone, Paradox Sculptor",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "density"
+          ],
+          "evidence": [
+            {
+              "source": "oracle_rule",
+              "detail": "Legendary Creature — Human Wizard contribue à la masse critique Wizard."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     }

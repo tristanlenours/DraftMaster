@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
+import { loadCoachContext } from "../../../src/cubes/coach-context.ts";
 import { createMultiplayerDraftCoordinator } from "../../../src/multiplayer-draft/index.ts";
+import {
+  createFinalDeckCoach,
+  type FinalDeckCoachRequest,
+} from "../../../src/multiplayer-draft/final-deck-coach.ts";
 import {
   buildMultiplayerSnapshot,
   createMemoryMultiplayerDraftStore,
@@ -10,6 +15,10 @@ import {
 
 describe("MultiplayerDraftCoordinator deckbuilding", () => {
   it("recommande, modifie et finalise chaque deck independamment avant l'export MTGA", async () => {
+    const contextResult = await loadCoachContext(process.cwd(), "titou_tribal");
+    if (!contextResult.ok) throw new Error(contextResult.error.message);
+    let receivedCoachRequest: Readonly<FinalDeckCoachRequest> | undefined;
+    const fallbackCoach = createFinalDeckCoach();
     const coordinator = createMultiplayerDraftCoordinator({
       store: createMemoryMultiplayerDraftStore(),
       now: createTestClock().now,
@@ -18,6 +27,17 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
       createSessionId: () => "abcdef123456",
       createSeed: () => 42,
       loadSnapshot: () => Promise.resolve(buildMultiplayerSnapshot()),
+      loadCoachContext: () =>
+        Promise.resolve({
+          ...contextResult.value,
+          snapshotId: buildMultiplayerSnapshot().snapshotId,
+        }),
+      finalDeckCoach: {
+        recommend: (request) => {
+          receivedCoachRequest = request;
+          return fallbackCoach.recommend(request);
+        },
+      },
       loadCardPool: (_cubeKey, cards) =>
         Promise.resolve(
           cards.map((card, index) => ({
@@ -89,6 +109,11 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
       resumeToken: alice.value.resumeToken,
     });
     if (!aliceRecommendation.ok) throw new Error(aliceRecommendation.error.message);
+    expect(receivedCoachRequest?.evaluationOptions?.synergyProfile).toMatchObject({
+      modelVersion: "archetype-synergy@2",
+      cubeKey: "titou_tribal",
+      cubeSnapshotId: "titou_tribal@2026-02-24.1",
+    });
     expect(aliceRecommendation.value.recommendation.source).toBe("fallback");
     expect(aliceRecommendation.value.maindeckCardInstanceIds.length).toBeGreaterThan(0);
     expect(

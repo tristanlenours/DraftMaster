@@ -17,7 +17,10 @@ import {
 
 export interface FriendTableSetupOptions {
   readonly resolveCard?: CardMetadataResolver;
-  readonly evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">;
+  readonly evaluationContext?: Pick<
+    PackEvaluationContext,
+    "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
+  >;
   readonly seatAssignments?: readonly (FriendProfile | null)[];
 }
 

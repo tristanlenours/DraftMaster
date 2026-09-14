@@ -1,5 +1,6 @@
 import type { RequestListener, Server } from "node:http";
 import type { MultiplayerDraftCoordinator } from "../src/multiplayer-draft/index.ts";
+import type { FinalDeckCoach } from "../src/multiplayer-draft/final-deck-coach.ts";
 
 export interface CreateRequestHandlerOptions {
   readonly sitePassword?: string;
@@ -9,6 +10,7 @@ export interface CreateRequestHandlerOptions {
   readonly adminDraftsPath?: string;
   readonly leaderboardPath?: string;
   readonly multiplayerCoordinator?: MultiplayerDraftCoordinator;
+  readonly finalDeckCoach?: FinalDeckCoach;
   readonly multiplayerDraftPath?: string;
   readonly multiplayerResumeSecret?: string;
 }

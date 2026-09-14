@@ -4,6 +4,7 @@ import path from "node:path";
 
 export interface CompanionCard {
   readonly grpId: number;
+  readonly oracleId?: string | undefined;
   readonly name: string;
   readonly manaCost: string;
   readonly cmc: number;
@@ -77,8 +78,10 @@ export class CardResolver {
   private locStmt: any = null;
   private itemCatalog = new Map<string, any>();
   private grpIdMetadata = new Map<number, UntappedCardMeta>();
+  private readonly cubeKey: string | undefined;
 
-  constructor(customPath?: string) {
+  constructor(customPath?: string, cubeKey?: string) {
+    this.cubeKey = cubeKey;
     this.initCatalog();
     this.initDb(customPath);
   }
@@ -144,13 +147,14 @@ export class CardResolver {
 
     const powerScore = item?.powerScore?.score ?? item?.staticScore;
     const tier =
-      item?.cubeAnalyses?.nico_candyshop?.tier ??
+      (this.cubeKey ? item?.cubeAnalyses?.[this.cubeKey]?.tier : undefined) ??
       (powerScore && powerScore >= 45 ? "S" : powerScore && powerScore >= 35 ? "A" : undefined);
     const roles = item?.objectiveAnalysis?.roles;
     const typeLine = item?.typeLine ?? meta.type_line ?? (isLand ? "Land" : "Spell");
 
     const card: CompanionCard = {
       grpId,
+      oracleId: item?.oracleId,
       name: cleanName,
       manaCost: manaCost || (meta.mana_cost ? parseOldSchoolMana(meta.mana_cost).manaCost : ""),
       cmc: item?.cmc ?? (typeof meta.cmc === "number" ? meta.cmc : cmc),
@@ -292,13 +296,14 @@ export class CardResolver {
       // 4. Power score & tier
       const powerScore = item?.powerScore?.score ?? item?.staticScore;
       const tier =
-        item?.cubeAnalyses?.nico_candyshop?.tier ??
+        (this.cubeKey ? item?.cubeAnalyses?.[this.cubeKey]?.tier : undefined) ??
         (powerScore && powerScore >= 45 ? "S" : powerScore && powerScore >= 35 ? "A" : undefined);
       const roles = item?.objectiveAnalysis?.roles;
       const typeLine = item?.typeLine ?? (isLand ? "Land" : "Spell");
 
       const card: CompanionCard = {
         grpId,
+        oracleId: item?.oracleId,
         name: cleanName,
         manaCost,
         cmc: item?.cmc ?? cmc,

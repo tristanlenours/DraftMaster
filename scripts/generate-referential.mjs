@@ -132,12 +132,12 @@ const titouMeta = {
 
 // 6. Build Nico's Cube Meta (Vintage / Artifact / Storm focused)
 // Deterministic compliant UUIDv4 for Nico cube cards
-const tinkerOracle = "b3208538-8924-4ab2-b258-29ceeead2a99";
-const brainFreezeOracle = "3d76e3cc-a9e9-4e78-be7f-a63e26bb5b3c";
-const breachOracle = "018595a8-ef01-4475-8025-a1c1d81b94e3";
-const ledOracle = "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b";
-const urzaOracle = "44444444-5555-4666-8777-888888888888";
-const solRingOracle = "99999999-aaaa-4bbb-8ccc-dddddddddddd";
+const tinkerOracle = "254878f0-be90-4653-a395-0c41258fceaf";
+const brainFreezeOracle = "464c0150-3dbc-403b-9ada-fef25ab1f29d";
+const breachOracle = "27e0948b-9916-473b-8d8c-a51bdfbc7457";
+const ledOracle = "ee6099b0-fb1f-42f1-b862-7708c6e36d05";
+const urzaOracle = "e87906d2-db1a-4e19-b910-adb4eb339945";
+const solRingOracle = "6ad8011d-3471-4369-9d68-b264cc027487";
 
 const nicoMeta = {
   schemaVersion: 1,

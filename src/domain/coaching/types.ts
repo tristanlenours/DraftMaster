@@ -27,6 +27,21 @@ export interface CoachingScoreBreakdown {
   readonly rawDynamicScore: number;
   readonly cubeScoreModifier?: number | undefined;
   readonly synergyBonus?: number | undefined;
+  readonly archetypeSynergyBonus?: number | undefined;
+  readonly archetypeMatches?:
+    | readonly {
+        readonly archetypeId: string;
+        readonly archetypeName: string;
+        readonly strength: "key" | "support";
+        readonly roles: readonly string[];
+        readonly families: readonly string[];
+        readonly confidence: "A" | "B" | "C" | "D";
+        readonly priorPoints: number;
+        readonly completedFamilies: readonly string[];
+        readonly missingFamilies: readonly string[];
+        readonly bonus: number;
+      }[]
+    | undefined;
   readonly tribalBonus?: number | undefined;
   readonly tribalPenalty?: number | undefined;
   readonly powerSource?: string | undefined;
@@ -51,6 +66,7 @@ export interface PackEvaluationContext {
   readonly cubeKey?: string | undefined;
   readonly catalog?: unknown;
   readonly cubeMeta?: unknown;
+  readonly synergyProfile?: DeckSynergyProfile | undefined;
 }
 
 export type ArchetypeCategory = "aggro" | "midrange" | "control" | "ramp" | "combo";
@@ -133,6 +149,20 @@ export interface DeckSynergyArchetypeProfile {
   readonly supportCards: readonly string[];
   readonly targetPoints?: number | undefined;
   readonly requiredFamilies?: readonly DeckSynergyFamilyProfile[] | undefined;
+  readonly affinities?: readonly DeckSynergyCardAffinity[] | undefined;
+}
+
+export interface DeckSynergyCardAffinity {
+  readonly oracleId: string;
+  readonly name: string;
+  readonly strength: "key" | "support";
+  readonly roles: readonly string[];
+  readonly families: readonly string[];
+  readonly evidence: readonly {
+    readonly source: string;
+    readonly detail: string;
+  }[];
+  readonly confidence: "A" | "B" | "C" | "D";
 }
 
 export interface DeckSynergyFamilyProfile {
@@ -146,6 +176,12 @@ export interface DeckSynergyProfile {
   readonly modelVersion?: string | undefined;
   readonly cubeKey?: string | undefined;
   readonly cubeSnapshotId?: string | undefined;
+  readonly provenance?:
+    | {
+        readonly sourceRawSha256: string;
+        readonly generatorVersion: string;
+      }
+    | undefined;
   readonly archetypes: readonly DeckSynergyArchetypeProfile[];
 }
 

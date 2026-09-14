@@ -41,7 +41,10 @@ function policySuccess(
 export interface FriendBotPolicyOptions {
   readonly profile: FriendProfile;
   readonly resolveCard?: CardMetadataResolver;
-  readonly evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">;
+  readonly evaluationContext?: Pick<
+    PackEvaluationContext,
+    "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
+  >;
 }
 
 /**
@@ -49,7 +52,10 @@ export interface FriendBotPolicyOptions {
  * In cubes like Titou Tribal, reanimation spells do not exist.
  */
 export function isReanimatorSupportedInCube(
-  evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">,
+  evaluationContext?: Pick<
+    PackEvaluationContext,
+    "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
+  >,
 ): boolean {
   if (!evaluationContext) return true;
   const { cubeKey, catalog } = evaluationContext;

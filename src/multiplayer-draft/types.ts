@@ -1,4 +1,5 @@
 import type { CardInstance, CubeSnapshot } from "../cubes/validate-snapshot.ts";
+import type { CoachContext } from "../cubes/coach-context.ts";
 import type { DraftEvent } from "../draft/index.ts";
 import type { CardEvaluationInput, DeckEvaluation } from "../domain/coaching/types.ts";
 import type {
@@ -261,6 +262,7 @@ export interface MultiplayerDraftCoordinatorDependencies {
   readonly createSessionId?: () => string;
   readonly createSeed?: () => number;
   readonly loadSnapshot?: (cubeKey: string) => Promise<Readonly<CubeSnapshot>>;
+  readonly loadCoachContext?: (cubeKey: string) => Promise<Readonly<CoachContext>>;
   readonly loadCardPool?: (
     cubeKey: string,
     cards: readonly Readonly<CardInstance>[],

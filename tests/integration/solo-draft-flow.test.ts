@@ -5,6 +5,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
+import { createFinalDeckCoach } from "../../src/multiplayer-draft/final-deck-coach.ts";
 
 describe("Solo Draft Web API & Flow Integration", () => {
   let server: Server;
@@ -22,6 +23,7 @@ describe("Solo Draft Web API & Flow Integration", () => {
       reportsDirectory: join(testStorageDir, "reports"),
       adminDraftsPath: join(testStorageDir, "admin-drafts.json"),
       leaderboardPath: join(testStorageDir, "leaderboard.json"),
+      finalDeckCoach: createFinalDeckCoach(),
     });
     server = createServer(handler);
     await new Promise<void>((resolve) => {
@@ -73,6 +75,11 @@ describe("Solo Draft Web API & Flow Integration", () => {
         pickNumber: number;
         currentBooster: { instanceId: string }[];
         playerPool: { instanceId: string }[];
+        coachContext: {
+          contextVersion: string;
+          snapshotId: string;
+          archetypeModelVersion: string;
+        };
       };
     };
 
@@ -80,6 +87,11 @@ describe("Solo Draft Web API & Flow Integration", () => {
     const sessionId = startData.session.sessionId;
     expect(startData.session.currentBooster.length).toBe(15);
     expect(startData.session.playerPool.length).toBe(0);
+    expect(startData.session.coachContext).toEqual({
+      contextVersion: "coach-context@1",
+      snapshotId: "titou_tribal@2026-02-24.1",
+      archetypeModelVersion: "archetype-synergy@2",
+    });
 
     // 1b. Test AI Coach Advice endpoint
     const adviceRes = await fetch(`${baseUrl}/api/draft/advice`, {

@@ -49,9 +49,13 @@ export interface ArchetypeSynergyDefinition {
 
 export interface ArchetypeSynergyProfileDocument {
   readonly schemaVersion: 1;
-  readonly modelVersion: "archetype-synergy@1";
+  readonly modelVersion: "archetype-synergy@2";
   readonly cubeKey: string;
   readonly cubeSnapshotId: string;
+  readonly provenance: {
+    readonly sourceRawSha256: string;
+    readonly generatorVersion: "build-archetype-synergy-profiles@2";
+  };
   readonly archetypes: readonly ArchetypeSynergyDefinition[];
 }
 

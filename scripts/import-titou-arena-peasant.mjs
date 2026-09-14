@@ -290,7 +290,7 @@ const archetypes = [
     gameplan: 'Poser des artefacts tôt, déclencher Maverick Thopterist et clore par des attaques aériennes et du burn.',
     keyCards: [
       resolveCardUuid('Maverick Thopterist', '11111111-aaaa-4000-8000-000000000001'),
-      resolveCardUuid('Sokenzan Smelter', '11111111-aaaa-4000-8000-000000000003'),
+      resolveCardUuid('Sokenzan Smelter', 'dd645241-2992-4c4e-a6a8-c2215d2340ae'),
       resolveCardUuid('Steam Vents', '17039058-822d-409f-938c-b727a366ba63'),
     ],
     supportCards: [
@@ -307,7 +307,7 @@ const archetypes = [
     description: 'Déferlement agressif créant un nombre massif d’objets de jeu (jetons, artefacts) exploités par Arabella.',
     gameplan: 'Submerger le plateau de petites créatures et convertir la masse en dégâts directs dévastateurs.',
     keyCards: [
-      resolveCardUuid('Arabella, Abandoned Doll', '11111111-aaaa-4000-8000-000000000005'),
+      resolveCardUuid('Arabella, Abandoned Doll', '7c4bbb1b-29c4-4e06-aed0-b361293a585b'),
       resolveCardUuid('Case of the Gateway Express', '11111111-aaaa-4000-8000-000000000006'),
       resolveCardUuid('Sacred Foundry', '45181cb8-2090-4471-ba90-e5a8f04d525f'),
     ],

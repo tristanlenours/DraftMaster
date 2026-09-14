@@ -46,7 +46,10 @@ export interface CoachedBotPolicyOptions {
   readonly resolveCard?: CardMetadataResolver;
   readonly profile?: FriendProfile | undefined;
   readonly biases?: Readonly<FriendStyleBiases> | undefined;
-  readonly evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">;
+  readonly evaluationContext?: Pick<
+    PackEvaluationContext,
+    "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
+  >;
 }
 
 /**

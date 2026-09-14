@@ -9,6 +9,7 @@
     "cubeKey",
     "name",
     "owner",
+    "coachReadiness",
     "activeSnapshotId",
     "cardCount",
     "powerTier",
@@ -27,6 +28,15 @@
     "cubeKey": { "type": "string", "pattern": "^[a-z0-9_]+$" },
     "name": { "type": "string", "minLength": 1 },
     "owner": { "type": "string", "minLength": 1 },
+    "coachReadiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": { "type": "string", "enum": ["ready", "partial", "blocked"] },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
     "coverImage": { "type": "string" },
     "activeSnapshotId": { "type": "string", "minLength": 1 },
     "cardCount": { "type": "integer", "minimum": 180 },

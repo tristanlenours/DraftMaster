@@ -135,6 +135,7 @@ export class ArchetypeSynergyProfileRegistry implements LoadedArchetypeSynergyPr
       modelVersion: document.modelVersion,
       cubeKey: document.cubeKey,
       cubeSnapshotId: document.cubeSnapshotId,
+      provenance: document.provenance,
       archetypes: document.archetypes.map((archetype) => ({
         id: archetype.id,
         name: archetype.name,
@@ -151,6 +152,7 @@ export class ArchetypeSynergyProfileRegistry implements LoadedArchetypeSynergyPr
             .filter((card) => card.families.includes(family.id))
             .map((card) => card.oracleId),
         })),
+        affinities: archetype.cards.map((card) => ({ ...card })),
       })),
     });
   }

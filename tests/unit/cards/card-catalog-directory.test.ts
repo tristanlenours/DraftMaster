@@ -1,6 +1,10 @@
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
+
 import { describe, expect, it } from "vitest";
-import { resolve } from "node:path";
 import { CardCatalog } from "../../../src/cards/card-catalog.ts";
+import type { MasterCatalogCard } from "../../../src/cards/types.ts";
 
 const rootDir = process.cwd();
 
@@ -57,6 +61,33 @@ describe("CardCatalog Directory Loading", () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error.code).toBe("FILE_READ_ERROR");
+    }
+  });
+
+  it("rejects duplicate Oracle identities instead of silently replacing a card", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "draftmaster-card-collision-"));
+    try {
+      const source = JSON.parse(
+        await readFile(resolve(rootDir, "data/cards/items/lightning-bolt.json"), "utf8"),
+      ) as MasterCatalogCard;
+      await Promise.all([
+        writeFile(join(directory, "first.json"), JSON.stringify(source), "utf8"),
+        writeFile(
+          join(directory, "second.json"),
+          JSON.stringify({ ...source, slug: "lightning-bolt-duplicate", name: "Duplicate Bolt" }),
+          "utf8",
+        ),
+      ]);
+
+      const result = await CardCatalog.fromDirectory(directory);
+
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.error.code).toBe("DUPLICATE_CARD_ID");
+        expect(result.error.details).toMatchObject({ oracleId: source.oracleId });
+      }
+    } finally {
+      await rm(directory, { recursive: true, force: true });
     }
   });
 });

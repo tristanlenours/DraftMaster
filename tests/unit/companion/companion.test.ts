@@ -64,6 +64,9 @@ describe("Companion - Coach Prompts", () => {
   it("builds draft advice prompts with pack and pool details", () => {
     const { system, user } = buildDraftAdvicePrompt([dummyCard], [dummyCard], 1, 2);
     expect(system).toContain("Tu es un Coach de Draft Cube Magic");
+    expect(system).toContain("cube non identifié");
+    expect(system).not.toContain("Modern Horizons 3");
+    expect(system).not.toContain("Format Powered");
     expect(user).toContain("Tamiyo, Inquisitive Student");
     expect(user).toContain("Pack 1, Pick 2");
   });

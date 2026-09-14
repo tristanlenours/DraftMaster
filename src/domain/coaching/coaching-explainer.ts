@@ -64,6 +64,7 @@ export function generateCoachingExplanation(
   const dominant = getDominantColors(computeColorFrequencies(context.priorPool));
   const dominantStr = dominant.filter(Boolean).join("/");
   const hasDominant = dominant.length > 0;
+  const archetypeMatch = breakdown.archetypeMatches?.[0];
 
   const sharesColor = hasDominant && cardColors.some((c) => dominant.includes(c));
   const allInDominant =
@@ -71,6 +72,14 @@ export function generateCoachingExplanation(
 
   // Top Pick
   if (isTopPick) {
+    if (archetypeMatch && (breakdown.archetypeSynergyBonus ?? 0) > 0) {
+      const strength = archetypeMatch.strength === "key" ? "carte clé" : "carte support";
+      const missing =
+        archetypeMatch.missingFamilies.length > 0
+          ? ` Il manque encore : ${archetypeMatch.missingFamilies.join(", ")}.`
+          : " Toutes les familles requises sont désormais couvertes.";
+      return `Choix prioritaire pour ${archetypeMatch.archetypeName} : ${strength} (+${String(Math.round(breakdown.archetypeSynergyBonus ?? 0))} pts de synergie d'archétype).${missing}`;
+    }
     if (breakdown.manaFixingBonus > 0) {
       return `Choix prioritaire recommandé : terrain clé (+${String(Math.round(breakdown.manaFixingBonus))} pts) qui stabilise parfaitement votre base de mana ${dominantStr}.`;
     }
@@ -123,6 +132,11 @@ export function generateCoachingExplanation(
   // Tribal incompatibility penalty
   if ((breakdown.tribalPenalty ?? 0) > 0) {
     return `Tribu incompatible avec votre axe tribal en cours : carte déconseillée (-${String(Math.round(breakdown.tribalPenalty ?? 0))} pts).`;
+  }
+
+  if (archetypeMatch && (breakdown.archetypeSynergyBonus ?? 0) > 0) {
+    const strength = archetypeMatch.strength === "key" ? "carte clé" : "support";
+    return `${strength} pour ${archetypeMatch.archetypeName} (+${String(Math.round(breakdown.archetypeSynergyBonus ?? 0))} pts). Familles encore manquantes : ${archetypeMatch.missingFamilies.join(", ") || "aucune"}.`;
   }
 
   // Dual Land of correct colors

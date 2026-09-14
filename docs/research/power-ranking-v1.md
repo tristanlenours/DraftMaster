@@ -1,27 +1,27 @@
 # Power Ranking v1
 
-État au 6 septembre 2026. Cette version attribue aux 1 105 cartes du catalogue un score de puissance sur l'échelle produit DraftMaster de 1 à 55, alignée sur l'échelle historique d'Untapped. Le score absolu reste séparé des tiers et bonus propres à chaque cube. La valeur 55 reste théoriquement possible ; Black Lotus est actuellement la carte la mieux notée du catalogue avec 53.
+État vérifié au 14 septembre 2026. Cette version attribue aux 1 948 cartes du catalogue un score de puissance sur l'échelle produit DraftMaster de 1 à 55, alignée sur l'échelle historique d'Untapped. Le score absolu reste séparé des tiers et bonus propres à chaque cube. La valeur 55 reste théoriquement possible ; Black Lotus, Ancestral Recall, Time Walk et Minsc & Boo sont actuellement les cartes les mieux notées du catalogue avec 53.
 
 ## Référentiel
 
 Le classement utilise trois niveaux de preuve :
 
-1. **378 scores Untapped directs.** Pour chaque carte observée dans plusieurs drafts, la valeur la plus fréquente est retenue ; une égalité est résolue par l'observation chronologiquement la plus ancienne. Les 26 valeurs confirmées par le propriétaire dans [`untapped-reference-v1.json`](../../data/power-rankings/untapped-reference-v1.json) priment sur cet agrégat.
-2. **724 estimations CubeCobra.** Une calibration apprend la relation avec 377 cartes qui ont à la fois une note Untapped et des détails CubeCobra. Elle combine une régression régularisée et les trois cartes fonctionnellement les plus proches à partir de l'Elo, la popularité, le coût, les types, les couleurs, le texte et les tags Oracle.
-3. **3 secours éditoriaux.** Gurmag Angler, Ninja of the Deep Hours et Mulldrifter n'ont pas de détails exploitables dans les deux archives CubeCobra locales ; leur ancienne estimation est conservée avec une confiance limitée.
+1. **438 scores Untapped directs.** Pour chaque carte observée dans plusieurs drafts, la valeur la plus fréquente est retenue ; une égalité est résolue par l'observation chronologiquement la plus ancienne. Les valeurs confirmées dans [`untapped-reference-v1.json`](../../data/power-rankings/untapped-reference-v1.json) priment sur cet agrégat.
+2. **1 223 estimations CubeCobra calibrées.** La calibration courante utilise 426 cartes de recouvrement et combine les signaux CubeCobra avec les caractéristiques fonctionnelles des cartes.
+3. **287 fallbacks explicites.** Ils restent identifiés comme tels dans l'artefact ; ils ne doivent pas être présentés comme des observations Untapped.
 
 Le résultat complet, la méthode utilisée par carte et la provenance des entrées sont conservés dans [`power-ranking-v1.json`](../../data/power-rankings/power-ranking-v1.json). Le modèle et ses paramètres sont dans [`cubecobra-calibration-v1.json`](../../data/power-rankings/cubecobra-calibration-v1.json). La reconstruction se fait avec `npm run power:rebuild:apply`, puis `npm run data:sync`.
 
 ## Validation
 
-Sur cinq plis déterministes, la calibration enrichie obtient une erreur absolue moyenne de **5,20 points** sur les cartes Untapped réservées à la validation. La conversion monotone de l'Elo seul obtenait **9,42 points**. L'amélioration est nette, mais une estimation CubeCobra reste moins sûre qu'une note Untapped directe.
+Sur cinq plis déterministes, la calibration enrichie courante obtient une erreur absolue moyenne de **7,43 points** sur les cartes Untapped réservées à la validation. La variante isotone obtient **8,51 points**. Une estimation CubeCobra reste moins sûre qu'une note Untapped directe.
 
 Le test de référence verrouille les valeurs communiquées, dont : Black Lotus, Ancestral Recall, Time Walk et Minsc & Boo à 53 ; les cinq Mox et Sol Ring à 51 ; et Ancient Tomb à 31. Le maximum du catalogue est 53, ce qui empêche l'ancien amas de cartes bornées artificiellement à 55.
 
-Dans le cube Nico, les premières cartes suivent globalement le classement fourni. Deux cartes sans observation Untapped s'y intercalent sur estimation : Forth Eorlingas! à 50,2 et Comet, Stellar Pup à 49,4. Elles sont de bonnes candidates pour la prochaine vérification humaine. Ancient Tomb est classée 229e sur 733 dans Nico et 94e sur 541 dans Titou ; son score absolu est 31 dans les deux cas.
+Les identités Oracle du catalogue et les scores de cet artefact sont désormais vérifiés par `npm run coach:data:verify`. Ce contrôle refuse les doublons, les cartes absentes et toute divergence entre `powerScore.score` et le ranking. Les fallbacks restent de bonnes cibles pour une future validation humaine.
 
 ## Utilisation dans l'explorateur
 
 Le `Power Ranking` affiché reprend désormais directement `powerScore.score` sur 55. Son rang compare ce score aux autres cartes du cube. Le tier, le `scoreModifier` et le plafond éditorial restent visibles comme informations contextuelles mais ne changent plus le Power Ranking.
 
-Le futur `dynamicScore` peut utiliser ce score comme point de départ versionné. Il doit conserver séparément les ajustements de couleur, courbe et synergie afin qu'un changement de contexte ne réécrive jamais la valeur absolue v1.
+Le `dynamicScore` utilise ce score comme point de départ versionné et conserve séparément les ajustements de couleur, courbe, mana et synergie afin qu'un changement de contexte ne réécrive jamais la valeur absolue v1.

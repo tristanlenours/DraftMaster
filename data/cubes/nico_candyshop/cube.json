@@ -3,6 +3,10 @@
   "cubeKey": "nico_candyshop",
   "name": "Nico's Vintage Candyshop Cube",
   "owner": "nico",
+  "coachReadiness": {
+    "status": "ready",
+    "reason": "Identités Oracle exactes et profil d'archétypes v2 liés à la source active."
+  },
   "coverImage": "data/cubes/nico_candyshop/candyShop.jpg",
   "activeSnapshotId": "nico_candyshop@2026-03-01.1",
   "cardCount": 730,
@@ -50,12 +54,12 @@
       "description": "Génération exponentielle de mana rituel, enchaînement de cantrips et clôture dévastatrice via Underworld Breach, Brain Freeze ou Tendrils of Agony.",
       "gameplan": "Sculpter une main critique avec des cantrips, générer un storm count élevé via rituels et artefacts à coût zéro, puis boucler Underworld Breach avec Lion's Eye Diamond et Brain Freeze pour vider la bibliothèque ou infliger 20 dégâts létaux.",
       "keyCards": [
-        "3d76e3cc-a9e9-4e78-be7f-a63e26bb5b3c",
+        "464c0150-3dbc-403b-9ada-fef25ab1f29d",
         "78db3190-59bc-4033-95bc-32d8ed872b6a",
-        "018595a8-ef01-4475-8025-a1c1d81b94e3"
+        "27e0948b-9916-473b-8d8c-a51bdfbc7457"
       ],
       "supportCards": [
-        "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b",
+        "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
         "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
         "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
         "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c"
@@ -79,13 +83,13 @@
       "description": "Accélération brutale via cailloux de mana, manipulation d'artefacts et déploiement ultra-précoce de colosses via Tinker, Urza ou Bolas's Citadel.",
       "gameplan": "Déposer des cailloux T1/T2, sacrifier une babiole ou un jeton trésor pour lancer Tinker et chercher Blightsteel Colossus ou Bolas's Citadel, ou stabiliser avec Urza et Kappa Cannoneer.",
       "keyCards": [
-        "b3208538-8924-4ab2-b258-29ceeead2a99",
+        "254878f0-be90-4653-a395-0c41258fceaf",
         "e80772e2-8623-4094-81a2-70828b2b151c",
-        "44444444-5555-4666-8777-888888888888",
+        "e87906d2-db1a-4e19-b910-adb4eb339945",
         "2bd111bb-ce02-414c-b5b7-e0e037d8d96b"
       ],
       "supportCards": [
-        "99999999-aaaa-4bbb-8ccc-dddddddddddd",
+        "6ad8011d-3471-4369-9d68-b264cc027487",
         "dba4fd31-8931-42dd-bd86-45479c2abf74",
         "736892cb-a34b-4bb9-b56c-e26e3db207a2",
         "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0"
@@ -304,7 +308,7 @@
     {
       "slug": "ajani-nacatl-pariah",
       "name": "Ajani, Nacatl Pariah",
-      "oracleId": "00000000-0000-4000-8000-000000000004",
+      "oracleId": "2588f348-d7a3-46c8-9ace-dca53ed5ef99",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -312,7 +316,7 @@
     {
       "slug": "ancestral-recall",
       "name": "Ancestral Recall",
-      "oracleId": "00000000-0000-4000-8000-000000000003",
+      "oracleId": "550c74d4-1fcb-406a-b02a-639a760a4380",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -408,7 +412,7 @@
     {
       "slug": "black-lotus",
       "name": "Black Lotus",
-      "oracleId": "00000000-0000-4000-8000-000000000001",
+      "oracleId": "5089ec1a-f881-4d55-af14-5d996171203b",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -448,7 +452,7 @@
     {
       "slug": "brain-freeze",
       "name": "Brain Freeze",
-      "oracleId": "3d76e3cc-a9e9-4e78-be7f-a63e26bb5b3c",
+      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 7
@@ -545,14 +549,6 @@
       "slug": "dark-ritual",
       "name": "Dark Ritual",
       "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
-      "tier": "S",
-      "fit": "staple",
-      "scoreModifier": 15
-    },
-    {
-      "slug": "deep-cavern-bat",
-      "name": "Deep-Cavern Bat",
-      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -822,14 +818,6 @@
       "scoreModifier": 15
     },
     {
-      "slug": "hadoken",
-      "name": "Hadoken",
-      "oracleId": "4457ed35-7c10-48c8-9776-456485fdf071",
-      "tier": "S",
-      "fit": "staple",
-      "scoreModifier": 15
-    },
-    {
       "slug": "hallowed-fountain",
       "name": "Hallowed Fountain",
       "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
@@ -936,7 +924,7 @@
     {
       "slug": "lion-s-eye-diamond",
       "name": "Lion's Eye Diamond",
-      "oracleId": "006d9972-e1c0-4f51-b844-0b1d3ef1ec7b",
+      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 7
@@ -1184,7 +1172,7 @@
     {
       "slug": "orcish-bowmasters",
       "name": "Orcish Bowmasters",
-      "oracleId": "77777777-bbbb-4000-8000-000000000001",
+      "oracleId": "ea5103f5-27e0-4eb1-902c-7f34652d6bf3",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1272,7 +1260,7 @@
     {
       "slug": "preordain",
       "name": "Preordain",
-      "oracleId": "11111111-aaaa-4000-8000-000000000009",
+      "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1432,7 +1420,7 @@
     {
       "slug": "snuff-out",
       "name": "Snuff Out",
-      "oracleId": "11111111-aaaa-4000-8000-000000000005",
+      "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1440,7 +1428,7 @@
     {
       "slug": "sol-ring",
       "name": "Sol Ring",
-      "oracleId": "99999999-aaaa-4bbb-8ccc-dddddddddddd",
+      "oracleId": "6ad8011d-3471-4369-9d68-b264cc027487",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1600,7 +1588,7 @@
     {
       "slug": "time-walk",
       "name": "Time Walk",
-      "oracleId": "00000000-0000-4000-8000-000000000002",
+      "oracleId": "d0209d3f-3f7e-4fd5-bce5-10bce6f29c86",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1616,7 +1604,7 @@
     {
       "slug": "tinker",
       "name": "Tinker",
-      "oracleId": "b3208538-8924-4ab2-b258-29ceeead2a99",
+      "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -1696,7 +1684,7 @@
     {
       "slug": "underworld-breach",
       "name": "Underworld Breach",
-      "oracleId": "018595a8-ef01-4475-8025-a1c1d81b94e3",
+      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 7
@@ -1712,7 +1700,7 @@
     {
       "slug": "urza-lord-high-artificer",
       "name": "Urza, Lord High Artificer",
-      "oracleId": "44444444-5555-4666-8777-888888888888",
+      "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
       "tier": "S",
       "fit": "staple",
       "scoreModifier": 15
@@ -2038,6 +2026,14 @@
       "scoreModifier": 8
     },
     {
+      "slug": "deep-cavern-bat",
+      "name": "Deep-Cavern Bat",
+      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
+      "tier": "A",
+      "fit": "staple",
+      "scoreModifier": 15
+    },
+    {
       "slug": "devoted-druid",
       "name": "Devoted Druid",
       "oracleId": "cb814e16-acf7-41d5-a357-1323dcc369f3",
@@ -2060,14 +2056,6 @@
       "tier": "A",
       "fit": "support",
       "scoreModifier": 8
-    },
-    {
-      "slug": "elspeth-storm-slayer",
-      "name": "Elspeth, Storm Slayer",
-      "oracleId": "00000000-0000-4000-8000-000000000005",
-      "tier": "A",
-      "fit": "staple",
-      "scoreModifier": 14
     },
     {
       "slug": "enduring-innocence",
@@ -3176,7 +3164,7 @@
     {
       "slug": "counterspell",
       "name": "Counterspell",
-      "oracleId": "11111111-aaaa-4000-8000-000000000002",
+      "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
       "tier": "B",
       "fit": "support",
       "scoreModifier": 0
@@ -5692,14 +5680,6 @@
       "tier": "C",
       "fit": "filler",
       "scoreModifier": -5
-    },
-    {
-      "slug": "mulldrifter",
-      "name": "Mulldrifter",
-      "oracleId": "11111111-aaaa-4000-8000-000000000003",
-      "tier": "C",
-      "fit": "filler",
-      "scoreModifier": -14
     },
     {
       "slug": "portal-to-phyrexia",

@@ -86,7 +86,7 @@ const cedricMeta = {
         'f759d112-76db-4091-a22b-b9f19ab6fa5f'
       ],
       supportCards: [
-        '11111111-aaaa-4000-8000-000000000002'
+        'cc187110-1148-4090-bbb8-e205694a39f5'
       ],
       recommendedCreatureCount: [10, 15],
       recommendedRemovalCount: [5, 8]

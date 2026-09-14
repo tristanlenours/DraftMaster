@@ -89,6 +89,94 @@ test("Records opens the selected deck without exposing report shortcuts", async 
   await expect(page.locator("#deck-review-backdrop")).toBeHidden();
 });
 
+test("Records deck review modal renders 17lands mana curve across full width without layout collapse", async ({
+  page,
+}) => {
+  await page.route("**/api/leaderboard", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        entries: [
+          {
+            id: "record-layout-test",
+            rank: 1,
+            playerName: "Tristan",
+            isHomologated: true,
+            overallScore: 74,
+            archetype: { label: "Rakdos Control" },
+            totalDurationSeconds: 326,
+            occurredAt: "2026-09-08T00:00:00.000Z",
+            radar: { power: 47, synergy: 89, curve: 92, mana: 62, interaction: 74 },
+            reports: {
+              walkthroughUrl: "/reports/test.html",
+              boostersUrl: "/reports/test-boosters.html",
+            },
+            maindeckCards: [
+              {
+                instanceId: "c1",
+                name: "Goblin Guide",
+                cmc: 1,
+                typeLine: "Creature — Goblin Scout",
+                colors: ["R"],
+                isLand: false,
+              },
+              {
+                instanceId: "c2",
+                name: "Lightning Bolt",
+                cmc: 1,
+                typeLine: "Instant",
+                colors: ["R"],
+                isLand: false,
+              },
+              {
+                instanceId: "c3",
+                name: "Blood Moon",
+                cmc: 3,
+                typeLine: "Enchantment",
+                colors: ["R"],
+                isLand: false,
+              },
+            ],
+            basicLands: { Mountain: 10, Swamp: 7 },
+          },
+        ],
+      }),
+    });
+  });
+
+  await page.goto("/records");
+  await page.locator(".btn-review-deck").click();
+  await expect(page.locator("#deck-review-backdrop")).toBeVisible();
+  await expect(page.locator("#deck-review-modal-title")).toHaveText("Deck de Tristan");
+
+  // Verify the 17Lands board is present with all 8 curve columns
+  const board = page.locator("#deck-review-cards-grid .deck-17lands-board");
+  await expect(board).toBeVisible();
+  await expect(page.locator("#deck-review-cards-grid .curve-col")).toHaveCount(8);
+
+  // Check that the container is full width and NOT squished to ~110px
+  const gridBox = await page.locator("#deck-review-cards-grid").boundingBox();
+  expect(gridBox).not.toBeNull();
+  if (!gridBox) throw new Error("La grille de deck doit avoir une boîte de rendu.");
+  expect(gridBox.width).toBeGreaterThan(600);
+
+  // Verify card slots are rendered in appropriate columns
+  await expect(
+    page.locator('#deck-review-cards-grid .curve-col[data-col="1"] .curve-card-slot'),
+  ).toHaveCount(2);
+  await expect(
+    page.locator('#deck-review-cards-grid .curve-col[data-col="3"] .curve-card-slot'),
+  ).toHaveCount(1);
+  await expect(
+    page.locator('#deck-review-cards-grid .curve-col[data-col="lands"] .curve-card-slot'),
+  ).toHaveCount(2);
+
+  // Close modal
+  await page.locator("#deck-review-close-btn").click();
+  await expect(page.locator("#deck-review-backdrop")).toBeHidden();
+});
+
 test("Card Explorer filters cards and opens a loadable card image", async ({ page }) => {
   await emulateCleanDeploymentImages(page);
   await page.goto("/cards");

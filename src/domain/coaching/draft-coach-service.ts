@@ -10,6 +10,7 @@ import { detectArchetype } from "./deck-archetypes.ts";
 import { LlmRouter } from "../../companion/llm-router.ts";
 import { buildDraftAdvicePrompt } from "../../companion/coach-prompts.ts";
 import type { CompanionCard } from "../../companion/card-resolver.ts";
+import type { CubeMetaDefinition } from "../../cubes/cube-meta-types.ts";
 import { detectDraftedTribalContext, isCardTriballyIncompatible } from "./tribal-compatibility.ts";
 
 export interface DraftCoachAlternative {
@@ -32,7 +33,10 @@ export interface DraftCoachOptions {
   readonly priorPool: readonly (CardEvaluationInput | CompanionCard)[];
   readonly packNumber: number;
   readonly pickNumber: number;
-  readonly evaluationContext?: Pick<PackEvaluationContext, "cubeKey" | "catalog" | "cubeMeta">;
+  readonly evaluationContext?: Pick<
+    PackEvaluationContext,
+    "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
+  >;
   readonly llmRouter?: LlmRouter | undefined;
   readonly skipLlm?: boolean | undefined;
 }
@@ -46,6 +50,7 @@ function toCardEvaluationInput(c: CardEvaluationInput | CompanionCard): CardEval
       colors: c.colors as MtGColor[],
       cmc: c.cmc,
       manaCost: c.manaCost,
+      oracleId: c.oracleId,
       typeLine: c.typeLine,
       oracleText: c.oracleText,
       producesColors: c.producesColors as MtGColor[] | undefined,
@@ -70,6 +75,7 @@ function toCompanionCard(
   }
   return {
     grpId: parseInt(c.id, 10) || 0,
+    oracleId: c.oracleId,
     name: c.name,
     manaCost: c.manaCost ?? "",
     cmc: c.cmc ?? 0,
@@ -273,6 +279,8 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
   };
 
   const cubeKey = evaluationContext?.cubeKey;
+  const cubeMetaRegistry = evaluationContext?.cubeMeta as
+    { readonly meta: Readonly<CubeMetaDefinition> } | undefined;
   const tribalContext = detectDraftedTribalContext(
     priorInputs,
     cubeKey,
@@ -288,6 +296,8 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
         return !orig || !isCardTriballyIncompatible(orig, tribalContext);
       })
     : evaluated;
+  const rankedForAdvice = compatibleEvaluated.length > 0 ? compatibleEvaluated : evaluated;
+  const llmEligibleIds = new Set(rankedForAdvice.slice(0, 3).map((card) => card.id));
 
   const topEvaluated = compatibleEvaluated[0] ?? evaluated[0];
   if (!topEvaluated) {
@@ -370,7 +380,13 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       compPoolCards,
       packNumber,
       pickNumber,
-      { cubeKey, tribalContext, packReview: deterministicReview },
+      {
+        cubeKey,
+        cubeMeta: cubeMetaRegistry?.meta,
+        tribalContext,
+        packReview: deterministicReview,
+        candidateEvidence: evaluated,
+      },
     );
 
     const res = await router.generateJson<{
@@ -404,6 +420,9 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
 
       if (matchedTop) {
         const matchedTopId = "grpId" in matchedTop ? String(matchedTop.grpId) : matchedTop.id;
+        if (!llmEligibleIds.has(matchedTopId)) {
+          return deterministicAdvice;
+        }
 
         const alternatives: DraftCoachAlternative[] = [];
         if (Array.isArray(res.content.alternatives)) {
@@ -418,7 +437,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
                 continue; // Filter out incompatible tribal card!
               }
               const matchedAltId = "grpId" in matchedAlt ? String(matchedAlt.grpId) : matchedAlt.id;
-              if (matchedAltId !== matchedTopId) {
+              if (matchedAltId !== matchedTopId && llmEligibleIds.has(matchedAltId)) {
                 alternatives.push({
                   id: matchedAltId,
                   name: matchedAlt.name,

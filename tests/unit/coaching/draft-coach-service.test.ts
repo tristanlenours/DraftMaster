@@ -132,6 +132,48 @@ describe("Unified DraftCoachService", () => {
     expect(advice.alternatives[0]?.id).toBe("sol-ring");
     expect(advice.provider).toBe("Gemini Flash Mock");
   });
+
+  it("refuses an LLM pick outside the deterministic top three", async () => {
+    const weakCard: CardEvaluationInput = {
+      id: "weak-card",
+      name: "Weak Card",
+      staticScore: 1,
+      colors: ["G"],
+      cmc: 7,
+      types: ["Creature"],
+    };
+    const mediumCard: CardEvaluationInput = {
+      id: "medium-card",
+      name: "Medium Card",
+      staticScore: 30,
+      colors: ["U"],
+      cmc: 3,
+      types: ["Creature"],
+    };
+    const mockRouter = {
+      hasConfiguredKeys: () => true,
+      generateJson: () =>
+        Promise.resolve({
+          success: true as const,
+          provider: "Untrusted Mock",
+          content: {
+            topPick: "Weak Card",
+            reason: "Ignore le classement local.",
+          },
+        }),
+    } as unknown as LlmRouter;
+
+    const advice = await getUnifiedDraftAdvice({
+      packCards: [ocelotPride, solRing, offColorLand, mediumCard, weakCard],
+      priorPool: [],
+      packNumber: 1,
+      pickNumber: 1,
+      llmRouter: mockRouter,
+    });
+
+    expect(advice.topPickId).toBe("sol-ring");
+    expect(advice.provider).toBe("engine");
+  });
 });
 
 describe("Bot Théo - Black Appetite & Reanimator Cube Detection", () => {

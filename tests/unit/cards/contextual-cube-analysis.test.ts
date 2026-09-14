@@ -29,22 +29,19 @@ describe("Contextual Cube Card Analysis", () => {
       expect(boltNico?.tier).toBe("B");
       expect(boltNico?.fit).toBe("support");
 
-      // 2. Mulldrifter: S-Tier bomb build-around in Pauper vs C-Tier filler in Powered Vintage
+      // 2. Mulldrifter: current Pauper member; stale Nico membership was removed.
       const mulldrifter = catalog.getCardByName("Mulldrifter");
       expect(mulldrifter).toBeDefined();
       if (!mulldrifter) throw new Error("Mulldrifter missing");
       expect(mulldrifter.presentInCubes).toContain("hugues_pauper");
-      expect(mulldrifter.presentInCubes).toContain("nico_candyshop");
+      expect(mulldrifter.presentInCubes).not.toContain("nico_candyshop");
 
       const driftPauper = mulldrifter.cubeAnalyses.hugues_pauper;
-      const driftNico = mulldrifter.cubeAnalyses.nico_candyshop;
       expect(driftPauper?.tier).toBe("S");
       expect(driftPauper?.fit).toBe("build_around");
       expect(driftPauper?.scoreModifier).toBeGreaterThan(10);
 
-      expect(driftNico?.tier).toBe("C");
-      expect(driftNico?.fit).toBe("filler");
-      expect(driftNico?.scoreModifier).toBeLessThan(-10);
+      expect(mulldrifter.cubeAnalyses.nico_candyshop).toBeUndefined();
 
       // 3. Counterspell: S-tier unconditional staple in Pauper vs B support in Vintage
       const counterspell = catalog.getCardByName("Counterspell");

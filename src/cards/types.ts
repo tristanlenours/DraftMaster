@@ -90,6 +90,7 @@ export interface CardImageInfo {
 export interface MasterCatalogCard {
   readonly slug?: string;
   readonly oracleId: string;
+  readonly scryfallId?: string;
   readonly name: string;
   readonly manaCost?: string;
   readonly cmc: number;

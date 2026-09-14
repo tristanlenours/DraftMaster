@@ -77,6 +77,11 @@ export interface SoloDraftStateDto {
   readonly seed: number;
   readonly cubeKey: string;
   readonly cubeName: string;
+  readonly coachContext: {
+    readonly contextVersion: "coach-context@1";
+    readonly snapshotId: string;
+    readonly archetypeModelVersion?: string | undefined;
+  };
   readonly playerName: string;
   readonly magicienSlug?: string | undefined;
   readonly status: SoloDraftStatus;

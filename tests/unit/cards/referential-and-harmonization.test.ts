@@ -8,6 +8,7 @@ import {
   harmonizeFallbackHeuristic,
 } from "../../../src/cards/power-harmonizer.ts";
 import { CubeMetaRegistry, validateCubeMetaJson } from "../../../src/cubes/cube-meta.ts";
+import { loadCoachContext } from "../../../src/cubes/coach-context.ts";
 import { evaluateCard } from "../../../src/domain/coaching/dynamic-score.ts";
 import type {
   CardEvaluationInput,
@@ -273,18 +274,12 @@ describe("Master Card & Cube Referential System", () => {
     });
 
     it("applies combo synergy bonuses and cube modifiers in Nico Candyshop", async () => {
-      const catalogResult = await CardCatalog.fromFile(
-        resolve(rootDir, "data/cards/master-cards.json"),
-      );
-      const nicoMetaResult = await CubeMetaRegistry.fromFile(
-        resolve(rootDir, "data/cubes/nico_candyshop/cube-meta.json"),
-      );
-      expect(catalogResult.ok).toBe(true);
-      expect(nicoMetaResult.ok).toBe(true);
+      const contextResult = await loadCoachContext(rootDir, "nico_candyshop");
+      expect(contextResult.ok).toBe(true);
 
-      if (catalogResult.ok && nicoMetaResult.ok) {
-        const catalog = catalogResult.value;
-        const cubeMeta = nicoMetaResult.value;
+      if (contextResult.ok) {
+        const catalog = contextResult.value.catalog;
+        const cubeMeta = contextResult.value.cubeMeta;
 
         const led = catalog.getCardByName("Lion's Eye Diamond");
         const breach = catalog.getCardByName("Underworld Breach");
@@ -339,12 +334,13 @@ describe("Master Card & Cube Referential System", () => {
           cubeKey: "nico_candyshop",
           catalog,
           cubeMeta,
+          synergyProfile: contextResult.value.synergyProfile,
         };
 
         const evaluated = evaluateCard(cardToPick, context);
 
         expect(evaluated.breakdown.cubeScoreModifier).toBe(7.0);
-        expect(evaluated.breakdown.synergyBonus).toBeGreaterThan(0);
+        expect(evaluated.breakdown.archetypeSynergyBonus).toBeGreaterThan(0);
         expect(evaluated.dynamicScore).toBeGreaterThan(cardToPick.staticScore);
       }
     });

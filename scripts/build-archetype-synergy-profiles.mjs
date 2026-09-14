@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -7,8 +8,25 @@ async function readJson(path) {
   return JSON.parse(await readFile(resolve(rootDir, path), "utf8"));
 }
 
+async function readJsonSource(path) {
+  const rawText = await readFile(resolve(rootDir, path), "utf8");
+  return {
+    value: JSON.parse(rawText),
+    sha256: createHash("sha256").update(rawText, "utf8").digest("hex"),
+  };
+}
+
+function normalizeRawEntry(entry) {
+  return {
+    ...entry,
+    typeLine: String(entry.type_line ?? entry.details?.type ?? ""),
+    oracleText: String(entry.details?.oracle_text ?? ""),
+    tags: Array.isArray(entry.tags) ? entry.tags.map((tag) => String(tag).toLowerCase()) : [],
+  };
+}
+
 function createCardResolver(rawCube, cubeKey) {
-  const cards = rawCube.cards.mainboard;
+  const cards = rawCube.cards.mainboard.map(normalizeRawEntry);
   const byName = new Map(cards.map((entry) => [entry.details.name, entry]));
   const byOracleId = new Map(cards.map((entry) => [entry.details.oracle_id, entry]));
 
@@ -55,19 +73,24 @@ function addNamedCards(target, resolver, names, definition) {
   for (const name of names) mergeCard(target, resolver.require(name), definition);
 }
 
-function makeDocument(cubeKey, cubeSnapshotId, archetypes) {
+function makeDocument(cubeKey, cubeSnapshotId, sourceRawSha256, archetypes) {
   return {
     schemaVersion: 1,
-    modelVersion: "archetype-synergy@1",
+    modelVersion: "archetype-synergy@2",
     cubeKey,
     cubeSnapshotId,
+    provenance: {
+      sourceRawSha256,
+      generatorVersion: "build-archetype-synergy-profiles@2",
+    },
     archetypes,
   };
 }
 
 async function buildTitouProfile() {
   const cubeKey = "titou_tribal";
-  const raw = await readJson(`data/cubes/${cubeKey}/cubecobra-raw.json`);
+  const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
+  const raw = rawSource.value;
   const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
   const resolver = createCardResolver(raw, cubeKey);
   const glue = meta.archetypes.find((archetype) => archetype.id === "titou:tribal_glue");
@@ -96,7 +119,7 @@ async function buildTitouProfile() {
       for (const oracleId of archetype.keyCards) {
         const entry = resolver.byOracleId.get(oracleId);
         if (!entry) throw new Error(`${cubeKey}: unresolved key card ${oracleId}`);
-        const isTribalBody = typePattern.test(entry.type_line);
+        const isTribalBody = typePattern.test(entry.typeLine);
         mergeCard(cards, entry, {
           strength: "key",
           roles: isTribalBody ? ["payoff", "body"] : ["payoff"],
@@ -109,30 +132,60 @@ async function buildTitouProfile() {
         });
       }
 
-      for (const entry of resolver.all.filter(
-        (candidate) =>
-          typePattern.test(candidate.type_line) ||
-          (candidate.tags ?? []).some((tag) =>
-            definition.types.some((type) => tag === type.toLowerCase()),
-          ),
-      )) {
+      for (const oracleId of archetype.supportCards) {
+        const entry = resolver.byOracleId.get(oracleId);
+        if (!entry) throw new Error(`${cubeKey}: unresolved support card ${oracleId}`);
+        const isTribalBody = typePattern.test(entry.typeLine);
         mergeCard(cards, entry, {
           strength: "support",
-          roles: ["body"],
-          families: ["density"],
+          roles: isTribalBody ? ["enabler", "body"] : ["enabler"],
+          families: isTribalBody ? ["support", "density"] : ["support"],
           evidence: {
-            source: entry.tags.length > 0 ? "owner_tag" : "oracle_rule",
-            detail: `${entry.type_line} contribue à la masse critique ${definition.types.join("/")}.`,
+            source: "owner_description",
+            detail: `Carte support déclarée par le profil du cube pour ${archetype.name}.`,
           },
           confidence: "A",
         });
       }
 
+      for (const entry of resolver.all.filter((candidate) => typePattern.test(candidate.typeLine))) {
+        mergeCard(cards, entry, {
+          strength: "support",
+          roles: ["body"],
+          families: ["density"],
+          evidence: {
+            source: "oracle_rule",
+            detail: `${entry.typeLine} contribue à la masse critique ${definition.types.join("/")}.`,
+          },
+          confidence: "B",
+        });
+      }
+
+      for (const entry of resolver.all.filter(
+        (candidate) =>
+          !typePattern.test(candidate.typeLine) &&
+          candidate.tags.some((tag) =>
+            definition.types.some((type) => tag === type.toLowerCase()),
+          ),
+      )) {
+        mergeCard(cards, entry, {
+          strength: "support",
+          roles: ["enabler"],
+          families: ["support"],
+          evidence: {
+            source: "owner_tag",
+            detail: `Tag propriétaire reliant la carte au plan ${definition.types.join("/")}.`,
+          },
+          confidence: "C",
+        });
+      }
+
       for (const entry of bridgeEntries) {
+        const isUniversalBody = /\bchangeling\b/iu.test(entry.oracleText);
         mergeCard(cards, entry, {
           strength: "support",
           roles: ["bridge"],
-          families: ["density"],
+          families: isUniversalBody ? ["support", "density"] : ["support"],
           evidence: {
             source: "owner_description",
             detail: "Carte de liant universel déclarée par le propriétaire du cube.",
@@ -147,13 +200,14 @@ async function buildTitouProfile() {
         targetPoints: 18,
         requiredFamilies: [
           { id: "payoff", name: "Payoff ou moteur tribal", minimum: 1 },
+          { id: "support", name: "Support ou liant du plan", minimum: 1 },
           { id: "density", name: "Masse critique de la tribu", minimum: definition.densityMinimum },
         ],
         cards: [...cards.values()].sort((a, b) => a.name.localeCompare(b.name)),
       };
     });
 
-  return makeDocument(cubeKey, meta.activeSnapshotId, archetypes);
+  return makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, archetypes);
 }
 
 function createNicoArchetype(resolver, definition) {
@@ -181,7 +235,8 @@ function createNicoArchetype(resolver, definition) {
 
 async function buildNicoProfile() {
   const cubeKey = "nico_candyshop";
-  const raw = await readJson(`data/cubes/${cubeKey}/cubecobra-raw.json`);
+  const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
+  const raw = rawSource.value;
   const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
   const resolver = createCardResolver(raw, cubeKey);
   const definitions = [
@@ -519,6 +574,7 @@ async function buildNicoProfile() {
   return makeDocument(
     cubeKey,
     meta.activeSnapshotId,
+    rawSource.sha256,
     definitions.map((definition) => createNicoArchetype(resolver, definition)),
   );
 }

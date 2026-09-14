@@ -1,5 +1,11 @@
 import { loadSnapshot } from "../cubes/load-snapshot.ts";
 import { ArchetypeSynergyProfileRegistry } from "../cubes/archetype-synergy-profile.ts";
+import {
+  createPackEvaluationContext,
+  loadCoachContext,
+  type CoachContext,
+} from "../cubes/coach-context.ts";
+import { CubeMetaRegistry } from "../cubes/cube-meta.ts";
 import { CardCatalog } from "../cards/card-catalog.ts";
 import { MAX_POWER_SCORE } from "../cards/power-harmonizer.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
@@ -156,6 +162,12 @@ export interface DetailedDraftReport {
   readonly schemaVersion: 2;
   readonly cubeKey: string;
   readonly cubeName: string;
+  readonly coachContext: {
+    readonly contextVersion: "coach-context@1" | "simulation-custom-context@1";
+    readonly snapshotId: string;
+    readonly archetypeModelVersion: string;
+    readonly powerRankingId?: string | undefined;
+  };
   readonly seed: number;
   readonly startedAt: string;
   readonly completedAt: string;
@@ -198,48 +210,94 @@ export async function runDetailedDraftSimulation(
   const identity = identityGenerator.create(seed);
   const sessionId = options.sessionId ?? identity.sessionId;
   const startedAt = new Date().toISOString();
+  const usesCanonicalContext =
+    options.cubePath === undefined &&
+    options.archetypeSynergyProfilePath === undefined &&
+    options.masterCatalogPath === undefined;
 
-  // 1. Load snapshot
-  const snapshotResult = await loadSnapshot(cubePath);
-  if (!snapshotResult.ok) {
-    return failure("INVALID_SNAPSHOT", snapshotResult.error.message, { ...snapshotResult.error });
-  }
-  const snapshot: CubeSnapshot = snapshotResult.value;
+  let snapshot: Readonly<CubeSnapshot>;
+  let catalog: Readonly<CardCatalog>;
+  let cubeMeta: Readonly<CubeMetaRegistry>;
+  let evaluationOptions: DeckEvaluationOptions;
+  let coachContext: DetailedDraftReport["coachContext"];
+  let canonicalContext: Readonly<CoachContext> | undefined;
 
-  const synergyProfilePath =
-    options.archetypeSynergyProfilePath ??
-    `data/cubes/${snapshot.cubeKey}/archetype-synergy-v1.json`;
-  const synergyProfileResult = await ArchetypeSynergyProfileRegistry.fromFile(synergyProfilePath);
-  if (!synergyProfileResult.ok) {
-    return failure("INVALID_SNAPSHOT", synergyProfileResult.error.message, {
-      ...synergyProfileResult.error,
-    });
-  }
-  if (
-    synergyProfileResult.value.document.cubeKey !== snapshot.cubeKey ||
-    synergyProfileResult.value.document.cubeSnapshotId !== snapshot.snapshotId
-  ) {
-    return failure(
-      "INVALID_SNAPSHOT",
-      "Archetype synergy profile does not match the cube snapshot.",
-      {
-        expectedCubeKey: snapshot.cubeKey,
-        expectedSnapshotId: snapshot.snapshotId,
-        profileCubeKey: synergyProfileResult.value.document.cubeKey,
-        profileSnapshotId: synergyProfileResult.value.document.cubeSnapshotId,
-      },
+  if (usesCanonicalContext) {
+    const contextResult = await loadCoachContext(process.cwd(), "titou_tribal");
+    if (!contextResult.ok) {
+      return failure("INVALID_SNAPSHOT", contextResult.error.message, {
+        code: contextResult.error.code,
+        ...contextResult.error.details,
+      });
+    }
+    canonicalContext = contextResult.value;
+    snapshot = contextResult.value.snapshot;
+    catalog = contextResult.value.catalog;
+    cubeMeta = contextResult.value.cubeMeta;
+    evaluationOptions = contextResult.value.deckEvaluationOptions;
+    coachContext = {
+      contextVersion: contextResult.value.contextVersion,
+      snapshotId: contextResult.value.snapshotId,
+      archetypeModelVersion: contextResult.value.provenance.archetypeModelVersion ?? "unavailable",
+      powerRankingId: contextResult.value.provenance.powerRankingId,
+    };
+  } else {
+    // Explicit fixture paths remain supported for contract and mismatch tests.
+    const snapshotResult = await loadSnapshot(cubePath);
+    if (!snapshotResult.ok) {
+      return failure("INVALID_SNAPSHOT", snapshotResult.error.message, { ...snapshotResult.error });
+    }
+    snapshot = snapshotResult.value;
+
+    const synergyProfilePath =
+      options.archetypeSynergyProfilePath ??
+      `data/cubes/${snapshot.cubeKey}/archetype-synergy-v1.json`;
+    const synergyProfileResult = await ArchetypeSynergyProfileRegistry.fromFile(synergyProfilePath);
+    if (!synergyProfileResult.ok) {
+      return failure("INVALID_SNAPSHOT", synergyProfileResult.error.message, {
+        ...synergyProfileResult.error,
+      });
+    }
+    if (
+      synergyProfileResult.value.document.cubeKey !== snapshot.cubeKey ||
+      synergyProfileResult.value.document.cubeSnapshotId !== snapshot.snapshotId
+    ) {
+      return failure(
+        "INVALID_SNAPSHOT",
+        "Archetype synergy profile does not match the cube snapshot.",
+        {
+          expectedCubeKey: snapshot.cubeKey,
+          expectedSnapshotId: snapshot.snapshotId,
+          profileCubeKey: synergyProfileResult.value.document.cubeKey,
+          profileSnapshotId: synergyProfileResult.value.document.cubeSnapshotId,
+        },
+      );
+    }
+    evaluationOptions = {
+      synergyProfile: synergyProfileResult.value.evaluationProfile,
+    };
+
+    const catalogResult = await CardCatalog.fromFile(catalogPath);
+    if (!catalogResult.ok) {
+      return failure("INVALID_SNAPSHOT", catalogResult.error.message, { ...catalogResult.error });
+    }
+    catalog = catalogResult.value;
+
+    const cubeMetaResult = await CubeMetaRegistry.fromFile(
+      `data/cubes/${snapshot.cubeKey}/cube-meta.json`,
     );
+    if (!cubeMetaResult.ok) {
+      return failure("INVALID_SNAPSHOT", cubeMetaResult.error.message, {
+        ...cubeMetaResult.error,
+      });
+    }
+    cubeMeta = cubeMetaResult.value;
+    coachContext = {
+      contextVersion: "simulation-custom-context@1",
+      snapshotId: snapshot.snapshotId,
+      archetypeModelVersion: synergyProfileResult.value.document.modelVersion,
+    };
   }
-  const evaluationOptions: DeckEvaluationOptions = {
-    synergyProfile: synergyProfileResult.value.evaluationProfile,
-  };
-
-  // 2. Load master catalog
-  const catalogResult = await CardCatalog.fromFile(catalogPath);
-  if (!catalogResult.ok) {
-    return failure("INVALID_SNAPSHOT", catalogResult.error.message, { ...catalogResult.error });
-  }
-  const catalog = catalogResult.value;
 
   const bombClassification = classifyCubeBombs(snapshot, catalog);
 
@@ -321,7 +379,12 @@ export async function runDetailedDraftSimulation(
   const resolveCard = (id: string): CardEvaluationInput | undefined => instanceToInputMap.get(id);
 
   // 4. Configure 8 seats & policies
-  const evaluationContext = { cubeKey: snapshot.cubeKey, catalog } as const;
+  const evaluationContext = {
+    cubeKey: snapshot.cubeKey,
+    catalog,
+    cubeMeta,
+    synergyProfile: evaluationOptions.synergyProfile,
+  } as const;
   const friendTable = createFriendTablePolicies({ resolveCard, evaluationContext });
   const policies: PickPolicy[] = [
     createFriendBotPolicy({ profile: THEO_PROFILE, resolveCard, evaluationContext }),
@@ -442,13 +505,15 @@ export async function runDetailedDraftSimulation(
       );
 
       // Evaluate pack dynamically
-      const evalContext: PackEvaluationContext = {
-        ...evaluationContext,
+      const packInput = {
         packNumber,
         pickNumber,
         offeredCards: offeredInputs,
         priorPool: priorInputs,
       };
+      const evalContext: PackEvaluationContext = canonicalContext
+        ? createPackEvaluationContext(canonicalContext, packInput)
+        : { ...evaluationContext, ...packInput };
       const evaluatedCards = evaluatePack(evalContext);
       const evalMap = new Map<string, (typeof evaluatedCards)[number]>(
         evaluatedCards.map((c) => [c.id, c]),
@@ -729,7 +794,8 @@ export async function runDetailedDraftSimulation(
   const report: DetailedDraftReport = {
     schemaVersion: 2,
     cubeKey: snapshot.cubeKey,
-    cubeName: "Titou's Tribal and Chromatic Cube",
+    cubeName: cubeMeta.meta.name,
+    coachContext,
     seed,
     startedAt,
     completedAt,

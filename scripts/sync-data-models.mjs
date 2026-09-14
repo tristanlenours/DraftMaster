@@ -34,8 +34,13 @@ const cardsByOracleId = {};
 for (const file of itemFiles) {
   const singleCardPath = join(itemsDir, file);
   const cardDoc = JSON.parse(readFileSync(singleCardPath, 'utf8'));
+  if (cardsByOracleId[cardDoc.oracleId]) {
+    throw new Error(
+      `Duplicate Oracle ID ${cardDoc.oracleId} in ${file} and ${cardsByOracleId[cardDoc.oracleId].slug}.json`,
+    );
+  }
   cardsByOracleId[cardDoc.oracleId] = cardDoc;
-  cardCount++;
+  cardCount += 1;
 }
 
 console.log(`✅ Successfully indexed ${cardCount} individual card JSON files from data/cards/items/`);
@@ -140,6 +145,7 @@ for (const cfg of cubeConfigs) {
     cubeKey: meta.cubeKey,
     name: meta.name,
     owner: meta.owner,
+    coachReadiness: meta.coachReadiness,
     coverImage: meta.coverImage,
     activeSnapshotId: meta.activeSnapshotId,
     cardCount: meta.cardCount,

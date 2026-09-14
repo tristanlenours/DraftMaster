@@ -9,6 +9,7 @@ import type { CardCatalog } from "../../cards/card-catalog.ts";
 import { MAX_POWER_SCORE, MIN_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import type { CubeMetaRegistry } from "../../cubes/cube-meta.ts";
 import { generateCoachingExplanation } from "./coaching-explainer.ts";
+import { analyzeArchetypePick } from "./archetype-pick-analysis.ts";
 import {
   isTribalCube,
   detectDraftedTribalContext,
@@ -175,6 +176,33 @@ export function getDominantColors(counts: Record<MtGColor, number>): readonly Mt
     .sort((a, b) => b[1] - a[1]);
 
   return sorted.slice(0, 2).map(([c]) => c);
+}
+
+const CURVE_TARGET_SHARE: Readonly<Record<number, number>> = {
+  1: 0.12,
+  2: 0.3,
+  3: 0.28,
+  4: 0.18,
+  5: 0.12,
+};
+
+function computeCurveBonus(
+  card: Readonly<CardEvaluationInput>,
+  priorPool: readonly Readonly<CardEvaluationInput>[],
+  cubeMeta: Readonly<CubeMetaRegistry> | undefined,
+): number {
+  if (card.isLand || card.cmc === undefined || card.cmc <= 0) return 0;
+  const spellPool = priorPool.filter((candidate) => !candidate.isLand && (candidate.cmc ?? 0) > 0);
+  if (spellPool.length < 4) return 0;
+
+  const bucket = Math.min(5, Math.max(1, Math.ceil(card.cmc)));
+  const currentCount = spellPool.filter(
+    (candidate) => Math.min(5, Math.max(1, Math.ceil(candidate.cmc ?? 0))) === bucket,
+  ).length;
+  const targetCount = (spellPool.length + 1) * (CURVE_TARGET_SHARE[bucket] ?? 0);
+  const deficit = Math.max(0, targetCount - currentCount);
+  const strictness = cubeMeta?.meta.scoringProfile.curveStrictness ?? 1;
+  return Math.round(Math.min(4, deficit * strictness) * 10) / 10;
 }
 
 /**
@@ -379,14 +407,20 @@ export function evaluateCard(
         cubeScoreModifier = cubeAnalysis.scoreModifier;
 
         if (!isP1P1 && priorPool.length > 0 && cubeAnalysis.synergyTags.length > 0) {
-          const cardTags = new Set(cubeAnalysis.synergyTags);
+          const cardTags = new Set(
+            cubeAnalysis.synergyTags.filter((tag) =>
+              /^(?:archetype|combo|package|tribe):/u.test(tag),
+            ),
+          );
           let matchCount = 0;
           for (const priorCard of priorPool) {
             const priorInCat =
               (priorCard.oracleId ? catalog.getCardByOracleId(priorCard.oracleId) : undefined) ??
               catalog.getCardByName(priorCard.name);
             if (priorInCat && cubeKey && priorInCat.cubeAnalyses[cubeKey]) {
-              const priorTags = priorInCat.cubeAnalyses[cubeKey].synergyTags;
+              const priorTags = priorInCat.cubeAnalyses[cubeKey].synergyTags.filter((tag) =>
+                /^(?:archetype|combo|package|tribe):/u.test(tag),
+              );
               for (const tag of priorTags) {
                 if (cardTags.has(tag)) {
                   matchCount++;
@@ -488,14 +522,24 @@ export function evaluateCard(
       manaFixingBonus = 1.0; // Half-color dual when flexible / exploring a 2nd color
     }
   }
+  if (manaFixingBonus > 0) {
+    manaFixingBonus =
+      Math.round(
+        (manaFixingBonus + (cubeMeta?.meta.scoringProfile.fixingPriorityBonus ?? 0)) * 10,
+      ) / 10;
+  }
 
-  // 3. Curve Bonus (placeholder for CMC gap detection)
-  const curveBonus = 0;
+  // 3. Curve Bonus: reward the mana-value bucket that is actually missing from the pool.
+  const curveBonus =
+    overlap >= 0.5 || card.colors.length === 0 ? computeCurveBonus(card, priorPool, cubeMeta) : 0;
+
+  const archetypeAnalysis = analyzeArchetypePick(card, priorPool, context.synergyProfile);
+  const archetypeSynergyBonus = archetypeAnalysis.bonus;
 
   // 4. Tribal Synergy & Incompatibility (on tribal cubes like Titou Tribal)
   let tribalPenalty = 0;
   let tribalBonus = 0;
-  if (isTribalCube(cubeKey, cubeMeta)) {
+  if (!context.synergyProfile && isTribalCube(cubeKey, cubeMeta)) {
     const tribalCtx = detectDraftedTribalContext(priorPool, cubeKey, cubeMeta);
     if (tribalCtx.isTribalEngaged) {
       if (isCardTriballyIncompatible(card, tribalCtx)) {
@@ -534,6 +578,7 @@ export function evaluateCard(
             curveBonus +
             cubeScoreModifier +
             synergyBonus +
+            archetypeSynergyBonus +
             tribalBonus -
             tribalPenalty,
         ),
@@ -549,12 +594,16 @@ export function evaluateCard(
     manaFixingBonus,
     curveBonus,
     rawDynamicScore,
-    cubeScoreModifier: cubeScoreModifier !== 0 ? cubeScoreModifier : undefined,
-    synergyBonus: synergyBonus !== 0 ? synergyBonus : undefined,
-    tribalBonus: tribalBonus !== 0 ? tribalBonus : undefined,
-    tribalPenalty: tribalPenalty !== 0 ? tribalPenalty : undefined,
-    powerSource,
-    harmonizationConfidence,
+    ...(cubeScoreModifier !== 0 ? { cubeScoreModifier } : {}),
+    ...(synergyBonus !== 0 ? { synergyBonus } : {}),
+    ...(archetypeSynergyBonus !== 0 ? { archetypeSynergyBonus } : {}),
+    ...(archetypeAnalysis.matches.length > 0
+      ? { archetypeMatches: archetypeAnalysis.matches }
+      : {}),
+    ...(tribalBonus !== 0 ? { tribalBonus } : {}),
+    ...(tribalPenalty !== 0 ? { tribalPenalty } : {}),
+    ...(powerSource ? { powerSource } : {}),
+    ...(harmonizationConfidence !== undefined ? { harmonizationConfidence } : {}),
   };
 
   return {

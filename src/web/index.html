@@ -229,15 +229,22 @@
             </p>
             <blockquote class="manifesto-quote">
               <p>
-                « Pendant des décennies, le Cube est resté un trésor jalousement gardé, réservé à une
-                élite initiée capable de naviguer dans des centaines de cartes complexes et des
+                « Pendant des décennies, le Cube est resté un trésor jalousement gardé, réservé à
+                une élite initiée capable de naviguer dans des centaines de cartes complexes et des
                 dynamiques de tempo invisibles. Ma volonté avec le
-                <strong>Cube Digital Extended Universe (LMCDEU)</strong> est de briser ces murailles :
-                rendre le Cube immédiatement lisible, intelligible et passionnant pour tous les
+                <strong>Cube Digital Extended Universe (LMCDEU)</strong> est de briser ces murailles
+                : rendre le Cube immédiatement lisible, intelligible et passionnant pour tous les
                 joueurs, quel que soit leur niveau. C'est ma contribution à l'humanité pour célébrer
                 et transmettre ce jeu magnifique. »
               </p>
-              <footer class="manifesto-author">— Titou<a href="#home-footnote" class="manifesto-footnote-ref" title="ex numéro 1 mondial sur Magic Arena">*</a></footer>
+              <footer class="manifesto-author">
+                — Titou<a
+                  href="#home-footnote"
+                  class="manifesto-footnote-ref"
+                  title="ex numéro 1 mondial sur Magic Arena"
+                  >*</a
+                >
+              </footer>
             </blockquote>
             <p>
               En associant des outils d'analyse théorique de pointe — tels que le
@@ -2184,10 +2191,14 @@
               <div class="zone-title-wrap">
                 <span class="zone-icon">⚔️</span>
                 <span class="zone-title">Cartes draftées retenues</span>
-                <span class="zone-badge-pill" id="deck-maindeck-curve-stats">0 Créatures · 0 Sorts · 0 Terrains</span>
+                <span class="zone-badge-pill" id="deck-maindeck-curve-stats"
+                  >0 Créatures · 0 Sorts · 0 Terrains</span
+                >
               </div>
               <div class="zone-header-actions">
-                <span class="zone-help">Répartition par coût de mana. Cliquez pour retirer, 🔍 pour inspecter.</span>
+                <span class="zone-help"
+                  >Répartition par coût de mana. Cliquez pour retirer, 🔍 pour inspecter.</span
+                >
               </div>
             </div>
             <!-- Mana Curve Columns Container -->
@@ -2202,13 +2213,23 @@
               <div class="zone-title-wrap">
                 <span class="zone-icon">📦</span>
                 <span class="zone-title">Réserve / Sideboard</span>
-                <span class="sideboard-count-pill" id="sideboard-count-pill">Cartes disponibles</span>
+                <span class="sideboard-count-pill" id="sideboard-count-pill"
+                  >Cartes disponibles</span
+                >
               </div>
               <div class="sideboard-filters-bar" id="sideboard-filters-bar">
-                <button type="button" class="sb-filter-btn active" data-filter="all">Tous (<span id="sb-count-all">0</span>)</button>
-                <button type="button" class="sb-filter-btn" data-filter="creatures">Créatures (<span id="sb-count-creatures">0</span>)</button>
-                <button type="button" class="sb-filter-btn" data-filter="spells">Sorts (<span id="sb-count-spells">0</span>)</button>
-                <button type="button" class="sb-filter-btn" data-filter="lands">Terrains (<span id="sb-count-lands">0</span>)</button>
+                <button type="button" class="sb-filter-btn active" data-filter="all">
+                  Tous (<span id="sb-count-all">0</span>)
+                </button>
+                <button type="button" class="sb-filter-btn" data-filter="creatures">
+                  Créatures (<span id="sb-count-creatures">0</span>)
+                </button>
+                <button type="button" class="sb-filter-btn" data-filter="spells">
+                  Sorts (<span id="sb-count-spells">0</span>)
+                </button>
+                <button type="button" class="sb-filter-btn" data-filter="lands">
+                  Terrains (<span id="sb-count-lands">0</span>)
+                </button>
               </div>
             </div>
             <div class="sideboard-cards-grid" id="deck-sideboard-container">
@@ -2309,11 +2330,28 @@
 
         <!-- Card Inspector & Fast Navigation Modal -->
         <div class="card-inspector-backdrop" id="card-inspector-modal" hidden aria-hidden="true">
-          <div class="card-inspector-dialog" role="dialog" aria-modal="true" aria-labelledby="ci-card-name">
-            <button type="button" class="btn-ci-close" id="ci-close-btn" aria-label="Fermer l'inspecteur">✕</button>
+          <div
+            class="card-inspector-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ci-card-name"
+          >
+            <button
+              type="button"
+              class="btn-ci-close"
+              id="ci-close-btn"
+              aria-label="Fermer l'inspecteur"
+            >
+              ✕
+            </button>
             <div class="card-inspector-layout">
               <!-- Left: Previous Card Button -->
-              <button type="button" class="btn-ci-nav btn-ci-prev" id="ci-prev-btn" title="Carte précédente (Flèche Gauche ←)">
+              <button
+                type="button"
+                class="btn-ci-nav btn-ci-prev"
+                id="ci-prev-btn"
+                title="Carte précédente (Flèche Gauche ←)"
+              >
                 <span class="ci-nav-icon">◀</span>
                 <span class="ci-nav-hint">Précédente</span>
               </button>
@@ -2325,7 +2363,12 @@
               </div>
 
               <!-- Right: Next Card Button -->
-              <button type="button" class="btn-ci-nav btn-ci-next" id="ci-next-btn" title="Carte suivante (Flèche Droite →)">
+              <button
+                type="button"
+                class="btn-ci-nav btn-ci-next"
+                id="ci-next-btn"
+                title="Carte suivante (Flèche Droite →)"
+              >
                 <span class="ci-nav-hint">Suivante</span>
                 <span class="ci-nav-icon">▶</span>
               </button>
@@ -2348,7 +2391,10 @@
                   <span id="ci-toggle-icon">➖</span>
                   <span id="ci-toggle-text">Basculer dans la Réserve</span>
                 </button>
-                <span class="ci-keyboard-shortcuts">Raccourcis : <strong>← / →</strong> pour naviguer · <strong>Espace</strong> pour basculer · <strong>Échap</strong> pour fermer</span>
+                <span class="ci-keyboard-shortcuts"
+                  >Raccourcis : <strong>← / →</strong> pour naviguer · <strong>Espace</strong> pour
+                  basculer · <strong>Échap</strong> pour fermer</span
+                >
               </div>
             </div>
           </div>
@@ -2377,7 +2423,9 @@
               <p class="result-archetype-description" id="result-archetype-desc"></p>
             </div>
             <div class="result-stats-row">
-              <span class="stat-tag tag-table-rank rank-1" id="result-table-rank-badge">🏆 1er / 8 de la Table</span>
+              <span class="stat-tag tag-table-rank rank-1" id="result-table-rank-badge"
+                >🏆 1er / 8 de la Table</span
+              >
               <span class="stat-tag" id="result-rank-badge">Rang #1 au Mur des Records</span>
               <span class="stat-tag tag-training" id="result-training-badge" hidden
                 >🛡️ Mode Entraînement (Non publié)</span
@@ -3053,19 +3101,35 @@
         >
           ✕
         </button>
-        <div class="modal-body deck-review-body">
+        <div class="deck-review-body">
           <div class="deck-review-header">
-            <div>
+            <div class="deck-review-header-info">
               <span class="review-rank-tag" id="deck-review-rank">#1</span>
               <h2 class="deck-review-title" id="deck-review-modal-title">Deck de Tristan</h2>
               <span class="deck-review-meta" id="deck-review-meta"
                 >Score : 88/100 • Azorius Control Tribal</span
               >
             </div>
+            <div class="deck-review-header-actions" id="deck-review-header-actions">
+              <button
+                type="button"
+                class="btn-share-social btn-share-copy"
+                id="deck-review-copy-link-btn"
+                title="Copier le lien unique du deck"
+              >
+                <span>📋 Copier le Lien</span>
+              </button>
+            </div>
           </div>
           <div id="deck-review-radar-container"></div>
-          <div class="deck-review-cards-grid" id="deck-review-cards-grid">
-            <!-- Populated dynamically with 17Lands mana curve view -->
+          <div class="deck-review-cards-section">
+            <div class="deck-review-cards-header">
+              <h4 class="deck-review-cards-title">Cartes du Deck (Courbe de Mana & Terrains)</h4>
+              <span class="deck-review-cards-hint">Survolez une carte pour l'agrandir</span>
+            </div>
+            <div class="deck-review-cards-grid" id="deck-review-cards-grid">
+              <!-- Populated dynamically with 17Lands mana curve view -->
+            </div>
           </div>
         </div>
       </div>

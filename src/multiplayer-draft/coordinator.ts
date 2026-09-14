@@ -1133,6 +1133,27 @@ class DefaultMultiplayerDraftCoordinator implements MultiplayerDraftCoordinator 
       let appendedEvents: readonly Readonly<MultiplayerEvent>[] = [event];
       let nextSession: Readonly<PersistedMultiplayerSession> = { ...session, pendingRound };
       if (lobby.participants.every((participant) => humanPicks[participant.participantId])) {
+        const coachContext = this.dependencies.loadCoachContext
+          ? await this.dependencies.loadCoachContext(session.cubeKey)
+          : undefined;
+        if (coachContext && coachContext.snapshotId !== session.snapshotId) {
+          throw new Error("COACH_CONTEXT_SNAPSHOT_MISMATCH");
+        }
+        const draftCards = Object.values(draftView.cardsByInstanceId);
+        const resolvedCards = this.dependencies.loadCardPool
+          ? await this.dependencies.loadCardPool(session.cubeKey, draftCards)
+          : defaultCardPool(draftCards);
+        const resolvedById = new Map(resolvedCards.map((card) => [card.id, card]));
+        const resolveCard = (instanceId: string): CardEvaluationInput | undefined =>
+          resolvedById.get(instanceId);
+        const evaluationContext = coachContext
+          ? {
+              cubeKey: coachContext.cubeKey,
+              catalog: coachContext.catalog,
+              cubeMeta: coachContext.cubeMeta,
+              synergyProfile: coachContext.synergyProfile,
+            }
+          : undefined;
         const decisions: Readonly<SeatDecision>[] = session.seatAssignments.map((seat) => {
           if (seat.kind === "human") {
             const cardInstanceId = humanPicks[seat.participantId];
@@ -1152,7 +1173,11 @@ class DefaultMultiplayerDraftCoordinator implements MultiplayerDraftCoordinator 
           }
           const profile = ALL_FRIEND_PROFILES.find(({ id }) => id === seat.botId);
           if (!profile) throw new Error("MISSING_BOT_PROFILE");
-          const policy = createFriendBotPolicy({ profile });
+          const policy = createFriendBotPolicy({
+            profile,
+            resolveCard,
+            ...(evaluationContext ? { evaluationContext } : {}),
+          });
           const botDraftSeat = draftView.seats[seat.seatId];
           if (!botDraftSeat?.currentBooster) throw new Error("MISSING_BOT_BOOSTER");
           const streamName = getPolicyStreamName(seat.seatId);
@@ -1353,10 +1378,17 @@ class DefaultMultiplayerDraftCoordinator implements MultiplayerDraftCoordinator 
           },
       );
       const coach = this.dependencies.finalDeckCoach ?? createFinalDeckCoach();
+      const coachContext = this.dependencies.loadCoachContext
+        ? await this.dependencies.loadCoachContext(session.cubeKey)
+        : undefined;
+      if (coachContext && coachContext.snapshotId !== session.snapshotId) {
+        throw new Error("COACH_CONTEXT_SNAPSHOT_MISMATCH");
+      }
       const recommendation = await coach.recommend({
         cubeKey: session.cubeKey,
         snapshotId: session.snapshotId,
         pool,
+        ...(coachContext ? { evaluationOptions: coachContext.deckEvaluationOptions } : {}),
       });
       const existing = session.deckWorkspaces?.[participantId];
       const workspace: Readonly<RecommendedDeckWorkspace> = {

@@ -15,7 +15,11 @@ import {
 import type { MtGColor } from "../domain/coaching/types.ts";
 
 export type CatalogErrorCode =
-  "INVALID_JSON" | "SCHEMA_VALIDATION_FAILED" | "FILE_READ_ERROR" | "DIRECTORY_EMPTY";
+  | "INVALID_JSON"
+  | "SCHEMA_VALIDATION_FAILED"
+  | "FILE_READ_ERROR"
+  | "DIRECTORY_EMPTY"
+  | "DUPLICATE_CARD_ID";
 
 export interface CatalogError {
   readonly code: CatalogErrorCode;
@@ -175,6 +179,22 @@ export class CardCatalog {
           return validation;
         }
         const card = validation.value;
+        const existingCard = cardsRecord[card.oracleId];
+        if (existingCard) {
+          return {
+            ok: false,
+            error: {
+              code: "DUPLICATE_CARD_ID",
+              message: `Duplicate Oracle identity ${card.oracleId} in card directory.`,
+              details: {
+                oracleId: card.oracleId,
+                firstCard: existingCard.name,
+                duplicateCard: card.name,
+                fileName,
+              },
+            },
+          };
+        }
         cardsRecord[card.oracleId] = card;
       }
 

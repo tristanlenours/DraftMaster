@@ -50,6 +50,10 @@ export interface CubeMetaDefinition {
   readonly cubeKey: string;
   readonly name: string;
   readonly owner: string;
+  readonly coachReadiness: {
+    readonly status: "ready" | "partial" | "blocked";
+    readonly reason: string;
+  };
   readonly coverImage?: string;
   readonly activeSnapshotId: string;
   readonly cardCount: number;

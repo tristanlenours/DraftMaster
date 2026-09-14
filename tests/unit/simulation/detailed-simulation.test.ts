@@ -11,7 +11,7 @@ describe("Detailed Draft Simulation & 17Lands Walkthrough", () => {
     if (!result.ok) return;
 
     expect(result.value.seats[0]?.finalDeck.audit.synergy.profile).toEqual({
-      modelVersion: "archetype-synergy@1",
+      modelVersion: "archetype-synergy@2",
       cubeKey: "titou_tribal",
       cubeSnapshotId: "titou_tribal@2026-02-24.1",
     });
@@ -19,6 +19,12 @@ describe("Detailed Draft Simulation & 17Lands Walkthrough", () => {
     const report = result.value;
     expect(report.schemaVersion).toBe(2);
     expect(report.cubeKey).toBe("titou_tribal");
+    expect(report.coachContext).toEqual({
+      contextVersion: "coach-context@1",
+      snapshotId: "titou_tribal@2026-02-24.1",
+      archetypeModelVersion: "archetype-synergy@2",
+      powerRankingId: "power-ranking-v1",
+    });
     expect(report.seed).toBe(42);
     expect(report.seats).toHaveLength(8);
 

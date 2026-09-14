@@ -5,11 +5,15 @@ import {
   type TribalDraftContext,
 } from "../domain/coaching/tribal-compatibility.ts";
 import type { CardEvaluationInput, MidDraftReview } from "../domain/coaching/types.ts";
+import type { CardEvaluation } from "../domain/coaching/types.ts";
+import type { CubeMetaDefinition } from "../cubes/cube-meta-types.ts";
 
 export interface DraftAdvicePromptOptions {
   readonly cubeKey?: string | undefined;
+  readonly cubeMeta?: Readonly<CubeMetaDefinition> | undefined;
   readonly tribalContext?: TribalDraftContext | undefined;
   readonly packReview?: MidDraftReview | undefined;
+  readonly candidateEvidence?: readonly Readonly<CardEvaluation>[] | undefined;
 }
 
 export function buildDraftAdvicePrompt(
@@ -21,21 +25,35 @@ export function buildDraftAdvicePrompt(
 ): { system: string; user: string } {
   const isMidDraftStart = pack >= 2 && pick === 1;
   const tribalCtx = options?.tribalContext ?? detectDraftedTribalContext(pool, options?.cubeKey);
+  const cubeMeta = options?.cubeMeta;
+  const criticalWindow = cubeMeta?.fundamentalTurn?.criticalWindow ?? "les tours déterminants";
+  const cubeDescription = cubeMeta
+    ? `Cube \"${cubeMeta.name}\" (${cubeMeta.powerTier}, rythme ${cubeMeta.pacing}). ${cubeMeta.description ?? ""}`
+    : "Contexte de cube non identifié : n'invente ni niveau de puissance, ni extension dominante, ni vitesse de format.";
+  const archetypeGuidance =
+    cubeMeta && cubeMeta.archetypes.length > 0
+      ? `\n- ARCHÉTYPES DOCUMENTÉS DU CUBE :\n${cubeMeta.archetypes
+          .map(
+            (archetype) =>
+              `  * ${archetype.name} (${archetype.primaryColors.join("/")}) : ${archetype.gameplan}`,
+          )
+          .join("\n")}`
+      : "";
 
-  const system = `Tu es un Coach de Draft Cube Magic (Format Powered / Arena Cube moderne axé sur Modern Horizons 3, tempo agressif, value et synergies fortes) de niveau Pro Tour.
+  const system = `Tu es un Coach de Draft Cube Magic de niveau Pro Tour.
+Contexte autorisé : ${cubeDescription}
 Règles strictes :
 - Ton et style : Varié, naturel, passionné, expert et tactique. Adapte ton accroche à la réalité du booster : sois sobre et pragmatique sur les picks utilitaires, mais ultra-enthousiaste dès qu'une opportunité en or ou une bombe se présente ! INTERDICTION des répétitions mécaniques d'un pack à l'autre.
-- PROJECTION CONCRÈTE DANS LES PREMIERS TOURS (T1, T2, T3) :
-  Les parties de Cube moderne se jouent très souvent sur l'impact décisif des 3 premiers tours.
-  Dans tes explications ('reason'), PROJETTE TOUJOURS LE JOUEUR DANS DES SÉQUENCES RÉELLES DE JEU en combinant la carte recommandée avec les accélérations ou cartes clés de son pool (ex: "Départs T1 Lotus ➔ Fable ou T1 Ragavan intouchables sous backup Swords to Plowshares", "T2 Inti ➔ T3 Laelia, la pression est insoutenable pour l'adversaire", "T1 biland dégagé ➔ T2 removal ou menace proactive").
-  Montre précisément comment la carte fluidifie les tours déterminants (T1-T3), comble un creux dans la courbe ou verrouille un tempo écrasant.
+- PROJECTION CONCRÈTE DANS LA FENÊTRE CRITIQUE (${criticalWindow}) :
+  Utilise uniquement les cartes réellement présentes dans le pool pour décrire une séquence de jeu plausible.
+  Montre précisément comment la carte fluidifie ${criticalWindow}, comble un creux dans la courbe ou protège le plan de jeu.
 - ENTHOUSIASME POUR LES BOMBES QUI FONT LE TOUR & SIGNAUX MASSIFS (ROUE / PICKS 7+) :
   Quand une bombe de ton archétype, une carte clé ou un terrain double dans tes couleurs est encore présent tardivement (picks 7-8 et surtout picks 9+ lors du 2e passage / roue) :
   C'est une véritable AUBE et une DINGUERIE ! Réagis avec un enthousiasme communicatif d'expert ("Dinguerie absolue !", "Incroyable : [Nom de la carte] fait tout le tour de table !", "Cadeau de la table !").
   Souligne immédiatement et sans équivoque que c'est le SIGNAL INDISCUTABLE que tes couleurs ou ton archétype sont TOTALEMENT OUVERTS à la table (personne d'autre ne drafte ces couleurs).
 - LECTURE DU DRAFT ET COULEURS OUVERTES :
   Observe activement les couleurs qui coulent à flot. Si le joueur doit solidifier un archétype ouvert ou pivoter, guide-le clairement vers la voie la plus prolifique.
-- Identifie la MEILLEURE carte (Choix Principal) selon les synergies réelles de texte, la courbe et les couleurs déjà engagées. Privilégie les bombes modernes (MH3/MH2, 1-drops agressifs, créatures avec Évocation, Titans, Planeswalkers ultra-impactants) par rapport aux cartes lentes.
+- Identifie la MEILLEURE carte selon le classement déterministe fourni, les synergies attestées, la courbe et les couleurs déjà engagées. Le choix principal doit appartenir au TOP 3 déterministe ; tu enrichis l'explication, tu ne remplaces pas le classement par une intuition non sourcée.${archetypeGuidance}
 - Terrains-Sorts (MDFC) : Les cartes modales sort/terrain (ex: Spikefield Hazard) sont d'une immense valeur en Cube. Elles combinent interaction précoce (ping anti-1-drop, exil) et terrain sans pénaliser la curve.
 - ALTERNATIVES VALIDES & RÈGLE DES COULEURS : Ne propose JAMAIS une carte multicolore qui exige une couleur hors des couleurs du joueur (ex: si le joueur est Blanc/Rouge sans vert, INTERDICTION de proposer une carte Verte/Rouge comme Immerwolf !). Ne propose JAMAIS de fixeur ou terrain hors des couleurs du joueur.${
     tribalCtx.isTribalCube
@@ -68,7 +86,7 @@ Règles strictes :
 - Réponds STRICTEMENT en format JSON valide respectant cette structure :
 {
   "topPick": "Nom exact de la carte recommandée en choix 1",
-  "reason": "Explication tactique vivante du choix principal avec projection concrète dans les tours T1-T3 et séquences avec le pool",
+  "reason": "Explication tactique du choix principal avec une séquence concrète dans la fenêtre critique du cube",
   "alternatives": [
     {
       "name": "Nom exact de la 2e option",
@@ -134,6 +152,12 @@ Règles strictes :
 
   // Sort pack cards by powerScore descending so the LLM evaluates the best candidates first
   const sortedPack = [...packCards].sort((a, b) => (b.powerScore ?? 0) - (a.powerScore ?? 0));
+  const deterministicEvidence = new Map(
+    (options?.candidateEvidence ?? []).map((candidate, index) => [
+      candidate.name.toLocaleLowerCase("fr"),
+      { candidate, rank: index + 1 },
+    ]),
+  );
 
   // Wheel and late pick detection
   const isWheel = pick >= 9;
@@ -149,7 +173,7 @@ Règles strictes :
   if (isWheel) {
     wheelAlert = `\n🔄 INFO ROUE (Pick ${pick}) : Toutes ces cartes ont fait le tour complet de la table (8 joueurs sont passés dessus).`;
     if (wheeledBombs.length > 0) {
-      wheelAlert += `\n🔥 DINGUERIE / CARTE AYANT FAIT LE TOUR : ${wheeledBombs.map((c) => c.name).join(", ")} est encore dans ce pack ! Signal massif que tes couleurs sont grandes ouvertes. Enthousiasme-toi vivement et projette les sorties explosives T1-T3 avec ton pool !`;
+      wheelAlert += `\n🔥 DINGUERIE / CARTE AYANT FAIT LE TOUR : ${wheeledBombs.map((c) => c.name).join(", ")} est encore dans ce pack ! Signal massif que tes couleurs sont grandes ouvertes. Relie ce signal à une séquence plausible dans ${criticalWindow}.`;
     }
   } else if (isLatePick && wheeledBombs.length > 0) {
     wheelAlert = `\n🔥 SIGNAL DE TABLE (Pick ${pick}) : ${wheeledBombs.map((c) => c.name).join(", ")} arrive anormalement tard dans le booster ! Signal très fort que tes couleurs sont ouvertes.`;
@@ -171,14 +195,22 @@ ${pr.priorities.map((p) => `  * ${p}`).join("\n")}
   const packCardsDetails = sortedPack
     .map((c, idx) => {
       const details: string[] = [];
-      if (c.powerScore !== undefined) details.push(`Score: ${c.powerScore}`);
+      const evidence = deterministicEvidence.get(c.name.toLocaleLowerCase("fr"));
+      if (evidence) {
+        details.push(`Rang déterministe: ${String(evidence.rank)}`);
+        details.push(`Score dynamique: ${String(evidence.candidate.dynamicScore)}`);
+      } else if (c.powerScore !== undefined) {
+        details.push(`Score: ${c.powerScore}`);
+      }
       if (c.tier) details.push(`Tier: ${c.tier}`);
       const tag = details.length > 0 ? ` [${details.join(", ")}]` : "";
+      const analysis =
+        evidence && idx < 6 ? ` Analyse locale: ${evidence.candidate.explanation}` : "";
 
       // Only include full Oracle text for top 6 cards to keep prompt compact and fast
       const abilities =
         idx < 6 && c.oracleText ? ` : ${c.oracleText.replace(/\r?\n/g, " ").slice(0, 200)}` : "";
-      return `- ${c.name} (${c.manaCost || "Terrain"}, CMC: ${c.cmc}) [${c.typeLine || (c.isLand ? "Terrain" : "Sort")}]${tag}${abilities}`;
+      return `- ${c.name} (${c.manaCost || "Terrain"}, CMC: ${c.cmc}) [${c.typeLine || (c.isLand ? "Terrain" : "Sort")}]${tag}${abilities}${analysis}`;
     })
     .join("\n");
 
@@ -192,7 +224,7 @@ ${poolEnablers.length > 0 ? `Cartes clés / accélérations dans le deck : ${poo
 Booster proposé (${packCards.length} cartes) :
 ${packCardsDetails}
 
-Donne ta recommandation principale (en te projetant concrètement dans les premiers tours T1-T3 avec le deck actuel) et tes choix secondaires valides.`;
+Donne ta recommandation principale parmi le top 3 déterministe, avec une projection concrète dans ${criticalWindow}, puis les choix secondaires valides.`;
 
   return { system, user };
 }

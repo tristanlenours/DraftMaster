@@ -1,8 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { loadSnapshot } from "../cubes/load-snapshot.ts";
-import { ArchetypeSynergyProfileRegistry } from "../cubes/archetype-synergy-profile.ts";
-import { CardCatalog } from "../cards/card-catalog.ts";
+import type { CardCatalog } from "../cards/card-catalog.ts";
+import { loadCoachContext, type CoachContext } from "../cubes/coach-context.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
 import {
   getDraftView,
@@ -123,7 +122,8 @@ export class SoloDraftSession {
   private readonly snapshot: CubeSnapshot;
   private readonly catalog: Readonly<CardCatalog>;
   private readonly bombDefinition: CubeBombDefinition;
-  private readonly synergyProfile: DeckSynergyProfile;
+  private readonly synergyProfile: DeckSynergyProfile | undefined;
+  private readonly coachContext: Readonly<CoachContext>;
   private readonly bombOracleIds: ReadonlySet<string>;
   private readonly instanceToInputMap = new Map<string, CardEvaluationInput>();
   private readonly instanceToEnrichedMap = new Map<string, EnrichedCard>();
@@ -146,11 +146,9 @@ export class SoloDraftSession {
     seed: number;
     playerName: string;
     magicienSlug?: string | undefined;
-    snapshot: CubeSnapshot;
-    catalog: Readonly<CardCatalog>;
+    coachContext: Readonly<CoachContext>;
     currentDraft: Draft;
     bombDefinition: CubeBombDefinition;
-    synergyProfile: DeckSynergyProfile;
     bombOracleIds: ReadonlySet<string>;
     instanceToInputMap: Map<string, CardEvaluationInput>;
     instanceToEnrichedMap: Map<string, EnrichedCard>;
@@ -162,19 +160,20 @@ export class SoloDraftSession {
     this.seed = params.seed;
     this.playerName = params.playerName;
     this.magicienSlug = params.magicienSlug;
-    this.snapshot = params.snapshot;
-    this.catalog = params.catalog;
+    this.coachContext = params.coachContext;
+    this.snapshot = params.coachContext.snapshot;
+    this.catalog = params.coachContext.catalog;
     this.currentDraft = params.currentDraft;
     this.bombDefinition = params.bombDefinition;
-    this.synergyProfile = params.synergyProfile;
+    this.synergyProfile = params.coachContext.synergyProfile;
     this.bombOracleIds = params.bombOracleIds;
     this.instanceToInputMap = params.instanceToInputMap;
     this.instanceToEnrichedMap = params.instanceToEnrichedMap;
     this.policies = params.policies;
     this.seatProfiles = params.seatProfiles;
     this.initialBoosters = params.initialBoosters;
-    this.cubeKey = params.snapshot.cubeKey;
-    this.cubeName = "Titou's Tribal and Chromatic Cube";
+    this.cubeKey = params.coachContext.cubeKey;
+    this.cubeName = params.coachContext.cubeMeta.meta.name;
     this.startedAtTimestamp = Date.now();
 
     for (let s = 0; s < 8; s++) {
@@ -189,33 +188,15 @@ export class SoloDraftSession {
         ? input.seed
         : Math.floor(Math.random() * 2147483647);
     const cubeKey = input.cubeKey ?? "titou_tribal";
-    const cubePath = `data/cubes/${cubeKey}/2026-02-24.1.json`;
-    const catalogPath = "data/cards/master-cards.json";
-
-    const snapshotResult = await loadSnapshot(cubePath);
-    if (!snapshotResult.ok) {
-      throw new Error(`Failed to load snapshot: ${snapshotResult.error.message}`);
+    const coachContextResult = await loadCoachContext(process.cwd(), cubeKey);
+    if (!coachContextResult.ok) {
+      throw new Error(
+        `Failed to load CoachContext: ${coachContextResult.error.code}: ${coachContextResult.error.message}`,
+      );
     }
-    const snapshot: CubeSnapshot = snapshotResult.value;
-
-    const synergyProfileResult = await ArchetypeSynergyProfileRegistry.fromFile(
-      `data/cubes/${cubeKey}/archetype-synergy-v1.json`,
-    );
-    if (!synergyProfileResult.ok) {
-      throw new Error(`Failed to load synergy profile: ${synergyProfileResult.error.message}`);
-    }
-    if (
-      synergyProfileResult.value.document.cubeKey !== snapshot.cubeKey ||
-      synergyProfileResult.value.document.cubeSnapshotId !== snapshot.snapshotId
-    ) {
-      throw new Error("Archetype synergy profile does not match the cube snapshot.");
-    }
-
-    const catalogResult = await CardCatalog.fromFile(catalogPath);
-    if (!catalogResult.ok) {
-      throw new Error(`Failed to load catalog: ${catalogResult.error.message}`);
-    }
-    const catalog: Readonly<CardCatalog> = catalogResult.value;
+    const coachContext = coachContextResult.value;
+    const snapshot: CubeSnapshot = coachContext.snapshot;
+    const catalog: Readonly<CardCatalog> = coachContext.catalog;
 
     const bombClassification = classifyCubeBombs(snapshot, catalog);
 
@@ -301,7 +282,12 @@ export class SoloDraftSession {
     }
 
     const resolveCard = (id: string): CardEvaluationInput | undefined => instanceToInputMap.get(id);
-    const evaluationContext = { cubeKey: snapshot.cubeKey, catalog } as const;
+    const evaluationContext = {
+      cubeKey: snapshot.cubeKey,
+      catalog,
+      cubeMeta: coachContext.cubeMeta,
+      synergyProfile: coachContext.synergyProfile,
+    } as const;
     let seatAssignments: readonly (FriendProfile | null)[];
     if (input.seatAssignments) {
       seatAssignments = input.seatAssignments;
@@ -433,11 +419,9 @@ export class SoloDraftSession {
       seed,
       playerName,
       magicienSlug: input.magicienSlug,
-      snapshot,
-      catalog,
+      coachContext,
       currentDraft: startResult.value.draft,
       bombDefinition: bombClassification.definition,
-      synergyProfile: synergyProfileResult.value.evaluationProfile,
       bombOracleIds: bombClassification.oracleIds,
       instanceToInputMap,
       instanceToEnrichedMap,
@@ -485,6 +469,11 @@ export class SoloDraftSession {
       seed: this.seed,
       cubeKey: this.cubeKey,
       cubeName: this.cubeName,
+      coachContext: {
+        contextVersion: this.coachContext.contextVersion,
+        snapshotId: this.coachContext.snapshotId,
+        archetypeModelVersion: this.coachContext.provenance.archetypeModelVersion,
+      },
       playerName: this.playerName,
       magicienSlug: this.magicienSlug,
       status: this.status,
@@ -530,7 +519,12 @@ export class SoloDraftSession {
     const packNumber = view.packNumber;
     const pickNumber = view.pickNumber;
     const occurredAt = new Date(this.startedAtTimestamp + (round + 1) * 1000).toISOString();
-    const evaluationContext = { cubeKey: this.snapshot.cubeKey, catalog: this.catalog } as const;
+    const evaluationContext = {
+      cubeKey: this.snapshot.cubeKey,
+      catalog: this.catalog,
+      cubeMeta: this.coachContext.cubeMeta,
+      synergyProfile: this.coachContext.synergyProfile,
+    } as const;
 
     const decisions: SeatDecision[] = [];
     const roundSteps = new Map<SeatId, Omit<PickWalkthroughStep, "eventSequence">>();
@@ -981,7 +975,7 @@ export class SoloDraftSession {
 
     const evaluationOptions: DeckEvaluationOptions = {
       bombThreshold: this.bombDefinition.cutoffScore,
-      synergyProfile: this.synergyProfile,
+      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
     };
     const humanEvaluation: DeckEvaluation = evaluateDeck(humanDeckInputs, evaluationOptions);
 
@@ -1075,6 +1069,12 @@ export class SoloDraftSession {
       schemaVersion: 2,
       cubeKey: this.snapshot.cubeKey,
       cubeName: this.cubeName,
+      coachContext: {
+        contextVersion: this.coachContext.contextVersion,
+        snapshotId: this.coachContext.snapshotId,
+        archetypeModelVersion: this.coachContext.provenance.archetypeModelVersion ?? "unavailable",
+        powerRankingId: this.coachContext.provenance.powerRankingId,
+      },
       seed: this.seed,
       startedAt: new Date(this.startedAtTimestamp).toISOString(),
       completedAt,
@@ -1240,6 +1240,8 @@ export class SoloDraftSession {
       evaluationContext: {
         cubeKey: this.snapshot.cubeKey,
         catalog: this.catalog,
+        cubeMeta: this.coachContext.cubeMeta,
+        synergyProfile: this.coachContext.synergyProfile,
       },
       skipLlm: options.skipLlm,
     });
@@ -1340,7 +1342,7 @@ export class SoloDraftSession {
 
     const evaluationOptions: DeckEvaluationOptions = {
       bombThreshold: this.bombDefinition.cutoffScore,
-      synergyProfile: this.synergyProfile,
+      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
     };
 
     const options = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
@@ -1389,7 +1391,7 @@ export class SoloDraftSession {
       pool,
       evaluationOptions: {
         bombThreshold: this.bombDefinition.cutoffScore,
-        synergyProfile: this.synergyProfile,
+        ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
       },
     });
 

@@ -16,7 +16,7 @@ function getScryfallUrl(name) {
 const enrichedCards = [
   // 1. Orcish Bowmasters (Nico Vintage)
   {
-    oracleId: '77777777-bbbb-4000-8000-000000000001',
+    oracleId: 'ea5103f5-27e0-4eb1-902c-7f34652d6bf3',
     name: 'Orcish Bowmasters',
     manaCost: '{1}{B}',
     cmc: 2,
@@ -166,7 +166,7 @@ const enrichedCards = [
 
   // 3. Counterspell (Shared: Hugues [S], Nico [B], Titou [B])
   {
-    oracleId: '11111111-aaaa-4000-8000-000000000002',
+    oracleId: 'cc187110-1148-4090-bbb8-e205694a39f5',
     name: 'Counterspell',
     manaCost: '{U}{U}',
     cmc: 2,
@@ -250,7 +250,7 @@ const enrichedCards = [
 
   // 4. Mulldrifter (Shared: Hugues [S], Nico [C])
   {
-    oracleId: '11111111-aaaa-4000-8000-000000000003',
+    oracleId: '24d0f5e7-0d9e-4b76-900e-a7274e80312d',
     name: 'Mulldrifter',
     manaCost: '{4}{U}',
     cmc: 5,
@@ -322,7 +322,7 @@ const enrichedCards = [
 
   // 5. Black Lotus (Nico [S])
   {
-    oracleId: '00000000-0000-4000-8000-000000000001',
+    oracleId: '5089ec1a-f881-4d55-af14-5d996171203b',
     name: 'Black Lotus',
     manaCost: '{0}',
     cmc: 0,
@@ -379,7 +379,7 @@ const enrichedCards = [
 
   // 6. Underworld Breach (Nico [S])
   {
-    oracleId: '018595a8-ef01-4475-8025-a1c1d81b94e3',
+    oracleId: '27e0948b-9916-473b-8d8c-a51bdfbc7457',
     name: 'Underworld Breach',
     manaCost: '{1}{R}',
     cmc: 2,
@@ -435,7 +435,7 @@ const enrichedCards = [
 
   // 7. Tinker (Nico [S])
   {
-    oracleId: 'b3208538-8924-4ab2-b258-29ceeead2a99',
+    oracleId: '254878f0-be90-4653-a395-0c41258fceaf',
     name: 'Tinker',
     manaCost: '{2}{U}',
     cmc: 3,
@@ -491,7 +491,7 @@ const enrichedCards = [
 
   // 8. Time Walk (Nico [S])
   {
-    oracleId: '00000000-0000-4000-8000-000000000002',
+    oracleId: 'd0209d3f-3f7e-4fd5-bce5-10bce6f29c86',
     name: 'Time Walk',
     manaCost: '{1}{U}',
     cmc: 2,
@@ -544,7 +544,7 @@ const enrichedCards = [
 
   // 9. Ancestral Recall (Nico [S])
   {
-    oracleId: '00000000-0000-4000-8000-000000000003',
+    oracleId: '550c74d4-1fcb-406a-b02a-639a760a4380',
     name: 'Ancestral Recall',
     manaCost: '{U}',
     cmc: 1,
@@ -597,7 +597,7 @@ const enrichedCards = [
 
   // 10. Ajani, Nacatl Pariah (Nico [A])
   {
-    oracleId: '00000000-0000-4000-8000-000000000004',
+    oracleId: '2588f348-d7a3-46c8-9ace-dca53ed5ef99',
     name: 'Ajani, Nacatl Pariah',
     manaCost: '{1}{W}',
     cmc: 2,
@@ -764,7 +764,7 @@ const enrichedCards = [
 
   // 13. Snuff Out (Hugues [S], Nico [B])
   {
-    oracleId: '11111111-aaaa-4000-8000-000000000005',
+    oracleId: '324824cb-f938-401c-b9b5-d8908b431ef0',
     name: 'Snuff Out',
     manaCost: '{3}{B}',
     cmc: 4,
@@ -832,7 +832,7 @@ const enrichedCards = [
 
   // 14. Preordain (Hugues [A], Nico [A])
   {
-    oracleId: '11111111-aaaa-4000-8000-000000000009',
+    oracleId: 'ac641490-ca14-48d7-8cc4-b69ce984befa',
     name: 'Preordain',
     manaCost: '{U}',
     cmc: 1,

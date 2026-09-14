@@ -36,7 +36,7 @@ describe("Archetype Synergy Profile", () => {
       );
       const registry = profileResult.value;
 
-      expect(registry.document.modelVersion).toBe("archetype-synergy@1");
+      expect(registry.document.modelVersion).toBe("archetype-synergy@2");
       expect(registry.document.cubeKey).toBe(cubeKey);
       expect(registry.document.archetypes).toHaveLength(count);
       expect(
@@ -59,9 +59,13 @@ describe("Archetype Synergy Profile", () => {
     const result = validateArchetypeSynergyProfileJson(
       JSON.stringify({
         schemaVersion: 1,
-        modelVersion: "archetype-synergy@1",
+        modelVersion: "archetype-synergy@2",
         cubeKey: "test_cube",
         cubeSnapshotId: "test_cube@1",
+        provenance: {
+          sourceRawSha256: "0000000000000000000000000000000000000000000000000000000000000000",
+          generatorVersion: "build-archetype-synergy-profiles@2",
+        },
         archetypes: [
           {
             id: "test:package",

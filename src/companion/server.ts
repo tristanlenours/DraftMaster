@@ -8,13 +8,15 @@ import { LlmRouter } from "./llm-router.ts";
 import { CompanionState, type MatchState } from "./companion-state.ts";
 import { LogWatcher } from "./log-watcher.ts";
 import {
-  buildDraftSummaryPrompt,
   buildLiveReactionPrompt,
   buildMatchAdvicePrompt,
   buildOpeningHandPrompt,
   buildTurnCommentaryPrompt,
 } from "./coach-prompts.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
+import { loadCoachContext, type CoachContext } from "../cubes/coach-context.ts";
+import { createFinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
+import type { CardEvaluationInput, MtGColor } from "../domain/coaching/types.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,11 +24,65 @@ const __dirname = path.dirname(__filename);
 const PORT = parseInt(process.env.COMPANION_PORT ?? "3333", 10);
 const PUBLIC_DIR = path.join(__dirname, "web", "public");
 const HISTORY_FILE = path.resolve(process.cwd(), "data", "match-history.json");
+const COMPANION_CUBE_KEY = process.env.DRAFTMASTER_COMPANION_CUBE_KEY?.trim() || undefined;
 
 // 1. Initialize Subsystems
-const resolver = new CardResolver();
+const resolver = new CardResolver(undefined, COMPANION_CUBE_KEY);
 const llm = new LlmRouter();
 const state = new CompanionState();
+const finalDeckCoach = createFinalDeckCoach({
+  generateJson: (systemPrompt, userPrompt, profile) =>
+    llm.generateJson(systemPrompt, userPrompt, profile),
+});
+let companionContextPromise: Promise<Readonly<CoachContext> | undefined> | undefined;
+
+async function getCompanionCoachContext(): Promise<Readonly<CoachContext> | undefined> {
+  if (!COMPANION_CUBE_KEY) return undefined;
+  companionContextPromise ??= loadCoachContext(process.cwd(), COMPANION_CUBE_KEY).then((result) => {
+    if (!result.ok) {
+      console.warn(
+        `[Companion] CoachContext ${COMPANION_CUBE_KEY} indisponible: ${result.error.code}: ${result.error.message}`,
+      );
+      return undefined;
+    }
+    return result.value;
+  });
+  return companionContextPromise;
+}
+
+function toEvaluationCard(card: (typeof state.draft.pool)[number]): CardEvaluationInput {
+  return {
+    id: String(card.grpId),
+    oracleId: card.oracleId,
+    name: card.name,
+    staticScore: card.powerScore ?? 25,
+    powerScore: card.powerScore,
+    tier: card.tier,
+    colors: card.colors.filter((color): color is MtGColor =>
+      ["W", "U", "B", "R", "G"].includes(color),
+    ),
+    cmc: card.cmc,
+    manaCost: card.manaCost,
+    typeLine: card.typeLine,
+    oracleText: card.oracleText,
+    producesColors: card.producesColors?.filter((color): color is MtGColor =>
+      ["W", "U", "B", "R", "G"].includes(color),
+    ),
+    roles: card.roles,
+    isLand: card.isLand,
+  };
+}
+
+function getPackEvaluationContext(context: Readonly<CoachContext> | undefined) {
+  return context
+    ? {
+        cubeKey: context.cubeKey,
+        catalog: context.catalog,
+        cubeMeta: context.cubeMeta,
+        synergyProfile: context.synergyProfile,
+      }
+    : undefined;
+}
 
 // Commentary tracking guards
 const commentedGameTurns = new Set<number>();
@@ -134,11 +190,14 @@ const watcher = new LogWatcher(undefined, {
     const targetPack = pack;
     const targetPick = pick;
     try {
+      const coachContext = await getCompanionCoachContext();
+      const evaluationContext = getPackEvaluationContext(coachContext);
       const advice = await getUnifiedDraftAdvice({
         packCards: state.draft.packCards,
         priorPool: state.draft.pool,
         packNumber: pack,
         pickNumber: pick,
+        ...(evaluationContext ? { evaluationContext } : {}),
         llmRouter: llm,
       });
 
@@ -543,11 +602,14 @@ Tu analyses en direct la partie du joueur et réponds de façon concise, tactiqu
             const currentPack = state.draft.pack;
             const currentPick = state.draft.pick;
             try {
+              const coachContext = await getCompanionCoachContext();
+              const evaluationContext = getPackEvaluationContext(coachContext);
               const advice = await getUnifiedDraftAdvice({
                 packCards: state.draft.packCards,
                 priorPool: state.draft.pool,
                 packNumber: currentPack,
                 pickNumber: currentPick,
+                ...(evaluationContext ? { evaluationContext } : {}),
                 llmRouter: llm,
               });
 
@@ -599,11 +661,27 @@ Tu analyses en direct la partie du joueur et réponds de façon concise, tactiqu
           }
         } else if (action === "summary") {
           if (state.draft.pool.length > 0) {
-            const { system, user } = buildDraftSummaryPrompt(state.draft.pool);
-            const res = await llm.generateText(system, user);
-            if (res.success && res.content) {
-              state.addChatMessage("assistant", res.content, res.provider);
-            }
+            const coachContext = await getCompanionCoachContext();
+            const recommendation = await finalDeckCoach.recommend({
+              cubeKey: coachContext?.cubeKey ?? "live_arena_unbound",
+              snapshotId: coachContext?.snapshotId ?? "live-arena-unbound",
+              pool: state.draft.pool.map(toEvaluationCard),
+              ...(coachContext ? { evaluationOptions: coachContext.deckEvaluationOptions } : {}),
+            });
+            const radar = recommendation.evaluation.radar;
+            const summary =
+              `## Deck recommandé — ${recommendation.strategy}\n\n` +
+              `**Couleurs** : ${recommendation.primaryColors.join("/") || "Incolore"}${recommendation.splashColors.length > 0 ? `, splash ${recommendation.splashColors.join("/")}` : ""}\n\n` +
+              `**Diagnostic global** : ${String(recommendation.evaluation.overallScore)}/100 (${recommendation.evaluation.overallTier})\n\n` +
+              `- Puissance : ${String(radar.power)}/100\n` +
+              `- Synergie : ${String(radar.synergy)}/100\n` +
+              `- Courbe : ${String(radar.curve)}/100\n` +
+              `- Mana : ${String(radar.mana)}/100\n` +
+              `- Interaction : ${String(radar.interaction)}/100\n\n` +
+              `**Mana** : ${recommendation.manaRationale}\n\n` +
+              `**Terrains** : ${recommendation.landCountRationale}\n\n` +
+              `Contexte : ${coachContext ? `${coachContext.contextVersion}, ${coachContext.snapshotId}` : "cube Arena non identifié ; aucune hypothèse de cube injectée"}.`;
+            state.addChatMessage("assistant", summary, recommendation.provider);
           } else if (state.match.matchId || state.lastCompletedMatch) {
             const m =
               state.mode === "match" ? state.match : (state.lastCompletedMatch ?? state.match);
