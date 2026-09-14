@@ -17,42 +17,121 @@ const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-v4.1
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 export class LlmRouter {
-  private geminiKey = "";
+  private geminiKeys: string[] = [];
+  private geminiKeyCooldowns: Map<string, number> = new Map();
+  private currentGeminiIndex = 0;
   private openrouterKey = "";
-  private geminiCooldownUntil = 0;
 
   constructor() {
     this.loadEnv();
   }
 
   private loadEnv() {
-    this.geminiKey = process.env.GEMINI_API_KEY || "";
+    const rawGeminiKeys: string[] = [];
+    if (process.env.GEMINI_API_KEYS) {
+      rawGeminiKeys.push(...process.env.GEMINI_API_KEYS.split(",").map((k) => k.trim()));
+    }
+    if (process.env.GEMINI_API_KEY) {
+      rawGeminiKeys.push(...process.env.GEMINI_API_KEY.split(",").map((k) => k.trim()));
+    }
+    for (const [key, val] of Object.entries(process.env)) {
+      if (key.startsWith("GEMINI_API_KEY_") && val) {
+        rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
+      }
+    }
+
     this.openrouterKey =
       process.env.OPENROUTER_PREMIUM_API_KEY || process.env.OPENROUTER_API_KEY || "";
 
     // If keys not in process.env, look in .env.local and .env
-    for (const envFile of [".env.local", ".env"]) {
-      const envPath = path.resolve(process.cwd(), envFile);
-      if (fs.existsSync(envPath)) {
-        const content = fs.readFileSync(envPath, "utf8");
-        for (const line of content.split("\n")) {
-          const trimmed = line.trim();
-          if (trimmed.startsWith("GEMINI_API_KEY=") && !this.geminiKey) {
-            this.geminiKey = trimmed.replace("GEMINI_API_KEY=", "").trim();
-          }
-          if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
-            this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
-          }
-          if (trimmed.startsWith("OPENROUTER_API_KEY=") && !this.openrouterKey) {
-            this.openrouterKey = trimmed.replace("OPENROUTER_API_KEY=", "").trim();
+    if (rawGeminiKeys.length === 0) {
+      for (const envFile of [".env.local", ".env"]) {
+        const envPath = path.resolve(process.cwd(), envFile);
+        if (fs.existsSync(envPath)) {
+          const content = fs.readFileSync(envPath, "utf8");
+          for (const line of content.split("\n")) {
+            const trimmed = line.trim();
+            if (trimmed.startsWith("GEMINI_API_KEYS=")) {
+              const val = trimmed.replace("GEMINI_API_KEYS=", "").trim();
+              rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
+            } else if (trimmed.startsWith("GEMINI_API_KEY=")) {
+              const val = trimmed.replace("GEMINI_API_KEY=", "").trim();
+              rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
+            } else if (trimmed.startsWith("GEMINI_API_KEY_")) {
+              const equalIdx = trimmed.indexOf("=");
+              if (equalIdx > 0) {
+                const val = trimmed.slice(equalIdx + 1).trim();
+                rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
+              }
+            }
           }
         }
       }
     }
+
+    if (!this.openrouterKey) {
+      for (const envFile of [".env.local", ".env"]) {
+        const envPath = path.resolve(process.cwd(), envFile);
+        if (fs.existsSync(envPath)) {
+          const content = fs.readFileSync(envPath, "utf8");
+          for (const line of content.split("\n")) {
+            const trimmed = line.trim();
+            if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
+              this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
+            }
+            if (trimmed.startsWith("OPENROUTER_API_KEY=") && !this.openrouterKey) {
+              this.openrouterKey = trimmed.replace("OPENROUTER_API_KEY=", "").trim();
+            }
+          }
+        }
+      }
+    }
+
+    // Deduplicate and retain only non-empty keys
+    const unique = new Set<string>();
+    for (const k of rawGeminiKeys) {
+      if (k.length > 0) {
+        unique.add(k);
+      }
+    }
+    this.geminiKeys = Array.from(unique);
   }
 
   public hasConfiguredKeys(): boolean {
-    return Boolean(this.geminiKey || this.openrouterKey);
+    return Boolean(this.geminiKeys.length > 0 || this.openrouterKey);
+  }
+
+  public getGeminiKeyCount(): number {
+    return this.geminiKeys.length;
+  }
+
+  public getGeminiKeys(): readonly string[] {
+    return this.geminiKeys;
+  }
+
+  public getAvailableGeminiKeyCount(): number {
+    const now = Date.now();
+    return this.geminiKeys.filter((k) => (this.geminiKeyCooldowns.get(k) ?? 0) <= now).length;
+  }
+
+  public markKeyCooldownForTesting(key: string, durationMs = 60_000): void {
+    this.geminiKeyCooldowns.set(key, Date.now() + durationMs);
+  }
+
+  public hasAvailableGeminiKey(): boolean {
+    const now = Date.now();
+    return this.geminiKeys.some((k) => (this.geminiKeyCooldowns.get(k) ?? 0) <= now);
+  }
+
+  private getAvailableGeminiKeys(): string[] {
+    const now = Date.now();
+    const available = this.geminiKeys.filter((k) => (this.geminiKeyCooldowns.get(k) ?? 0) <= now);
+    if (available.length <= 1) {
+      return available;
+    }
+    const startIdx = this.currentGeminiIndex % available.length;
+    this.currentGeminiIndex = (this.currentGeminiIndex + 1) % available.length;
+    return [...available.slice(startIdx), ...available.slice(0, startIdx)];
   }
 
   public async generateJson<T>(
@@ -69,7 +148,7 @@ export class LlmRouter {
     const preferGemini = options?.preferBaseTier || isFinalDeckCoach;
 
     // Low-latency profiles try Gemini first, then retain DeepSeek as the configured fallback.
-    if (preferGemini && this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
+    if (preferGemini && this.hasAvailableGeminiKey()) {
       try {
         const gemRes = await this.callGeminiJson<T>(
           systemPrompt,
@@ -113,7 +192,7 @@ export class LlmRouter {
     }
 
     // 2. Fallback to Gemini Flash
-    if (this.geminiKey && Date.now() >= this.geminiCooldownUntil) {
+    if (this.hasAvailableGeminiKey()) {
       try {
         const gemRes = await this.callGeminiJson<T>(
           systemPrompt,
@@ -145,7 +224,7 @@ export class LlmRouter {
     const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
 
     // If base tier explicitly preferred (e.g. bots), try Gemini first
-    if (options?.preferBaseTier && this.geminiKey) {
+    if (options?.preferBaseTier && this.hasAvailableGeminiKey()) {
       try {
         const gemRes = await this.callGeminiText(systemPrompt, userPrompt);
         if (gemRes) {
@@ -169,7 +248,7 @@ export class LlmRouter {
     }
 
     // 2. Fallback to Gemini Flash
-    if (this.geminiKey) {
+    if (this.hasAvailableGeminiKey()) {
       try {
         const gemRes = await this.callGeminiText(systemPrompt, userPrompt);
         if (gemRes) {
@@ -207,7 +286,7 @@ export class LlmRouter {
     }
 
     // 2. Fallback Gemini Flash SSE
-    if (this.geminiKey) {
+    if (this.hasAvailableGeminiKey()) {
       try {
         const full = await this.streamGemini(messages, onToken);
         if (full && full.length > 0) {
@@ -233,12 +312,42 @@ export class LlmRouter {
     return { success: false, fullText: "", provider: "None" };
   }
 
-  private callGeminiJson<T>(
+  private async callGeminiJson<T>(
     systemPrompt: string,
     userPrompt: string,
     maxTokens = 600,
     timeoutMs = 5000,
   ): Promise<T | null> {
+    const keys = this.getAvailableGeminiKeys();
+    for (const key of keys) {
+      const outcome = await this.executeGeminiJsonRequest(
+        key,
+        systemPrompt,
+        userPrompt,
+        maxTokens,
+        timeoutMs,
+      );
+      if (outcome.status === "success") {
+        return outcome.data as T;
+      }
+      if (outcome.status === "quota_exceeded") {
+        this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
+        console.warn(
+          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 60s. Trying next key.`,
+        );
+        continue;
+      }
+    }
+    return null;
+  }
+
+  private executeGeminiJsonRequest(
+    key: string,
+    systemPrompt: string,
+    userPrompt: string,
+    maxTokens: number,
+    timeoutMs: number,
+  ): Promise<{ status: "success" | "quota_exceeded" | "error"; data: unknown }> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
         contents: [{ parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
@@ -257,7 +366,7 @@ export class LlmRouter {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-goog-api-key": this.geminiKey,
+            "x-goog-api-key": key,
             "Content-Length": Buffer.byteLength(payload),
           },
         },
@@ -269,34 +378,54 @@ export class LlmRouter {
               try {
                 const data = JSON.parse(body);
                 const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                resolve(JSON.parse(text));
+                resolve({ status: "success", data: JSON.parse(text) });
               } catch {
-                resolve(null);
+                resolve({ status: "error", data: null });
               }
+            } else if (res.statusCode === 429) {
+              resolve({ status: "quota_exceeded", data: null });
             } else {
-              if (res.statusCode === 429) {
-                this.geminiCooldownUntil = Date.now() + 60_000;
-                console.warn("[LlmRouter] Gemini quota exceeded (429), entering 60s cooldown.");
-              }
-              resolve(null);
+              resolve({ status: "error", data: null });
             }
           });
         },
       );
 
       req.on("error", () => {
-        resolve(null);
+        resolve({ status: "error", data: null });
       });
       req.setTimeout(timeoutMs, () => {
         req.destroy();
-        resolve(null);
+        resolve({ status: "error", data: null });
       });
       req.write(payload);
       req.end();
     });
   }
 
-  private callGeminiText(systemPrompt: string, userPrompt: string): Promise<string | null> {
+  private async callGeminiText(systemPrompt: string, userPrompt: string): Promise<string | null> {
+    const keys = this.getAvailableGeminiKeys();
+    for (const key of keys) {
+      const outcome = await this.executeGeminiTextRequest(key, systemPrompt, userPrompt);
+      if (outcome.status === "success") {
+        return outcome.data;
+      }
+      if (outcome.status === "quota_exceeded") {
+        this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
+        console.warn(
+          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 60s. Trying next key.`,
+        );
+        continue;
+      }
+    }
+    return null;
+  }
+
+  private executeGeminiTextRequest(
+    key: string,
+    systemPrompt: string,
+    userPrompt: string,
+  ): Promise<{ status: "success" | "quota_exceeded" | "error"; data: string | null }> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
         contents: [{ parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
@@ -313,7 +442,7 @@ export class LlmRouter {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-goog-api-key": this.geminiKey,
+            "x-goog-api-key": key,
             "Content-Length": Buffer.byteLength(payload),
           },
         },
@@ -325,30 +454,57 @@ export class LlmRouter {
               try {
                 const data = JSON.parse(body);
                 const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                resolve(text || null);
+                resolve({ status: "success", data: text || null });
               } catch {
-                resolve(null);
+                resolve({ status: "error", data: null });
               }
+            } else if (res.statusCode === 429) {
+              resolve({ status: "quota_exceeded", data: null });
             } else {
-              resolve(null);
+              resolve({ status: "error", data: null });
             }
           });
         },
       );
 
       req.on("error", () => {
-        resolve(null);
+        resolve({ status: "error", data: null });
       });
       req.setTimeout(10000, () => {
         req.destroy();
-        resolve(null);
+        resolve({ status: "error", data: null });
       });
       req.write(payload);
       req.end();
     });
   }
 
-  private streamGemini(
+  private async streamGemini(
+    messages: { role: "system" | "user" | "assistant"; content: string }[],
+    onToken: (token: string) => void,
+  ): Promise<string> {
+    const keys = this.getAvailableGeminiKeys();
+    let lastError: Error | null = null;
+    for (const key of keys) {
+      try {
+        const fullText = await this.executeStreamGemini(key, messages, onToken);
+        if (fullText) return fullText;
+      } catch (err: any) {
+        lastError = err;
+        if (err.message && err.message.includes("429")) {
+          this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
+          console.warn(
+            `[LlmRouter] Gemini stream quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 60s. Trying next key.`,
+          );
+          continue;
+        }
+      }
+    }
+    throw lastError || new Error("Gemini stream failed with all available keys");
+  }
+
+  private executeStreamGemini(
+    key: string,
     messages: { role: "system" | "user" | "assistant"; content: string }[],
     onToken: (token: string) => void,
   ): Promise<string> {
@@ -373,7 +529,7 @@ export class LlmRouter {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-goog-api-key": this.geminiKey,
+            "x-goog-api-key": key,
             "Content-Length": Buffer.byteLength(payload),
           },
         },
