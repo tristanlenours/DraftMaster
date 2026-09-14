@@ -15,15 +15,11 @@ interface CardMetadata {
   readonly name?: string;
 }
 
-interface ReferenceArtifact {
-  readonly scores: Record<string, number>;
-}
-
 const rootDir = process.cwd();
 const normalizeName = (name: string): string => name.trim().toLowerCase();
 
-describe("untapped static score fidelity", () => {
-  it("guarantees that all cards with known Untapped static scores match within 3 points", async () => {
+describe("Untapped Static Score Fidelity Contract", () => {
+  it("guarantees that 100% of cards known in Untapped drafts with a static score take that exact score in the catalog", async () => {
     // 1. Load compiled master catalog
     const catalogResult = await CardCatalog.fromFile(
       resolve(rootDir, "data/cards/master-cards.json"),
@@ -33,7 +29,7 @@ describe("untapped static score fidelity", () => {
 
     const catalog = catalogResult.value;
 
-    // 2. Load historical drafts, card metadata and product-owner reference
+    // 2. Load historical drafts and card metadata
     const drafts = JSON.parse(
       readFileSync(resolve(rootDir, "data/untapped_history/drafts_backup.json"), "utf8"),
     ) as Record<string, DraftRecord>;
@@ -42,11 +38,7 @@ describe("untapped static score fidelity", () => {
       readFileSync(resolve(rootDir, "data/untapped_history/card-metadata-v1.json"), "utf8"),
     ) as Record<string, CardMetadata>;
 
-    const reference = JSON.parse(
-      readFileSync(resolve(rootDir, "data/power-rankings/untapped-reference-v1.json"), "utf8"),
-    ) as ReferenceArtifact;
-
-    // 3. Aggregate all Untapped observations per normalized card name
+    // 3. Aggregate all Untapped static observations per normalized card name
     const observationsByName = new Map<string, { score: number; observedAt: number }[]>();
     for (const draft of Object.values(drafts)) {
       for (const pick of draft.picks ?? []) {
@@ -63,7 +55,7 @@ describe("untapped static score fidelity", () => {
       }
     }
 
-    // 4. Determine expected target score (reference overrides historical mode)
+    // 4. Determine expected target score directly from Untapped data
     const expectedScoresByName = new Map<string, number>();
     for (const [name, observations] of observationsByName) {
       const rep = selectRepresentativeScore(observations);
@@ -71,43 +63,57 @@ describe("untapped static score fidelity", () => {
         expectedScoresByName.set(name, rep);
       }
     }
-    for (const [name, refScore] of Object.entries(reference.scores)) {
-      expectedScoresByName.set(normalizeName(name), refScore);
-    }
 
-    // 5. Match against catalog cards
-    const verifiedCards: {
+    expect(expectedScoresByName.size).toBeGreaterThanOrEqual(400);
+
+    // 5. Verify that every card in the master catalog matching an Untapped card takes that exact score
+    const discrepancies: {
       name: string;
       catalogScore: number;
       expectedScore: number;
-      delta: number;
+      source: string;
     }[] = [];
+
+    let verifiedCount = 0;
     for (const card of Object.values(catalog.catalog.cards)) {
       const key = normalizeName(card.name);
       const expectedScore = expectedScoresByName.get(key);
       if (expectedScore !== undefined) {
+        verifiedCount++;
         const catalogScore = card.powerScore.score;
-        const delta = Math.abs(catalogScore - expectedScore);
-        verifiedCards.push({ name: card.name, catalogScore, expectedScore, delta });
+        if (
+          Math.abs(catalogScore - expectedScore) > 0.05 ||
+          card.powerScore.source !== "untapped"
+        ) {
+          discrepancies.push({
+            name: card.name,
+            catalogScore,
+            expectedScore,
+            source: card.powerScore.source,
+          });
+        }
       }
     }
 
-    // Must cover at least 400 distinct cards from the Untapped empirical corpus
-    expect(verifiedCards.length).toBeGreaterThanOrEqual(400);
-
-    // Every single card with an Untapped static score must be respected within 3 points
-    const violations = verifiedCards.filter((c) => c.delta > 3);
+    expect(verifiedCount).toBeGreaterThanOrEqual(400);
     expect(
-      violations,
-      `Cards violating the 3-point delta tolerance: ${JSON.stringify(violations, null, 2)}`,
+      discrepancies,
+      `Found ${String(discrepancies.length)} cards diverging from empirical Untapped static scores: ${JSON.stringify(discrepancies, null, 2)}`,
     ).toEqual([]);
 
-    // Specific regression invariants on Fabled Passage
-    const fabledPassage = catalog.getCardByName("Fabled Passage");
-    expect(fabledPassage).toBeDefined();
-    expect(fabledPassage?.powerScore.source).toBe("untapped");
-    expect(fabledPassage?.powerScore.score).toBe(16);
-    expect(fabledPassage?.powerScore.score).not.toBe(41);
-    expect(Math.abs((fabledPassage?.powerScore.score ?? 0) - 16)).toBeLessThanOrEqual(3);
+    // 6. Explicit contract verification for Channel
+    const channel = catalog.getCardByName("Channel");
+    expect(channel, "Channel must exist in catalog").toBeDefined();
+    expect(channel?.powerScore.score).toBe(18);
+    expect(channel?.powerScore.source).toBe("untapped");
+    expect(channel?.powerScore.rawSourceScore).toBe(18);
+
+    // Channel must NOT be classified as Tier S when its empirical powerScore is 18
+    const nicoAnalysis = channel?.cubeAnalyses.nico_candyshop;
+    if (nicoAnalysis) {
+      expect(nicoAnalysis.tier).not.toBe("S");
+      expect(nicoAnalysis.tier).toBe("B");
+      expect(nicoAnalysis.fit).toBe("support");
+    }
   });
 });

@@ -109,13 +109,14 @@ for (const [name, observations] of observationsByName) {
   });
 }
 for (const [name, score] of referenceScores) {
-  const observed = directScores.get(name);
-  directScores.set(name, {
-    score,
-    evidenceCount: observed?.evidenceCount ?? 1,
-    observedMin: observed?.observedMin,
-    observedMax: observed?.observedMax,
-  });
+  if (!directScores.has(name)) {
+    directScores.set(name, {
+      score,
+      evidenceCount: 1,
+      observedMin: score,
+      observedMax: score,
+    });
+  }
 }
 
 const detailsByOracleId = new Map<string, CubeCardDetails>();
@@ -347,7 +348,7 @@ for (const { path, card } of cards) {
 
   if (direct) {
     directCount += 1;
-    method = referenceScores.has(nameKey) ? "verified_reference" : "historical_mode";
+    method = observationsByName.has(nameKey) ? "historical_mode" : "verified_reference";
     powerScore = {
       score: direct.score,
       source: "untapped",

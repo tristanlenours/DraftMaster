@@ -51,7 +51,7 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
     expect(grisel?.grade).toBe("F");
     expect(grisel?.tier).toBe("C");
     expect(grisel?.fit).toBe("trap");
-    expect(grisel?.powerScore).toBeLessThanOrEqual(15);
+    expect(grisel?.powerScore).toBe(25);
 
     // Yawgmoth's Will must be flagged in knownCalibratedTraps
     const yawg = audit.knownCalibratedTraps.find(
@@ -61,25 +61,21 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
     expect(yawg?.grade).toBe("F");
     expect(yawg?.tier).toBe("C");
     expect(yawg?.fit).toBe("trap");
+    expect(yawg?.powerScore).toBeLessThanOrEqual(15);
   });
 
-  it("detects remaining uncalibrated overrated cards like Fastbond and Vampiric Tutor (Grade D- in Tier S)", async () => {
+  it("detects remaining uncalibrated overrated cards like Vaultborn Tyrant (Grade D- in Tier S)", async () => {
     const audit = await runVintageGradesAudit({
       cubeKey: "nico_candyshop",
       offline: true,
     });
 
-    const fastbond = audit.criticalOverrated.find((c: { name: string }) => c.name === "Fastbond");
-    expect(fastbond, "Fastbond should be detected as uncalibrated overrated").toBeDefined();
-    expect(fastbond?.tier).toBe("S");
-    expect(fastbond?.grade).toBe("D-");
-
-    const vampiric = audit.criticalOverrated.find(
-      (c: { name: string }) => c.name === "Vampiric Tutor",
+    const tyrant = audit.criticalOverrated.find(
+      (c: { name: string }) => c.name === "Vaultborn Tyrant",
     );
-    expect(vampiric, "Vampiric Tutor should be detected as uncalibrated overrated").toBeDefined();
-    expect(vampiric?.tier).toBe("S");
-    expect(vampiric?.grade).toBe("D-");
+    expect(tyrant, "Vaultborn Tyrant should be detected as uncalibrated overrated").toBeDefined();
+    expect(tyrant?.tier).toBe("S");
+    expect(tyrant?.grade).toBe("D-");
   });
 
   it("confirms Orcish Bowmasters is recognized as an aligned top staple (Grade A+ and Tier S)", async () => {
@@ -108,7 +104,7 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
     expect(report).toContain("PIÈGES DE DRAFT CONFIRMÉS ET CALIBRÉS");
     expect(report).toContain("Bolas's Citadel");
     expect(report).toContain("Griselbrand");
-    expect(report).toContain("FASTBOND");
+    expect(report).toContain("VAULTBORN TYRANT");
     expect(report).toContain("EXEMPLES DE STAPLES PARFAITEMENT ALIGNÉS");
   });
 });

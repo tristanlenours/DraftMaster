@@ -59,8 +59,6 @@ const VINTAGE_S_TIER = new Set([
   'Sol Ring',
   'Mana Crypt',
   'Mana Vault',
-  'Tinker',
-  'Channel',
   'Fastbond',
   'Oko, Thief of Crowns',
   'Minsc & Boo, Timeless Heroes',
@@ -72,12 +70,9 @@ const VINTAGE_S_TIER = new Set([
   'Demonic Tutor',
   'Flash',
   'Sneak Attack',
-  'Griselbrand',
   'Archon of Cruelty',
-  'Bolas\'s Citadel',
   'Orcish Bowmasters',
   'Time Vault',
-  'Underworld Breach',
 ]);
 
 const VALID_ROLES = [
@@ -130,22 +125,21 @@ for (const entry of mainboard) {
   let fit = 'support';
   let scoreModifier = 0;
 
-  if (cardName === "Yawgmoth's Will") {
+  const isTrap = cardName === "Yawgmoth's Will" || cardName === "Bolas's Citadel" || cardName === "Griselbrand";
+  const isStormCombo = cardName === 'Underworld Breach' || cardName === 'Brain Freeze' || cardName === "Lion's Eye Diamond";
+
+  if (isTrap) {
     tier = 'C';
     fit = 'trap';
     scoreModifier = -5;
-  } else if (cardName === 'Counterspell') {
+  } else if (cardName === 'Counterspell' || cardName === 'Lightning Bolt') {
     tier = 'B';
     fit = 'support';
     scoreModifier = 0;
-  } else if (cardName === 'Underworld Breach' || cardName === 'Brain Freeze' || cardName === "Lion's Eye Diamond") {
-    tier = 'S';
-    fit = 'staple';
+  } else if (isStormCombo) {
+    tier = cardScore >= 38 ? 'S' : cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
+    fit = 'support';
     scoreModifier = 7;
-  } else if (cardName === 'Lightning Bolt') {
-    tier = 'B';
-    fit = 'support';
-    scoreModifier = 0;
   } else if (VINTAGE_S_TIER.has(cardName) || cardScore >= 38) {
     tier = 'S';
     fit = 'staple';
@@ -172,7 +166,9 @@ for (const entry of mainboard) {
   if (tier === 'S' && cardScore < 38) {
     tier = cardScore >= 26 ? 'A' : cardScore >= 17 ? 'B' : cardScore >= 10 ? 'C' : 'D';
     fit = 'support';
-    scoreModifier = tier === 'A' ? 8 : tier === 'B' ? 0 : -5;
+    if (!isStormCombo && !isTrap) {
+      scoreModifier = tier === 'A' ? 8 : tier === 'B' ? 0 : -5;
+    }
   }
 
   // Determine Archetypes
