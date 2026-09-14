@@ -63,7 +63,15 @@ create table if not exists public.admin_drafts (
 
 -- 4. Activer Supabase Realtime sur les records de draft
 -- Cela permet à tous les clients connectés d'être notifiés dès qu'un deck est validé !
-alter publication supabase_realtime add table public.draft_records;
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and tablename = 'draft_records'
+  ) then
+    alter publication supabase_realtime add table public.draft_records;
+  end if;
+end $$;
 
 -- 5. Sécurité : Politiques RLS (Row Level Security)
 alter table public.magiciens_profiles enable row level security;
@@ -71,27 +79,33 @@ alter table public.draft_records enable row level security;
 alter table public.admin_drafts enable row level security;
 
 -- Lecture publique pour tout le monde
+drop policy if exists "Lecture publique magiciens_profiles" on public.magiciens_profiles;
 create policy "Lecture publique magiciens_profiles"
   on public.magiciens_profiles for select
   using (true);
 
+drop policy if exists "Lecture publique draft_records" on public.draft_records;
 create policy "Lecture publique draft_records"
   on public.draft_records for select
   using (true);
 
+drop policy if exists "Lecture publique admin_drafts" on public.admin_drafts;
 create policy "Lecture publique admin_drafts"
   on public.admin_drafts for select
   using (true);
 
 -- Insertion autorisée pour le jeu (clé anon ou service role)
+drop policy if exists "Insertion draft_records" on public.draft_records;
 create policy "Insertion draft_records"
   on public.draft_records for insert
   with check (true);
 
+drop policy if exists "Insertion admin_drafts" on public.admin_drafts;
 create policy "Insertion admin_drafts"
   on public.admin_drafts for insert
   with check (true);
 
+drop policy if exists "Mise à jour profils" on public.magiciens_profiles;
 create policy "Mise à jour profils"
   on public.magiciens_profiles for update
   using (true);
