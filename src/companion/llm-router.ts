@@ -146,11 +146,17 @@ export class LlmRouter {
     const maxTokens = options?.maxTokens ?? 2000;
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
     const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
+    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 4000;
 
     // Low-latency profiles try Gemini first, then retain OpenRouter as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
       try {
-        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
+        const gemRes = await this.callGeminiJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          jsonTimeoutMs,
+        );
         if (gemRes) {
           return {
             success: true,
@@ -167,7 +173,12 @@ export class LlmRouter {
     // 1. Try OpenRouter (openrouter/auto)
     if (this.openrouterKey) {
       try {
-        const deepRes = await this.callOpenRouterJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
+        const deepRes = await this.callOpenRouterJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          jsonTimeoutMs,
+        );
         if (deepRes) {
           return {
             success: true,
@@ -184,7 +195,12 @@ export class LlmRouter {
     // 2. Fallback to Gemini Flash
     if (this.hasAvailableGeminiKey()) {
       try {
-        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
+        const gemRes = await this.callGeminiJson<T>(
+          systemPrompt,
+          userPrompt,
+          maxTokens,
+          jsonTimeoutMs,
+        );
         if (gemRes) {
           return {
             success: true,
@@ -316,9 +332,9 @@ export class LlmRouter {
         return outcome.data as T;
       }
       if (outcome.status === "quota_exceeded") {
-        this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
+        this.geminiKeyCooldowns.set(key, Date.now() + 600_000);
         console.warn(
-          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 60s. Trying next key.`,
+          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 10m. Trying next key.`,
         );
         continue;
       }
@@ -414,9 +430,9 @@ export class LlmRouter {
         return outcome.data;
       }
       if (outcome.status === "quota_exceeded") {
-        this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
+        this.geminiKeyCooldowns.set(key, Date.now() + 600_000);
         console.warn(
-          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 60s. Trying next key.`,
+          `[LlmRouter] Gemini quota exceeded (429) for key ...${key.slice(-6)}, cooling down for 10m. Trying next key.`,
         );
         continue;
       }

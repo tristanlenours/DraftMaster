@@ -322,6 +322,13 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       : originalTop.id
     : topEvaluated.id;
 
+  // Ensure topPick explanation is framed as top pick.
+  // evaluatePack already populates explanation for rank-1 cards; use it directly.
+  const topReason =
+    topEvaluated.explanation.length > 0
+      ? topEvaluated.explanation
+      : `Meilleur score dynamique : ${String(topEvaluated.dynamicScore)}`;
+
   // Default deterministic advice
   const deterministicAlternatives = getDeterministicAlternatives(
     rankedForAdvice,
@@ -334,8 +341,8 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
     topPickId: topId,
     topPickName: topEvaluated.name,
     reason:
-      topEvaluated.explanation.length > 0
-        ? topEvaluated.explanation
+      topReason.length > 0
+        ? topReason
         : `Meilleur score dynamique : ${String(topEvaluated.dynamicScore)}`,
     alternatives: deterministicAlternatives,
     provider: "engine",

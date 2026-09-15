@@ -570,8 +570,11 @@ export function evaluateCard(
   const archetypeSynergyBonus = archetypeAnalysis.bonus;
 
   // 4. Tribal Synergy & Incompatibility (on tribal cubes like Titou Tribal)
+  // When a synergyProfile is present, archetype scoring handles tribal guidance.
+  // Tribal penalty/bonus is only applied in direct tribal mode (no archetype profile).
   let tribalPenalty = 0;
   let tribalBonus = 0;
+  const effectiveArchetypeSynergyBonus = archetypeSynergyBonus;
   if (!context.synergyProfile && isTribalCube(cubeKey, cubeMeta)) {
     const tribalCtx = detectDraftedTribalContext(priorPool, cubeKey, cubeMeta);
     if (tribalCtx.isTribalEngaged) {
@@ -611,7 +614,7 @@ export function evaluateCard(
             curveBonus +
             cubeScoreModifier +
             synergyBonus +
-            archetypeSynergyBonus +
+            effectiveArchetypeSynergyBonus +
             tribalBonus -
             tribalPenalty,
         ),
@@ -629,8 +632,10 @@ export function evaluateCard(
     rawDynamicScore,
     ...(cubeScoreModifier !== 0 ? { cubeScoreModifier } : {}),
     ...(synergyBonus !== 0 ? { synergyBonus } : {}),
-    ...(archetypeSynergyBonus !== 0 ? { archetypeSynergyBonus } : {}),
-    ...(archetypeAnalysis.matches.length > 0
+    ...(effectiveArchetypeSynergyBonus !== 0
+      ? { archetypeSynergyBonus: effectiveArchetypeSynergyBonus }
+      : {}),
+    ...(effectiveArchetypeSynergyBonus > 0 && archetypeAnalysis.matches.length > 0
       ? { archetypeMatches: archetypeAnalysis.matches }
       : {}),
     ...(tribalBonus !== 0 ? { tribalBonus } : {}),

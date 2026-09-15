@@ -260,11 +260,19 @@ export function isCardTriballyIncompatible(
 
   // If card has no creature subtypes (non-creature spell, land, artifact)
   if (cardTribes.length === 0) {
-    // Check if it has a narrow tribal text referencing an incompatible tribe
+    // Check if it has a narrow tribal text or title referencing an incompatible tribe
     for (const incomp of context.incompatibleTribes) {
       const regex = new RegExp(`\\b${incomp.toLowerCase()}s?\\b`, "i");
-      if (regex.test(text) && !regex.test(card.name.toLowerCase())) {
-        return true;
+      const referencesIncompatible = regex.test(text) || regex.test(card.name.toLowerCase());
+      if (referencesIncompatible) {
+        // Only allow if the card also explicitly mentions a compatible tribe (e.g. multi-tribe spell)
+        const referencesCompatible = context.compatibleTribes.some((comp) => {
+          const compRegex = new RegExp(`\\b${comp.toLowerCase()}s?\\b`, "i");
+          return compRegex.test(text) || compRegex.test(card.name.toLowerCase());
+        });
+        if (!referencesCompatible) {
+          return true;
+        }
       }
     }
     return false;
