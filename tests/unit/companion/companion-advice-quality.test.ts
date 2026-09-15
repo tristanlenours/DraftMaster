@@ -292,4 +292,50 @@ describe("Companion Advice Quality and Resolution (Diagnosing Bugs Loop)", () =>
     expect(userWithRed).toContain("Abrade ({1}{R}, CMC: 2) [JOUABLE]");
     expect(userWithRed).toContain("Fable of the Mirror-Breaker ({2}{R}, CMC: 3) [JOUABLE]");
   });
+
+  it("injects structured wheel signal analysis into draft prompt when wheelSignals is provided", () => {
+    const ocelot = resolver.resolve(90887);
+    const { user } = buildDraftAdvicePrompt([ocelot], [], 1, 9, {
+      wheelSignals: {
+        originalPickNumber: 1,
+        currentPickNumber: 9,
+        pickedCardAtInitialPass: {
+          id: "sol-ring",
+          name: "Sol Ring",
+          colors: [],
+          staticScore: 50,
+        },
+        cardsWheeled: [
+          {
+            id: "ocelot-pride",
+            name: "Ocelot Pride",
+            colors: ["W"],
+            staticScore: 45,
+          },
+        ],
+        cardsTakenByTable: [
+          {
+            id: "bolt",
+            name: "Lightning Bolt",
+            colors: ["R"],
+            staticScore: 40,
+          },
+        ],
+        takenColorCounts: { W: 0, U: 0, B: 0, R: 1, G: 0 },
+        wheeledColorCounts: { W: 1, U: 0, B: 0, R: 0, G: 0 },
+        openColors: ["W"],
+        contestedColors: ["R"],
+        wheeledBombs: [],
+        signalSummary: "Couleur ouverte : W.",
+      },
+    });
+
+    expect(user).toContain("ANALYSE DE LA ROUE (Booster P1P1 revenu au P1P9)");
+    expect(user).toContain("Tu avais choisi Sol Ring");
+    expect(user).toContain("Cartes prises par les 7 autres joueurs (1) : Lightning Bolt (R)");
+    expect(user).toContain("Cartes revenues dans ce booster (1) : Ocelot Pride (W)");
+    expect(user).toContain("Couleurs ouvertes = [W]");
+    expect(user).toContain("Couleurs contestées = [R]");
+    expect(user).toContain("Couleur ouverte : W.");
+  });
 });

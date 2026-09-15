@@ -5,8 +5,7 @@ import type {
   MtGColor,
 } from "./types.ts";
 import {
-  computeColorFrequencies,
-  getDominantColors,
+  buildColorProfile,
   getEffectiveProducingColors,
   parseManaCostPips,
 } from "./dynamic-score.ts";
@@ -61,14 +60,21 @@ export function generateCoachingExplanation(
   const isColorlessLand = isLand && producedColors.length === 0;
   const cardColorsStr = cardColors.join("/");
 
-  const dominant = getDominantColors(computeColorFrequencies(context.priorPool));
+  const colorProfile = buildColorProfile(context.priorPool);
+  const dominant = colorProfile.dominant;
   const dominantStr = dominant.filter(Boolean).join("/");
   const hasDominant = dominant.length > 0;
+  const supportedColorsStr = colorProfile.supportedColors.join("/");
+  const hasOnlyLandSupport =
+    colorProfile.totalCommittedColorCards === 0 && colorProfile.supportedColors.length > 0;
   const archetypeMatch = breakdown.archetypeMatches?.[0];
 
   const sharesColor = hasDominant && cardColors.some((c) => dominant.includes(c));
   const allInDominant =
     hasDominant && cardColors.length > 0 && cardColors.every((c) => dominant.includes(c));
+  const allInSupportedColors =
+    cardColors.length > 0 &&
+    cardColors.every((color) => colorProfile.supportedColors.includes(color));
 
   // Top Pick
   if (isTopPick) {
@@ -92,6 +98,12 @@ export function generateCoachingExplanation(
     if (isColorless) {
       return `Choix prioritaire recommandé : excellente option incolore (${String(Math.round(dynamicScore))} pts), flexible et jouable dans n'importe quel deck.`;
     }
+    if (hasOnlyLandSupport) {
+      if (allInSupportedColors) {
+        return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}), soutenue par vos terrains (${supportedColorsStr}), sans vous engager définitivement.`;
+      }
+      return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}) — possibilité d'ouvrir une nouvelle couleur au-delà de vos terrains (${supportedColorsStr}), sans vous engager définitivement.`;
+    }
     if (allInDominant) {
       if ((breakdown.tribalBonus ?? 0) > 0) {
         return `Choix prioritaire recommandé : carte maîtresse dans vos couleurs (${dominantStr}) et synergie clé pour votre tribu (+${String(Math.round(breakdown.tribalBonus ?? 0))} pts), qui renforce directement votre plan de jeu.`;
@@ -100,6 +112,9 @@ export function generateCoachingExplanation(
     }
     if (sharesColor) {
       return `Choix prioritaire recommandé : excellente carte bicolore (${cardColorsStr}), associant votre base (${dominantStr}) à une extension naturelle.`;
+    }
+    if (dominant.length === 0) {
+      return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}) — votre draft reste entièrement ouvert.`;
     }
     if (dominant.length <= 1) {
       return `Choix prioritaire recommandé : carte puissante (${cardColorsStr}) — excellente opportunité d'ouvrir votre seconde couleur avec votre base (${dominantStr}).`;
@@ -124,8 +139,19 @@ export function generateCoachingExplanation(
     return `Terrain utilitaire incolore. S'intègre sans contrainte dans votre base de mana.`;
   }
 
+  if (hasOnlyLandSupport && allInSupportedColors) {
+    return `Très bonne alternative (${cardColorsStr}), soutenue par vos terrains (${supportedColorsStr}), sans vous engager définitivement.`;
+  }
+
+  if (allInSupportedColors && !allInDominant && breakdown.colorPenalty < 10) {
+    return `Très bonne alternative (${cardColorsStr}), soutenue par vos terrains (${supportedColorsStr}) comme couleur secondaire.`;
+  }
+
   // Heavy off-color penalty on a strong card
   if (breakdown.colorPenalty >= 10 && staticScore >= 35) {
+    if (allInSupportedColors) {
+      return `Attention piège : carte individuellement très forte (${String(Math.round(staticScore))} pts), mais pénalisée de -${String(Math.round(breakdown.colorPenalty))} pts car vos terrains (${supportedColorsStr}) n'offrent pas encore assez de sources pour la lancer à temps.`;
+    }
     return `Attention piège : carte individuellement très forte (${String(Math.round(staticScore))} pts), mais pénalisée de -${String(Math.round(breakdown.colorPenalty))} pts car vous n'avez pas ces couleurs (${dominantStr}).`;
   }
 

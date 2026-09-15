@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  ALL_COLORS,
   computeCommitment,
   evaluateCard,
   evaluatePack,
@@ -101,6 +102,383 @@ describe("Dynamic Scoring Engine", () => {
     expect(resP1P5.dynamicScore).toBeLessThan(nobleHierarch.staticScore);
     expect(resP3P5.dynamicScore).toBeLessThan(resP1P5.dynamicScore);
     expect(resP1P5.breakdown.colorPenalty).toBeGreaterThan(10);
+  });
+
+  it("does not penalize either color opened by a freshly drafted dual land", () => {
+    const overgrownTomb: CardEvaluationInput = {
+      id: "overgrown-tomb",
+      name: "Overgrown Tomb",
+      staticScore: 42,
+      colors: [],
+      isLand: true,
+      typeLine: "Land — Swamp Forest",
+      producesColors: ["B", "G"],
+    };
+    const llanowarElves: CardEvaluationInput = {
+      id: "llanowar-elves",
+      name: "Llanowar Elves",
+      staticScore: 41,
+      colors: ["G"],
+      cmc: 1,
+      manaCost: "{G}",
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [llanowarElves],
+      priorPool: [overgrownTomb],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.breakdown.colorPenalty).toBe(0);
+  });
+
+  it("explains land-supported colors without claiming an empty mana base", () => {
+    const overgrownTomb: CardEvaluationInput = {
+      id: "overgrown-tomb",
+      name: "Overgrown Tomb",
+      staticScore: 42,
+      colors: [],
+      isLand: true,
+      typeLine: "Land — Swamp Forest",
+      producesColors: ["B", "G"],
+    };
+    const boneShards: CardEvaluationInput = {
+      id: "bone-shards",
+      name: "Bone Shards",
+      staticScore: 45,
+      colors: ["B"],
+      cmc: 1,
+      manaCost: "{B}",
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [boneShards],
+      priorPool: [overgrownTomb],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.explanation).toContain("soutenue par vos terrains (B/G)");
+    expect(evaluated?.explanation).not.toContain("base ()");
+  });
+
+  it("keeps a land-supported color valid in alternative explanations", () => {
+    const overgrownTomb: CardEvaluationInput = {
+      id: "overgrown-tomb",
+      name: "Overgrown Tomb",
+      staticScore: 42,
+      colors: [],
+      isLand: true,
+      typeLine: "Land — Swamp Forest",
+      producesColors: ["B", "G"],
+    };
+    const boneShards: CardEvaluationInput = {
+      id: "bone-shards",
+      name: "Bone Shards",
+      staticScore: 45,
+      colors: ["B"],
+      cmc: 1,
+      manaCost: "{B}",
+    };
+    const llanowarElves: CardEvaluationInput = {
+      id: "llanowar-elves",
+      name: "Llanowar Elves",
+      staticScore: 41,
+      colors: ["G"],
+      cmc: 1,
+      manaCost: "{G}",
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [boneShards, llanowarElves],
+      priorPool: [overgrownTomb],
+    };
+
+    const elves = evaluatePack(context).find((card) => card.id === llanowarElves.id);
+
+    expect(elves?.explanation).toContain("soutenue par vos terrains (B/G)");
+    expect(elves?.explanation).not.toContain("hors-couleurs");
+  });
+
+  it("describes a supported but uncommitted color without calling it off-color", () => {
+    const overgrownTomb: CardEvaluationInput = {
+      id: "overgrown-tomb",
+      name: "Overgrown Tomb",
+      staticScore: 42,
+      colors: [],
+      isLand: true,
+      typeLine: "Land — Swamp Forest",
+      producesColors: ["B", "G"],
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 3,
+      offeredCards: [
+        {
+          id: "bone-shards",
+          name: "Bone Shards",
+          staticScore: 45,
+          colors: ["B"],
+          cmc: 1,
+          manaCost: "{B}",
+        },
+        {
+          id: "llanowar-elves",
+          name: "Llanowar Elves",
+          staticScore: 41,
+          colors: ["G"],
+          cmc: 1,
+          manaCost: "{G}",
+        },
+      ],
+      priorPool: [
+        overgrownTomb,
+        { id: "black-card", name: "Black card", staticScore: 35, colors: ["B"], cmc: 2 },
+      ],
+    };
+
+    const elves = evaluatePack(context).find((card) => card.name === "Llanowar Elves");
+
+    expect(elves?.explanation).toContain("soutenue par vos terrains (B/G)");
+    expect(elves?.explanation).not.toContain("hors-couleurs");
+  });
+
+  it("describes insufficient land support without claiming the color is absent", () => {
+    const priorPool: CardEvaluationInput[] = [
+      {
+        id: "overgrown-tomb",
+        name: "Overgrown Tomb",
+        staticScore: 42,
+        colors: [],
+        isLand: true,
+        typeLine: "Land — Swamp Forest",
+        producesColors: ["B", "G"],
+      },
+      ...Array.from({ length: 8 }, (_, index) => ({
+        id: `black-card-${String(index)}`,
+        name: `Black card ${String(index)}`,
+        staticScore: 35,
+        colors: ["B"] as const,
+        cmc: 2,
+        manaCost: "{1}{B}",
+      })),
+    ];
+    const context: PackEvaluationContext = {
+      packNumber: 3,
+      pickNumber: 5,
+      offeredCards: [
+        {
+          id: "black-bomb",
+          name: "Black Bomb",
+          staticScore: 50,
+          colors: ["B"],
+          cmc: 4,
+          manaCost: "{2}{B}{B}",
+        },
+        {
+          id: "llanowar-elves",
+          name: "Llanowar Elves",
+          staticScore: 41,
+          colors: ["G"],
+          cmc: 1,
+          manaCost: "{G}",
+        },
+      ],
+      priorPool,
+    };
+
+    const evaluated = evaluatePack(context).find((card) => card.name === "Llanowar Elves");
+
+    expect(evaluated?.breakdown.colorPenalty).toBeGreaterThanOrEqual(10);
+    expect(evaluated?.explanation).toContain("pas encore assez de sources");
+    expect(evaluated?.explanation).not.toContain("vous n'avez pas ces couleurs");
+  });
+
+  it("describes an unsupported early color without an empty mana base", () => {
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [
+        {
+          id: "lightning-bolt",
+          name: "Lightning Bolt",
+          staticScore: 45,
+          colors: ["R"],
+          cmc: 1,
+          manaCost: "{R}",
+        },
+      ],
+      priorPool: [
+        {
+          id: "overgrown-tomb",
+          name: "Overgrown Tomb",
+          staticScore: 42,
+          colors: [],
+          isLand: true,
+          typeLine: "Land — Swamp Forest",
+          producesColors: ["B", "G"],
+        },
+      ],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.explanation).toContain("au-delà de vos terrains (B/G)");
+    expect(evaluated?.explanation).not.toContain("base ()");
+  });
+
+  it("keeps the explanation open after a colorless first pick", () => {
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [
+        {
+          id: "bone-shards",
+          name: "Bone Shards",
+          staticScore: 45,
+          colors: ["B"],
+          cmc: 1,
+          manaCost: "{B}",
+        },
+      ],
+      priorPool: [
+        { id: "sol-ring", name: "Sol Ring", staticScore: 50, colors: [], cmc: 1, manaCost: "{1}" },
+      ],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.explanation).toContain("votre draft reste entièrement ouvert");
+    expect(evaluated?.explanation).not.toContain("base ()");
+  });
+
+  it("infers land-supported colors from basic land types when production metadata is absent", () => {
+    const overgrownTomb: CardEvaluationInput = {
+      id: "overgrown-tomb",
+      name: "Overgrown Tomb",
+      staticScore: 42,
+      colors: [],
+      isLand: true,
+      typeLine: "Land — Swamp Forest",
+    };
+    const boneShards: CardEvaluationInput = {
+      id: "bone-shards",
+      name: "Bone Shards",
+      staticScore: 45,
+      colors: ["B"],
+      cmc: 1,
+      manaCost: "{B}",
+    };
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards: [boneShards],
+      priorPool: [overgrownTomb],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.explanation).toContain("soutenue par vos terrains (B/G)");
+  });
+
+  it("keeps every color open after only a five-color land", () => {
+    const manaConfluence: CardEvaluationInput = {
+      id: "mana-confluence",
+      name: "Mana Confluence",
+      staticScore: 30,
+      colors: [],
+      isLand: true,
+      typeLine: "Land",
+      producesColors: ["W", "U", "B", "R", "G"],
+    };
+    const offeredCards: CardEvaluationInput[] = ALL_COLORS.map((color) => ({
+      id: `one-drop-${color}`,
+      name: `${color} one-drop`,
+      staticScore: 40,
+      colors: [color],
+      cmc: 1,
+      manaCost: `{${color}}`,
+    }));
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 2,
+      offeredCards,
+      priorPool: [manaConfluence],
+    };
+
+    const evaluated = evaluatePack(context);
+
+    expect(evaluated.map((card) => card.breakdown.colorPenalty)).toEqual([0, 0, 0, 0, 0]);
+    expect(evaluated[0]?.explanation).toContain("vos terrains (W/U/B/R/G)");
+  });
+
+  it("does not choose an arbitrary second color from a five-color land", () => {
+    const manaConfluence: CardEvaluationInput = {
+      id: "mana-confluence",
+      name: "Mana Confluence",
+      staticScore: 30,
+      colors: [],
+      isLand: true,
+      typeLine: "Land",
+      producesColors: ["W", "U", "B", "R", "G"],
+    };
+    const offeredCards: CardEvaluationInput[] = ["W", "G"].map((color, index) => ({
+      id: `supported-one-drop-${String(index)}`,
+      name: `${color} supported one-drop`,
+      staticScore: 40,
+      colors: color === "W" ? ["W"] : ["G"],
+      cmc: 1,
+      manaCost: `{${color}}`,
+    }));
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 3,
+      offeredCards,
+      priorPool: [
+        manaConfluence,
+        { id: "black-card", name: "Black card", staticScore: 35, colors: ["B"], cmc: 2 },
+      ],
+    };
+
+    const evaluated = evaluatePack(context);
+    const whitePenalty = evaluated.find((card) => card.name.startsWith("W "))?.breakdown
+      .colorPenalty;
+    const greenPenalty = evaluated.find((card) => card.name.startsWith("G "))?.breakdown
+      .colorPenalty;
+
+    expect(whitePenalty).toBe(greenPenalty);
+    expect(whitePenalty).toBeGreaterThan(0);
+    expect(whitePenalty).toBeLessThan(20);
+  });
+
+  it("does not invent a second dominant color for a mono-color pool", () => {
+    const context: PackEvaluationContext = {
+      packNumber: 1,
+      pickNumber: 3,
+      offeredCards: [
+        {
+          id: "white-one-drop",
+          name: "White one-drop",
+          staticScore: 40,
+          colors: ["W"],
+          cmc: 1,
+          manaCost: "{W}",
+        },
+      ],
+      priorPool: [
+        { id: "black-1", name: "Black card 1", staticScore: 35, colors: ["B"], cmc: 2 },
+        { id: "black-2", name: "Black card 2", staticScore: 35, colors: ["B"], cmc: 3 },
+      ],
+    };
+
+    const evaluated = evaluatePack(context)[0];
+
+    expect(evaluated?.breakdown.colorPenalty).toBeGreaterThan(0);
+    expect(evaluated?.explanation).not.toContain("dans vos couleurs (B/W)");
   });
 
   it("grants mana fixing bonus to on-color dual lands", () => {

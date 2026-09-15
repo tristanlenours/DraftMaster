@@ -7,3 +7,4 @@ export * from "./deck-recommender.ts";
 export * from "./league-calibration.ts";
 export * from "./witness-corpus.ts";
 export * from "./tribal-compatibility.ts";
+export * from "./wheel-signals.ts";

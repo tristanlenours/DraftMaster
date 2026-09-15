@@ -12,6 +12,7 @@ import { buildDraftAdvicePrompt } from "../../companion/coach-prompts.ts";
 import type { CompanionCard } from "../../companion/card-resolver.ts";
 import type { CubeMetaDefinition } from "../../cubes/cube-meta-types.ts";
 import { detectDraftedTribalContext, isCardTriballyIncompatible } from "./tribal-compatibility.ts";
+import type { WheelSignalAnalysis } from "./wheel-signals.ts";
 
 export interface DraftCoachAlternative {
   readonly id: string;
@@ -26,6 +27,7 @@ export interface DraftCoachAdvice {
   readonly alternatives: readonly DraftCoachAlternative[];
   readonly provider: string;
   readonly packReview?: MidDraftReview | undefined;
+  readonly wheelSignals?: WheelSignalAnalysis | undefined;
 }
 
 export interface DraftCoachOptions {
@@ -39,6 +41,7 @@ export interface DraftCoachOptions {
   >;
   readonly llmRouter?: LlmRouter | undefined;
   readonly skipLlm?: boolean | undefined;
+  readonly wheelSignals?: WheelSignalAnalysis | undefined;
 }
 
 function toCardEvaluationInput(c: CardEvaluationInput | CompanionCard): CardEvaluationInput {
@@ -310,24 +313,6 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
     ? buildMidDraftReview(priorInputs, packNumber, cubeKey, evaluationContext?.cubeMeta)
     : undefined;
 
-  // Default deterministic advice
-  const deterministicAlternatives: DraftCoachAlternative[] = (
-    compatibleEvaluated.length > 1 ? compatibleEvaluated : evaluated
-  )
-    .slice(1, 3)
-    .map((alt) => {
-      const original = packCards.find((c) => ("grpId" in c ? String(c.grpId) : c.id) === alt.id);
-      const id = original ? ("grpId" in original ? String(original.grpId) : original.id) : alt.id;
-      return {
-        id,
-        name: alt.name,
-        reason:
-          alt.explanation.length > 0
-            ? alt.explanation
-            : `Score dynamique : ${String(alt.dynamicScore)}`,
-      };
-    });
-
   const originalTop = packCards.find(
     (c) => ("grpId" in c ? String(c.grpId) : c.id) === topEvaluated.id,
   );
@@ -336,6 +321,14 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       ? String(originalTop.grpId)
       : originalTop.id
     : topEvaluated.id;
+
+  // Default deterministic advice
+  const deterministicAlternatives = getDeterministicAlternatives(
+    rankedForAdvice,
+    packCards,
+    topId,
+    topEvaluated.name,
+  );
 
   const deterministicAdvice: DraftCoachAdvice = {
     topPickId: topId,
@@ -347,6 +340,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
     alternatives: deterministicAlternatives,
     provider: "engine",
     packReview: deterministicReview,
+    wheelSignals: options.wheelSignals,
   };
 
   const isTestEnv = Boolean(process.env.VITEST ?? process.env.NODE_ENV === "test");
@@ -386,6 +380,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
         tribalContext,
         packReview: deterministicReview,
         candidateEvidence: evaluated,
+        wheelSignals: options.wheelSignals,
       },
     );
 
@@ -437,7 +432,15 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
                 continue; // Filter out incompatible tribal card!
               }
               const matchedAltId = "grpId" in matchedAlt ? String(matchedAlt.grpId) : matchedAlt.id;
-              if (matchedAltId !== matchedTopId && llmEligibleIds.has(matchedAltId)) {
+              const matchedAltName = matchedAlt.name.trim().toLowerCase();
+              if (
+                matchedAltId !== matchedTopId &&
+                matchedAltName !== matchedTop.name.trim().toLowerCase() &&
+                llmEligibleIds.has(matchedAltId) &&
+                !alternatives.some(
+                  (a) => a.id === matchedAltId || a.name.trim().toLowerCase() === matchedAltName,
+                )
+              ) {
                 alternatives.push({
                   id: matchedAltId,
                   name: matchedAlt.name,
@@ -447,6 +450,13 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
             }
           }
         }
+
+        const fallbackAlternatives = getDeterministicAlternatives(
+          rankedForAdvice,
+          packCards,
+          matchedTopId,
+          matchedTop.name,
+        );
 
         let finalReview = deterministicReview;
         if (deterministicReview && res.content.packReview) {
@@ -472,9 +482,10 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
           topPickId: matchedTopId,
           topPickName: matchedTop.name,
           reason: res.content.reason,
-          alternatives: alternatives.length > 0 ? alternatives : deterministicAlternatives,
+          alternatives: alternatives.length > 0 ? alternatives : fallbackAlternatives,
           provider: res.provider,
           packReview: finalReview,
+          wheelSignals: options.wheelSignals,
         };
       }
     }
@@ -484,6 +495,36 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
   }
 
   return deterministicAdvice;
+}
+
+function getDeterministicAlternatives(
+  evaluatedCards: readonly CardEvaluation[],
+  packCards: readonly (CardEvaluationInput | CompanionCard)[],
+  excludeId: string,
+  excludeName: string,
+): DraftCoachAlternative[] {
+  const normExcludeName = excludeName.trim().toLowerCase();
+  return evaluatedCards
+    .filter((alt) => {
+      const original = packCards.find((c) => ("grpId" in c ? String(c.grpId) : c.id) === alt.id);
+      const id = original ? ("grpId" in original ? String(original.grpId) : original.id) : alt.id;
+      if (id === excludeId) return false;
+      if (alt.name.trim().toLowerCase() === normExcludeName) return false;
+      return true;
+    })
+    .slice(0, 2)
+    .map((alt) => {
+      const original = packCards.find((c) => ("grpId" in c ? String(c.grpId) : c.id) === alt.id);
+      const id = original ? ("grpId" in original ? String(original.grpId) : original.id) : alt.id;
+      return {
+        id,
+        name: alt.name,
+        reason:
+          alt.explanation.length > 0
+            ? alt.explanation
+            : `Score dynamique : ${String(alt.dynamicScore)}`,
+      };
+    });
 }
 
 function findBestCardMatch(

@@ -37,6 +37,7 @@ import {
   type FriendProfile,
 } from "../bots/friends/index.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
+import { computeWheelSignals, type WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
 import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
@@ -135,6 +136,14 @@ export class SoloDraftSession {
   private lastCustomLeaderboardPath?: string | undefined;
 
   public readonly humanPicks: string[] = [];
+  private readonly humanSeenBoosters = new Map<
+    string,
+    {
+      readonly pickNumber: number;
+      readonly pickedCardId: string;
+      readonly passedCardIds: readonly string[];
+    }
+  >();
   private cachedAdvicePromise: Promise<SoloDraftPickAdvice> | null = null;
   public roundIndex = 0;
   public readonly startedAtTimestamp: number;
@@ -534,6 +543,14 @@ export class SoloDraftSession {
 
     // 1. Human Decision (Seat 0)
     this.humanPicks.push(cardInstanceId);
+    if (pickNumber <= 7) {
+      const passedCardIds = booster0.remainingCardInstanceIds.filter((id) => id !== cardInstanceId);
+      this.humanSeenBoosters.set(booster0.boosterId, {
+        pickNumber,
+        pickedCardId: cardInstanceId,
+        passedCardIds,
+      });
+    }
     const humanEnriched = this.getEnrichedCard(cardInstanceId);
     decisions.push({
       seatId: 0,
@@ -1235,6 +1252,23 @@ export class SoloDraftSession {
       (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
     );
 
+    const seenPrevious = this.humanSeenBoosters.get(booster0.boosterId);
+    let wheelSignals: WheelSignalAnalysis | undefined;
+    if (seenPrevious && view.pickNumber >= 9) {
+      const passedCards: CardEvaluationInput[] = seenPrevious.passedCardIds.map(
+        (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+      );
+      const pickedCard = this.instanceToInputMap.get(seenPrevious.pickedCardId);
+
+      wheelSignals = computeWheelSignals({
+        originalPickNumber: seenPrevious.pickNumber,
+        currentPickNumber: view.pickNumber,
+        pickedCardAtInitialPass: pickedCard,
+        passedCards,
+        currentBoosterCards: offeredInputs,
+      });
+    }
+
     const advice = await getUnifiedDraftAdvice({
       packCards: offeredInputs,
       priorPool: priorInputs,
@@ -1247,6 +1281,7 @@ export class SoloDraftSession {
         synergyProfile: this.coachContext.synergyProfile,
       },
       skipLlm: options.skipLlm,
+      wheelSignals,
     });
 
     return {
@@ -1260,6 +1295,7 @@ export class SoloDraftSession {
       })),
       provider: advice.provider,
       packReview: advice.packReview,
+      wheelSignals: advice.wheelSignals,
     };
   }
 

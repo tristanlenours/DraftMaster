@@ -7,6 +7,7 @@ import {
 import type { CardEvaluationInput, MidDraftReview } from "../domain/coaching/types.ts";
 import type { CardEvaluation } from "../domain/coaching/types.ts";
 import type { CubeMetaDefinition } from "../cubes/cube-meta-types.ts";
+import type { WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 
 export interface DraftAdvicePromptOptions {
   readonly cubeKey?: string | undefined;
@@ -14,6 +15,7 @@ export interface DraftAdvicePromptOptions {
   readonly tribalContext?: TribalDraftContext | undefined;
   readonly packReview?: MidDraftReview | undefined;
   readonly candidateEvidence?: readonly Readonly<CardEvaluation>[] | undefined;
+  readonly wheelSignals?: WheelSignalAnalysis | undefined;
 }
 
 export function buildDraftAdvicePrompt(
@@ -27,8 +29,11 @@ export function buildDraftAdvicePrompt(
   const tribalCtx = options?.tribalContext ?? detectDraftedTribalContext(pool, options?.cubeKey);
   const cubeMeta = options?.cubeMeta;
   const criticalWindow = cubeMeta?.fundamentalTurn?.criticalWindow ?? "les tours déterminants";
+  const pacingDesc = cubeMeta?.fundamentalTurn?.pacingDescription
+    ? ` ${cubeMeta.fundamentalTurn.pacingDescription}`
+    : "";
   const cubeDescription = cubeMeta
-    ? `Cube \"${cubeMeta.name}\" (${cubeMeta.powerTier}, rythme ${cubeMeta.pacing}). ${cubeMeta.description ?? ""}`
+    ? `Cube \"${cubeMeta.name}\" (${cubeMeta.powerTier}, rythme ${cubeMeta.pacing}).${pacingDesc} ${cubeMeta.description ?? ""}`
     : "Contexte de cube non identifié : n'invente ni niveau de puissance, ni extension dominante, ni vitesse de format.";
   const archetypeGuidance =
     cubeMeta && cubeMeta.archetypes.length > 0
@@ -170,7 +175,28 @@ Règles strictes :
   });
 
   let wheelAlert = "";
-  if (isWheel) {
+  if (options?.wheelSignals) {
+    const ws = options.wheelSignals;
+    const takenNames = ws.cardsTakenByTable.map(
+      (c) => `${c.name} (${c.colors.join("/") || "Incolore"})`,
+    );
+    const wheeledNames = ws.cardsWheeled.map(
+      (c) => `${c.name} (${c.colors.join("/") || "Incolore"})`,
+    );
+    const initialPickDesc = ws.pickedCardAtInitialPass
+      ? `Tu avais choisi ${ws.pickedCardAtInitialPass.name} (${ws.pickedCardAtInitialPass.colors.join("/") || "Incolore"}) au Pick ${ws.originalPickNumber}. `
+      : "";
+    const openColorsStr = ws.openColors.length > 0 ? ws.openColors.join(", ") : "aucune";
+    const contestedColorsStr =
+      ws.contestedColors.length > 0 ? ws.contestedColors.join(", ") : "aucune";
+
+    wheelAlert = `\n🔄 ANALYSE DE LA ROUE (Booster P${pack}P${ws.originalPickNumber} revenu au P${pack}P${pick}) :
+- ${initialPickDesc}Ce booster a fait le tour complet de la table (7 joueurs sont passés dessus).
+- Cartes prises par les 7 autres joueurs (${ws.cardsTakenByTable.length}) : ${takenNames.slice(0, 8).join(", ")}
+- Cartes revenues dans ce booster (${ws.cardsWheeled.length}) : ${wheeledNames.join(", ")}
+- Lecture des signaux de table : Couleurs ouvertes = [${openColorsStr}] | Couleurs contestées = [${contestedColorsStr}]
+-> ${ws.signalSummary}`;
+  } else if (isWheel) {
     wheelAlert = `\n🔄 INFO ROUE (Pick ${pick}) : Toutes ces cartes ont fait le tour complet de la table (8 joueurs sont passés dessus).`;
     if (wheeledBombs.length > 0) {
       wheelAlert += `\n🔥 DINGUERIE / CARTE AYANT FAIT LE TOUR : ${wheeledBombs.map((c) => c.name).join(", ")} est encore dans ce pack ! Signal massif que tes couleurs sont grandes ouvertes. Relie ce signal à une séquence plausible dans ${criticalWindow}.`;

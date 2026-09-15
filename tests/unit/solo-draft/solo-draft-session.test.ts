@@ -425,4 +425,44 @@ describe("SoloDraftSession", () => {
       expect(poolIds.has(id)).toBe(true);
     }
   });
+
+  it("detects and computes wheelSignals when booster returns at Pick 9", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "WheelTester",
+      seed: 42,
+    });
+
+    // Pick 1 to Pick 8 (8 picks)
+    for (let round = 0; round < 8; round++) {
+      const state = session.getStateDto();
+      const card = state.currentBooster[0];
+      if (!card) throw new Error("Missing booster card");
+      session.makePick(card.instanceId);
+    }
+
+    // Now at Round 8 -> Pick 9 (Pack 1 Pick 9)
+    const statePick9 = session.getStateDto();
+    expect(statePick9.packNumber).toBe(1);
+    expect(statePick9.pickNumber).toBe(9);
+    expect(statePick9.currentBooster.length).toBe(7);
+
+    // Get advice
+    const advice = await session.getPickAdvice({ skipLlm: true });
+    expect(advice.wheelSignals).toBeDefined();
+    expect(advice.wheelSignals?.originalPickNumber).toBe(1);
+    expect(advice.wheelSignals?.currentPickNumber).toBe(9);
+    expect(advice.wheelSignals?.cardsWheeled).toHaveLength(7);
+    expect(advice.wheelSignals?.cardsTakenByTable).toHaveLength(7);
+    expect(advice.wheelSignals?.signalSummary.length).toBeGreaterThan(10);
+
+    // Test restore reconstruction
+    const snapshot = session.getPersistenceSnapshot();
+    const restored = await SoloDraftSession.restore(snapshot);
+    const restoredAdvice = await restored.getPickAdvice({ skipLlm: true });
+    expect(restoredAdvice.wheelSignals).toBeDefined();
+    expect(restoredAdvice.wheelSignals?.originalPickNumber).toBe(1);
+    expect(restoredAdvice.wheelSignals?.currentPickNumber).toBe(9);
+    expect(restoredAdvice.wheelSignals?.cardsWheeled).toHaveLength(7);
+    expect(restoredAdvice.wheelSignals?.cardsTakenByTable).toHaveLength(7);
+  });
 });

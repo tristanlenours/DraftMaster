@@ -108,9 +108,11 @@ export interface ColorProfileResult {
   readonly shares: Record<MtGColor, number>;
   readonly ranked: readonly MtGColor[];
   readonly dominant: readonly MtGColor[];
+  readonly supportedColors: readonly MtGColor[];
   readonly splashColor?: MtGColor | undefined;
   readonly confidence: number;
   readonly totalColorCards: number;
+  readonly totalCommittedColorCards: number;
 }
 
 /**
@@ -119,22 +121,29 @@ export interface ColorProfileResult {
 export function buildColorProfile(priorPool: readonly CardEvaluationInput[]): ColorProfileResult {
   const counts: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
   const weights: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const commitmentWeights: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const supportedColors = new Set<MtGColor>();
   let totalColorCards = 0;
+  let totalCommittedColorCards = 0;
 
   for (const card of priorPool) {
     const cardColors = card.colors;
+    const producingColors = getEffectiveProducingColors(card);
     const isProducer =
-      (card.isLand ?? card.types?.includes("Artifact") ?? false) &&
-      (card.producesColors?.length ?? 0) > 0;
-    const effectiveColors = isProducer ? (card.producesColors ?? []) : cardColors;
+      Boolean(card.isLand) ||
+      (Boolean(card.types?.includes("Artifact")) && producingColors.length > 0);
+    const effectiveColors = isProducer ? producingColors : cardColors;
 
     if (effectiveColors.length === 0) continue;
     totalColorCards++;
+    if (!isProducer && !card.isLand) totalCommittedColorCards++;
 
     const weight = Math.max(5, card.staticScore) / effectiveColors.length;
     for (const color of effectiveColors) {
+      supportedColors.add(color);
       counts[color] += 1;
       weights[color] += weight;
+      if (!isProducer) commitmentWeights[color] += weight;
     }
   }
 
@@ -145,13 +154,23 @@ export function buildColorProfile(priorPool: readonly CardEvaluationInput[]): Co
     ALL_COLORS.map((c) => [c, totalWeight === 0 ? 0.2 : weights[c] / totalWeight]),
   ) as Record<MtGColor, number>;
 
-  const dominant = ranked.slice(0, Math.min(2, totalColorCards));
+  const committedRanked = (Object.keys(commitmentWeights) as MtGColor[])
+    .filter((color) => commitmentWeights[color] > 0)
+    .sort((a, b) => commitmentWeights[b] - commitmentWeights[a]);
+  const dominant = committedRanked.slice(0, 2);
+  const totalCommitmentWeight = Object.values(commitmentWeights).reduce((a, b) => a + b, 0);
   const confidence =
-    totalWeight === 0 ? 0 : (weights[ranked[0] ?? "W"] + weights[ranked[1] ?? "U"]) / totalWeight;
+    totalCommitmentWeight === 0
+      ? 0
+      : (commitmentWeights[committedRanked[0] ?? "W"] +
+          commitmentWeights[committedRanked[1] ?? "U"]) /
+        totalCommitmentWeight;
 
-  const candidateSplash = ranked[2];
+  const candidateSplash = committedRanked[2];
   const splashColor =
-    candidateSplash && shares[candidateSplash] >= 0.12 && counts[candidateSplash] >= 1
+    candidateSplash &&
+    commitmentWeights[candidateSplash] / totalCommitmentWeight >= 0.12 &&
+    counts[candidateSplash] >= 1
       ? candidateSplash
       : undefined;
 
@@ -161,9 +180,11 @@ export function buildColorProfile(priorPool: readonly CardEvaluationInput[]): Co
     shares,
     ranked,
     dominant,
+    supportedColors: ALL_COLORS.filter((color) => supportedColors.has(color)),
     splashColor,
     confidence,
     totalColorCards,
+    totalCommittedColorCards,
   };
 }
 
@@ -272,6 +293,7 @@ export function calculateColorOverlap(
   dominantColors: readonly (MtGColor | undefined)[],
   totalColorCardsInPool: number,
   splashColor?: MtGColor,
+  supportedColors: readonly MtGColor[] = [],
 ): number {
   if (totalColorCardsInPool === 0) {
     return 1.0;
@@ -282,6 +304,7 @@ export function calculateColorOverlap(
     [c1, c2, splashColor].filter((c): c is MtGColor => Boolean(c)),
   );
   const dominantSet = new Set<MtGColor>([c1, c2].filter((c): c is MtGColor => Boolean(c)));
+  const supportedSet = new Set(supportedColors);
 
   // If card is a Land (or mana fixer rock)
   if (card.isLand) {
@@ -321,6 +344,7 @@ export function calculateColorOverlap(
       const col = card.colors[0];
       if (col && dominantSet.has(col)) return 1.0;
       if (col && col === splashColor) return 0.65;
+      if (col && supportedSet.has(col)) return 0.65;
       return 0.0;
     }
     const matchingColors = card.colors.filter((col) => activeSet.has(col));
@@ -337,6 +361,8 @@ export function calculateColorOverlap(
       if (dominantSet.has(color)) {
         bestForPip = Math.max(bestForPip, 1.0);
       } else if (splashColor && color === splashColor) {
+        bestForPip = Math.max(bestForPip, 0.65);
+      } else if (supportedSet.has(color)) {
         bestForPip = Math.max(bestForPip, 0.65);
       } else {
         bestForPip = Math.max(bestForPip, 0.0);
@@ -357,6 +383,7 @@ export function calculateColorOverlap(
     const col = card.colors[0];
     if (col && dominantSet.has(col)) return 1.0;
     if (col && col === splashColor) return 0.65;
+    if (col && supportedSet.has(col)) return 0.65;
     return 0.0;
   }
 
@@ -470,7 +497,13 @@ export function evaluateCard(
   const dominantColors = profile.dominant;
   const totalColorPicks = profile.totalColorCards;
 
-  const overlap = calculateColorOverlap(card, dominantColors, totalColorPicks, profile.splashColor);
+  const overlap = calculateColorOverlap(
+    card,
+    dominantColors,
+    profile.totalCommittedColorCards,
+    profile.splashColor,
+    profile.supportedColors,
+  );
 
   // 1. Color Affinity & Penalty
   let colorAffinityFactor = 1.0;

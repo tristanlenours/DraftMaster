@@ -7,6 +7,7 @@ import type {
   MtGColor,
   RadarTiers,
 } from "../domain/coaching/types.ts";
+import type { WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 
 export type SoloDraftStatus = "drafting" | "deckbuilding" | "completed";
 
@@ -148,6 +149,7 @@ export interface SoloDraftPickAdvice {
   }[];
   readonly provider?: string | undefined;
   readonly packReview?: MidDraftReview | undefined;
+  readonly wheelSignals?: WheelSignalAnalysis | undefined;
 }
 
 export interface SoloDraftFinalResult {

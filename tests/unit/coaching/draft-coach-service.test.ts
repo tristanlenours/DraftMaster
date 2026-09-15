@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getUnifiedDraftAdvice } from "../../../src/domain/coaching/draft-coach-service.ts";
 import type { CardEvaluationInput } from "../../../src/domain/coaching/types.ts";
+import type { WheelSignalAnalysis } from "../../../src/domain/coaching/wheel-signals.ts";
 import type { CompanionCard } from "../../../src/companion/card-resolver.ts";
 import {
   THEO_PROFILE,
@@ -173,6 +174,41 @@ describe("Unified DraftCoachService", () => {
 
     expect(advice.topPickId).toBe("sol-ring");
     expect(advice.provider).toBe("engine");
+  });
+
+  it("never includes the top pick in alternatives when LLM promotes a card that was in deterministic alternatives", async () => {
+    // solRing is #1 (score 50), ocelotPride is #2 (score 48), offColorLand is #3 (score 35)
+    // Deterministic rankings: [solRing, ocelotPride, offColorLand]
+    // LLM promotes ocelotPride as top pick with no valid alternatives provided.
+    const mockRouter = {
+      hasConfiguredKeys: () => true,
+      generateJson: () =>
+        Promise.resolve({
+          success: true as const,
+          provider: "Gemini Flash Mock",
+          content: {
+            topPick: "Ocelot Pride",
+            reason: "Choix prioritaire tactique !",
+            alternatives: [],
+          },
+        }),
+    } as unknown as LlmRouter;
+
+    const advice = await getUnifiedDraftAdvice({
+      packCards: [solRing, ocelotPride, offColorLand],
+      priorPool: [],
+      packNumber: 1,
+      pickNumber: 1,
+      llmRouter: mockRouter,
+    });
+
+    expect(advice.topPickId).toBe("ocelot-pride");
+    expect(advice.topPickName).toBe("Ocelot Pride");
+    // Alternatives must not include Ocelot Pride
+    expect(advice.alternatives.some((a) => a.id === "ocelot-pride")).toBe(false);
+    expect(advice.alternatives.some((a) => a.name === "Ocelot Pride")).toBe(false);
+    // Sol Ring and Steam Vents should be in alternatives
+    expect(advice.alternatives.map((a) => a.id)).toContain("sol-ring");
   });
 });
 
@@ -404,6 +440,48 @@ describe("Bot Théo - Black Appetite & Reanimator Cube Detection", () => {
       expect(adviceP2P1.packReview?.fixingStats.fixersCount).toBe(2);
       expect(adviceP2P1.packReview?.fixingStats.isProportionGood).toBe(true);
       expect(adviceP2P1.packReview?.fixingAnalysis).toContain("Stabilité de mana en bonne voie");
+    });
+
+    it("attaches wheel signals to advice when provided", async () => {
+      const cardA: CardEvaluationInput = {
+        id: "card-a",
+        name: "Card A",
+        colors: ["W"],
+        staticScore: 35,
+      };
+      const cardB: CardEvaluationInput = {
+        id: "card-b",
+        name: "Card B",
+        colors: ["U"],
+        staticScore: 30,
+      };
+
+      const mockWheelSignals: WheelSignalAnalysis = {
+        originalPickNumber: 1,
+        currentPickNumber: 9,
+        cardsWheeled: [cardA],
+        cardsTakenByTable: [cardB],
+        takenColorCounts: { W: 0, U: 1, B: 0, R: 0, G: 0 },
+        wheeledColorCounts: { W: 1, U: 0, B: 0, R: 0, G: 0 },
+        openColors: ["W"],
+        contestedColors: ["U"],
+        wheeledBombs: [cardA],
+        signalSummary: "Couleur ouverte : W.",
+      };
+
+      const advice = await getUnifiedDraftAdvice({
+        packCards: [cardA],
+        priorPool: [],
+        packNumber: 1,
+        pickNumber: 9,
+        skipLlm: true,
+        wheelSignals: mockWheelSignals,
+      });
+
+      expect(advice.wheelSignals).toBeDefined();
+      expect(advice.wheelSignals?.originalPickNumber).toBe(1);
+      expect(advice.wheelSignals?.openColors).toContain("W");
+      expect(advice.wheelSignals?.signalSummary).toBe("Couleur ouverte : W.");
     });
   });
 });

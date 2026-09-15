@@ -361,6 +361,8 @@ export class LlmRouter {
         },
       });
 
+      let timer: NodeJS.Timeout | null = null;
+
       const req = https.request(
         {
           hostname: "generativelanguage.googleapis.com",
@@ -377,11 +379,16 @@ export class LlmRouter {
           let body = "";
           res.on("data", (c) => (body += c));
           res.on("end", () => {
+            if (timer) clearTimeout(timer);
             if (res.statusCode === 200) {
               try {
                 const data = JSON.parse(body);
                 const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                resolve({ status: "success", data: JSON.parse(text) });
+                const cleaned = (text || "")
+                  .trim()
+                  .replace(/^```(?:json)?\s*/i, "")
+                  .replace(/\s*```$/, "");
+                resolve({ status: "success", data: JSON.parse(cleaned) });
               } catch {
                 resolve({ status: "error", data: null });
               }
@@ -394,11 +401,13 @@ export class LlmRouter {
         },
       );
 
-      req.on("error", () => {
-        resolve({ status: "error", data: null });
-      });
-      req.setTimeout(timeoutMs, () => {
+      timer = setTimeout(() => {
         req.destroy();
+        resolve({ status: "error", data: null });
+      }, timeoutMs);
+
+      req.on("error", () => {
+        clearTimeout(timer);
         resolve({ status: "error", data: null });
       });
       req.write(payload);
@@ -601,6 +610,8 @@ export class LlmRouter {
         max_tokens: maxTokens,
       });
 
+      let timer: NodeJS.Timeout | null = null;
+
       const req = https.request(
         {
           hostname: "openrouter.ai",
@@ -617,6 +628,7 @@ export class LlmRouter {
           let body = "";
           res.on("data", (c) => (body += c));
           res.on("end", () => {
+            if (timer) clearTimeout(timer);
             if (res.statusCode === 200) {
               try {
                 const data = JSON.parse(body);
@@ -636,11 +648,13 @@ export class LlmRouter {
         },
       );
 
-      req.on("error", () => {
-        resolve(null);
-      });
-      req.setTimeout(timeoutMs, () => {
+      timer = setTimeout(() => {
         req.destroy();
+        resolve(null);
+      }, timeoutMs);
+
+      req.on("error", () => {
+        clearTimeout(timer);
         resolve(null);
       });
       req.write(payload);

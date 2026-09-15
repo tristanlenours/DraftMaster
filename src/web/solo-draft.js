@@ -834,7 +834,14 @@ export class SoloDraftController {
       return;
     }
 
-    const altIds = new Set((advice.alternatives || []).map((a) => a.id));
+    const safeAlternatives = (advice.alternatives || []).filter((a) => {
+      if (!a) return false;
+      if (a.id && a.id === topId) return false;
+      if (a.name && a.name.trim().toLowerCase() === topName) return false;
+      return true;
+    });
+
+    const altIds = new Set(safeAlternatives.map((a) => a.id));
 
     this.dom.boosterGrid?.querySelectorAll(".booster-card-item").forEach((el) => {
       const id = el.dataset.instanceId;
@@ -846,7 +853,7 @@ export class SoloDraftController {
       }
     });
 
-    const altsHtml = (advice.alternatives || [])
+    const altsHtml = safeAlternatives
       .map(
         (alt) => `
         <div class="coach-alt-item">
@@ -916,7 +923,7 @@ export class SoloDraftController {
         <div class="coach-top-pick-reason">${escapeHtml(advice.reason)}</div>
       </div>
       ${
-        advice.alternatives && advice.alternatives.length > 0
+        safeAlternatives.length > 0
           ? `<div class="coach-advice-alts">
                <div style="font-weight: 700; color: #94a3b8; margin-bottom: 2px;">Alternatives viables :</div>
                ${altsHtml}
