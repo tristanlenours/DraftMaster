@@ -13,7 +13,7 @@ export interface LlmResponse<T> {
 
 export type LlmJsonProfile = "default" | "final-deck-coach@1";
 
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-v4.1-flash";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-chat";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 export class LlmRouter {
@@ -143,9 +143,9 @@ export class LlmRouter {
       profile?: LlmJsonProfile;
     },
   ): Promise<LlmResponse<T>> {
-    const maxTokens = options?.maxTokens ?? (options?.preferBaseTier ? 3000 : 6000);
+    const maxTokens = options?.maxTokens ?? 2000;
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
-    const preferGemini = options?.preferBaseTier || isFinalDeckCoach;
+    const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
 
     // Low-latency profiles try Gemini first, then retain DeepSeek as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
@@ -169,20 +169,20 @@ export class LlmRouter {
       }
     }
 
-    // 1. Try OpenRouter Premium (DeepSeek V4.1 Flash)
+    // 1. Try OpenRouter Premium (DeepSeek V3 / Chat)
     if (this.openrouterKey) {
       try {
         const deepRes = await this.callOpenRouterJson<T>(
           systemPrompt,
           userPrompt,
           maxTokens,
-          isFinalDeckCoach ? 12000 : 25000,
+          isFinalDeckCoach ? 12000 : 10000,
         );
         if (deepRes) {
           return {
             success: true,
             content: deepRes,
-            provider: "DeepSeek V4.1 Flash (OpenRouter)",
+            provider: "DeepSeek (OpenRouter)",
             model: OPENROUTER_MODEL,
           };
         }
@@ -315,7 +315,7 @@ export class LlmRouter {
   private async callGeminiJson<T>(
     systemPrompt: string,
     userPrompt: string,
-    maxTokens = 600,
+    maxTokens = 2000,
     timeoutMs = 5000,
   ): Promise<T | null> {
     const keys = this.getAvailableGeminiKeys();
@@ -355,6 +355,9 @@ export class LlmRouter {
           responseMimeType: "application/json",
           temperature: 0.1,
           maxOutputTokens: maxTokens,
+          thinkingConfig: {
+            thinkingBudget: 0,
+          },
         },
       });
 
@@ -583,8 +586,8 @@ export class LlmRouter {
   private callOpenRouterJson<T>(
     systemPrompt: string,
     userPrompt: string,
-    maxTokens = 6000,
-    timeoutMs = 25000,
+    maxTokens = 2000,
+    timeoutMs = 10000,
   ): Promise<T | null> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({

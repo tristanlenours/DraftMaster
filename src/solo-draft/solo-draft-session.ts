@@ -493,7 +493,10 @@ export class SoloDraftSession {
     };
   }
 
-  public makePick(cardInstanceId: string): SoloDraftStateDto {
+  public makePick(
+    cardInstanceId: string,
+    options: { prefetchAdvice?: boolean } = {},
+  ): SoloDraftStateDto {
     if (this.status !== "drafting") {
       throw new Error(`Cannot make pick: draft status is '${this.status}'`);
     }
@@ -797,7 +800,7 @@ export class SoloDraftSession {
     if (this.roundIndex >= 45) {
       this.status = "deckbuilding";
       this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
-    } else {
+    } else if (options.prefetchAdvice !== false) {
       this.prefetchPickAdvice();
     }
 
@@ -1321,8 +1324,12 @@ export class SoloDraftSession {
 
     for (const pickId of saved.humanPicks) {
       if (session.status === "drafting") {
-        session.makePick(pickId);
+        session.makePick(pickId, { prefetchAdvice: false });
       }
+    }
+
+    if (session.status === "drafting") {
+      session.prefetchPickAdvice();
     }
 
     if (saved.isHomologated !== undefined) {

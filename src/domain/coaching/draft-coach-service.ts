@@ -400,7 +400,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
         priorities?: string[];
         signalsTip?: string;
       };
-    }>(system, user);
+    }>(system, user, { maxTokens: 2000 });
 
     if (res.success && res.content?.topPick) {
       const topPickName = res.content.topPick.trim();
