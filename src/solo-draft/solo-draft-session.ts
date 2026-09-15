@@ -44,6 +44,7 @@ import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
 import { evaluateDeck } from "../domain/coaching/deck-evaluation.ts";
 import type {
   CardEvaluationInput,
+  DeckBuildOption,
   DeckEvaluation,
   DeckEvaluationOptions,
   DeckSynergyProfile,
@@ -68,7 +69,12 @@ import { generateDetailedDraftHtml } from "../simulation/html-report-generator.t
 import { generateBoosterDistributionHtml } from "../simulation/booster-distribution-html.ts";
 import { saveUnifiedLeaderboardEntry } from "../storage/cloud-leaderboard.ts";
 import { saveAdminDraft } from "./admin-drafts.ts";
-import type { FinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
+import {
+  createFinalDeckCoach,
+  type FinalDeckCoach,
+  type FinalDeckRecommendation,
+} from "../multiplayer-draft/final-deck-coach.ts";
+import { LlmRouter } from "../companion/llm-router.ts";
 import type {
   AdminDraftEntry,
   AdminDraftSeatSummary,
@@ -109,6 +115,23 @@ function getBotAvatar(profileId?: string): string {
   }
 }
 
+function recommendationToDeckBuildOption(reco: FinalDeckRecommendation): DeckBuildOption {
+  const basicIds: string[] = [];
+  for (const [landName, count] of Object.entries(reco.basicLands)) {
+    const slug = `basic-${landName.toLowerCase()}`;
+    for (let i = 0; i < count; i++) {
+      basicIds.push(slug);
+    }
+  }
+  return {
+    position: 1,
+    title: reco.strategy || "Option IA",
+    maindeck: [...reco.maindeckCardInstanceIds, ...basicIds],
+    sideboard: [...reco.sideboardCardInstanceIds],
+    evaluation: reco.evaluation,
+  };
+}
+
 export class SoloDraftSession {
   public readonly sessionId: string;
   public readonly seed: number;
@@ -145,6 +168,8 @@ export class SoloDraftSession {
     }
   >();
   private cachedAdvicePromise: Promise<SoloDraftPickAdvice> | null = null;
+  private readonly finalDeckCoach: FinalDeckCoach;
+  private botDecksPromise: Promise<Map<SeatId, FinalDeckSummary>> | null = null;
   public roundIndex = 0;
   public readonly startedAtTimestamp: number;
   public draftDurationSeconds = 0;
@@ -164,6 +189,7 @@ export class SoloDraftSession {
     policies: PickPolicy[];
     seatProfiles: readonly FriendProfile[];
     initialBoosters: InitialDealtBooster[];
+    finalDeckCoach?: FinalDeckCoach | undefined;
   }) {
     this.sessionId = params.sessionId;
     this.seed = params.seed;
@@ -184,6 +210,18 @@ export class SoloDraftSession {
     this.cubeKey = params.coachContext.cubeKey;
     this.cubeName = params.coachContext.cubeMeta.meta.name;
     this.startedAtTimestamp = Date.now();
+
+    const isTestEnv = Boolean(process.env.VITEST ?? process.env.NODE_ENV === "test");
+    this.finalDeckCoach =
+      params.finalDeckCoach ??
+      (isTestEnv
+        ? createFinalDeckCoach()
+        : createFinalDeckCoach({
+            generateJson: async (systemPrompt, userPrompt, options) => {
+              const router = new LlmRouter();
+              return router.generateJson(systemPrompt, userPrompt, options);
+            },
+          }));
 
     for (let s = 0; s < 8; s++) {
       this.seatStepsMap.set(s as SeatId, []);
@@ -817,6 +855,7 @@ export class SoloDraftSession {
     if (this.roundIndex >= 45) {
       this.status = "deckbuilding";
       this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+      this.startBotDeckbuilding();
     } else if (options.prefetchAdvice !== false) {
       this.prefetchPickAdvice();
     }
@@ -1037,6 +1076,9 @@ export class SoloDraftSession {
       },
     ];
 
+    const botDecksMap = await (this.botDecksPromise ??
+      this.computeAllBotDecks(finalDraftView, evaluationOptions));
+
     for (let s = 1; s < 8; s++) {
       const sId = s as SeatId;
       const poolIds = finalDraftView.seats[sId]?.priorPool ?? [];
@@ -1044,15 +1086,14 @@ export class SoloDraftSession {
         (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
       );
 
-      const botOptions = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
-      const bestBotOption = botOptions[0];
-
-      const botSummary = buildFinalDeckSummary(
-        bestBotOption,
-        poolIds,
-        this.instanceToEnrichedMap,
-        evaluationOptions,
-      );
+      const botSummary =
+        botDecksMap.get(sId) ??
+        buildFinalDeckSummary(
+          recommendDeckBuilds(poolInputs, undefined, evaluationOptions)[0],
+          poolIds,
+          this.instanceToEnrichedMap,
+          evaluationOptions,
+        );
 
       const profile = this.seatProfiles[sId] ??
         DEFAULT_FRIEND_SEAT_PROFILES[sId] ?? {
@@ -1224,6 +1265,66 @@ export class SoloDraftSession {
     };
   }
 
+  public startBotDeckbuilding(): void {
+    if (this.botDecksPromise) return;
+    const finalDraftView = getDraftView(this.currentDraft);
+    const evaluationOptions: DeckEvaluationOptions = {
+      bombThreshold: this.bombDefinition.cutoffScore,
+      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
+    };
+    this.botDecksPromise = this.computeAllBotDecks(finalDraftView, evaluationOptions);
+  }
+
+  private async computeAllBotDecks(
+    finalDraftView: ReturnType<typeof getDraftView>,
+    evaluationOptions: DeckEvaluationOptions,
+  ): Promise<Map<SeatId, FinalDeckSummary>> {
+    const map = new Map<SeatId, FinalDeckSummary>();
+    const botSeats: SeatId[] = [1, 2, 3, 4, 5, 6, 7];
+
+    const results = await Promise.all(
+      botSeats.map(async (sId) => {
+        const poolIds = finalDraftView.seats[sId]?.priorPool ?? [];
+        const poolInputs = poolIds.map(
+          (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+        );
+
+        let option: DeckBuildOption;
+        try {
+          const recommendation = await this.finalDeckCoach.recommend({
+            cubeKey: this.snapshot.cubeKey,
+            snapshotId: this.snapshot.snapshotId,
+            pool: poolInputs,
+            evaluationOptions,
+          });
+          option = recommendationToDeckBuildOption(recommendation);
+        } catch {
+          const botOptions = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
+          option = botOptions[0] ?? {
+            position: 1,
+            title: "Option Locale",
+            maindeck: poolIds.slice(0, 40),
+            sideboard: poolIds.slice(40),
+            evaluation: evaluateDeck(poolInputs.slice(0, 40), evaluationOptions),
+          };
+        }
+
+        const summary = buildFinalDeckSummary(
+          option,
+          poolIds,
+          this.instanceToEnrichedMap,
+          evaluationOptions,
+        );
+        return { sId, summary };
+      }),
+    );
+
+    for (const { sId, summary } of results) {
+      map.set(sId, summary);
+    }
+    return map;
+  }
+
   public prefetchPickAdvice(): void {
     if (this.status !== "drafting") return;
     const view = getDraftView(this.currentDraft);
@@ -1366,6 +1467,8 @@ export class SoloDraftSession {
 
     if (session.status === "drafting") {
       session.prefetchPickAdvice();
+    } else if (session.status === "deckbuilding") {
+      session.startBotDeckbuilding();
     }
 
     if (saved.isHomologated !== undefined) {

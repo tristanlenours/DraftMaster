@@ -13,7 +13,7 @@ export interface LlmResponse<T> {
 
 export type LlmJsonProfile = "default" | "final-deck-coach@1";
 
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "deepseek/deepseek-chat";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/auto";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 export class LlmRouter {
@@ -41,7 +41,7 @@ export class LlmRouter {
     }
 
     this.openrouterKey =
-      process.env.OPENROUTER_PREMIUM_API_KEY || process.env.OPENROUTER_API_KEY || "";
+      process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_PREMIUM_API_KEY || "";
 
     // If keys not in process.env, look in .env.local and .env
     if (rawGeminiKeys.length === 0) {
@@ -76,11 +76,11 @@ export class LlmRouter {
           const content = fs.readFileSync(envPath, "utf8");
           for (const line of content.split("\n")) {
             const trimmed = line.trim();
-            if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
-              this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
-            }
             if (trimmed.startsWith("OPENROUTER_API_KEY=") && !this.openrouterKey) {
               this.openrouterKey = trimmed.replace("OPENROUTER_API_KEY=", "").trim();
+            }
+            if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
+              this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
             }
           }
         }
@@ -147,15 +147,10 @@ export class LlmRouter {
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
     const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
 
-    // Low-latency profiles try Gemini first, then retain DeepSeek as the configured fallback.
+    // Low-latency profiles try Gemini first, then retain OpenRouter as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
       try {
-        const gemRes = await this.callGeminiJson<T>(
-          systemPrompt,
-          userPrompt,
-          maxTokens,
-          isFinalDeckCoach ? 8000 : 5000,
-        );
+        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
         if (gemRes) {
           return {
             success: true,
@@ -169,20 +164,15 @@ export class LlmRouter {
       }
     }
 
-    // 1. Try OpenRouter Premium (DeepSeek V3 / Chat)
+    // 1. Try OpenRouter (openrouter/auto)
     if (this.openrouterKey) {
       try {
-        const deepRes = await this.callOpenRouterJson<T>(
-          systemPrompt,
-          userPrompt,
-          maxTokens,
-          isFinalDeckCoach ? 12000 : 10000,
-        );
+        const deepRes = await this.callOpenRouterJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
         if (deepRes) {
           return {
             success: true,
             content: deepRes,
-            provider: "DeepSeek (OpenRouter)",
+            provider: "OpenRouter (Auto)",
             model: OPENROUTER_MODEL,
           };
         }
@@ -194,12 +184,7 @@ export class LlmRouter {
     // 2. Fallback to Gemini Flash
     if (this.hasAvailableGeminiKey()) {
       try {
-        const gemRes = await this.callGeminiJson<T>(
-          systemPrompt,
-          userPrompt,
-          maxTokens,
-          isFinalDeckCoach ? 8000 : 5000,
-        );
+        const gemRes = await this.callGeminiJson<T>(systemPrompt, userPrompt, maxTokens, 8000);
         if (gemRes) {
           return {
             success: true,
@@ -337,6 +322,10 @@ export class LlmRouter {
         );
         continue;
       }
+      console.warn(
+        `[LlmRouter] Gemini JSON request error for key ...${key.slice(-6)}. Trying next key.`,
+      );
+      continue;
     }
     return null;
   }
@@ -389,12 +378,14 @@ export class LlmRouter {
                   .replace(/^```(?:json)?\s*/i, "")
                   .replace(/\s*```$/, "");
                 resolve({ status: "success", data: JSON.parse(cleaned) });
-              } catch {
+              } catch (e: any) {
+                console.warn("[LlmRouter] Gemini JSON parse error:", e?.message);
                 resolve({ status: "error", data: null });
               }
             } else if (res.statusCode === 429) {
               resolve({ status: "quota_exceeded", data: null });
             } else {
+              console.warn("[LlmRouter] Gemini HTTP error:", res.statusCode, body.slice(0, 200));
               resolve({ status: "error", data: null });
             }
           });
@@ -429,6 +420,10 @@ export class LlmRouter {
         );
         continue;
       }
+      console.warn(
+        `[LlmRouter] Gemini text request error for key ...${key.slice(-6)}. Trying next key.`,
+      );
+      continue;
     }
     return null;
   }
@@ -642,6 +637,11 @@ export class LlmRouter {
                 resolve(null);
               }
             } else {
+              console.warn(
+                "[LlmRouter] OpenRouter HTTP error:",
+                res.statusCode,
+                body.slice(0, 300),
+              );
               resolve(null);
             }
           });
@@ -650,11 +650,13 @@ export class LlmRouter {
 
       timer = setTimeout(() => {
         req.destroy();
+        console.warn(`[LlmRouter] OpenRouter request timeout after ${String(timeoutMs)} ms`);
         resolve(null);
       }, timeoutMs);
 
-      req.on("error", () => {
+      req.on("error", (err) => {
         clearTimeout(timer);
+        console.warn("[LlmRouter] OpenRouter socket error:", err.message);
         resolve(null);
       });
       req.write(payload);
