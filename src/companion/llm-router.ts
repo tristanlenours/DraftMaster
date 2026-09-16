@@ -2,6 +2,13 @@ import https from "node:https";
 import fs from "node:fs";
 import path from "node:path";
 
+const httpsKeepAliveAgent = new https.Agent({
+  keepAlive: true,
+  keepAliveMsecs: 30_000,
+  maxSockets: 20,
+  maxFreeSockets: 10,
+});
+
 export interface LlmResponse<T> {
   success: boolean;
   content: T | null;
@@ -146,7 +153,7 @@ export class LlmRouter {
     const maxTokens = options?.maxTokens ?? 2000;
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
     const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
-    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 4000;
+    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 7000;
 
     // Low-latency profiles try Gemini first, then retain OpenRouter as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
@@ -374,6 +381,7 @@ export class LlmRouter {
           port: 443,
           path: `/v1beta/models/${GEMINI_MODEL}:generateContent`,
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             "x-goog-api-key": key,
@@ -463,6 +471,7 @@ export class LlmRouter {
           port: 443,
           path: `/v1beta/models/${GEMINI_MODEL}:generateContent`,
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             "x-goog-api-key": key,
@@ -550,6 +559,7 @@ export class LlmRouter {
           port: 443,
           path: `/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?alt=sse`,
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             "x-goog-api-key": key,
@@ -629,6 +639,7 @@ export class LlmRouter {
           port: 443,
           path: "/api/v1/chat/completions",
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${this.openrouterKey}`,
@@ -702,6 +713,7 @@ export class LlmRouter {
           port: 443,
           path: "/api/v1/chat/completions",
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${this.openrouterKey}`,
@@ -758,6 +770,7 @@ export class LlmRouter {
           port: 443,
           path: "/api/v1/chat/completions",
           method: "POST",
+          agent: httpsKeepAliveAgent,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${this.openrouterKey}`,
