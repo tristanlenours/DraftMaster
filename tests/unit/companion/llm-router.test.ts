@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { LlmRouter } from "../../../src/companion/llm-router.ts";
 
@@ -28,11 +30,22 @@ describe("Companion - LlmRouter Key Pool & Rotation", () => {
     expect(router.hasAvailableGeminiKey()).toBe(true);
   });
 
-  it("loads the 4 configured keys from project env by default", () => {
-    const router = new LlmRouter();
-    expect(router.getGeminiKeyCount()).toBeGreaterThanOrEqual(4);
-    expect(router.hasConfiguredKeys()).toBe(true);
-    expect(router.hasAvailableGeminiKey()).toBe(true);
+  it("loads configured keys from project env or fallback files when present", () => {
+    const hasLocalEnv =
+      fs.existsSync(path.resolve(process.cwd(), ".env")) ||
+      fs.existsSync(path.resolve(process.cwd(), ".env.local"));
+
+    if (hasLocalEnv) {
+      const router = new LlmRouter();
+      expect(router.getGeminiKeyCount()).toBeGreaterThanOrEqual(4);
+      expect(router.hasConfiguredKeys()).toBe(true);
+      expect(router.hasAvailableGeminiKey()).toBe(true);
+    } else {
+      const router = new LlmRouter();
+      expect(router.getGeminiKeyCount()).toBe(0);
+      expect(router.hasConfiguredKeys()).toBe(false);
+      expect(router.hasAvailableGeminiKey()).toBe(false);
+    }
   });
 
   it("handles per-key cooldowns: retains availability until all keys are cooling down", () => {
