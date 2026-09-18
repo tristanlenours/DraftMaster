@@ -23,3 +23,15 @@ export function scoreToPowerTier(score?: number): string;
 export function computePowerRankings(
   cards: readonly PowerRankableCard[],
 ): Record<string, PowerRankingEntry>;
+
+export interface CubeTierThreshold {
+  readonly tier: string;
+  readonly minScore: number;
+}
+
+export function computeCubeTierThresholds(cards: readonly PowerRankableCard[]): CubeTierThreshold[];
+
+export function scoreToRelativeTierWithThresholds(
+  score: number,
+  thresholds: readonly CubeTierThreshold[],
+): string;

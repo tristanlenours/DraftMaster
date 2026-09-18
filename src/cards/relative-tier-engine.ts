@@ -117,3 +117,55 @@ export function assignRelativeTiers<T extends CardWithScore>(
     };
   });
 }
+
+export interface CubeTierThreshold {
+  readonly tier: RelativeTier;
+  readonly minScore: number;
+}
+
+export function computeCubeTierThresholds(
+  cubeCards: readonly CardWithScore[],
+): CubeTierThreshold[] {
+  if (cubeCards.length === 0) return [];
+
+  const decorated = cubeCards
+    .map((card) => ({
+      score: getUniversalScore(card),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  const total = decorated.length;
+  const minScoresByTier: Partial<Record<RelativeTier, number>> = {};
+
+  decorated.forEach(({ score }, index) => {
+    const tierIndex = Math.min(12, Math.floor((index / total) * 13));
+    const tier = RELATIVE_TIERS[tierIndex] ?? "F";
+    const existing = minScoresByTier[tier];
+    if (existing === undefined || score < existing) {
+      minScoresByTier[tier] = score;
+    }
+  });
+
+  return RELATIVE_TIERS.map((tier) => ({
+    tier,
+    minScore: minScoresByTier[tier] ?? -Infinity,
+  }));
+}
+
+export function scoreToRelativeTierWithThresholds(
+  score: number,
+  thresholds: readonly CubeTierThreshold[],
+): RelativeTier {
+  const finiteScore = Number.isFinite(score) ? score : 1;
+  if (thresholds.length === 0) {
+    return "C";
+  }
+
+  for (const { tier, minScore } of thresholds) {
+    if (finiteScore >= minScore) {
+      return tier;
+    }
+  }
+
+  return "F";
+}

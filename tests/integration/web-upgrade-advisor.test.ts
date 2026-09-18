@@ -116,6 +116,22 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
       expect(first.metaAddedValue.strategicRole).toBeTruthy();
       expect(first.metaAddedValue.summary).toBeTruthy();
     });
+
+    it("verifies tier alignment between cube and maybeboard for hugues_pauper (Malevolent Rumble is A+)", async () => {
+      const filePath = resolve(rootDir, "data", "cubes", "hugues_pauper", "cube-suggestions.json");
+      const raw = await readFile(filePath, "utf-8");
+      const data = JSON.parse(raw) as CubeSuggestionsReport;
+
+      const rumble = data.maybeboard.find((m) => m.card.name === "Malevolent Rumble");
+      expect(rumble).toBeDefined();
+      expect(rumble?.card.score).toBe(42);
+      expect(rumble?.card.tier).toBe("A+");
+
+      const troll = data.maybeboard.find((m) => m.card.name === "Troll of Khazad-dûm");
+      expect(troll).toBeDefined();
+      expect(troll?.card.score).toBe(36);
+      expect(troll?.card.tier).toBe("A+");
+    });
   });
 
   describe("HTTP Static Server Delivery", () => {

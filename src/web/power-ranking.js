@@ -55,3 +55,43 @@ export function computePowerRankings(cards) {
   });
   return rankings;
 }
+
+export function computeCubeTierThresholds(cards) {
+  if (!cards || cards.length === 0) return [];
+
+  const ranked = cards
+    .map((card) => ({
+      score: Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1,
+    }))
+    .sort((left, right) => right.score - left.score);
+
+  const total = ranked.length;
+  const minScoresByTier = {};
+
+  ranked.forEach(({ score }, index) => {
+    const tier = rankToRelativeTier(index, total);
+    if (minScoresByTier[tier] === undefined || score < minScoresByTier[tier]) {
+      minScoresByTier[tier] = score;
+    }
+  });
+
+  return RELATIVE_TIERS.map((tier) => ({
+    tier,
+    minScore: minScoresByTier[tier] ?? -Infinity,
+  }));
+}
+
+export function scoreToRelativeTierWithThresholds(score, thresholds) {
+  const finiteScore = Number.isFinite(score) ? score : 1;
+  if (!thresholds || thresholds.length === 0) {
+    return "C";
+  }
+
+  for (const { tier, minScore } of thresholds) {
+    if (finiteScore >= minScore) {
+      return tier;
+    }
+  }
+
+  return "F";
+}

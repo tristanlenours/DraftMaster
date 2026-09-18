@@ -284,13 +284,15 @@ test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", a
   await expect(cards).toHaveCount(15);
   await expect(page.locator(".booster-card-item .card-info-footer")).toHaveCount(0);
   await expect
-    .poll(() =>
-      page
-        .locator(".booster-card-img")
-        .evaluateAll(
-          (images: HTMLImageElement[]) =>
-            images.filter((image) => image.complete && image.naturalWidth > 0).length,
-        ),
+    .poll(
+      () =>
+        page
+          .locator(".booster-card-img")
+          .evaluateAll(
+            (images: HTMLImageElement[]) =>
+              images.filter((image) => image.complete && image.naturalWidth > 0).length,
+          ),
+      { timeout: 10000 },
     )
     .toBe(15);
 

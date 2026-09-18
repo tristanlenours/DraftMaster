@@ -1,4 +1,9 @@
 import type { MasterCatalogCard, CubeTier } from "./types.ts";
+import {
+  computeCubeTierThresholds,
+  scoreToRelativeTierWithThresholds,
+  type CubeTierThreshold,
+} from "./relative-tier-engine.ts";
 
 export type SwapType = "strict_upgrade" | "versatile_alternative" | "archetype_booster";
 
@@ -105,9 +110,19 @@ function getCardScore(card: MasterCatalogCard): number {
   return Number.isFinite(card.powerScore.score) ? card.powerScore.score : 1;
 }
 
-function getCardTier(card: MasterCatalogCard, cubeKey: string): CubeTier {
+function getCardTier(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  thresholds?: readonly CubeTierThreshold[],
+): CubeTier {
   const ana = card.cubeAnalyses[cubeKey];
-  return ana?.relativeTier ?? ana?.tier ?? "C";
+  if (ana?.relativeTier) return ana.relativeTier;
+  if (ana?.tier) return ana.tier;
+  if (thresholds && thresholds.length > 0) {
+    const score = getCardScore(card);
+    return scoreToRelativeTierWithThresholds(score, thresholds);
+  }
+  return "C";
 }
 
 function isWeakTarget(card: MasterCatalogCard, cubeKey: string): boolean {
@@ -465,6 +480,7 @@ function toCardRef(
   card: MasterCatalogCard,
   cubeKey: string,
   relInfo?: CardReleaseInfo,
+  thresholds?: readonly CubeTierThreshold[],
 ): UpgradeCardRef {
   const yr = relInfo?.firstPrintYear;
   const isRecent = yr !== undefined && yr >= 2023;
@@ -472,7 +488,7 @@ function toCardRef(
     oracleId: card.oracleId,
     name: card.name,
     score: getCardScore(card),
-    tier: getCardTier(card, cubeKey),
+    tier: getCardTier(card, cubeKey, thresholds),
     cmc: card.cmc,
     typeLine: card.typeLine,
     imageUrl: card.image?.url ?? card.imageUrl,
@@ -496,6 +512,7 @@ export function generateCubeUpgradeProposals(
 
   // 1. Identify target cards currently in the cube that are candidates for an upgrade
   const cubeCards = catalogCards.filter((c) => c.presentInCubes.includes(cubeKey));
+  const thresholds = computeCubeTierThresholds(cubeCards);
   const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey));
 
   // 2. Identify candidate pool: cards in catalog NOT in this cube
@@ -614,8 +631,13 @@ export function generateCubeUpgradeProposals(
       );
 
       proposals[target.name] = {
-        targetCard: toCardRef(target, cubeKey, releaseMetadataMap?.get(target.name.toLowerCase())),
-        suggestedCard: toCardRef(bestCandidate, cubeKey, bestRelInfo),
+        targetCard: toCardRef(
+          target,
+          cubeKey,
+          releaseMetadataMap?.get(target.name.toLowerCase()),
+          thresholds,
+        ),
+        suggestedCard: toCardRef(bestCandidate, cubeKey, bestRelInfo, thresholds),
         swapType,
         scoreDelta: Math.round(delta * 10) / 10,
         reason: generateSwapReason(target, bestCandidate, delta, bestIsTribal),
@@ -641,6 +663,8 @@ export function generateCubeMaybeboard(
   maxSuggestions = 30,
   upgrades?: Readonly<Record<string, UpgradeProposal>>,
 ): readonly MaybeboardSuggestion[] {
+  const cubeCards = catalogCards.filter((c) => c.presentInCubes.includes(cubeKey));
+  const thresholds = computeCubeTierThresholds(cubeCards);
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
   const isPauperCube = cubeKey === "hugues_pauper";
@@ -819,7 +843,7 @@ export function generateCubeMaybeboard(
     const isRecent = yr !== undefined && yr >= 2023;
 
     results.push({
-      card: toCardRef(cand, cubeKey, item.relInfo),
+      card: toCardRef(cand, cubeKey, item.relInfo, thresholds),
       archetypes: item.matchedArchetypes,
       role: item.role,
       rationale,

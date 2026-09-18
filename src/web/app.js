@@ -1,4 +1,9 @@
-import { computePowerRankings, toPowerBarPercentage } from "./power-ranking.js";
+import {
+  computePowerRankings,
+  computeCubeTierThresholds,
+  scoreToRelativeTierWithThresholds,
+  toPowerBarPercentage,
+} from "./power-ranking.js";
 import { SoloDraftController, openDeckShowcaseModal } from "./solo-draft.js";
 import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 import {
@@ -2221,6 +2226,23 @@ function renderCubeDetail(cubeKey) {
   }
 }
 
+// Cache of cube tier thresholds: { [cubeKey]: CubeTierThreshold[] }
+const cubeTierThresholdsCache = {};
+
+function getCubeTierThresholds(cubeKey) {
+  if (!cubeKey) return null;
+  if (cubeTierThresholdsCache[cubeKey]) {
+    return cubeTierThresholdsCache[cubeKey];
+  }
+  const cubeCards = state.cards.filter(
+    (c) => c.presentInCubes && c.presentInCubes.includes(cubeKey),
+  );
+  if (cubeCards.length === 0) return null;
+  const thresholds = computeCubeTierThresholds(cubeCards);
+  cubeTierThresholdsCache[cubeKey] = thresholds;
+  return thresholds;
+}
+
 // Determine Tier from active Cube analysis or ranking if available, otherwise from Power Ranking score
 function getCardTier(card, cubeKey = state.activeCubeKey) {
   if (cubeKey) {
@@ -2232,6 +2254,13 @@ function getCardTier(card, cubeKey = state.activeCubeKey) {
     const cubeTier = card.cubeAnalyses && card.cubeAnalyses[cubeKey]?.tier;
     if (cubeTier && TIERS.includes(cubeTier)) {
       return cubeTier;
+    }
+    // For cards not in the cube (e.g. Maybeboard IA or upgrade candidates),
+    // compute the tier using the exact same score thresholds (paliers) as this cube
+    const thresholds = getCubeTierThresholds(cubeKey);
+    if (thresholds && thresholds.length > 0) {
+      const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
+      return scoreToRelativeTierWithThresholds(score, thresholds);
     }
   }
   const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
@@ -3192,12 +3221,14 @@ function openCardModal(card, comparisonOverride) {
   if (elements.modalUpgradeSection) {
     if (comparison && !comparison.isStandaloneMaybeboard) {
       elements.modalUpgradeSection.hidden = false;
-      if (elements.modalUpgradeSectionTitle) {
-        elements.modalUpgradeSectionTitle.textContent = "Mise à Niveau Suggérée (Poste pour Poste)";
-      }
-
       const isViewingCube = card.name === comparison.cubeCard.name;
       const isViewingSugg = card.name === comparison.suggCard.name;
+
+      if (elements.modalUpgradeSectionTitle) {
+        elements.modalUpgradeSectionTitle.textContent = isViewingSugg
+          ? "Recommandation Maybeboard (Poste pour Poste)"
+          : "Mise à Niveau Suggérée (Poste pour Poste)";
+      }
 
       // Left Pane (Carte en Place)
       if (elements.modalUpgradeCurrName) {

@@ -154,4 +154,30 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await expect(page.locator(".card-matrix-item")).toHaveCount(1);
     await expect(page.locator(".card-matrix-item", { hasText: "Battle Cry Goblin" })).toBeVisible();
   });
+
+  test("renders Malevolent Rumble in the A+ row in Huge's Pauper Cube maybeboard view", async ({
+    page,
+  }) => {
+    await emulateCleanDeploymentImages(page);
+    await page.goto("/cards");
+    await expect(page.locator("#view-cards")).toBeVisible();
+
+    await page.selectOption("#cube-select", "hugues_pauper");
+
+    // Switch to Maybeboard Mode
+    await page.locator("#btn-view-maybeboard").click();
+    await expect(page.locator("#btn-view-maybeboard")).toHaveClass(/active/);
+
+    // In the desktop table, find the A+ tier row
+    const aPlusRow = page.getByRole("row", { name: /A\+/ });
+    await expect(aPlusRow).toBeVisible();
+
+    // Verify Malevolent Rumble is present inside the A+ tier row
+    const rumbleCard = aPlusRow.locator(".card-matrix-item", { hasText: "Malevolent Rumble" });
+    await expect(rumbleCard).toBeVisible();
+
+    // Also verify Troll of Khazad-dûm is inside the A+ tier row
+    const trollCard = aPlusRow.locator(".card-matrix-item", { hasText: "Troll of Khazad-dûm" });
+    await expect(trollCard).toBeVisible();
+  });
 });

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { assignRelativeTiers, getUniversalScore } from "../../../src/cards/relative-tier-engine.ts";
+import {
+  assignRelativeTiers,
+  getUniversalScore,
+  computeCubeTierThresholds,
+  scoreToRelativeTierWithThresholds,
+} from "../../../src/cards/relative-tier-engine.ts";
 import { RELATIVE_TIERS } from "../../../src/cards/types.ts";
 
 describe("Relative Tier Engine (13 Quantiles)", () => {
@@ -83,5 +88,43 @@ describe("Relative Tier Engine (13 Quantiles)", () => {
     expect(getUniversalScore({ name: "A", powerScore: { score: 42 } })).toBe(42);
     expect(getUniversalScore({ name: "B", score: 30 })).toBe(30);
     expect(getUniversalScore({ name: "C" })).toBe(1);
+  });
+
+  it("computes cube tier thresholds and maps scores to the exact same tiers as the cube", () => {
+    // Simulate a 130-card cube (10 cards per tier)
+    // Tier A+ has scores 55 down to 46 (minScore = 46)
+    // Tier A has scores 45 down to 36 (minScore = 36)
+    // Tier A- has scores 35 down to 26 (minScore = 26)
+    const mockCubeCards = Array.from({ length: 130 }, (_, i) => ({
+      name: `CubeCard ${String(i)}`,
+      powerScore: { score: 55 - (i / 130) * 50 },
+    }));
+
+    const thresholds = computeCubeTierThresholds(mockCubeCards);
+    expect(thresholds).toHaveLength(13);
+    expect(thresholds[0]?.tier).toBe("A+");
+    expect(thresholds[12]?.tier).toBe("F");
+
+    // Any card with score >= minScore of A+ is mapped to A+
+    const aPlusMin = thresholds[0]?.minScore ?? 45;
+    expect(scoreToRelativeTierWithThresholds(54, thresholds)).toBe("A+");
+    expect(scoreToRelativeTierWithThresholds(aPlusMin, thresholds)).toBe("A+");
+
+    // A card slightly below A+ falls into A
+    expect(scoreToRelativeTierWithThresholds(aPlusMin - 0.1, thresholds)).toBe("A");
+
+    // Even an off-cube card with a high score (e.g. 50 in Pauper where A+ threshold is 26) gets A+
+    const pauperLikeCards = [
+      { name: "Bolt", powerScore: { score: 42 } },
+      { name: "Leak", powerScore: { score: 35 } },
+      { name: "Elf", powerScore: { score: 26 } },
+      ...Array.from({ length: 100 }, (_, i) => ({
+        name: `Filler ${String(i)}`,
+        powerScore: { score: 25 - i * 0.2 },
+      })),
+    ];
+    const pauperThresholds = computeCubeTierThresholds(pauperLikeCards);
+    // Malevolent Rumble (score 42) in this pauper-like cube gets A+!
+    expect(scoreToRelativeTierWithThresholds(42, pauperThresholds)).toBe("A+");
   });
 });
