@@ -38,7 +38,7 @@
     "rawSourceScore": 44,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -63,7 +63,7 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -72,7 +72,7 @@
         "discard-outlet",
         "recursion-sorcery"
       ],
-      "scoreModifier": 15,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -88,12 +88,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "cedric:gruul_stompy_sneak"
       ],
@@ -102,7 +105,7 @@
         "discard-outlet",
         "recursion-sorcery"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -118,7 +121,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   }
 }

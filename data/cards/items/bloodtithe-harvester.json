@@ -39,7 +39,7 @@
     "rawSourceScore": 40,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
     "titou_tribal",
@@ -66,10 +66,10 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [],
       "synergyTags": [],
-      "scoreModifier": 6,
+      "scoreModifier": 4,
       "analysis": "Carte de rang S (Score : 40.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Menace ou ressource clé : déployez Bloodtithe Harvester dès que possible en sécurisant votre avantage.",
@@ -85,12 +85,15 @@
             "comment": "Alignement au métagame Titou Tribal (S)."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A-",
       "archetypes": [
         "nico:artifact_ramp"
       ],
@@ -99,7 +102,7 @@
         "removal-creature",
         "removal"
       ],
-      "scoreModifier": 15,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -115,12 +118,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "titou_arena_peasant_plus": {
       "cubeKey": "titou_arena_peasant_plus",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "titou_peasant:rakdos_artifacts_sac"
       ],
@@ -129,7 +135,7 @@
         "removal-creature",
         "removal"
       ],
-      "scoreModifier": 10,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
@@ -145,7 +151,10 @@
             "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Bloodtithe Harvester",

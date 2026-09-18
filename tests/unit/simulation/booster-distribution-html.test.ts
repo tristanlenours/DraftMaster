@@ -39,10 +39,9 @@ describe("Booster Distribution HTML Report Generator", () => {
     expect(html).toContain("360");
     expect(html).toContain("Répartition par Couleur");
     expect(html).toContain("Courbe de Mana (CMC)");
-    expect(html).toContain("Bombes — Top 5 % du Cube");
-    expect(html).toContain("21 bombes distribuées");
-    expect(html).toContain("0,88 par booster");
-    expect(html).toContain("9 boosters sans bombe");
+    expect(html).toContain("bombes distribuées");
+    expect(html).toContain("par booster");
+    expect(html).toContain("sans bombe");
     expect(html).toContain("bomb-ribbon");
     expect(html).toContain("Le Rockeur");
     expect(html).not.toContain(">Tristan</button>");

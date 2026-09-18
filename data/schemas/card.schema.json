@@ -172,7 +172,11 @@
         },
         "tier": {
           "type": "string",
-          "enum": ["S", "A", "B", "C", "D"]
+          "enum": ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "S"]
+        },
+        "relativeTier": {
+          "type": "string",
+          "enum": ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "S"]
         },
         "archetypes": {
           "type": "array",
@@ -183,6 +187,11 @@
           "items": { "type": "string" }
         },
         "scoreModifier": { "type": "number", "minimum": -25.0, "maximum": 25.0 },
+        "metaBonus": { "type": "number" },
+        "metaRole": {
+          "type": "string",
+          "enum": ["key", "support", "neutral", "trap"]
+        },
         "analysis": { "type": "string", "minLength": 1 },
         "pedagogy": {
           "type": "object",
@@ -213,7 +222,7 @@
                   "archetype": { "type": "string" },
                   "grade": {
                     "type": "string",
-                    "enum": ["S", "A", "B", "C", "D"]
+                    "enum": ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "S"]
                   },
                   "winrateOrScore": { "type": "string" },
                   "comment": { "type": "string" }

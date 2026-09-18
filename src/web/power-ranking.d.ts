@@ -11,9 +11,13 @@ export interface PowerRankingEntry {
   readonly total: number;
   readonly score: number;
   readonly percentile: number;
+  readonly tier?: string;
+  readonly relativeTier?: string;
 }
 
 export const MAX_POWER_SCORE: 55;
+export const RELATIVE_TIERS: readonly string[];
+export function rankToRelativeTier(rankIndex: number, totalCards: number): string;
 export function toPowerBarPercentage(score: number): number;
 export function scoreToPowerTier(score?: number): string;
 export function computePowerRankings(

@@ -20,7 +20,7 @@
     "cube:fetch": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts fetch",
     "cube:normalize": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts normalize",
     "cube:validate": "node --no-warnings --experimental-strip-types src/cli/import-cube.ts validate",
-    "data:sync": "node scripts/sync-data-models.mjs",
+    "data:sync": "node --no-warnings --experimental-strip-types scripts/sync-data-models.mjs",
     "demo:coaching": "node --experimental-strip-types scripts/demo-coaching-pack.ts",
     "demo:evaluation": "node --experimental-strip-types scripts/demo-deck-evaluation.ts",
     "demo:friends": "node --experimental-strip-types scripts/demo-friends-draft.ts",

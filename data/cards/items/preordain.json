@@ -31,12 +31,12 @@
   },
   "imageUrl": "https://api.scryfall.com/cards/named?exact=Preordain&format=image",
   "powerScore": {
-    "score": 27,
+    "score": 26,
     "source": "untapped",
-    "rawSourceScore": 27,
+    "rawSourceScore": 26,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -64,14 +64,14 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "support",
-      "tier": "A",
+      "tier": "A-",
       "archetypes": [
         "titou:tribal_wizards"
       ],
       "synergyTags": [
         "archetype:titou:tribal_wizards:velocity"
       ],
-      "scoreModifier": 3,
+      "scoreModifier": 0,
       "analysis": "Carte de rang A (Score : 27.0) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Pièce maîtresse d'archétype : capitalisez sur les synergies avant d'engager vos ressources.",
@@ -86,7 +86,10 @@
             "comment": "Alignement au métagame Titou Tribal (A)."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
@@ -101,7 +104,7 @@
         "selection",
         "cantrip"
       ],
-      "scoreModifier": 9,
+      "scoreModifier": 8,
       "analysis": "Le meilleur cantrip inconditionnel en Pauper où les fetchlands sont absents. Scry 2 garantit de trouver ses terrains ou ses réponses clés.",
       "pedagogy": {
         "howToPlay": "Ne le lancez pas machinalement au tour 1 si vous n'avez pas de plan précis. Gardez-le pour le tour 2 ou 3 afin de savoir exactement quelle carte vous cherchez à creuser avec Scry 2.",
@@ -120,12 +123,15 @@
       },
       "keyPairs": [
         "Counterspell"
-      ]
+      ],
+      "relativeTier": "A",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "A",
+      "tier": "B",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -134,7 +140,7 @@
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 8,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -149,12 +155,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "B",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "A",
+      "tier": "B+",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -163,7 +172,7 @@
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -178,12 +187,15 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "B+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "titou_arena_peasant_plus": {
       "cubeKey": "titou_arena_peasant_plus",
       "fit": "support",
-      "tier": "A",
+      "tier": "C+",
       "archetypes": [
         "titou_peasant:peasant_staple"
       ],
@@ -192,7 +204,7 @@
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 6,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
@@ -207,7 +219,10 @@
             "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
           }
         ]
-      }
+      },
+      "relativeTier": "C+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Prédestination",

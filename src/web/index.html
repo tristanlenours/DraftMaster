@@ -1000,6 +1000,19 @@
             </button>
           </div>
 
+          <!-- Upgrade Advisor Filter -->
+          <div class="control-group upgrade-filter-group">
+            <span class="control-group-label">Conseiller</span>
+            <button
+              id="upgrade-filter-btn"
+              class="action-btn pill-btn"
+              title="Filtrer les cartes ayant une proposition de mise à niveau poste pour poste"
+            >
+              <span class="btn-icon">⚡</span>
+              <span class="btn-text">Mises à niveau</span>
+            </button>
+          </div>
+
           <!-- Global card language selector (mirrors the persistent header switch) -->
           <div class="control-group lang-filter-group">
             <span class="control-group-label">Langue</span>
@@ -1033,7 +1046,17 @@
       <!-- Meta Info Sub-bar -->
       <div class="meta-subbar">
         <div class="meta-subbar-inner">
-          <span class="results-stats" id="results-stats">Chargement des cartes...</span>
+          <div class="subbar-left">
+            <span class="results-stats" id="results-stats">Chargement des cartes...</span>
+            <div class="view-mode-toggle" id="cards-view-mode-group" role="group" aria-label="Mode d'exploration">
+              <button type="button" class="view-mode-btn active" id="btn-view-cube-cards" data-mode="cube">
+                🎴 Cube Actuel
+              </button>
+              <button type="button" class="view-mode-btn" id="btn-view-maybeboard" data-mode="maybeboard">
+                💡 Maybeboard IA & Tendances
+              </button>
+            </div>
+          </div>
           <span class="matrix-tip"
             >💡 Survolez pour afficher la carte, cliquez pour l'analyse fine et ses synergies.</span
           >
@@ -3252,6 +3275,74 @@
                   <span class="hero-metric-label">Rôle Cube</span>
                   <span class="hero-metric-text" id="modal-hero-cube-role">Support Polyvalent</span>
                   <span class="hero-metric-sub" id="modal-hero-tempo-impact">Impact : Élevé</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upgrade Proposal Section (1-to-1 Swap) -->
+            <div class="modal-section upgrade-advisor-section" id="modal-upgrade-section" hidden>
+              <div class="modal-section-header">
+                <span class="section-badge-icon">⚡</span>
+                <h3 class="modal-section-title" id="modal-upgrade-section-title">Mise à Niveau Suggérée (Poste pour Poste)</h3>
+              </div>
+              <div class="upgrade-advisor-card" id="modal-upgrade-card">
+                <div class="upgrade-badges-row" id="modal-upgrade-badges-row">
+                  <span class="upgrade-recency-pill" id="modal-upgrade-recency-pill">✨ Nouveauté (Veille)</span>
+                  <span class="upgrade-benchmark-pill" id="modal-upgrade-benchmark-pill">⚡ Référence CubeCobra</span>
+                </div>
+                <div class="upgrade-proposal-grid">
+                  <div class="upgrade-current-pane" id="modal-upgrade-curr-pane" role="button" tabindex="0" title="Cliquer pour afficher cette carte">
+                    <div class="pane-header-row">
+                      <span class="upgrade-pane-label" id="modal-upgrade-curr-pane-label">Carte en Place</span>
+                      <span class="pane-status-pill" id="modal-upgrade-curr-status"></span>
+                    </div>
+                    <div class="upgrade-card-summary">
+                      <span class="ucs-name" id="modal-upgrade-curr-name">Carte</span>
+                      <span class="ucs-score" id="modal-upgrade-curr-score">--/55</span>
+                    </div>
+                  </div>
+                  <div class="upgrade-arrow-pane" id="modal-upgrade-arrow-pane">
+                    <button type="button" class="btn-swap-arrow" id="modal-btn-swap-arrow" title="Basculer entre la carte en place et la remplaçante">⇄</button>
+                    <span class="upgrade-delta-badge" id="modal-upgrade-delta">+0</span>
+                  </div>
+                  <div class="upgrade-target-pane" id="modal-upgrade-sugg-pane" role="button" tabindex="0" title="Cliquer pour afficher cette carte">
+                    <div class="pane-header-row">
+                      <span class="upgrade-pane-label" id="modal-upgrade-sugg-pane-label">Remplacement Suggéré</span>
+                      <span class="pane-status-pill" id="modal-upgrade-sugg-status"></span>
+                    </div>
+                    <div class="upgrade-card-summary highlight">
+                      <span class="ucs-name" id="modal-upgrade-sugg-name">Remplaçant</span>
+                      <span class="ucs-score" id="modal-upgrade-sugg-score">--/55</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Multi-Targets list when suggested card can replace multiple cards in the cube -->
+                <div class="upgrade-multi-targets-wrap" id="modal-upgrade-multi-targets-wrap" hidden>
+                  <span class="multi-targets-label">Autre(s) carte(s) remplaçable(s) dans ce Cube :</span>
+                  <div class="multi-targets-chips" id="modal-upgrade-multi-targets-chips"></div>
+                </div>
+
+                <p class="upgrade-reason-text" id="modal-upgrade-reason"></p>
+
+                <!-- Detailed Meta Added Value Analysis -->
+                <div class="upgrade-meta-added-value-box" id="modal-upgrade-meta-box">
+                  <div class="meta-box-header">
+                    <span class="meta-box-icon">🎯</span>
+                    <span class="meta-box-title" id="modal-upgrade-meta-title">Plus-Value pour la Méta du Cube</span>
+                  </div>
+                  <div class="meta-box-role" id="modal-upgrade-strategic-role">Interaction & Retrait Premium Inconditionnel</div>
+                  <p class="meta-box-summary" id="modal-upgrade-meta-summary"></p>
+                  <div class="meta-box-archetypes" id="modal-upgrade-archetypes-wrap">
+                    <span class="meta-arch-label">Archétypes renforcés :</span>
+                    <div class="meta-arch-chips" id="modal-upgrade-archetypes-chips"></div>
+                  </div>
+                </div>
+
+                <div class="upgrade-action-row">
+                  <button type="button" class="btn-inspect-upgrade" id="modal-btn-inspect-upgrade">
+                    🔍 Consulter la fiche de la carte proposée
+                  </button>
                 </div>
               </div>
             </div>

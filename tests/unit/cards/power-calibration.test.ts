@@ -7,7 +7,7 @@ import {
 } from "../../../src/cards/power-calibration.ts";
 
 describe("power score calibration", () => {
-  it("selects the most frequent observation and resolves ties by the earliest observation", () => {
+  it("selects the most recent observation when scores vary over time", () => {
     expect(
       selectRepresentativeScore([
         { score: 31, observedAt: 1 },
@@ -15,13 +15,13 @@ describe("power score calibration", () => {
         { score: 31, observedAt: 3 },
         { score: 29, observedAt: 4 },
       ]),
-    ).toBe(31);
+    ).toBe(29);
     expect(
       selectRepresentativeScore([
         { score: 48, observedAt: 1 },
         { score: 47, observedAt: 2 },
       ]),
-    ).toBe(48);
+    ).toBe(47);
   });
 
   it("fits a monotonic calibration even when samples contain local inversions", () => {

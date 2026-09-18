@@ -22,11 +22,11 @@ describe("Contextual Cube Card Analysis", () => {
 
       const boltPauper = bolt.cubeAnalyses.hugues_pauper;
       const boltNico = bolt.cubeAnalyses.nico_candyshop;
-      expect(boltPauper?.tier).toBe("S");
+      expect(boltPauper?.tier).toBe("A+");
       expect(boltPauper?.fit).toBe("staple");
       expect(boltPauper?.scoreModifier).toBeGreaterThan(5);
 
-      expect(boltNico?.tier).toBe("B");
+      expect(boltNico?.tier).toBe("A");
       expect(boltNico?.fit).toBe("support");
 
       // 2. Mulldrifter: current Pauper member; stale Nico membership was removed.
@@ -37,32 +37,33 @@ describe("Contextual Cube Card Analysis", () => {
       expect(mulldrifter.presentInCubes).not.toContain("nico_candyshop");
 
       const driftPauper = mulldrifter.cubeAnalyses.hugues_pauper;
-      expect(driftPauper?.tier).toBe("S");
+      expect(driftPauper?.tier).toBe("A+");
       expect(driftPauper?.fit).toBe("build_around");
-      expect(driftPauper?.scoreModifier).toBeGreaterThan(10);
+      expect(driftPauper?.scoreModifier).toBeGreaterThanOrEqual(8);
 
       expect(mulldrifter.cubeAnalyses.nico_candyshop).toBeUndefined();
 
-      // 3. Counterspell: S-tier unconditional staple in Pauper vs B support in Vintage
+      // 3. Counterspell: A+ unconditional staple in Pauper vs A- support in Vintage
       const counterspell = catalog.getCardByName("Counterspell");
       expect(counterspell).toBeDefined();
       if (!counterspell) throw new Error("Counterspell missing");
-      expect(counterspell.cubeAnalyses.hugues_pauper?.tier).toBe("S");
-      expect(counterspell.cubeAnalyses.nico_candyshop?.tier).toBe("B");
+      expect(counterspell.cubeAnalyses.hugues_pauper?.tier).toBe("A+");
+      expect(counterspell.cubeAnalyses.nico_candyshop?.tier).toBe("A-");
 
-      // 4. Nico Signatures: Black Lotus and Underworld Breach are S in Nico Candyshop
+      // 4. Nico Signatures: Black Lotus is A+ in Nico Candyshop
       const lotus = catalog.getCardByName("Black Lotus");
       expect(lotus).toBeDefined();
       if (!lotus) throw new Error("Black Lotus missing");
       expect(lotus.presentInCubes).toContain("nico_candyshop");
-      expect(lotus.cubeAnalyses.nico_candyshop?.tier).toBe("S");
+      expect(lotus.cubeAnalyses.nico_candyshop?.tier).toBe("A+");
 
       // 5. Hugues Signatures: Ninja of the Deep Hours in Hugues Pauper
       const ninja = catalog.getCardByName("Ninja of the Deep Hours");
       expect(ninja).toBeDefined();
       if (!ninja) throw new Error("Ninja missing");
       expect(ninja.presentInCubes).toContain("hugues_pauper");
-      expect(ninja.cubeAnalyses.hugues_pauper?.tier).toBe("S");
+      expect(ninja.cubeAnalyses.hugues_pauper?.tier).toBe("C-");
+      expect(ninja.cubeAnalyses.hugues_pauper?.fit).toBe("build_around");
     }
   });
 });

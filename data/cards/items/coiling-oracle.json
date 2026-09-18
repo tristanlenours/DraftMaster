@@ -66,7 +66,7 @@
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "support",
-      "tier": "B",
+      "tier": "B+",
       "archetypes": [
         "hugues:simic_ramp_value"
       ],
@@ -75,7 +75,7 @@
         "cycle",
         "unique-type-line"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
       "pedagogy": {
         "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
@@ -91,12 +91,15 @@
             "comment": "Pilier du métagame Pauper équilibré."
           }
         ]
-      }
+      },
+      "relativeTier": "B+",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "B",
+      "tier": "C-",
       "archetypes": [
         "cedric:simic_ramp_goodstuff"
       ],
@@ -121,7 +124,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "C-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Oracle annelé",

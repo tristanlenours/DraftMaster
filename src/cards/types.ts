@@ -66,14 +66,37 @@ export interface CardPedagogy {
   readonly archetypeFit?: readonly ArchetypeFitItem[];
 }
 
+export const RELATIVE_TIERS = [
+  "A+",
+  "A",
+  "A-",
+  "B+",
+  "B",
+  "B-",
+  "C+",
+  "C",
+  "C-",
+  "D+",
+  "D",
+  "D-",
+  "F",
+] as const;
+
+export type RelativeTier = (typeof RELATIVE_TIERS)[number];
+export type LegacyTier = "S" | "A" | "B" | "C" | "D";
+export type CubeTier = RelativeTier | LegacyTier;
+
 export interface CubeSpecificCardAnalysis {
   readonly cubeKey: string;
   readonly fit: CubeCardFit;
-  readonly tier?: string;
+  readonly tier?: CubeTier;
+  readonly relativeTier?: CubeTier;
   readonly pedagogy?: CardPedagogy;
   readonly archetypes: readonly string[];
   readonly synergyTags: readonly string[];
   readonly scoreModifier: number;
+  readonly metaBonus?: number;
+  readonly metaRole?: "key" | "support" | "neutral" | "trap";
   readonly analysis: string;
   readonly keyPairs?: readonly string[];
 }

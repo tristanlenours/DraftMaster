@@ -14,6 +14,20 @@ export function scoreToPowerTier(score) {
   return "D";
 }
 
+export const RELATIVE_TIERS = [
+  "A+", "A", "A-",
+  "B+", "B", "B-",
+  "C+", "C", "C-",
+  "D+", "D", "D-",
+  "F",
+];
+
+export function rankToRelativeTier(rankIndex, totalCards) {
+  if (!totalCards || totalCards <= 0) return "C";
+  const tierIndex = Math.min(12, Math.floor((rankIndex / totalCards) * 13));
+  return RELATIVE_TIERS[tierIndex];
+}
+
 export function computePowerRankings(cards) {
   const ranked = cards
     .map((card) => ({
@@ -29,10 +43,13 @@ export function computePowerRankings(cards) {
   ranked.forEach(({ card, score }, index) => {
     const rank = index + 1;
     const cardKey = card.oracleId || card.slug || card.name;
+    const relativeTier = rankToRelativeTier(index, total);
     rankings[cardKey] = {
       rank,
       total,
       score,
+      tier: relativeTier,
+      relativeTier,
       percentile: Math.max(1, Math.round((rank / total) * 100)),
     };
   });

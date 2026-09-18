@@ -30,12 +30,12 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/7/6/7673784e-db4b-43a1-8d55-1bb9fc1e284f.jpg?1783903008",
   "powerScore": {
-    "score": 43,
+    "score": 42,
     "source": "untapped",
-    "rawSourceScore": 43,
+    "rawSourceScore": 42,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-13T08:02:16.082Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -63,7 +63,7 @@
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "hugues:boros_synth_tokens"
       ],
@@ -72,7 +72,7 @@
         "cheap_removal",
         "reach"
       ],
-      "scoreModifier": 12,
+      "scoreModifier": 8,
       "analysis": "La référence absolue du retrait et du tempo en Pauper. Détruit 95% des créatures du format pour 1 mana éphémère, ou achève l'adversaire. Carte S-Tier incontournable.",
       "pedagogy": {
         "howToPlay": "Prioriser l'élimination des créatures clés adverses dès leur arrivée (Ninja, Elfe, Synth) pour briser leur tempo. Ne lancer vers les PV adverses qu'en toute fin de partie lorsque le 'lethal' est garanti.",
@@ -114,12 +114,15 @@
       "keyPairs": [
         "Experimental Synthesizer",
         "Monastery Swiftspear"
-      ]
+      ],
+      "relativeTier": "A+",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "B",
+      "tier": "A",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -143,17 +146,20 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [],
       "synergyTags": [
         "removal"
       ],
-      "scoreModifier": 6,
+      "scoreModifier": 0,
       "analysis": "Carte de rang S (Score : 43.0) dans l'environnement tribal et interactif de Titou.",
       "keyPairs": [],
       "pedagogy": {
@@ -169,12 +175,15 @@
             "comment": "Alignement au métagame Titou Tribal (S)."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -183,7 +192,7 @@
         "cycle-lea-boon",
         "cycle"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -198,7 +207,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 8,
+      "metaRole": "key"
     }
   },
   "frenchName": "Foudre",

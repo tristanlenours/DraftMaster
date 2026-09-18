@@ -34,12 +34,12 @@
   },
   "imageUrl": "https://api.scryfall.com/cards/named?exact=Urza%2C%20Lord%20High%20Artificer&format=image",
   "powerScore": {
-    "score": 33,
+    "score": 35,
     "source": "untapped",
-    "rawSourceScore": 33,
+    "rawSourceScore": 35,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-14T17:13:13.048Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -65,7 +65,7 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "A",
+      "tier": "A-",
       "archetypes": [
         "nico:storm_combo",
         "nico:artifact_ramp"
@@ -90,7 +90,10 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
@@ -104,7 +107,7 @@
         "tap-outlet",
         "synergy-artifact"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -119,7 +122,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   }
 }

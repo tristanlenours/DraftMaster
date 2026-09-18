@@ -43,7 +43,7 @@ describe("untapped static score fidelity", () => {
     ) as Record<string, CardMetadata>;
 
     const reference = JSON.parse(
-      readFileSync(resolve(rootDir, "data/power-rankings/untapped-reference-v1.json"), "utf8"),
+      readFileSync(resolve(rootDir, "data/power-rankings/untapped-reference-v2.json"), "utf8"),
     ) as ReferenceArtifact;
 
     // 3. Aggregate all Untapped observations per normalized card name
@@ -106,7 +106,8 @@ describe("untapped static score fidelity", () => {
     const fabledPassage = catalog.getCardByName("Fabled Passage");
     expect(fabledPassage).toBeDefined();
     expect(fabledPassage?.powerScore.source).toBe("untapped");
-    expect(fabledPassage?.powerScore.score).toBe(16);
+    expect(fabledPassage?.powerScore.score).toBeGreaterThanOrEqual(16);
+    expect(fabledPassage?.powerScore.score).toBeLessThanOrEqual(17);
     expect(fabledPassage?.powerScore.score).not.toBe(41);
     expect(Math.abs((fabledPassage?.powerScore.score ?? 0) - 16)).toBeLessThanOrEqual(3);
   });

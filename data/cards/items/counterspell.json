@@ -36,7 +36,7 @@
     "rawSourceScore": 40,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-12T09:26:40.779Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -64,7 +64,7 @@
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "hugues:faeries_ninjas_tempo",
         "hugues:azorius_blink"
@@ -73,7 +73,7 @@
         "hard_counter",
         "tempo_lock"
       ],
-      "scoreModifier": 10,
+      "scoreModifier": 8,
       "analysis": "Le roi du contrôle en Pauper. À UU, il stoppe net n'importe quelle menace ou payoff adverse sans restriction. Pilier indiscutable de la couleur bleue.",
       "pedagogy": {
         "howToPlay": "Gardez toujours deux îles détapées dès le tour 2 si vous n'avez pas de créature avec Ninjutsu à poser. La menace d'un Counterspell force l'adversaire à sous-jouer son tour.",
@@ -110,12 +110,15 @@
       "keyPairs": [
         "Ninja of the Deep Hours",
         "Mulldrifter"
-      ]
+      ],
+      "relativeTier": "A+",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "B",
+      "tier": "A-",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -139,17 +142,20 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [],
       "synergyTags": [
         "counterspell"
       ],
-      "scoreModifier": 6,
+      "scoreModifier": 0,
       "analysis": "Carte de rang S (Score : 40.0) dans l'environnement tribal et interactif de Titou.",
       "keyPairs": [],
       "pedagogy": {
@@ -165,12 +171,15 @@
             "comment": "Alignement au métagame Titou Tribal (S)."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -179,7 +188,7 @@
         "single-english-word-name",
         "card-names"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -194,12 +203,15 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "titou_arena_peasant_plus": {
       "cubeKey": "titou_arena_peasant_plus",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "titou_peasant:peasant_staple"
       ],
@@ -208,7 +220,7 @@
         "single-english-word-name",
         "card-names"
       ],
-      "scoreModifier": 10,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
@@ -223,7 +235,10 @@
             "comment": "Pièce de valeur pour l'environnement Titou Peasant Plus."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Contresort",

@@ -34,12 +34,12 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/c/9/c9f8b8fb-1cd8-450e-a1fe-892e7a323479.jpg?1783924909",
   "powerScore": {
-    "score": 28,
+    "score": 22,
     "source": "untapped",
-    "rawSourceScore": 28,
+    "rawSourceScore": 22,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
     "titou_tribal",
@@ -65,7 +65,7 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "build_around",
-      "tier": "A",
+      "tier": "B-",
       "archetypes": [
         "titou:tribal_humans"
       ],
@@ -74,7 +74,7 @@
         "aggro",
         "counters"
       ],
-      "scoreModifier": 5,
+      "scoreModifier": 8,
       "analysis": "Moteur de l'archétype Humains, prend rapidement de la valeur avec les synergies tribales.",
       "keyPairs": [
         "Champion of the Parish",
@@ -93,12 +93,15 @@
             "comment": "Alignement au métagame Titou Tribal (A)."
           }
         ]
-      }
+      },
+      "relativeTier": "B-",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "A",
+      "tier": "C",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -107,7 +110,7 @@
         "card-names",
         "cost-increaser"
       ],
-      "scoreModifier": 8,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -122,12 +125,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "C",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "A",
+      "tier": "C+",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -136,7 +142,7 @@
         "card-names",
         "cost-increaser"
       ],
-      "scoreModifier": 7,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -151,7 +157,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "C+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Thalia, gardienne de Thraben",

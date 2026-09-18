@@ -33,10 +33,25 @@ describe("Individual Card Schema Validation", () => {
       expect(card.image.url).toMatch(/^https?:\/\//);
       expect(card.powerScore.score).toBeGreaterThanOrEqual(1.0);
 
-      // Verify strictly S, A, B, C, D tiers
+      // Verify valid tiers (relative A+ to F or legacy S/A/B/C/D)
       for (const cubeAnalysis of Object.values(card.cubeAnalyses)) {
         if (cubeAnalysis.tier) {
-          expect(["S", "A", "B", "C", "D"]).toContain(cubeAnalysis.tier);
+          expect([
+            "A+",
+            "A",
+            "A-",
+            "B+",
+            "B",
+            "B-",
+            "C+",
+            "C",
+            "C-",
+            "D+",
+            "D",
+            "D-",
+            "F",
+            "S",
+          ]).toContain(cubeAnalysis.tier);
         }
       }
     }

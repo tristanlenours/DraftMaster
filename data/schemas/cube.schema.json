@@ -199,13 +199,18 @@
         "oracleId": { "$ref": "#/$defs/uuid" },
         "tier": {
           "type": "string",
-          "enum": ["S", "A", "B", "C", "D"]
+          "enum": ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "S"]
         },
         "fit": {
           "type": "string",
           "enum": ["staple", "build_around", "support", "filler", "trap"]
         },
-        "scoreModifier": { "type": "number" }
+        "scoreModifier": { "type": "number" },
+        "metaBonus": { "type": "number" },
+        "metaRole": {
+          "type": "string",
+          "enum": ["key", "support", "neutral", "trap"]
+        }
       }
     }
   }

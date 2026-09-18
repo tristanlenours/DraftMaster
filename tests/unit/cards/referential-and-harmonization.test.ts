@@ -93,7 +93,7 @@ describe("Master Card & Cube Referential System", () => {
         expect(solRing?.presentInCubes).not.toContain("titou_tribal");
         expect(solRing?.presentInCubes).toContain("nico_candyshop");
         expect(solRing?.powerScore.source).toBe("untapped");
-        expect(solRing?.powerScore.score).toBe(51);
+        expect(solRing?.powerScore.score).toBe(54);
 
         const bolt = catalog.getCardByName("Lightning Bolt");
         expect(bolt).toBeDefined();
@@ -241,7 +241,7 @@ describe("Master Card & Cube Referential System", () => {
         const evaluated = evaluateCard(cardToPick, context);
 
         // Should receive cubeScoreModifier and synergyBonus from the prior 2 humans!
-        expect(evaluated.breakdown.cubeScoreModifier).toBe(5.0);
+        expect(evaluated.breakdown.cubeScoreModifier).toBe(8.0);
         expect(evaluated.breakdown.synergyBonus).toBeGreaterThan(0);
         expect(evaluated.breakdown.powerSource).toBe("expert_heuristic");
         expect(evaluated.breakdown.harmonizationConfidence).toBe(0.6);
@@ -339,7 +339,7 @@ describe("Master Card & Cube Referential System", () => {
 
         const evaluated = evaluateCard(cardToPick, context);
 
-        expect(evaluated.breakdown.cubeScoreModifier).toBe(7.0);
+        expect(evaluated.breakdown.cubeScoreModifier).toBe(8.0);
         expect(evaluated.breakdown.archetypeSynergyBonus).toBeGreaterThan(0);
         expect(evaluated.dynamicScore).toBeGreaterThan(cardToPick.staticScore);
       }

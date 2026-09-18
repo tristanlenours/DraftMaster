@@ -30,12 +30,12 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/06c053d3-028e-4961-93a5-5b7bb5a8601c/normal.webp",
   "powerScore": {
-    "score": 47.5,
-    "source": "expert_heuristic",
-    "rawSourceScore": 47.5,
-    "harmonizationDegree": "calibrated_medium",
-    "confidence": 0.6,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "score": 51,
+    "source": "untapped",
+    "rawSourceScore": 51,
+    "harmonizationDegree": "native",
+    "confidence": 1,
+    "updatedAt": "2026-09-14T20:22:01.616Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -60,7 +60,7 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -69,7 +69,7 @@
         "draw-engine",
         "repeatable-draw"
       ],
-      "scoreModifier": 15,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -85,12 +85,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "cedric:selesnya_tokens_midrange"
       ],
@@ -99,7 +102,7 @@
         "draw-engine",
         "repeatable-draw"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -115,7 +118,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A+",
+      "metaBonus": 8,
+      "metaRole": "key"
     }
   }
 }

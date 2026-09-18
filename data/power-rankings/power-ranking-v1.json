@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rankingId": "power-ranking-v1",
-  "generatedAt": "2026-09-06T00:00:00.000Z",
+  "generatedAt": "2026-09-18T17:07:08.513Z",
   "referenceId": "untapped-reference-v1",
   "calibrationId": "cubecobra-features-to-untapped-v1",
   "coverage": {
@@ -12,6 +12,28 @@
   },
   "ranking": [
     {
+      "oracleId": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "name": "Sol Ring",
+      "score": 54,
+      "source": "untapped",
+      "rawSourceScore": 54,
+      "method": "historical_mode",
+      "evidenceCount": 6,
+      "observedMin": 51,
+      "observedMax": 54
+    },
+    {
+      "oracleId": "550c74d4-1fcb-406a-b02a-639a760a4380",
+      "name": "Ancestral Recall",
+      "score": 53,
+      "source": "untapped",
+      "rawSourceScore": 53,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 52,
+      "observedMax": 54
+    },
+    {
       "oracleId": "5089ec1a-f881-4d55-af14-5d996171203b",
       "name": "Black Lotus",
       "score": 53,
@@ -20,17 +42,6 @@
       "method": "historical_mode",
       "evidenceCount": 1,
       "observedMin": 53,
-      "observedMax": 53
-    },
-    {
-      "oracleId": "3a310554-3f69-4158-bb94-9d6965c7125a",
-      "name": "Minsc & Boo, Timeless Heroes",
-      "score": 53,
-      "source": "untapped",
-      "rawSourceScore": 53,
-      "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 52,
       "observedMax": 53
     },
     {
@@ -45,15 +56,23 @@
       "observedMax": 53
     },
     {
-      "oracleId": "550c74d4-1fcb-406a-b02a-639a760a4380",
-      "name": "Ancestral Recall",
+      "oracleId": "3a310554-3f69-4158-bb94-9d6965c7125a",
+      "name": "Minsc & Boo, Timeless Heroes",
       "score": 52,
       "source": "untapped",
       "rawSourceScore": 52,
       "method": "historical_mode",
-      "evidenceCount": 3,
+      "evidenceCount": 8,
       "observedMin": 52,
-      "observedMax": 54
+      "observedMax": 53
+    },
+    {
+      "oracleId": "35807c14-4647-482f-9ba1-6d640fd5e8d8",
+      "name": "Forth Eorlingas!",
+      "score": 51,
+      "source": "untapped",
+      "rawSourceScore": 51,
+      "method": "cubecobra_feature_calibration_v1"
     },
     {
       "oracleId": "376ee366-e082-402f-b4db-6592fcfcacd2",
@@ -87,28 +106,6 @@
       "evidenceCount": 2,
       "observedMin": 51,
       "observedMax": 51
-    },
-    {
-      "oracleId": "6ad8011d-3471-4369-9d68-b264cc027487",
-      "name": "Sol Ring",
-      "score": 51,
-      "source": "untapped",
-      "rawSourceScore": 51,
-      "method": "historical_mode",
-      "evidenceCount": 6,
-      "observedMin": 51,
-      "observedMax": 54
-    },
-    {
-      "oracleId": "2588f348-d7a3-46c8-9ace-dca53ed5ef99",
-      "name": "Ajani, Nacatl Pariah",
-      "score": 50,
-      "source": "untapped",
-      "rawSourceScore": 50,
-      "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 49,
-      "observedMax": 50
     },
     {
       "oracleId": "2c63e4e1-89d2-4bc6-a232-94e75c4b1c8a",
@@ -155,6 +152,28 @@
       "observedMax": 50
     },
     {
+      "oracleId": "e157ad1e-be35-47f3-92db-01799f8fb6a5",
+      "name": "Psychic Frog",
+      "score": 50,
+      "source": "untapped",
+      "rawSourceScore": 50,
+      "method": "historical_mode",
+      "evidenceCount": 8,
+      "observedMin": 49,
+      "observedMax": 50
+    },
+    {
+      "oracleId": "2588f348-d7a3-46c8-9ace-dca53ed5ef99",
+      "name": "Ajani, Nacatl Pariah",
+      "score": 49,
+      "source": "untapped",
+      "rawSourceScore": 49,
+      "method": "historical_mode",
+      "evidenceCount": 5,
+      "observedMin": 49,
+      "observedMax": 50
+    },
+    {
       "oracleId": "59119143-c0fa-49dd-adf0-e2fd3029c48b",
       "name": "Karakas",
       "score": 49,
@@ -164,6 +183,17 @@
       "evidenceCount": 4,
       "observedMin": 48,
       "observedMax": 49
+    },
+    {
+      "oracleId": "60c60923-ff1b-43f7-8768-731499fcffc9",
+      "name": "Oko, Thief of Crowns",
+      "score": 49,
+      "source": "untapped",
+      "rawSourceScore": 49,
+      "method": "historical_mode",
+      "evidenceCount": 7,
+      "observedMin": 47,
+      "observedMax": 48
     },
     {
       "oracleId": "ea5103f5-27e0-4eb1-902c-7f34652d6bf3",
@@ -177,78 +207,15 @@
       "observedMax": 49
     },
     {
-      "oracleId": "e157ad1e-be35-47f3-92db-01799f8fb6a5",
-      "name": "Psychic Frog",
-      "score": 49,
-      "source": "untapped",
-      "rawSourceScore": 49,
-      "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 49,
-      "observedMax": 50
-    },
-    {
-      "oracleId": "b4ce2c8f-a19c-461e-8a2e-0ec2bd3ebca3",
-      "name": "Ocelot Pride",
-      "score": 48,
-      "source": "untapped",
-      "rawSourceScore": 48,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 47,
-      "observedMax": 48
-    },
-    {
-      "oracleId": "60c60923-ff1b-43f7-8768-731499fcffc9",
-      "name": "Oko, Thief of Crowns",
-      "score": 48,
-      "source": "untapped",
-      "rawSourceScore": 48,
-      "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 47,
-      "observedMax": 48
-    },
-    {
-      "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
-      "name": "Swords to Plowshares",
-      "score": 48,
-      "source": "untapped",
-      "rawSourceScore": 48,
-      "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 47,
-      "observedMax": 48
-    },
-    {
-      "oracleId": "35807c14-4647-482f-9ba1-6d640fd5e8d8",
-      "name": "Forth Eorlingas!",
-      "score": 47.5,
-      "source": "expert_heuristic",
-      "rawSourceScore": 47.5,
-      "method": "cubecobra_feature_calibration_v1"
-    },
-    {
       "oracleId": "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
       "name": "Broadside Bombardiers",
-      "score": 47,
+      "score": 48,
       "source": "untapped",
-      "rawSourceScore": 47,
+      "rawSourceScore": 48,
       "method": "historical_mode",
       "evidenceCount": 4,
       "observedMin": 47,
       "observedMax": 48
-    },
-    {
-      "oracleId": "1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188",
-      "name": "Fractured Identity",
-      "score": 47,
-      "source": "untapped",
-      "rawSourceScore": 47,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 45,
-      "observedMax": 47
     },
     {
       "oracleId": "0ff11a61-6fe3-4c70-aba8-417023a5e54e",
@@ -260,6 +227,17 @@
       "evidenceCount": 6,
       "observedMin": 46,
       "observedMax": 47
+    },
+    {
+      "oracleId": "b4ce2c8f-a19c-461e-8a2e-0ec2bd3ebca3",
+      "name": "Ocelot Pride",
+      "score": 47,
+      "source": "untapped",
+      "rawSourceScore": 47,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 47,
+      "observedMax": 48
     },
     {
       "oracleId": "5d86a59a-ba1f-45f7-b829-dca6f9f3e624",
@@ -284,6 +262,28 @@
       "observedMax": 47
     },
     {
+      "oracleId": "703243f0-8cb3-420f-958f-5fd4bde30293",
+      "name": "Savannah",
+      "score": 47,
+      "source": "untapped",
+      "rawSourceScore": 47,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 45,
+      "observedMax": 47
+    },
+    {
+      "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+      "name": "Swords to Plowshares",
+      "score": 47,
+      "source": "untapped",
+      "rawSourceScore": 47,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 47,
+      "observedMax": 48
+    },
+    {
       "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964",
       "name": "Teferi, Time Raveler",
       "score": 47,
@@ -303,6 +303,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "c5acf2a5-40f4-433d-a74d-1cb56c521464",
+      "name": "Arid Mesa",
+      "score": 46,
+      "source": "untapped",
+      "rawSourceScore": 46,
+      "method": "historical_mode",
+      "evidenceCount": 8,
+      "observedMin": 44,
+      "observedMax": 47
+    },
+    {
       "oracleId": "c7a15ca4-085f-4d92-8387-c3711c04c8fa",
       "name": "Plateau",
       "score": 46,
@@ -314,37 +325,26 @@
       "observedMax": 46
     },
     {
-      "oracleId": "7fd7457a-388d-4cca-a7cf-86b4ea922037",
-      "name": "Pyrogoyf",
+      "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+      "name": "Reanimate",
       "score": 46,
       "source": "untapped",
       "rawSourceScore": 46,
       "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 46,
+      "evidenceCount": 10,
+      "observedMin": 45,
       "observedMax": 46
     },
     {
-      "oracleId": "703243f0-8cb3-420f-958f-5fd4bde30293",
-      "name": "Savannah",
+      "oracleId": "22e3cf1d-3559-4ce1-954c-8dc815342979",
+      "name": "Taiga",
       "score": 46,
       "source": "untapped",
       "rawSourceScore": 46,
       "method": "historical_mode",
       "evidenceCount": 17,
-      "observedMin": 45,
-      "observedMax": 47
-    },
-    {
-      "oracleId": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
-      "name": "The One Ring",
-      "score": 46,
-      "source": "untapped",
-      "rawSourceScore": 46,
-      "method": "historical_mode",
-      "evidenceCount": 2,
-      "observedMin": 46,
-      "observedMax": 46
+      "observedMin": 44,
+      "observedMax": 55
     },
     {
       "oracleId": "29737a60-3ebd-40d9-b935-c4f54b90d45d",
@@ -358,36 +358,47 @@
       "observedMax": 47
     },
     {
-      "oracleId": "6587a463-a108-4854-b6d1-944e89b8c8a4",
-      "name": "Wooded Foothills",
-      "score": 46,
-      "source": "untapped",
-      "rawSourceScore": 46,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 45,
-      "observedMax": 46
-    },
-    {
-      "oracleId": "c5acf2a5-40f4-433d-a74d-1cb56c521464",
-      "name": "Arid Mesa",
+      "oracleId": "82004860-e589-4e38-8d61-8c0210e4ea39",
+      "name": "Demonic Tutor",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
       "evidenceCount": 8,
       "observedMin": 44,
-      "observedMax": 47
+      "observedMax": 45
     },
     {
-      "oracleId": "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57",
-      "name": "Bloodstained Mire",
+      "oracleId": "956381ba-6d37-4a8a-846c-bad79222dbee",
+      "name": "Force of Will",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
       "evidenceCount": 6,
       "observedMin": 44,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188",
+      "name": "Fractured Identity",
+      "score": 45,
+      "source": "untapped",
+      "rawSourceScore": 45,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 45,
+      "observedMax": 47
+    },
+    {
+      "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
+      "name": "Godless Shrine",
+      "score": 45,
+      "source": "untapped",
+      "rawSourceScore": 45,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 43,
       "observedMax": 45
     },
     {
@@ -413,25 +424,14 @@
       "observedMax": 46
     },
     {
-      "oracleId": "09dd85aa-47bc-4713-a9b9-8b52ff2285ed",
-      "name": "Misty Rainforest",
+      "oracleId": "7fd7457a-388d-4cca-a7cf-86b4ea922037",
+      "name": "Pyrogoyf",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
       "evidenceCount": 8,
-      "observedMin": 43,
-      "observedMax": 45
-    },
-    {
-      "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
-      "name": "Reanimate",
-      "score": 45,
-      "source": "untapped",
-      "rawSourceScore": 45,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 45,
+      "observedMin": 46,
       "observedMax": 46
     },
     {
@@ -446,26 +446,26 @@
       "observedMax": 46
     },
     {
-      "oracleId": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
-      "name": "Scrubland",
+      "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
+      "name": "Solitude",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 40,
+      "evidenceCount": 12,
+      "observedMin": 44,
       "observedMax": 45
     },
     {
-      "oracleId": "22e3cf1d-3559-4ce1-954c-8dc815342979",
-      "name": "Taiga",
+      "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
+      "name": "Stomping Ground",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
-      "evidenceCount": 17,
+      "evidenceCount": 21,
       "observedMin": 44,
-      "observedMax": 55
+      "observedMax": 45
     },
     {
       "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a",
@@ -479,14 +479,25 @@
       "observedMax": 45
     },
     {
-      "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0",
-      "name": "Teferi, Hero of Dominaria",
+      "oracleId": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
+      "name": "The One Ring",
       "score": 45,
       "source": "untapped",
       "rawSourceScore": 45,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 35,
+      "evidenceCount": 2,
+      "observedMin": 46,
+      "observedMax": 46
+    },
+    {
+      "oracleId": "6587a463-a108-4854-b6d1-944e89b8c8a4",
+      "name": "Wooded Foothills",
+      "score": 45,
+      "source": "untapped",
+      "rawSourceScore": 45,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 45,
       "observedMax": 46
     },
     {
@@ -506,26 +517,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
-      "name": "Archon of Cruelty",
+      "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+      "name": "Animate Dead",
       "score": 44,
       "source": "untapped",
       "rawSourceScore": 44,
       "method": "historical_mode",
       "evidenceCount": 7,
-      "observedMin": 43,
-      "observedMax": 44
-    },
-    {
-      "oracleId": "13ff3222-91cb-4796-a34e-899ed817694c",
-      "name": "Badlands",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 43,
-      "observedMax": 45
+      "observedMin": 42,
+      "observedMax": 46
     },
     {
       "oracleId": "74c0164c-130f-4572-9066-626c77f6e2ff",
@@ -539,36 +539,25 @@
       "observedMax": 44
     },
     {
-      "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
-      "name": "Blood Crypt",
+      "oracleId": "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57",
+      "name": "Bloodstained Mire",
       "score": 44,
       "source": "untapped",
       "rawSourceScore": 44,
       "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 43,
-      "observedMax": 45
-    },
-    {
-      "oracleId": "82004860-e589-4e38-8d61-8c0210e4ea39",
-      "name": "Demonic Tutor",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 8,
+      "evidenceCount": 6,
       "observedMin": 44,
       "observedMax": 45
     },
     {
-      "oracleId": "00000000-0000-4000-8000-000000000005",
-      "name": "Elspeth, Storm Slayer",
+      "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
+      "name": "Breeding Pool",
       "score": 44,
       "source": "untapped",
       "rawSourceScore": 44,
       "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 43,
+      "evidenceCount": 15,
+      "observedMin": 41,
       "observedMax": 44
     },
     {
@@ -605,17 +594,6 @@
       "observedMax": 47
     },
     {
-      "oracleId": "956381ba-6d37-4a8a-846c-bad79222dbee",
-      "name": "Force of Will",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 6,
-      "observedMin": 44,
-      "observedMax": 44
-    },
-    {
       "oracleId": "fbf9f8c5-849f-45d5-8129-5fc683c21a04",
       "name": "Fury",
       "score": 44,
@@ -649,17 +627,6 @@
       "observedMax": 44
     },
     {
-      "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
-      "name": "Hallowed Fountain",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 43,
-      "observedMax": 44
-    },
-    {
       "oracleId": "2f533667-e29b-4bec-897a-e7a9eee08314",
       "name": "Hullbreacher",
       "score": 44,
@@ -671,13 +638,35 @@
       "observedMax": 44
     },
     {
-      "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
-      "name": "Mother of Runes",
+      "oracleId": "09dd85aa-47bc-4713-a9b9-8b52ff2285ed",
+      "name": "Misty Rainforest",
       "score": 44,
       "source": "untapped",
       "rawSourceScore": 44,
       "method": "historical_mode",
-      "evidenceCount": 16,
+      "evidenceCount": 8,
+      "observedMin": 43,
+      "observedMax": 45
+    },
+    {
+      "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+      "name": "Palace Jailer",
+      "score": 44,
+      "source": "untapped",
+      "rawSourceScore": 44,
+      "method": "historical_mode",
+      "evidenceCount": 1,
+      "observedMin": 43,
+      "observedMax": 43
+    },
+    {
+      "oracleId": "ef86989d-ce80-4e55-aece-7d11710eeffa",
+      "name": "Polluted Delta",
+      "score": 44,
+      "source": "untapped",
+      "rawSourceScore": 44,
+      "method": "historical_mode",
+      "evidenceCount": 4,
       "observedMin": 43,
       "observedMax": 44
     },
@@ -691,61 +680,6 @@
       "evidenceCount": 9,
       "observedMin": 43,
       "observedMax": 46
-    },
-    {
-      "oracleId": "34f34409-326d-4994-a0ea-1a69aa278f03",
-      "name": "Sheoldred, the Apocalypse",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 26,
-      "observedMax": 44
-    },
-    {
-      "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
-      "name": "Solitude",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 44,
-      "observedMax": 45
-    },
-    {
-      "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
-      "name": "Stomping Ground",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 44,
-      "observedMax": 45
-    },
-    {
-      "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
-      "name": "Temple Garden",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 9.4,
-      "observedMax": 45
-    },
-    {
-      "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
-      "name": "Thoughtseize",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 6,
-      "observedMin": 28,
-      "observedMax": 44
     },
     {
       "oracleId": "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
@@ -770,17 +704,6 @@
       "observedMax": 47
     },
     {
-      "oracleId": "ee302659-59ed-4eef-babe-451b9ccf7f14",
-      "name": "Uro, Titan of Nature's Wrath",
-      "score": 44,
-      "source": "untapped",
-      "rawSourceScore": 44,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 42,
-      "observedMax": 44
-    },
-    {
       "oracleId": "67d60b24-d429-4ded-90d9-06e49f28c396",
       "name": "Verdant Catacombs",
       "score": 44,
@@ -801,6 +724,28 @@
       "evidenceCount": 14,
       "observedMin": 44,
       "observedMax": 44
+    },
+    {
+      "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+      "name": "Archon of Cruelty",
+      "score": 43,
+      "source": "untapped",
+      "rawSourceScore": 43,
+      "method": "historical_mode",
+      "evidenceCount": 7,
+      "observedMin": 43,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "13ff3222-91cb-4796-a34e-899ed817694c",
+      "name": "Badlands",
+      "score": 43,
+      "source": "untapped",
+      "rawSourceScore": 43,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 43,
+      "observedMax": 45
     },
     {
       "oracleId": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
@@ -825,48 +770,48 @@
       "observedMax": 44
     },
     {
-      "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
-      "name": "Booster Tutor",
+      "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
+      "name": "Blood Crypt",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 42,
-      "observedMax": 43
+      "evidenceCount": 13,
+      "observedMin": 43,
+      "observedMax": 45
     },
     {
-      "oracleId": "9d4b1e44-3c66-4b1b-8a1d-308aa4f841f8",
-      "name": "Dack Fayden",
+      "oracleId": "00000000-0000-4000-8000-000000000005",
+      "name": "Elspeth, Storm Slayer",
+      "score": 43,
+      "source": "untapped",
+      "rawSourceScore": 43,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 43,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "cb70a360-898e-443a-b053-38e35ea2baa2",
+      "name": "Emperor of Bones",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
       "evidenceCount": 12,
-      "observedMin": 34,
+      "observedMin": 42,
       "observedMax": 43
     },
     {
-      "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
-      "name": "Delighted Halfling",
+      "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
+      "name": "Hallowed Fountain",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 40,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
-      "name": "Godless Shrine",
-      "score": 43,
-      "source": "untapped",
-      "rawSourceScore": 43,
-      "method": "historical_mode",
-      "evidenceCount": 19,
+      "evidenceCount": 13,
       "observedMin": 43,
-      "observedMax": 45
+      "observedMax": 44
     },
     {
       "oracleId": "d5d91377-fd66-4dbe-a092-07f2ea379ca7",
@@ -877,28 +822,6 @@
       "method": "historical_mode",
       "evidenceCount": 27,
       "observedMin": 41,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
-      "name": "Lightning Bolt",
-      "score": 43,
-      "source": "untapped",
-      "rawSourceScore": 43,
-      "method": "historical_mode",
-      "evidenceCount": 9,
-      "observedMin": 42,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "800c258a-cfc4-4a54-a667-065ea8dea69e",
-      "name": "Lightning Helix",
-      "score": 43,
-      "source": "untapped",
-      "rawSourceScore": 43,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 42,
       "observedMax": 43
     },
     {
@@ -924,48 +847,37 @@
       "observedMax": 43
     },
     {
-      "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
-      "name": "Palace Jailer",
+      "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
+      "name": "Overgrown Tomb",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 1,
-      "observedMin": 43,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "ef86989d-ce80-4e55-aece-7d11710eeffa",
-      "name": "Polluted Delta",
-      "score": 43,
-      "source": "untapped",
-      "rawSourceScore": 43,
-      "method": "historical_mode",
-      "evidenceCount": 4,
-      "observedMin": 43,
+      "evidenceCount": 18,
+      "observedMin": 42,
       "observedMax": 44
     },
     {
-      "oracleId": "f97fd068-b83a-4621-bf8c-cc96e880ce90",
-      "name": "Sunbaked Canyon",
+      "oracleId": "94f6c407-e665-4032-be13-a01e40c1f306",
+      "name": "Razorverge Thicket",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 25,
-      "observedMin": 32,
+      "evidenceCount": 24,
+      "observedMin": 41,
       "observedMax": 43
     },
     {
-      "oracleId": "dba4fd31-8931-42dd-bd86-45479c2abf74",
-      "name": "Tolarian Academy",
+      "oracleId": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
+      "name": "Scrubland",
       "score": 43,
       "source": "untapped",
       "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 42,
-      "observedMax": 43
+      "evidenceCount": 20,
+      "observedMin": 40,
+      "observedMax": 45
     },
     {
       "oracleId": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
@@ -979,6 +891,17 @@
       "observedMax": 45
     },
     {
+      "oracleId": "ee302659-59ed-4eef-babe-451b9ccf7f14",
+      "name": "Uro, Titan of Nature's Wrath",
+      "score": 43,
+      "source": "untapped",
+      "rawSourceScore": 43,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 42,
+      "observedMax": 44
+    },
+    {
       "oracleId": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
       "name": "Volcanic Island",
       "score": 43,
@@ -990,15 +913,15 @@
       "observedMax": 44
     },
     {
-      "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
-      "name": "Animate Dead",
-      "score": 42,
+      "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "name": "Watery Grave",
+      "score": 43,
       "source": "untapped",
-      "rawSourceScore": 42,
+      "rawSourceScore": 43,
       "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 42,
-      "observedMax": 46
+      "evidenceCount": 15,
+      "observedMin": 41,
+      "observedMax": 42
     },
     {
       "oracleId": "37688720-03de-4eca-a82d-a0afe8d58adc",
@@ -1012,70 +935,37 @@
       "observedMax": 43
     },
     {
-      "oracleId": "5ad94412-6f79-4c5d-bbd4-4ef5779a7b6d",
-      "name": "Blackcleave Cliffs",
+      "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
+      "name": "Booster Tutor",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 41,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
-      "name": "Breeding Pool",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 41,
-      "observedMax": 44
-    },
-    {
-      "oracleId": "b33656ae-3473-4223-845f-f9147f87678b",
-      "name": "Commercial District",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 38,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "a05f641c-15c9-43dc-ae0d-1ea372fd33d5",
-      "name": "Copperline Gorge",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 26,
-      "observedMin": 41,
-      "observedMax": 43
-    },
-    {
-      "oracleId": "cb70a360-898e-443a-b053-38e35ea2baa2",
-      "name": "Emperor of Bones",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 12,
+      "evidenceCount": 8,
       "observedMin": 42,
       "observedMax": 43
     },
     {
-      "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
-      "name": "Esper Sentinel",
+      "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+      "name": "Delighted Halfling",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
       "evidenceCount": 18,
-      "observedMin": 31,
-      "observedMax": 42
+      "observedMin": 40,
+      "observedMax": 43
+    },
+    {
+      "oracleId": "299fc083-0834-4064-8344-f895aff68867",
+      "name": "Entomb",
+      "score": 42,
+      "source": "untapped",
+      "rawSourceScore": 42,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 41,
+      "observedMax": 44
     },
     {
       "oracleId": "c8de43a3-ebd3-4000-b343-a6ffed11d34d",
@@ -1089,26 +979,26 @@
       "observedMax": 42
     },
     {
-      "oracleId": "45f1e957-09f0-4d46-8e32-238f26060a87",
-      "name": "Kolaghan's Command",
+      "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+      "name": "Lightning Bolt",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 28,
-      "observedMin": 41,
-      "observedMax": 42
+      "evidenceCount": 9,
+      "observedMin": 42,
+      "observedMax": 43
     },
     {
-      "oracleId": "a0be9bb2-3234-4c6c-b8ce-0879b1f43003",
-      "name": "Laelia, the Blade Reforged",
+      "oracleId": "800c258a-cfc4-4a54-a667-065ea8dea69e",
+      "name": "Lightning Helix",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 40,
-      "observedMax": 42
+      "evidenceCount": 20,
+      "observedMin": 42,
+      "observedMax": 43
     },
     {
       "oracleId": "d30d8968-ec24-4155-97e2-28efd52c8810",
@@ -1122,15 +1012,15 @@
       "observedMax": 42
     },
     {
-      "oracleId": "736892cb-a34b-4bb9-b56c-e26e3db207a2",
-      "name": "Mana Vault",
+      "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
+      "name": "Mother of Runes",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 42,
-      "observedMax": 42
+      "evidenceCount": 16,
+      "observedMin": 43,
+      "observedMax": 44
     },
     {
       "oracleId": "98aa9424-5912-4bd6-9300-b3972a31d8af",
@@ -1144,17 +1034,6 @@
       "observedMax": 43
     },
     {
-      "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
-      "name": "Overgrown Tomb",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 42,
-      "observedMax": 44
-    },
-    {
       "oracleId": "1b704798-0c69-4c18-ac7e-42933ce90028",
       "name": "Pest Infestation",
       "score": 42,
@@ -1166,59 +1045,37 @@
       "observedMax": 46
     },
     {
-      "oracleId": "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5",
-      "name": "Raucous Theater",
+      "oracleId": "f97fd068-b83a-4621-bf8c-cc96e880ce90",
+      "name": "Sunbaked Canyon",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 41,
-      "observedMax": 42
+      "evidenceCount": 25,
+      "observedMin": 32,
+      "observedMax": 43
     },
     {
-      "oracleId": "f0449cbd-855c-4c20-a1f5-f76a395d8d39",
-      "name": "Reprieve",
+      "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0",
+      "name": "Teferi, Hero of Dominaria",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 41,
-      "observedMax": 42
+      "evidenceCount": 12,
+      "observedMin": 35,
+      "observedMax": 46
     },
     {
-      "oracleId": "216a2a92-9ca3-4ca3-8af7-686c13b04290",
-      "name": "Shadowy Backstreet",
+      "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
+      "name": "Temple Garden",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 26,
-      "observedMin": 39,
-      "observedMax": 42
-    },
-    {
-      "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
-      "name": "Snuff Out",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 36,
-      "observedMax": 42
-    },
-    {
-      "oracleId": "c823e687-6311-4c99-974b-fd77d204141a",
-      "name": "Timetwister",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 19,
-      "observedMax": 42
+      "evidenceCount": 21,
+      "observedMin": 9.4,
+      "observedMax": 45
     },
     {
       "oracleId": "d0ade00d-a496-441d-9b7e-7dc033d3292c",
@@ -1232,15 +1089,15 @@
       "observedMax": 42
     },
     {
-      "oracleId": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
-      "name": "Undercity Sewers",
+      "oracleId": "dba4fd31-8931-42dd-bd86-45479c2abf74",
+      "name": "Tolarian Academy",
       "score": 42,
       "source": "untapped",
       "rawSourceScore": 42,
       "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 40,
-      "observedMax": 42
+      "evidenceCount": 5,
+      "observedMin": 42,
+      "observedMax": 43
     },
     {
       "oracleId": "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
@@ -1254,17 +1111,6 @@
       "observedMax": 43
     },
     {
-      "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
-      "name": "Watery Grave",
-      "score": 42,
-      "source": "untapped",
-      "rawSourceScore": 42,
-      "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 41,
-      "observedMax": 42
-    },
-    {
       "oracleId": "4457ed35-7c10-48c8-9776-456485fdf071",
       "name": "Hadoken",
       "score": 41.4,
@@ -1273,37 +1119,37 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
-      "name": "Adeline, Resplendent Cathar",
+      "oracleId": "5ad94412-6f79-4c5d-bbd4-4ef5779a7b6d",
+      "name": "Blackcleave Cliffs",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 36,
-      "observedMax": 41
+      "evidenceCount": 22,
+      "observedMin": 41,
+      "observedMax": 43
     },
     {
-      "oracleId": "776341cb-d2ec-423f-9250-92dc8bd8d503",
-      "name": "Bitter Triumph",
+      "oracleId": "b33656ae-3473-4223-845f-f9147f87678b",
+      "name": "Commercial District",
+      "score": 41,
+      "source": "untapped",
+      "rawSourceScore": 41,
+      "method": "historical_mode",
+      "evidenceCount": 27,
+      "observedMin": 38,
+      "observedMax": 43
+    },
+    {
+      "oracleId": "9d4b1e44-3c66-4b1b-8a1d-308aa4f841f8",
+      "name": "Dack Fayden",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
       "evidenceCount": 12,
-      "observedMin": 23,
-      "observedMax": 42
-    },
-    {
-      "oracleId": "876ac6f6-74de-4666-84c6-83d81f054723",
-      "name": "Celestial Colonnade",
-      "score": 41,
-      "source": "untapped",
-      "rawSourceScore": 41,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 41,
-      "observedMax": 42
+      "observedMin": 34,
+      "observedMax": 43
     },
     {
       "oracleId": "fd74f8eb-0253-42dd-8277-186d4934da38",
@@ -1328,39 +1174,6 @@
       "observedMax": 42
     },
     {
-      "oracleId": "299fc083-0834-4064-8344-f895aff68867",
-      "name": "Entomb",
-      "score": 41,
-      "source": "untapped",
-      "rawSourceScore": 41,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 41,
-      "observedMax": 44
-    },
-    {
-      "oracleId": "c7aecca5-2f67-4245-ab2d-e723d8b23a67",
-      "name": "Expressive Iteration",
-      "score": 41,
-      "source": "untapped",
-      "rawSourceScore": 41,
-      "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 37,
-      "observedMax": 42
-    },
-    {
-      "oracleId": "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
-      "name": "Gaea's Cradle",
-      "score": 41,
-      "source": "untapped",
-      "rawSourceScore": 41,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 11,
-      "observedMax": 41
-    },
-    {
       "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
       "name": "Giver of Runes",
       "score": 41,
@@ -1372,26 +1185,37 @@
       "observedMax": 41
     },
     {
-      "oracleId": "0efb0d7e-dea0-4817-a243-15066e9ef333",
-      "name": "Grist, the Hunger Tide",
+      "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+      "name": "Inquisition of Kozilek",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 29,
+      "evidenceCount": 13,
+      "observedMin": 35,
+      "observedMax": 41
+    },
+    {
+      "oracleId": "45f1e957-09f0-4d46-8e32-238f26060a87",
+      "name": "Kolaghan's Command",
+      "score": 41,
+      "source": "untapped",
+      "rawSourceScore": 41,
+      "method": "historical_mode",
+      "evidenceCount": 28,
+      "observedMin": 41,
       "observedMax": 42
     },
     {
-      "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
-      "name": "Llanowar Elves",
+      "oracleId": "a0be9bb2-3234-4c6c-b8ce-0879b1f43003",
+      "name": "Laelia, the Blade Reforged",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
       "evidenceCount": 12,
       "observedMin": 40,
-      "observedMax": 41
+      "observedMax": 42
     },
     {
       "oracleId": "d51831b1-7394-456e-a1de-6787a59f5932",
@@ -1405,6 +1229,28 @@
       "observedMax": 42
     },
     {
+      "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
+      "name": "Mana Leak",
+      "score": 41,
+      "source": "untapped",
+      "rawSourceScore": 41,
+      "method": "historical_mode",
+      "evidenceCount": 11,
+      "observedMin": 40,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "736892cb-a34b-4bb9-b56c-e26e3db207a2",
+      "name": "Mana Vault",
+      "score": 41,
+      "source": "untapped",
+      "rawSourceScore": 41,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 42,
+      "observedMax": 42
+    },
+    {
       "oracleId": "ccfb8b4d-651c-418a-aa19-cb23105b3f2f",
       "name": "Meticulous Archive",
       "score": 41,
@@ -1414,17 +1260,6 @@
       "evidenceCount": 16,
       "observedMin": 26,
       "observedMax": 42
-    },
-    {
-      "oracleId": "f3c5978a-70fa-431f-933b-b954bd0db0ea",
-      "name": "Mox Diamond",
-      "score": 41,
-      "source": "untapped",
-      "rawSourceScore": 41,
-      "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 40,
-      "observedMax": 41
     },
     {
       "oracleId": "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
@@ -1449,26 +1284,37 @@
       "observedMax": 44
     },
     {
-      "oracleId": "94f6c407-e665-4032-be13-a01e40c1f306",
-      "name": "Razorverge Thicket",
+      "oracleId": "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5",
+      "name": "Raucous Theater",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
-      "evidenceCount": 24,
+      "evidenceCount": 23,
       "observedMin": 41,
-      "observedMax": 43
+      "observedMax": 42
     },
     {
-      "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
-      "name": "Remand",
+      "oracleId": "f0449cbd-855c-4c20-a1f5-f76a395d8d39",
+      "name": "Reprieve",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
-      "evidenceCount": 10,
+      "evidenceCount": 8,
+      "observedMin": 41,
+      "observedMax": 42
+    },
+    {
+      "oracleId": "216a2a92-9ca3-4ca3-8af7-686c13b04290",
+      "name": "Shadowy Backstreet",
+      "score": 41,
+      "source": "untapped",
+      "rawSourceScore": 41,
+      "method": "historical_mode",
+      "evidenceCount": 26,
       "observedMin": 39,
-      "observedMax": 41
+      "observedMax": 42
     },
     {
       "oracleId": "8a3ad2ef-8bcb-40c0-85de-f03328c2b644",
@@ -1537,15 +1383,26 @@
       "observedMax": 41
     },
     {
-      "oracleId": "840119bf-e60f-4ff7-9c9b-d420d09df545",
-      "name": "Underground Mortuary",
+      "oracleId": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
+      "name": "Undercity Sewers",
       "score": 41,
       "source": "untapped",
       "rawSourceScore": 41,
       "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 32,
+      "evidenceCount": 23,
+      "observedMin": 40,
       "observedMax": 42
+    },
+    {
+      "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+      "name": "Adeline, Resplendent Cathar",
+      "score": 40,
+      "source": "untapped",
+      "rawSourceScore": 40,
+      "method": "historical_mode",
+      "evidenceCount": 11,
+      "observedMin": 36,
+      "observedMax": 41
     },
     {
       "oracleId": "419a8ab2-cff6-4811-a559-8791c9bb3d8e",
@@ -1559,6 +1416,28 @@
       "observedMax": 41
     },
     {
+      "oracleId": "876ac6f6-74de-4666-84c6-83d81f054723",
+      "name": "Celestial Colonnade",
+      "score": 40,
+      "source": "untapped",
+      "rawSourceScore": 40,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 41,
+      "observedMax": 42
+    },
+    {
+      "oracleId": "a05f641c-15c9-43dc-ae0d-1ea372fd33d5",
+      "name": "Copperline Gorge",
+      "score": 40,
+      "source": "untapped",
+      "rawSourceScore": 40,
+      "method": "historical_mode",
+      "evidenceCount": 26,
+      "observedMin": 41,
+      "observedMax": 43
+    },
+    {
       "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
       "name": "Counterspell",
       "score": 40,
@@ -1570,48 +1449,34 @@
       "observedMax": 41
     },
     {
-      "oracleId": "250cb58b-2924-4dff-92fe-ac0ebbbeb218",
-      "name": "Creeping Tar Pit",
+      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
+      "name": "Deep-Cavern Bat",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
-      "method": "historical_mode",
-      "evidenceCount": 9,
-      "observedMin": 37,
-      "observedMax": 40
+      "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "4f4ec0fa-fcaf-4dc2-9c67-ee7881f5f77d",
-      "name": "Emberwilde Captain",
+      "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
+      "name": "Esper Sentinel",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 35,
-      "observedMax": 40
+      "evidenceCount": 18,
+      "observedMin": 31,
+      "observedMax": 42
     },
     {
-      "oracleId": "4fc5f871-a809-4a4a-adfb-eb4cd52837c8",
-      "name": "Fallen Shinobi",
+      "oracleId": "3c22e031-4804-4c31-bd3c-c3f29d456b34",
+      "name": "Fiery Confluence",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 27,
-      "observedMax": 40
-    },
-    {
-      "oracleId": "ac2173f9-f223-440a-9231-fd98762bdc6f",
-      "name": "Force of Negation",
-      "score": 40,
-      "source": "untapped",
-      "rawSourceScore": 40,
-      "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 40,
-      "observedMax": 40
+      "evidenceCount": 14,
+      "observedMin": 38,
+      "observedMax": 41
     },
     {
       "oracleId": "bb7cebb7-a979-4879-b834-deab13f2a22c",
@@ -1625,15 +1490,15 @@
       "observedMax": 41
     },
     {
-      "oracleId": "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8",
-      "name": "Grief",
+      "oracleId": "0d96b60b-a060-48ee-bb83-93f1c4a10669",
+      "name": "Green Sun's Zenith",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 29,
-      "observedMax": 41
+      "evidenceCount": 17,
+      "observedMin": 37,
+      "observedMax": 40
     },
     {
       "oracleId": "ca4b6689-04ee-4227-9bdc-cb5a9590c745",
@@ -1647,17 +1512,6 @@
       "observedMax": 40
     },
     {
-      "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
-      "name": "Inquisition of Kozilek",
-      "score": 40,
-      "source": "untapped",
-      "rawSourceScore": 40,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 35,
-      "observedMax": 41
-    },
-    {
       "oracleId": "176f5ba8-6e7b-4234-a298-b6164f51656f",
       "name": "Inti, Seneschal of the Sun",
       "score": 40,
@@ -1669,15 +1523,15 @@
       "observedMax": 41
     },
     {
-      "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-      "name": "Mana Leak",
+      "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+      "name": "Llanowar Elves",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 11,
+      "evidenceCount": 12,
       "observedMin": 40,
-      "observedMax": 44
+      "observedMax": 41
     },
     {
       "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
@@ -1689,6 +1543,17 @@
       "evidenceCount": 9,
       "observedMin": 40,
       "observedMax": 42
+    },
+    {
+      "oracleId": "f3c5978a-70fa-431f-933b-b954bd0db0ea",
+      "name": "Mox Diamond",
+      "score": 40,
+      "source": "untapped",
+      "rawSourceScore": 40,
+      "method": "historical_mode",
+      "evidenceCount": 7,
+      "observedMin": 40,
+      "observedMax": 41
     },
     {
       "oracleId": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
@@ -1713,26 +1578,37 @@
       "observedMax": 41
     },
     {
-      "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
-      "name": "Skyclave Apparition",
+      "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
+      "name": "Remand",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 37,
-      "observedMax": 40
+      "evidenceCount": 10,
+      "observedMin": 39,
+      "observedMax": 41
     },
     {
-      "oracleId": "eb0d8093-5f93-4b25-9384-08f9731bfb28",
-      "name": "Spirebluff Canal",
+      "oracleId": "a5bbfe32-2fb9-48a0-bc8a-e9899aac1fda",
+      "name": "Sentinel of the Nameless City",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 38,
-      "observedMax": 40
+      "evidenceCount": 26,
+      "observedMin": 25,
+      "observedMax": 38
+    },
+    {
+      "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
+      "name": "Snuff Out",
+      "score": 40,
+      "source": "untapped",
+      "rawSourceScore": 40,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 36,
+      "observedMax": 42
     },
     {
       "oracleId": "56148ae7-a9df-4771-8d53-d9ffb815c884",
@@ -1746,26 +1622,26 @@
       "observedMax": 40
     },
     {
-      "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215",
-      "name": "The Wandering Emperor",
+      "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e",
+      "name": "Thundering Falls",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 28,
+      "evidenceCount": 18,
+      "observedMin": 37,
       "observedMax": 40
     },
     {
-      "oracleId": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
-      "name": "Toxic Deluge",
+      "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
+      "name": "Vampiric Tutor",
       "score": 40,
       "source": "untapped",
       "rawSourceScore": 40,
       "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 40,
-      "observedMax": 40
+      "evidenceCount": 11,
+      "observedMin": 16,
+      "observedMax": 41
     },
     {
       "oracleId": "8f968470-ce00-43a3-95f5-2e3fe987be19",
@@ -1808,22 +1684,56 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "3c22e031-4804-4c31-bd3c-c3f29d456b34",
-      "name": "Fiery Confluence",
+      "oracleId": "776341cb-d2ec-423f-9250-92dc8bd8d503",
+      "name": "Bitter Triumph",
       "score": 39,
       "source": "untapped",
       "rawSourceScore": 39,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 38,
+      "evidenceCount": 12,
+      "observedMin": 23,
+      "observedMax": 42
+    },
+    {
+      "oracleId": "250cb58b-2924-4dff-92fe-ac0ebbbeb218",
+      "name": "Creeping Tar Pit",
+      "score": 39,
+      "source": "untapped",
+      "rawSourceScore": 39,
+      "method": "historical_mode",
+      "evidenceCount": 9,
+      "observedMin": 37,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
+      "name": "Gaea's Cradle",
+      "score": 39,
+      "source": "untapped",
+      "rawSourceScore": 39,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 11,
       "observedMax": 41
+    },
+    {
+      "oracleId": "0efb0d7e-dea0-4817-a243-15066e9ef333",
+      "name": "Grist, the Hunger Tide",
+      "score": 39,
+      "source": "untapped",
+      "rawSourceScore": 39,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 29,
+      "observedMax": 42
     },
     {
       "oracleId": "22222222-bbbb-4000-8000-000000000003",
       "name": "Gurmag Angler",
       "score": 39,
       "source": "expert_heuristic",
-      "method": "existing_fallback"
+      "method": "existing_fallback",
+      "rawSourceScore": 39
     },
     {
       "oracleId": "f224db3d-cdd2-43f2-b625-4b861efa6449",
@@ -1837,26 +1747,15 @@
       "observedMax": 39
     },
     {
-      "oracleId": "d683d985-9888-4d21-8b5f-69e69ce4a03b",
-      "name": "Path to Exile",
-      "score": 39,
+      "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+      "name": "Chain Lightning",
+      "score": 38,
       "source": "untapped",
-      "rawSourceScore": 39,
+      "rawSourceScore": 38,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 31,
-      "observedMax": 39
-    },
-    {
-      "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
-      "name": "Skullclamp",
-      "score": 39,
-      "source": "untapped",
-      "rawSourceScore": 39,
-      "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 25,
-      "observedMax": 39
+      "evidenceCount": 18,
+      "observedMin": 30,
+      "observedMax": 38
     },
     {
       "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
@@ -1865,17 +1764,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 38,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "5c26c30b-bc4a-4d20-8406-ef9022256e0d",
-      "name": "Crabomination",
-      "score": 38,
-      "source": "untapped",
-      "rawSourceScore": 38,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 28,
-      "observedMax": 40
     },
     {
       "oracleId": "e98cd00c-b812-4c6a-81d4-e3f94b64fc58",
@@ -1916,15 +1804,15 @@
       "observedMax": 40
     },
     {
-      "oracleId": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
-      "name": "Esika's Chariot",
+      "oracleId": "c7aecca5-2f67-4245-ab2d-e723d8b23a67",
+      "name": "Expressive Iteration",
       "score": 38,
       "source": "untapped",
       "rawSourceScore": 38,
       "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 35,
-      "observedMax": 43
+      "evidenceCount": 16,
+      "observedMin": 37,
+      "observedMax": 42
     },
     {
       "oracleId": "aaded61e-32c2-4e02-8557-3f8cd927a64e",
@@ -1933,17 +1821,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 38,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "0d96b60b-a060-48ee-bb83-93f1c4a10669",
-      "name": "Green Sun's Zenith",
-      "score": 38,
-      "source": "untapped",
-      "rawSourceScore": 38,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 37,
-      "observedMax": 40
     },
     {
       "oracleId": "57fe941c-a830-4570-afe2-18f93c7a7b84",
@@ -1970,6 +1847,17 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "eb0d8093-5f93-4b25-9384-08f9731bfb28",
+      "name": "Spirebluff Canal",
+      "score": 38,
+      "source": "untapped",
+      "rawSourceScore": 38,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 38,
+      "observedMax": 40
+    },
+    {
       "oracleId": "ad2793f3-a36f-4a09-a38f-eb98ce0a2b79",
       "name": "The Witch's Vanity",
       "score": 38,
@@ -1978,166 +1866,166 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e",
-      "name": "Thundering Falls",
-      "score": 38,
-      "source": "untapped",
-      "rawSourceScore": 38,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 37,
-      "observedMax": 40
-    },
-    {
-      "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
-      "name": "Vaultborn Tyrant",
-      "score": 38,
-      "source": "untapped",
-      "rawSourceScore": 38,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 32,
-      "observedMax": 39
-    },
-    {
-      "oracleId": "7973820b-fdaf-46ec-9e3e-d4c0e77b5067",
-      "name": "Fanatic of Rhonas",
+      "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
+      "name": "Balance",
       "score": 37,
       "source": "untapped",
       "rawSourceScore": 37,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 18,
-      "observedMax": 37
-    },
-    {
-      "oracleId": "dbcbdf37-c40f-4068-b4a7-a849cab1056c",
-      "name": "Six",
-      "score": 37,
-      "source": "untapped",
-      "rawSourceScore": 37,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 29,
-      "observedMax": 40
-    },
-    {
-      "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
-      "name": "Snapcaster Mage",
-      "score": 37,
-      "source": "untapped",
-      "rawSourceScore": 37,
-      "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 34,
-      "observedMax": 37
-    },
-    {
-      "oracleId": "f7156897-2b02-4ecd-868d-d4d59244e9ed",
-      "name": "Third Path Iconoclast",
-      "score": 37,
-      "source": "untapped",
-      "rawSourceScore": 37,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 28,
-      "observedMax": 40
-    },
-    {
-      "oracleId": "4c6a0c30-b547-4eff-8ff4-0ca25803c076",
-      "name": "Urza's Saga",
-      "score": 37,
-      "source": "untapped",
-      "rawSourceScore": 37,
-      "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 37,
+      "evidenceCount": 14,
+      "observedMin": 35,
       "observedMax": 41
     },
     {
-      "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
-      "name": "Vampiric Tutor",
+      "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+      "name": "Containment Priest",
       "score": 37,
       "source": "untapped",
       "rawSourceScore": 37,
       "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 16,
-      "observedMax": 41
-    },
-    {
-      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
-      "name": "Deep-Cavern Bat",
-      "score": 36.6,
-      "source": "expert_heuristic",
-      "rawSourceScore": 36.6,
-      "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-      "name": "Chain Lightning",
-      "score": 36,
-      "source": "untapped",
-      "rawSourceScore": 36,
-      "method": "historical_mode",
       "evidenceCount": 18,
-      "observedMin": 30,
-      "observedMax": 38
-    },
-    {
-      "oracleId": "e2cd65f6-7cbc-497c-bdc9-698ff17da31e",
-      "name": "Cosmogrand Zenith",
-      "score": 36,
-      "source": "untapped",
-      "rawSourceScore": 36,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 28,
-      "observedMax": 38
+      "observedMin": 27,
+      "observedMax": 37
     },
     {
       "oracleId": "33d405ea-7a9a-4970-b70f-9c05d90dd6f0",
       "name": "Duress",
-      "score": 36,
+      "score": 37,
       "source": "untapped",
-      "rawSourceScore": 36,
+      "rawSourceScore": 37,
       "method": "historical_mode",
       "evidenceCount": 15,
       "observedMin": 31,
       "observedMax": 37
     },
     {
-      "oracleId": "91c835d1-22ca-4c90-9ba6-c8e01bbc0347",
-      "name": "Generous Plunderer",
+      "oracleId": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+      "name": "Esika's Chariot",
+      "score": 37,
+      "source": "untapped",
+      "rawSourceScore": 37,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 35,
+      "observedMax": 43
+    },
+    {
+      "oracleId": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+      "name": "Force of Negation",
+      "score": 37,
+      "source": "untapped",
+      "rawSourceScore": 37,
+      "method": "historical_mode",
+      "evidenceCount": 5,
+      "observedMin": 40,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "d683d985-9888-4d21-8b5f-69e69ce4a03b",
+      "name": "Path to Exile",
+      "score": 37,
+      "source": "untapped",
+      "rawSourceScore": 37,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 31,
+      "observedMax": 39
+    },
+    {
+      "oracleId": "c823e687-6311-4c99-974b-fd77d204141a",
+      "name": "Timetwister",
+      "score": 37,
+      "source": "untapped",
+      "rawSourceScore": 37,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 19,
+      "observedMax": 42
+    },
+    {
+      "oracleId": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+      "name": "Toxic Deluge",
+      "score": 37,
+      "source": "untapped",
+      "rawSourceScore": 37,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 40,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "4f4ec0fa-fcaf-4dc2-9c67-ee7881f5f77d",
+      "name": "Emberwilde Captain",
       "score": 36,
       "source": "untapped",
       "rawSourceScore": 36,
       "method": "historical_mode",
-      "evidenceCount": 17,
+      "evidenceCount": 3,
+      "observedMin": 35,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
+      "name": "Flame Slash",
+      "score": 36,
+      "source": "untapped",
+      "rawSourceScore": 36,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 33,
+      "observedMax": 35
+    },
+    {
+      "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+      "name": "Natural Order",
+      "score": 36,
+      "source": "untapped",
+      "rawSourceScore": 36,
+      "method": "historical_mode",
+      "evidenceCount": 23,
+      "observedMin": 33,
+      "observedMax": 37
+    },
+    {
+      "oracleId": "217062f5-96f1-454c-9507-17f34ef37070",
+      "name": "Sheoldred's Edict",
+      "score": 36,
+      "source": "untapped",
+      "rawSourceScore": 36,
+      "method": "historical_mode",
+      "evidenceCount": 14,
       "observedMin": 28,
-      "observedMax": 38
+      "observedMax": 37
     },
     {
-      "oracleId": "0935faa2-fb90-48db-8a92-906ba0f374c7",
-      "name": "Restless Vinestalk",
+      "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+      "name": "Skyclave Apparition",
       "score": 36,
       "source": "untapped",
       "rawSourceScore": 36,
       "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 25,
-      "observedMax": 36
+      "evidenceCount": 22,
+      "observedMin": 37,
+      "observedMax": 40
     },
     {
-      "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
-      "name": "Wheel of Fortune",
+      "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+      "name": "Snapcaster Mage",
       "score": 36,
       "source": "untapped",
       "rawSourceScore": 36,
       "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 9.7,
-      "observedMax": 36
+      "evidenceCount": 11,
+      "observedMin": 34,
+      "observedMax": 37
+    },
+    {
+      "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
+      "name": "Troll of Khazad-dûm",
+      "score": 36,
+      "source": "untapped",
+      "rawSourceScore": 36,
+      "method": "cubecobra_feature_calibration_v1"
     },
     {
       "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
@@ -2148,26 +2036,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
-      "name": "Balance",
+      "oracleId": "7973820b-fdaf-46ec-9e3e-d4c0e77b5067",
+      "name": "Fanatic of Rhonas",
       "score": 35,
       "source": "untapped",
       "rawSourceScore": 35,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 35,
-      "observedMax": 41
+      "evidenceCount": 20,
+      "observedMin": 18,
+      "observedMax": 37
     },
     {
-      "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
-      "name": "Flame Slash",
+      "oracleId": "91c835d1-22ca-4c90-9ba6-c8e01bbc0347",
+      "name": "Generous Plunderer",
       "score": 35,
       "source": "untapped",
       "rawSourceScore": 35,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 33,
-      "observedMax": 35
+      "evidenceCount": 17,
+      "observedMin": 28,
+      "observedMax": 38
     },
     {
       "oracleId": "213fbbdd-f1bc-4bba-9124-7b26e9a706c8",
@@ -2181,15 +2069,26 @@
       "observedMax": 35
     },
     {
-      "oracleId": "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
-      "name": "Persist",
+      "oracleId": "840119bf-e60f-4ff7-9c9b-d420d09df545",
+      "name": "Underground Mortuary",
       "score": 35,
       "source": "untapped",
       "rawSourceScore": 35,
       "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 24,
-      "observedMax": 35
+      "evidenceCount": 27,
+      "observedMin": 32,
+      "observedMax": 42
+    },
+    {
+      "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
+      "name": "Urza, Lord High Artificer",
+      "score": 35,
+      "source": "untapped",
+      "rawSourceScore": 35,
+      "method": "historical_mode",
+      "evidenceCount": 4,
+      "observedMin": 33,
+      "observedMax": 38
     },
     {
       "oracleId": "89ca686a-7c72-4d8f-9290-e89635624a83",
@@ -2203,59 +2102,15 @@
       "observedMax": 34
     },
     {
-      "oracleId": "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
-      "name": "Dauthi Voidwalker",
+      "oracleId": "4fc5f871-a809-4a4a-adfb-eb4cd52837c8",
+      "name": "Fallen Shinobi",
       "score": 34,
       "source": "untapped",
       "rawSourceScore": 34,
       "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 20,
-      "observedMax": 34
-    },
-    {
-      "oracleId": "2f092562-9e17-43cd-aeb8-d0567f99363e",
-      "name": "Go for the Throat",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 33,
-      "observedMax": 36
-    },
-    {
-      "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
-      "name": "Lotus Cobra",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 33,
-      "observedMax": 41
-    },
-    {
-      "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
-      "name": "Natural Order",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 33,
-      "observedMax": 37
-    },
-    {
-      "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
-      "name": "Nissa, Who Shakes the World",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 16,
-      "observedMax": 37
+      "evidenceCount": 13,
+      "observedMin": 27,
+      "observedMax": 40
     },
     {
       "oracleId": "da82ca96-a613-4d00-9e6b-1fece4fc23d0",
@@ -2266,48 +2121,15 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "b685757b-521e-4353-a233-97052359723d",
-      "name": "Questing Beast",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 24,
-      "observedMax": 34
-    },
-    {
-      "oracleId": "7e16595f-bdeb-422e-b99a-bfc0ed52e9f8",
-      "name": "Restless Cottage",
+      "oracleId": "0935faa2-fb90-48db-8a92-906ba0f374c7",
+      "name": "Restless Vinestalk",
       "score": 34,
       "source": "untapped",
       "rawSourceScore": 34,
       "method": "historical_mode",
       "evidenceCount": 24,
-      "observedMin": 28,
-      "observedMax": 39
-    },
-    {
-      "oracleId": "217062f5-96f1-454c-9507-17f34ef37070",
-      "name": "Sheoldred's Edict",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 28,
-      "observedMax": 37
-    },
-    {
-      "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
-      "name": "Woodfall Primus",
-      "score": 34,
-      "source": "untapped",
-      "rawSourceScore": 34,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 18,
-      "observedMax": 34
+      "observedMin": 25,
+      "observedMax": 36
     },
     {
       "oracleId": "10d33e95-3e5d-447e-ba4a-acd3c33b4045",
@@ -2372,14 +2194,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 33.4,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
-      "name": "Lurrus of the Dream-Den",
-      "score": 33.4,
-      "source": "expert_heuristic",
-      "rawSourceScore": 33.4,
-      "method": "cubecobra_feature_calibration_v1"
     },
     {
       "oracleId": "0a73289f-0f0b-4316-be21-8edcbb08bd7c",
@@ -2454,48 +2268,48 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "a5bbfe32-2fb9-48a0-bc8a-e9899aac1fda",
-      "name": "Sentinel of the Nameless City",
+      "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+      "name": "Lotus Cobra",
       "score": 33,
       "source": "untapped",
       "rawSourceScore": 33,
       "method": "historical_mode",
-      "evidenceCount": 26,
-      "observedMin": 25,
-      "observedMax": 38
+      "evidenceCount": 11,
+      "observedMin": 33,
+      "observedMax": 41
     },
     {
-      "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
-      "name": "Thraben Inspector",
+      "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
+      "name": "Miscalculation",
       "score": 33,
       "source": "untapped",
       "rawSourceScore": 33,
       "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 19,
-      "observedMax": 33
-    },
-    {
-      "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
-      "name": "Tinker",
-      "score": 33,
-      "source": "untapped",
-      "rawSourceScore": 33,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 23,
+      "evidenceCount": 9,
+      "observedMin": 30,
       "observedMax": 36
     },
     {
-      "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
-      "name": "Urza, Lord High Artificer",
+      "oracleId": "dbcbdf37-c40f-4068-b4a7-a849cab1056c",
+      "name": "Six",
       "score": 33,
       "source": "untapped",
       "rawSourceScore": 33,
       "method": "historical_mode",
-      "evidenceCount": 4,
-      "observedMin": 33,
-      "observedMax": 38
+      "evidenceCount": 24,
+      "observedMin": 29,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "4c6a0c30-b547-4eff-8ff4-0ca25803c076",
+      "name": "Urza's Saga",
+      "score": 33,
+      "source": "untapped",
+      "rawSourceScore": 33,
+      "method": "historical_mode",
+      "evidenceCount": 5,
+      "observedMin": 37,
+      "observedMax": 41
     },
     {
       "oracleId": "38877c68-b69b-4ee1-8e8f-5137a184a8f7",
@@ -2578,14 +2392,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
-      "name": "Troll of Khazad-dûm",
-      "score": 32.5,
-      "source": "expert_heuristic",
-      "rawSourceScore": 32.5,
-      "method": "cubecobra_feature_calibration_v1"
-    },
-    {
       "oracleId": "69bc2afd-9f53-47f2-b9c8-f12732784e10",
       "name": "Hexdrinker",
       "score": 32.4,
@@ -2610,48 +2416,26 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "d6d72f5f-8f5d-4180-b514-f22ff5482902",
-      "name": "Bonecrusher Giant",
-      "score": 32,
-      "source": "untapped",
-      "rawSourceScore": 32,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 27,
-      "observedMax": 33
-    },
-    {
-      "oracleId": "98a389f4-2905-47f3-b60e-3d4afb3e5cb0",
-      "name": "Enduring Innocence",
+      "oracleId": "2f092562-9e17-43cd-aeb8-d0567f99363e",
+      "name": "Go for the Throat",
       "score": 32,
       "source": "untapped",
       "rawSourceScore": 32,
       "method": "historical_mode",
       "evidenceCount": 16,
-      "observedMin": 27,
-      "observedMax": 32
+      "observedMin": 33,
+      "observedMax": 36
     },
     {
-      "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
-      "name": "Lutri, the Spellchaser",
+      "oracleId": "032b8a0d-491a-4a12-ab9f-689010054d5b",
+      "name": "Prismatic Vista",
       "score": 32,
       "source": "untapped",
       "rawSourceScore": 32,
       "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 30,
-      "observedMax": 40
-    },
-    {
-      "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345",
-      "name": "Mana Tithe",
-      "score": 32,
-      "source": "untapped",
-      "rawSourceScore": 32,
-      "method": "historical_mode",
-      "evidenceCount": 26,
-      "observedMin": 28,
-      "observedMax": 33
+      "evidenceCount": 11,
+      "observedMin": 29,
+      "observedMax": 31
     },
     {
       "oracleId": "c2b082b4-5d9c-4125-b353-d1cf4f334720",
@@ -2662,15 +2446,26 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
-      "name": "Sylvan Caryatid",
+      "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+      "name": "Thraben Inspector",
       "score": 32,
       "source": "untapped",
       "rawSourceScore": 32,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 24,
-      "observedMax": 35
+      "evidenceCount": 22,
+      "observedMin": 19,
+      "observedMax": 33
+    },
+    {
+      "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
+      "name": "Vaultborn Tyrant",
+      "score": 32,
+      "source": "untapped",
+      "rawSourceScore": 32,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 32,
+      "observedMax": 39
     },
     {
       "oracleId": "49471b65-be9d-4ded-b2e5-dfc81b306b54",
@@ -2881,17 +2676,6 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "23467047-6dba-4498-b783-1ebc4f74b8c2",
-      "name": "Ancient Tomb",
-      "score": 31,
-      "source": "untapped",
-      "rawSourceScore": 31,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 28,
-      "observedMax": 31
-    },
-    {
       "oracleId": "bf1341dd-41a3-49f6-87ec-63170dde4324",
       "name": "Boseiju, Who Endures",
       "score": 31,
@@ -2903,6 +2687,28 @@
       "observedMax": 33
     },
     {
+      "oracleId": "e2cd65f6-7cbc-497c-bdc9-698ff17da31e",
+      "name": "Cosmogrand Zenith",
+      "score": 31,
+      "source": "untapped",
+      "rawSourceScore": 31,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 28,
+      "observedMax": 38
+    },
+    {
+      "oracleId": "5c26c30b-bc4a-4d20-8406-ef9022256e0d",
+      "name": "Crabomination",
+      "score": 31,
+      "source": "untapped",
+      "rawSourceScore": 31,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 28,
+      "observedMax": 40
+    },
+    {
       "oracleId": "903d114b-1899-4e67-bee3-af0673850388",
       "name": "Faebloom Trick",
       "score": 31,
@@ -2911,26 +2717,48 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
-      "name": "Kytheon, Hero of Akros",
+      "oracleId": "e27193b7-1a47-4555-865d-b1fd4c6d597f",
+      "name": "Fastbond",
       "score": 31,
       "source": "untapped",
       "rawSourceScore": 31,
       "method": "historical_mode",
-      "evidenceCount": 26,
-      "observedMin": 29,
-      "observedMax": 36
+      "evidenceCount": 18,
+      "observedMin": 27,
+      "observedMax": 32
     },
     {
-      "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
-      "name": "Miscalculation",
+      "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
+      "name": "Lutri, the Spellchaser",
       "score": 31,
       "source": "untapped",
       "rawSourceScore": 31,
       "method": "historical_mode",
-      "evidenceCount": 9,
+      "evidenceCount": 19,
       "observedMin": 30,
-      "observedMax": 36
+      "observedMax": 40
+    },
+    {
+      "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
+      "name": "Nissa, Who Shakes the World",
+      "score": 31,
+      "source": "untapped",
+      "rawSourceScore": 31,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 16,
+      "observedMax": 37
+    },
+    {
+      "oracleId": "5e57a8cd-f4f0-40b2-84a0-e002751c0d40",
+      "name": "Portable Hole",
+      "score": 31,
+      "source": "untapped",
+      "rawSourceScore": 31,
+      "method": "historical_mode",
+      "evidenceCount": 29,
+      "observedMin": 29,
+      "observedMax": 32
     },
     {
       "oracleId": "da785227-cf8a-4d44-9e7c-fc909ea868f2",
@@ -3133,6 +2961,28 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
+      "name": "Abrade",
+      "score": 30,
+      "source": "untapped",
+      "rawSourceScore": 30,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 27,
+      "observedMax": 36
+    },
+    {
+      "oracleId": "d6d72f5f-8f5d-4180-b514-f22ff5482902",
+      "name": "Bonecrusher Giant",
+      "score": 30,
+      "source": "untapped",
+      "rawSourceScore": 30,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 27,
+      "observedMax": 33
+    },
+    {
       "oracleId": "5f7f133e-58ea-41ab-b1be-be4b400fac4c",
       "name": "Coat of Arms",
       "score": 30,
@@ -3160,6 +3010,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "98a389f4-2905-47f3-b60e-3d4afb3e5cb0",
+      "name": "Enduring Innocence",
+      "score": 30,
+      "source": "untapped",
+      "rawSourceScore": 30,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 27,
+      "observedMax": 32
+    },
+    {
       "oracleId": "aa481983-8f1a-4519-9371-5e7edcd3274f",
       "name": "Everything Pizza",
       "score": 30,
@@ -3168,48 +3029,15 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
-      "name": "Liliana of the Veil",
+      "oracleId": "7e16595f-bdeb-422e-b99a-bfc0ed52e9f8",
+      "name": "Restless Cottage",
       "score": 30,
       "source": "untapped",
       "rawSourceScore": 30,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 21,
-      "observedMax": 34
-    },
-    {
-      "oracleId": "78f9c223-9982-4282-a496-a6f892f0a5bf",
-      "name": "Mind Twist",
-      "score": 30,
-      "source": "untapped",
-      "rawSourceScore": 30,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 26,
-      "observedMax": 36
-    },
-    {
-      "oracleId": "9c8845d6-fa65-4731-b348-dc724fc2d285",
-      "name": "Nissa, Ascended Animist",
-      "score": 30,
-      "source": "untapped",
-      "rawSourceScore": 30,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 19,
-      "observedMax": 30
-    },
-    {
-      "oracleId": "5e57a8cd-f4f0-40b2-84a0-e002751c0d40",
-      "name": "Portable Hole",
-      "score": 30,
-      "source": "untapped",
-      "rawSourceScore": 30,
-      "method": "historical_mode",
-      "evidenceCount": 29,
-      "observedMin": 29,
-      "observedMax": 32
+      "evidenceCount": 24,
+      "observedMin": 28,
+      "observedMax": 39
     },
     {
       "oracleId": "8c81f7b6-38e7-482b-afff-727074a23888",
@@ -3220,15 +3048,15 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "92eed395-62ca-4293-882b-8565c40daab5",
-      "name": "Sylvan Library",
+      "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+      "name": "Sylvan Caryatid",
       "score": 30,
       "source": "untapped",
       "rawSourceScore": 30,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 22,
-      "observedMax": 32
+      "evidenceCount": 16,
+      "observedMin": 24,
+      "observedMax": 35
     },
     {
       "oracleId": "64acb083-a0a3-46ec-9c93-b2ac36878703",
@@ -3415,37 +3243,59 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
-      "name": "Abrade",
+      "oracleId": "23467047-6dba-4498-b783-1ebc4f74b8c2",
+      "name": "Ancient Tomb",
       "score": 29,
       "source": "untapped",
       "rawSourceScore": 29,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 27,
-      "observedMax": 36
-    },
-    {
-      "oracleId": "8c52bd39-0586-48ca-b263-17210cf9feb6",
-      "name": "Craterhoof Behemoth",
-      "score": 29,
-      "source": "untapped",
-      "rawSourceScore": 29,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 10,
+      "evidenceCount": 10,
+      "observedMin": 28,
       "observedMax": 31
     },
     {
-      "oracleId": "e27193b7-1a47-4555-865d-b1fd4c6d597f",
-      "name": "Fastbond",
+      "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+      "name": "Bone Shards",
       "score": 29,
       "source": "untapped",
       "rawSourceScore": 29,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 27,
-      "observedMax": 32
+      "evidenceCount": 21,
+      "observedMin": 24,
+      "observedMax": 29
+    },
+    {
+      "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+      "name": "Dark Ritual",
+      "score": 29,
+      "source": "untapped",
+      "rawSourceScore": 29,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 21,
+      "observedMax": 26
+    },
+    {
+      "oracleId": "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8",
+      "name": "Grief",
+      "score": 29,
+      "source": "untapped",
+      "rawSourceScore": 29,
+      "method": "historical_mode",
+      "evidenceCount": 8,
+      "observedMin": 29,
+      "observedMax": 41
+    },
+    {
+      "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+      "name": "Griselbrand",
+      "score": 29,
+      "source": "untapped",
+      "rawSourceScore": 29,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 23,
+      "observedMax": 29
     },
     {
       "oracleId": "2111588d-9af5-4a33-989e-b074d83f0463",
@@ -3459,6 +3309,17 @@
       "observedMax": 31
     },
     {
+      "oracleId": "66f28905-c7fc-4ada-8fa0-199626d9bedb",
+      "name": "Lórien Revealed",
+      "score": 29,
+      "source": "untapped",
+      "rawSourceScore": 29,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 25,
+      "observedMax": 41
+    },
+    {
       "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
       "name": "Ponder",
       "score": 29,
@@ -3470,15 +3331,26 @@
       "observedMax": 33
     },
     {
-      "oracleId": "032b8a0d-491a-4a12-ab9f-689010054d5b",
-      "name": "Prismatic Vista",
+      "oracleId": "d001febc-d511-4e65-a631-91dc9415056b",
+      "name": "Pyrokinesis",
       "score": 29,
       "source": "untapped",
       "rawSourceScore": 29,
       "method": "historical_mode",
-      "evidenceCount": 11,
-      "observedMin": 29,
-      "observedMax": 31
+      "evidenceCount": 19,
+      "observedMin": 17,
+      "observedMax": 28
+    },
+    {
+      "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
+      "name": "Tinker",
+      "score": 29,
+      "source": "untapped",
+      "rawSourceScore": 29,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 23,
+      "observedMax": 36
     },
     {
       "oracleId": "b215196a-3716-451f-bdbd-d16c05ace5b4",
@@ -3665,26 +3537,26 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
-      "name": "Atraxa, Grand Unifier",
+      "oracleId": "ec3d4466-547c-4e02-b1b5-a156ec4637e9",
+      "name": "Chrome Mox",
       "score": 28,
       "source": "untapped",
       "rawSourceScore": 28,
       "method": "historical_mode",
-      "evidenceCount": 7,
-      "observedMin": 22,
+      "evidenceCount": 8,
+      "observedMin": 24,
       "observedMax": 28
     },
     {
-      "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
-      "name": "Bone Shards",
+      "oracleId": "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
+      "name": "Dauthi Voidwalker",
       "score": 28,
       "source": "untapped",
       "rawSourceScore": 28,
       "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 24,
-      "observedMax": 29
+      "evidenceCount": 17,
+      "observedMin": 20,
+      "observedMax": 34
     },
     {
       "oracleId": "70486bee-6ee7-41ea-b834-8caf4699302b",
@@ -3698,15 +3570,15 @@
       "observedMax": 30
     },
     {
-      "oracleId": "236ce592-1321-4a7c-b695-fd84496f8924",
-      "name": "Fear of Missing Out",
+      "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
+      "name": "Kytheon, Hero of Akros",
       "score": 28,
       "source": "untapped",
       "rawSourceScore": 28,
       "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 28,
-      "observedMax": 30
+      "evidenceCount": 26,
+      "observedMin": 29,
+      "observedMax": 36
     },
     {
       "oracleId": "73346137-3117-4dc3-b5a4-1aca1da54548",
@@ -3715,6 +3587,17 @@
       "source": "expert_heuristic",
       "rawSourceScore": 28,
       "method": "existing_fallback"
+    },
+    {
+      "oracleId": "3bba3b36-f8d7-4fd6-892a-797226210b6e",
+      "name": "Malcolm, Alluring Scoundrel",
+      "score": 28,
+      "source": "untapped",
+      "rawSourceScore": 28,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 23,
+      "observedMax": 28
     },
     {
       "oracleId": "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1",
@@ -3733,34 +3616,23 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
+      "name": "Persist",
+      "score": 28,
+      "source": "untapped",
+      "rawSourceScore": 28,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 24,
+      "observedMax": 35
+    },
+    {
       "oracleId": "f3d48efa-910a-4872-a5b1-a353c5dbce99",
       "name": "Pinnacle Monk",
       "score": 28,
       "source": "expert_heuristic",
       "rawSourceScore": 28,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "d001febc-d511-4e65-a631-91dc9415056b",
-      "name": "Pyrokinesis",
-      "score": 28,
-      "source": "untapped",
-      "rawSourceScore": 28,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 17,
-      "observedMax": 28
-    },
-    {
-      "oracleId": "a6708b11-1bcd-4208-a967-fe91f2e3313c",
-      "name": "Recurring Nightmare",
-      "score": 28,
-      "source": "untapped",
-      "rawSourceScore": 28,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 16,
-      "observedMax": 28
     },
     {
       "oracleId": "9843d8a6-bcbf-40c2-8c41-316e97db9c62",
@@ -3771,17 +3643,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "358789f9-7d87-411d-919e-d597da665cbd",
-      "name": "Stoneforge Mystic",
-      "score": 28,
-      "source": "untapped",
-      "rawSourceScore": 28,
-      "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 13,
-      "observedMax": 29
-    },
-    {
       "oracleId": "eb7b1284-0b2c-4b6a-a389-b2b932838083",
       "name": "Stump Stomp",
       "score": 28,
@@ -3790,26 +3651,37 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "377179d5-ac83-4d34-b5b1-f3d8caa60f79",
-      "name": "Subtlety",
+      "oracleId": "f7156897-2b02-4ecd-868d-d4d59244e9ed",
+      "name": "Third Path Iconoclast",
+      "score": 28,
+      "source": "untapped",
+      "rawSourceScore": 28,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 28,
+      "observedMax": 40
+    },
+    {
+      "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+      "name": "Thoughtseize",
+      "score": 28,
+      "source": "untapped",
+      "rawSourceScore": 28,
+      "method": "historical_mode",
+      "evidenceCount": 6,
+      "observedMin": 28,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "3b1c6c1e-e298-4f45-8ab7-e0bb5358e11f",
+      "name": "Torsten, Founder of Benalia",
       "score": 28,
       "source": "untapped",
       "rawSourceScore": 28,
       "method": "historical_mode",
       "evidenceCount": 14,
-      "observedMin": 23,
-      "observedMax": 28
-    },
-    {
-      "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
-      "name": "Thalia, Guardian of Thraben",
-      "score": 28,
-      "source": "untapped",
-      "rawSourceScore": 28,
-      "method": "historical_mode",
-      "evidenceCount": 25,
       "observedMin": 12,
-      "observedMax": 30
+      "observedMax": 27
     },
     {
       "oracleId": "0d3a4db2-df79-4946-8f87-b174cf9c293c",
@@ -4276,34 +4148,23 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
+      "name": "Atraxa, Grand Unifier",
+      "score": 27,
+      "source": "untapped",
+      "rawSourceScore": 27,
+      "method": "historical_mode",
+      "evidenceCount": 7,
+      "observedMin": 22,
+      "observedMax": 28
+    },
+    {
       "oracleId": "5fe3aabd-3271-41bf-ae50-f6efaba7c4ae",
       "name": "Carrot Cake",
       "score": 27,
       "source": "expert_heuristic",
       "rawSourceScore": 27,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
-      "name": "Collective Brutality",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 20,
-      "observedMax": 27
-    },
-    {
-      "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
-      "name": "Containment Priest",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 27,
-      "observedMax": 37
     },
     {
       "oracleId": "60043b87-6008-4cfa-9d8f-6ee6e3f70766",
@@ -4325,48 +4186,37 @@
       "observedMax": 27
     },
     {
-      "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6",
-      "name": "Get Lost",
+      "oracleId": "236ce592-1321-4a7c-b695-fd84496f8924",
+      "name": "Fear of Missing Out",
       "score": 27,
       "source": "untapped",
       "rawSourceScore": 27,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 20,
-      "observedMax": 33
+      "evidenceCount": 19,
+      "observedMin": 28,
+      "observedMax": 30
     },
     {
-      "oracleId": "3bba3b36-f8d7-4fd6-892a-797226210b6e",
-      "name": "Malcolm, Alluring Scoundrel",
+      "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
+      "name": "Gitaxian Probe",
       "score": 27,
       "source": "untapped",
       "rawSourceScore": 27,
       "method": "historical_mode",
       "evidenceCount": 12,
-      "observedMin": 23,
-      "observedMax": 28
-    },
-    {
-      "oracleId": "ab26fbe2-e808-48b9-8d0d-3fbb6c3d554f",
-      "name": "Narset, Parter of Veils",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 9,
-      "observedMin": 10,
-      "observedMax": 28
-    },
-    {
-      "oracleId": "a6abb6af-7ea2-43f3-8718-2a077ad0c947",
-      "name": "Ob Nixilis, the Adversary",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 9.5,
+      "observedMin": 24,
       "observedMax": 29
+    },
+    {
+      "oracleId": "78f9c223-9982-4282-a496-a6f892f0a5bf",
+      "name": "Mind Twist",
+      "score": 27,
+      "source": "untapped",
+      "rawSourceScore": 27,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 26,
+      "observedMax": 36
     },
     {
       "oracleId": "6d397d26-7e52-47b2-9880-2c10e90cfba4",
@@ -4375,28 +4225,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 27,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
-      "name": "Preordain",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 26,
-      "observedMax": 29
-    },
-    {
-      "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
-      "name": "Primeval Titan",
-      "score": 27,
-      "source": "untapped",
-      "rawSourceScore": 27,
-      "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 26,
-      "observedMax": 27
     },
     {
       "oracleId": "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
@@ -4410,15 +4238,15 @@
       "observedMax": 30
     },
     {
-      "oracleId": "7c2a4fe5-43e8-4e20-bef2-0278d18afc4b",
-      "name": "Shifting Woodland",
+      "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215",
+      "name": "The Wandering Emperor",
       "score": 27,
       "source": "untapped",
       "rawSourceScore": 27,
       "method": "historical_mode",
-      "evidenceCount": 29,
-      "observedMin": 23,
-      "observedMax": 28
+      "evidenceCount": 23,
+      "observedMin": 28,
+      "observedMax": 40
     },
     {
       "oracleId": "25a63171-a1a0-4c61-ac61-49bb59fe83c1",
@@ -4773,14 +4601,14 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "ac2086fe-98ee-4280-9c7c-c5c2d6548a8b",
-      "name": "Burst Lightning",
+      "oracleId": "774dce79-67e0-4820-8013-c7a7347993ce",
+      "name": "Cathar Commando",
       "score": 26,
       "source": "untapped",
       "rawSourceScore": 26,
       "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 19,
+      "evidenceCount": 21,
+      "observedMin": 23,
       "observedMax": 28
     },
     {
@@ -4795,39 +4623,6 @@
       "observedMax": 26
     },
     {
-      "oracleId": "ec3d4466-547c-4e02-b1b5-a156ec4637e9",
-      "name": "Chrome Mox",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 8,
-      "observedMin": 24,
-      "observedMax": 28
-    },
-    {
-      "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
-      "name": "Gitaxian Probe",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 24,
-      "observedMax": 29
-    },
-    {
-      "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
-      "name": "Jace, Vryn's Prodigy",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 20,
-      "observedMax": 27
-    },
-    {
       "oracleId": "2bc92c16-cd1e-4c32-9102-4593d77a9a9f",
       "name": "Kappa Tech-Wrecker",
       "score": 26,
@@ -4836,37 +4631,70 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "66f28905-c7fc-4ada-8fa0-199626d9bedb",
-      "name": "Lórien Revealed",
+      "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345",
+      "name": "Mana Tithe",
       "score": 26,
       "source": "untapped",
       "rawSourceScore": 26,
       "method": "historical_mode",
-      "evidenceCount": 15,
+      "evidenceCount": 26,
+      "observedMin": 28,
+      "observedMax": 33
+    },
+    {
+      "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
+      "name": "Preordain",
+      "score": 26,
+      "source": "untapped",
+      "rawSourceScore": 26,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 26,
+      "observedMax": 29
+    },
+    {
+      "oracleId": "b685757b-521e-4353-a233-97052359723d",
+      "name": "Questing Beast",
+      "score": 26,
+      "source": "untapped",
+      "rawSourceScore": 26,
+      "method": "historical_mode",
+      "evidenceCount": 11,
+      "observedMin": 24,
+      "observedMax": 34
+    },
+    {
+      "oracleId": "34f34409-326d-4994-a0ea-1a69aa278f03",
+      "name": "Sheoldred, the Apocalypse",
+      "score": 26,
+      "source": "untapped",
+      "rawSourceScore": 26,
+      "method": "historical_mode",
+      "evidenceCount": 8,
+      "observedMin": 26,
+      "observedMax": 44
+    },
+    {
+      "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
+      "name": "Skullclamp",
+      "score": 26,
+      "source": "untapped",
+      "rawSourceScore": 26,
+      "method": "historical_mode",
+      "evidenceCount": 7,
       "observedMin": 25,
-      "observedMax": 41
+      "observedMax": 39
     },
     {
-      "oracleId": "e6555cca-e608-4c87-b835-9cd47fd1f543",
-      "name": "Tireless Tracker",
+      "oracleId": "d64b0848-0193-4025-ba62-63ecd8fb9f50",
+      "name": "Spell Pierce",
       "score": 26,
       "source": "untapped",
       "rawSourceScore": 26,
       "method": "historical_mode",
-      "evidenceCount": 16,
+      "evidenceCount": 18,
       "observedMin": 22,
-      "observedMax": 26
-    },
-    {
-      "oracleId": "3b1c6c1e-e298-4f45-8ab7-e0bb5358e11f",
-      "name": "Torsten, Founder of Benalia",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 12,
-      "observedMax": 27
+      "observedMax": 32
     },
     {
       "oracleId": "50a16634-ebf7-477f-ad6f-23332599f838",
@@ -4875,28 +4703,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 26,
       "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
-      "name": "Worldspine Wurm",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 25,
-      "observedMax": 34
-    },
-    {
-      "oracleId": "fdd46004-eaba-4024-8687-39b23dc6a58c",
-      "name": "Zagoth Triome",
-      "score": 26,
-      "source": "untapped",
-      "rawSourceScore": 26,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 23,
-      "observedMax": 27
     },
     {
       "oracleId": "88bb91b5-2ccd-4ce9-8cd4-e54d63c12abf",
@@ -5211,58 +5017,25 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
-      "name": "Brazen Borrower",
-      "score": 25,
-      "source": "untapped",
-      "rawSourceScore": 25,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 17,
-      "observedMax": 27
-    },
-    {
-      "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
-      "name": "Dark Ritual",
-      "score": 25,
-      "source": "untapped",
-      "rawSourceScore": 25,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 21,
-      "observedMax": 26
-    },
-    {
-      "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
-      "name": "Griselbrand",
-      "score": 25,
-      "source": "untapped",
-      "rawSourceScore": 25,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 23,
-      "observedMax": 29
-    },
-    {
-      "oracleId": "d847542b-7522-43ec-91b0-f0aba5d7dddd",
-      "name": "Ivora, Insatiable Heir",
-      "score": 25,
-      "source": "untapped",
-      "rawSourceScore": 25,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 24,
-      "observedMax": 26
-    },
-    {
-      "oracleId": "3d268e48-3004-4384-bf52-e63243fb5e02",
-      "name": "Magda, Brazen Outlaw",
+      "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
+      "name": "Generous Ent",
       "score": 25,
       "source": "untapped",
       "rawSourceScore": 25,
       "method": "historical_mode",
       "evidenceCount": 24,
-      "observedMin": 21,
+      "observedMin": 22,
+      "observedMax": 27
+    },
+    {
+      "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+      "name": "Jace, Vryn's Prodigy",
+      "score": 25,
+      "source": "untapped",
+      "rawSourceScore": 25,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 20,
       "observedMax": 27
     },
     {
@@ -5285,23 +5058,23 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
+      "name": "Primeval Titan",
+      "score": 25,
+      "source": "untapped",
+      "rawSourceScore": 25,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 26,
+      "observedMax": 27
+    },
+    {
       "oracleId": "8dd6d060-d023-48a6-85cb-7a5521b6257b",
       "name": "Revitalizing Repast",
       "score": 25,
       "source": "expert_heuristic",
       "rawSourceScore": 25,
       "method": "existing_fallback"
-    },
-    {
-      "oracleId": "63a19c7c-49d7-4b75-aac8-d0ff36c45fb8",
-      "name": "Sowing Mycospawn",
-      "score": 25,
-      "source": "untapped",
-      "rawSourceScore": 25,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 17,
-      "observedMax": 26
     },
     {
       "oracleId": "c916b81f-700e-4a1a-8c8e-c4685ceaecd2",
@@ -5312,15 +5085,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "fae36da0-bf9c-484f-b2fe-dd8ab2effc5c",
-      "name": "Virtue of Persistence",
+      "oracleId": "00d8efa6-a2d9-4249-8da7-b45173675329",
+      "name": "Utopia Sprawl",
       "score": 25,
       "source": "untapped",
       "rawSourceScore": 25,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 24,
-      "observedMax": 26
+      "evidenceCount": 19,
+      "observedMin": 15,
+      "observedMax": 27
+    },
+    {
+      "oracleId": "09a70ae8-3859-4a09-901d-dce063fa3b5f",
+      "name": "Wasteland",
+      "score": 25,
+      "source": "untapped",
+      "rawSourceScore": 25,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 17,
+      "observedMax": 24
     },
     {
       "oracleId": "4ba5b3f6-503b-43e6-b66e-4f8c55cffed7",
@@ -5675,15 +5459,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "774dce79-67e0-4820-8013-c7a7347993ce",
-      "name": "Cathar Commando",
+      "oracleId": "ac2086fe-98ee-4280-9c7c-c5c2d6548a8b",
+      "name": "Burst Lightning",
       "score": 24,
       "source": "untapped",
       "rawSourceScore": 24,
       "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 23,
+      "evidenceCount": 19,
+      "observedMin": 19,
       "observedMax": 28
+    },
+    {
+      "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
+      "name": "Collective Brutality",
+      "score": 24,
+      "source": "untapped",
+      "rawSourceScore": 24,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 20,
+      "observedMax": 27
     },
     {
       "oracleId": "311a449d-dc74-46e6-9a47-6a597931f736",
@@ -5721,15 +5516,15 @@
       "observedMax": 32
     },
     {
-      "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
-      "name": "Generous Ent",
+      "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6",
+      "name": "Get Lost",
       "score": 24,
       "source": "untapped",
       "rawSourceScore": 24,
       "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 22,
-      "observedMax": 27
+      "evidenceCount": 16,
+      "observedMin": 20,
+      "observedMax": 33
     },
     {
       "oracleId": "5f3f68b5-8c6a-4181-bb8a-9c73967d198a",
@@ -5738,17 +5533,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 24,
       "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "f3abd4d1-a975-4e85-8684-aa0fce029670",
-      "name": "Grave Titan",
-      "score": 24,
-      "source": "untapped",
-      "rawSourceScore": 24,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 21,
-      "observedMax": 25
     },
     {
       "oracleId": "992d9a72-d34d-47d7-96fb-37f0efb515ef",
@@ -5760,6 +5544,17 @@
       "evidenceCount": 17,
       "observedMin": 23,
       "observedMax": 27
+    },
+    {
+      "oracleId": "d847542b-7522-43ec-91b0-f0aba5d7dddd",
+      "name": "Ivora, Insatiable Heir",
+      "score": 24,
+      "source": "untapped",
+      "rawSourceScore": 24,
+      "method": "historical_mode",
+      "evidenceCount": 23,
+      "observedMin": 24,
+      "observedMax": 26
     },
     {
       "oracleId": "0ca233f4-1b7f-4807-ab6e-2b1f5439b3db",
@@ -5810,6 +5605,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b",
+      "name": "Raffine's Tower",
+      "score": 24,
+      "source": "untapped",
+      "rawSourceScore": 24,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 18,
+      "observedMax": 24
+    },
+    {
       "oracleId": "f55a3781-fe33-4301-9bb5-6a54b9c13c4f",
       "name": "Raise the Palisade",
       "score": 24,
@@ -5826,26 +5632,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80",
-      "name": "Shelldock Isle",
+      "oracleId": "7c2a4fe5-43e8-4e20-bef2-0278d18afc4b",
+      "name": "Shifting Woodland",
       "score": 24,
       "source": "untapped",
       "rawSourceScore": 24,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 20,
-      "observedMax": 25
+      "evidenceCount": 29,
+      "observedMin": 23,
+      "observedMax": 28
     },
     {
-      "oracleId": "3123ec89-8e95-4761-ba17-747ec667509f",
-      "name": "Spara's Headquarters",
+      "oracleId": "377179d5-ac83-4d34-b5b1-f3d8caa60f79",
+      "name": "Subtlety",
       "score": 24,
       "source": "untapped",
       "rawSourceScore": 24,
       "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 24,
-      "observedMax": 26
+      "evidenceCount": 14,
+      "observedMin": 23,
+      "observedMax": 28
     },
     {
       "oracleId": "215c287d-56a5-46da-b49e-8524b6d320a4",
@@ -5872,23 +5678,23 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "00d8efa6-a2d9-4249-8da7-b45173675329",
-      "name": "Utopia Sprawl",
-      "score": 24,
-      "source": "untapped",
-      "rawSourceScore": 24,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 15,
-      "observedMax": 27
-    },
-    {
       "oracleId": "4b515bb0-f275-4400-8032-3173b799ab40",
       "name": "Walking Ballista",
       "score": 24,
       "source": "expert_heuristic",
       "rawSourceScore": 24,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
+      "name": "Worldspine Wurm",
+      "score": 24,
+      "source": "untapped",
+      "rawSourceScore": 24,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 25,
+      "observedMax": 34
     },
     {
       "oracleId": "3c1ef404-e2c6-486d-a5a2-d5779c71d498",
@@ -7003,26 +6809,26 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "165bdc68-1da0-47db-a069-978fc4c04b3f",
-      "name": "Caustic Bronco",
+      "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
+      "name": "Brazen Borrower",
       "score": 23,
       "source": "untapped",
       "rawSourceScore": 23,
       "method": "historical_mode",
-      "evidenceCount": 25,
-      "observedMin": 20,
-      "observedMax": 24
+      "evidenceCount": 17,
+      "observedMin": 17,
+      "observedMax": 27
     },
     {
-      "oracleId": "397b9dcf-690a-4a58-8637-bb9baab7cc2f",
-      "name": "Elder Gargaroth",
+      "oracleId": "8c52bd39-0586-48ca-b263-17210cf9feb6",
+      "name": "Craterhoof Behemoth",
       "score": 23,
       "source": "untapped",
       "rawSourceScore": 23,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 12,
-      "observedMax": 24
+      "evidenceCount": 23,
+      "observedMin": 10,
+      "observedMax": 31
     },
     {
       "oracleId": "6ec2a242-9068-4ee2-8ac8-8341cc570f56",
@@ -7031,28 +6837,6 @@
       "source": "expert_heuristic",
       "rawSourceScore": 23,
       "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "a984db23-40ea-428d-829f-e944267280f8",
-      "name": "Faerie Mastermind",
-      "score": 23,
-      "source": "untapped",
-      "rawSourceScore": 23,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 19,
-      "observedMax": 25
-    },
-    {
-      "oracleId": "b72fde5e-862a-45e8-9880-f2c16975a9ac",
-      "name": "Intrepid Adversary",
-      "score": 23,
-      "source": "untapped",
-      "rawSourceScore": 23,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 17,
-      "observedMax": 24
     },
     {
       "oracleId": "64a9a6b4-26b5-4d23-be86-85c54e9c4727",
@@ -7079,6 +6863,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "9c8845d6-fa65-4731-b348-dc724fc2d285",
+      "name": "Nissa, Ascended Animist",
+      "score": 23,
+      "source": "untapped",
+      "rawSourceScore": 23,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 19,
+      "observedMax": 30
+    },
+    {
       "oracleId": "58d7b8b3-ac47-4805-8259-4ba8e70d7dc3",
       "name": "Primal Might",
       "score": 23,
@@ -7087,23 +6882,23 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b",
-      "name": "Raffine's Tower",
-      "score": 23,
-      "source": "untapped",
-      "rawSourceScore": 23,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 18,
-      "observedMax": 24
-    },
-    {
       "oracleId": "361f534b-39d1-4421-b5a8-d3813c62f86d",
       "name": "Rakdos Guildgate",
       "score": 23,
       "source": "expert_heuristic",
       "rawSourceScore": 23,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "c7fa1dda-9312-4ec8-82cd-a1ba7bc33497",
+      "name": "Raugrin Triome",
+      "score": 23,
+      "source": "untapped",
+      "rawSourceScore": 23,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 20,
+      "observedMax": 31
     },
     {
       "oracleId": "7a56c6e1-0509-4783-9b29-cf3163977166",
@@ -7130,15 +6925,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "09a70ae8-3859-4a09-901d-dce063fa3b5f",
-      "name": "Wasteland",
+      "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
+      "name": "Wheel of Fortune",
       "score": 23,
       "source": "untapped",
       "rawSourceScore": 23,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 17,
-      "observedMax": 24
+      "evidenceCount": 7,
+      "observedMin": 9.7,
+      "observedMax": 36
     },
     {
       "oracleId": "7cc81fb3-495c-47cd-8c56-96197d87e9e0",
@@ -7152,15 +6947,26 @@
       "observedMax": 24
     },
     {
-      "oracleId": "8291543f-d086-48aa-b2b7-5481ca8c9198",
-      "name": "Xander's Lounge",
+      "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+      "name": "Woodfall Primus",
       "score": 23,
       "source": "untapped",
       "rawSourceScore": 23,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 21,
-      "observedMax": 26
+      "evidenceCount": 13,
+      "observedMin": 18,
+      "observedMax": 34
+    },
+    {
+      "oracleId": "fdd46004-eaba-4024-8687-39b23dc6a58c",
+      "name": "Zagoth Triome",
+      "score": 23,
+      "source": "untapped",
+      "rawSourceScore": 23,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 23,
+      "observedMax": 27
     },
     {
       "oracleId": "d57a8f0b-7989-4db5-8756-6f2690097252",
@@ -7827,6 +7633,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
+      "name": "Brainstorm",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 20,
+      "observedMax": 23
+    },
+    {
       "oracleId": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "name": "Corpse Dance",
       "score": 22,
@@ -7867,6 +7684,17 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "f3abd4d1-a975-4e85-8684-aa0fce029670",
+      "name": "Grave Titan",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 21,
+      "observedMax": 25
+    },
+    {
       "oracleId": "786baa29-afd4-40f0-95c8-920a972b9175",
       "name": "Kari Zev, Skyship Raider",
       "score": 22,
@@ -7875,26 +7703,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "6bae00e8-06cf-4ac4-a1cc-757e454109fe",
-      "name": "Ketria Triome",
+      "oracleId": "3d268e48-3004-4384-bf52-e63243fb5e02",
+      "name": "Magda, Brazen Outlaw",
       "score": 22,
       "source": "untapped",
       "rawSourceScore": 22,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 19,
-      "observedMax": 23
+      "evidenceCount": 24,
+      "observedMin": 21,
+      "observedMax": 27
     },
     {
-      "oracleId": "c1fc5923-c3cd-448a-98d1-c154661c2812",
-      "name": "Nissa, Resurgent Animist",
+      "oracleId": "ab26fbe2-e808-48b9-8d0d-3fbb6c3d554f",
+      "name": "Narset, Parter of Veils",
       "score": 22,
       "source": "untapped",
       "rawSourceScore": 22,
       "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 16,
-      "observedMax": 24
+      "evidenceCount": 9,
+      "observedMin": 10,
+      "observedMax": 28
     },
     {
       "oracleId": "e9b6a394-691c-425a-9307-76d8edc7375e",
@@ -7905,6 +7733,17 @@
       "method": "historical_mode",
       "evidenceCount": 19,
       "observedMin": 22,
+      "observedMax": 23
+    },
+    {
+      "oracleId": "74947e47-c4ff-4f47-9845-befa7403cbde",
+      "name": "Preacher of the Schism",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 21,
       "observedMax": 23
     },
     {
@@ -7924,26 +7763,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
-      "name": "Sneak Attack",
+      "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80",
+      "name": "Shelldock Isle",
       "score": 22,
       "source": "untapped",
       "rawSourceScore": 22,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 15,
-      "observedMax": 23
-    },
-    {
-      "oracleId": "d64b0848-0193-4025-ba62-63ecd8fb9f50",
-      "name": "Spell Pierce",
-      "score": 22,
-      "source": "untapped",
-      "rawSourceScore": 22,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 22,
-      "observedMax": 32
+      "evidenceCount": 20,
+      "observedMin": 20,
+      "observedMax": 25
     },
     {
       "oracleId": "66f0f43c-829d-44d6-adda-d8885bfbfbaf",
@@ -7954,15 +7782,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
-      "name": "Time Spiral",
+      "oracleId": "92eed395-62ca-4293-882b-8565c40daab5",
+      "name": "Sylvan Library",
       "score": 22,
       "source": "untapped",
       "rawSourceScore": 22,
       "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 15,
-      "observedMax": 23
+      "evidenceCount": 12,
+      "observedMin": 22,
+      "observedMax": 32
+    },
+    {
+      "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
+      "name": "Thalia, Guardian of Thraben",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 25,
+      "observedMin": 12,
+      "observedMax": 30
     },
     {
       "oracleId": "b23cba46-6ed2-442d-bc39-7c4933f6b083",
@@ -7974,6 +7813,28 @@
       "evidenceCount": 21,
       "observedMin": 19,
       "observedMax": 24
+    },
+    {
+      "oracleId": "fae36da0-bf9c-484f-b2fe-dd8ab2effc5c",
+      "name": "Virtue of Persistence",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 24,
+      "observedMax": 26
+    },
+    {
+      "oracleId": "8291543f-d086-48aa-b2b7-5481ca8c9198",
+      "name": "Xander's Lounge",
+      "score": 22,
+      "source": "untapped",
+      "rawSourceScore": 22,
+      "method": "historical_mode",
+      "evidenceCount": 20,
+      "observedMin": 21,
+      "observedMax": 26
     },
     {
       "oracleId": "f7e7b78c-c769-4720-8585-1874773eb342",
@@ -8357,14 +8218,6 @@
     {
       "oracleId": "3c8cc7e2-7bff-46e0-bb5b-1e721a56a3ef",
       "name": "Sunlance",
-      "score": 21.6,
-      "source": "expert_heuristic",
-      "rawSourceScore": 21.6,
-      "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "f2ef8bda-373d-4387-900d-0f1b6ccf72e9",
-      "name": "Trumpeting Carnosaur",
       "score": 21.6,
       "source": "expert_heuristic",
       "rawSourceScore": 21.6,
@@ -8771,17 +8624,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "adfcdadd-ddda-477b-8e72-0cae2430fb63",
-      "name": "Baleful Mastery",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 4,
-      "observedMin": 13,
-      "observedMax": 21
-    },
-    {
       "oracleId": "d6ee8bd6-0207-46ee-9892-c1d1b23b934e",
       "name": "Blastoderm",
       "score": 21,
@@ -8806,17 +8648,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
-      "name": "Brainstorm",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 20,
-      "observedMax": 23
-    },
-    {
       "oracleId": "12cc800c-c7be-4811-8207-fd01a99cc892",
       "name": "Chandra, Torch of Defiance",
       "score": 21,
@@ -8826,17 +8657,6 @@
       "evidenceCount": 18,
       "observedMin": 19,
       "observedMax": 21
-    },
-    {
-      "oracleId": "2068185c-1b50-47d0-aa3f-bf505d199428",
-      "name": "Dark Confidant",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 28,
-      "observedMin": 20,
-      "observedMax": 23
     },
     {
       "oracleId": "67d2a021-a042-4e5f-b6e4-39cb35514794",
@@ -8855,15 +8675,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "23d3e5fe-3f82-44cf-91a1-6646a12a0255",
-      "name": "Echo of Eons",
+      "oracleId": "e519cebf-0f09-4da9-abef-82928738514d",
+      "name": "Eagles of the North",
       "score": 21,
       "source": "untapped",
       "rawSourceScore": 21,
       "method": "historical_mode",
-      "evidenceCount": 10,
-      "observedMin": 20,
-      "observedMax": 25
+      "evidenceCount": 29,
+      "observedMin": 15,
+      "observedMax": 29
     },
     {
       "oracleId": "07b222d7-24f2-4994-9004-ff6672ebe161",
@@ -8966,15 +8786,26 @@
       "observedMax": 29
     },
     {
-      "oracleId": "b3d81980-76f2-44e2-b1c9-01e30c726312",
-      "name": "Loran of the Third Path",
+      "oracleId": "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+      "name": "Liliana of the Veil",
       "score": 21,
       "source": "untapped",
       "rawSourceScore": 21,
       "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 13,
-      "observedMax": 22
+      "evidenceCount": 20,
+      "observedMin": 21,
+      "observedMax": 34
+    },
+    {
+      "oracleId": "63afc3d1-7653-476e-838f-fc18d4a62a21",
+      "name": "Mishra's Bauble",
+      "score": 21,
+      "source": "untapped",
+      "rawSourceScore": 21,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 18,
+      "observedMax": 25
     },
     {
       "oracleId": "fb81f95c-70f8-4eb7-8d15-15d0ae23ec03",
@@ -9020,17 +8851,6 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "74947e47-c4ff-4f47-9845-befa7403cbde",
-      "name": "Preacher of the Schism",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 21,
-      "observedMax": 23
-    },
-    {
       "oracleId": "fa3e28b1-131c-4223-81e0-18dfbab22c26",
       "name": "Prismari Command",
       "score": 21,
@@ -9071,17 +8891,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "00625242-9348-4ef4-b975-f2ac82fee21d",
-      "name": "Savai Triome",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 17,
-      "observedMax": 22
-    },
-    {
       "oracleId": "d37f858e-03c8-4594-9b92-cd03699a1591",
       "name": "Scoured Barrens",
       "score": 21,
@@ -9101,17 +8910,6 @@
       "observedMax": 21
     },
     {
-      "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
-      "name": "Seasoned Pyromancer",
-      "score": 21,
-      "source": "untapped",
-      "rawSourceScore": 21,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 17,
-      "observedMax": 21
-    },
-    {
       "oracleId": "5b15dcac-38dc-4957-bc01-40153ea07559",
       "name": "Silhana Ledgewalker",
       "score": 21,
@@ -9128,14 +8926,25 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "fb3f5097-0da0-458c-8508-60823567e2da",
-      "name": "Sunfall",
+      "oracleId": "63a19c7c-49d7-4b75-aac8-d0ff36c45fb8",
+      "name": "Sowing Mycospawn",
       "score": 21,
       "source": "untapped",
       "rawSourceScore": 21,
       "method": "historical_mode",
-      "evidenceCount": 19,
+      "evidenceCount": 20,
       "observedMin": 17,
+      "observedMax": 26
+    },
+    {
+      "oracleId": "934e2634-4b1c-4d92-b4d6-9241620f3770",
+      "name": "Splitskin Doll",
+      "score": 21,
+      "source": "untapped",
+      "rawSourceScore": 21,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 20,
       "observedMax": 21
     },
     {
@@ -9164,6 +8973,17 @@
       "evidenceCount": 14,
       "observedMin": 19,
       "observedMax": 24
+    },
+    {
+      "oracleId": "e6555cca-e608-4c87-b835-9cd47fd1f543",
+      "name": "Tireless Tracker",
+      "score": 21,
+      "source": "untapped",
+      "rawSourceScore": 21,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 22,
+      "observedMax": 26
     },
     {
       "oracleId": "5d641bf6-0f93-4189-8dc1-ec7ea446dade",
@@ -9720,14 +9540,6 @@
     {
       "oracleId": "ddc7f59a-bbb1-4ba1-82c8-6813fd191940",
       "name": "Siege-Gang Commander",
-      "score": 20.8,
-      "source": "expert_heuristic",
-      "rawSourceScore": 20.8,
-      "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "1b5e6560-ff2e-4475-96cb-63f64c8a86db",
-      "name": "Soul-Guide Lantern",
       "score": 20.8,
       "source": "expert_heuristic",
       "rawSourceScore": 20.8,
@@ -10542,15 +10354,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "a3e51a35-09df-4189-b131-08a21e6a557d",
-      "name": "Cryptic Command",
+      "oracleId": "2068185c-1b50-47d0-aa3f-bf505d199428",
+      "name": "Dark Confidant",
       "score": 20,
       "source": "untapped",
       "rawSourceScore": 20,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 17,
-      "observedMax": 20
+      "evidenceCount": 28,
+      "observedMin": 20,
+      "observedMax": 23
+    },
+    {
+      "oracleId": "23d3e5fe-3f82-44cf-91a1-6646a12a0255",
+      "name": "Echo of Eons",
+      "score": 20,
+      "source": "untapped",
+      "rawSourceScore": 20,
+      "method": "historical_mode",
+      "evidenceCount": 10,
+      "observedMin": 20,
+      "observedMax": 25
     },
     {
       "oracleId": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
@@ -10599,28 +10422,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "ed06e421-480c-40c8-8c3e-1e466e5327b2",
-      "name": "March of Otherworldly Light",
-      "score": 20,
-      "source": "untapped",
-      "rawSourceScore": 20,
-      "method": "historical_mode",
-      "evidenceCount": 32,
-      "observedMin": 13,
-      "observedMax": 21
-    },
-    {
-      "oracleId": "63afc3d1-7653-476e-838f-fc18d4a62a21",
-      "name": "Mishra's Bauble",
-      "score": 20,
-      "source": "untapped",
-      "rawSourceScore": 20,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 18,
-      "observedMax": 25
-    },
-    {
       "oracleId": "186b2256-4af3-48cb-96b0-b0e80a7ee6dc",
       "name": "Oliphaunt",
       "score": 20,
@@ -10632,36 +10433,14 @@
       "observedMax": 33
     },
     {
-      "oracleId": "c7fa1dda-9312-4ec8-82cd-a1ba7bc33497",
-      "name": "Raugrin Triome",
+      "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
+      "name": "Seasoned Pyromancer",
       "score": 20,
       "source": "untapped",
       "rawSourceScore": 20,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 20,
-      "observedMax": 31
-    },
-    {
-      "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
-      "name": "Relic of Sauron",
-      "score": 20,
-      "source": "untapped",
-      "rawSourceScore": 20,
-      "method": "historical_mode",
-      "evidenceCount": 1,
-      "observedMin": 20,
-      "observedMax": 20
-    },
-    {
-      "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
-      "name": "Rofellos, Llanowar Emissary",
-      "score": 20,
-      "source": "untapped",
-      "rawSourceScore": 20,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 3.7,
+      "evidenceCount": 14,
+      "observedMin": 17,
       "observedMax": 21
     },
     {
@@ -10674,17 +10453,6 @@
       "evidenceCount": 13,
       "observedMin": 20,
       "observedMax": 22
-    },
-    {
-      "oracleId": "934e2634-4b1c-4d92-b4d6-9241620f3770",
-      "name": "Splitskin Doll",
-      "score": 20,
-      "source": "untapped",
-      "rawSourceScore": 20,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 20,
-      "observedMax": 21
     },
     {
       "oracleId": "0230de18-8d15-4cfa-9d42-7ccddd9f9570",
@@ -11666,15 +11434,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "981298e6-ddee-49c0-9377-f47f019b4138",
-      "name": "Currency Converter",
+      "oracleId": "d1b815d1-2848-40d4-a555-66822d1becbc",
+      "name": "Channel",
       "score": 19,
       "source": "untapped",
       "rawSourceScore": 19,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 19,
-      "observedMax": 22
+      "evidenceCount": 15,
+      "observedMin": 16,
+      "observedMax": 35
     },
     {
       "oracleId": "0c016ccc-a341-4b76-87ba-69c639d2746d",
@@ -11688,15 +11456,15 @@
       "observedMax": 20
     },
     {
-      "oracleId": "c85d824b-c190-4d04-ab99-918ad0e6516c",
-      "name": "Endurance",
+      "oracleId": "a984db23-40ea-428d-829f-e944267280f8",
+      "name": "Faerie Mastermind",
       "score": 19,
       "source": "untapped",
       "rawSourceScore": 19,
       "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 11,
-      "observedMax": 20
+      "evidenceCount": 14,
+      "observedMin": 19,
+      "observedMax": 25
     },
     {
       "oracleId": "4262893c-8cbe-4854-9762-b3b6b75c0e35",
@@ -11707,23 +11475,34 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "b75c3902-633e-4d24-acde-d7a9cc8f466e",
-      "name": "Glorybringer",
-      "score": 19,
-      "source": "untapped",
-      "rawSourceScore": 19,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 15,
-      "observedMax": 19
-    },
-    {
       "oracleId": "368b4052-174e-4458-a6e6-eaf8093aa0fe",
       "name": "Goblin Chieftain",
       "score": 19,
       "source": "expert_heuristic",
       "rawSourceScore": 19,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "b72fde5e-862a-45e8-9880-f2c16975a9ac",
+      "name": "Intrepid Adversary",
+      "score": 19,
+      "source": "untapped",
+      "rawSourceScore": 19,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 17,
+      "observedMax": 24
+    },
+    {
+      "oracleId": "6bae00e8-06cf-4ac4-a1cc-757e454109fe",
+      "name": "Ketria Triome",
+      "score": 19,
+      "source": "untapped",
+      "rawSourceScore": 19,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 19,
+      "observedMax": 23
     },
     {
       "oracleId": "4f87252e-3218-4759-accc-a4f186fa8857",
@@ -11766,15 +11545,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
-      "name": "Usher of the Fallen",
+      "oracleId": "358789f9-7d87-411d-919e-d597da665cbd",
+      "name": "Stoneforge Mystic",
+      "score": 19,
+      "source": "untapped",
+      "rawSourceScore": 19,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 13,
+      "observedMax": 29
+    },
+    {
+      "oracleId": "5f0be4ce-898e-4849-ab8f-a85fb05c3017",
+      "name": "Territorial Kavu",
       "score": 19,
       "source": "untapped",
       "rawSourceScore": 19,
       "method": "historical_mode",
       "evidenceCount": 24,
-      "observedMin": 16,
-      "observedMax": 20
+      "observedMin": 17,
+      "observedMax": 39
     },
     {
       "oracleId": "7336a541-3ae9-4ab2-acb8-f574c0a5b3a9",
@@ -12969,36 +12759,25 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "d1b815d1-2848-40d4-a555-66822d1becbc",
-      "name": "Channel",
+      "oracleId": "981298e6-ddee-49c0-9377-f47f019b4138",
+      "name": "Currency Converter",
       "score": 18,
       "source": "untapped",
       "rawSourceScore": 18,
       "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 16,
-      "observedMax": 35
+      "evidenceCount": 18,
+      "observedMin": 19,
+      "observedMax": 22
     },
     {
-      "oracleId": "d97de156-5a6d-4dc6-953e-d4bad63cbad2",
-      "name": "Elite Interceptor",
+      "oracleId": "c85d824b-c190-4d04-ab99-918ad0e6516c",
+      "name": "Endurance",
       "score": 18,
       "source": "untapped",
       "rawSourceScore": 18,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 16,
-      "observedMax": 18
-    },
-    {
-      "oracleId": "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
-      "name": "Figure of Destiny",
-      "score": 18,
-      "source": "untapped",
-      "rawSourceScore": 18,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 16,
+      "evidenceCount": 27,
+      "observedMin": 11,
       "observedMax": 20
     },
     {
@@ -13034,39 +12813,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "ec2b3779-55f7-4169-aa66-6312fb52721f",
-      "name": "Indatha Triome",
-      "score": 18,
-      "source": "untapped",
-      "rawSourceScore": 18,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 11,
-      "observedMax": 19
-    },
-    {
-      "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
-      "name": "Kappa Cannoneer",
-      "score": 18,
-      "source": "untapped",
-      "rawSourceScore": 18,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 18,
-      "observedMax": 19
-    },
-    {
-      "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
-      "name": "Mana Confluence",
-      "score": 18,
-      "source": "untapped",
-      "rawSourceScore": 18,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 17,
-      "observedMax": 20
-    },
-    {
       "oracleId": "dd25cab9-15cc-40f5-9b68-8f345dd7e952",
       "name": "Master of the Wild Hunt",
       "score": 18,
@@ -13091,6 +12837,28 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "a6708b11-1bcd-4208-a967-fe91f2e3313c",
+      "name": "Recurring Nightmare",
+      "score": 18,
+      "source": "untapped",
+      "rawSourceScore": 18,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 16,
+      "observedMax": 28
+    },
+    {
+      "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
+      "name": "Rofellos, Llanowar Emissary",
+      "score": 18,
+      "source": "untapped",
+      "rawSourceScore": 18,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 3.7,
+      "observedMax": 21
+    },
+    {
       "oracleId": "49136bdc-bc50-49a2-999a-1ef9c16ea130",
       "name": "Smuggler's Copter",
       "score": 18,
@@ -13102,15 +12870,26 @@
       "observedMax": 23
     },
     {
-      "oracleId": "5f0be4ce-898e-4849-ab8f-a85fb05c3017",
-      "name": "Territorial Kavu",
+      "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+      "name": "Sneak Attack",
       "score": 18,
       "source": "untapped",
       "rawSourceScore": 18,
       "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 17,
-      "observedMax": 39
+      "evidenceCount": 12,
+      "observedMin": 15,
+      "observedMax": 23
+    },
+    {
+      "oracleId": "3123ec89-8e95-4761-ba17-747ec667509f",
+      "name": "Spara's Headquarters",
+      "score": 18,
+      "source": "untapped",
+      "rawSourceScore": 18,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 24,
+      "observedMax": 26
     },
     {
       "oracleId": "f509ac02-f22e-4d1a-9fe1-afa96dd7806d",
@@ -13124,26 +12903,15 @@
       "observedMax": 18
     },
     {
-      "oracleId": "4e0b647a-6e1a-421b-bca9-8d5e346bda80",
-      "name": "Unearth",
+      "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
+      "name": "Time Spiral",
       "score": 18,
       "source": "untapped",
       "rawSourceScore": 18,
       "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 13,
-      "observedMax": 20
-    },
-    {
-      "oracleId": "499a4715-6776-461b-bee4-22ed172d455e",
-      "name": "Winds of Abandon",
-      "score": 18,
-      "source": "untapped",
-      "rawSourceScore": 18,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 16,
-      "observedMax": 21
+      "evidenceCount": 13,
+      "observedMin": 15,
+      "observedMax": 23
     },
     {
       "oracleId": "61a23402-3244-4b5e-9134-98e1f82eda65",
@@ -14714,37 +14482,37 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
-      "name": "Brain Freeze",
+      "oracleId": "165bdc68-1da0-47db-a069-978fc4c04b3f",
+      "name": "Caustic Bronco",
       "score": 17,
       "source": "untapped",
       "rawSourceScore": 17,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 1.2,
-      "observedMax": 26
+      "evidenceCount": 25,
+      "observedMin": 20,
+      "observedMax": 24
     },
     {
-      "oracleId": "e4719557-d94e-490f-8a56-c1867a01d2ef",
-      "name": "Cecil, Dark Knight",
+      "oracleId": "397b9dcf-690a-4a58-8637-bb9baab7cc2f",
+      "name": "Elder Gargaroth",
+      "score": 17,
+      "source": "untapped",
+      "rawSourceScore": 17,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 12,
+      "observedMax": 24
+    },
+    {
+      "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "name": "Fabled Passage",
       "score": 17,
       "source": "untapped",
       "rawSourceScore": 17,
       "method": "historical_mode",
       "evidenceCount": 19,
-      "observedMin": 14,
-      "observedMax": 18
-    },
-    {
-      "oracleId": "09ef446c-a13d-49d9-a94c-cd5f5a2d440b",
-      "name": "Displacer Kitten",
-      "score": 17,
-      "source": "untapped",
-      "rawSourceScore": 17,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 5.7,
-      "observedMax": 18
+      "observedMin": 15,
+      "observedMax": 16
     },
     {
       "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
@@ -14785,6 +14553,28 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "name": "Mana Confluence",
+      "score": 17,
+      "source": "untapped",
+      "rawSourceScore": 17,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 17,
+      "observedMax": 20
+    },
+    {
+      "oracleId": "c1fc5923-c3cd-448a-98d1-c154661c2812",
+      "name": "Nissa, Resurgent Animist",
+      "score": 17,
+      "source": "untapped",
+      "rawSourceScore": 17,
+      "method": "historical_mode",
+      "evidenceCount": 5,
+      "observedMin": 16,
+      "observedMax": 24
+    },
+    {
       "oracleId": "0eb0c9d2-bc5a-4ba3-bd83-57af1da51c3b",
       "name": "Observant Alseid",
       "score": 17,
@@ -14793,25 +14583,25 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "9545f126-062f-4410-a362-e16255a128d6",
-      "name": "Outland Liberator",
+      "oracleId": "00625242-9348-4ef4-b975-f2ac82fee21d",
+      "name": "Savai Triome",
       "score": 17,
       "source": "untapped",
       "rawSourceScore": 17,
       "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 1.2,
-      "observedMax": 17
+      "evidenceCount": 18,
+      "observedMin": 17,
+      "observedMax": 22
     },
     {
-      "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
-      "name": "Retrofitter Foundry",
+      "oracleId": "fb3f5097-0da0-458c-8508-60823567e2da",
+      "name": "Sunfall",
       "score": 17,
       "source": "untapped",
       "rawSourceScore": 17,
       "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 16,
+      "evidenceCount": 19,
+      "observedMin": 17,
       "observedMax": 21
     },
     {
@@ -14831,26 +14621,15 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "ffc95093-24a2-4616-a44a-24788e8df9c8",
-      "name": "Trinket Mage",
+      "oracleId": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
+      "name": "Tireless Provisioner",
       "score": 17,
       "source": "untapped",
       "rawSourceScore": 17,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 16,
-      "observedMax": 18
-    },
-    {
-      "oracleId": "90379825-1894-4b79-bf72-445175e97ffb",
-      "name": "Ulvenwald Oddity",
-      "score": 17,
-      "source": "untapped",
-      "rawSourceScore": 17,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 8.9,
-      "observedMax": 18
+      "evidenceCount": 17,
+      "observedMin": 14,
+      "observedMax": 17
     },
     {
       "oracleId": "b32649cb-bf5c-45fa-86f0-8bf4e8555f06",
@@ -15053,59 +14832,70 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "e519cebf-0f09-4da9-abef-82928738514d",
-      "name": "Eagles of the North",
+      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+      "name": "Brain Freeze",
       "score": 16,
       "source": "untapped",
       "rawSourceScore": 16,
       "method": "historical_mode",
-      "evidenceCount": 29,
-      "observedMin": 15,
-      "observedMax": 29
+      "evidenceCount": 14,
+      "observedMin": 1.2,
+      "observedMax": 26
     },
     {
-      "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
-      "name": "Fabled Passage",
+      "oracleId": "4c9bcba6-87b5-4fb3-97ee-6fe5b739337d",
+      "name": "Consider",
+      "score": 16,
+      "source": "untapped",
+      "rawSourceScore": 16,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 14,
+      "observedMax": 22
+    },
+    {
+      "oracleId": "a3e51a35-09df-4189-b131-08a21e6a557d",
+      "name": "Cryptic Command",
+      "score": 16,
+      "source": "untapped",
+      "rawSourceScore": 16,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 17,
+      "observedMax": 20
+    },
+    {
+      "oracleId": "b01d61cc-9844-4191-86a0-f2db6d42d6e5",
+      "name": "Damn",
       "score": 16,
       "source": "untapped",
       "rawSourceScore": 16,
       "method": "historical_mode",
       "evidenceCount": 19,
-      "observedMin": 15,
-      "observedMax": 16
+      "observedMin": 12,
+      "observedMax": 21
     },
     {
-      "oracleId": "0bbd6cad-9b6f-45a6-9f2e-d7b4853586ae",
-      "name": "Graveyard Trespasser",
+      "oracleId": "0b8c3337-04dd-4798-8203-6d8b8cfb936b",
+      "name": "Lingering Souls",
       "score": 16,
       "source": "untapped",
       "rawSourceScore": 16,
       "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 10,
-      "observedMax": 17
+      "evidenceCount": 23,
+      "observedMin": 12,
+      "observedMax": 19
     },
     {
-      "oracleId": "c77dc11e-d95d-4e7e-bb24-d971c179e9b0",
-      "name": "Legion Extruder",
+      "oracleId": "b3d81980-76f2-44e2-b1c9-01e30c726312",
+      "name": "Loran of the Third Path",
       "score": 16,
       "source": "untapped",
       "rawSourceScore": 16,
       "method": "historical_mode",
-      "evidenceCount": 17,
+      "evidenceCount": 22,
       "observedMin": 13,
-      "observedMax": 20
-    },
-    {
-      "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
-      "name": "Monastery Mentor",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 4,
-      "observedMin": 11,
-      "observedMax": 16
+      "observedMax": 22
     },
     {
       "oracleId": "75ed6946-e7b1-4bf8-a05c-62a2ba5a6c79",
@@ -15135,39 +14925,6 @@
       "observedMax": 17
     },
     {
-      "oracleId": "52f0dcbd-ccf3-4525-8e55-2d38b4991834",
-      "name": "Touch the Spirit Realm",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 8.2,
-      "observedMax": 17
-    },
-    {
-      "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
-      "name": "Umezawa's Jitte",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 11,
-      "observedMax": 16
-    },
-    {
-      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
-      "name": "Underworld Breach",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 14,
-      "observedMax": 22
-    },
-    {
       "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
       "name": "Urza's Bauble",
       "score": 16,
@@ -15177,6 +14934,17 @@
       "evidenceCount": 20,
       "observedMin": 16,
       "observedMax": 18
+    },
+    {
+      "oracleId": "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
+      "name": "Usher of the Fallen",
+      "score": 16,
+      "source": "untapped",
+      "rawSourceScore": 16,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 16,
+      "observedMax": 20
     },
     {
       "oracleId": "2071f278-77ba-46f8-85a0-ccd761199f29",
@@ -15411,17 +15179,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "194166ad-0179-42a3-86b9-ba7f322ec576",
-      "name": "Blade Splicer",
-      "score": 15,
-      "source": "untapped",
-      "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 14,
-      "observedMax": 21
-    },
-    {
       "oracleId": "8bbe3f0d-41d0-4c58-ad65-6675a234cad3",
       "name": "Blood Ogre",
       "score": 15,
@@ -15438,23 +15195,23 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "e4719557-d94e-490f-8a56-c1867a01d2ef",
+      "name": "Cecil, Dark Knight",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 14,
+      "observedMax": 18
+    },
+    {
       "oracleId": "d38a33ae-59d1-4d08-8e14-5fa5a8c3762d",
       "name": "Cloaked Siren",
       "score": 15,
       "source": "expert_heuristic",
       "rawSourceScore": 15,
       "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "4c9bcba6-87b5-4fb3-97ee-6fe5b739337d",
-      "name": "Consider",
-      "score": 15,
-      "source": "untapped",
-      "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 14,
-      "observedMax": 22
     },
     {
       "oracleId": "106e9c0d-67a2-4db7-97d9-03e1ea1b40b5",
@@ -15508,26 +15265,26 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
-      "name": "Etali, Primal Conqueror",
+      "oracleId": "d97de156-5a6d-4dc6-953e-d4bad63cbad2",
+      "name": "Elite Interceptor",
       "score": 15,
       "source": "untapped",
       "rawSourceScore": 15,
       "method": "historical_mode",
-      "evidenceCount": 1,
-      "observedMin": 15,
-      "observedMax": 15
+      "evidenceCount": 16,
+      "observedMin": 16,
+      "observedMax": 18
     },
     {
-      "oracleId": "d211c03a-03cd-40c5-b7c8-ada352fd01a6",
-      "name": "Galvanic Blast",
+      "oracleId": "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
+      "name": "Figure of Destiny",
       "score": 15,
       "source": "untapped",
       "rawSourceScore": 15,
       "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 14,
-      "observedMax": 21
+      "evidenceCount": 20,
+      "observedMin": 16,
+      "observedMax": 20
     },
     {
       "oracleId": "496c9633-ff17-48df-9b24-1d8cbfd06126",
@@ -15544,6 +15301,28 @@
       "source": "expert_heuristic",
       "rawSourceScore": 15,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "51eae7ff-fed9-4afe-8053-7690379449dd",
+      "name": "Gideon, Ally of Zendikar",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 13,
+      "observedMax": 15
+    },
+    {
+      "oracleId": "b75c3902-633e-4d24-acde-d7a9cc8f466e",
+      "name": "Glorybringer",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 15,
+      "observedMax": 19
     },
     {
       "oracleId": "372094f8-86dc-4c78-a5d0-444ffbf02630",
@@ -15642,26 +15421,12 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "0b8c3337-04dd-4798-8203-6d8b8cfb936b",
-      "name": "Lingering Souls",
+      "oracleId": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+      "name": "Lurrus of the Dream-Den",
       "score": 15,
       "source": "untapped",
       "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 12,
-      "observedMax": 19
-    },
-    {
-      "oracleId": "50330e48-db74-4c5f-a0bc-f9a8607e8f31",
-      "name": "Lion Sash",
-      "score": 15,
-      "source": "untapped",
-      "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 9.8,
-      "observedMax": 17
+      "method": "cubecobra_feature_calibration_v1"
     },
     {
       "oracleId": "b582b696-17fa-4eea-8124-293f9bd3a208",
@@ -15670,6 +15435,17 @@
       "source": "expert_heuristic",
       "rawSourceScore": 15,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "ed06e421-480c-40c8-8c3e-1e466e5327b2",
+      "name": "March of Otherworldly Light",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 32,
+      "observedMin": 13,
+      "observedMax": 21
     },
     {
       "oracleId": "2a87e3a9-10e3-4b00-aeb9-d3336b2fa3b3",
@@ -15752,6 +15528,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
+      "name": "Retrofitter Foundry",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 16,
+      "observedMax": 21
+    },
+    {
       "oracleId": "f9221367-24a5-41a3-8943-c6a3cb5d605d",
       "name": "Riverwheel Aerialists",
       "score": 15,
@@ -15808,17 +15595,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "3bc8a406-3ae7-4f56-a33c-b4a2c115b917",
-      "name": "Stern Scolding",
-      "score": 15,
-      "source": "untapped",
-      "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 14,
-      "observedMax": 17
-    },
-    {
       "oracleId": "5b6a821c-51e4-44dc-8353-f4d10eab7fcb",
       "name": "Stratus Dancer",
       "score": 15,
@@ -15862,15 +15638,15 @@
       "observedMax": 15
     },
     {
-      "oracleId": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
-      "name": "Tireless Provisioner",
+      "oracleId": "ffc95093-24a2-4616-a44a-24788e8df9c8",
+      "name": "Trinket Mage",
       "score": 15,
       "source": "untapped",
       "rawSourceScore": 15,
       "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 14,
-      "observedMax": 17
+      "evidenceCount": 18,
+      "observedMin": 16,
+      "observedMax": 18
     },
     {
       "oracleId": "08afc0d7-192f-4ab6-b6a0-c4265cf5e225",
@@ -15879,6 +15655,17 @@
       "source": "expert_heuristic",
       "rawSourceScore": 15,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "90379825-1894-4b79-bf72-445175e97ffb",
+      "name": "Ulvenwald Oddity",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 20,
+      "observedMin": 8.9,
+      "observedMax": 18
     },
     {
       "oracleId": "dc261758-0982-4b7d-9986-042c03cc8366",
@@ -15953,6 +15740,17 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "499a4715-6776-461b-bee4-22ed172d455e",
+      "name": "Winds of Abandon",
+      "score": 15,
+      "source": "untapped",
+      "rawSourceScore": 15,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 16,
+      "observedMax": 21
+    },
+    {
       "oracleId": "a5d3af88-2ca6-4e3d-8b6e-67482136a5c9",
       "name": "Witchstalker",
       "score": 15,
@@ -15977,59 +15775,136 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "c9ed8b01-959a-47d6-891e-0abbdccf6e4f",
-      "name": "Armageddon",
+      "oracleId": "adfcdadd-ddda-477b-8e72-0cae2430fb63",
+      "name": "Baleful Mastery",
       "score": 14,
       "source": "untapped",
       "rawSourceScore": 14,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 11,
-      "observedMax": 15
-    },
-    {
-      "oracleId": "b01d61cc-9844-4191-86a0-f2db6d42d6e5",
-      "name": "Damn",
-      "score": 14,
-      "source": "untapped",
-      "rawSourceScore": 14,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 12,
+      "evidenceCount": 4,
+      "observedMin": 13,
       "observedMax": 21
     },
     {
-      "oracleId": "51eae7ff-fed9-4afe-8053-7690379449dd",
-      "name": "Gideon, Ally of Zendikar",
-      "score": 14,
-      "source": "untapped",
-      "rawSourceScore": 14,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 13,
-      "observedMax": 15
-    },
-    {
-      "oracleId": "f02557b0-f422-48cb-875e-2c814c39967d",
-      "name": "Hellrider",
-      "score": 14,
-      "source": "untapped",
-      "rawSourceScore": 14,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 13,
-      "observedMax": 15
-    },
-    {
-      "oracleId": "7cafc972-a6f5-4cac-a3d3-8a3ae36ffb1e",
-      "name": "Upheaval",
+      "oracleId": "194166ad-0179-42a3-86b9-ba7f322ec576",
+      "name": "Blade Splicer",
       "score": 14,
       "source": "untapped",
       "rawSourceScore": 14,
       "method": "historical_mode",
       "evidenceCount": 19,
-      "observedMin": 11,
+      "observedMin": 14,
+      "observedMax": 21
+    },
+    {
+      "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+      "name": "Etali, Primal Conqueror",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 1,
+      "observedMin": 15,
       "observedMax": 15
+    },
+    {
+      "oracleId": "d211c03a-03cd-40c5-b7c8-ada352fd01a6",
+      "name": "Galvanic Blast",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 14,
+      "observedMax": 21
+    },
+    {
+      "oracleId": "ec2b3779-55f7-4169-aa66-6312fb52721f",
+      "name": "Indatha Triome",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 11,
+      "observedMax": 19
+    },
+    {
+      "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+      "name": "Kappa Cannoneer",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 18,
+      "observedMax": 19
+    },
+    {
+      "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
+      "name": "Monastery Mentor",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 4,
+      "observedMin": 11,
+      "observedMax": 16
+    },
+    {
+      "oracleId": "52f0dcbd-ccf3-4525-8e55-2d38b4991834",
+      "name": "Touch the Spirit Realm",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 8.2,
+      "observedMax": 17
+    },
+    {
+      "oracleId": "5b6bdf5a-2742-4851-92cd-a857a3852836",
+      "name": "Treasure Cruise",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 3,
+      "observedMin": 9.3,
+      "observedMax": 14
+    },
+    {
+      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+      "name": "Underworld Breach",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 14,
+      "observedMax": 22
+    },
+    {
+      "oracleId": "4e0b647a-6e1a-421b-bca9-8d5e346bda80",
+      "name": "Unearth",
+      "score": 14,
+      "source": "untapped",
+      "rawSourceScore": 14,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 13,
+      "observedMax": 20
+    },
+    {
+      "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640",
+      "name": "Dig Through Time",
+      "score": 13,
+      "source": "untapped",
+      "rawSourceScore": 13,
+      "method": "historical_mode",
+      "evidenceCount": 5,
+      "observedMin": 12,
+      "observedMax": 18
     },
     {
       "oracleId": "43c69d19-c06c-470a-bdba-a0335ff2d655",
@@ -16054,15 +15929,15 @@
       "observedMax": 13
     },
     {
-      "oracleId": "716b3ea2-45b7-4a8f-af72-de7f4e510eff",
-      "name": "Goldspan Dragon",
+      "oracleId": "c77dc11e-d95d-4e7e-bb24-d971c179e9b0",
+      "name": "Legion Extruder",
       "score": 13,
       "source": "untapped",
       "rawSourceScore": 13,
       "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 11,
-      "observedMax": 13
+      "evidenceCount": 17,
+      "observedMin": 13,
+      "observedMax": 20
     },
     {
       "oracleId": "b49642f6-20bd-468d-9dac-e578f9ac3091",
@@ -16087,15 +15962,26 @@
       "observedMax": 18
     },
     {
-      "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
-      "name": "Show and Tell",
+      "oracleId": "9545f126-062f-4410-a362-e16255a128d6",
+      "name": "Outland Liberator",
       "score": 13,
       "source": "untapped",
       "rawSourceScore": 13,
       "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 11,
-      "observedMax": 15
+      "evidenceCount": 27,
+      "observedMin": 1.2,
+      "observedMax": 17
+    },
+    {
+      "oracleId": "3bc8a406-3ae7-4f56-a33c-b4a2c115b917",
+      "name": "Stern Scolding",
+      "score": 13,
+      "source": "untapped",
+      "rawSourceScore": 13,
+      "method": "historical_mode",
+      "evidenceCount": 20,
+      "observedMin": 14,
+      "observedMax": 17
     },
     {
       "oracleId": "7bc4c7e2-6758-4a85-84e7-03ab93981106",
@@ -16117,59 +16003,59 @@
       "method": "existing_fallback"
     },
     {
-      "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640",
-      "name": "Dig Through Time",
+      "oracleId": "09ef446c-a13d-49d9-a94c-cd5f5a2d440b",
+      "name": "Displacer Kitten",
       "score": 12,
       "source": "untapped",
       "rawSourceScore": 12,
       "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 12,
+      "evidenceCount": 17,
+      "observedMin": 5.7,
       "observedMax": 18
     },
     {
-      "oracleId": "0fd57894-b917-41c8-a394-360d1d31b236",
-      "name": "Ephemerate",
+      "oracleId": "716b3ea2-45b7-4a8f-af72-de7f4e510eff",
+      "name": "Goldspan Dragon",
       "score": 12,
       "source": "untapped",
       "rawSourceScore": 12,
       "method": "historical_mode",
-      "evidenceCount": 2,
-      "observedMin": 9.7,
-      "observedMax": 12
-    },
-    {
-      "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
-      "name": "Settle the Wreckage",
-      "score": 12,
-      "source": "untapped",
-      "rawSourceScore": 12,
-      "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 7.2,
-      "observedMax": 12
-    },
-    {
-      "oracleId": "8c34b089-aad1-476e-958a-3077bf1bbb51",
-      "name": "Talisman of Curiosity",
-      "score": 12,
-      "source": "untapped",
-      "rawSourceScore": 12,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 6.9,
+      "evidenceCount": 22,
+      "observedMin": 11,
       "observedMax": 13
     },
     {
-      "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
-      "name": "Talisman of Progress",
+      "oracleId": "0bbd6cad-9b6f-45a6-9f2e-d7b4853586ae",
+      "name": "Graveyard Trespasser",
       "score": 12,
       "source": "untapped",
       "rawSourceScore": 12,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 9.3,
-      "observedMax": 12
+      "evidenceCount": 24,
+      "observedMin": 10,
+      "observedMax": 17
+    },
+    {
+      "oracleId": "f02557b0-f422-48cb-875e-2c814c39967d",
+      "name": "Hellrider",
+      "score": 12,
+      "source": "untapped",
+      "rawSourceScore": 12,
+      "method": "historical_mode",
+      "evidenceCount": 23,
+      "observedMin": 13,
+      "observedMax": 15
+    },
+    {
+      "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+      "name": "Show and Tell",
+      "score": 12,
+      "source": "untapped",
+      "rawSourceScore": 12,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 11,
+      "observedMax": 15
     },
     {
       "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
@@ -16183,70 +16069,59 @@
       "observedMax": 12
     },
     {
-      "oracleId": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
-      "name": "Embereth Shieldbreaker",
+      "oracleId": "c9ed8b01-959a-47d6-891e-0abbdccf6e4f",
+      "name": "Armageddon",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
       "evidenceCount": 16,
-      "observedMin": 5.7,
-      "observedMax": 11
+      "observedMin": 11,
+      "observedMax": 15
     },
     {
-      "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
-      "name": "Grim Lavamancer",
+      "oracleId": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
+      "name": "Flickerwisp",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
-      "evidenceCount": 33,
-      "observedMin": 8.4,
-      "observedMax": 11
-    },
-    {
-      "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
-      "name": "Lightning Greaves",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 9.3,
-      "observedMax": 18
-    },
-    {
-      "oracleId": "ba284fe6-bb29-455c-8321-9714a0cdc05e",
-      "name": "Mishra's Workshop",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 20,
+      "evidenceCount": 30,
       "observedMin": 10,
-      "observedMax": 19
+      "observedMax": 14
     },
     {
-      "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
-      "name": "Portal to Phyrexia",
+      "oracleId": "50330e48-db74-4c5f-a0bc-f9a8607e8f31",
+      "name": "Lion Sash",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 10,
-      "observedMax": 12
+      "evidenceCount": 23,
+      "observedMin": 9.8,
+      "observedMax": 17
     },
     {
-      "oracleId": "ab655810-f67e-4576-9174-35b16f5e3235",
-      "name": "Saheeli, Sublime Artificer",
+      "oracleId": "a6abb6af-7ea2-43f3-8718-2a077ad0c947",
+      "name": "Ob Nixilis, the Adversary",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 8.8,
-      "observedMax": 13
+      "evidenceCount": 21,
+      "observedMin": 9.5,
+      "observedMax": 29
+    },
+    {
+      "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+      "name": "Relic of Sauron",
+      "score": 11,
+      "source": "untapped",
+      "rawSourceScore": 11,
+      "method": "historical_mode",
+      "evidenceCount": 1,
+      "observedMin": 20,
+      "observedMax": 20
     },
     {
       "oracleId": "14d2979d-5728-42d7-a027-0eb1f754655d",
@@ -16260,26 +16135,56 @@
       "observedMax": 11
     },
     {
-      "oracleId": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
-      "name": "Talisman of Dominance",
+      "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
+      "name": "Talisman of Progress",
+      "score": 11,
+      "source": "untapped",
+      "rawSourceScore": 11,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 9.3,
+      "observedMax": 12
+    },
+    {
+      "oracleId": "f2ef8bda-373d-4387-900d-0f1b6ccf72e9",
+      "name": "Trumpeting Carnosaur",
+      "score": 11,
+      "source": "untapped",
+      "rawSourceScore": 11,
+      "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
+      "name": "Umezawa's Jitte",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
       "evidenceCount": 13,
       "observedMin": 11,
-      "observedMax": 20
+      "observedMax": 16
     },
     {
-      "oracleId": "cef82674-1f61-407b-801b-a76a3803e598",
-      "name": "Voldaren Epicure",
+      "oracleId": "7cafc972-a6f5-4cac-a3d3-8a3ae36ffb1e",
+      "name": "Upheaval",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "historical_mode",
-      "evidenceCount": 25,
-      "observedMin": 4.6,
-      "observedMax": 13
+      "evidenceCount": 19,
+      "observedMin": 11,
+      "observedMax": 15
+    },
+    {
+      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+      "name": "Chromatic Star",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 6.3,
+      "observedMax": 10
     },
     {
       "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
@@ -16304,26 +16209,70 @@
       "observedMax": 13
     },
     {
-      "oracleId": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
-      "name": "Flickerwisp",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 30,
-      "observedMin": 10,
-      "observedMax": 14
-    },
-    {
-      "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
-      "name": "Karn, Scion of Urza",
+      "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
+      "name": "Lightning Greaves",
       "score": 10,
       "source": "untapped",
       "rawSourceScore": 10,
       "method": "historical_mode",
       "evidenceCount": 22,
-      "observedMin": 2.7,
-      "observedMax": 10
+      "observedMin": 9.3,
+      "observedMax": 18
+    },
+    {
+      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
+      "name": "Lion's Eye Diamond",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 9.2,
+      "observedMax": 17
+    },
+    {
+      "oracleId": "ba284fe6-bb29-455c-8321-9714a0cdc05e",
+      "name": "Mishra's Workshop",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 20,
+      "observedMin": 10,
+      "observedMax": 19
+    },
+    {
+      "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+      "name": "Portal to Phyrexia",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 10,
+      "observedMax": 12
+    },
+    {
+      "oracleId": "8c34b089-aad1-476e-958a-3077bf1bbb51",
+      "name": "Talisman of Curiosity",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 6.9,
+      "observedMax": 13
+    },
+    {
+      "oracleId": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
+      "name": "Talisman of Dominance",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 11,
+      "observedMax": 20
     },
     {
       "oracleId": "91fceb34-0f2d-4392-be27-00dcd765637f",
@@ -16381,367 +16330,375 @@
       "observedMax": 10
     },
     {
-      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
-      "name": "Chromatic Star",
-      "score": 9.9,
+      "oracleId": "cef82674-1f61-407b-801b-a76a3803e598",
+      "name": "Voldaren Epicure",
+      "score": 10,
       "source": "untapped",
-      "rawSourceScore": 9.9,
+      "rawSourceScore": 10,
       "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 6.3,
-      "observedMax": 10
+      "evidenceCount": 25,
+      "observedMin": 4.6,
+      "observedMax": 13
+    },
+    {
+      "oracleId": "81c70ae7-3c18-4c9b-8505-e4db9e0e6518",
+      "name": "Wishclaw Talisman",
+      "score": 10,
+      "source": "untapped",
+      "rawSourceScore": 10,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 6.2,
+      "observedMax": 15
     },
     {
       "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
       "name": "Young Pyromancer",
-      "score": 9.7,
+      "score": 10,
       "source": "untapped",
-      "rawSourceScore": 9.7,
+      "rawSourceScore": 10,
       "method": "historical_mode",
       "evidenceCount": 5,
       "observedMin": 6.2,
       "observedMax": 9.9
     },
     {
-      "oracleId": "e958b3c5-0666-4a99-a933-e5cb8b0da9da",
-      "name": "Cranial Ram",
-      "score": 9.6,
-      "source": "untapped",
-      "rawSourceScore": 9.6,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 6.7,
-      "observedMax": 10
-    },
-    {
-      "oracleId": "6c326439-5620-4ec6-a56a-fe9c3d5d2a46",
-      "name": "Talisman of Conviction",
-      "score": 9.4,
-      "source": "untapped",
-      "rawSourceScore": 9.4,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 8.5,
-      "observedMax": 14
-    },
-    {
-      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
-      "name": "Lion's Eye Diamond",
-      "score": 9.3,
-      "source": "untapped",
-      "rawSourceScore": 9.3,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 9.2,
-      "observedMax": 17
-    },
-    {
-      "oracleId": "5b6bdf5a-2742-4851-92cd-a857a3852836",
-      "name": "Treasure Cruise",
-      "score": 9.3,
-      "source": "untapped",
-      "rawSourceScore": 9.3,
-      "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 9.3,
-      "observedMax": 14
-    },
-    {
       "oracleId": "8fb9ff2d-1e90-4a26-8397-bb981fda2f7b",
       "name": "Breya's Apprentice",
-      "score": 9.1,
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 9.1,
+      "rawSourceScore": 9,
       "method": "historical_mode",
       "evidenceCount": 16,
       "observedMin": 8.8,
       "observedMax": 9.1
     },
     {
-      "oracleId": "3765e8bb-e70d-4503-b8dc-1e684e434c18",
-      "name": "Verdurous Gearhulk",
-      "score": 9.1,
+      "oracleId": "0fd57894-b917-41c8-a394-360d1d31b236",
+      "name": "Ephemerate",
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 9.1,
+      "rawSourceScore": 9,
       "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 1.2,
-      "observedMax": 10
-    },
-    {
-      "oracleId": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
-      "name": "Coalition Relic",
-      "score": 8.9,
-      "source": "untapped",
-      "rawSourceScore": 8.9,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 8.5,
-      "observedMax": 9.7
-    },
-    {
-      "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
-      "name": "Reckoner Bankbuster",
-      "score": 8.9,
-      "source": "untapped",
-      "rawSourceScore": 8.9,
-      "method": "historical_mode",
-      "evidenceCount": 25,
-      "observedMin": 8.3,
-      "observedMax": 15
+      "evidenceCount": 2,
+      "observedMin": 9.7,
+      "observedMax": 12
     },
     {
       "oracleId": "11db299a-0918-46a3-b39b-16acc3f4e281",
       "name": "Experimental Synthesizer",
-      "score": 8.8,
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 8.8,
+      "rawSourceScore": 9,
       "method": "historical_mode",
       "evidenceCount": 13,
       "observedMin": 8.8,
       "observedMax": 9.8
     },
     {
-      "oracleId": "04c7f4fe-2098-4311-866d-6733c08d5178",
-      "name": "Nettlecyst",
-      "score": 8.8,
+      "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
+      "name": "Grim Lavamancer",
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 8.8,
+      "rawSourceScore": 9,
       "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 6.6,
-      "observedMax": 8.9
+      "evidenceCount": 33,
+      "observedMin": 8.4,
+      "observedMax": 11
     },
     {
-      "oracleId": "72e8d67a-41e6-4074-bcbd-b54ead995237",
-      "name": "Pentad Prism",
-      "score": 8.6,
+      "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
+      "name": "Karn, Scion of Urza",
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 8.6,
+      "rawSourceScore": 9,
       "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 8.5,
-      "observedMax": 14
-    },
-    {
-      "oracleId": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
-      "name": "Coveted Jewel",
-      "score": 8.5,
-      "source": "untapped",
-      "rawSourceScore": 8.5,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 6.7,
-      "observedMax": 8.9
-    },
-    {
-      "oracleId": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
-      "name": "The Mightstone and Weakstone",
-      "score": 8.5,
-      "source": "untapped",
-      "rawSourceScore": 8.5,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 8.1,
+      "evidenceCount": 22,
+      "observedMin": 2.7,
       "observedMax": 10
-    },
-    {
-      "oracleId": "4bc79fb3-81bb-42ed-9bbb-93f8cede3094",
-      "name": "Carnage Interpreter",
-      "score": 8.4,
-      "source": "untapped",
-      "rawSourceScore": 8.4,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 5.4,
-      "observedMax": 8.9
-    },
-    {
-      "oracleId": "89c83a6d-f6c8-4984-a888-0db62dfb93b1",
-      "name": "Manamorphose",
-      "score": 8.4,
-      "source": "untapped",
-      "rawSourceScore": 8.4,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 6.5,
-      "observedMax": 9.6
     },
     {
       "oracleId": "953a2bd3-5bca-41fc-8785-66b2d7fa381a",
       "name": "Mai, Scornful Striker",
-      "score": 8.2,
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 8.2,
+      "rawSourceScore": 9,
       "method": "historical_mode",
       "evidenceCount": 21,
       "observedMin": 7.4,
       "observedMax": 8.8
     },
     {
-      "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
-      "name": "Myr Battlesphere",
-      "score": 7.9,
+      "oracleId": "ab655810-f67e-4576-9174-35b16f5e3235",
+      "name": "Saheeli, Sublime Artificer",
+      "score": 9,
       "source": "untapped",
-      "rawSourceScore": 7.9,
+      "rawSourceScore": 9,
       "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 5.8,
-      "observedMax": 7.9
-    },
-    {
-      "oracleId": "c739e180-2f14-41ed-8e7e-50b7df985f35",
-      "name": "Rabbit Battery",
-      "score": 7.9,
-      "source": "untapped",
-      "rawSourceScore": 7.9,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 7.6,
-      "observedMax": 8.6
-    },
-    {
-      "oracleId": "4e7a8817-1a66-45c3-ade9-eac79b40b89f",
-      "name": "Emrakul, the Promised End",
-      "score": 7.8,
-      "source": "untapped",
-      "rawSourceScore": 7.8,
-      "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 7.4,
-      "observedMax": 8.3
-    },
-    {
-      "oracleId": "7359e82b-db79-488d-a1d4-75a00f12a4cf",
-      "name": "Kaldra Compleat",
-      "score": 7.4,
-      "source": "untapped",
-      "rawSourceScore": 7.4,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 5.2,
-      "observedMax": 7.5
-    },
-    {
-      "oracleId": "2249001c-08d5-4c0a-86f8-d97519a39f37",
-      "name": "Stoke the Flames",
-      "score": 7.3,
-      "source": "untapped",
-      "rawSourceScore": 7.3,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 6.7,
-      "observedMax": 7.5
-    },
-    {
-      "oracleId": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
-      "name": "Nexus of Becoming",
-      "score": 7.2,
-      "source": "untapped",
-      "rawSourceScore": 7.2,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 4.7,
-      "observedMax": 7.5
+      "evidenceCount": 14,
+      "observedMin": 8.8,
+      "observedMax": 13
     },
     {
       "oracleId": "2bd111bb-ce02-414c-b5b7-e0e037d8d96b",
       "name": "Bolas's Citadel",
-      "score": 7.1,
+      "score": 8,
       "source": "untapped",
-      "rawSourceScore": 7.1,
+      "rawSourceScore": 8,
       "method": "historical_mode",
       "evidenceCount": 20,
       "observedMin": 6.9,
       "observedMax": 11
     },
     {
+      "oracleId": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
+      "name": "Coalition Relic",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 8.5,
+      "observedMax": 9.7
+    },
+    {
+      "oracleId": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
+      "name": "Coveted Jewel",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 6.7,
+      "observedMax": 8.9
+    },
+    {
       "oracleId": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
       "name": "Expedition Map",
-      "score": 7.1,
+      "score": 8,
       "source": "untapped",
-      "rawSourceScore": 7.1,
+      "rawSourceScore": 8,
       "method": "historical_mode",
       "evidenceCount": 23,
       "observedMin": 6.7,
       "observedMax": 8.3
     },
     {
-      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
-      "name": "Scrapwork Mutt",
+      "oracleId": "72e8d67a-41e6-4074-bcbd-b54ead995237",
+      "name": "Pentad Prism",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 8.5,
+      "observedMax": 14
+    },
+    {
+      "oracleId": "c739e180-2f14-41ed-8e7e-50b7df985f35",
+      "name": "Rabbit Battery",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 7.6,
+      "observedMax": 8.6
+    },
+    {
+      "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
+      "name": "Reckoner Bankbuster",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 25,
+      "observedMin": 8.3,
+      "observedMax": 15
+    },
+    {
+      "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
+      "name": "Settle the Wreckage",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 27,
+      "observedMin": 7.2,
+      "observedMax": 12
+    },
+    {
+      "oracleId": "1b5e6560-ff2e-4475-96cb-63f64c8a86db",
+      "name": "Soul-Guide Lantern",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "6c326439-5620-4ec6-a56a-fe9c3d5d2a46",
+      "name": "Talisman of Conviction",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 8.5,
+      "observedMax": 14
+    },
+    {
+      "oracleId": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
+      "name": "The Mightstone and Weakstone",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 8.1,
+      "observedMax": 10
+    },
+    {
+      "oracleId": "322f0459-f394-44f0-977b-55fd0cbe0712",
+      "name": "Yawgmoth's Will",
+      "score": 8,
+      "source": "untapped",
+      "rawSourceScore": 8,
+      "method": "historical_mode",
+      "evidenceCount": 27,
+      "observedMin": 3.3,
+      "observedMax": 9.3
+    },
+    {
+      "oracleId": "4bc79fb3-81bb-42ed-9bbb-93f8cede3094",
+      "name": "Carnage Interpreter",
       "score": 7,
       "source": "untapped",
       "rawSourceScore": 7,
       "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 4.9,
-      "observedMax": 8.1
-    },
-    {
-      "oracleId": "63bfb9ca-d9d5-4c17-be39-82eb115bc20c",
-      "name": "Lavaspur Boots",
-      "score": 6.9,
-      "source": "untapped",
-      "rawSourceScore": 6.9,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 4.9,
-      "observedMax": 7.5
-    },
-    {
-      "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
-      "name": "Zuran Orb",
-      "score": 6.9,
-      "source": "untapped",
-      "rawSourceScore": 6.9,
-      "method": "historical_mode",
-      "evidenceCount": 19,
+      "evidenceCount": 21,
       "observedMin": 5.4,
-      "observedMax": 8.1
+      "observedMax": 8.9
+    },
+    {
+      "oracleId": "e958b3c5-0666-4a99-a933-e5cb8b0da9da",
+      "name": "Cranial Ram",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 21,
+      "observedMin": 6.7,
+      "observedMax": 10
+    },
+    {
+      "oracleId": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
+      "name": "Embereth Shieldbreaker",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 16,
+      "observedMin": 5.7,
+      "observedMax": 11
+    },
+    {
+      "oracleId": "4e7a8817-1a66-45c3-ade9-eac79b40b89f",
+      "name": "Emrakul, the Promised End",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 7.4,
+      "observedMax": 8.3
     },
     {
       "oracleId": "c1d6cce8-085f-42cb-8b0c-b6fbbf88b16a",
       "name": "Goblin Engineer",
-      "score": 6.7,
+      "score": 7,
       "source": "untapped",
-      "rawSourceScore": 6.7,
+      "rawSourceScore": 7,
       "method": "historical_mode",
       "evidenceCount": 24,
       "observedMin": 6.5,
       "observedMax": 7.8
     },
     {
-      "oracleId": "81c70ae7-3c18-4c9b-8505-e4db9e0e6518",
-      "name": "Wishclaw Talisman",
-      "score": 6.7,
+      "oracleId": "efe9c3e0-7315-408e-9903-9d25a681039b",
+      "name": "Golos, Tireless Pilgrim",
+      "score": 7,
       "source": "untapped",
-      "rawSourceScore": 6.7,
+      "rawSourceScore": 7,
       "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 6.2,
-      "observedMax": 15
+      "evidenceCount": 20,
+      "observedMin": 5.5,
+      "observedMax": 7.2
     },
     {
-      "oracleId": "d12e5ce0-5705-4c35-9a93-b883db52c80c",
-      "name": "Batterskull",
-      "score": 6.6,
+      "oracleId": "7359e82b-db79-488d-a1d4-75a00f12a4cf",
+      "name": "Kaldra Compleat",
+      "score": 7,
       "source": "untapped",
-      "rawSourceScore": 6.6,
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 17,
+      "observedMin": 5.2,
+      "observedMax": 7.5
+    },
+    {
+      "oracleId": "89c83a6d-f6c8-4984-a888-0db62dfb93b1",
+      "name": "Manamorphose",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 6.5,
+      "observedMax": 9.6
+    },
+    {
+      "oracleId": "04c7f4fe-2098-4311-866d-6733c08d5178",
+      "name": "Nettlecyst",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 6.6,
+      "observedMax": 8.9
+    },
+    {
+      "oracleId": "2249001c-08d5-4c0a-86f8-d97519a39f37",
+      "name": "Stoke the Flames",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 18,
+      "observedMin": 6.7,
+      "observedMax": 7.5
+    },
+    {
+      "oracleId": "3765e8bb-e70d-4503-b8dc-1e684e434c18",
+      "name": "Verdurous Gearhulk",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
+      "method": "historical_mode",
+      "evidenceCount": 20,
+      "observedMin": 1.2,
+      "observedMax": 10
+    },
+    {
+      "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
+      "name": "Zuran Orb",
+      "score": 7,
+      "source": "untapped",
+      "rawSourceScore": 7,
       "method": "historical_mode",
       "evidenceCount": 19,
       "observedMin": 5.4,
-      "observedMax": 8
-    },
-    {
-      "oracleId": "2c6934b6-67c4-457a-ae8f-59914fd8f256",
-      "name": "Hazoret the Fervent",
-      "score": 6.3,
-      "source": "untapped",
-      "rawSourceScore": 6.3,
-      "method": "historical_mode",
-      "evidenceCount": 21,
-      "observedMin": 6.1,
-      "observedMax": 6.6
+      "observedMax": 8.1
     },
     {
       "oracleId": "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
@@ -16755,132 +16712,176 @@
       "observedMax": 6.3
     },
     {
-      "oracleId": "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
-      "name": "Sword of Fire and Ice",
+      "oracleId": "2c6934b6-67c4-457a-ae8f-59914fd8f256",
+      "name": "Hazoret the Fervent",
       "score": 6,
       "source": "untapped",
       "rawSourceScore": 6,
       "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 5.8,
-      "observedMax": 9.5
-    },
-    {
-      "oracleId": "efe9c3e0-7315-408e-9903-9d25a681039b",
-      "name": "Golos, Tireless Pilgrim",
-      "score": 5.8,
-      "source": "untapped",
-      "rawSourceScore": 5.8,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 5.5,
-      "observedMax": 7.2
-    },
-    {
-      "oracleId": "8a1a5862-c027-4c15-99a7-1795d0da96da",
-      "name": "Tough Cookie",
-      "score": 5.7,
-      "source": "untapped",
-      "rawSourceScore": 5.7,
-      "method": "historical_mode",
-      "evidenceCount": 28,
-      "observedMin": 4.7,
-      "observedMax": 5.8
-    },
-    {
-      "oracleId": "322f0459-f394-44f0-977b-55fd0cbe0712",
-      "name": "Yawgmoth's Will",
-      "score": 5.7,
-      "source": "untapped",
-      "rawSourceScore": 5.7,
-      "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 3.3,
-      "observedMax": 9.3
-    },
-    {
-      "oracleId": "2eb16535-718f-4b88-92bc-96429d796327",
-      "name": "Syr Ginger, the Meal Ender",
-      "score": 5.6,
-      "source": "untapped",
-      "rawSourceScore": 5.6,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 4.7,
-      "observedMax": 5.9
-    },
-    {
-      "oracleId": "eb9c9a34-88a8-4afe-a053-806f6b29834f",
-      "name": "Memory Jar",
-      "score": 5.3,
-      "source": "untapped",
-      "rawSourceScore": 5.3,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 5,
-      "observedMax": 5.7
+      "evidenceCount": 21,
+      "observedMin": 6.1,
+      "observedMax": 6.6
     },
     {
       "oracleId": "5277a68e-1ceb-4b40-8e10-3d0564f5d7be",
       "name": "Jace, Wielder of Mysteries",
-      "score": 5.2,
+      "score": 6,
       "source": "untapped",
-      "rawSourceScore": 5.2,
+      "rawSourceScore": 6,
       "method": "historical_mode",
       "evidenceCount": 4,
       "observedMin": 5.2,
       "observedMax": 5.5
     },
     {
-      "oracleId": "78db3190-59bc-4033-95bc-32d8ed872b6a",
-      "name": "Tendrils of Agony",
-      "score": 4.8,
+      "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+      "name": "Myr Battlesphere",
+      "score": 6,
       "source": "untapped",
-      "rawSourceScore": 4.8,
+      "rawSourceScore": 6,
       "method": "historical_mode",
-      "evidenceCount": 29,
-      "observedMin": 3.7,
-      "observedMax": 9.4
+      "evidenceCount": 3,
+      "observedMin": 5.8,
+      "observedMax": 7.9
+    },
+    {
+      "oracleId": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
+      "name": "Nexus of Becoming",
+      "score": 6,
+      "source": "untapped",
+      "rawSourceScore": 6,
+      "method": "historical_mode",
+      "evidenceCount": 13,
+      "observedMin": 4.7,
+      "observedMax": 7.5
+    },
+    {
+      "oracleId": "d12e5ce0-5705-4c35-9a93-b883db52c80c",
+      "name": "Batterskull",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 19,
+      "observedMin": 5.4,
+      "observedMax": 8
     },
     {
       "oracleId": "749d2994-44e7-40d3-8630-7bebed239e9e",
       "name": "Haywire Mite",
-      "score": 4.7,
+      "score": 5,
       "source": "untapped",
-      "rawSourceScore": 4.7,
+      "rawSourceScore": 5,
       "method": "historical_mode",
       "evidenceCount": 25,
       "observedMin": 4.3,
       "observedMax": 6.5
     },
     {
-      "oracleId": "022b42a6-ee0f-4080-b973-c1b68938c3be",
-      "name": "Phyrexian Dragon Engine",
-      "score": 4.5,
+      "oracleId": "63bfb9ca-d9d5-4c17-be39-82eb115bc20c",
+      "name": "Lavaspur Boots",
+      "score": 5,
       "source": "untapped",
-      "rawSourceScore": 4.5,
+      "rawSourceScore": 5,
       "method": "historical_mode",
-      "evidenceCount": 15,
-      "observedMin": 4.4,
-      "observedMax": 4.7
+      "evidenceCount": 24,
+      "observedMin": 4.9,
+      "observedMax": 7.5
+    },
+    {
+      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
+      "name": "Scrapwork Mutt",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 23,
+      "observedMin": 4.9,
+      "observedMax": 8.1
+    },
+    {
+      "oracleId": "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
+      "name": "Sword of Fire and Ice",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 12,
+      "observedMin": 5.8,
+      "observedMax": 9.5
+    },
+    {
+      "oracleId": "2eb16535-718f-4b88-92bc-96429d796327",
+      "name": "Syr Ginger, the Meal Ender",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 24,
+      "observedMin": 4.7,
+      "observedMax": 5.9
+    },
+    {
+      "oracleId": "78db3190-59bc-4033-95bc-32d8ed872b6a",
+      "name": "Tendrils of Agony",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 29,
+      "observedMin": 3.7,
+      "observedMax": 9.4
+    },
+    {
+      "oracleId": "8a1a5862-c027-4c15-99a7-1795d0da96da",
+      "name": "Tough Cookie",
+      "score": 5,
+      "source": "untapped",
+      "rawSourceScore": 5,
+      "method": "historical_mode",
+      "evidenceCount": 28,
+      "observedMin": 4.7,
+      "observedMax": 5.8
     },
     {
       "oracleId": "bc8802db-8c94-4eb4-817f-5f4f5408b7a4",
       "name": "Karn, Legacy Reforged",
-      "score": 3.8,
+      "score": 4,
       "source": "untapped",
-      "rawSourceScore": 3.8,
+      "rawSourceScore": 4,
       "method": "historical_mode",
       "evidenceCount": 18,
       "observedMin": 3.6,
       "observedMax": 4
     },
     {
+      "oracleId": "eb9c9a34-88a8-4afe-a053-806f6b29834f",
+      "name": "Memory Jar",
+      "score": 4,
+      "source": "untapped",
+      "rawSourceScore": 4,
+      "method": "historical_mode",
+      "evidenceCount": 14,
+      "observedMin": 5,
+      "observedMax": 5.7
+    },
+    {
+      "oracleId": "022b42a6-ee0f-4080-b973-c1b68938c3be",
+      "name": "Phyrexian Dragon Engine",
+      "score": 4,
+      "source": "untapped",
+      "rawSourceScore": 4,
+      "method": "historical_mode",
+      "evidenceCount": 15,
+      "observedMin": 4.4,
+      "observedMax": 4.7
+    },
+    {
       "oracleId": "786b3657-b595-4b38-83f2-d40915e51e2b",
       "name": "Phyrexian Revoker",
-      "score": 3.8,
+      "score": 4,
       "source": "untapped",
-      "rawSourceScore": 3.8,
+      "rawSourceScore": 4,
       "method": "historical_mode",
       "evidenceCount": 21,
       "observedMin": 3.6,
@@ -16889,9 +16890,9 @@
     {
       "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
       "name": "Seething Song",
-      "score": 3.7,
+      "score": 4,
       "source": "untapped",
-      "rawSourceScore": 3.7,
+      "rawSourceScore": 4,
       "method": "historical_mode",
       "evidenceCount": 27,
       "observedMin": 3.6,
@@ -16900,9 +16901,9 @@
     {
       "oracleId": "86ef6474-613f-41fb-931c-d4279b03ed99",
       "name": "Pyretic Ritual",
-      "score": 3.2,
+      "score": 3,
       "source": "untapped",
-      "rawSourceScore": 3.2,
+      "rawSourceScore": 3,
       "method": "historical_mode",
       "evidenceCount": 18,
       "observedMin": 3.2,

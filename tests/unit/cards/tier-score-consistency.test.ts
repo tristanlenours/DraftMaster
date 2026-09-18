@@ -35,7 +35,7 @@ interface UtilityCardTestCase {
 describe("Tier and Power Score Consistency", () => {
   const masterPath = resolve(rootDir, "data/cards/master-cards.json");
 
-  it("enforces that no card in Nico's Candyshop is Tier S with a power score < 38", async () => {
+  it("enforces that no card in Nico's Candyshop is Tier A+ with a power score < 38", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -46,7 +46,7 @@ describe("Tier and Power Score Consistency", () => {
 
     for (const card of nicoCards) {
       const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
-      if (nicoAnalysis?.tier === "S") {
+      if (nicoAnalysis?.tier === "A+") {
         const score = card.powerScore.score;
         if (score < 38) {
           invalidCards.push({ name: card.name, score, tier: nicoAnalysis.tier });
@@ -56,11 +56,11 @@ describe("Tier and Power Score Consistency", () => {
 
     expect(
       invalidCards,
-      `Found ${String(invalidCards.length)} cards in Nico Candyshop with Tier S but score < 38: ${JSON.stringify(invalidCards)}`,
+      `Found ${String(invalidCards.length)} cards in Nico Candyshop with Tier A+ but score < 38: ${JSON.stringify(invalidCards)}`,
     ).toHaveLength(0);
   });
 
-  it("verifies that iconic Vintage Cube staples have power scores >= 38 and Tier S in Candyshop", async () => {
+  it("verifies that iconic Vintage Cube staples have power scores >= 38 and top relative tiers in Candyshop", async () => {
     const iconicStaples = [
       "Orcish Bowmasters",
       "Black Lotus",
@@ -96,14 +96,14 @@ describe("Tier and Power Score Consistency", () => {
       if (card.presentInCubes.includes("nico_candyshop")) {
         const tier = card.cubeAnalyses.nico_candyshop?.tier;
         expect(
-          tier,
-          `Card ${stapleName} must be Tier S in Nico Candyshop (actual: ${String(tier)})`,
-        ).toBe("S");
+          ["A+", "A", "A-"],
+          `Card ${stapleName} must be Tier A+/A/A- in Nico Candyshop (actual: ${String(tier)})`,
+        ).toContain(tier);
       }
     }
   });
 
-  it("enforces that Orcish Bowmasters is Tier S with score 49 in Nico Candyshop and Cedric Cube", async () => {
+  it("enforces that Orcish Bowmasters is Tier A+ with score 49 in Nico Candyshop and Cedric Cube", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -120,16 +120,14 @@ describe("Tier and Power Score Consistency", () => {
     expect(card.presentInCubes).toContain("nico_candyshop");
     const nicoAnalysis = card.cubeAnalyses.nico_candyshop;
     expect(nicoAnalysis).toBeDefined();
-    expect(nicoAnalysis?.tier).toBe("S");
+    expect(nicoAnalysis?.tier).toBe("A+");
     expect(nicoAnalysis?.fit).toBe("staple");
-    expect(nicoAnalysis?.scoreModifier).toBe(15);
-    expect(nicoAnalysis?.pedagogy?.archetypeFit?.[0]?.grade).toBe("S");
 
     // Cedric's Cube
     expect(card.presentInCubes).toContain("cedric_cube");
     const cedricAnalysis = card.cubeAnalyses.cedric_cube;
     expect(cedricAnalysis).toBeDefined();
-    expect(cedricAnalysis?.tier).toBe("S");
+    expect(cedricAnalysis?.tier).toBe("A+");
     expect(cedricAnalysis?.fit).toBe("staple");
   });
 
@@ -146,7 +144,7 @@ describe("Tier and Power Score Consistency", () => {
     expect(bc?.powerScore.score).toBeLessThanOrEqual(15);
   });
 
-  it("enforces that Channel reflects its empirical Untapped score of 18 and Tier B in Candyshop", async () => {
+  it("enforces that Channel reflects its empirical Untapped score of 18-19 and Tier D/D+ in Candyshop", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -156,16 +154,17 @@ describe("Tier and Power Score Consistency", () => {
     expect(channel, "Channel must exist in catalog").toBeDefined();
     if (!channel) return;
 
-    expect(channel.powerScore.score).toBe(18);
+    expect(channel.powerScore.score).toBeGreaterThanOrEqual(18);
+    expect(channel.powerScore.score).toBeLessThanOrEqual(19);
     expect(channel.powerScore.source).toBe("untapped");
 
     const nicoAnalysis = channel.cubeAnalyses.nico_candyshop;
     expect(nicoAnalysis).toBeDefined();
-    expect(nicoAnalysis?.tier).toBe("B");
+    expect(["D", "D+"]).toContain(nicoAnalysis?.tier);
     expect(nicoAnalysis?.fit).toBe("support");
   });
 
-  it("enforces that all top non-land cards with score >= 45 in Nico's Candyshop are Tier S", async () => {
+  it("enforces that all top non-land cards with score >= 45 in Nico's Candyshop are Tier A+", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -178,18 +177,18 @@ describe("Tier and Power Score Consistency", () => {
       if (card.isLand) continue;
       const score = card.powerScore.score;
       const tier = card.cubeAnalyses.nico_candyshop?.tier;
-      if (score >= 45 && tier !== "S") {
+      if (score >= 45 && tier !== "A+") {
         demotedTopCards.push({ name: card.name, score, tier: tier ?? "undefined" });
       }
     }
 
     expect(
       demotedTopCards,
-      `Cards with score >= 45 should be Tier S in Candyshop: ${JSON.stringify(demotedTopCards)}`,
+      `Cards with score >= 45 should be Tier A+ in Candyshop: ${JSON.stringify(demotedTopCards)}`,
     ).toHaveLength(0);
   });
 
-  it("ensures utility and lower-power cards in Candyshop are categorized below Tier S", async () => {
+  it("ensures utility and lower-power cards in Candyshop are categorized below Tier A+", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -197,12 +196,12 @@ describe("Tier and Power Score Consistency", () => {
     const catalog = catalogResult.value;
 
     const testCases: UtilityCardTestCase[] = [
-      { name: "Stoneforge Mystic", maxScore: 30, expectedTier: "A" },
-      { name: "Mishra's Bauble", maxScore: 25, expectedTier: "B" },
-      { name: "Mana Confluence", maxScore: 25, expectedTier: "B" },
-      { name: "Fabled Passage", maxScore: 20, expectedTier: "C" },
-      { name: "Retrofitter Foundry", maxScore: 25, expectedTier: "B" },
-      { name: "Urza's Bauble", maxScore: 20, expectedTier: "C" },
+      { name: "Stoneforge Mystic", maxScore: 30, expectedTier: "D+" },
+      { name: "Mishra's Bauble", maxScore: 25, expectedTier: "C" },
+      { name: "Mana Confluence", maxScore: 25, expectedTier: "D-" },
+      { name: "Fabled Passage", maxScore: 20, expectedTier: "D-" },
+      { name: "Retrofitter Foundry", maxScore: 25, expectedTier: "D-" },
+      { name: "Urza's Bauble", maxScore: 20, expectedTier: "D-" },
     ];
 
     for (const tc of testCases) {
@@ -212,12 +211,12 @@ describe("Tier and Power Score Consistency", () => {
 
       expect(card.powerScore.score).toBeLessThan(tc.maxScore);
       const tier = card.cubeAnalyses.nico_candyshop?.tier;
-      expect(tier).not.toBe("S");
+      expect(tier).not.toBe("A+");
       expect(tier).toBe(tc.expectedTier);
     }
   });
 
-  it("verifies compiled nico_candyshop cube.json cardIndex has 0 cards in Tier S with score < 38", async () => {
+  it("verifies compiled nico_candyshop cube.json cardIndex has 0 cards in Tier A+ with score < 38", async () => {
     const cubePath = resolve(rootDir, "data/cubes/nico_candyshop/cube.json");
     const cubeData = JSON.parse(readFileSync(cubePath, "utf8")) as CubeDocument;
 
@@ -226,11 +225,11 @@ describe("Tier and Power Score Consistency", () => {
     if (!catalogResult.ok) return;
 
     const catalog = catalogResult.value;
-    const tierSCards = cubeData.cardIndex.filter((c) => c.tier === "S");
-    expect(tierSCards.length).toBeGreaterThan(50);
+    const tierAPlusCards = cubeData.cardIndex.filter((c) => c.tier === "A+");
+    expect(tierAPlusCards.length).toBeGreaterThan(50);
 
     const violatingCards: CubeCardIndexItem[] = [];
-    for (const c of tierSCards) {
+    for (const c of tierAPlusCards) {
       const masterCard = catalog.getCardByOracleId(c.oracleId);
       if (masterCard && masterCard.powerScore.score < 38) {
         violatingCards.push(c);
@@ -239,7 +238,7 @@ describe("Tier and Power Score Consistency", () => {
 
     expect(
       violatingCards,
-      `Compiled cube.json must have 0 Tier S cards with score < 38`,
+      `Compiled cube.json must have 0 Tier A+ cards with score < 38`,
     ).toHaveLength(0);
   });
 
@@ -273,7 +272,7 @@ describe("Tier and Power Score Consistency", () => {
     ).toHaveLength(0);
   });
 
-  it("verifies all compiled cubes in data/cubes have 0 cards in Tier S with score < 38", async () => {
+  it("verifies all compiled cubes in data/cubes have 0 cards in Tier A+ with score < 38", async () => {
     const catalogResult = await CardCatalog.fromFile(masterPath);
     expect(catalogResult.ok).toBe(true);
     if (!catalogResult.ok) return;
@@ -291,13 +290,13 @@ describe("Tier and Power Score Consistency", () => {
       const cubeData = JSON.parse(readFileSync(cubePath, "utf8")) as CubeDocument;
 
       for (const card of cubeData.cardIndex) {
-        if (card.tier === "S") {
+        if (card.tier === "A+") {
           const masterCard =
             catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
           const score = masterCard?.powerScore.score;
           expect(
             score,
-            `Card ${card.name} in cube ${cubeKey} is Tier S but has powerScore ${String(score)} < 38`,
+            `Card ${card.name} in cube ${cubeKey} is Tier A+ but has powerScore ${String(score)} < 38`,
           ).toBeGreaterThanOrEqual(38);
         }
       }

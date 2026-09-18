@@ -29,20 +29,9 @@ export function selectRepresentativeScore(
 ): number | undefined {
   if (observations.length === 0) return undefined;
 
-  const ordered = [...observations].sort((left, right) => left.observedAt - right.observedAt);
-  const frequencies = new Map<number, { count: number; firstSeen: number }>();
-
-  ordered.forEach((observation, index) => {
-    const current = frequencies.get(observation.score);
-    frequencies.set(observation.score, {
-      count: (current?.count ?? 0) + 1,
-      firstSeen: current?.firstSeen ?? index,
-    });
-  });
-
-  return [...frequencies.entries()].sort(
-    (left, right) => right[1].count - left[1].count || left[1].firstSeen - right[1].firstSeen,
-  )[0]?.[0];
+  const ordered = [...observations].sort((left, right) => right.observedAt - left.observedAt);
+  const score = ordered[0]?.score;
+  return score !== undefined ? Math.round(score) : undefined;
 }
 
 export function fitIsotonicCalibration(

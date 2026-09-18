@@ -624,7 +624,17 @@ const CUBE_STRATEGIC_ADVICE = {
   },
 };
 
-const TIERS = ["S", "A", "B", "C", "D"];
+const TIERS = [
+  "A+", "A", "A-",
+  "B+", "B", "B-",
+  "C+", "C", "C-",
+  "D+", "D", "D-",
+  "F",
+];
+
+function toTierCssClass(tier) {
+  return String(tier).toLowerCase().replace("+", "-plus").replace("-", "-minus");
+}
 
 const COLOR_COLUMNS = [
   { key: "W", label: "Blanc", symbol: "W", cssClass: "color-w" },
@@ -695,6 +705,9 @@ const state = {
   selectedCmc: "ALL",
   searchQuery: "",
   onlyShared: false,
+  onlyUpgrades: false,
+  cardsViewMode: "cube",
+  cubesSuggestions: {},
   selectedCard: null,
   selectedDeckReview: null,
   cardLanguage: readCardLanguage(),
@@ -783,6 +796,9 @@ const elements = {
   cmcChipsGroup: document.getElementById("cmc-chips-group"),
   cardSearchInput: document.getElementById("card-search-input"),
   sharedFilterBtn: document.getElementById("shared-filter-btn"),
+  upgradeFilterBtn: document.getElementById("upgrade-filter-btn"),
+  btnViewCubeCards: document.getElementById("btn-view-cube-cards"),
+  btnViewMaybeboard: document.getElementById("btn-view-maybeboard"),
   langChipFr: document.getElementById("lang-chip-fr"),
   langChipEn: document.getElementById("lang-chip-en"),
   resultsStats: document.getElementById("results-stats"),
@@ -814,6 +830,32 @@ const elements = {
   modalHeroPercentile: document.getElementById("modal-hero-percentile"),
   modalHeroCubeRole: document.getElementById("modal-hero-cube-role"),
   modalHeroTempoImpact: document.getElementById("modal-hero-tempo-impact"),
+  modalUpgradeSection: document.getElementById("modal-upgrade-section"),
+  modalUpgradeSectionTitle: document.getElementById("modal-upgrade-section-title"),
+  modalUpgradeBadgesRow: document.getElementById("modal-upgrade-badges-row"),
+  modalUpgradeRecencyPill: document.getElementById("modal-upgrade-recency-pill"),
+  modalUpgradeBenchmarkPill: document.getElementById("modal-upgrade-benchmark-pill"),
+  modalUpgradeCurrPane: document.getElementById("modal-upgrade-curr-pane"),
+  modalUpgradeCurrPaneLabel: document.getElementById("modal-upgrade-curr-pane-label"),
+  modalUpgradeCurrStatus: document.getElementById("modal-upgrade-curr-status"),
+  modalUpgradeCurrName: document.getElementById("modal-upgrade-curr-name"),
+  modalUpgradeCurrScore: document.getElementById("modal-upgrade-curr-score"),
+  modalUpgradeSuggPane: document.getElementById("modal-upgrade-sugg-pane"),
+  modalUpgradeSuggPaneLabel: document.getElementById("modal-upgrade-sugg-pane-label"),
+  modalUpgradeSuggStatus: document.getElementById("modal-upgrade-sugg-status"),
+  modalUpgradeSuggName: document.getElementById("modal-upgrade-sugg-name"),
+  modalUpgradeSuggScore: document.getElementById("modal-upgrade-sugg-score"),
+  modalBtnSwapArrow: document.getElementById("modal-btn-swap-arrow"),
+  modalUpgradeDelta: document.getElementById("modal-upgrade-delta"),
+  modalUpgradeMultiTargetsWrap: document.getElementById("modal-upgrade-multi-targets-wrap"),
+  modalUpgradeMultiTargetsChips: document.getElementById("modal-upgrade-multi-targets-chips"),
+  modalUpgradeReason: document.getElementById("modal-upgrade-reason"),
+  modalUpgradeMetaBox: document.getElementById("modal-upgrade-meta-box"),
+  modalUpgradeStrategicRole: document.getElementById("modal-upgrade-strategic-role"),
+  modalUpgradeMetaSummary: document.getElementById("modal-upgrade-meta-summary"),
+  modalUpgradeArchetypesWrap: document.getElementById("modal-upgrade-archetypes-wrap"),
+  modalUpgradeArchetypesChips: document.getElementById("modal-upgrade-archetypes-chips"),
+  modalBtnInspectUpgrade: document.getElementById("modal-btn-inspect-upgrade"),
   langBtnFr: document.getElementById("lang-btn-fr"),
   langBtnEn: document.getElementById("lang-btn-en"),
   modalOracleText: document.getElementById("modal-oracle-text"),
@@ -1590,6 +1632,35 @@ function setupEventListeners() {
     renderMatrix();
   });
 
+  elements.upgradeFilterBtn?.addEventListener("click", () => {
+    if (state.cardsViewMode !== "cube") {
+      state.cardsViewMode = "cube";
+      elements.btnViewCubeCards?.classList.add("active");
+      elements.btnViewMaybeboard?.classList.remove("active");
+    }
+    state.onlyUpgrades = !state.onlyUpgrades;
+    elements.upgradeFilterBtn.classList.toggle("active", state.onlyUpgrades);
+    renderMatrix();
+  });
+
+  elements.btnViewCubeCards?.addEventListener("click", () => {
+    state.cardsViewMode = "cube";
+    elements.btnViewCubeCards.classList.add("active");
+    elements.btnViewMaybeboard?.classList.remove("active");
+    renderMatrix();
+  });
+
+  elements.btnViewMaybeboard?.addEventListener("click", () => {
+    state.cardsViewMode = "maybeboard";
+    if (state.onlyUpgrades) {
+      state.onlyUpgrades = false;
+      elements.upgradeFilterBtn?.classList.remove("active");
+    }
+    elements.btnViewMaybeboard.classList.add("active");
+    elements.btnViewCubeCards?.classList.remove("active");
+    renderMatrix();
+  });
+
   // Modal close handlers
   elements.modalCloseBtn.addEventListener("click", closeModal);
   elements.modalBackdrop.addEventListener("click", (e) => {
@@ -1658,7 +1729,16 @@ async function loadData() {
       }
     })();
 
-    await Promise.all([...metaFetches, cardsFetch]);
+    const suggestionsFetches = Object.values(CUBE_CONFIGS).map(async (cfg) => {
+      try {
+        const res = await fetch(`/data/cubes/${cfg.key}/cube-suggestions.json`);
+        if (res.ok) state.cubesSuggestions[cfg.key] = await res.json();
+      } catch (err) {
+        console.warn(`Failed loading suggestions for ${cfg.key}:`, err);
+      }
+    });
+
+    await Promise.all([...metaFetches, ...suggestionsFetches, cardsFetch]);
   } catch (err) {
     console.warn("Network load failed; fallback to local data structure.", err);
   }
@@ -2141,28 +2221,37 @@ function renderCubeDetail(cubeKey) {
   }
 }
 
-// Determine Tier from active Cube analysis if available, otherwise from Power Ranking score
+// Determine Tier from active Cube analysis or ranking if available, otherwise from Power Ranking score
 function getCardTier(card, cubeKey = state.activeCubeKey) {
-  const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
-  if (cubeKey && card.cubeAnalyses && card.cubeAnalyses[cubeKey]?.tier) {
-    const cubeTier = card.cubeAnalyses[cubeKey].tier;
-    if (["S", "A", "B", "C", "D"].includes(cubeTier)) {
-      // Invariant: Tier S can never have a power score < 38
-      if (cubeTier === "S" && score < 38) {
-        return scoreToCardTier(score);
-      }
+  if (cubeKey) {
+    const rankings = computeCubeRankings(cubeKey);
+    const cardKey = card.oracleId || card.slug || card.name;
+    if (rankings && rankings[cardKey]?.relativeTier) {
+      return rankings[cardKey].relativeTier;
+    }
+    const cubeTier = card.cubeAnalyses && card.cubeAnalyses[cubeKey]?.tier;
+    if (cubeTier && TIERS.includes(cubeTier)) {
       return cubeTier;
     }
   }
+  const score = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
   return scoreToCardTier(score);
 }
 
 function scoreToCardTier(score) {
-  if (score >= 38) return "S";
-  if (score >= 26) return "A";
-  if (score >= 17) return "B";
-  if (score >= 10) return "C";
-  return "D";
+  if (score >= 50) return "A+";
+  if (score >= 45) return "A";
+  if (score >= 40) return "A-";
+  if (score >= 35) return "B+";
+  if (score >= 30) return "B";
+  if (score >= 25) return "B-";
+  if (score >= 20) return "C+";
+  if (score >= 15) return "C";
+  if (score >= 11) return "C-";
+  if (score >= 8) return "D+";
+  if (score >= 5) return "D";
+  if (score >= 3) return "D-";
+  return "F";
 }
 
 // Determine Column for a card
@@ -2180,12 +2269,33 @@ function getCardColumn(card) {
 function getFilteredCards() {
   const cubeKey = state.activeCubeKey;
 
-  return state.cards.filter((card) => {
-    // 1. Must be in active cube
-    if (!card.presentInCubes || !card.presentInCubes.includes(cubeKey)) {
-      return false;
-    }
+  let baseCards = [];
+  if (state.cardsViewMode === "maybeboard") {
+    const suggestions = state.cubesSuggestions[cubeKey]?.maybeboard || [];
+    baseCards = suggestions.map((item) => {
+      const full = state.cards.find((c) => c.name === item.card.name);
+      if (full) return full;
+      return {
+        oracleId: item.card.oracleId,
+        name: item.card.name,
+        frenchName: item.card.frenchName,
+        cmc: item.card.cmc,
+        colors: item.card.colors || [],
+        typeLine: item.card.typeLine,
+        types: [item.card.typeLine.split(" ")[0]],
+        powerScore: { score: item.card.score },
+        imageUrl: item.card.imageUrl,
+        presentInCubes: [],
+        cubeAnalyses: {},
+      };
+    });
+  } else {
+    baseCards = state.cards.filter((card) => {
+      return card.presentInCubes && card.presentInCubes.includes(cubeKey);
+    });
+  }
 
+  return baseCards.filter((card) => {
     // 2. Search query filter (matches English or French names)
     if (state.searchQuery) {
       const q = state.searchQuery.toLowerCase();
@@ -2217,6 +2327,12 @@ function getFilteredCards() {
       if ((card.presentInCubes || []).length < 2) return false;
     }
 
+    // 6. Only cards with upgrade proposals
+    if (state.onlyUpgrades) {
+      const hasUpgrade = Boolean(state.cubesSuggestions[cubeKey]?.upgrades?.[card.name]);
+      if (!hasUpgrade) return false;
+    }
+
     return true;
   });
 }
@@ -2231,7 +2347,32 @@ function renderMatrix() {
     (c) => c.presentInCubes && c.presentInCubes.includes(cubeKey),
   ).length;
 
-  if (state.onlyShared) {
+  if (state.onlyUpgrades) {
+    elements.resultsStats.innerHTML = `
+      <span class="stats-count">${filteredCards.length} carte${filteredCards.length > 1 ? "s" : ""} avec mise à niveau</span>
+      <span class="stats-filter-tag" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(250, 204, 21, 0.4); color: #facc15;">
+        Filtre actif : ⚡ Mises à niveau (${filteredCards.length} sur ${totalInCube})
+        <button type="button" id="clear-upgrades-filter-btn" class="btn-clear-inline" title="Afficher toutes les cartes du cube">
+          ✕ Afficher tout le cube
+        </button>
+      </span>
+    `;
+    const clearBtn = document.getElementById("clear-upgrades-filter-btn");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        state.onlyUpgrades = false;
+        elements.upgradeFilterBtn?.classList.remove("active");
+        renderMatrix();
+      });
+    }
+  } else if (state.cardsViewMode === "maybeboard") {
+    elements.resultsStats.innerHTML = `
+      <span class="stats-count">${filteredCards.length} carte${filteredCards.length > 1 ? "s" : ""} suggérée${filteredCards.length > 1 ? "s" : ""}</span>
+      <span class="stats-filter-tag" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(250, 204, 21, 0.4); color: #facc15;">
+        💡 Maybeboard IA & Tendances pour ${cubeName}
+      </span>
+    `;
+  } else if (state.onlyShared) {
     elements.resultsStats.innerHTML = `
       <span class="stats-count">${filteredCards.length} cartes affichées</span>
       <span class="stats-filter-tag">
@@ -2259,8 +2400,9 @@ function renderMatrix() {
   elements.mobileTierList.innerHTML = "";
 
   // Bucket cards by Tier -> Color
-  const buckets = { S: {}, A: {}, B: {}, C: {}, D: {} };
+  const buckets = {};
   TIERS.forEach((t) => {
+    buckets[t] = {};
     COLOR_COLUMNS.forEach((c) => {
       buckets[t][c.key] = [];
     });
@@ -2287,10 +2429,10 @@ function renderMatrix() {
     });
   });
 
-  // 1. Build Desktop Rows (Strictly S, A, B, C, D)
+  // 1. Build Desktop Rows (13 Relative Tiers)
   TIERS.forEach((tier) => {
     const tr = document.createElement("tr");
-    tr.className = `tier-${tier.toLowerCase()}-row`;
+    tr.className = `tier-${toTierCssClass(tier)}-row`;
 
     // Calculate total count in this tier
     let tierTotalCount = 0;
@@ -2380,10 +2522,29 @@ function createCardMatrixItem(card, colClass) {
   const isShared = (card.presentInCubes || []).length > 1;
   const rawScore = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
   const score = Math.round(rawScore * 10) / 10;
+  const upgrade = state.cubesSuggestions[state.activeCubeKey]?.upgrades?.[card.name];
+  const maybeItem = state.cubesSuggestions[state.activeCubeKey]?.maybeboard?.find(
+    (m) => m.card.name === card.name,
+  );
+  let upgradeBadgeHtml = "";
+  if (upgrade) {
+    const isRecent = Boolean(
+      upgrade.isRecent || (upgrade.releaseYear && upgrade.releaseYear >= 2023),
+    );
+    const icon = isRecent ? "✨" : "⚡";
+    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Mise à niveau disponible (poste pour poste) : ${escapeHtml(upgrade.suggestedCard.name)} (+${upgrade.scoreDelta})${isRecent ? " (Nouveauté)" : ""}">${icon}</span>`;
+  } else if (maybeItem) {
+    const isRecent = Boolean(
+      maybeItem.isRecent || (maybeItem.releaseYear && maybeItem.releaseYear >= 2023),
+    );
+    const icon = isRecent ? "✨" : "💡";
+    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Suggestion Maybeboard${isRecent ? ` (Nouveauté ${maybeItem.releaseYear || "Veille"})` : ""}">${icon}</span>`;
+  }
 
   item.innerHTML = `
     <span class="card-item-name">${escapeHtml(displayName)}</span>
     <span class="card-item-score" title="Power score : ${score}">${score}</span>
+    ${upgradeBadgeHtml}
     ${isShared ? '<span class="card-shared-pip" title="Présente dans plusieurs cubes">🔄</span>' : ""}
   `;
 
@@ -2502,10 +2663,29 @@ function createLimitedGradesCardRow(card, tier) {
   const isShared = (card.presentInCubes || []).length > 1;
   const rawScore = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
   const score = Math.round(rawScore * 10) / 10;
+  const upgrade = state.cubesSuggestions[state.activeCubeKey]?.upgrades?.[card.name];
+  const maybeItem = state.cubesSuggestions[state.activeCubeKey]?.maybeboard?.find(
+    (m) => m.card.name === card.name,
+  );
+  let upgradeBadgeHtml = "";
+  if (upgrade) {
+    const isRecent = Boolean(
+      upgrade.isRecent || (upgrade.releaseYear && upgrade.releaseYear >= 2023),
+    );
+    const icon = isRecent ? "✨" : "⚡";
+    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Mise à niveau disponible (poste pour poste) : ${escapeHtml(upgrade.suggestedCard.name)} (+${upgrade.scoreDelta})${isRecent ? " (Nouveauté)" : ""}">${icon}</span>`;
+  } else if (maybeItem) {
+    const isRecent = Boolean(
+      maybeItem.isRecent || (maybeItem.releaseYear && maybeItem.releaseYear >= 2023),
+    );
+    const icon = isRecent ? "✨" : "💡";
+    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Suggestion Maybeboard${isRecent ? ` (Nouveauté ${maybeItem.releaseYear || "Veille"})` : ""}">${icon}</span>`;
+  }
 
   row.innerHTML = `
     <span class="lg-card-tick"></span>
     <span class="lg-card-name">${escapeHtml(displayName)}</span>
+    ${upgradeBadgeHtml}
     ${isShared ? '<span class="lg-card-shared" title="Présente dans plusieurs cubes">🔄</span>' : ""}
     <span class="lg-card-score" title="Power score : ${score}">${score}</span>
   `;
@@ -2763,10 +2943,71 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
   }
 }
 
-// Open Educational Card Detail Modal (Screenshot 3)
-function openCardModal(card) {
+// Helper to find or synthesize full card object for modal inspection
+function getOrBuildCardObject(cardRefOrName, cubeKey) {
+  if (typeof cardRefOrName === "object" && cardRefOrName !== null && cardRefOrName.typeLine) {
+    return cardRefOrName;
+  }
+  const name = typeof cardRefOrName === "string" ? cardRefOrName : cardRefOrName.name;
+  const existing = state.cards.find((c) => c.name.toLowerCase() === name.toLowerCase());
+  if (existing) return existing;
+
+  // Check maybeboard
+  const maybeItem = state.cubesSuggestions[cubeKey]?.maybeboard?.find(
+    (m) => m.card.name.toLowerCase() === name.toLowerCase(),
+  );
+  if (maybeItem) {
+    return {
+      oracleId: maybeItem.card.oracleId,
+      name: maybeItem.card.name,
+      frenchName: maybeItem.card.frenchName,
+      cmc: maybeItem.card.cmc,
+      colors: maybeItem.card.colors || [],
+      typeLine: maybeItem.card.typeLine,
+      types: [maybeItem.card.typeLine.split(" ")[0]],
+      powerScore: { score: maybeItem.card.score },
+      imageUrl: maybeItem.card.imageUrl,
+      presentInCubes: [],
+      cubeAnalyses: {},
+    };
+  }
+
+  // Check upgrades
+  const upgrades = state.cubesSuggestions[cubeKey]?.upgrades || {};
+  for (const up of Object.values(upgrades)) {
+    if (up.suggestedCard.name.toLowerCase() === name.toLowerCase()) {
+      return {
+        oracleId: up.suggestedCard.oracleId,
+        name: up.suggestedCard.name,
+        frenchName: up.suggestedCard.frenchName,
+        cmc: up.suggestedCard.cmc,
+        colors: up.suggestedCard.colors || [],
+        typeLine: up.suggestedCard.typeLine,
+        types: [up.suggestedCard.typeLine.split(" ")[0]],
+        powerScore: { score: up.suggestedCard.score },
+        imageUrl: up.suggestedCard.imageUrl,
+        presentInCubes: [],
+        cubeAnalyses: {},
+      };
+    }
+  }
+
+  return {
+    name: name,
+    typeLine: "Card",
+    types: ["Card"],
+    colors: [],
+    powerScore: { score: 20 },
+    presentInCubes: [],
+    cubeAnalyses: {},
+  };
+}
+
+// Open Educational Card Detail Modal with Bidirectional Upgrade Switcher
+function openCardModal(card, comparisonOverride) {
   state.selectedCard = card;
   const cubeKey = state.activeCubeKey;
+  const inCube = Boolean(card.presentInCubes && card.presentInCubes.includes(cubeKey));
   const analysis = card.cubeAnalyses?.[cubeKey];
   const pedagogy = analysis?.pedagogy;
 
@@ -2798,16 +3039,19 @@ function openCardModal(card) {
   // Right Column : Header Info
   elements.modalCardTitle.textContent = isFr && card.frenchName ? card.frenchName : card.name;
   elements.modalCardTypeline.textContent = card.typeLine || "Carte";
-  elements.modalActiveCubeBadge.textContent = CUBE_CONFIGS[cubeKey]?.name || cubeKey;
+  const cubeDisplayName = CUBE_CONFIGS[cubeKey]?.name || cubeKey;
+  elements.modalActiveCubeBadge.textContent = inCube
+    ? cubeDisplayName
+    : `💡 Maybeboard IA • ${cubeDisplayName}`;
 
   // Tier & Power Ranking Showcase Box
   const tier = getCardTier(card);
-  const tierLower = tier.toLowerCase();
+  const tierLower = toTierCssClass(tier);
   const rankings = computeCubeRankings(cubeKey);
   const cardKey = card.oracleId || card.slug || card.name;
   const rankInfo = rankings[cardKey] || {
     rank: 1,
-    total: 541,
+    total: Object.keys(rankings).length || 541,
     score: card.powerScore?.score || 1,
     percentile: 10,
   };
@@ -2826,27 +3070,441 @@ function openCardModal(card) {
   }
   if (elements.modalHeroPowerScore) {
     elements.modalHeroPowerScore.textContent = Math.round(rankInfo.score);
+    elements.modalHeroPowerScore.title = `Score Universel : ${rankInfo.score}/55`;
   }
   if (elements.modalHeroPowerBar) {
     elements.modalHeroPowerBar.style.width = `${toPowerBarPercentage(rankInfo.score)}%`;
   }
   if (elements.modalHeroCubeRank) {
-    elements.modalHeroCubeRank.textContent = `#${rankInfo.rank}`;
+    elements.modalHeroCubeRank.textContent = inCube ? `#${rankInfo.rank}` : "Suggestion";
   }
   if (elements.modalHeroCubeTotal) {
-    elements.modalHeroCubeTotal.textContent = `/ ${rankInfo.total}`;
+    elements.modalHeroCubeTotal.textContent = inCube ? `/ ${rankInfo.total}` : "Hors Cube";
   }
   if (elements.modalHeroPercentile) {
-    elements.modalHeroPercentile.textContent = `Top ${rankInfo.percentile}% du Cube`;
+    elements.modalHeroPercentile.textContent = inCube
+      ? `Top ${rankInfo.percentile}% du Cube`
+      : "Candidat Maybeboard IA";
   }
   if (elements.modalHeroCubeRole) {
-    elements.modalHeroCubeRole.textContent = formatFit(analysis?.fit);
+    if (inCube) {
+      const metaBonus = analysis?.metaBonus ?? analysis?.scoreModifier ?? 0;
+      const metaRole =
+        analysis?.metaRole ||
+        (metaBonus >= 8 ? "key" : metaBonus >= 4 ? "support" : metaBonus < 0 ? "trap" : "neutral");
+      const metaRoleLabel =
+        metaRole === "key"
+          ? "Carte Clé"
+          : metaRole === "support"
+            ? "Support"
+            : metaRole === "trap"
+              ? "Piège"
+              : "Neutre";
+      const bonusText =
+        metaBonus !== 0 ? ` • Méta : ${metaRoleLabel} (${metaBonus > 0 ? "+" : ""}${metaBonus})` : "";
+      elements.modalHeroCubeRole.textContent = `${formatFit(analysis?.fit)}${bonusText}`;
+    } else {
+      const role =
+        comparisonOverride?.proposal?.metaAddedValue?.strategicRole || "Suggestion Maybeboard IA";
+      elements.modalHeroCubeRole.textContent = `🎯 ${role}`;
+    }
   }
   if (elements.modalHeroTempoImpact) {
     const tempoImp = card.objectiveAnalysis?.tempoImpact || "medium";
     const tempoLabel = tempoImp === "high" ? "Élevé" : tempoImp === "low" ? "Faible" : "Modéré";
     elements.modalHeroTempoImpact.textContent = `Impact : ${tempoLabel}`;
   }
+
+  // Active Comparison Resolution (Bidirectional Cube <-> Maybeboard)
+  let comparison = comparisonOverride || null;
+
+  if (!comparison) {
+    const directProposal = state.cubesSuggestions[cubeKey]?.upgrades?.[card.name];
+    if (directProposal) {
+      const suggCard = getOrBuildCardObject(directProposal.suggestedCard, cubeKey);
+      const mbItem = state.cubesSuggestions[cubeKey]?.maybeboard?.find(
+        (m) => m.card.name.toLowerCase() === suggCard.name.toLowerCase(),
+      );
+      const targets =
+        mbItem?.replacesCards && mbItem.replacesCards.length > 0
+          ? mbItem.replacesCards
+          : [
+              {
+                name: card.name,
+                score: directProposal.targetCard.score,
+                tier: directProposal.targetCard.tier,
+                scoreDelta: directProposal.scoreDelta,
+                reason: directProposal.reason,
+              },
+            ];
+      comparison = {
+        cubeCard: card,
+        suggCard,
+        proposal: directProposal,
+        replacesCards: targets,
+      };
+    } else {
+      const maybeItem = state.cubesSuggestions[cubeKey]?.maybeboard?.find(
+        (m) => m.card.name.toLowerCase() === card.name.toLowerCase(),
+      );
+      if (maybeItem) {
+        const replaces = maybeItem.replacesCards || [];
+        if (replaces.length > 0) {
+          const firstTarget = replaces[0];
+          const targetCard = getOrBuildCardObject(firstTarget.name, cubeKey);
+          const fullProposal = state.cubesSuggestions[cubeKey]?.upgrades?.[firstTarget.name] || {
+            targetCard: {
+              name: targetCard.name,
+              score: firstTarget.score,
+              tier: firstTarget.tier,
+            },
+            suggestedCard: {
+              name: card.name,
+              score: card.powerScore?.score || maybeItem.card.score,
+              tier: maybeItem.card.tier,
+            },
+            scoreDelta:
+              firstTarget.scoreDelta ||
+              Math.max(0, (card.powerScore?.score || 35) - firstTarget.score),
+            reason: firstTarget.reason || maybeItem.rationale,
+            isRecent: maybeItem.isRecent,
+            releaseYear: maybeItem.releaseYear,
+            benchmarkCubes: maybeItem.benchmarkCubes,
+            metaAddedValue: maybeItem.metaAddedValue,
+          };
+          comparison = {
+            cubeCard: targetCard,
+            suggCard: card,
+            proposal: fullProposal,
+            replacesCards: replaces,
+          };
+        } else {
+          comparison = {
+            isStandaloneMaybeboard: true,
+            maybeItem,
+          };
+        }
+      }
+    }
+  }
+
+  // Render Upgrade / Comparison Section
+  if (elements.modalUpgradeSection) {
+    if (comparison && !comparison.isStandaloneMaybeboard) {
+      elements.modalUpgradeSection.hidden = false;
+      if (elements.modalUpgradeSectionTitle) {
+        elements.modalUpgradeSectionTitle.textContent = "Mise à Niveau Suggérée (Poste pour Poste)";
+      }
+
+      const isViewingCube = card.name === comparison.cubeCard.name;
+      const isViewingSugg = card.name === comparison.suggCard.name;
+
+      // Left Pane (Carte en Place)
+      if (elements.modalUpgradeCurrName) {
+        elements.modalUpgradeCurrName.textContent = getCardDisplayName(
+          comparison.cubeCard,
+          state.cardLanguage,
+        );
+      }
+      if (elements.modalUpgradeCurrScore) {
+        elements.modalUpgradeCurrScore.textContent = `${comparison.proposal.targetCard.score}/55 (Tier ${comparison.proposal.targetCard.tier || "D"})`;
+      }
+      if (elements.modalUpgradeCurrPaneLabel) {
+        elements.modalUpgradeCurrPaneLabel.textContent = "Carte en Place";
+      }
+      if (elements.modalUpgradeCurrPane) {
+        elements.modalUpgradeCurrPane.classList.toggle("is-inspected", isViewingCube);
+        if (elements.modalUpgradeCurrStatus) {
+          elements.modalUpgradeCurrStatus.textContent = isViewingCube ? "👁️ Affichée" : "⇄ Voir fiche";
+          elements.modalUpgradeCurrStatus.className = `pane-status-pill ${isViewingCube ? "inspected" : "switchable"}`;
+        }
+        elements.modalUpgradeCurrPane.onclick = () => {
+          if (!isViewingCube) {
+            openCardModal(comparison.cubeCard, comparison);
+          }
+        };
+        elements.modalUpgradeCurrPane.onkeydown = (e) => {
+          if ((e.key === "Enter" || e.key === " ") && !isViewingCube) {
+            e.preventDefault();
+            openCardModal(comparison.cubeCard, comparison);
+          }
+        };
+      }
+
+      // Right Pane (Remplacement Suggéré)
+      if (elements.modalUpgradeSuggName) {
+        elements.modalUpgradeSuggName.textContent = getCardDisplayName(
+          comparison.suggCard,
+          state.cardLanguage,
+        );
+      }
+      if (elements.modalUpgradeSuggScore) {
+        elements.modalUpgradeSuggScore.textContent = `${comparison.proposal.suggestedCard.score}/55 (Tier ${comparison.proposal.suggestedCard.tier || "A"})`;
+      }
+      if (elements.modalUpgradeSuggPaneLabel) {
+        elements.modalUpgradeSuggPaneLabel.textContent = "Remplacement Suggéré";
+      }
+      if (elements.modalUpgradeSuggPane) {
+        elements.modalUpgradeSuggPane.classList.toggle("is-inspected", isViewingSugg);
+        if (elements.modalUpgradeSuggStatus) {
+          elements.modalUpgradeSuggStatus.textContent = isViewingSugg ? "👁️ Affichée" : "⇄ Voir fiche";
+          elements.modalUpgradeSuggStatus.className = `pane-status-pill ${isViewingSugg ? "inspected" : "switchable"}`;
+        }
+        elements.modalUpgradeSuggPane.onclick = () => {
+          if (!isViewingSugg) {
+            openCardModal(comparison.suggCard, comparison);
+          }
+        };
+        elements.modalUpgradeSuggPane.onkeydown = (e) => {
+          if ((e.key === "Enter" || e.key === " ") && !isViewingSugg) {
+            e.preventDefault();
+            openCardModal(comparison.suggCard, comparison);
+          }
+        };
+      }
+
+      // Center Swap Button
+      if (elements.modalBtnSwapArrow) {
+        elements.modalBtnSwapArrow.onclick = () => {
+          const nextCard = isViewingCube ? comparison.suggCard : comparison.cubeCard;
+          openCardModal(nextCard, comparison);
+        };
+      }
+      if (elements.modalUpgradeDelta) {
+        elements.modalUpgradeDelta.textContent = `+${comparison.proposal.scoreDelta}`;
+      }
+
+      // Multi-targets Chips (when suggested card replaces multiple cards in this cube)
+      const replaces = comparison.replacesCards || [];
+      if (elements.modalUpgradeMultiTargetsWrap && elements.modalUpgradeMultiTargetsChips) {
+        if (replaces.length > 1) {
+          elements.modalUpgradeMultiTargetsWrap.hidden = false;
+          elements.modalUpgradeMultiTargetsChips.innerHTML = replaces
+            .map((target) => {
+              const isActive = target.name === comparison.cubeCard.name;
+              return `<button type="button" class="btn-target-chip ${isActive ? "active" : ""}" data-target-name="${escapeHtml(target.name)}" title="Comparer avec ${escapeHtml(target.name)}">
+                ${escapeHtml(target.name)} (+${target.scoreDelta})
+              </button>`;
+            })
+            .join("");
+
+          elements.modalUpgradeMultiTargetsChips
+            .querySelectorAll(".btn-target-chip")
+            .forEach((chip) => {
+              chip.onclick = () => {
+                const targetName = chip.getAttribute("data-target-name");
+                const targetCard = getOrBuildCardObject(targetName, cubeKey);
+                const fullProposal = state.cubesSuggestions[cubeKey]?.upgrades?.[targetName] || {
+                  targetCard: { name: targetCard.name, score: 20 },
+                  suggestedCard: { name: comparison.suggCard.name, score: 35 },
+                  scoreDelta: 15,
+                  reason: comparison.proposal.reason,
+                  isRecent: comparison.proposal.isRecent,
+                  releaseYear: comparison.proposal.releaseYear,
+                  benchmarkCubes: comparison.proposal.benchmarkCubes,
+                  metaAddedValue: comparison.proposal.metaAddedValue,
+                };
+                const newComparison = {
+                  cubeCard: targetCard,
+                  suggCard: comparison.suggCard,
+                  proposal: fullProposal,
+                  replacesCards: replaces,
+                };
+                openCardModal(card, newComparison);
+              };
+            });
+        } else {
+          elements.modalUpgradeMultiTargetsWrap.hidden = true;
+        }
+      }
+
+      if (elements.modalUpgradeReason) {
+        elements.modalUpgradeReason.textContent = comparison.proposal.reason;
+      }
+
+      // Badges (Nouveauté & CubeCobra Benchmark)
+      const isRecent = Boolean(
+        comparison.proposal.isRecent ||
+          (comparison.proposal.releaseYear && comparison.proposal.releaseYear >= 2023),
+      );
+      if (elements.modalUpgradeRecencyPill) {
+        if (isRecent) {
+          elements.modalUpgradeRecencyPill.hidden = false;
+          elements.modalUpgradeRecencyPill.textContent = `✨ Nouveauté (${comparison.proposal.releaseYear || "Veille"})`;
+        } else {
+          elements.modalUpgradeRecencyPill.hidden = true;
+        }
+      }
+
+      const benchmarks = comparison.proposal.benchmarkCubes || [];
+      if (elements.modalUpgradeBenchmarkPill) {
+        if (benchmarks.length > 0) {
+          elements.modalUpgradeBenchmarkPill.hidden = false;
+          elements.modalUpgradeBenchmarkPill.textContent = `⚡ Vu dans : ${benchmarks.join(", ")}`;
+        } else {
+          elements.modalUpgradeBenchmarkPill.hidden = true;
+        }
+      }
+
+      if (elements.modalUpgradeBadgesRow) {
+        const hideBadges =
+          elements.modalUpgradeRecencyPill?.hidden && elements.modalUpgradeBenchmarkPill?.hidden;
+        elements.modalUpgradeBadgesRow.hidden = Boolean(hideBadges);
+      }
+
+      // Meta Added Value Box
+      const metaVal = comparison.proposal.metaAddedValue;
+      if (elements.modalUpgradeMetaBox) {
+        if (metaVal) {
+          elements.modalUpgradeMetaBox.hidden = false;
+          if (elements.modalUpgradeStrategicRole) {
+            elements.modalUpgradeStrategicRole.textContent =
+              metaVal.strategicRole || "Rôle Stratégique";
+          }
+          if (elements.modalUpgradeMetaSummary) {
+            elements.modalUpgradeMetaSummary.textContent = metaVal.summary || "";
+          }
+          const affectedArchs = metaVal.affectedArchetypes || [];
+          if (elements.modalUpgradeArchetypesWrap && elements.modalUpgradeArchetypesChips) {
+            if (affectedArchs.length > 0) {
+              elements.modalUpgradeArchetypesWrap.hidden = false;
+              elements.modalUpgradeArchetypesChips.innerHTML = affectedArchs
+                .map((a) => `<span class="meta-arch-chip">${escapeHtml(a)}</span>`)
+                .join("");
+            } else {
+              elements.modalUpgradeArchetypesWrap.hidden = true;
+            }
+          }
+        } else {
+          elements.modalUpgradeMetaBox.hidden = true;
+        }
+      }
+
+      // Bottom action button: Bidirectional switch
+      if (elements.modalBtnInspectUpgrade) {
+        elements.modalBtnInspectUpgrade.parentElement?.removeAttribute("hidden");
+        if (isViewingCube) {
+          const suggName = getCardDisplayName(comparison.suggCard, state.cardLanguage);
+          elements.modalBtnInspectUpgrade.innerHTML = `🔍 Consulter la fiche de la remplaçante : <strong>${escapeHtml(suggName)}</strong> ➔`;
+          elements.modalBtnInspectUpgrade.onclick = () => {
+            openCardModal(comparison.suggCard, comparison);
+          };
+        } else {
+          const cubeCardName = getCardDisplayName(comparison.cubeCard, state.cardLanguage);
+          elements.modalBtnInspectUpgrade.innerHTML = `⬅ Revenir à la carte en place : <strong>${escapeHtml(cubeCardName)}</strong>`;
+          elements.modalBtnInspectUpgrade.onclick = () => {
+            openCardModal(comparison.cubeCard, comparison);
+          };
+        }
+      }
+    } else if (comparison && comparison.isStandaloneMaybeboard) {
+      // Standalone Maybeboard Recommendation
+      const mb = comparison.maybeItem;
+      elements.modalUpgradeSection.hidden = false;
+      if (elements.modalUpgradeSectionTitle) {
+        elements.modalUpgradeSectionTitle.textContent =
+          "Recommandation Maybeboard (IA & Tendances)";
+      }
+
+      if (elements.modalUpgradeCurrName) elements.modalUpgradeCurrName.textContent = "Nouveau Choix";
+      if (elements.modalUpgradeCurrScore) elements.modalUpgradeCurrScore.textContent = "Suggestion IA";
+      if (elements.modalUpgradeCurrPaneLabel) elements.modalUpgradeCurrPaneLabel.textContent = "Statut";
+      if (elements.modalUpgradeCurrPane) {
+        elements.modalUpgradeCurrPane.classList.remove("is-inspected");
+        if (elements.modalUpgradeCurrStatus) {
+          elements.modalUpgradeCurrStatus.textContent = "Suggestion";
+          elements.modalUpgradeCurrStatus.className = "pane-status-pill inspected";
+        }
+        elements.modalUpgradeCurrPane.onclick = null;
+      }
+
+      if (elements.modalUpgradeSuggName) {
+        elements.modalUpgradeSuggName.textContent = getCardDisplayName(card, state.cardLanguage);
+      }
+      if (elements.modalUpgradeSuggScore) {
+        elements.modalUpgradeSuggScore.textContent = `${mb.card.score}/55 (Tier ${mb.card.tier || "B"})`;
+      }
+      if (elements.modalUpgradeSuggPaneLabel) elements.modalUpgradeSuggPaneLabel.textContent = "Carte Recommandée";
+      if (elements.modalUpgradeSuggPane) {
+        elements.modalUpgradeSuggPane.classList.add("is-inspected");
+        if (elements.modalUpgradeSuggStatus) {
+          elements.modalUpgradeSuggStatus.textContent = "👁️ Affichée";
+          elements.modalUpgradeSuggStatus.className = "pane-status-pill inspected";
+        }
+        elements.modalUpgradeSuggPane.onclick = null;
+      }
+
+      if (elements.modalBtnSwapArrow) elements.modalBtnSwapArrow.onclick = null;
+      if (elements.modalUpgradeDelta) elements.modalUpgradeDelta.textContent = "★";
+      if (elements.modalUpgradeMultiTargetsWrap) elements.modalUpgradeMultiTargetsWrap.hidden = true;
+      if (elements.modalUpgradeReason) elements.modalUpgradeReason.textContent = mb.rationale;
+
+      const isRecent = Boolean(
+        mb.isRecent || (mb.releaseYear && mb.releaseYear >= 2023),
+      );
+      if (elements.modalUpgradeRecencyPill) {
+        if (isRecent) {
+          elements.modalUpgradeRecencyPill.hidden = false;
+          elements.modalUpgradeRecencyPill.textContent = `✨ Nouveauté (${mb.releaseYear || "Veille"})`;
+        } else {
+          elements.modalUpgradeRecencyPill.hidden = true;
+        }
+      }
+
+      const benchmarks = mb.benchmarkCubes || [];
+      if (elements.modalUpgradeBenchmarkPill) {
+        if (benchmarks.length > 0) {
+          elements.modalUpgradeBenchmarkPill.hidden = false;
+          elements.modalUpgradeBenchmarkPill.textContent = `⚡ Vu dans : ${benchmarks.join(", ")}`;
+        } else {
+          elements.modalUpgradeBenchmarkPill.hidden = true;
+        }
+      }
+
+      if (elements.modalUpgradeBadgesRow) {
+        const hideBadges =
+          elements.modalUpgradeRecencyPill?.hidden && elements.modalUpgradeBenchmarkPill?.hidden;
+        elements.modalUpgradeBadgesRow.hidden = Boolean(hideBadges);
+      }
+
+      const metaVal = mb.metaAddedValue;
+      if (elements.modalUpgradeMetaBox) {
+        if (metaVal) {
+          elements.modalUpgradeMetaBox.hidden = false;
+          if (elements.modalUpgradeStrategicRole) {
+            elements.modalUpgradeStrategicRole.textContent =
+              metaVal.strategicRole || "Rôle Stratégique";
+          }
+          if (elements.modalUpgradeMetaSummary) {
+            elements.modalUpgradeMetaSummary.textContent = metaVal.summary || "";
+          }
+          const affectedArchs = metaVal.affectedArchetypes || [];
+          if (elements.modalUpgradeArchetypesWrap && elements.modalUpgradeArchetypesChips) {
+            if (affectedArchs.length > 0) {
+              elements.modalUpgradeArchetypesWrap.hidden = false;
+              elements.modalUpgradeArchetypesChips.innerHTML = affectedArchs
+                .map((a) => `<span class="meta-arch-chip">${escapeHtml(a)}</span>`)
+                .join("");
+            } else {
+              elements.modalUpgradeArchetypesWrap.hidden = true;
+            }
+          }
+        } else {
+          elements.modalUpgradeMetaBox.hidden = true;
+        }
+      }
+
+      if (elements.modalBtnInspectUpgrade) {
+        elements.modalBtnInspectUpgrade.parentElement?.setAttribute("hidden", "true");
+      }
+    } else {
+      elements.modalUpgradeSection.hidden = true;
+      if (elements.modalBtnInspectUpgrade) {
+        elements.modalBtnInspectUpgrade.parentElement?.removeAttribute("hidden");
+      }
+    }
+  }
+
 
   // Rules text (French default with toggle)
   updateModalCardText(card);
@@ -2893,7 +3551,7 @@ function renderModalArchetypeRows(card, analysis) {
           <span class="guild-mana-pips">${pipsHtml}</span>
           <span>${row.archetype}</span>
         </td>
-        <td><span class="table-grade-badge tier-${(row.grade || "B").toLowerCase()}-row">${row.grade || "B"}</span></td>
+        <td><span class="table-grade-badge tier-${toTierCssClass(row.grade || "B")}-row">${row.grade || "B"}</span></td>
         <td style="font-weight: 700; color: var(--tier-s);">${row.winrateOrScore || "—"}</td>
         <td style="color: var(--text-secondary); font-size: 0.8rem;">${row.comment || ""}</td>
       `;
@@ -2904,13 +3562,14 @@ function renderModalArchetypeRows(card, analysis) {
     const tr = document.createElement("tr");
     const pipsHtml = renderGuildPips(card.colors || []);
     const tier = analysis?.tier || "B";
+    const metaBonus = analysis?.metaBonus ?? analysis?.scoreModifier ?? 0;
     tr.innerHTML = `
       <td class="deck-cell">
         <span class="guild-mana-pips">${pipsHtml}</span>
         <span>${(analysis?.archetypes && analysis.archetypes[0]) || "Archétype Principal"}</span>
       </td>
-      <td><span class="table-grade-badge tier-${tier.toLowerCase()}-row">${tier}</span></td>
-      <td style="font-weight: 700; color: var(--tier-s);">Score +${analysis?.scoreModifier || 0}</td>
+      <td><span class="table-grade-badge tier-${toTierCssClass(tier)}-row">${tier}</span></td>
+      <td style="font-weight: 700; color: var(--tier-s);">Bonus Méta ${metaBonus >= 0 ? "+" : ""}${metaBonus}</td>
       <td style="color: var(--text-secondary); font-size: 0.8rem;">${formatFit(analysis?.fit)}</td>
     `;
     elements.modalArchetypeRows.appendChild(tr);

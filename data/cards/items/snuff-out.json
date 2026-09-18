@@ -28,12 +28,12 @@
   },
   "imageUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
   "powerScore": {
-    "score": 42,
+    "score": 40,
     "source": "untapped",
-    "rawSourceScore": 42,
+    "rawSourceScore": 40,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-11T16:35:43.287Z"
   },
   "presentInCubes": [
     "nico_candyshop",
@@ -59,7 +59,7 @@
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": [
         "hugues:faeries_ninjas_tempo"
       ],
@@ -68,7 +68,7 @@
         "tempo_swing",
         "swamp_synergy"
       ],
-      "scoreModifier": 12,
+      "scoreModifier": 4,
       "analysis": "Le seul removal inconditionnellement gratuit du Pauper ! Taper 0 mana pour détruire une créature tout en posant sa menace donne un avantage de tempo insurmontable.",
       "pedagogy": {
         "howToPlay": "Payer 4 points de vie est anecdotique en début/milieu de partie face à l'immense swing de tempo que procure un sort gratuit. Utilisez-le pour libérer la voie à une attaque de Ninjutsu ou pour éliminer une menace au moment où l'adversaire a dépensé tout son mana.",
@@ -94,12 +94,15 @@
       },
       "keyPairs": [
         "Ninja of the Deep Hours"
-      ]
+      ],
+      "relativeTier": "A+",
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A-",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -108,7 +111,7 @@
         "alternate-cost-life",
         "life-payment"
       ],
-      "scoreModifier": 15,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -123,12 +126,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "cedric:high_power_staple"
       ],
@@ -137,7 +143,7 @@
         "alternate-cost-life",
         "life-payment"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -152,7 +158,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Dégommage",

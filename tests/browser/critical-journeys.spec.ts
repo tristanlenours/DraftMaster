@@ -189,7 +189,7 @@ test("Card Explorer filters cards and opens a loadable card image", async ({ pag
   const result = page.locator(".card-matrix-item");
   await expect(result).toHaveCount(1);
   await expect(result).toContainText("Ancient Tomb");
-  await expect(result.locator(".card-item-score")).toHaveText("31");
+  await expect(result.locator(".card-item-score")).toHaveText("29");
 
   await result.press("Enter");
   await expect(page.locator("#card-modal-backdrop")).toBeVisible();
@@ -202,6 +202,61 @@ test("Card Explorer filters cards and opens a loadable card image", async ({ pag
       })),
     )
     .toMatchObject({ naturalWidth: 1, src: /cards\.scryfall\.io/ });
+});
+
+test("Card Explorer filters upgrade proposals and displays meta added value analysis in modal", async ({
+  page,
+}) => {
+  await emulateCleanDeploymentImages(page);
+  await page.goto("/cards");
+
+  await expect(page.locator("#view-cards")).toBeVisible();
+
+  // Activate upgrade proposals filter
+  const filterBtn = page.locator("#upgrade-filter-btn");
+  await expect(filterBtn).toBeVisible();
+  await filterBtn.click();
+  await expect(filterBtn).toHaveClass(/active/);
+
+  // Expect upgrades in stats
+  await expect(page.locator("#results-stats")).toContainText("avec mise à niveau");
+
+  // Click on the first card that has an upgrade badge
+  const upgradedCard = page
+    .locator(".card-matrix-item")
+    .filter({ has: page.locator(".card-upgrade-badge") })
+    .first();
+  await expect(upgradedCard).toBeVisible();
+  await upgradedCard.click();
+
+  // Modal displays with upgrade section and meta added value
+  await expect(page.locator("#card-modal-backdrop")).toBeVisible();
+  const upgradeSection = page.locator("#modal-upgrade-section");
+  await expect(upgradeSection).toBeVisible();
+  await expect(upgradeSection.locator("#modal-upgrade-meta-box")).toBeVisible();
+  await expect(upgradeSection.locator("#modal-upgrade-strategic-role")).not.toBeEmpty();
+  await expect(upgradeSection.locator("#modal-upgrade-meta-summary")).not.toBeEmpty();
+
+  // Close modal
+  await page.locator("#modal-close-btn").click();
+  await expect(page.locator("#card-modal-backdrop")).toBeHidden();
+
+  // Switch to AI Maybeboard view
+  const maybeboardBtn = page.locator("#btn-view-maybeboard");
+  await expect(maybeboardBtn).toBeVisible();
+  await maybeboardBtn.click();
+  await expect(maybeboardBtn).toHaveClass(/active/);
+  await expect(page.locator("#results-stats")).toContainText("Maybeboard IA & Tendances");
+
+  // Inspect first maybeboard card
+  const maybeCard = page.locator(".card-matrix-item").first();
+  await expect(maybeCard).toBeVisible();
+  await maybeCard.click();
+  await expect(page.locator("#card-modal-backdrop")).toBeVisible();
+  await expect(page.locator("#modal-upgrade-section")).toBeVisible();
+  await expect(page.locator("#modal-upgrade-section .modal-section-title")).toContainText(
+    "Maybeboard",
+  );
 });
 
 test("Solo Draft Coach starts, displays 15 cards, and accepts the first pick", async ({ page }) => {

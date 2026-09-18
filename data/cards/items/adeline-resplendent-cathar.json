@@ -36,12 +36,12 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/1/d/1de30c12-2011-495a-be25-f7a46b23e142.jpg?1783907131",
   "powerScore": {
-    "score": 41,
+    "score": 40,
     "source": "untapped",
-    "rawSourceScore": 41,
+    "rawSourceScore": 40,
     "harmonizationDegree": "native",
     "confidence": 1,
-    "updatedAt": "2026-09-06T00:00:00.000Z"
+    "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
     "titou_tribal",
@@ -68,7 +68,7 @@
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "build_around",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "titou:tribal_humans"
       ],
@@ -77,7 +77,7 @@
         "aggro",
         "counters"
       ],
-      "scoreModifier": 5,
+      "scoreModifier": 8,
       "analysis": "Moteur de l'archétype Humains, prend rapidement de la valeur avec les synergies tribales.",
       "keyPairs": [
         "Champion of the Parish",
@@ -96,12 +96,15 @@
             "comment": "Alignement au métagame Titou Tribal (S)."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A-",
       "archetypes": [
         "nico:vintage_staple"
       ],
@@ -110,7 +113,7 @@
         "creature-count-matters",
         "per-player"
       ],
-      "scoreModifier": 15,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -125,12 +128,15 @@
             "comment": "Alignement Vintage compétitif."
           }
         ]
-      }
+      },
+      "relativeTier": "A-",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
-      "tier": "S",
+      "tier": "A",
       "archetypes": [
         "cedric:selesnya_tokens_midrange"
       ],
@@ -139,7 +145,7 @@
         "creature-count-matters",
         "per-player"
       ],
-      "scoreModifier": 14,
+      "scoreModifier": 0,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -154,7 +160,10 @@
             "comment": "Pilier compétitif du cube de Cédric."
           }
         ]
-      }
+      },
+      "relativeTier": "A",
+      "metaBonus": 0,
+      "metaRole": "neutral"
     }
   },
   "frenchName": "Adeline, cathare resplendissante",

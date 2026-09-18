@@ -248,14 +248,17 @@ export async function runVintageGradesAudit(
 
     if (
       (grade === "F" || grade === "D-") &&
-      (fit === "trap" || (tier === "C" && powerScore <= 20))
+      (fit === "trap" || ((tier === "C" || tier === "F") && powerScore <= 20))
     ) {
       knownCalibratedTraps.push({
         ...item,
         severity: "FAIBLE",
         diagnosis: `Piège de draft empirique correctement identifié et calibré (Tier ${tier}, Score ${powerScore.toFixed(1)}, fit: "${fit}")`,
       });
-    } else if ((grade === "F" || grade === "D-") && (powerScore >= 42 || tier === "S")) {
+    } else if (
+      (grade === "F" || grade === "D-") &&
+      (powerScore >= 38 || tier === "S" || tier.startsWith("A"))
+    ) {
       criticalOverrated.push({
         ...item,
         severity: grade === "F" ? "CRITIQUE" : "ÉLEVÉ",
@@ -268,7 +271,10 @@ export async function runVintageGradesAudit(
             ? 'Reclassifier en fit: "trap", ajuster le Power Score à <= 15 et avertir dans la pédagogie.'
             : 'Reclassifier en Tier B / fit: "support" avec score ajusté.',
       });
-    } else if ((grade === "D" || grade === "D+") && (powerScore >= 38 || tier === "S")) {
+    } else if (
+      (grade === "D" || grade === "D+") &&
+      (powerScore >= 38 || tier === "S" || tier.startsWith("A"))
+    ) {
       moderateOverrated.push({
         ...item,
         severity: "MOYEN",
@@ -278,7 +284,12 @@ export async function runVintageGradesAudit(
       });
     } else if (
       (grade === "A+" || grade === "A") &&
-      (powerScore < 30 || tier === "B" || tier === "C" || tier === "D")
+      (powerScore < 30 ||
+        tier === "B" ||
+        tier === "C" ||
+        tier === "D" ||
+        tier.startsWith("D") ||
+        tier === "F")
     ) {
       criticalUnderrated.push({
         ...item,
@@ -289,7 +300,7 @@ export async function runVintageGradesAudit(
     } else if (
       (grade === "A+" || grade === "A" || grade === "A-") &&
       powerScore >= 45 &&
-      tier === "S"
+      (tier === "S" || tier === "A+")
     ) {
       alignedTopStaples.push(item);
     }

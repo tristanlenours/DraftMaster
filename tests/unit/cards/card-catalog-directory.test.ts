@@ -23,19 +23,19 @@ describe("CardCatalog Directory Loading", () => {
       expect(bolt).toBeDefined();
       expect(bolt?.name).toBe("Lightning Bolt");
       expect(bolt?.image?.url).toMatch(/^https?:\/\//);
-      expect(bolt?.cubeAnalyses.hugues_pauper?.tier).toBe("S");
-      expect(bolt?.cubeAnalyses.nico_candyshop?.tier).toBe("B");
+      expect(bolt?.cubeAnalyses.hugues_pauper?.tier).toBe("A+");
+      expect(bolt?.cubeAnalyses.nico_candyshop?.tier).toBe("A");
 
       const bowmasters = catalog.getCardBySlug("orcish-bowmasters");
       expect(bowmasters).toBeDefined();
       expect(bowmasters?.name).toBe("Orcish Bowmasters");
       expect(bowmasters?.image?.url).toMatch(/^https?:\/\//);
-      expect(bowmasters?.cubeAnalyses.nico_candyshop?.tier).toBe("S");
+      expect(bowmasters?.cubeAnalyses.nico_candyshop?.tier).toBe("A+");
 
       const lotus = catalog.getCardBySlug("black-lotus");
       expect(lotus).toBeDefined();
       expect(lotus?.name).toBe("Black Lotus");
-      expect(lotus?.cubeAnalyses.nico_candyshop?.tier).toBe("S");
+      expect(lotus?.cubeAnalyses.nico_candyshop?.tier).toBe("A+");
 
       // 2. OracleId and Name Lookup
       if (bolt) {

@@ -4,32 +4,32 @@ import { CardCatalog } from "../../../src/cards/card-catalog.ts";
 
 const expectedReferenceScores = new Map<string, number>([
   ["Black Lotus", 53],
-  ["Ancestral Recall", 52],
+  ["Ancestral Recall", 53],
   ["Time Walk", 53],
-  ["Minsc & Boo, Timeless Heroes", 53],
+  ["Minsc & Boo, Timeless Heroes", 52],
   ["Mox Pearl", 50],
   ["Mox Sapphire", 51],
   ["Mox Jet", 50],
   ["Mox Ruby", 51],
   ["Mox Emerald", 51],
-  ["Sol Ring", 51],
-  ["Ajani, Nacatl Pariah", 50],
+  ["Sol Ring", 54],
+  ["Ajani, Nacatl Pariah", 49],
   ["Mana Crypt", 50],
   ["Phlage, Titan of Fire's Fury", 50],
   ["Karakas", 49],
   ["Orcish Bowmasters", 49],
-  ["Psychic Frog", 49],
-  ["Oko, Thief of Crowns", 48],
-  ["Ocelot Pride", 48],
-  ["Swords to Plowshares", 48],
-  ["Broadside Bombardiers", 47],
+  ["Psychic Frog", 50],
+  ["Oko, Thief of Crowns", 49],
+  ["Ocelot Pride", 47],
+  ["Swords to Plowshares", 47],
+  ["Broadside Bombardiers", 48],
   ["Teferi, Time Raveler", 47],
   ["Ragavan, Nimble Pilferer", 47],
   ["Nadu, Winged Wisdom", 47],
   ["Phelia, Exuberant Shepherd", 47],
-  ["Wooded Foothills", 46],
-  ["Ancient Tomb", 31],
-  ["Fabled Passage", 16],
+  ["Wooded Foothills", 45],
+  ["Ancient Tomb", 29],
+  ["Fabled Passage", 17],
   ["Thriving Bluff", 10],
   ["Thriving Grove", 10],
   ["Thriving Heath", 10],
@@ -50,7 +50,7 @@ describe("power ranking reference", () => {
       expect(loaded.value.getCardByName(name)?.powerScore.score, name).toBe(expectedScore);
     }
 
-    expect(Math.max(...cards.map((card) => card.powerScore.score))).toBe(53);
+    expect(Math.max(...cards.map((card) => card.powerScore.score))).toBe(54);
     expect(cards.every((card) => card.powerScore.score <= 55)).toBe(true);
   });
 });
