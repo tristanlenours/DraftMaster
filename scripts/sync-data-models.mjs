@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { generateCubeSuggestionsReport } from '../src/cards/cube-upgrade-advisor.ts';
+import { assignRelativeTiers } from '../src/cards/relative-tier-engine.ts';
 
 const rootDir = process.cwd();
 
@@ -162,14 +163,6 @@ const cubeConfigs = [
   },
 ];
 
-const RELATIVE_TIERS = [
-  "A+", "A", "A-",
-  "B+", "B", "B-",
-  "C+", "C", "C-",
-  "D+", "D", "D-",
-  "F",
-];
-
 const tierOrder = {
   "A+": 0, "A": 1, "A-": 2,
   "B+": 3, "B": 4, "B-": 5,
@@ -192,46 +185,9 @@ for (const cfg of cubeConfigs) {
     (c) => c.presentInCubes && c.presentInCubes.includes(cfg.key),
   );
 
-  // Archetype roles lookup
-  const keyCards = new Set();
-  const supportCards = new Set();
-  const trapCards = new Set();
-  for (const arch of meta.archetypes || []) {
-    for (const id of arch.keyCards || []) keyCards.add(id.toLowerCase());
-    for (const id of arch.supportCards || []) supportCards.add(id.toLowerCase());
-    for (const id of arch.trapCards || []) trapCards.add(id.toLowerCase());
-  }
-
-  // Sort descending by universal score, tie-break by name
-  cubeCards.sort((a, b) => {
-    const sA = Number.isFinite(a.powerScore?.score) ? a.powerScore.score : 1;
-    const sB = Number.isFinite(b.powerScore?.score) ? b.powerScore.score : 1;
-    if (sB !== sA) return sB - sA;
-    return a.name.localeCompare(b.name);
-  });
-
   const cardIndex = [];
-  cubeCards.forEach((card, idx) => {
-    const tierIdx = Math.min(12, Math.floor((idx / cubeCards.length) * 13));
-    const relTier = RELATIVE_TIERS[tierIdx];
-
-    const oracleLower = (card.oracleId || '').toLowerCase();
-    const nameLower = card.name.toLowerCase();
-
-    let metaRole = 'neutral';
-    let metaBonus = 0;
-
-    if (keyCards.has(oracleLower) || keyCards.has(nameLower)) {
-      metaRole = 'key';
-      metaBonus = 8;
-    } else if (supportCards.has(oracleLower) || supportCards.has(nameLower)) {
-      metaRole = 'support';
-      metaBonus = 4;
-    } else if (trapCards.has(oracleLower) || trapCards.has(nameLower)) {
-      metaRole = 'trap';
-      metaBonus = -5;
-    }
-
+  const tierAssignments = assignRelativeTiers(cubeCards, meta);
+  tierAssignments.forEach(({ card, tier: relTier, metaRole, metaBonus }) => {
     const ana = card.cubeAnalyses[cfg.key];
     if (ana) {
       ana.relativeTier = relTier;

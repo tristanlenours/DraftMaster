@@ -2152,6 +2152,63 @@ body {
   box-shadow: 0 0 16px rgba(239, 68, 68, 0.3);
 }
 
+/* The card ranking uses 13 cube-relative bands. Keep their modal accent in one map. */
+.modal-ranking-hero,
+.hero-tier-card {
+  --relative-tier-color: var(--tier-s);
+}
+
+.tier-s,
+.tier-a-plus {
+  --relative-tier-color: #eab308;
+}
+.tier-a {
+  --relative-tier-color: #a855f7;
+}
+.tier-a-minus {
+  --relative-tier-color: #c084fc;
+}
+.tier-b-plus {
+  --relative-tier-color: #0ea5e9;
+}
+.tier-b {
+  --relative-tier-color: #38bdf8;
+}
+.tier-b-minus {
+  --relative-tier-color: #7dd3fc;
+}
+.tier-c-plus {
+  --relative-tier-color: #22c55e;
+}
+.tier-c {
+  --relative-tier-color: #4ade80;
+}
+.tier-c-minus {
+  --relative-tier-color: #86efac;
+}
+.tier-d-plus {
+  --relative-tier-color: #f59e0b;
+}
+.tier-d {
+  --relative-tier-color: #94a3b8;
+}
+.tier-d-minus {
+  --relative-tier-color: #64748b;
+}
+.tier-f {
+  --relative-tier-color: #ef4444;
+}
+
+.modal-ranking-hero[class*="tier-"]::before {
+  background: var(--relative-tier-color);
+}
+
+.hero-tier-card[class*="tier-"] {
+  color: var(--relative-tier-color);
+  border-color: var(--relative-tier-color);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--relative-tier-color) 30%, transparent);
+}
+
 .hero-tier-letter {
   font-size: 2.2rem;
   font-weight: 900;
@@ -2671,6 +2728,94 @@ body {
   border-color: #38bdf8;
   color: #fff;
   transform: translateY(-1px);
+}
+
+@media (max-width: 820px) {
+  .modal-backdrop {
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .card-modal {
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .modal-body {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .modal-col-left {
+    align-items: center;
+  }
+
+  .card-image-container {
+    width: min(100%, 220px);
+  }
+
+  .modal-quadrant-panel {
+    width: 100%;
+  }
+
+  .modal-ranking-hero {
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .hero-tier-card {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero-tier-letter {
+    font-size: 1.8rem;
+  }
+
+  .hero-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .upgrade-advisor-section {
+    padding: 12px;
+  }
+
+  .upgrade-proposal-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .upgrade-current-pane,
+  .upgrade-target-pane {
+    min-height: 52px;
+  }
+
+  .upgrade-arrow-pane {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .btn-swap-arrow {
+    width: 44px;
+    height: 44px;
+    transform: rotate(90deg);
+  }
+
+  .btn-swap-arrow:hover {
+    transform: rotate(270deg) scale(1.05);
+  }
+
+  .upgrade-action-row,
+  .btn-inspect-upgrade {
+    width: 100%;
+  }
+
+  .btn-inspect-upgrade {
+    min-height: 44px;
+  }
 }
 
 .section-title {

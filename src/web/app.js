@@ -638,7 +638,10 @@ const TIERS = [
 ];
 
 function toTierCssClass(tier) {
-  return String(tier).toLowerCase().replace("+", "-plus").replace("-", "-minus");
+  const normalized = String(tier).toLowerCase();
+  if (normalized.endsWith("+")) return `${normalized.slice(0, -1)}-plus`;
+  if (normalized.endsWith("-")) return `${normalized.slice(0, -1)}-minus`;
+  return normalized;
 }
 
 const COLOR_COLUMNS = [
@@ -691,6 +694,19 @@ function saveFrenchCache(key, data) {
   }
 }
 
+function hydrateCardFromFrenchCache(card) {
+  const cached = card?.name ? localFrenchCache.get(card.name) : null;
+  if (!cached) return card;
+
+  if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
+  if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
+  if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
+  if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl) {
+    card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
+  }
+  return card;
+}
+
 function escapeHtml(str) {
   if (!str) return "";
   return String(str)
@@ -714,6 +730,7 @@ const state = {
   cardsViewMode: "cube",
   cubesSuggestions: {},
   selectedCard: null,
+  selectedCardComparison: null,
   selectedDeckReview: null,
   cardLanguage: readCardLanguage(),
   cubeRankings: {},
@@ -1075,6 +1092,7 @@ function setGlobalCardLanguage(language) {
   }
   if (state.selectedCard && elements.modalBackdrop?.classList.contains("is-open")) {
     updateModalCardText(state.selectedCard);
+    updateModalComparisonCardNames(state.selectedCardComparison, state.selectedCard);
   }
 }
 
@@ -1716,18 +1734,7 @@ async function loadData() {
         if (cardsRes.ok) {
           const data = await cardsRes.json();
           state.cards = Object.values(data.cards || {});
-          // Hydrate state.cards from localFrenchCache
-          state.cards.forEach((card) => {
-            if (localFrenchCache.has(card.name)) {
-              const cached = localFrenchCache.get(card.name);
-              if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
-              if (cached.frenchText && !card.frenchText) card.frenchText = cached.frenchText;
-              if (cached.frenchImageUrl && !card.frenchImageUrl)
-                card.frenchImageUrl = cached.frenchImageUrl;
-              if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
-                card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
-            }
-          });
+          state.cards.forEach(hydrateCardFromFrenchCache);
         }
       } catch (err) {
         console.warn("Failed loading master cards:", err);
@@ -2301,23 +2308,7 @@ function getFilteredCards() {
   let baseCards = [];
   if (state.cardsViewMode === "maybeboard") {
     const suggestions = state.cubesSuggestions[cubeKey]?.maybeboard || [];
-    baseCards = suggestions.map((item) => {
-      const full = state.cards.find((c) => c.name === item.card.name);
-      if (full) return full;
-      return {
-        oracleId: item.card.oracleId,
-        name: item.card.name,
-        frenchName: item.card.frenchName,
-        cmc: item.card.cmc,
-        colors: item.card.colors || [],
-        typeLine: item.card.typeLine,
-        types: [item.card.typeLine.split(" ")[0]],
-        powerScore: { score: item.card.score },
-        imageUrl: item.card.imageUrl,
-        presentInCubes: [],
-        cubeAnalyses: {},
-      };
-    });
+    baseCards = suggestions.map((item) => getOrBuildCardObject(item.card, cubeKey));
   } else {
     baseCards = state.cards.filter((card) => {
       return card.presentInCubes && card.presentInCubes.includes(cubeKey);
@@ -2521,33 +2512,10 @@ function renderMatrix() {
   }
 }
 
-// Create Card Matrix Item (Interactive, with hover popover and click modal)
-function createCardMatrixItem(card, colClass) {
-  const item = document.createElement("div");
-  item.className = `card-matrix-item ${colClass}`;
-  item.setAttribute("tabindex", "0");
-  item.setAttribute("role", "button");
-
-  if (localFrenchCache.has(card.name)) {
-    const cached = localFrenchCache.get(card.name);
-    if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
-    if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
-      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
-  }
-
+function getCardListPresentation(card) {
+  hydrateCardFromFrenchCache(card);
   const isFr = state.cardLanguage === "FR";
   const displayName = getCardDisplayName(card, state.cardLanguage);
-  item.setAttribute("aria-label", displayName);
-
-  if (isFr && card.frenchName && card.frenchName !== card.name) {
-    item.title = `${card.frenchName} (VO: ${card.name})`;
-  } else if (!isFr && card.frenchName && card.frenchName !== card.name) {
-    item.title = `${card.name} (FR: ${card.frenchName})`;
-  } else {
-    item.title = card.name;
-  }
-
   const isShared = (card.presentInCubes || []).length > 1;
   const rawScore = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
   const score = Math.round(rawScore * 10) / 10;
@@ -2555,49 +2523,114 @@ function createCardMatrixItem(card, colClass) {
   const maybeItem = state.cubesSuggestions[state.activeCubeKey]?.maybeboard?.find(
     (m) => m.card.name === card.name,
   );
-  let upgradeBadgeHtml = "";
+  let suggestionBadge = null;
   if (upgrade) {
     const isRecent = Boolean(
       upgrade.isRecent || (upgrade.releaseYear && upgrade.releaseYear >= 2023),
     );
-    const icon = isRecent ? "✨" : "⚡";
-    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Mise à niveau disponible (poste pour poste) : ${escapeHtml(upgrade.suggestedCard.name)} (+${upgrade.scoreDelta})${isRecent ? " (Nouveauté)" : ""}">${icon}</span>`;
+    const suggestedName = getCardDisplayName(upgrade.suggestedCard, state.cardLanguage);
+    suggestionBadge = {
+      icon: isRecent ? "✨" : "⚡",
+      title: `Mise à niveau disponible (poste pour poste) : ${suggestedName} (+${upgrade.scoreDelta})${isRecent ? " (Nouveauté)" : ""}`,
+    };
   } else if (maybeItem) {
     const isRecent = Boolean(
       maybeItem.isRecent || (maybeItem.releaseYear && maybeItem.releaseYear >= 2023),
     );
-    const icon = isRecent ? "✨" : "💡";
-    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Suggestion Maybeboard${isRecent ? ` (Nouveauté ${maybeItem.releaseYear || "Veille"})` : ""}">${icon}</span>`;
+    suggestionBadge = {
+      icon: isRecent ? "✨" : "💡",
+      title: `Suggestion Maybeboard${isRecent ? ` (Nouveauté ${maybeItem.releaseYear || "Veille"})` : ""}`,
+    };
   }
 
-  item.innerHTML = `
-    <span class="card-item-name">${escapeHtml(displayName)}</span>
-    <span class="card-item-score" title="Power score : ${score}">${score}</span>
-    ${upgradeBadgeHtml}
-    ${isShared ? '<span class="card-shared-pip" title="Présente dans plusieurs cubes">🔄</span>' : ""}
-  `;
+  const title =
+    card.frenchName && card.frenchName !== card.name
+      ? isFr
+        ? `${card.frenchName} (VO: ${card.name})`
+        : `${card.name} (FR: ${card.frenchName})`
+      : card.name;
 
-  // Hover Popover Listeners
-  item.addEventListener("mouseenter", (e) => showCardPopover(card, e));
-  item.addEventListener("mousemove", (e) => positionCardPopover(e));
-  item.addEventListener("mouseleave", hideCardPopover);
+  return { displayName, isShared, score, suggestionBadge, title };
+}
 
-  // Click / Keydown opens Educational Modal
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+function refreshCardListLocalization(element, card, nameSelector) {
+  const { displayName, title } = getCardListPresentation(card);
+  element.setAttribute("aria-label", displayName);
+  element.title = title;
+  const nameElement = element.querySelector(nameSelector);
+  if (nameElement) nameElement.textContent = displayName;
+}
+
+function observeVisibleFrenchCard(element, card, nameSelector) {
+  if (state.cardLanguage !== "FR" || card.frenchName) return;
+
+  const loadTranslation = () => {
+    void fetchFrenchCardOnDemand(card, (updated) => {
+      if (element.isConnected && state.cardLanguage === "FR") {
+        refreshCardListLocalization(element, updated, nameSelector);
+      }
+      if (state.selectedCard?.name === updated.name) updateModalCardText(updated);
+    });
+  };
+
+  if (typeof IntersectionObserver !== "function") {
+    loadTranslation();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    loadTranslation();
+  });
+  observer.observe(element);
+}
+
+function attachCardListInteractions(element, card, nameSelector, withPopover) {
+  element.setAttribute("tabindex", "0");
+  element.setAttribute("role", "button");
+  refreshCardListLocalization(element, card, nameSelector);
+
+  element.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    hideCardPopover();
+    openCardModal(card);
+  });
+  element.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    event.stopPropagation();
     hideCardPopover();
     openCardModal(card);
   });
 
-  item.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      e.stopPropagation();
-      hideCardPopover();
-      openCardModal(card);
-    }
-  });
+  if (withPopover) {
+    element.addEventListener("mouseenter", (event) => showCardPopover(card, event));
+    element.addEventListener("mousemove", (event) => positionCardPopover(event));
+    element.addEventListener("mouseleave", hideCardPopover);
+  }
+  observeVisibleFrenchCard(element, card, nameSelector);
+}
+
+function renderSuggestionBadge(suggestionBadge) {
+  if (!suggestionBadge) return "";
+  return `<span class="card-upgrade-badge" title="${escapeHtml(suggestionBadge.title)}">${suggestionBadge.icon}</span>`;
+}
+
+// Create Card Matrix Item (Interactive, with hover popover and click modal)
+function createCardMatrixItem(card, colClass) {
+  const item = document.createElement("div");
+  item.className = `card-matrix-item ${colClass}`;
+  const presentation = getCardListPresentation(card);
+
+  item.innerHTML = `
+    <span class="card-item-name">${escapeHtml(presentation.displayName)}</span>
+    <span class="card-item-score" title="Power score : ${presentation.score}">${presentation.score}</span>
+    ${renderSuggestionBadge(presentation.suggestionBadge)}
+    ${presentation.isShared ? '<span class="card-shared-pip" title="Présente dans plusieurs cubes">🔄</span>' : ""}
+  `;
+  attachCardListInteractions(item, card, ".card-item-name", true);
 
   return item;
 }
@@ -2666,80 +2699,16 @@ function createLimitedGradesMobileTierSection(tier, count, colorBuckets) {
 function createLimitedGradesCardRow(card, tier) {
   const row = document.createElement("div");
   row.className = "lg-card-row";
-  row.setAttribute("role", "button");
-  row.setAttribute("tabindex", "0");
-
-  if (localFrenchCache.has(card.name)) {
-    const cached = localFrenchCache.get(card.name);
-    if (cached.frenchName && !card.frenchName) card.frenchName = cached.frenchName;
-    if (cached.frenchImageUrl && !card.frenchImageUrl) card.frenchImageUrl = cached.frenchImageUrl;
-    if (cached.frenchLargeImageUrl && !card.frenchLargeImageUrl)
-      card.frenchLargeImageUrl = cached.frenchLargeImageUrl;
-  }
-
-  const isFr = state.cardLanguage === "FR";
-  const displayName = getCardDisplayName(card, state.cardLanguage);
-  row.setAttribute("aria-label", displayName);
-
-  if (isFr && card.frenchName && card.frenchName !== card.name) {
-    row.title = `${card.frenchName} (VO: ${card.name})`;
-  } else if (!isFr && card.frenchName && card.frenchName !== card.name) {
-    row.title = `${card.name} (FR: ${card.frenchName})`;
-  } else {
-    row.title = card.name;
-  }
-
-  const isShared = (card.presentInCubes || []).length > 1;
-  const rawScore = Number.isFinite(card.powerScore?.score) ? card.powerScore.score : 1;
-  const score = Math.round(rawScore * 10) / 10;
-  const upgrade = state.cubesSuggestions[state.activeCubeKey]?.upgrades?.[card.name];
-  const maybeItem = state.cubesSuggestions[state.activeCubeKey]?.maybeboard?.find(
-    (m) => m.card.name === card.name,
-  );
-  let upgradeBadgeHtml = "";
-  if (upgrade) {
-    const isRecent = Boolean(
-      upgrade.isRecent || (upgrade.releaseYear && upgrade.releaseYear >= 2023),
-    );
-    const icon = isRecent ? "✨" : "⚡";
-    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Mise à niveau disponible (poste pour poste) : ${escapeHtml(upgrade.suggestedCard.name)} (+${upgrade.scoreDelta})${isRecent ? " (Nouveauté)" : ""}">${icon}</span>`;
-  } else if (maybeItem) {
-    const isRecent = Boolean(
-      maybeItem.isRecent || (maybeItem.releaseYear && maybeItem.releaseYear >= 2023),
-    );
-    const icon = isRecent ? "✨" : "💡";
-    upgradeBadgeHtml = `<span class="card-upgrade-badge" title="Suggestion Maybeboard${isRecent ? ` (Nouveauté ${maybeItem.releaseYear || "Veille"})` : ""}">${icon}</span>`;
-  }
+  const presentation = getCardListPresentation(card);
 
   row.innerHTML = `
     <span class="lg-card-tick"></span>
-    <span class="lg-card-name">${escapeHtml(displayName)}</span>
-    ${upgradeBadgeHtml}
-    ${isShared ? '<span class="lg-card-shared" title="Présente dans plusieurs cubes">🔄</span>' : ""}
-    <span class="lg-card-score" title="Power score : ${score}">${score}</span>
+    <span class="lg-card-name">${escapeHtml(presentation.displayName)}</span>
+    ${renderSuggestionBadge(presentation.suggestionBadge)}
+    ${presentation.isShared ? '<span class="lg-card-shared" title="Présente dans plusieurs cubes">🔄</span>' : ""}
+    <span class="lg-card-score" title="Power score : ${presentation.score}">${presentation.score}</span>
   `;
-
-  // Click opens Educational Modal
-  row.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    hideCardPopover();
-    openCardModal(card);
-  });
-
-  row.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      e.stopPropagation();
-      hideCardPopover();
-      openCardModal(card);
-    }
-  });
-
-  // Hover popover for pointer devices
-  row.addEventListener("mouseenter", (e) => showCardPopover(card, e));
-  row.addEventListener("mousemove", (e) => positionCardPopover(e));
-  row.addEventListener("mouseleave", hideCardPopover);
+  attachCardListInteractions(row, card, ".lg-card-name", true);
 
   return row;
 }
@@ -2974,66 +2943,106 @@ async function fetchFrenchCardOnDemand(card, onUpdate) {
 
 // Helper to find or synthesize full card object for modal inspection
 function getOrBuildCardObject(cardRefOrName, cubeKey) {
-  if (typeof cardRefOrName === "object" && cardRefOrName !== null && cardRefOrName.typeLine) {
-    return cardRefOrName;
-  }
-  const name = typeof cardRefOrName === "string" ? cardRefOrName : cardRefOrName.name;
-  const existing = state.cards.find((c) => c.name.toLowerCase() === name.toLowerCase());
-  if (existing) return existing;
+  const source = typeof cardRefOrName === "object" && cardRefOrName !== null ? cardRefOrName : null;
+  const name = typeof cardRefOrName === "string" ? cardRefOrName : source?.name || "Carte";
+  const oracleId = source?.oracleId;
+  const existing = state.cards.find(
+    (card) =>
+      (oracleId && card.oracleId === oracleId) || card.name.toLowerCase() === name.toLowerCase(),
+  );
+  if (existing) return hydrateCardFromFrenchCache(existing);
 
   // Check maybeboard
   const maybeItem = state.cubesSuggestions[cubeKey]?.maybeboard?.find(
     (m) => m.card.name.toLowerCase() === name.toLowerCase(),
   );
-  if (maybeItem) {
-    return {
-      oracleId: maybeItem.card.oracleId,
-      name: maybeItem.card.name,
-      frenchName: maybeItem.card.frenchName,
-      cmc: maybeItem.card.cmc,
-      colors: maybeItem.card.colors || [],
-      typeLine: maybeItem.card.typeLine,
-      types: [maybeItem.card.typeLine.split(" ")[0]],
-      powerScore: { score: maybeItem.card.score },
-      imageUrl: maybeItem.card.imageUrl,
-      presentInCubes: [],
-      cubeAnalyses: {},
-    };
-  }
+  if (maybeItem) return buildSuggestionCardObject(maybeItem.card);
 
   // Check upgrades
   const upgrades = state.cubesSuggestions[cubeKey]?.upgrades || {};
   for (const up of Object.values(upgrades)) {
     if (up.suggestedCard.name.toLowerCase() === name.toLowerCase()) {
-      return {
-        oracleId: up.suggestedCard.oracleId,
-        name: up.suggestedCard.name,
-        frenchName: up.suggestedCard.frenchName,
-        cmc: up.suggestedCard.cmc,
-        colors: up.suggestedCard.colors || [],
-        typeLine: up.suggestedCard.typeLine,
-        types: [up.suggestedCard.typeLine.split(" ")[0]],
-        powerScore: { score: up.suggestedCard.score },
-        imageUrl: up.suggestedCard.imageUrl,
-        presentInCubes: [],
-        cubeAnalyses: {},
-      };
+      return buildSuggestionCardObject(up.suggestedCard);
     }
   }
 
-  return {
-    name: name,
-    typeLine: "Card",
-    types: ["Card"],
-    colors: [],
-    powerScore: { score: 20 },
+  return buildSuggestionCardObject(source || { name, score: 20, typeLine: "Card" });
+}
+
+function buildSuggestionCardObject(cardRef) {
+  const typeLine = cardRef.typeLine || "Card";
+  return hydrateCardFromFrenchCache({
+    oracleId: cardRef.oracleId,
+    name: cardRef.name,
+    frenchName: cardRef.frenchName,
+    frenchImageUrl: cardRef.frenchImageUrl,
+    cmc: cardRef.cmc ?? 0,
+    colors: cardRef.colors || [],
+    typeLine,
+    types: [typeLine.split(" ")[0]],
+    powerScore: {
+      score: Number.isFinite(cardRef.powerScore?.score)
+        ? cardRef.powerScore.score
+        : Number.isFinite(cardRef.score)
+          ? cardRef.score
+          : 20,
+    },
+    imageUrl: cardRef.imageUrl,
     presentInCubes: [],
     cubeAnalyses: {},
-  };
+  });
+}
+
+function updateModalComparisonCardNames(comparison, selectedCard) {
+  if (!comparison) return;
+  if (comparison.isStandaloneMaybeboard) {
+    if (elements.modalUpgradeSuggName && selectedCard) {
+      elements.modalUpgradeSuggName.textContent = getCardDisplayName(
+        selectedCard,
+        state.cardLanguage,
+      );
+    }
+    return;
+  }
+
+  if (elements.modalUpgradeCurrName) {
+    elements.modalUpgradeCurrName.textContent = getCardDisplayName(
+      comparison.cubeCard,
+      state.cardLanguage,
+    );
+  }
+  if (elements.modalUpgradeSuggName) {
+    elements.modalUpgradeSuggName.textContent = getCardDisplayName(
+      comparison.suggCard,
+      state.cardLanguage,
+    );
+  }
+}
+
+function configureComparisonPane(pane, status, isCurrent, onSelect) {
+  if (!pane) return;
+  pane.classList.toggle("is-inspected", isCurrent);
+  pane.setAttribute("aria-current", String(isCurrent));
+  pane.tabIndex = isCurrent ? -1 : 0;
+
+  if (status) {
+    status.textContent = isCurrent ? "👁️ Affichée" : "⇄ Voir fiche";
+    status.className = `pane-status-pill ${isCurrent ? "inspected" : "switchable"}`;
+  }
+
+  pane.onclick = isCurrent ? null : onSelect;
+  pane.onkeydown = isCurrent
+    ? null
+    : (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        onSelect();
+      };
 }
 
 // Open Educational Card Detail Modal with Bidirectional Upgrade Switcher
 function openCardModal(card, comparisonOverride) {
+  const cardChanged = state.selectedCard?.name !== card.name;
   state.selectedCard = card;
   const cubeKey = state.activeCubeKey;
   const inCube = Boolean(card.presentInCubes && card.presentInCubes.includes(cubeKey));
@@ -3220,6 +3229,7 @@ function openCardModal(card, comparisonOverride) {
   // Render Upgrade / Comparison Section
   if (elements.modalUpgradeSection) {
     if (comparison && !comparison.isStandaloneMaybeboard) {
+      state.selectedCardComparison = comparison;
       elements.modalUpgradeSection.hidden = false;
       const isViewingCube = card.name === comparison.cubeCard.name;
       const isViewingSugg = card.name === comparison.suggCard.name;
@@ -3231,68 +3241,33 @@ function openCardModal(card, comparisonOverride) {
       }
 
       // Left Pane (Carte en Place)
-      if (elements.modalUpgradeCurrName) {
-        elements.modalUpgradeCurrName.textContent = getCardDisplayName(
-          comparison.cubeCard,
-          state.cardLanguage,
-        );
-      }
+      updateModalComparisonCardNames(comparison, card);
       if (elements.modalUpgradeCurrScore) {
         elements.modalUpgradeCurrScore.textContent = `${comparison.proposal.targetCard.score}/55 (Tier ${comparison.proposal.targetCard.tier || "D"})`;
       }
       if (elements.modalUpgradeCurrPaneLabel) {
         elements.modalUpgradeCurrPaneLabel.textContent = "Carte en Place";
       }
-      if (elements.modalUpgradeCurrPane) {
-        elements.modalUpgradeCurrPane.classList.toggle("is-inspected", isViewingCube);
-        if (elements.modalUpgradeCurrStatus) {
-          elements.modalUpgradeCurrStatus.textContent = isViewingCube ? "👁️ Affichée" : "⇄ Voir fiche";
-          elements.modalUpgradeCurrStatus.className = `pane-status-pill ${isViewingCube ? "inspected" : "switchable"}`;
-        }
-        elements.modalUpgradeCurrPane.onclick = () => {
-          if (!isViewingCube) {
-            openCardModal(comparison.cubeCard, comparison);
-          }
-        };
-        elements.modalUpgradeCurrPane.onkeydown = (e) => {
-          if ((e.key === "Enter" || e.key === " ") && !isViewingCube) {
-            e.preventDefault();
-            openCardModal(comparison.cubeCard, comparison);
-          }
-        };
-      }
+      configureComparisonPane(
+        elements.modalUpgradeCurrPane,
+        elements.modalUpgradeCurrStatus,
+        isViewingCube,
+        () => openCardModal(comparison.cubeCard, comparison),
+      );
 
       // Right Pane (Remplacement Suggéré)
-      if (elements.modalUpgradeSuggName) {
-        elements.modalUpgradeSuggName.textContent = getCardDisplayName(
-          comparison.suggCard,
-          state.cardLanguage,
-        );
-      }
       if (elements.modalUpgradeSuggScore) {
         elements.modalUpgradeSuggScore.textContent = `${comparison.proposal.suggestedCard.score}/55 (Tier ${comparison.proposal.suggestedCard.tier || "A"})`;
       }
       if (elements.modalUpgradeSuggPaneLabel) {
         elements.modalUpgradeSuggPaneLabel.textContent = "Remplacement Suggéré";
       }
-      if (elements.modalUpgradeSuggPane) {
-        elements.modalUpgradeSuggPane.classList.toggle("is-inspected", isViewingSugg);
-        if (elements.modalUpgradeSuggStatus) {
-          elements.modalUpgradeSuggStatus.textContent = isViewingSugg ? "👁️ Affichée" : "⇄ Voir fiche";
-          elements.modalUpgradeSuggStatus.className = `pane-status-pill ${isViewingSugg ? "inspected" : "switchable"}`;
-        }
-        elements.modalUpgradeSuggPane.onclick = () => {
-          if (!isViewingSugg) {
-            openCardModal(comparison.suggCard, comparison);
-          }
-        };
-        elements.modalUpgradeSuggPane.onkeydown = (e) => {
-          if ((e.key === "Enter" || e.key === " ") && !isViewingSugg) {
-            e.preventDefault();
-            openCardModal(comparison.suggCard, comparison);
-          }
-        };
-      }
+      configureComparisonPane(
+        elements.modalUpgradeSuggPane,
+        elements.modalUpgradeSuggStatus,
+        isViewingSugg,
+        () => openCardModal(comparison.suggCard, comparison),
+      );
 
       // Center Swap Button
       if (elements.modalBtnSwapArrow) {
@@ -3429,6 +3404,7 @@ function openCardModal(card, comparisonOverride) {
         }
       }
     } else if (comparison && comparison.isStandaloneMaybeboard) {
+      state.selectedCardComparison = comparison;
       // Standalone Maybeboard Recommendation
       const mb = comparison.maybeItem;
       elements.modalUpgradeSection.hidden = false;
@@ -3442,27 +3418,31 @@ function openCardModal(card, comparisonOverride) {
       if (elements.modalUpgradeCurrPaneLabel) elements.modalUpgradeCurrPaneLabel.textContent = "Statut";
       if (elements.modalUpgradeCurrPane) {
         elements.modalUpgradeCurrPane.classList.remove("is-inspected");
+        elements.modalUpgradeCurrPane.setAttribute("aria-current", "false");
+        elements.modalUpgradeCurrPane.tabIndex = -1;
         if (elements.modalUpgradeCurrStatus) {
           elements.modalUpgradeCurrStatus.textContent = "Suggestion";
           elements.modalUpgradeCurrStatus.className = "pane-status-pill inspected";
         }
         elements.modalUpgradeCurrPane.onclick = null;
+        elements.modalUpgradeCurrPane.onkeydown = null;
       }
 
-      if (elements.modalUpgradeSuggName) {
-        elements.modalUpgradeSuggName.textContent = getCardDisplayName(card, state.cardLanguage);
-      }
+      updateModalComparisonCardNames(comparison, card);
       if (elements.modalUpgradeSuggScore) {
         elements.modalUpgradeSuggScore.textContent = `${mb.card.score}/55 (Tier ${mb.card.tier || "B"})`;
       }
       if (elements.modalUpgradeSuggPaneLabel) elements.modalUpgradeSuggPaneLabel.textContent = "Carte Recommandée";
       if (elements.modalUpgradeSuggPane) {
         elements.modalUpgradeSuggPane.classList.add("is-inspected");
+        elements.modalUpgradeSuggPane.setAttribute("aria-current", "true");
+        elements.modalUpgradeSuggPane.tabIndex = -1;
         if (elements.modalUpgradeSuggStatus) {
           elements.modalUpgradeSuggStatus.textContent = "👁️ Affichée";
           elements.modalUpgradeSuggStatus.className = "pane-status-pill inspected";
         }
         elements.modalUpgradeSuggPane.onclick = null;
+        elements.modalUpgradeSuggPane.onkeydown = null;
       }
 
       if (elements.modalBtnSwapArrow) elements.modalBtnSwapArrow.onclick = null;
@@ -3529,6 +3509,7 @@ function openCardModal(card, comparisonOverride) {
         elements.modalBtnInspectUpgrade.parentElement?.setAttribute("hidden", "true");
       }
     } else {
+      state.selectedCardComparison = null;
       elements.modalUpgradeSection.hidden = true;
       if (elements.modalBtnInspectUpgrade) {
         elements.modalBtnInspectUpgrade.parentElement?.removeAttribute("hidden");
@@ -3565,6 +3546,10 @@ function openCardModal(card, comparisonOverride) {
   // Show Modal
   elements.modalBackdrop.classList.add("is-open");
   elements.modalBackdrop.style.display = "flex";
+  if (cardChanged) {
+    const modal = elements.modalBackdrop.querySelector(".card-modal");
+    if (modal) modal.scrollTop = 0;
+  }
   document.body.style.overflow = "hidden";
 }
 
@@ -3725,6 +3710,7 @@ function closeModal() {
   elements.modalBackdrop.style.display = "none";
   document.body.style.overflow = "";
   state.selectedCard = null;
+  state.selectedCardComparison = null;
 }
 
 // Helpers

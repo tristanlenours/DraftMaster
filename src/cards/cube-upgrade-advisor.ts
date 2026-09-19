@@ -38,6 +38,7 @@ export interface UpgradeCardRef {
   readonly typeLine: string;
   readonly imageUrl?: string | undefined;
   readonly frenchName?: string | undefined;
+  readonly frenchImageUrl?: string | undefined;
   readonly colors: readonly string[];
   readonly releaseYear?: number | undefined;
   readonly set?: string | undefined;
@@ -104,6 +105,25 @@ export interface AdvisorCubeMeta {
     readonly supportCards?: readonly string[];
   }[];
   readonly dominantMechanics?: readonly string[];
+}
+
+interface AdvisorCubePolicy {
+  readonly rarity: "pauper" | "peasant" | "unrestricted";
+  readonly preserveCreatureTypes: boolean;
+  readonly allowsRestrictedFastMana: boolean;
+}
+
+function getAdvisorCubePolicy(cubeKey: string): AdvisorCubePolicy {
+  return {
+    rarity:
+      cubeKey === "hugues_pauper"
+        ? "pauper"
+        : cubeKey === "titou_arena_peasant_plus"
+          ? "peasant"
+          : "unrestricted",
+    preserveCreatureTypes: cubeKey === "titou_tribal",
+    allowsRestrictedFastMana: cubeKey === "nico_candyshop",
+  };
 }
 
 function getCardScore(card: MasterCatalogCard): number {
@@ -493,6 +513,7 @@ function toCardRef(
     typeLine: card.typeLine,
     imageUrl: card.image?.url ?? card.imageUrl,
     frenchName: card.frenchName,
+    frenchImageUrl: card.frenchImageUrl,
     colors: card.colors,
     releaseYear: yr,
     set: relInfo?.set,
@@ -518,9 +539,7 @@ export function generateCubeUpgradeProposals(
   // 2. Identify candidate pool: cards in catalog NOT in this cube
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
-  const isPauperCube = cubeKey === "hugues_pauper";
-  const isPeasantCube = cubeKey === "titou_arena_peasant_plus";
-  const isTribalCube = cubeKey === "titou_tribal";
+  const policy = getAdvisorCubePolicy(cubeKey);
 
   for (const target of eligibleTargets) {
     const targetScore = getCardScore(target);
@@ -536,15 +555,17 @@ export function generateCubeUpgradeProposals(
       const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
       const hasBenchmark = benchmarks.length > 0;
 
-      if (isPauperCube && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
-      if (isPeasantCube && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
+      if (policy.rarity === "pauper" && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
+      if (policy.rarity === "peasant" && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
 
       // Fast mana & Power 9 restriction for unpowered cubes
-      if (cubeKey !== "candyshop" && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) continue;
+      if (!policy.allowsRestrictedFastMana && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) {
+        continue;
+      }
 
       // Strict Tribal Coherence for Titou's Tribal Cube:
       // Tribal cards can ONLY be replaced by cards of the same tribe (or Changelings)
-      if (isTribalCube && !areTribalCardsCompatible(target, cand)) continue;
+      if (policy.preserveCreatureTypes && !areTribalCardsCompatible(target, cand)) continue;
 
       // Color compatibility
       if (!areColorsCompatible(target.colors, cand.colors)) continue;
@@ -578,7 +599,7 @@ export function generateCubeUpgradeProposals(
 
       // Tribal affinity bonus for Titou's Tribal
       let isTribalMatch = false;
-      if (isTribalCube) {
+      if (policy.preserveCreatureTypes) {
         const targetTribes = getCardTribes(target);
         if (targetTribes.length > 0 || isUniversalTribalCard(target)) {
           matchScore += 30; // High priority to preserve tribal coherence
@@ -667,9 +688,7 @@ export function generateCubeMaybeboard(
   const thresholds = computeCubeTierThresholds(cubeCards);
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
-  const isPauperCube = cubeKey === "hugues_pauper";
-  const isPeasantCube = cubeKey === "titou_arena_peasant_plus";
-  const isTribalCube = cubeKey === "titou_tribal";
+  const policy = getAdvisorCubePolicy(cubeKey);
   const archetypes = cubeMeta?.archetypes ?? [];
 
   // Map suggested card name -> list of targets it replaces in the cube
@@ -714,18 +733,20 @@ export function generateCubeMaybeboard(
     const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
     const hasBenchmark = benchmarks.length > 0;
 
-    if (isPauperCube && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
-    if (isPeasantCube && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
+    if (policy.rarity === "pauper" && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
+    if (policy.rarity === "peasant" && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
 
     // Fast mana & Power 9 restriction for unpowered cubes
-    if (cubeKey !== "candyshop" && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) continue;
+    if (!policy.allowsRestrictedFastMana && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) {
+      continue;
+    }
 
     const score = getCardScore(cand);
     const replacesList = replacesByCardName.get(cand.name);
     const isReplacement = Boolean(replacesList && replacesList.length > 0);
 
     // For Titou's Tribal Cube: any creature in Maybeboard must belong to a recognized tribe, be universal tribal or changeling
-    if (isTribalCube && cand.types.includes("Creature") && !isReplacement) {
+    if (policy.preserveCreatureTypes && cand.types.includes("Creature") && !isReplacement) {
       const candTribes = getCardTribes(cand);
       const isUniversal = isUniversalTribalCard(cand);
       if (candTribes.length === 0 && !isUniversal) continue;

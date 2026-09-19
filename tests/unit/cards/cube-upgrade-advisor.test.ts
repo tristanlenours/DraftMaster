@@ -484,6 +484,43 @@ describe("Cube Upgrade Advisor", () => {
       expect(upgrades["Aether Spellbomb"]).toBeUndefined();
     });
 
+    it("allows Power 9 candidates for the canonical powered cube key", () => {
+      const mockWeakArtifact: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "powered-target",
+        name: "Weak Powered Artifact",
+        cmc: 1,
+        colors: [],
+        colorIdentity: [],
+        typeLine: "Artifact",
+        types: ["Artifact"],
+        subtypes: [],
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const mockBlackLotus: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "powered-lotus",
+        name: "Black Lotus",
+        cmc: 0,
+        colors: [],
+        colorIdentity: [],
+        typeLine: "Artifact",
+        types: ["Artifact"],
+        subtypes: [],
+        presentInCubes: [],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 55 },
+      };
+
+      const upgrades = generateCubeUpgradeProposals(
+        "nico_candyshop",
+        [mockWeakArtifact, mockBlackLotus],
+        { cubeKey: "nico_candyshop", archetypes: [] },
+      );
+
+      expect(upgrades["Weak Powered Artifact"]?.suggestedCard.name).toBe("Black Lotus");
+    });
+
     it("strictly excludes cards already in the cube from both AI maybeboard and upgrade proposals", () => {
       const existingInCubeCard: MasterCatalogCard = {
         ...mockCandidateUpgrade,

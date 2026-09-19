@@ -181,3 +181,76 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await expect(trollCard).toBeVisible();
   });
 });
+
+test.describe("AI Maybeboard on mobile", () => {
+  test.use({ hasTouch: true, isMobile: true, viewport: { width: 360, height: 800 } });
+
+  test("keeps navigation compact and localizes visible suggestions from the global preference", async ({
+    page,
+  }) => {
+    await emulateCleanDeploymentImages(page);
+    await page.route("https://api.scryfall.com/cards/search?**", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          data: [
+            {
+              name: "Ajani, Nacatl Pariah",
+              printed_name: "Ajani, paria nacatl",
+              printed_text:
+                "Quand Ajani arrive, créez un jeton de créature 2/1 blanche Chat Guerrier.",
+              image_uris: {
+                normal: "https://cards.scryfall.io/normal/ajani-fr.png",
+                large: "https://cards.scryfall.io/large/ajani-fr.png",
+              },
+            },
+          ],
+        }),
+      });
+    });
+
+    await page.goto("/cards");
+    await page.selectOption("#cube-select", "titou_tribal");
+    await page.locator("#btn-view-maybeboard").tap();
+    await page.locator("#card-search-input").fill("Ajani, Nacatl Pariah");
+    await page.locator("#global-lang-fr").tap();
+
+    const mobileCard = page.locator(".lg-card-row").first();
+    await expect(mobileCard).toContainText("Ajani, paria nacatl");
+    await mobileCard.tap();
+
+    await expect(page.locator("#card-modal-backdrop")).toBeVisible();
+    await expect(page.locator("#modal-card-title")).toContainText("Ajani, paria nacatl");
+    await expect(page.locator("#modal-hero-tier-card")).toHaveClass(/tier-a-plus/);
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Changelin aviaire");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, paria nacatl");
+
+    await page.locator("#lang-btn-en").tap();
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Avian Changeling");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, Nacatl Pariah");
+    await page.locator("#lang-btn-fr").tap();
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, paria nacatl");
+
+    const imageBox = await page.locator(".card-image-container").boundingBox();
+    expect(imageBox).not.toBeNull();
+    expect(imageBox?.width).toBeLessThanOrEqual(220);
+
+    const currentPane = await page.locator("#modal-upgrade-curr-pane").boundingBox();
+    const targetPane = await page.locator("#modal-upgrade-sugg-pane").boundingBox();
+    expect(currentPane).not.toBeNull();
+    expect(targetPane).not.toBeNull();
+    if (currentPane && targetPane) {
+      expect(Math.abs(currentPane.x - targetPane.x)).toBeLessThanOrEqual(1);
+      expect(targetPane.y).toBeGreaterThan(currentPane.y + currentPane.height);
+    }
+
+    const tierBorderColor = await page
+      .locator("#modal-hero-tier-card")
+      .evaluate((element) => getComputedStyle(element).borderColor);
+    expect(tierBorderColor).toBe("rgb(234, 179, 8)");
+
+    const bodyScrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    expect(bodyScrollWidth).toBeLessThanOrEqual(360);
+  });
+});
