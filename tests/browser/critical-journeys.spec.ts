@@ -246,7 +246,8 @@ test("Card Explorer filters upgrade proposals and displays meta added value anal
   await expect(maybeboardBtn).toBeVisible();
   await maybeboardBtn.click();
   await expect(maybeboardBtn).toHaveClass(/active/);
-  await expect(page.locator("#results-stats")).toContainText("Maybeboard IA & Tendances");
+  await expect(page.locator("#results-stats")).toContainText("cartes suggérées");
+  await expect(page.locator("#results-stats .stats-filter-tag")).toHaveCount(0);
 
   // Inspect first maybeboard card
   const maybeCard = page.locator(".card-matrix-item").first();

@@ -167,6 +167,8 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     // Switch to Maybeboard Mode
     await page.locator("#btn-view-maybeboard").click();
     await expect(page.locator("#btn-view-maybeboard")).toHaveClass(/active/);
+    await expect(page.locator("#results-stats .stats-filter-tag")).toHaveCount(0);
+    await expect(page.locator("#results-stats")).toHaveText("48 cartes suggérées");
 
     // In the desktop table, find the A+ tier row
     const aPlusRow = page.getByRole("row", { name: /A\+/ });
@@ -179,6 +181,44 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     // Also verify Troll of Khazad-dûm is inside the A+ tier row
     const trollCard = aPlusRow.locator(".card-matrix-item", { hasText: "Troll of Khazad-dûm" });
     await expect(trollCard).toBeVisible();
+  });
+
+  test("keeps the desktop card preview anchored while the pointer crosses card text", async ({
+    page,
+  }) => {
+    await emulateCleanDeploymentImages(page);
+    await page.goto("/cards");
+    await page.selectOption("#cube-select", "hugues_pauper");
+
+    const cardName = page.locator(".card-matrix-item .card-item-name").first();
+    await cardName.scrollIntoViewIfNeeded();
+    const nameBox = await cardName.boundingBox();
+    expect(nameBox).not.toBeNull();
+    if (!nameBox) return;
+
+    await page.mouse.move(nameBox.x + 2, nameBox.y + nameBox.height / 2);
+    const popover = page.locator("#card-hover-popover");
+    await expect(popover).toBeVisible();
+    await page.waitForTimeout(100);
+    const initialPosition = await popover.evaluate((element) => ({
+      left: element.style.left,
+      top: element.style.top,
+    }));
+
+    await page.mouse.move(nameBox.x + nameBox.width - 2, nameBox.y + nameBox.height / 2, {
+      steps: 4,
+    });
+    await page.waitForTimeout(100);
+
+    await expect(popover).toBeVisible();
+    await expect
+      .poll(() =>
+        popover.evaluate((element) => ({ left: element.style.left, top: element.style.top })),
+      )
+      .toEqual(initialPosition);
+    await expect
+      .poll(() => popover.evaluate((element) => getComputedStyle(element).pointerEvents))
+      .toBe("none");
   });
 });
 
@@ -218,7 +258,13 @@ test.describe("AI Maybeboard on mobile", () => {
 
     const mobileCard = page.locator(".lg-card-row").first();
     await expect(mobileCard).toContainText("Ajani, paria nacatl");
-    await mobileCard.tap();
+    await expect
+      .poll(() => mobileCard.evaluate((element) => element instanceof HTMLButtonElement))
+      .toBe(true);
+    const mobileCardBox = await mobileCard.boundingBox();
+    expect(mobileCardBox).not.toBeNull();
+    expect(mobileCardBox?.height).toBeGreaterThanOrEqual(44);
+    await mobileCard.locator(".lg-card-name").tap();
 
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
     await expect(page.locator("#modal-card-title")).toContainText("Ajani, paria nacatl");

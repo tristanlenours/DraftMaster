@@ -2214,9 +2214,7 @@ function renderCubeDetail(cubeKey) {
     const card = findCardByRef(oracleId) || findCardByRef(name);
     if (!card) return;
 
-    chip.addEventListener("mouseenter", (e) => showCardPopover(card, e));
-    chip.addEventListener("mousemove", (e) => positionCardPopover(e));
-    chip.addEventListener("mouseleave", hideCardPopover);
+    attachHoverCardPreview(chip, card);
     chip.addEventListener("click", (e) => {
       e.preventDefault();
       hideCardPopover();
@@ -2386,12 +2384,7 @@ function renderMatrix() {
       });
     }
   } else if (state.cardsViewMode === "maybeboard") {
-    elements.resultsStats.innerHTML = `
-      <span class="stats-count">${filteredCards.length} carte${filteredCards.length > 1 ? "s" : ""} suggérée${filteredCards.length > 1 ? "s" : ""}</span>
-      <span class="stats-filter-tag" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(250, 204, 21, 0.4); color: #facc15;">
-        💡 Maybeboard IA & Tendances pour ${cubeName}
-      </span>
-    `;
+    elements.resultsStats.innerHTML = `<span class="stats-count">${filteredCards.length} carte${filteredCards.length > 1 ? "s" : ""} suggérée${filteredCards.length > 1 ? "s" : ""}</span>`;
   } else if (state.onlyShared) {
     elements.resultsStats.innerHTML = `
       <span class="stats-count">${filteredCards.length} cartes affichées</span>
@@ -2587,8 +2580,10 @@ function observeVisibleFrenchCard(element, card, nameSelector) {
 }
 
 function attachCardListInteractions(element, card, nameSelector, withPopover) {
-  element.setAttribute("tabindex", "0");
-  element.setAttribute("role", "button");
+  if (!(element instanceof HTMLButtonElement)) {
+    element.setAttribute("tabindex", "0");
+    element.setAttribute("role", "button");
+  }
   refreshCardListLocalization(element, card, nameSelector);
 
   element.addEventListener("click", (event) => {
@@ -2606,11 +2601,15 @@ function attachCardListInteractions(element, card, nameSelector, withPopover) {
   });
 
   if (withPopover) {
-    element.addEventListener("mouseenter", (event) => showCardPopover(card, event));
-    element.addEventListener("mousemove", (event) => positionCardPopover(event));
-    element.addEventListener("mouseleave", hideCardPopover);
+    attachHoverCardPreview(element, card);
   }
   observeVisibleFrenchCard(element, card, nameSelector);
+}
+
+function attachHoverCardPreview(element, card) {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  element.addEventListener("mouseenter", () => showCardPopover(card, element));
+  element.addEventListener("mouseleave", hideCardPopover);
 }
 
 function renderSuggestionBadge(suggestionBadge) {
@@ -2697,7 +2696,8 @@ function createLimitedGradesMobileTierSection(tier, count, colorBuckets) {
 
 // Create LimitedGrades Card Row (Compact, Interactive, with localized name & score)
 function createLimitedGradesCardRow(card, tier) {
-  const row = document.createElement("div");
+  const row = document.createElement("button");
+  row.type = "button";
   row.className = "lg-card-row";
   const presentation = getCardListPresentation(card);
 
@@ -2716,7 +2716,7 @@ function createLimitedGradesCardRow(card, tier) {
 // Hover Card Popover Functions
 let activePopoverCard = null;
 
-function showCardPopover(card, e) {
+function showCardPopover(card, anchorElement) {
   activePopoverCard = card;
 
   if (localFrenchCache.has(card.name)) {
@@ -2739,9 +2739,10 @@ function showCardPopover(card, e) {
     }
   };
   elements.popoverImg.src = primarySrc;
+  elements.cardHoverPopover.classList.add("is-hover-preview");
   elements.cardHoverPopover.hidden = false;
   elements.cardHoverPopover.style.display = "block";
-  positionCardPopover(e);
+  positionCardPopover(anchorElement);
 
   if (isFr && !card.frenchImageUrl) {
     fetchFrenchCardOnDemand(card, (updated) => {
@@ -2755,18 +2756,19 @@ function showCardPopover(card, e) {
   }
 }
 
-function positionCardPopover(e) {
+function positionCardPopover(anchorElement) {
   if (elements.cardHoverPopover.hidden) return;
+  const anchorRect = anchorElement.getBoundingClientRect();
   const popoverWidth = 320;
   const popoverHeight = 445;
-  const offset = 20;
+  const offset = 12;
 
-  let left = e.clientX + offset;
-  let top = e.clientY - popoverHeight / 3;
+  let left = anchorRect.right + offset;
+  let top = anchorRect.top + anchorRect.height / 2 - popoverHeight / 2;
 
   // Viewport clamping
   if (left + popoverWidth > window.innerWidth - 16) {
-    left = e.clientX - popoverWidth - offset;
+    left = anchorRect.left - popoverWidth - offset;
   }
   if (left < 16) left = 16;
   if (top + popoverHeight > window.innerHeight - 16) {
@@ -2780,6 +2782,7 @@ function positionCardPopover(e) {
 
 function hideCardPopover() {
   activePopoverCard = null;
+  elements.cardHoverPopover.classList.remove("is-hover-preview");
   elements.cardHoverPopover.hidden = true;
   elements.cardHoverPopover.style.display = "none";
 }

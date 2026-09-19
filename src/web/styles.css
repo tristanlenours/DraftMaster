@@ -1734,10 +1734,15 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 38px;
+  width: 100%;
+  min-height: 44px;
   padding: 6px 10px;
+  border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   background: rgba(255, 255, 255, 0.015);
+  color: inherit;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
   transition:
     background 0.12s ease,
@@ -6434,6 +6439,14 @@ body {
 
 .card-popover-close:active {
   transform: scale(0.92);
+}
+
+.card-popover.is-hover-preview {
+  pointer-events: none;
+}
+
+.card-popover.is-hover-preview .card-popover-close {
+  display: none;
 }
 
 /* Pool Drawer */
