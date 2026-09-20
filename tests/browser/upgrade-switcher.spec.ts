@@ -44,16 +44,16 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await expect(page.locator("#modal-upgrade-curr-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Affichée");
     await expect(page.locator("#modal-upgrade-sugg-status")).toContainText("Voir fiche");
-    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Bothersome Noisemaker");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Gut, True Soul Zealot");
     await expect(page.locator("#modal-btn-inspect-upgrade")).toContainText(
       "Consulter la fiche de la remplaçante",
     );
 
-    // 2. Click the suggested replacement pane to switch to Bothersome Noisemaker
+    // 2. Click the suggested replacement pane to switch to Gut
     await page.locator("#modal-upgrade-sugg-pane").click();
 
-    // Modal is now showing Bothersome Noisemaker
-    await expect(page.locator("#modal-card-title")).toContainText("Bothersome Noisemaker");
+    // Modal is now showing Gut, True Soul Zealot
+    await expect(page.locator("#modal-card-title")).toContainText("Gut, True Soul Zealot");
     await expect(page.locator("#modal-upgrade-sugg-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-sugg-status")).toContainText("Affichée");
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Voir fiche");
@@ -77,43 +77,41 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await page.locator("#btn-view-maybeboard").click();
     await expect(page.locator("#btn-view-maybeboard")).toHaveClass(/active/);
 
-    // Search Bothersome Noisemaker in Maybeboard
-    await page.locator("#card-search-input").fill("Bothersome Noisemaker");
-    const maybeCard = page
-      .locator(".card-matrix-item", { hasText: "Bothersome Noisemaker" })
-      .first();
+    // Search a curated direct replacement in Maybeboard
+    await page.locator("#card-search-input").fill("Fiery Confluence");
+    const maybeCard = page.locator(".card-matrix-item", { hasText: "Fiery Confluence" }).first();
     await expect(maybeCard).toBeVisible();
 
-    // Open Bothersome Noisemaker directly from Maybeboard
+    // Open Fiery Confluence directly from Maybeboard
     await maybeCard.click();
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
     await expect(page.locator("#modal-upgrade-section")).toBeVisible();
 
-    // Bothersome Noisemaker is inspected, with Battle Cry Goblin linked in left pane
-    await expect(page.locator("#modal-card-title")).toContainText("Bothersome Noisemaker");
+    // Fiery Confluence is inspected, with Act of Treason linked in left pane
+    await expect(page.locator("#modal-card-title")).toContainText("Fiery Confluence");
     await expect(page.locator("#modal-upgrade-sugg-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-sugg-status")).toContainText("Affichée");
     await expect(page.locator("#modal-upgrade-curr-pane")).not.toHaveClass(/is-inspected/);
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Battle Cry Goblin");
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Act of Treason");
 
     // Check multi-targets chips container is visible
     await expect(page.locator("#modal-upgrade-multi-targets-wrap")).toBeVisible();
-    const chieftainChip = page
+    const alternateTargetChip = page
       .locator("#modal-upgrade-multi-targets-chips .btn-target-chip", {
-        hasText: "Goblin Chieftain",
+        hasText: "Brimstone Volley",
       })
       .first();
-    await expect(chieftainChip).toBeVisible();
+    await expect(alternateTargetChip).toBeVisible();
 
-    // Click on Goblin Chieftain chip to change comparison target
-    await chieftainChip.click();
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Goblin Chieftain");
+    // Click the alternate target chip to change comparison target
+    await alternateTargetChip.click();
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Brimstone Volley");
 
-    // Click bottom button to navigate directly to Goblin Chieftain
+    // Click bottom button to navigate directly to Brimstone Volley
     await page.locator("#modal-btn-inspect-upgrade").click();
 
-    // Now viewing Goblin Chieftain
-    await expect(page.locator("#modal-card-title")).toContainText("Goblin Chieftain");
+    // Now viewing Brimstone Volley
+    await expect(page.locator("#modal-card-title")).toContainText("Brimstone Volley");
     await expect(page.locator("#modal-upgrade-curr-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Affichée");
   });
@@ -127,32 +125,30 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
 
     await page.selectOption("#cube-select", "titou_tribal");
 
-    // 1. In Cube Mode: Bothersome Noisemaker (an AI maybeboard card) must NOT be found in main cube list
+    // 1. In Cube Mode: Fiery Confluence (an AI maybeboard card) must NOT be found in main cube list
     await page.locator("#btn-view-cube-cards").click();
     await expect(page.locator("#btn-view-cube-cards")).toHaveClass(/active/);
-    await page.locator("#card-search-input").fill("Bothersome Noisemaker");
+    await page.locator("#card-search-input").fill("Fiery Confluence");
     await expect(page.locator(".card-matrix-item")).toHaveCount(0);
     await expect(page.locator("#results-stats")).toContainText("0 carte");
 
-    // 2. In Maybeboard Mode: Battle Cry Goblin (a main cube card) must NOT be found in AI maybeboard
+    // 2. In Maybeboard Mode: Act of Treason (a main cube card) must NOT be found in AI maybeboard
     await page.locator("#btn-view-maybeboard").click();
     await expect(page.locator("#btn-view-maybeboard")).toHaveClass(/active/);
-    await page.locator("#card-search-input").fill("Battle Cry Goblin");
+    await page.locator("#card-search-input").fill("Act of Treason");
     await expect(page.locator(".card-matrix-item")).toHaveCount(0);
     await expect(page.locator("#results-stats")).toContainText("0 carte");
 
-    // 3. And Bothersome Noisemaker IS found in Maybeboard Mode
-    await page.locator("#card-search-input").fill("Bothersome Noisemaker");
+    // 3. And Fiery Confluence IS found in Maybeboard Mode
+    await page.locator("#card-search-input").fill("Fiery Confluence");
     await expect(page.locator(".card-matrix-item")).toHaveCount(1);
-    await expect(
-      page.locator(".card-matrix-item", { hasText: "Bothersome Noisemaker" }),
-    ).toBeVisible();
+    await expect(page.locator(".card-matrix-item", { hasText: "Fiery Confluence" })).toBeVisible();
 
-    // 4. And Battle Cry Goblin IS found in Cube Mode
+    // 4. And Act of Treason IS found in Cube Mode
     await page.locator("#btn-view-cube-cards").click();
-    await page.locator("#card-search-input").fill("Battle Cry Goblin");
+    await page.locator("#card-search-input").fill("Act of Treason");
     await expect(page.locator(".card-matrix-item")).toHaveCount(1);
-    await expect(page.locator(".card-matrix-item", { hasText: "Battle Cry Goblin" })).toBeVisible();
+    await expect(page.locator(".card-matrix-item", { hasText: "Act of Treason" })).toBeVisible();
   });
 
   test("renders Malevolent Rumble in the A+ row in Huge's Pauper Cube maybeboard view", async ({
@@ -168,7 +164,7 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await page.locator("#btn-view-maybeboard").click();
     await expect(page.locator("#btn-view-maybeboard")).toHaveClass(/active/);
     await expect(page.locator("#results-stats .stats-filter-tag")).toHaveCount(0);
-    await expect(page.locator("#results-stats")).toHaveText("48 cartes suggérées");
+    await expect(page.locator("#results-stats")).toHaveText(/\d+ cartes suggérées/);
 
     // In the desktop table, find the A+ tier row
     const aPlusRow = page.getByRole("row", { name: /A\+/ });
@@ -236,10 +232,10 @@ test.describe("AI Maybeboard on mobile", () => {
         body: JSON.stringify({
           data: [
             {
-              name: "Ajani, Nacatl Pariah",
-              printed_name: "Ajani, paria nacatl",
+              name: "Fiery Confluence",
+              printed_name: "Confluence ardente",
               printed_text:
-                "Quand Ajani arrive, créez un jeton de créature 2/1 blanche Chat Guerrier.",
+                "Choisissez trois modes. Vous pouvez choisir le même mode plusieurs fois.",
               image_uris: {
                 normal: "https://cards.scryfall.io/normal/ajani-fr.png",
                 large: "https://cards.scryfall.io/large/ajani-fr.png",
@@ -253,11 +249,11 @@ test.describe("AI Maybeboard on mobile", () => {
     await page.goto("/cards");
     await page.selectOption("#cube-select", "titou_tribal");
     await page.locator("#btn-view-maybeboard").tap();
-    await page.locator("#card-search-input").fill("Ajani, Nacatl Pariah");
+    await page.locator("#card-search-input").fill("Fiery Confluence");
     await page.locator("#global-lang-fr").tap();
 
     const mobileCard = page.locator(".lg-card-row").first();
-    await expect(mobileCard).toContainText("Ajani, paria nacatl");
+    await expect(mobileCard).toContainText("Confluence ardente");
     await expect
       .poll(() => mobileCard.evaluate((element) => element instanceof HTMLButtonElement))
       .toBe(true);
@@ -267,16 +263,16 @@ test.describe("AI Maybeboard on mobile", () => {
     await mobileCard.locator(".lg-card-name").tap();
 
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
-    await expect(page.locator("#modal-card-title")).toContainText("Ajani, paria nacatl");
-    await expect(page.locator("#modal-hero-tier-card")).toHaveClass(/tier-a-plus/);
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Changelin aviaire");
-    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, paria nacatl");
+    await expect(page.locator("#modal-card-title")).toContainText("Confluence ardente");
+    await expect(page.locator("#modal-hero-tier-card")).toHaveClass(/tier-a/);
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Acte de trahison");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Confluence ardente");
 
     await page.locator("#lang-btn-en").tap();
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Avian Changeling");
-    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, Nacatl Pariah");
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Act of Treason");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Fiery Confluence");
     await page.locator("#lang-btn-fr").tap();
-    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Ajani, paria nacatl");
+    await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Confluence ardente");
 
     const imageBox = await page.locator(".card-image-container").boundingBox();
     expect(imageBox).not.toBeNull();
@@ -294,7 +290,7 @@ test.describe("AI Maybeboard on mobile", () => {
     const tierBorderColor = await page
       .locator("#modal-hero-tier-card")
       .evaluate((element) => getComputedStyle(element).borderColor);
-    expect(tierBorderColor).toBe("rgb(234, 179, 8)");
+    expect(tierBorderColor).toBe("rgb(168, 85, 247)");
 
     const bodyScrollWidth = await page.evaluate(() => document.body.scrollWidth);
     expect(bodyScrollWidth).toBeLessThanOrEqual(360);

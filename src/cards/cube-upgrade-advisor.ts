@@ -56,6 +56,8 @@ export interface UpgradeProposal {
   readonly isRecent?: boolean | undefined;
   readonly benchmarkCubes?: readonly string[] | undefined;
   readonly cubeCobraStats?: CubeCobraStats | undefined;
+  readonly rankingScore: number;
+  readonly rankingFactors: readonly RankingFactor[];
 }
 
 export interface UpgradeTargetSummary {
@@ -78,17 +80,69 @@ export interface MaybeboardSuggestion {
   readonly benchmarkCubes?: readonly string[] | undefined;
   readonly cubeCobraStats?: CubeCobraStats | undefined;
   readonly replacesCards?: readonly UpgradeTargetSummary[] | undefined;
+  readonly rankingScore: number;
+  readonly rankingFactors: readonly RankingFactor[];
+}
+
+export interface RankingFactor {
+  readonly key:
+    | "power"
+    | "role_alignment"
+    | "mana_efficiency"
+    | "tribal_coherence"
+    | "recent_release"
+    | "peer_benchmark"
+    | "popularity"
+    | "elo"
+    | "direct_replacement"
+    | "archetype_match";
+  readonly points: number;
+}
+
+export interface AdvisorSourceFingerprint {
+  readonly id: string;
+  readonly version: string;
+  readonly sha256: string;
+  readonly license: string;
+  readonly method: string;
+}
+
+export interface AdvisorRunContext {
+  readonly generatedAt: string;
+  readonly catalog: AdvisorSourceFingerprint;
+  readonly releaseMetadata: AdvisorSourceFingerprint;
+  readonly benchmarks: AdvisorSourceFingerprint;
+  readonly cubeCobra: AdvisorSourceFingerprint;
 }
 
 export interface CubeSuggestionsReport {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
+  readonly engineVersion: "cube-upgrade-advisor@3";
   readonly cubeKey: string;
+  readonly snapshotId: string;
   readonly generatedAt: string;
+  readonly sourceProvenance: AdvisorRunContext & {
+    readonly recentWindow: {
+      readonly years: 3;
+      readonly referenceYear: number | null;
+      readonly earliestYear: number | null;
+    };
+  };
+  readonly sourceCoverage: {
+    readonly catalogCards: number;
+    readonly availableCandidates: number;
+    readonly benchmarkCards: number;
+    readonly benchmarkCardsInCatalog: number;
+    readonly missingBenchmarkCards: number;
+    readonly benchmarkCoveragePercentage: number;
+  };
   readonly stats: {
     readonly totalUpgrades: number;
     readonly totalMaybeboard: number;
     readonly recentUpgradesCount: number;
     readonly benchmarkMatchesCount: number;
+    readonly recentMaybeboardCount: number;
+    readonly directReplacementMaybeboardCount: number;
   };
   readonly upgrades: Record<string, UpgradeProposal>;
   readonly maybeboard: readonly MaybeboardSuggestion[];
@@ -96,11 +150,13 @@ export interface CubeSuggestionsReport {
 
 export interface AdvisorCubeMeta {
   readonly cubeKey: string;
+  readonly activeSnapshotId?: string | undefined;
   readonly archetypes?: readonly {
     readonly id: string;
     readonly name: string;
     readonly primaryColors?: readonly string[];
     readonly splashColors?: readonly string[];
+    readonly creatureTypes?: readonly string[];
     readonly keyCards?: readonly string[];
     readonly supportCards?: readonly string[];
   }[];
@@ -111,6 +167,37 @@ interface AdvisorCubePolicy {
   readonly rarity: "pauper" | "peasant" | "unrestricted";
   readonly preserveCreatureTypes: boolean;
   readonly allowsRestrictedFastMana: boolean;
+}
+
+const MIN_INTERESTING_CARD_SCORE = 25;
+const UPGRADE_RECENCY_BONUS = 6;
+const MAYBEBOARD_RECENCY_BONUS = 6;
+const RECENT_WINDOW_YEARS = 3;
+const MAX_DISCOVERY_SCORE_GAP = 6;
+
+function getRecentReferenceYear(
+  releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
+): number | undefined {
+  if (!releaseMetadataMap) return undefined;
+  const years = [...releaseMetadataMap.values()]
+    .map((release) => release.firstPrintYear)
+    .filter((year) => Number.isInteger(year));
+  return years.length > 0 ? Math.max(...years) : undefined;
+}
+
+function isRecentRelease(
+  releaseInfo: CardReleaseInfo | undefined,
+  referenceYear: number | undefined,
+): boolean {
+  return (
+    releaseInfo !== undefined &&
+    referenceYear !== undefined &&
+    releaseInfo.firstPrintYear >= referenceYear - (RECENT_WINDOW_YEARS - 1)
+  );
+}
+
+function sumRankingFactors(factors: readonly RankingFactor[]): number {
+  return factors.reduce((sum, factor) => sum + factor.points, 0);
 }
 
 function getAdvisorCubePolicy(cubeKey: string): AdvisorCubePolicy {
@@ -172,11 +259,8 @@ function areColorsCompatible(
     // Mono-color must be replaced by same mono-color
     return candidateColors.length === 1 && candidateColors[0] === targetColors[0];
   }
-  // Multi-color: candidate colors must match or be a subset of target
-  return (
-    candidateColors.every((c) => targetColors.includes(c)) &&
-    candidateColors.length === targetColors.length
-  );
+  // Multi-color: a candidate may keep the same colors or reduce color requirements.
+  return candidateColors.every((color) => targetColors.includes(color));
 }
 
 function areTypesCompatible(target: MasterCatalogCard, candidate: MasterCatalogCard): boolean {
@@ -192,6 +276,36 @@ function areTypesCompatible(target: MasterCatalogCard, candidate: MasterCatalogC
   const candIsPW = candidate.types.includes("Planeswalker");
   if (targetIsPW !== candIsPW) return false;
 
+  for (const preservedType of ["Artifact", "Enchantment", "Battle"] as const) {
+    if (target.types.includes(preservedType) && !candidate.types.includes(preservedType)) {
+      return false;
+    }
+  }
+
+  const specializedSubtypes = new Set([
+    "Aura",
+    "Class",
+    "Clue",
+    "Equipment",
+    "Food",
+    "Map",
+    "Saga",
+    "Treasure",
+    "Vehicle",
+  ]);
+  const targetSpecializations = target.subtypes.filter((subtype) =>
+    specializedSubtypes.has(subtype),
+  );
+  const candidateSpecializations = candidate.subtypes.filter((subtype) =>
+    specializedSubtypes.has(subtype),
+  );
+  if (
+    (targetSpecializations.length > 0 || candidateSpecializations.length > 0) &&
+    !targetSpecializations.some((subtype) => candidateSpecializations.includes(subtype))
+  ) {
+    return false;
+  }
+
   const targetIsInstantOrSorcery =
     target.types.includes("Instant") || target.types.includes("Sorcery");
   const candIsInstantOrSorcery =
@@ -200,6 +314,107 @@ function areTypesCompatible(target: MasterCatalogCard, candidate: MasterCatalogC
   if (!targetIsInstantOrSorcery && candIsInstantOrSorcery) return false;
 
   return true;
+}
+
+type RulesFunction =
+  | "blink"
+  | "card_selection"
+  | "counterspell"
+  | "discard"
+  | "mana"
+  | "reanimation"
+  | "removal"
+  | "tokens";
+
+function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> {
+  const text = card.oracleText.toLowerCase();
+  const functions = new Set<RulesFunction>();
+
+  if (
+    text.includes("destroy target") ||
+    text.includes("exile target") ||
+    /deals? [^.]*(?:damage to any target|damage to target)/.test(text)
+  ) {
+    functions.add("removal");
+  }
+  if (text.includes("counter target spell")) functions.add("counterspell");
+  if (
+    text.includes("draw a card") ||
+    text.includes("draw two cards") ||
+    text.includes("draw three cards") ||
+    text.includes("scry ") ||
+    text.includes("surveil ") ||
+    text.includes("look at the top")
+  ) {
+    functions.add("card_selection");
+  }
+  if (
+    text.includes("add {") ||
+    text.includes("add one mana") ||
+    text.includes("add two mana") ||
+    /search your library for [^.]*land card[^.]*battlefield/.test(text)
+  ) {
+    functions.add("mana");
+  }
+  if (/from (?:a|your) graveyard to the battlefield/.test(text)) {
+    functions.add("reanimation");
+  }
+  if (text.includes("exile") && text.includes("you control") && text.includes("return")) {
+    functions.add("blink");
+  }
+  if (/create [^.]* token/.test(text)) functions.add("tokens");
+  if (text.includes("opponent discards") || text.includes("target player discards")) {
+    functions.add("discard");
+  }
+
+  return functions;
+}
+
+function areRulesFunctionsCompatible(
+  target: MasterCatalogCard,
+  candidate: MasterCatalogCard,
+): boolean {
+  const targetFunctions = getRulesFunctions(target);
+  const candidateFunctions = getRulesFunctions(candidate);
+  if (targetFunctions.size === 0 || candidateFunctions.size === 0) return true;
+  return [...targetFunctions].some((role) => candidateFunctions.has(role));
+}
+
+const ALL_MANA_COLORS = ["W", "U", "B", "R", "G"] as const;
+
+function getLandManaColors(card: MasterCatalogCard): readonly string[] {
+  if (card.producesColors.length > 0) return card.producesColors;
+  const text = card.oracleText.toLowerCase();
+  if (text.includes("any color") || text.includes("basic land card")) return ALL_MANA_COLORS;
+  return card.colorIdentity;
+}
+
+function preservesLandManaAccess(target: MasterCatalogCard, candidate: MasterCatalogCard): boolean {
+  if (!target.isLand && !target.types.includes("Land")) return true;
+  const targetColors = getLandManaColors(target);
+  const candidateColors = getLandManaColors(candidate);
+  if (targetColors.length === 0) return candidateColors.length === 0;
+  return targetColors.every((color) => candidateColors.includes(color));
+}
+
+const FUNCTIONAL_ROLE_FAMILIES = [
+  ["premium_removal", "situational_removal"],
+  ["engine", "card_advantage"],
+  ["mana_ramp", "mana_fixing"],
+  ["bomb", "finisher", "beater"],
+  ["cantrip"],
+  ["synergy_payoff", "synergy_enabler"],
+] as const;
+
+function getRoleAlignmentBonus(target: MasterCatalogCard, candidate: MasterCatalogCard): number {
+  const targetRoles = new Set(target.objectiveAnalysis.roles);
+  const candidateRoles = new Set(candidate.objectiveAnalysis.roles);
+  const alignedFamilies = FUNCTIONAL_ROLE_FAMILIES.filter(
+    (family) =>
+      family.some((role) => targetRoles.has(role)) &&
+      family.some((role) => candidateRoles.has(role)),
+  ).length;
+  return Math.min(12, alignedFamilies * 8);
 }
 
 function isPauperLegal(
@@ -236,6 +451,24 @@ function isPeasantLegal(
   return true;
 }
 
+function isCandidateAllowedByPolicy(
+  card: MasterCatalogCard,
+  policy: AdvisorCubePolicy,
+  releaseInfo: CardReleaseInfo | undefined,
+  hasBenchmarkMatch: boolean,
+): boolean {
+  if (policy.rarity === "pauper" && !isPauperLegal(card, releaseInfo, hasBenchmarkMatch)) {
+    return false;
+  }
+  if (policy.rarity === "peasant" && !isPeasantLegal(card, releaseInfo, hasBenchmarkMatch)) {
+    return false;
+  }
+  return (
+    policy.allowsRestrictedFastMana ||
+    !POWER_9_AND_RESTRICTED_FAST_MANA.has(card.name.toLowerCase())
+  );
+}
+
 export const TITOU_TRIBAL_SPECIFIC_TRIBES = new Set([
   "Dragon",
   "Goblin",
@@ -245,24 +478,17 @@ export const TITOU_TRIBAL_SPECIFIC_TRIBES = new Set([
   "Wizard",
   "Wolf",
   "Werewolf",
-  "Zombie",
-  "Merfolk",
-  "Sliver",
-  "Eldrazi",
-  "Faerie",
-  "Spirit",
+  "Shapeshifter",
 ]);
 
-export const TITOU_TRIBAL_SECONDARY_TRIBES = new Set([
-  "Human",
-  "Cleric",
-  "Knight",
-  "Soldier",
-  "Warrior",
-  "Shaman",
-  "Rogue",
-  "Dinosaur",
-]);
+export const TITOU_TRIBAL_SECONDARY_TRIBES = new Set(["Human", "Cleric"]);
+
+function getSupportedCreatureTypes(cubeMeta?: AdvisorCubeMeta): ReadonlySet<string> {
+  const configuredTypes =
+    cubeMeta?.archetypes?.flatMap((archetype) => archetype.creatureTypes ?? []) ?? [];
+  if (configuredTypes.length > 0) return new Set(configuredTypes);
+  return new Set([...TITOU_TRIBAL_SPECIFIC_TRIBES, ...TITOU_TRIBAL_SECONDARY_TRIBES]);
+}
 
 export const POWER_9_AND_RESTRICTED_FAST_MANA = new Set([
   "black lotus",
@@ -297,15 +523,28 @@ function isChangelingCard(
 
 function isUniversalTribalCard(card: MasterCatalogCard | { oracleText?: string }): boolean {
   const text = (card.oracleText ?? "").toLowerCase();
-  return (
+  const choosesCreatureType =
     text.includes("choose a creature type") ||
     text.includes("chosen creature type") ||
     text.includes("choisissez un type de créature") ||
-    text.includes("du type choisi")
-  );
+    text.includes("du type choisi");
+  if (!choosesCreatureType) return false;
+
+  const typeLine = "typeLine" in card ? card.typeLine.toLowerCase() : "";
+  if (typeLine.includes("creature") || typeLine.includes("créature")) {
+    return (
+      text.includes("this creature is the chosen type") ||
+      text.includes("cette créature est du type choisi")
+    );
+  }
+
+  return !text.includes("opponents control") && !text.includes("vos adversaires contrôlent");
 }
 
-function getCardTribes(card: MasterCatalogCard): string[] {
+function getCardTribes(
+  card: MasterCatalogCard,
+  supportedCreatureTypes: ReadonlySet<string>,
+): string[] {
   if (isChangelingCard(card)) {
     return ["*changeling*"];
   }
@@ -313,7 +552,7 @@ function getCardTribes(card: MasterCatalogCard): string[] {
   // 1. Check creature subtypes for specific primary tribes (Dragon, Goblin, Elf, Vampire, Angel, Wizard, etc.)
   if (Array.isArray(card.subtypes)) {
     const specific = (card.subtypes as readonly string[]).filter((st) =>
-      TITOU_TRIBAL_SPECIFIC_TRIBES.has(st),
+      supportedCreatureTypes.has(st),
     );
     if (specific.length > 0) {
       if (specific.includes("Wolf") || specific.includes("Werewolf")) {
@@ -321,21 +560,13 @@ function getCardTribes(card: MasterCatalogCard): string[] {
       }
       return [...specific];
     }
-
-    // 2. If no specific primary tribe, check secondary tribal archetypes (Human, Cleric, Knight, etc.)
-    const secondary = (card.subtypes as readonly string[]).filter((st) =>
-      TITOU_TRIBAL_SECONDARY_TRIBES.has(st),
-    );
-    if (secondary.length > 0) {
-      return [...secondary];
-    }
   }
 
-  // 3. Non-creature cards with explicit tribal dedication (spells, enchantments, artifacts)
+  // 2. Non-creature cards with explicit dedication to one of the cube's supported tribes.
   const text = card.oracleText.toLowerCase();
   const typeLine = card.typeLine.toLowerCase();
 
-  for (const tribe of TITOU_TRIBAL_SPECIFIC_TRIBES) {
+  for (const tribe of supportedCreatureTypes) {
     const lower = tribe.toLowerCase();
     const reg = new RegExp(`\\b${lower}s?\\b`, "i");
     if (reg.test(text) || reg.test(typeLine)) {
@@ -346,37 +577,30 @@ function getCardTribes(card: MasterCatalogCard): string[] {
     }
   }
 
-  for (const tribe of TITOU_TRIBAL_SECONDARY_TRIBES) {
-    const lower = tribe.toLowerCase();
-    const reg = new RegExp(`\\b${lower}s?\\b`, "i");
-    if (reg.test(text) || reg.test(typeLine)) {
-      return [tribe];
-    }
-  }
-
   return [];
 }
 
 function areTribalCardsCompatible(
   target: MasterCatalogCard,
   candidate: MasterCatalogCard,
+  supportedCreatureTypes: ReadonlySet<string>,
 ): boolean {
-  if (isChangelingCard(candidate) || isChangelingCard(target)) {
+  const targetIsUniversal = isChangelingCard(target) || isUniversalTribalCard(target);
+  const candidateIsUniversal = isChangelingCard(candidate) || isUniversalTribalCard(candidate);
+  if (targetIsUniversal) {
+    return candidateIsUniversal;
+  }
+  if (candidateIsUniversal) {
     return true;
   }
 
-  const targetIsUniversal = isUniversalTribalCard(target);
-  if (targetIsUniversal) {
-    return isUniversalTribalCard(candidate) || isChangelingCard(candidate);
-  }
-
-  const targetTribes = getCardTribes(target);
+  const targetTribes = getCardTribes(target, supportedCreatureTypes);
   // If target is not a tribal card (e.g. generic removal, fetchland, signet), allow standard replacement
   if (targetTribes.length === 0) {
     return true;
   }
 
-  const candTribes = getCardTribes(candidate);
+  const candTribes = getCardTribes(candidate, supportedCreatureTypes);
   return targetTribes.some((t) => candTribes.includes(t));
 }
 
@@ -396,30 +620,50 @@ function generateStrategicRole(cand: MasterCatalogCard): string {
   return "Polyvalence Stratégique & Impact Supérieur";
 }
 
+function findMatchedArchetypeIds(
+  card: MasterCatalogCard,
+  archetypes: NonNullable<AdvisorCubeMeta["archetypes"]>,
+  preserveCreatureTypes: boolean,
+  supportedCreatureTypes: ReadonlySet<string>,
+): string[] {
+  const cardTribes = getCardTribes(card, supportedCreatureTypes);
+  const universalTribal = isChangelingCard(card) || isUniversalTribalCard(card);
+
+  return archetypes
+    .filter((archetype) => {
+      const allowedColors = [...(archetype.primaryColors ?? []), ...(archetype.splashColors ?? [])];
+      const colorMatch =
+        card.colors.length === 0 || card.colors.every((color) => allowedColors.includes(color));
+      if (!colorMatch) return false;
+
+      if (!preserveCreatureTypes || !card.types.includes("Creature")) {
+        return card.colors.length > 0;
+      }
+
+      const archetypeTypes = archetype.creatureTypes ?? [];
+      return (
+        archetypeTypes.length > 0 &&
+        (universalTribal || cardTribes.some((tribe) => archetypeTypes.includes(tribe)))
+      );
+    })
+    .map((archetype) => archetype.id);
+}
+
 function findAffectedArchetypes(
   cand: MasterCatalogCard,
   cubeMeta?: AdvisorCubeMeta,
 ): readonly string[] {
   if (!cubeMeta?.archetypes) return [];
-  const matched: string[] = [];
-  for (const arch of cubeMeta.archetypes) {
-    const archColors = arch.primaryColors ?? [];
-    const colorMatch =
-      cand.colors.length === 0 ||
-      cand.colors.every((c) => archColors.includes(c) || (arch.splashColors ?? []).includes(c));
-
-    if (colorMatch) {
-      const text = `${cand.oracleText} ${cand.typeLine}`.toLowerCase();
-      const archNameLower = arch.name.toLowerCase();
-      const isThematic =
-        archNameLower.split(" ").some((word) => word.length > 3 && text.includes(word)) ||
-        cand.subtypes.some((st) => archNameLower.includes(st.toLowerCase()));
-      if (isThematic || cand.colors.length > 0) {
-        matched.push(arch.name);
-      }
-    }
-  }
-  return matched.slice(0, 3);
+  const policy = getAdvisorCubePolicy(cubeMeta.cubeKey);
+  const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
+  return findMatchedArchetypeIds(
+    cand,
+    cubeMeta.archetypes,
+    policy.preserveCreatureTypes,
+    supportedCreatureTypes,
+  )
+    .map((id) => cubeMeta.archetypes?.find((archetype) => archetype.id === id)?.name ?? id)
+    .slice(0, 3);
 }
 
 function generateMetaAddedValue(
@@ -429,12 +673,13 @@ function generateMetaAddedValue(
   cubeMeta?: AdvisorCubeMeta,
   relInfo?: CardReleaseInfo,
   benchmarks: readonly string[] = [],
+  recentReferenceYear?: number,
 ): MetaAddedValueAnalysis {
   const roundedDelta = Math.round(scoreDelta * 10) / 10;
   const strategicRole = generateStrategicRole(cand);
   const affected = findAffectedArchetypes(cand, cubeMeta);
   const yr = relInfo?.firstPrintYear;
-  const isRecent = yr !== undefined && yr >= 2023;
+  const isRecent = isRecentRelease(relInfo, recentReferenceYear);
 
   const releaseContext = isRecent
     ? `✨ Nouveauté (${String(yr)}) — Veille active${relInfo?.set ? ` [${relInfo.set}]` : ""}`
@@ -501,9 +746,10 @@ function toCardRef(
   cubeKey: string,
   relInfo?: CardReleaseInfo,
   thresholds?: readonly CubeTierThreshold[],
+  recentReferenceYear?: number,
 ): UpgradeCardRef {
   const yr = relInfo?.firstPrintYear;
-  const isRecent = yr !== undefined && yr >= 2023;
+  const isRecent = isRecentRelease(relInfo, recentReferenceYear);
   return {
     oracleId: card.oracleId,
     name: card.name,
@@ -540,6 +786,8 @@ export function generateCubeUpgradeProposals(
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
   const policy = getAdvisorCubePolicy(cubeKey);
+  const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
+  const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
 
   for (const target of eligibleTargets) {
     const targetScore = getCardScore(target);
@@ -548,6 +796,7 @@ export function generateCubeUpgradeProposals(
     let bestIsTribal = false;
     let bestRelInfo: CardReleaseInfo | undefined = undefined;
     let bestBenchmarks: readonly string[] = [];
+    let bestRankingFactors: readonly RankingFactor[] = [];
 
     for (const cand of candidatePool) {
       const candLower = cand.name.toLowerCase();
@@ -555,20 +804,19 @@ export function generateCubeUpgradeProposals(
       const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
       const hasBenchmark = benchmarks.length > 0;
 
-      if (policy.rarity === "pauper" && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
-      if (policy.rarity === "peasant" && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
-
-      // Fast mana & Power 9 restriction for unpowered cubes
-      if (!policy.allowsRestrictedFastMana && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) {
-        continue;
-      }
+      if (!isCandidateAllowedByPolicy(cand, policy, relInfo, hasBenchmark)) continue;
 
       // Strict Tribal Coherence for Titou's Tribal Cube:
       // Tribal cards can ONLY be replaced by cards of the same tribe (or Changelings)
-      if (policy.preserveCreatureTypes && !areTribalCardsCompatible(target, cand)) continue;
+      if (
+        policy.preserveCreatureTypes &&
+        !areTribalCardsCompatible(target, cand, supportedCreatureTypes)
+      )
+        continue;
 
       // Color compatibility
       if (!areColorsCompatible(target.colors, cand.colors)) continue;
+      if (!preservesLandManaAccess(target, cand)) continue;
 
       // Mana curve constraint:
       // For creatures: preserve board curve tightly (|delta CMC| <= 1)
@@ -583,45 +831,55 @@ export function generateCubeUpgradeProposals(
 
       // Type compatibility
       if (!areTypesCompatible(target, cand)) continue;
+      if (!areRulesFunctionsCompatible(target, cand)) continue;
 
       const candScore = getCardScore(cand);
       const scoreDelta = candScore - targetScore;
 
+      if (candScore < MIN_INTERESTING_CARD_SCORE) continue;
+
       // Minimum power improvement threshold (+5.0 points)
       if (scoreDelta < 5.0) continue;
 
-      // Calculate composite score
-      let matchScore = candScore;
+      // Calculate the auditable composite score.
+      const rankingFactors: RankingFactor[] = [{ key: "power", points: candScore }];
+      const roleAlignmentBonus = getRoleAlignmentBonus(target, cand);
+      if (roleAlignmentBonus > 0) {
+        rankingFactors.push({ key: "role_alignment", points: roleAlignmentBonus });
+      }
 
       // Mana efficiency bonus (prefer equal or lower CMC)
-      if (cmcDelta < 0) matchScore += 3;
-      else if (cmcDelta === 0) matchScore += 1;
+      if (cmcDelta < 0) rankingFactors.push({ key: "mana_efficiency", points: 3 });
+      else if (cmcDelta === 0) rankingFactors.push({ key: "mana_efficiency", points: 1 });
 
       // Tribal affinity bonus for Titou's Tribal
       let isTribalMatch = false;
       if (policy.preserveCreatureTypes) {
-        const targetTribes = getCardTribes(target);
+        const targetTribes = getCardTribes(target, supportedCreatureTypes);
         if (targetTribes.length > 0 || isUniversalTribalCard(target)) {
-          matchScore += 30; // High priority to preserve tribal coherence
+          rankingFactors.push({ key: "tribal_coherence", points: 30 });
           isTribalMatch = true;
         }
       }
 
-      // Recency bonus (< 3 years / year >= 2023): Active monitoring (veille) priority
-      const firstPrintYear = relInfo?.firstPrintYear;
-      const isRecent = firstPrintYear !== undefined && firstPrintYear >= 2023;
+      // Recency only separates otherwise close candidates.
+      const isRecent = isRecentRelease(relInfo, recentReferenceYear);
       if (isRecent) {
-        matchScore += 20; // Strong preference for modern additions
+        rankingFactors.push({ key: "recent_release", points: UPGRADE_RECENCY_BONUS });
       }
 
       // Peer CubeCobra benchmark bonus: proven staples in popular cubes
       if (benchmarks.length > 0) {
-        matchScore += 15;
+        rankingFactors.push({ key: "peer_benchmark", points: 15 });
       }
 
       // CubeCobra stats bonus if available
       const stats = cubeCobraStatsMap?.get(candLower);
-      if (stats?.popularity) matchScore += Math.min(5, stats.popularity);
+      if (stats?.popularity) {
+        rankingFactors.push({ key: "popularity", points: Math.min(5, stats.popularity) });
+      }
+
+      const matchScore = sumRankingFactors(rankingFactors);
 
       if (matchScore > bestScore) {
         bestScore = matchScore;
@@ -629,6 +887,7 @@ export function generateCubeUpgradeProposals(
         bestIsTribal = isTribalMatch;
         bestRelInfo = relInfo;
         bestBenchmarks = benchmarks;
+        bestRankingFactors = rankingFactors;
       }
     }
 
@@ -649,6 +908,7 @@ export function generateCubeUpgradeProposals(
         cubeMeta,
         bestRelInfo,
         bestBenchmarks,
+        recentReferenceYear,
       );
 
       proposals[target.name] = {
@@ -657,16 +917,25 @@ export function generateCubeUpgradeProposals(
           cubeKey,
           releaseMetadataMap?.get(target.name.toLowerCase()),
           thresholds,
+          recentReferenceYear,
         ),
-        suggestedCard: toCardRef(bestCandidate, cubeKey, bestRelInfo, thresholds),
+        suggestedCard: toCardRef(
+          bestCandidate,
+          cubeKey,
+          bestRelInfo,
+          thresholds,
+          recentReferenceYear,
+        ),
         swapType,
         scoreDelta: Math.round(delta * 10) / 10,
         reason: generateSwapReason(target, bestCandidate, delta, bestIsTribal),
         metaAddedValue,
         releaseYear: bestRelInfo?.firstPrintYear,
-        isRecent: bestRelInfo?.firstPrintYear !== undefined && bestRelInfo.firstPrintYear >= 2023,
+        isRecent: isRecentRelease(bestRelInfo, recentReferenceYear),
         benchmarkCubes: bestBenchmarks.length > 0 ? bestBenchmarks : undefined,
         cubeCobraStats: candStats,
+        rankingScore: Math.round(bestScore * 100) / 100,
+        rankingFactors: bestRankingFactors,
       };
     }
   }
@@ -690,6 +959,8 @@ export function generateCubeMaybeboard(
 
   const policy = getAdvisorCubePolicy(cubeKey);
   const archetypes = cubeMeta?.archetypes ?? [];
+  const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
+  const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
 
   // Map suggested card name -> list of targets it replaces in the cube
   const replacesByCardName = new Map<string, UpgradeTargetSummary[]>();
@@ -725,6 +996,7 @@ export function generateCubeMaybeboard(
     role: MaybeboardSuggestion["role"];
     relInfo?: CardReleaseInfo | undefined;
     benchmarks: readonly string[];
+    rankingFactors: readonly RankingFactor[];
   }[] = [];
 
   for (const cand of candidatePool) {
@@ -733,13 +1005,7 @@ export function generateCubeMaybeboard(
     const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
     const hasBenchmark = benchmarks.length > 0;
 
-    if (policy.rarity === "pauper" && !isPauperLegal(cand, relInfo, hasBenchmark)) continue;
-    if (policy.rarity === "peasant" && !isPeasantLegal(cand, relInfo, hasBenchmark)) continue;
-
-    // Fast mana & Power 9 restriction for unpowered cubes
-    if (!policy.allowsRestrictedFastMana && POWER_9_AND_RESTRICTED_FAST_MANA.has(candLower)) {
-      continue;
-    }
+    if (!isCandidateAllowedByPolicy(cand, policy, relInfo, hasBenchmark)) continue;
 
     const score = getCardScore(cand);
     const replacesList = replacesByCardName.get(cand.name);
@@ -747,49 +1013,50 @@ export function generateCubeMaybeboard(
 
     // For Titou's Tribal Cube: any creature in Maybeboard must belong to a recognized tribe, be universal tribal or changeling
     if (policy.preserveCreatureTypes && cand.types.includes("Creature") && !isReplacement) {
-      const candTribes = getCardTribes(cand);
+      const candTribes = getCardTribes(cand, supportedCreatureTypes);
       const isUniversal = isUniversalTribalCard(cand);
       if (candTribes.length === 0 && !isUniversal) continue;
     }
 
     // Only consider solid cards (score >= 25) unless it's a dedicated upgrade replacement
-    if (score < 25 && !isReplacement) continue;
+    if (score < MIN_INTERESTING_CARD_SCORE && !isReplacement) continue;
 
-    let compositeScore = score;
+    const rankingFactors: RankingFactor[] = [{ key: "power", points: score }];
     if (isReplacement) {
-      compositeScore += 30; // Direct upgrade replacement in this cube!
+      rankingFactors.push({ key: "direct_replacement", points: 30 });
     }
 
-    const matchedArchetypes: string[] = [];
-
-    // Check archetype color matches & text alignment
-    for (const arch of archetypes) {
-      const archColors = arch.primaryColors ?? [];
-      const hasColorMatch =
-        cand.colors.length > 0 && cand.colors.every((c) => archColors.includes(c));
-
-      if (hasColorMatch) {
-        matchedArchetypes.push(arch.id);
-        compositeScore += 4;
-      }
+    const matchedArchetypes = findMatchedArchetypeIds(
+      cand,
+      archetypes,
+      policy.preserveCreatureTypes,
+      supportedCreatureTypes,
+    );
+    if (matchedArchetypes.length > 0) {
+      rankingFactors.push({ key: "archetype_match", points: matchedArchetypes.length * 4 });
     }
 
-    const firstPrintYear = relInfo?.firstPrintYear;
-    const isRecent = firstPrintYear !== undefined && firstPrintYear >= 2023;
+    const isRecent = isRecentRelease(relInfo, recentReferenceYear);
 
-    // Recency bonus: "veille active des cartes < 3 ans"
+    // Recency is deliberately bounded so it cannot replace a much stronger card.
     if (isRecent) {
-      compositeScore += 16;
+      rankingFactors.push({ key: "recent_release", points: MAYBEBOARD_RECENCY_BONUS });
     }
 
     // Benchmark bonus: "priorité aux cubes similaires populaires"
     if (benchmarks.length > 0) {
-      compositeScore += 14;
+      rankingFactors.push({ key: "peer_benchmark", points: 14 });
     }
 
     const stats = cubeCobraStatsMap?.get(candLower);
-    if (stats?.popularity) compositeScore += Math.min(10, stats.popularity * 1.5);
-    if (stats?.elo) compositeScore += (stats.elo - 1200) / 100;
+    if (stats?.popularity) {
+      rankingFactors.push({ key: "popularity", points: Math.min(10, stats.popularity * 1.5) });
+    }
+    if (stats?.elo) {
+      rankingFactors.push({ key: "elo", points: (stats.elo - 1200) / 100 });
+    }
+
+    const compositeScore = sumRankingFactors(rankingFactors);
 
     const roles = cand.objectiveAnalysis.roles;
     let role: MaybeboardSuggestion["role"] = "staple";
@@ -804,22 +1071,41 @@ export function generateCubeMaybeboard(
       role,
       relInfo,
       benchmarks,
+      rankingFactors,
     });
   }
 
   scoredCandidates.sort((a, b) => b.compositeScore - a.compositeScore);
 
-  const targetCount = Math.max(maxSuggestions, replacesByCardName.size + 15);
+  const targetCount = Math.max(0, maxSuggestions);
   const selectedCards = new Map<string, (typeof scoredCandidates)[0]>();
+  const discoverySlots = Math.ceil(targetCount / 3);
+  const bestNonReplacementScore = scoredCandidates.find(
+    (item) => !replacesByCardName.has(item.cand.name),
+  )?.compositeScore;
 
-  // 1. Guarantee inclusion of every unique card that was proposed as an upgrade
+  // 1. Keep a stable share for recent cards that are not already direct replacements.
   for (const item of scoredCandidates) {
+    if (selectedCards.size >= discoverySlots) break;
+    const isRecentDiscovery =
+      !replacesByCardName.has(item.cand.name) && isRecentRelease(item.relInfo, recentReferenceYear);
+    const isCompetitiveDiscovery =
+      bestNonReplacementScore === undefined ||
+      item.compositeScore >= bestNonReplacementScore - MAX_DISCOVERY_SCORE_GAP;
+    if (isRecentDiscovery && isCompetitiveDiscovery) {
+      selectedCards.set(item.cand.name, item);
+    }
+  }
+
+  // 2. Prioritize direct replacements without exceeding the curated list size.
+  for (const item of scoredCandidates) {
+    if (selectedCards.size >= targetCount) break;
     if (replacesByCardName.has(item.cand.name)) {
       selectedCards.set(item.cand.name, item);
     }
   }
 
-  // 2. Complete with highest compositeScore candidates up to targetCount
+  // 3. Complete with highest compositeScore candidates up to targetCount.
   for (const item of scoredCandidates) {
     if (selectedCards.size >= targetCount) break;
     if (!selectedCards.has(item.cand.name)) {
@@ -858,13 +1144,14 @@ export function generateCubeMaybeboard(
       cubeMeta,
       item.relInfo,
       item.benchmarks,
+      recentReferenceYear,
     );
 
     const yr = item.relInfo?.firstPrintYear;
-    const isRecent = yr !== undefined && yr >= 2023;
+    const isRecent = isRecentRelease(item.relInfo, recentReferenceYear);
 
     results.push({
-      card: toCardRef(cand, cubeKey, item.relInfo, thresholds),
+      card: toCardRef(cand, cubeKey, item.relInfo, thresholds, recentReferenceYear),
       archetypes: item.matchedArchetypes,
       role: item.role,
       rationale,
@@ -874,6 +1161,8 @@ export function generateCubeMaybeboard(
       benchmarkCubes: item.benchmarks.length > 0 ? item.benchmarks : undefined,
       cubeCobraStats: stats,
       replacesCards: replacesCards && replacesCards.length > 0 ? replacesCards : undefined,
+      rankingScore: Math.round(item.compositeScore * 100) / 100,
+      rankingFactors: item.rankingFactors,
     });
   }
 
@@ -887,7 +1176,14 @@ export function generateCubeSuggestionsReport(
   cubeCobraStatsMap?: ReadonlyMap<string, CubeCobraStats>,
   releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
   benchmarkCardsMap?: ReadonlyMap<string, readonly string[]>,
+  runContext?: AdvisorRunContext,
 ): CubeSuggestionsReport {
+  if (!cubeMeta?.activeSnapshotId) {
+    throw new Error(`Missing active snapshot ID for cube suggestion report ${cubeKey}`);
+  }
+  if (!runContext) {
+    throw new Error(`Missing source provenance for cube suggestion report ${cubeKey}`);
+  }
   const upgrades = generateCubeUpgradeProposals(
     cubeKey,
     catalogCards,
@@ -912,16 +1208,52 @@ export function generateCubeSuggestionsReport(
   const benchmarkMatchesCount = upgradeValues.filter(
     (u) => (u.benchmarkCubes?.length ?? 0) > 0,
   ).length;
+  const catalogCardNames = new Set(catalogCards.map((card) => card.name.toLowerCase()));
+  const benchmarkCards = benchmarkCardsMap?.size ?? 0;
+  const benchmarkCardsInCatalog = benchmarkCardsMap
+    ? [...benchmarkCardsMap.keys()].filter((cardName) =>
+        catalogCardNames.has(cardName.toLowerCase()),
+      ).length
+    : 0;
+  const missingBenchmarkCards = benchmarkCards - benchmarkCardsInCatalog;
+  const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
 
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
+    engineVersion: "cube-upgrade-advisor@3",
     cubeKey,
-    generatedAt: new Date().toISOString(),
+    snapshotId: cubeMeta.activeSnapshotId,
+    generatedAt: runContext.generatedAt,
+    sourceProvenance: {
+      ...runContext,
+      recentWindow: {
+        years: RECENT_WINDOW_YEARS,
+        referenceYear: recentReferenceYear ?? null,
+        earliestYear:
+          recentReferenceYear === undefined
+            ? null
+            : recentReferenceYear - (RECENT_WINDOW_YEARS - 1),
+      },
+    },
+    sourceCoverage: {
+      catalogCards: catalogCards.length,
+      availableCandidates: catalogCards.filter((card) => !card.presentInCubes.includes(cubeKey))
+        .length,
+      benchmarkCards,
+      benchmarkCardsInCatalog,
+      missingBenchmarkCards,
+      benchmarkCoveragePercentage:
+        benchmarkCards === 0 ? 100 : Math.round((benchmarkCardsInCatalog / benchmarkCards) * 100),
+    },
     stats: {
       totalUpgrades: upgradeValues.length,
       totalMaybeboard: maybeboard.length,
       recentUpgradesCount,
       benchmarkMatchesCount,
+      recentMaybeboardCount: maybeboard.filter((suggestion) => suggestion.isRecent).length,
+      directReplacementMaybeboardCount: maybeboard.filter(
+        (suggestion) => (suggestion.replacesCards?.length ?? 0) > 0,
+      ).length,
     },
     upgrades,
     maybeboard,

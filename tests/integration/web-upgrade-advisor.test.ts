@@ -6,6 +6,7 @@ import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 import type { CubeSuggestionsReport } from "../../src/cards/cube-upgrade-advisor.ts";
+import type { MasterCatalogCard } from "../../src/cards/types.ts";
 
 describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
   const rootDir = process.cwd();
@@ -63,10 +64,32 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
 
         const raw = await readFile(filePath, "utf-8");
         const data = JSON.parse(raw) as CubeSuggestionsReport;
-        expect(data.schemaVersion).toBe(1);
+        expect(data.schemaVersion).toBe(2);
+        expect(data.engineVersion).toBe("cube-upgrade-advisor@3");
         expect(data.cubeKey).toBe(cubeKey);
+        expect(data.snapshotId).toBeTruthy();
+        expect(data.sourceProvenance.catalog.sha256).toMatch(/^[a-f0-9]{64}$/);
+        expect(data.sourceProvenance.releaseMetadata.sha256).toMatch(/^[a-f0-9]{64}$/);
+        expect(data.sourceProvenance.benchmarks.sha256).toMatch(/^[a-f0-9]{64}$/);
+        expect(data.sourceProvenance.cubeCobra.sha256).toMatch(/^[a-f0-9]{64}$/);
+        expect(data.sourceProvenance.cubeCobra.license).toBeTruthy();
+        expect(data.sourceProvenance.cubeCobra.method).toBeTruthy();
+        expect(data.sourceCoverage.catalogCards).toBeGreaterThan(0);
+        expect(data.sourceCoverage.availableCandidates).toBeGreaterThan(0);
+        expect(data.sourceCoverage.benchmarkCardsInCatalog).toBeLessThanOrEqual(
+          data.sourceCoverage.benchmarkCards,
+        );
         expect(data.stats.totalUpgrades).toBeGreaterThan(0);
         expect(data.stats.totalMaybeboard).toBeGreaterThan(0);
+        expect(data.stats.totalMaybeboard).toBeLessThanOrEqual(30);
+        expect(data.stats.recentMaybeboardCount).toBeLessThanOrEqual(data.stats.totalMaybeboard);
+        expect(data.stats.directReplacementMaybeboardCount).toBeLessThanOrEqual(
+          data.stats.totalMaybeboard,
+        );
+        expect(
+          Object.values(data.upgrades).every((proposal) => proposal.suggestedCard.score >= 25),
+        ).toBe(true);
+        expect(data.maybeboard.every((suggestion) => suggestion.card.score >= 25)).toBe(true);
         expect(typeof data.upgrades).toBe("object");
         expect(Array.isArray(data.maybeboard)).toBe(true);
       });
@@ -94,6 +117,8 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
       expect(sample.metaAddedValue).toBeDefined();
       expect(sample.metaAddedValue.strategicRole).toBeTruthy();
       expect(sample.metaAddedValue.summary).toBeTruthy();
+      expect(sample.rankingScore).toBeGreaterThanOrEqual(sample.suggestedCard.score);
+      expect(sample.rankingFactors.some((factor) => factor.key === "power")).toBe(true);
       expect(Array.isArray(sample.metaAddedValue.affectedArchetypes)).toBe(true);
       expect(data.stats.recentUpgradesCount).toBeGreaterThan(0);
       expect(data.stats.benchmarkMatchesCount).toBeGreaterThanOrEqual(0);
@@ -115,6 +140,74 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
       expect(first.metaAddedValue).toBeDefined();
       expect(first.metaAddedValue.strategicRole).toBeTruthy();
       expect(first.metaAddedValue.summary).toBeTruthy();
+    });
+
+    it("keeps every Titou Tribal creature replacement inside a declared tribe", async () => {
+      const [reportRaw, catalogRaw, metaRaw] = await Promise.all([
+        readFile(
+          resolve(rootDir, "data", "cubes", "titou_tribal", "cube-suggestions.json"),
+          "utf-8",
+        ),
+        readFile(resolve(rootDir, "data", "cards", "master-cards.json"), "utf-8"),
+        readFile(resolve(rootDir, "data", "cubes", "titou_tribal", "cube-meta.json"), "utf-8"),
+      ]);
+      const report = JSON.parse(reportRaw) as CubeSuggestionsReport;
+      const catalog = JSON.parse(catalogRaw) as {
+        cards: Record<string, MasterCatalogCard>;
+      };
+      const meta = JSON.parse(metaRaw) as {
+        archetypes: readonly { creatureTypes?: readonly string[] }[];
+      };
+      const supportedTypes = new Set(
+        meta.archetypes.flatMap((archetype) => archetype.creatureTypes ?? []),
+      );
+      const cardsByName = new Map(
+        Object.values(catalog.cards).map((card) => [card.name, card] as const),
+      );
+      const isUniversalTribalCard = (card: MasterCatalogCard): boolean =>
+        card.typeLine.includes("Shapeshifter") ||
+        card.oracleText.toLowerCase().includes("changeling") ||
+        card.oracleText.toLowerCase().includes("every creature type");
+      const relevantTypes = (card: MasterCatalogCard): readonly string[] => {
+        const textAndType = `${card.typeLine} ${card.oracleText}`.toLowerCase();
+        return [...supportedTypes].filter(
+          (type) =>
+            card.subtypes.includes(type) ||
+            new RegExp(`\\b${type.toLowerCase()}s?\\b`, "i").test(textAndType),
+        );
+      };
+
+      const violations: string[] = [];
+      for (const proposal of Object.values(report.upgrades)) {
+        const target = cardsByName.get(proposal.targetCard.name);
+        const candidate = cardsByName.get(proposal.suggestedCard.name);
+        if (!target || !candidate) continue;
+
+        if (isUniversalTribalCard(target)) {
+          if (!isUniversalTribalCard(candidate)) {
+            violations.push(`${target.name} -> ${candidate.name}: universal glue lost`);
+          }
+          continue;
+        }
+
+        const targetTypes = relevantTypes(target);
+        if (
+          targetTypes.length > 0 &&
+          !isUniversalTribalCard(candidate) &&
+          !relevantTypes(candidate).some((type) => targetTypes.includes(type))
+        ) {
+          violations.push(`${target.name} -> ${candidate.name}: tribe changed`);
+        }
+      }
+
+      const unsupportedMaybeboardCreatures = report.maybeboard
+        .map((suggestion) => cardsByName.get(suggestion.card.name))
+        .filter((card): card is MasterCatalogCard => card?.types.includes("Creature") === true)
+        .filter((card) => !isUniversalTribalCard(card) && relevantTypes(card).length === 0)
+        .map((card) => card.name);
+
+      expect(violations).toEqual([]);
+      expect(unsupportedMaybeboardCreatures).toEqual([]);
     });
 
     it("verifies tier alignment between cube and maybeboard for hugues_pauper (Malevolent Rumble is A+)", async () => {
@@ -230,21 +323,21 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
       expect(jsContent).toContain("getOrBuildCardObject");
     });
 
-    it("guarantees every upgrade card in titou_tribal is present in maybeboard with replacesCards", async () => {
+    it("keeps every curated Titou maybeboard replacement linked to its generated upgrade", async () => {
       const filePath = resolve(rootDir, "data", "cubes", "titou_tribal", "cube-suggestions.json");
       const raw = await readFile(filePath, "utf-8");
       const data = JSON.parse(raw) as CubeSuggestionsReport;
 
-      const upgradeSuggestedNames = new Set(
-        Object.values(data.upgrades).map((u) => u.suggestedCard.name),
+      const upgradesByTarget = data.upgrades;
+      const curatedReplacements = data.maybeboard.filter(
+        (suggestion) => (suggestion.replacesCards?.length ?? 0) > 0,
       );
-      const maybeNames = new Set(data.maybeboard.map((m) => m.card.name));
 
-      for (const name of upgradeSuggestedNames) {
-        expect(maybeNames.has(name)).toBe(true);
-        const maybeItem = data.maybeboard.find((m) => m.card.name === name);
-        expect(maybeItem?.replacesCards).toBeDefined();
-        expect(maybeItem?.replacesCards?.length).toBeGreaterThan(0);
+      expect(curatedReplacements.length).toBe(data.stats.directReplacementMaybeboardCount);
+      for (const suggestion of curatedReplacements) {
+        for (const target of suggestion.replacesCards ?? []) {
+          expect(upgradesByTarget[target.name]?.suggestedCard.name).toBe(suggestion.card.name);
+        }
       }
     });
 

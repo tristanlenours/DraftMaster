@@ -153,6 +153,11 @@
           "type": "array",
           "items": { "$ref": "#/$defs/mtgColor" }
         },
+        "creatureTypes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
         "category": {
           "type": "string",
           "enum": ["aggro", "midrange", "control", "ramp", "combo"]
