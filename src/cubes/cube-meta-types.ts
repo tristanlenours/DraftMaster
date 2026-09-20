@@ -27,6 +27,7 @@ export interface CubeArchetypeDefinition {
   readonly name: string;
   readonly primaryColors: readonly MtGColor[];
   readonly splashColors?: readonly MtGColor[];
+  readonly creatureTypes?: readonly string[];
   readonly category: "aggro" | "midrange" | "control" | "ramp" | "combo";
   readonly description: string;
   readonly gameplan: string;

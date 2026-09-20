@@ -1,9 +1,14 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { createHash } from 'node:crypto';
 import { generateCubeSuggestionsReport } from '../src/cards/cube-upgrade-advisor.ts';
 import { assignRelativeTiers } from '../src/cards/relative-tier-engine.ts';
 
 const rootDir = process.cwd();
+
+function sha256(value) {
+  return createHash('sha256').update(value, 'utf8').digest('hex');
+}
 
 // Helper to convert card name to kebab-case slug
 export function cardNameToSlug(name) {
@@ -25,6 +30,9 @@ mkdirSync(itemsDir, { recursive: true });
 const masterPath = resolve(rootDir, 'data/cards/master-cards.json');
 const masterRaw = readFileSync(masterPath, 'utf8');
 const masterData = JSON.parse(masterRaw);
+const previousCatalogFingerprint = sha256(
+  JSON.stringify({ cardCount: masterData.cardCount, cards: masterData.cards }),
+);
 
 // 2b. Load Untapped reference v2 (integer scores 0-55, latest observed)
 const refV2Path = resolve(rootDir, 'data/power-rankings/untapped-reference-v2.json');
@@ -44,13 +52,12 @@ if (refV2) {
 const benchmarksPath = resolve(rootDir, 'data/benchmarks/cubecobra-benchmarks.json');
 const releaseMetaPath = resolve(rootDir, 'data/benchmarks/card-release-metadata.json');
 
-const benchmarksData = existsSync(benchmarksPath)
-  ? JSON.parse(readFileSync(benchmarksPath, 'utf8'))
-  : {};
-
-const releaseMetadataRaw = existsSync(releaseMetaPath)
-  ? JSON.parse(readFileSync(releaseMetaPath, 'utf8'))
-  : {};
+const benchmarksRaw = existsSync(benchmarksPath) ? readFileSync(benchmarksPath, 'utf8') : '{}';
+const releaseMetadataSourceRaw = existsSync(releaseMetaPath)
+  ? readFileSync(releaseMetaPath, 'utf8')
+  : '{}';
+const benchmarksData = JSON.parse(benchmarksRaw);
+const releaseMetadataRaw = JSON.parse(releaseMetadataSourceRaw);
 
 const releaseMetadataMap = new Map();
 for (const [key, val] of Object.entries(releaseMetadataRaw)) {
@@ -105,8 +112,14 @@ console.log(`✅ Successfully indexed ${cardCount} individual card JSON files fr
 // 4. Update master-cards.json bundle for sync
 masterData.cardCount = cardCount;
 masterData.cards = cardsByOracleId;
-masterData.generatedAt = new Date().toISOString();
-writeFileSync(masterPath, JSON.stringify(masterData, null, 2) + '\n', 'utf8');
+const nextCatalogFingerprint = sha256(
+  JSON.stringify({ cardCount: masterData.cardCount, cards: masterData.cards }),
+);
+if (nextCatalogFingerprint !== previousCatalogFingerprint) {
+  masterData.generatedAt = new Date().toISOString();
+}
+const masterSerialized = JSON.stringify(masterData, null, 2) + '\n';
+writeFileSync(masterPath, masterSerialized, 'utf8');
 console.log(`✅ Synchronized data/cards/master-cards.json bundle`);
 
 // 5. Build Unified cube.json for each of the 3 community cubes
@@ -201,9 +214,10 @@ for (const cfg of cubeConfigs) {
   // Generate Upgrade Proposals and Maybeboard for this cube
   const cubeCobraStatsMap = new Map();
   const rawPath = resolve(rootDir, cfg.dir, 'cubecobra-raw.json');
+  const cubeCobraRaw = existsSync(rawPath) ? readFileSync(rawPath, 'utf8') : '{}';
   if (existsSync(rawPath)) {
     try {
-      const raw = JSON.parse(readFileSync(rawPath, 'utf8'));
+      const raw = JSON.parse(cubeCobraRaw);
       for (const item of raw.cards?.mainboard || []) {
         const d = item.details;
         if (d?.name) {
@@ -239,6 +253,37 @@ for (const cfg of cubeConfigs) {
     cubeCobraStatsMap,
     releaseMetadataMap,
     benchmarkCardsMap,
+    {
+      generatedAt: masterData.generatedAt,
+      catalog: {
+        id: 'data/cards/master-cards.json',
+        version: `master-catalog@${String(masterData.schemaVersion)}`,
+        sha256: sha256(masterSerialized),
+        license: 'Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md',
+        method: 'Deterministic merge of versioned local card items and power scores',
+      },
+      releaseMetadata: {
+        id: 'data/benchmarks/card-release-metadata.json',
+        version: 'card-release-metadata@1',
+        sha256: sha256(releaseMetadataSourceRaw),
+        license: 'Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast',
+        method: 'Versioned local extraction of first-print and rarity metadata',
+      },
+      benchmarks: {
+        id: 'data/benchmarks/cubecobra-benchmarks.json',
+        version: 'cubecobra-benchmarks@1',
+        sha256: sha256(benchmarksRaw),
+        license: 'CubeCobra source data; upstream terms apply',
+        method: 'Versioned local benchmark cube lists filtered by target cube',
+      },
+      cubeCobra: {
+        id: `${cfg.dir}/cubecobra-raw.json`,
+        version: 'cubecobra-raw@1',
+        sha256: sha256(cubeCobraRaw),
+        license: 'CubeCobra source data; upstream terms apply',
+        method: 'Local archive; card Elo, popularity and cube count indexed by normalized name',
+      },
+    },
   );
   const suggestionsPath = resolve(rootDir, cfg.dir, 'cube-suggestions.json');
   writeFileSync(suggestionsPath, JSON.stringify(suggestionsReport, null, 2) + '\n', 'utf8');
