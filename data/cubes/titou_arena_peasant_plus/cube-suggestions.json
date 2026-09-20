@@ -3,13 +3,13 @@
   "engineVersion": "cube-upgrade-advisor@3",
   "cubeKey": "titou_arena_peasant_plus",
   "snapshotId": "titou_arena_peasant_plus@2026-09-08.1",
-  "generatedAt": "2026-09-18T17:43:21.710Z",
+  "generatedAt": "2026-09-20T19:15:06.410Z",
   "sourceProvenance": {
-    "generatedAt": "2026-09-18T17:43:21.710Z",
+    "generatedAt": "2026-09-20T19:15:06.410Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "710758686d2c1d17f171afb8be6eb066197c19eaea4417e50e9210ba3b051a24",
+      "sha256": "20e56f91499a2c011b209559d994081ec9c1c283cdf689f24de854165a0aa47e",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,12 +49,12 @@
     "benchmarkCoveragePercentage": 97
   },
   "stats": {
-    "totalUpgrades": 51,
+    "totalUpgrades": 56,
     "totalMaybeboard": 30,
-    "recentUpgradesCount": 1,
-    "benchmarkMatchesCount": 0,
-    "recentMaybeboardCount": 1,
-    "directReplacementMaybeboardCount": 23
+    "recentUpgradesCount": 3,
+    "benchmarkMatchesCount": 2,
+    "recentMaybeboardCount": 2,
+    "directReplacementMaybeboardCount": 24
   },
   "upgrades": {
     "Airbending Lesson": {
@@ -62,7 +62,7 @@
         "oracleId": "e101b744-9175-4aa5-bf80-d6944359e538",
         "name": "Airbending Lesson",
         "score": 22.2,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 3,
         "typeLine": "Instant — Lesson",
         "imageUrl": "https://assets.cubecobra.com/cardimages/e2bcd0a6-e94d-4a21-a334-a57459c1b8cc/normal.webp",
@@ -137,7 +137,7 @@
         "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
         "name": "Sakura-Tribe Elder",
         "score": 30.6,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 2,
         "typeLine": "Creature — Snake Shaman",
         "imageUrl": "https://assets.cubecobra.com/cardimages/91c7707a-bae0-4196-bf26-d276f57b7369/normal.webp",
@@ -483,49 +483,59 @@
         }
       ]
     },
-    "Chromatic Star": {
+    "Daydream": {
       "targetCard": {
-        "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
-        "name": "Chromatic Star",
-        "score": 10,
-        "tier": "F",
+        "oracleId": "094c4486-6cae-4268-850e-ff0082e5ad10",
+        "name": "Daydream",
+        "score": 23.4,
+        "tier": "D+",
         "cmc": 1,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/1ef87e14-f536-4a2e-b834-55ed0e055800/normal.webp",
-        "colors": [],
-        "releaseYear": 2006,
-        "set": "BRR",
-        "isRecent": false
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/e2b16cb2-b8b2-45df-9695-3c16e9d89e28/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
       },
       "suggestedCard": {
-        "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
-        "name": "Sensei's Divining Top",
-        "score": 35.2,
-        "tier": "A",
+        "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+        "name": "Swords to Plowshares",
+        "score": 47,
+        "tier": "A+",
         "cmc": 1,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
-        "colors": [],
-        "releaseYear": 2004,
-        "set": "CHK",
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/b/4/b4e9c870-23c0-413a-ae39-265f09da16d1.jpg?1783903243",
+        "frenchName": "Retour au pays",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/b/2/b2a79759-45ed-4be0-b3c3-08470edaf9b0.jpg?1785262713",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 1993,
+        "set": "DDF",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 25.2,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+25.2 pts).",
+      "scoreDelta": 23.6,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.6 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+25.2 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2004)"
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Selesnya Go-Wide & Anthems & Orzhov Grind & Recursion (+23.6 pts).",
+        "affectedArchetypes": [
+          "Azorius Tempo & Disruptive Fliers",
+          "Selesnya Go-Wide & Anthems",
+          "Orzhov Grind & Recursion"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (1993)"
       },
-      "releaseYear": 2004,
+      "releaseYear": 1993,
       "isRecent": false,
-      "rankingScore": 44.2,
+      "rankingScore": 56,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 35.2
+          "points": 47
         },
         {
           "key": "role_alignment",
@@ -852,7 +862,7 @@
         "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
         "name": "Arcane Denial",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 2,
         "typeLine": "Instant",
         "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
@@ -977,7 +987,7 @@
         "oracleId": "c5c225a6-6a5e-4905-9412-dad15ba645b4",
         "name": "Skinrender",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 4,
         "typeLine": "Creature — Phyrexian Zombie",
         "imageUrl": "https://assets.cubecobra.com/cardimages/be358357-2abe-4ead-bb18-76cad8274489/normal.webp",
@@ -1164,7 +1174,7 @@
         "oracleId": "5237a105-60c4-4597-b24e-84c12ce7b01f",
         "name": "Faceless Butcher",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 4,
         "typeLine": "Creature — Nightmare Horror",
         "imageUrl": "https://assets.cubecobra.com/cardimages/8757d6f1-cc46-48f8-8371-558a5d8df3c3/normal.webp",
@@ -1224,7 +1234,7 @@
         "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
         "name": "Guardian of the Guildpact",
         "score": 30.7,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 4,
         "typeLine": "Creature — Spirit",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c8dd004b-01e4-4fe1-a164-9f2ea8d7d88e/normal.webp",
@@ -1287,7 +1297,7 @@
         "oracleId": "22222222-bbbb-4000-8000-000000000003",
         "name": "Gurmag Angler",
         "score": 39,
-        "tier": "A+",
+        "tier": "A",
         "cmc": 7,
         "typeLine": "Creature — Zombie Fish",
         "imageUrl": "https://api.scryfall.com/cards/named?exact=Gurmag%20Angler&format=image",
@@ -1331,7 +1341,7 @@
         "oracleId": "68d4d753-5e53-48a6-8ba2-56020893c239",
         "name": "Junkyard Genius",
         "score": 18.4,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 3,
         "typeLine": "Creature — Human Artificer",
         "imageUrl": "https://assets.cubecobra.com/cardimages/ca1142d6-9420-4b01-885a-1e9423705ddc/normal.webp",
@@ -1646,7 +1656,7 @@
         "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
         "name": "Sakura-Tribe Elder",
         "score": 30.6,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 2,
         "typeLine": "Creature — Snake Shaman",
         "imageUrl": "https://assets.cubecobra.com/cardimages/91c7707a-bae0-4196-bf26-d276f57b7369/normal.webp",
@@ -1756,7 +1766,7 @@
         "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
         "name": "Arbor Elf",
         "score": 26.8,
-        "tier": "B-",
+        "tier": "C+",
         "cmc": 1,
         "typeLine": "Creature — Elf Druid",
         "imageUrl": "https://assets.cubecobra.com/cardimages/6d32a4ed-6b43-4473-91ec-08cd5414f2f0/normal.webp",
@@ -1857,12 +1867,68 @@
         }
       ]
     },
+    "Perilous Landscape": {
+      "targetCard": {
+        "oracleId": "e2b472dd-047d-47eb-9ebb-df6aa4b52dd4",
+        "name": "Perilous Landscape",
+        "score": 23.5,
+        "tier": "D+",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/4b0bd07e-cf80-4d64-af29-f4cec6632b3e/normal.webp",
+        "colors": [],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "suggestedCard": {
+        "oracleId": "032b8a0d-491a-4a12-ab9f-689010054d5b",
+        "name": "Prismatic Vista",
+        "score": 32,
+        "tier": "A-",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/e/3/e37da81e-be12-45a2-9128-376f1ad7b3e8.jpg?1783933066",
+        "frenchName": "Vue prismatique",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/a/c/ac80df87-c3e3-4e80-b2d2-e9e9beca2b23.jpg?1784678377",
+        "colors": [],
+        "releaseYear": 2019,
+        "set": "MH1",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.5,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.5 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+8.5 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Accélération & Fixation de Mana",
+        "releaseContext": "Référence confirmée (2019)"
+      },
+      "releaseYear": 2019,
+      "isRecent": false,
+      "rankingScore": 41,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 32
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        }
+      ]
+    },
     "Practiced Scrollsmith": {
       "targetCard": {
         "oracleId": "a02f9f42-4c3a-4a97-8667-68ba4617f193",
         "name": "Practiced Scrollsmith",
         "score": 21,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Creature — Dwarf Cleric",
         "imageUrl": "https://assets.cubecobra.com/cardimages/40075e3f-58b3-47fd-8fbe-4b301e9ce7a1/normal.webp",
@@ -1997,7 +2063,7 @@
         "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
         "name": "Sakura-Tribe Elder",
         "score": 30.6,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 2,
         "typeLine": "Creature — Snake Shaman",
         "imageUrl": "https://assets.cubecobra.com/cardimages/91c7707a-bae0-4196-bf26-d276f57b7369/normal.webp",
@@ -2036,12 +2102,81 @@
         }
       ]
     },
+    "Reckoner Bankbuster": {
+      "targetCard": {
+        "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
+        "name": "Reckoner Bankbuster",
+        "score": 8,
+        "tier": "F",
+        "cmc": 2,
+        "typeLine": "Artifact — Vehicle",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/7/279acd17-6c17-427b-a69d-fc02442ff4a3.jpg?1783923822",
+        "frenchName": "Brisebanque héliaste",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/3/c35f4761-7ffe-4bce-9cde-62e2de1705e1.jpg?1782861213",
+        "colors": [],
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
+        "name": "Strixhaven Skycoach",
+        "score": 26.8,
+        "tier": "C+",
+        "cmc": 3,
+        "typeLine": "Artifact — Vehicle",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/87741fbb-b426-4f83-a358-587b0907f081/normal.webp",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 18.8,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+18.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "cubeCobraStats": {
+        "elo": 1289.3224911422144,
+        "popularity": 0.17642782865046594,
+        "cubeCount": 699
+      },
+      "rankingScore": 47.98,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.8
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        },
+        {
+          "key": "popularity",
+          "points": 0.17642782865046594
+        }
+      ]
+    },
     "Renegade Rallier": {
       "targetCard": {
         "oracleId": "6fa07b6c-f01a-4416-b0fc-986b0fc4e412",
         "name": "Renegade Rallier",
         "score": 22.3,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 3,
         "typeLine": "Creature — Human Warrior",
         "imageUrl": "https://assets.cubecobra.com/cardimages/90bad312-80e3-45b0-9556-60ce06808a47/normal.webp",
@@ -2057,7 +2192,7 @@
         "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
         "name": "Guardian of the Guildpact",
         "score": 30.7,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 4,
         "typeLine": "Creature — Spirit",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c8dd004b-01e4-4fe1-a164-9f2ea8d7d88e/normal.webp",
@@ -2117,7 +2252,7 @@
         "oracleId": "05a039ad-1689-4d13-b393-6c1219583b5d",
         "name": "Sleight of Hand",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/1766d117-6ee1-4103-88e8-47b932a94d65/normal.webp",
@@ -2330,6 +2465,64 @@
         }
       ]
     },
+    "Shepherd of the Clouds": {
+      "targetCard": {
+        "oracleId": "c0535854-e4e7-43e4-bc5c-7cc95fb17929",
+        "name": "Shepherd of the Clouds",
+        "score": 23.7,
+        "tier": "D+",
+        "cmc": 5,
+        "typeLine": "Creature — Pegasus",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/c2245f36-2138-4f01-9b70-151137a5ac59/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2024,
+        "set": "OTJ",
+        "isRecent": true
+      },
+      "suggestedCard": {
+        "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+        "name": "Palace Jailer",
+        "score": 44,
+        "tier": "A+",
+        "cmc": 4,
+        "typeLine": "Creature — Human Soldier",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/78cef262-c753-4658-b3ec-fec8db47f944/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2016,
+        "set": "CN2",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 20.3,
+      "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+20.3 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (4 vs 5 mana) tout en renforçant les archétypes Azorius Tempo & Disruptive Fliers & Selesnya Go-Wide & Anthems & Orzhov Grind & Recursion (+20.3 pts).",
+        "affectedArchetypes": [
+          "Azorius Tempo & Disruptive Fliers",
+          "Selesnya Go-Wide & Anthems",
+          "Orzhov Grind & Recursion"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2016)"
+      },
+      "releaseYear": 2016,
+      "isRecent": false,
+      "rankingScore": 47,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 44
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Silverquill Charm": {
       "targetCard": {
         "oracleId": "d985b12e-2731-4ccf-9f51-90218b20b42a",
@@ -2392,6 +2585,75 @@
         {
           "key": "mana_efficiency",
           "points": 3
+        }
+      ]
+    },
+    "Smuggler's Copter": {
+      "targetCard": {
+        "oracleId": "49136bdc-bc50-49a2-999a-1ef9c16ea130",
+        "name": "Smuggler's Copter",
+        "score": 18,
+        "tier": "F",
+        "cmc": 2,
+        "typeLine": "Artifact — Vehicle",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/6/2680ed41-da35-475a-9d80-ae2f4686feed.jpg?1783923937",
+        "frenchName": "Coptère de contrebandier",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/a/cab4febe-4307-41fa-adcd-c88faadf2256.jpg?1782863410",
+        "colors": [],
+        "releaseYear": 2016,
+        "set": "PLST",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
+        "name": "Strixhaven Skycoach",
+        "score": 26.8,
+        "tier": "C+",
+        "cmc": 3,
+        "typeLine": "Artifact — Vehicle",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/87741fbb-b426-4f83-a358-587b0907f081/normal.webp",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.8,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+8.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "cubeCobraStats": {
+        "elo": 1289.3224911422144,
+        "popularity": 0.17642782865046594,
+        "cubeCount": 699
+      },
+      "rankingScore": 47.98,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.8
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        },
+        {
+          "key": "popularity",
+          "points": 0.17642782865046594
         }
       ]
     },
@@ -2602,7 +2864,7 @@
         "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
         "name": "Sakura-Tribe Elder",
         "score": 30.6,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 2,
         "typeLine": "Creature — Snake Shaman",
         "imageUrl": "https://assets.cubecobra.com/cardimages/91c7707a-bae0-4196-bf26-d276f57b7369/normal.webp",
@@ -2646,7 +2908,7 @@
         "oracleId": "24bc7bd5-f262-45a2-8e94-377fef2ba5d5",
         "name": "Stubborn Burrowfiend",
         "score": 22.2,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 2,
         "typeLine": "Creature — Badger Beast Mount",
         "imageUrl": "https://assets.cubecobra.com/cardimages/6d963eb4-d20b-4d3f-bf5d-c75f7bcb9670/normal.webp",
@@ -2784,7 +3046,7 @@
         "oracleId": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
         "name": "Sink into Stupor",
         "score": 29.6,
-        "tier": "B+",
+        "tier": "B",
         "cmc": 3,
         "typeLine": "Instant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/5358b87a-1a29-426d-b165-40c97da2c14d/normal.webp",
@@ -2830,12 +3092,76 @@
         }
       ]
     },
+    "Town Greeter": {
+      "targetCard": {
+        "oracleId": "9dc61ef6-da22-42a8-b348-dfd5722deadf",
+        "name": "Town Greeter",
+        "score": 23.5,
+        "tier": "D+",
+        "cmc": 2,
+        "typeLine": "Creature — Human Citizen",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/49cd4efa-4df4-4257-9a42-60330f7781e2/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2025,
+        "set": "FIN",
+        "isRecent": true
+      },
+      "suggestedCard": {
+        "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+        "name": "Llanowar Elves",
+        "score": 40,
+        "tier": "A+",
+        "cmc": 1,
+        "typeLine": "Creature — Elf Druid",
+        "imageUrl": "https://cards.scryfall.io/normal/front/6/a/6a0b230b-d391-4998-a3f7-7b158a0ec2cd.jpg?1783909057",
+        "frenchName": "Elfes de Llanowar",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/b/1/b164bd6d-260c-4f02-affe-fc774d433ae8.jpg?1782782845",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 1993,
+        "set": "EVG",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 16.5,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+16.5 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Gruul Stompy & Power Curve & Selesnya Go-Wide & Anthems & Golgari Food & Graveyard Value (+16.5 pts).",
+        "affectedArchetypes": [
+          "Gruul Stompy & Power Curve",
+          "Selesnya Go-Wide & Anthems",
+          "Golgari Food & Graveyard Value"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (1993)"
+      },
+      "releaseYear": 1993,
+      "isRecent": false,
+      "rankingScore": 51,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 40
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Tranquil Landscape": {
       "targetCard": {
         "oracleId": "d4eb65d5-99fd-4daf-b7d3-8ebf99ee9c61",
         "name": "Tranquil Landscape",
         "score": 22.2,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 0,
         "typeLine": "Land",
         "imageUrl": "https://assets.cubecobra.com/cardimages/113f48b9-a972-4e2c-af95-05ab078e01f2/normal.webp",
@@ -3018,7 +3344,7 @@
         "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
         "name": "Arbor Elf",
         "score": 26.8,
-        "tier": "B-",
+        "tier": "C+",
         "cmc": 1,
         "typeLine": "Creature — Elf Druid",
         "imageUrl": "https://assets.cubecobra.com/cardimages/6d32a4ed-6b43-4473-91ec-08cd5414f2f0/normal.webp",
@@ -3148,7 +3474,7 @@
         "titou_peasant:boros_game_objects"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Focus Fire (+27.3 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+27.3 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Daydream (+23.6 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.6 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Selesnya Go-Wide & Anthems & Orzhov Grind & Recursion (+47 pts).",
         "affectedArchetypes": [
@@ -3162,6 +3488,13 @@
       "releaseYear": 1993,
       "isRecent": false,
       "replacesCards": [
+        {
+          "name": "Daydream",
+          "score": 23.4,
+          "tier": "D+",
+          "scoreDelta": 23.6,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.6 pts)."
+        },
         {
           "name": "Focus Fire",
           "score": 19.7,
@@ -3317,7 +3650,7 @@
         {
           "name": "Junkyard Genius",
           "score": 18.4,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 25.6,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+25.6 pts)."
         },
@@ -3406,7 +3739,7 @@
         {
           "name": "Practiced Scrollsmith",
           "score": 21,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 23,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23 pts)."
         },
@@ -3416,6 +3749,13 @@
           "tier": "D-",
           "scoreDelta": 23.6,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.6 pts)."
+        },
+        {
+          "name": "Shepherd of the Clouds",
+          "score": 23.7,
+          "tier": "D+",
+          "scoreDelta": 20.3,
+          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+20.3 pts)."
         },
         {
           "name": "Veteran Beastrider",
@@ -3560,7 +3900,7 @@
         {
           "name": "Airbending Lesson",
           "score": 22.2,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 18.8,
           "reason": "Coût de mana plus agressif (1 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+18.8 pts)."
         },
@@ -3644,9 +3984,16 @@
         {
           "name": "Stubborn Burrowfiend",
           "score": 22.2,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 17.8,
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+17.8 pts)."
+        },
+        {
+          "name": "Town Greeter",
+          "score": 23.5,
+          "tier": "D+",
+          "scoreDelta": 16.5,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+16.5 pts)."
         }
       ],
       "rankingScore": 86,
@@ -3670,7 +4017,7 @@
         "oracleId": "22222222-bbbb-4000-8000-000000000003",
         "name": "Gurmag Angler",
         "score": 39,
-        "tier": "A+",
+        "tier": "A",
         "cmc": 7,
         "typeLine": "Creature — Zombie Fish",
         "imageUrl": "https://api.scryfall.com/cards/named?exact=Gurmag%20Angler&format=image",
@@ -3732,7 +4079,7 @@
         "oracleId": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
         "name": "Sink into Stupor",
         "score": 29.6,
-        "tier": "B+",
+        "tier": "B",
         "cmc": 3,
         "typeLine": "Instant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/5358b87a-1a29-426d-b165-40c97da2c14d/normal.webp",
@@ -3856,6 +4203,86 @@
     },
     {
       "card": {
+        "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
+        "name": "Strixhaven Skycoach",
+        "score": 26.8,
+        "tier": "C+",
+        "cmc": 3,
+        "typeLine": "Artifact — Vehicle",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/87741fbb-b426-4f83-a358-587b0907f081/normal.webp",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Reckoner Bankbuster (+18.8 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+26.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "cubeCobraStats": {
+        "elo": 1289.3224911422144,
+        "popularity": 0.17642782865046594,
+        "cubeCount": 699
+      },
+      "replacesCards": [
+        {
+          "name": "Reckoner Bankbuster",
+          "frenchName": "Brisebanque héliaste",
+          "score": 8,
+          "tier": "F",
+          "scoreDelta": 18.8,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts)."
+        },
+        {
+          "name": "Smuggler's Copter",
+          "frenchName": "Coptère de contrebandier",
+          "score": 18,
+          "tier": "F",
+          "scoreDelta": 8.8,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.8 pts)."
+        }
+      ],
+      "rankingScore": 77.96,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        },
+        {
+          "key": "popularity",
+          "points": 0.2646417429756989
+        },
+        {
+          "key": "elo",
+          "points": 0.893224911422144
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "717bbb9d-0a5b-4979-a24b-9d54aac7657a",
         "name": "Shriekmaw",
         "score": 31.4,
@@ -3920,7 +4347,7 @@
         "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
         "name": "Guardian of the Guildpact",
         "score": 30.7,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 4,
         "typeLine": "Creature — Spirit",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c8dd004b-01e4-4fe1-a164-9f2ea8d7d88e/normal.webp",
@@ -3963,7 +4390,7 @@
         {
           "name": "Renegade Rallier",
           "score": 22.3,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 8.4,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.4 pts)."
         }
@@ -3989,7 +4416,7 @@
         "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
         "name": "Sakura-Tribe Elder",
         "score": 30.6,
-        "tier": "A-",
+        "tier": "B+",
         "cmc": 2,
         "typeLine": "Creature — Snake Shaman",
         "imageUrl": "https://assets.cubecobra.com/cardimages/91c7707a-bae0-4196-bf26-d276f57b7369/normal.webp",
@@ -4134,7 +4561,7 @@
         "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
         "name": "Arcane Denial",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 2,
         "typeLine": "Instant",
         "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
@@ -4198,7 +4625,7 @@
         "oracleId": "5237a105-60c4-4597-b24e-84c12ce7b01f",
         "name": "Faceless Butcher",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 4,
         "typeLine": "Creature — Nightmare Horror",
         "imageUrl": "https://assets.cubecobra.com/cardimages/8757d6f1-cc46-48f8-8371-558a5d8df3c3/normal.webp",
@@ -4260,7 +4687,7 @@
         "oracleId": "c5c225a6-6a5e-4905-9412-dad15ba645b4",
         "name": "Skinrender",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 4,
         "typeLine": "Creature — Phyrexian Zombie",
         "imageUrl": "https://assets.cubecobra.com/cardimages/be358357-2abe-4ead-bb18-76cad8274489/normal.webp",
@@ -4321,7 +4748,7 @@
         "oracleId": "05a039ad-1689-4d13-b393-6c1219583b5d",
         "name": "Sleight of Hand",
         "score": 27.8,
-        "tier": "B",
+        "tier": "B-",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/1766d117-6ee1-4103-88e8-47b932a94d65/normal.webp",
@@ -4382,7 +4809,7 @@
         "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
         "name": "Arbor Elf",
         "score": 26.8,
-        "tier": "B-",
+        "tier": "C+",
         "cmc": 1,
         "typeLine": "Creature — Elf Druid",
         "imageUrl": "https://assets.cubecobra.com/cardimages/6d32a4ed-6b43-4473-91ec-08cd5414f2f0/normal.webp",
@@ -4592,7 +5019,7 @@
       },
       "archetypes": [],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Chromatic Star (+25.2 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+25.2 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Mishra's Bauble (+14.2 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14.2 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+35.2 pts).",
         "affectedArchetypes": [],
@@ -4602,13 +5029,6 @@
       "releaseYear": 2004,
       "isRecent": false,
       "replacesCards": [
-        {
-          "name": "Chromatic Star",
-          "score": 10,
-          "tier": "F",
-          "scoreDelta": 25.2,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+25.2 pts)."
-        },
         {
           "name": "Mishra's Bauble",
           "score": 21,
@@ -4681,6 +5101,13 @@
           "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15 pts)."
         },
         {
+          "name": "Perilous Landscape",
+          "score": 23.5,
+          "tier": "D+",
+          "scoreDelta": 8.5,
+          "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.5 pts)."
+        },
+        {
           "name": "Shattered Landscape",
           "score": 20.1,
           "tier": "D-",
@@ -4697,7 +5124,7 @@
         {
           "name": "Tranquil Landscape",
           "score": 22.2,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 9.8,
           "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.8 pts)."
         },
@@ -5007,55 +5434,6 @@
         {
           "key": "power",
           "points": 40
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-        "name": "Chain Lightning",
-        "score": 38,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9ca05db2-ad92-4f4a-992d-b7f08f4f9c26/normal.webp",
-        "frenchName": "Chaîne d'éclairs",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1994,
-        "set": "PD2",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou_peasant:rakdos_artifacts_sac",
-        "titou_peasant:gruul_stompy",
-        "titou_peasant:izzet_artifacts",
-        "titou_peasant:boros_game_objects"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Renforce directement les archétypes Rakdos Artifacts & Sacrifice et Gruul Stompy & Power Curve grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Artifacts & Sacrifice & Gruul Stompy & Power Curve & Izzet Artifacts & Noncreature Spells (+38 pts).",
-        "affectedArchetypes": [
-          "Rakdos Artifacts & Sacrifice",
-          "Gruul Stompy & Power Curve",
-          "Izzet Artifacts & Noncreature Spells"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1994)"
-      },
-      "releaseYear": 1994,
-      "isRecent": false,
-      "rankingScore": 54,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 38
         },
         {
           "key": "archetype_match",
