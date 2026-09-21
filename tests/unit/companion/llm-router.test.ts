@@ -13,6 +13,7 @@ describe("Companion - LlmRouter Key Pool & Rotation", () => {
     delete process.env.GEMINI_API_KEY_2;
     delete process.env.OPENROUTER_API_KEY;
     delete process.env.OPENROUTER_PREMIUM_API_KEY;
+    delete process.env.JEV_API_KEY;
   });
 
   afterEach(() => {
@@ -70,5 +71,29 @@ describe("Companion - LlmRouter Key Pool & Rotation", () => {
     router.markKeyCooldownForTesting("key3", 60_000);
     expect(router.getAvailableGeminiKeyCount()).toBe(0);
     expect(router.hasAvailableGeminiKey()).toBe(false);
+  });
+
+  it("loads JEV key and verifies JEV availability", () => {
+    process.env.JEV_API_KEY = "test-jev-key";
+    const router = new LlmRouter();
+    expect(router.hasJevKey()).toBe(true);
+    expect(router.hasConfiguredKeys()).toBe(true);
+  });
+
+  it("fails gracefully when calling Jev decision without keys", async () => {
+    // When no env files or keys
+    const router = new LlmRouter();
+    router.clearKeysForTesting();
+
+    const res = await router.callJevDecision("State", {
+      choice: {
+        type: "choice",
+        instructions: "Pick one",
+        criteria: { a: "First", b: "Second" },
+      },
+    });
+
+    expect(res.success).toBe(false);
+    expect(res.error).toContain("Aucune clé JEV ou OpenRouter");
   });
 });

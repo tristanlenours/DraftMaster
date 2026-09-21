@@ -20,14 +20,73 @@ export interface LlmResponse<T> {
 
 export type LlmJsonProfile = "default" | "final-deck-coach@1";
 
+export interface JevQuestionChoice {
+  type: "choice";
+  instructions: string;
+  criteria: Record<string, string>;
+}
+
+export interface JevQuestionScore {
+  type: "score";
+  instructions: string;
+  criteria: string[];
+}
+
+export interface JevQuestionNoul {
+  type: "noul";
+  instructions: string;
+  criteria?: {
+    false: string;
+    true: string;
+  };
+}
+
+export type JevQuestion = JevQuestionChoice | JevQuestionScore | JevQuestionNoul;
+
+export interface JevChoiceAnswer {
+  type: "choice";
+  choice: string;
+  probabilities: Record<string, number>;
+  confidence: number;
+}
+
+export interface JevScoreAnswer {
+  type: "score";
+  score: number;
+  legend: Record<string, string>;
+  probabilities: Record<string, number>;
+  confidence: number;
+}
+
+export interface JevNoulAnswer {
+  type: "noul";
+  noul: number;
+}
+
+export type JevAnswer = JevChoiceAnswer | JevScoreAnswer | JevNoulAnswer;
+
+export interface JevDecisionResponse {
+  model: string;
+  answers: Record<string, JevAnswer>;
+  usage: {
+    input_tokens: number;
+    output_tokens: number;
+    cost: number;
+  };
+  id: string;
+  provider: string;
+}
+
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/auto";
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+const JEV_MODEL = process.env.JEV_MODEL || "~typesafe/jev-latest";
 
 export class LlmRouter {
   private geminiKeys: string[] = [];
   private geminiKeyCooldowns: Map<string, number> = new Map();
   private currentGeminiIndex = 0;
   private openrouterKey = "";
+  private jevKey = "";
 
   constructor() {
     this.loadEnv();
@@ -49,6 +108,7 @@ export class LlmRouter {
 
     this.openrouterKey =
       process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_PREMIUM_API_KEY || "";
+    this.jevKey = process.env.JEV_API_KEY || "";
 
     // If keys not in process.env, look in .env.local and .env
     if (rawGeminiKeys.length === 0) {
@@ -76,7 +136,7 @@ export class LlmRouter {
       }
     }
 
-    if (!this.openrouterKey) {
+    if (!this.openrouterKey || !this.jevKey) {
       for (const envFile of [".env.local", ".env"]) {
         const envPath = path.resolve(process.cwd(), envFile);
         if (fs.existsSync(envPath)) {
@@ -89,9 +149,16 @@ export class LlmRouter {
             if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
               this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
             }
+            if (trimmed.startsWith("JEV_API_KEY=") && !this.jevKey) {
+              this.jevKey = trimmed.replace("JEV_API_KEY=", "").trim();
+            }
           }
         }
       }
+    }
+
+    if (!this.jevKey && this.openrouterKey) {
+      this.jevKey = this.openrouterKey;
     }
 
     // Deduplicate and retain only non-empty keys
@@ -105,7 +172,11 @@ export class LlmRouter {
   }
 
   public hasConfiguredKeys(): boolean {
-    return Boolean(this.geminiKeys.length > 0 || this.openrouterKey);
+    return Boolean(this.geminiKeys.length > 0 || this.openrouterKey || this.jevKey);
+  }
+
+  public hasJevKey(): boolean {
+    return Boolean(this.jevKey);
   }
 
   public getGeminiKeyCount(): number {
@@ -123,6 +194,13 @@ export class LlmRouter {
 
   public markKeyCooldownForTesting(key: string, durationMs = 60_000): void {
     this.geminiKeyCooldowns.set(key, Date.now() + durationMs);
+  }
+
+  public clearKeysForTesting(): void {
+    this.geminiKeys = [];
+    this.geminiKeyCooldowns.clear();
+    this.openrouterKey = "";
+    this.jevKey = "";
   }
 
   public hasAvailableGeminiKey(): boolean {
@@ -820,6 +898,105 @@ export class LlmRouter {
         req.destroy();
         reject(new Error("OpenRouter stream timeout"));
       });
+      req.write(payload);
+      req.end();
+    });
+  }
+
+  public async callJevDecision(
+    state: string,
+    questions: Record<string, JevQuestion>,
+    options?: { model?: string; timeoutMs?: number },
+  ): Promise<LlmResponse<JevDecisionResponse>> {
+    const key = this.jevKey || this.openrouterKey;
+    if (!key) {
+      return {
+        success: false,
+        content: null,
+        provider: "None",
+        error: "Aucune clé JEV ou OpenRouter configurée",
+      };
+    }
+
+    const model = options?.model || JEV_MODEL;
+    const timeoutMs = options?.timeoutMs ?? 10_000;
+
+    return new Promise((resolve) => {
+      const payload = JSON.stringify({
+        model,
+        state,
+        questions,
+      });
+
+      let timer: NodeJS.Timeout | null = null;
+
+      const req = https.request(
+        {
+          hostname: "openrouter.ai",
+          port: 443,
+          path: "/api/alpha/decisions",
+          method: "POST",
+          agent: httpsKeepAliveAgent,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${key}`,
+            "Content-Length": Buffer.byteLength(payload),
+          },
+        },
+        (res) => {
+          let body = "";
+          res.on("data", (c) => (body += c));
+          res.on("end", () => {
+            if (timer) clearTimeout(timer);
+            if (res.statusCode === 200) {
+              try {
+                const data = JSON.parse(body) as JevDecisionResponse;
+                resolve({
+                  success: true,
+                  content: data,
+                  provider: data.provider || "TypeSafe (Jev)",
+                  model: data.model || model,
+                });
+              } catch (e: any) {
+                resolve({
+                  success: false,
+                  content: null,
+                  provider: "TypeSafe (Jev)",
+                  error: `Jev response JSON parse error: ${e?.message ?? "unknown"}`,
+                });
+              }
+            } else {
+              resolve({
+                success: false,
+                content: null,
+                provider: "TypeSafe (Jev)",
+                error: `Jev API error HTTP ${String(res.statusCode)}: ${body.slice(0, 300)}`,
+              });
+            }
+          });
+        },
+      );
+
+      timer = setTimeout(() => {
+        req.destroy();
+        resolve({
+          success: false,
+          content: null,
+          provider: "TypeSafe (Jev)",
+          error: `Jev request timeout after ${String(timeoutMs)} ms`,
+        });
+      }, timeoutMs);
+
+      req.on("error", (err) => {
+        clearTimeout(timer);
+        resolve({
+          success: false,
+          content: null,
+          provider: "TypeSafe (Jev)",
+          error: `Jev socket error: ${err.message}`,
+        });
+      });
+
       req.write(payload);
       req.end();
     });
