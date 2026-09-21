@@ -43,6 +43,8 @@ export interface DraftCoachOptions {
   readonly llmRouter?: LlmRouter | undefined;
   readonly skipLlm?: boolean | undefined;
   readonly wheelSignals?: WheelSignalAnalysis | undefined;
+  readonly isPrefetch?: boolean | undefined;
+  readonly timeoutMs?: number | undefined;
 }
 
 function toCardEvaluationInput(c: CardEvaluationInput | CompanionCard): CardEvaluationInput {
@@ -392,11 +394,14 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       },
     );
 
+    const defaultLiveTimeout = isTestEnv ? 2000 : 3500;
+    const coachTimeoutMs = options.timeoutMs ?? (options.isPrefetch ? 12000 : defaultLiveTimeout);
+
     let timeoutId: NodeJS.Timeout | undefined;
     const llmTimeoutPromise = new Promise<never>((_, reject) => {
       timeoutId = setTimeout(() => {
-        reject(new Error("Draft coach overall timeout (> 2000ms)"));
-      }, 2000);
+        reject(new Error(`Draft coach overall timeout (> ${String(coachTimeoutMs)}ms)`));
+      }, coachTimeoutMs);
     });
 
     let res;
@@ -413,7 +418,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
             priorities?: string[];
             signalsTip?: string;
           };
-        }>(system, user, { maxTokens: 2000, preferBaseTier: true }),
+        }>(system, user, { maxTokens: 500, preferBaseTier: true, timeoutMs: coachTimeoutMs }),
         llmTimeoutPromise,
       ]);
     } finally {
@@ -623,10 +628,15 @@ async function tryJevAdvice(
               altId !== matchedTopId &&
               !alternatives.some((a) => a.id === altId || a.name === matchedAlt.name)
             ) {
+              const altEv = rankedForAdvice.find((c) => c.id === altId);
+              const altExplanation =
+                altEv?.explanation && altEv.explanation.length > 5
+                  ? altEv.explanation
+                  : "Alternative synergique solide dans vos couleurs.";
               alternatives.push({
                 id: altId,
                 name: matchedAlt.name,
-                reason: `Alternative JEV (${(prob * 100).toFixed(0)}% probabilité)`,
+                reason: `${altExplanation} (Alternative JEV ${(prob * 100).toFixed(0)}% probabilité)`,
               });
             }
           }
@@ -648,12 +658,19 @@ async function tryJevAdvice(
           }
         }
 
+        const topEv = rankedForAdvice.find((c) => c.id === matchedTopId);
+        const topExplanation =
+          topEv?.explanation && topEv.explanation.length > 5
+            ? topEv.explanation
+            : "Recommandation tactique majeure selon l'équilibre de courbe et de couleurs.";
+        const reason = jevResult.reason
+          ? `${topExplanation} (${jevResult.reason})`
+          : `${topExplanation} (Choix IA JEV Système 1, ${(jevResult.choiceProb * 100).toFixed(0)}% probabilité)`;
+
         return {
           topPickId: matchedTopId,
           topPickName: chosenTop.name,
-          reason:
-            jevResult.reason ??
-            `Choix IA JEV Système 1 (${(jevResult.choiceProb * 100).toFixed(0)}% probabilité)`,
+          reason,
           alternatives,
           provider: "JEV (OpenRouter)",
           packReview: deterministicReview,

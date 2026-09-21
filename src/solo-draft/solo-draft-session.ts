@@ -1680,11 +1680,11 @@ export class SoloDraftSession {
     if (!booster0 || booster0.remainingCardInstanceIds.length === 0) return;
 
     // Start advice computation in the background
-    this.cachedAdvicePromise = this.computePickAdvice();
+    this.cachedAdvicePromise = this.computePickAdvice({ isPrefetch: true });
   }
 
   private async computePickAdvice(
-    options: { skipLlm?: boolean } = {},
+    options: { skipLlm?: boolean; isPrefetch?: boolean } = {},
   ): Promise<SoloDraftPickAdvice> {
     const view = getDraftView(this.currentDraft);
     const seat0 = view.seats[0];
@@ -1730,6 +1730,7 @@ export class SoloDraftSession {
       },
       skipLlm: options.skipLlm,
       wheelSignals,
+      isPrefetch: options.isPrefetch,
     });
 
     return {
@@ -1761,7 +1762,7 @@ export class SoloDraftSession {
         const timeoutPromise = new Promise<never>((_, reject) => {
           timeoutId = setTimeout(() => {
             reject(new Error("Cached advice wait timeout"));
-          }, 2000);
+          }, 2500);
         });
         try {
           const cached = await Promise.race([this.cachedAdvicePromise, timeoutPromise]);

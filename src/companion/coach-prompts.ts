@@ -37,12 +37,9 @@ export function buildDraftAdvicePrompt(
     : "Contexte de cube non identifié : n'invente ni niveau de puissance, ni extension dominante, ni vitesse de format.";
   const archetypeGuidance =
     cubeMeta && cubeMeta.archetypes.length > 0
-      ? `\n- ARCHÉTYPES DOCUMENTÉS DU CUBE :\n${cubeMeta.archetypes
-          .map(
-            (archetype) =>
-              `  * ${archetype.name} (${archetype.primaryColors.join("/")}) : ${archetype.gameplan}`,
-          )
-          .join("\n")}`
+      ? `\n- Archétypes du cube : ${cubeMeta.archetypes
+          .map((a) => `${a.name} (${a.primaryColors.join("/")})`)
+          .join(", ")}`
       : "";
 
   const system = `Tu es un Coach de Draft Cube Magic de niveau Pro Tour.
@@ -233,9 +230,9 @@ ${pr.priorities.map((p) => `  * ${p}`).join("\n")}
       const analysis =
         evidence && idx < 6 ? ` Analyse locale: ${evidence.candidate.explanation}` : "";
 
-      // Only include full Oracle text for top 6 cards to keep prompt compact and fast
+      // Only include full Oracle text for top 3 cards to keep prompt compact and fast
       const abilities =
-        idx < 6 && c.oracleText ? ` : ${c.oracleText.replace(/\r?\n/g, " ").slice(0, 200)}` : "";
+        idx < 3 && c.oracleText ? ` : ${c.oracleText.replace(/\r?\n/g, " ").slice(0, 100)}` : "";
       return `- ${c.name} (${c.manaCost || "Terrain"}, CMC: ${c.cmc}) [${c.typeLine || (c.isLand ? "Terrain" : "Sort")}]${tag}${abilities}${analysis}`;
     })
     .join("\n");

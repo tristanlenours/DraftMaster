@@ -78,13 +78,13 @@ export interface JevDecisionResponse {
 }
 
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/auto";
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 const JEV_MODEL = process.env.JEV_MODEL || "~typesafe/jev-latest";
 
 export class LlmRouter {
   private geminiKeys: string[] = [];
   private geminiKeyCooldowns: Map<string, number> = new Map();
-  private currentGeminiIndex = 0;
+  private currentGeminiIndex = Math.floor(Math.random() * 8);
   private openrouterKey = "";
   private jevKey = "";
 
@@ -226,12 +226,13 @@ export class LlmRouter {
       preferBaseTier?: boolean;
       maxTokens?: number;
       profile?: LlmJsonProfile;
+      timeoutMs?: number;
     },
   ): Promise<LlmResponse<T>> {
-    const maxTokens = options?.maxTokens ?? 2000;
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
+    const maxTokens = options?.maxTokens ?? (isFinalDeckCoach ? 2000 : 500);
     const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
-    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 2000;
+    const jsonTimeoutMs = options?.timeoutMs ?? (isFinalDeckCoach ? 8000 : 2500);
 
     // Low-latency profiles try Gemini first, then retain OpenRouter as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
@@ -405,13 +406,14 @@ export class LlmRouter {
     timeoutMs = 5000,
   ): Promise<T | null> {
     const keys = this.getAvailableGeminiKeys();
+    const perKeyTimeout = keys.length > 1 ? Math.min(timeoutMs, 3500) : timeoutMs;
     for (const key of keys) {
       const outcome = await this.executeGeminiJsonRequest(
         key,
         systemPrompt,
         userPrompt,
         maxTokens,
-        timeoutMs,
+        perKeyTimeout,
       );
       if (outcome.status === "success") {
         return outcome.data as T;
@@ -434,8 +436,9 @@ export class LlmRouter {
         );
         break;
       }
+      this.geminiKeyCooldowns.set(key, Date.now() + 60_000);
       console.warn(
-        `[LlmRouter] Gemini JSON request error for key ...${key.slice(-6)}. Trying next key.`,
+        `[LlmRouter] Gemini JSON request error for key ...${key.slice(-6)}. Cooling down 1m, trying next key.`,
       );
       continue;
     }
@@ -459,9 +462,6 @@ export class LlmRouter {
           responseMimeType: "application/json",
           temperature: 0.1,
           maxOutputTokens: maxTokens,
-          thinkingConfig: {
-            thinkingBudget: 0,
-          },
         },
       });
 
@@ -517,11 +517,17 @@ export class LlmRouter {
 
       timer = setTimeout(() => {
         req.destroy();
+        console.warn(
+          `[LlmRouter] Gemini request timed out after ${String(timeoutMs)}ms for key ...${key.slice(-6)}`,
+        );
         resolve({ status: "error", data: null });
       }, timeoutMs);
 
-      req.on("error", () => {
+      req.on("error", (err) => {
         clearTimeout(timer);
+        console.warn(
+          `[LlmRouter] Gemini request error: ${err.message} for key ...${key.slice(-6)}`,
+        );
         resolve({ status: "error", data: null });
       });
       req.write(payload);
