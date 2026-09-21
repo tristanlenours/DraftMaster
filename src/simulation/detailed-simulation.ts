@@ -115,6 +115,7 @@ export interface PickWalkthroughStep {
   readonly pickedCardName: string;
   readonly justification: string;
   readonly poolSoFar: readonly EnrichedCard[];
+  readonly decisionEngine?: "jev" | "deterministic" | undefined;
 }
 
 export interface FinalDeckSummary {
@@ -667,11 +668,15 @@ export async function runDetailedDraftSimulation(
         pickNumber,
         seatId: sId,
         boosterId: currentBooster.boosterId,
-        decisionTrace,
+        decisionTrace: {
+          ...decisionTrace,
+          decisionEngine: "deterministic",
+        },
+        decisionEngine: "deterministic",
         boosterCards: boosterDetailed,
         pickedCardInstanceId: chosenInstanceId,
         pickedCardName: chosenName,
-        justification: finalJustification,
+        justification: `[Moteur Déterministe] ${finalJustification}`,
         poolSoFar,
       };
 

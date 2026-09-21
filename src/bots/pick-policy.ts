@@ -44,6 +44,7 @@ export interface PickDecisionTrace {
   readonly randomRoll: number | null;
   readonly selectedProbability: number;
   readonly candidates: readonly Readonly<PickCandidateTrace>[];
+  readonly decisionEngine?: "jev" | "deterministic" | undefined;
 }
 
 export interface PickPolicyDecision {

@@ -208,6 +208,7 @@ export function createCoachedBotPolicy(options: CoachedBotPolicyOptions = {}): P
           randomRoll: null,
           selectedProbability: 1,
           candidates: candidateTraces,
+          decisionEngine: "deterministic",
         },
       });
     },

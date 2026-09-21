@@ -12,6 +12,7 @@ import { buildDraftAdvicePrompt } from "../../companion/coach-prompts.ts";
 import type { CompanionCard } from "../../companion/card-resolver.ts";
 import type { CubeMetaDefinition } from "../../cubes/cube-meta-types.ts";
 import { detectDraftedTribalContext, isCardTriballyIncompatible } from "./tribal-compatibility.ts";
+import { chooseWithJevBot } from "../../bots/jev/jev-bot-decision.ts";
 import type { WheelSignalAnalysis } from "./wheel-signals.ts";
 
 export interface DraftCoachAlternative {
@@ -391,18 +392,33 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       },
     );
 
-    const res = await router.generateJson<{
-      topPick: string;
-      reason: string;
-      alternatives?: { name: string; reason: string }[];
-      packReview?: {
-        summary?: string;
-        curveAdvice?: string;
-        fixingAdvice?: string;
-        priorities?: string[];
-        signalsTip?: string;
-      };
-    }>(system, user, { maxTokens: 2000, preferBaseTier: true });
+    let timeoutId: NodeJS.Timeout | undefined;
+    const llmTimeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => {
+        reject(new Error("Draft coach overall timeout (> 2000ms)"));
+      }, 2000);
+    });
+
+    let res;
+    try {
+      res = await Promise.race([
+        router.generateJson<{
+          topPick: string;
+          reason: string;
+          alternatives?: { name: string; reason: string }[];
+          packReview?: {
+            summary?: string;
+            curveAdvice?: string;
+            fixingAdvice?: string;
+            priorities?: string[];
+            signalsTip?: string;
+          };
+        }>(system, user, { maxTokens: 2000, preferBaseTier: true }),
+        llmTimeoutPromise,
+      ]);
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (res.success && res.content?.topPick) {
       const topPickName = res.content.topPick.trim();
@@ -496,12 +512,161 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
         };
       }
     }
+
+    const jevAdvice = await tryJevAdvice(
+      router,
+      options,
+      cubeKey,
+      cubeMetaRegistry?.meta,
+      deterministicReview,
+      rankedForAdvice,
+      tribalContext,
+    );
+    if (jevAdvice) {
+      return jevAdvice;
+    }
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    console.warn("[DraftCoachService] LLM coach query failed, falling back to engine:", message);
+    console.warn("[DraftCoachService] LLM coach query failed, attempting JEV fallback:", message);
+    const router = options.llmRouter ?? getSharedLlmRouter();
+    const jevAdvice = await tryJevAdvice(
+      router,
+      options,
+      cubeKey,
+      cubeMetaRegistry?.meta,
+      deterministicReview,
+      rankedForAdvice,
+      tribalContext,
+    );
+    if (jevAdvice) {
+      return jevAdvice;
+    }
   }
 
   return deterministicAdvice;
+}
+
+async function tryJevAdvice(
+  router: LlmRouter,
+  options: DraftCoachOptions,
+  cubeKey?: string,
+  cubeMeta?: CubeMetaDefinition,
+  deterministicReview?: MidDraftReview,
+  rankedForAdvice: readonly CardEvaluation[] = [],
+  tribalContext?: ReturnType<typeof detectDraftedTribalContext>,
+): Promise<DraftCoachAdvice | null> {
+  if (typeof router.hasJevKey !== "function" || !router.hasJevKey()) {
+    return null;
+  }
+
+  try {
+    const evalInputCards = options.packCards.map(toCardEvaluationInput);
+    const evalInputPool = options.priorPool.map(toCardEvaluationInput);
+
+    let jevTimeoutId: NodeJS.Timeout | undefined;
+    const jevTimeoutPromise = new Promise<never>((_, reject) => {
+      jevTimeoutId = setTimeout(() => {
+        reject(new Error("JEV coach timeout (> 2000ms)"));
+      }, 2000);
+    });
+
+    const jevResult = await Promise.race([
+      chooseWithJevBot({
+        router,
+        cubeMeta,
+        cubeKey,
+        packNumber: options.packNumber,
+        pickNumber: options.pickNumber,
+        offeredCards: evalInputCards,
+        priorPool: evalInputPool,
+        timeoutMs: 2000,
+      }),
+      jevTimeoutPromise,
+    ]).finally(() => {
+      clearTimeout(jevTimeoutId);
+    });
+
+    if (jevResult.usedJev && jevResult.cardInstanceId) {
+      let matchedTop = findBestCardMatch(jevResult.cardName, options.packCards);
+      matchedTop ??= options.packCards.find(
+        (c) => ("grpId" in c ? String(c.grpId) : c.id) === jevResult.cardInstanceId,
+      );
+
+      if (
+        matchedTop &&
+        tribalContext?.isTribalEngaged &&
+        isCardTriballyIncompatible(matchedTop, tribalContext)
+      ) {
+        const safeFallback = options.packCards.find(
+          (c) => !isCardTriballyIncompatible(c, tribalContext),
+        );
+        if (safeFallback) {
+          matchedTop = safeFallback;
+        }
+      }
+
+      if (matchedTop) {
+        const chosenTop = matchedTop;
+        const matchedTopId = "grpId" in chosenTop ? String(chosenTop.grpId) : chosenTop.id;
+        const topName = chosenTop.name.trim().toLowerCase();
+
+        const alternatives: DraftCoachAlternative[] = [];
+        const sortedProbEntries = Object.entries(jevResult.probabilities)
+          .filter(([name]) => name.trim().toLowerCase() !== topName)
+          .sort(([, a], [, b]) => b - a);
+
+        for (const [name, prob] of sortedProbEntries) {
+          const matchedAlt = findBestCardMatch(name, options.packCards);
+          if (matchedAlt) {
+            const altId = "grpId" in matchedAlt ? String(matchedAlt.grpId) : matchedAlt.id;
+            if (
+              altId !== matchedTopId &&
+              !alternatives.some((a) => a.id === altId || a.name === matchedAlt.name)
+            ) {
+              alternatives.push({
+                id: altId,
+                name: matchedAlt.name,
+                reason: `Alternative JEV (${(prob * 100).toFixed(0)}% probabilité)`,
+              });
+            }
+          }
+          if (alternatives.length >= 2) break;
+        }
+
+        if (alternatives.length < 2) {
+          const detAlts = getDeterministicAlternatives(
+            rankedForAdvice,
+            options.packCards,
+            matchedTopId,
+            chosenTop.name,
+          );
+          for (const da of detAlts) {
+            if (!alternatives.some((a) => a.id === da.id || a.name === da.name)) {
+              alternatives.push(da);
+            }
+            if (alternatives.length >= 2) break;
+          }
+        }
+
+        return {
+          topPickId: matchedTopId,
+          topPickName: chosenTop.name,
+          reason:
+            jevResult.reason ??
+            `Choix IA JEV Système 1 (${(jevResult.choiceProb * 100).toFixed(0)}% probabilité)`,
+          alternatives,
+          provider: "JEV (OpenRouter)",
+          packReview: deterministicReview,
+          wheelSignals: options.wheelSignals,
+        };
+      }
+    }
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn("[DraftCoachService] JEV fallback failed:", message);
+  }
+
+  return null;
 }
 
 function getDeterministicAlternatives(

@@ -41,6 +41,7 @@
     "test:audit": "vitest run tests/integration/report-audit.test.ts",
     "test:browser": "playwright test",
     "test:coach:live": "node --no-warnings --experimental-strip-types scripts/test-live-coach.ts",
+    "test:coach:round1": "vitest run tests/integration/coach-first-round-regression.test.ts",
     "test:jev": "node --no-warnings --experimental-strip-types scripts/test-jev-decision.ts",
     "test:simulate:witness": "node --no-warnings --experimental-strip-types scripts/simulate-witness-picks.ts",
     "test:jev:bots": "node --no-warnings --experimental-strip-types scripts/test-jev-bot-draft.ts",

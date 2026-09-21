@@ -919,7 +919,10 @@ export class SoloDraftController {
     this.dom.coachAdviceContent.innerHTML = `
       ${packReviewHtml}
       <div class="coach-advice-top-pick">
-        <div class="coach-top-pick-title">⭐ Recommandation Prioritaire : <strong>${escapeHtml(advice.topPickName)}</strong></div>
+        <div class="coach-top-pick-title" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+          <span>⭐ Recommandation Prioritaire : <strong>${escapeHtml(advice.topPickName)}</strong></span>
+          <span style="font-size: 0.72rem; padding: 0.15rem 0.55rem; border-radius: 9999px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; font-weight: 700;">${escapeHtml(advice.provider === "engine" ? "⚙️ Moteur Déterministe" : advice.provider || "Coach IA")}</span>
+        </div>
         <div class="coach-top-pick-reason">${escapeHtml(advice.reason)}</div>
       </div>
       ${

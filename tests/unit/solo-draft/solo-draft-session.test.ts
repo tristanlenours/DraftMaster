@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { rm, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { SoloDraftSession } from "../../../src/solo-draft/solo-draft-session.ts";
 import { createFinalDeckCoach } from "../../../src/multiplayer-draft/final-deck-coach.ts";
+import { LlmRouter } from "../../../src/companion/llm-router.ts";
 
 const TEST_REPORTS_DIR = ".scratch/test-reports";
 const TEST_LEADERBOARD_PATH = ".scratch/test-leaderboard.json";
@@ -464,5 +465,80 @@ describe("SoloDraftSession", () => {
     expect(restoredAdvice.wheelSignals?.currentPickNumber).toBe(9);
     expect(restoredAdvice.wheelSignals?.cardsWheeled).toHaveLength(7);
     expect(restoredAdvice.wheelSignals?.cardsTakenByTable).toHaveLength(7);
+  });
+
+  it("tags bot picks with [Moteur Déterministe] and decisionEngine 'deterministic'", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "EngineTester",
+      seed: 42,
+    });
+
+    const card = session.getStateDto().currentBooster[0];
+    if (!card) throw new Error("Missing booster card");
+
+    session.makePick(card.instanceId);
+
+    // Inspect bot seat 1 (Nico / Big Nixos) steps directly
+    const botSteps = session.getSeatSteps(1);
+    expect(botSteps.length).toBeGreaterThan(0);
+    const firstBotStep = botSteps[0];
+    expect(firstBotStep).toBeDefined();
+    expect(firstBotStep?.decisionEngine).toBe("deterministic");
+    expect(firstBotStep?.decisionTrace.decisionEngine).toBe("deterministic");
+    expect(firstBotStep?.justification).toContain("[Moteur Déterministe]");
+  });
+
+  it("tags bot picks with [JEV] and decisionEngine 'jev' when makePickAsync uses JEV", async () => {
+    const session = await SoloDraftSession.create({
+      playerName: "JevEngineTester",
+      seed: 42,
+    });
+
+    const card = session.getStateDto().currentBooster[0];
+    if (!card) throw new Error("Missing booster card");
+
+    // Mock LlmRouter hasJevKey and callJevDecision
+    const mockRouterProto = LlmRouter.prototype;
+    const hasJevSpy = vi.spyOn(mockRouterProto, "hasJevKey").mockReturnValue(true);
+    const callJevSpy = vi
+      .spyOn(mockRouterProto, "callJevDecision")
+      .mockImplementation((_state, questions) => {
+        const cardNames = Object.keys(questions.bot_pick?.criteria ?? {});
+        const choice = cardNames[0] ?? "Card";
+        return Promise.resolve({
+          success: true,
+          content: {
+            id: "mock-jev-bot",
+            provider: "TypeSafe (Jev)",
+            model: "~typesafe/jev-latest",
+            usage: { input_tokens: 100, output_tokens: 20, cost: 0.001 },
+            answers: {
+              bot_pick: {
+                type: "choice" as const,
+                choice,
+                confidence: 0.95,
+                probabilities: { [choice]: 0.95 },
+              },
+            },
+          },
+          provider: "TypeSafe (Jev)",
+          model: "~typesafe/jev-latest",
+        });
+      });
+
+    try {
+      await session.makePickAsync(card.instanceId, { botEngine: "jev" });
+
+      const botSteps = session.getSeatSteps(1);
+      expect(botSteps.length).toBeGreaterThan(0);
+      const firstBotStep = botSteps[0];
+      expect(firstBotStep).toBeDefined();
+      expect(firstBotStep?.decisionEngine).toBe("jev");
+      expect(firstBotStep?.decisionTrace.decisionEngine).toBe("jev");
+      expect(firstBotStep?.justification).toContain("[JEV]");
+    } finally {
+      hasJevSpy.mockRestore();
+      callJevSpy.mockRestore();
+    }
   });
 });

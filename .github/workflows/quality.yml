@@ -63,6 +63,9 @@ jobs:
       - name: Run domain errors tests
         run: npm run test:domain-errors
 
+      - name: Run Coach Round 1 non-regression tests
+        run: npm run test:coach:round1
+
       - name: Run E2E tests
         run: npm run test:e2e
 

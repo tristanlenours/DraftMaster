@@ -382,6 +382,7 @@ export function createFriendBotPolicy(options: FriendBotPolicyOptions): PickPoli
               randomRoll,
               selectedProbability: probability,
               candidates: candidateTraces,
+              decisionEngine: "deterministic",
             },
           });
         }

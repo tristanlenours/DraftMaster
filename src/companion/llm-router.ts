@@ -231,7 +231,7 @@ export class LlmRouter {
     const maxTokens = options?.maxTokens ?? 2000;
     const isFinalDeckCoach = options?.profile === "final-deck-coach@1";
     const preferGemini = options?.preferBaseTier === true || isFinalDeckCoach;
-    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 7000;
+    const jsonTimeoutMs = isFinalDeckCoach ? 8000 : 2000;
 
     // Low-latency profiles try Gemini first, then retain OpenRouter as the configured fallback.
     if (preferGemini && this.hasAvailableGeminiKey()) {
@@ -277,8 +277,8 @@ export class LlmRouter {
       }
     }
 
-    // 2. Fallback to Gemini Flash
-    if (this.hasAvailableGeminiKey()) {
+    // 2. Fallback to Gemini Flash only if not already tried above
+    if (!preferGemini && this.hasAvailableGeminiKey()) {
       try {
         const gemRes = await this.callGeminiJson<T>(
           systemPrompt,
@@ -423,6 +423,17 @@ export class LlmRouter {
         );
         continue;
       }
+      if (outcome.status === "service_unavailable") {
+        // High demand / server outage on Gemini model. Cooldown all keys for 2 minutes and don't retry other keys.
+        const cooldownUntil = Date.now() + 120_000;
+        for (const k of this.geminiKeys) {
+          this.geminiKeyCooldowns.set(k, cooldownUntil);
+        }
+        console.warn(
+          `[LlmRouter] Gemini model unavailable (503), placing all keys on cooldown for 2m and skipping retries.`,
+        );
+        break;
+      }
       console.warn(
         `[LlmRouter] Gemini JSON request error for key ...${key.slice(-6)}. Trying next key.`,
       );
@@ -437,7 +448,10 @@ export class LlmRouter {
     userPrompt: string,
     maxTokens: number,
     timeoutMs: number,
-  ): Promise<{ status: "success" | "quota_exceeded" | "error"; data: unknown }> {
+  ): Promise<{
+    status: "success" | "quota_exceeded" | "service_unavailable" | "error";
+    data: unknown;
+  }> {
     return new Promise((resolve) => {
       const payload = JSON.stringify({
         contents: [{ parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
@@ -486,6 +500,13 @@ export class LlmRouter {
               }
             } else if (res.statusCode === 429) {
               resolve({ status: "quota_exceeded", data: null });
+            } else if (res.statusCode === 503 || res.statusCode === 502 || res.statusCode === 504) {
+              console.warn(
+                "[LlmRouter] Gemini service unavailable:",
+                res.statusCode,
+                body.slice(0, 200),
+              );
+              resolve({ status: "service_unavailable", data: null });
             } else {
               console.warn("[LlmRouter] Gemini HTTP error:", res.statusCode, body.slice(0, 200));
               resolve({ status: "error", data: null });

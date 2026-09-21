@@ -504,6 +504,28 @@ export function generateDetailedDraftHtml(report: DetailedDraftReport): string {
       border-color: var(--primary);
     }
 
+    .banner-engine-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .badge-jev {
+      background: rgba(168, 85, 247, 0.18);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+    .badge-deterministic {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+
     /* Floating Navigation Pill */
     .floating-nav-pill {
       position: fixed;
@@ -1176,6 +1198,7 @@ export function generateDetailedDraftHtml(report: DetailedDraftReport): string {
           <div class="picked-card-title">
             <span class="pick-number-badge" id="banner-pick-badge">P1P1</span>
             <span id="banner-card-name">Carte Choisie</span>
+            <span class="banner-engine-badge badge-deterministic" id="banner-engine-badge">⚙️ Moteur Déterministe</span>
           </div>
           <div style="display: flex; gap: 0.5rem; font-size: 0.8rem;">
             <span class="score-pill-dyn" id="banner-dyn-score">Score dyn: 0</span>
@@ -1567,6 +1590,11 @@ ${serializedReport}
         );
         if (!step) return;
         const picked = step.boosterCards.find(card => card.isPicked);
+        const isStepJev =
+          step.decisionEngine === "jev" ||
+          step.decisionTrace?.decisionEngine === "jev" ||
+          (step.justification && step.justification.includes("[JEV]"));
+        const engineLabel = isStepJev ? "🤖 IA JEV" : "⚙️ Moteur Déterministe";
         const card = document.createElement('article');
         card.className = 'timeline-decision-card';
         card.innerHTML =
@@ -1581,7 +1609,7 @@ ${serializedReport}
           formatProbability(picked?.selectionProbability) + '</span></div>' +
           '<div><strong>Biais appliqués</strong></div><div class="bias-list">' +
           renderBiasChips(picked?.biasContributions) + '</div>' +
-          '<div class="candidate-policy-line">Séquence journal #' + step.eventSequence +
+          '<div class="candidate-policy-line">Moteur : <strong>' + engineLabel + '</strong> · Séquence journal #' + step.eventSequence +
           ' · Booster ' + escapeHtml(step.boosterId) + ' · Tirage déterministe ' +
           (step.decisionTrace.randomRoll === null
             ? 'non requis'
@@ -1642,6 +1670,21 @@ ${serializedReport}
       document.getElementById('banner-card-name').textContent = step.pickedCardName;
       document.getElementById('banner-justification').textContent = step.justification;
 
+      const engineBadge = document.getElementById('banner-engine-badge');
+      const isStepJev =
+        step.decisionEngine === "jev" ||
+        step.decisionTrace?.decisionEngine === "jev" ||
+        (step.justification && step.justification.includes("[JEV]"));
+      if (engineBadge) {
+        if (isStepJev) {
+          engineBadge.textContent = '🤖 IA JEV';
+          engineBadge.className = 'banner-engine-badge badge-jev';
+        } else {
+          engineBadge.textContent = '⚙️ Moteur Déterministe';
+          engineBadge.className = 'banner-engine-badge badge-deterministic';
+        }
+      }
+
       const pickedCard = step.boosterCards.find(c => c.isPicked);
       if (pickedCard) {
         document.getElementById('banner-dyn-score').textContent = \`Score: \${pickedCard.dynamicScore.toFixed(1)}\`;
@@ -1663,6 +1706,7 @@ ${serializedReport}
           <div><strong>Biais appliqués</strong></div>
           <div class="bias-list">\${renderBiasChips(pickedCard.biasContributions)}</div>
           <div class="candidate-policy-line">
+            Moteur : <strong>\${isStepJev ? '🤖 IA JEV' : '⚙️ Moteur Déterministe'}</strong> ·
             Méthode \${step.decisionTrace.method} · Température \${step.decisionTrace.temperature ?? 'n/a'} ·
             Tirage déterministe \${step.decisionTrace.randomRoll === null ? 'non requis' : Number(step.decisionTrace.randomRoll).toFixed(7)} ·
             Séquence journal #\${step.eventSequence} · Booster \${escapeHtml(step.boosterId)}

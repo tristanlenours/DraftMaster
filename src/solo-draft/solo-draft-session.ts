@@ -36,6 +36,7 @@ import {
   DEFAULT_FRIEND_SEAT_PROFILES,
   type FriendProfile,
 } from "../bots/friends/index.ts";
+import { chooseWithJevBot } from "../bots/jev/jev-bot-decision.ts";
 import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
 import { computeWheelSignals, type WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
@@ -540,6 +541,10 @@ export class SoloDraftSession {
     };
   }
 
+  public getSeatSteps(seatId: SeatId): readonly PickWalkthroughStep[] {
+    return this.seatStepsMap.get(seatId) ?? [];
+  }
+
   public makePick(
     cardInstanceId: string,
     options: { prefetchAdvice?: boolean } = {},
@@ -806,17 +811,24 @@ export class SoloDraftSession {
         finalJustification += ` (Biais ${profile.name} : ${biasSummary} pts)`;
       }
 
+      const engineTag = "[Moteur Déterministe]";
+      const botJustification = `${engineTag} ${finalJustification}`;
+
       roundSteps.set(sId, {
         roundIndex: round,
         packNumber,
         pickNumber,
         seatId: sId,
         boosterId: currentBooster.boosterId,
-        decisionTrace,
+        decisionTrace: {
+          ...decisionTrace,
+          decisionEngine: "deterministic",
+        },
+        decisionEngine: "deterministic",
         boosterCards: boosterDetailed,
         pickedCardInstanceId: chosenInstanceId,
         pickedCardName: chosenName,
-        justification: finalJustification,
+        justification: botJustification,
         poolSoFar: priorPoolInstanceIds.map((id) => this.getEnrichedCard(id)),
       });
     }
@@ -836,6 +848,341 @@ export class SoloDraftSession {
     }
 
     // Associate sequence numbers with walkthrough steps
+    for (let s = 0; s < 8; s++) {
+      const sId = s as SeatId;
+      const step = roundSteps.get(sId);
+      if (!step) continue;
+      const pickedEvent = roundResult.value.appendedEvents.find(
+        (e): e is CardPickedEvent => e.type === "CardPicked" && e.seatId === sId,
+      );
+      if (pickedEvent) {
+        this.seatStepsMap.get(sId)?.push({ ...step, eventSequence: pickedEvent.sequence });
+      }
+    }
+
+    this.currentDraft = roundResult.value.draft;
+    this.roundIndex++;
+    this.cachedAdvicePromise = null;
+
+    if (this.roundIndex >= 45) {
+      this.status = "deckbuilding";
+      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+      this.startBotDeckbuilding();
+    } else if (options.prefetchAdvice !== false) {
+      this.prefetchPickAdvice();
+    }
+
+    return this.getStateDto(humanEnriched);
+  }
+
+  public async makePickAsync(
+    cardInstanceId: string,
+    options: { prefetchAdvice?: boolean; botEngine?: "deterministic" | "jev" } = {},
+  ): Promise<SoloDraftStateDto> {
+    const botEngine = options.botEngine ?? "deterministic";
+    const router = new LlmRouter();
+    if (botEngine !== "jev" || !router.hasJevKey()) {
+      return this.makePick(cardInstanceId, options);
+    }
+
+    if (this.status !== "drafting") {
+      throw new Error(`Cannot make pick: draft status is '${this.status}'`);
+    }
+
+    const view = getDraftView(this.currentDraft);
+    if (view.status === "completed" || this.roundIndex >= 45) {
+      this.status = "deckbuilding";
+      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+      return this.getStateDto();
+    }
+
+    const seat0View = view.seats[0];
+    const booster0 = seat0View?.currentBooster;
+    if (!booster0) {
+      throw new Error("Human seat has no booster available for this round");
+    }
+
+    if (!booster0.remainingCardInstanceIds.includes(cardInstanceId)) {
+      throw new Error(`Card instance '${cardInstanceId}' is not in current booster`);
+    }
+
+    const round = this.roundIndex;
+    const packNumber = view.packNumber;
+    const pickNumber = view.pickNumber;
+    const occurredAt = new Date(this.startedAtTimestamp + (round + 1) * 1000).toISOString();
+    const evaluationContext = {
+      cubeKey: this.snapshot.cubeKey,
+      catalog: this.catalog,
+      cubeMeta: this.coachContext.cubeMeta,
+      synergyProfile: this.coachContext.synergyProfile,
+    } as const;
+
+    const decisions: SeatDecision[] = [];
+    const roundSteps = new Map<SeatId, Omit<PickWalkthroughStep, "eventSequence">>();
+
+    // 1. Human Decision (Seat 0)
+    this.humanPicks.push(cardInstanceId);
+    if (pickNumber <= 7) {
+      const passedCardIds = booster0.remainingCardInstanceIds.filter((id) => id !== cardInstanceId);
+      this.humanSeenBoosters.set(booster0.boosterId, {
+        pickNumber,
+        pickedCardId: cardInstanceId,
+        passedCardIds,
+      });
+    }
+    const humanEnriched = this.getEnrichedCard(cardInstanceId);
+    decisions.push({
+      seatId: 0,
+      cardInstanceId,
+      source: { kind: "caller" },
+    });
+
+    const boosterCardsForHuman = booster0.remainingCardInstanceIds.map((id, idx) => {
+      const card = this.getEnrichedCard(id);
+      return {
+        ...card,
+        dynamicScore: card.staticScore,
+        rankInPack: idx + 1,
+        isPicked: id === cardInstanceId,
+        delta: 0,
+        justification: "Choix du joueur humain",
+        coachingBreakdown: {
+          colorAffinityFactor: 1,
+          colorPenalty: 0,
+          manaFixingBonus: 0,
+          curveBonus: 0,
+          rawDynamicScore: card.staticScore,
+        },
+        biasContributions: [],
+        personalityBonus: 0,
+        friendBonus: 0,
+        policyScore: card.staticScore,
+        selectionProbability: id === cardInstanceId ? 1 : 0,
+        policyRank: 1,
+      };
+    });
+
+    const humanCandidate: PickCandidateTrace = {
+      cardInstanceId,
+      staticScore: humanEnriched.staticScore,
+      dynamicScore: humanEnriched.staticScore,
+      coachingBreakdown: {
+        colorAffinityFactor: 1,
+        colorPenalty: 0,
+        manaFixingBonus: 0,
+        curveBonus: 0,
+        rawDynamicScore: humanEnriched.staticScore,
+      },
+      biasContributions: [],
+      personalityBonus: 0,
+      policyScore: humanEnriched.staticScore,
+      selectionProbability: 1,
+      policyRank: 1,
+    };
+
+    const humanDecisionTrace: PickDecisionTrace = {
+      schemaVersion: 1,
+      method: "highest-score",
+      temperature: null,
+      randomRoll: null,
+      selectedProbability: 1,
+      candidates: [humanCandidate],
+    };
+
+    roundSteps.set(0, {
+      roundIndex: round,
+      packNumber,
+      pickNumber,
+      seatId: 0,
+      boosterId: booster0.boosterId,
+      decisionTrace: humanDecisionTrace,
+      boosterCards: boosterCardsForHuman,
+      pickedCardInstanceId: cardInstanceId,
+      pickedCardName: humanEnriched.name,
+      justification: `Choix manuel de ${this.playerName}`,
+      poolSoFar: seat0View.priorPool.map((id) => this.getEnrichedCard(id)),
+    });
+
+    // 2. Bot Decisions (Seats 1 to 7) in Parallel with JEV
+    const botTasks = Array.from({ length: 7 }, async (_, i) => {
+      const seatIdx = i + 1;
+      const sId = seatIdx as SeatId;
+      const seatView = view.seats[sId];
+      const currentBooster = seatView?.currentBooster;
+      if (!currentBooster) {
+        throw new Error(`Bot seat ${String(sId)} has no booster`);
+      }
+
+      const boosterInstanceIds = currentBooster.remainingCardInstanceIds;
+      const priorPoolInstanceIds = seatView.priorPool;
+
+      const offeredInputs: CardEvaluationInput[] = boosterInstanceIds.map(
+        (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+      );
+      const priorInputs: CardEvaluationInput[] = priorPoolInstanceIds.map(
+        (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
+      );
+
+      const profile = this.seatProfiles[sId] ?? {
+        id: `seat-${String(sId)}`,
+        name: `Bot ${String(sId)}`,
+        title: "Bot Invité",
+        quote: "Prêt à drafter.",
+        level: "medium" as const,
+        temperature: 1.0,
+        biases: {},
+      };
+
+      const jevResult = await chooseWithJevBot({
+        router,
+        cubeMeta: this.coachContext.cubeMeta.meta,
+        cubeKey: this.cubeKey,
+        profile,
+        packNumber,
+        pickNumber,
+        offeredCards: offeredInputs,
+        priorPool: priorInputs,
+        timeoutMs: 2000,
+      });
+
+      return {
+        sId,
+        currentBooster,
+        boosterInstanceIds,
+        priorPoolInstanceIds,
+        offeredInputs,
+        priorInputs,
+        jevResult,
+      };
+    });
+
+    const botResults = await Promise.all(botTasks);
+
+    for (const b of botResults) {
+      const {
+        sId,
+        currentBooster,
+        boosterInstanceIds,
+        priorPoolInstanceIds,
+        offeredInputs,
+        priorInputs,
+        jevResult,
+      } = b;
+
+      const evalContext: PackEvaluationContext = {
+        ...evaluationContext,
+        packNumber,
+        pickNumber,
+        offeredCards: offeredInputs,
+        priorPool: priorInputs,
+      };
+      const evaluatedCards = evaluatePack(evalContext);
+      const evalMap = new Map<string, (typeof evaluatedCards)[number]>(
+        evaluatedCards.map((c) => [c.id, c]),
+      );
+
+      const chosenInstanceId = jevResult.cardInstanceId;
+      const isJev = jevResult.usedJev;
+      const decisionEngine: "jev" | "deterministic" = isJev ? "jev" : "deterministic";
+
+      const policy = this.policies[sId];
+      decisions.push({
+        seatId: sId,
+        cardInstanceId: chosenInstanceId,
+        source: {
+          kind: "policy",
+          policyId: policy?.id ?? (isJev ? "jev-bot-decision" : "coached-bot"),
+          policyVersion: policy?.version ?? "1.0.0",
+        },
+      });
+
+      const boosterDetailed: DetailedBoosterCard[] = boosterInstanceIds.map((instanceId, idx) => {
+        const enriched = this.getEnrichedCard(instanceId);
+        const ev = evalMap.get(instanceId);
+        const prob =
+          jevResult.probabilities[enriched.name] ?? (instanceId === chosenInstanceId ? 1 : 0);
+        const rankInPack = evaluatedCards.findIndex((c) => c.id === instanceId) + 1;
+        const isPicked = instanceId === chosenInstanceId;
+        return {
+          ...enriched,
+          dynamicScore: ev?.dynamicScore ?? enriched.staticScore,
+          rankInPack: rankInPack > 0 ? rankInPack : idx + 1,
+          isPicked,
+          delta: ev?.delta ?? 0,
+          justification: ev?.explanation ?? "",
+          coachingBreakdown: ev?.breakdown ?? {
+            colorAffinityFactor: 1,
+            colorPenalty: 0,
+            manaFixingBonus: 0,
+            curveBonus: 0,
+            rawDynamicScore: enriched.staticScore,
+          },
+          biasContributions: [],
+          personalityBonus: 0,
+          friendBonus: 0,
+          policyScore: ev?.dynamicScore ?? enriched.staticScore,
+          selectionProbability: prob,
+          policyRank: rankInPack > 0 ? rankInPack : idx + 1,
+        };
+      });
+
+      boosterDetailed.sort((a, b) => b.dynamicScore - a.dynamicScore);
+
+      const pickedDetailed = boosterDetailed.find((c) => c.instanceId === chosenInstanceId);
+      const chosenName = pickedDetailed?.name ?? chosenInstanceId;
+      const enginePrefix = isJev ? "[JEV]" : "[Moteur Déterministe]";
+      const botJustification = `${enginePrefix} ${jevResult.reason ?? (isJev ? "Choix IA JEV Système 1" : "Choix heuristique")}`;
+
+      const decisionTrace: PickDecisionTrace = {
+        schemaVersion: 1,
+        method: "highest-score",
+        temperature: null,
+        randomRoll: null,
+        selectedProbability: jevResult.choiceProb,
+        decisionEngine,
+        candidates: boosterDetailed.map((c) => ({
+          cardInstanceId: c.instanceId,
+          staticScore: c.staticScore,
+          dynamicScore: c.dynamicScore,
+          coachingBreakdown: c.coachingBreakdown,
+          biasContributions: c.biasContributions,
+          personalityBonus: c.personalityBonus,
+          policyScore: c.policyScore,
+          selectionProbability: c.selectionProbability,
+          policyRank: c.policyRank,
+        })),
+      };
+
+      roundSteps.set(sId, {
+        roundIndex: round,
+        packNumber,
+        pickNumber,
+        seatId: sId,
+        boosterId: currentBooster.boosterId,
+        decisionTrace,
+        decisionEngine,
+        boosterCards: boosterDetailed,
+        pickedCardInstanceId: chosenInstanceId,
+        pickedCardName: chosenName,
+        justification: botJustification,
+        poolSoFar: priorPoolInstanceIds.map((id) => this.getEnrichedCard(id)),
+      });
+    }
+
+    // 3. Submit Round to Engine
+    const roundResult = submitPickRound(this.currentDraft, {
+      sessionId: this.sessionId,
+      expectedRevision: round,
+      packNumber,
+      pickNumber,
+      occurredAt,
+      decisions,
+    });
+
+    if (!roundResult.ok) {
+      throw new Error(`Round ${String(round)} failed: ${roundResult.error.message}`);
+    }
+
     for (let s = 0; s < 8; s++) {
       const sId = s as SeatId;
       const step = roundSteps.get(sId);
@@ -1410,10 +1757,20 @@ export class SoloDraftSession {
     // If advice was pre-calculated in the background, return it immediately (0ms wait)
     if (this.cachedAdvicePromise && !options.skipLlm) {
       try {
-        const cached = await this.cachedAdvicePromise;
-        return cached;
+        let timeoutId: NodeJS.Timeout | undefined;
+        const timeoutPromise = new Promise<never>((_, reject) => {
+          timeoutId = setTimeout(() => {
+            reject(new Error("Cached advice wait timeout"));
+          }, 2000);
+        });
+        try {
+          const cached = await Promise.race([this.cachedAdvicePromise, timeoutPromise]);
+          return cached;
+        } finally {
+          clearTimeout(timeoutId);
+        }
       } catch {
-        // Fall back to on-demand computation if background promise threw
+        // Fall back to on-demand computation if background promise threw or timed out
       }
     }
 
