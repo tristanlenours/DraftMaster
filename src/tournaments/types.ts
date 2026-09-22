@@ -317,6 +317,7 @@ export interface TournamentStore {
   commit(
     attempt: Readonly<TournamentStoreCommitAttempt>,
   ): Promise<TournamentResult<TournamentStoreCommitResult>>;
+  delete(tournamentId: string): Promise<TournamentResult<{ readonly deleted: true }>>;
   checkReadiness(): Promise<TournamentResult<{ readonly ready: true }>>;
 }
 
@@ -344,4 +345,5 @@ export interface TournamentCoordinator {
   listTournaments(
     query?: Readonly<TournamentListQuery>,
   ): Promise<TournamentResult<readonly TournamentSummary[]>>;
+  deleteTournament(tournamentId: string): Promise<TournamentResult<{ readonly deleted: true }>>;
 }

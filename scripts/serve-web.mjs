@@ -382,6 +382,7 @@ function createUnavailableTournamentStore() {
     list: unavailable,
     load: unavailable,
     commit: unavailable,
+    delete: unavailable,
     checkReadiness: unavailable,
   };
 }

@@ -116,6 +116,7 @@ describe("Tournament management HTTP", () => {
       list: unavailable,
       load: unavailable,
       commit: unavailable,
+      delete: unavailable,
       checkReadiness: unavailable,
     };
     const unavailableServer = await startMainServer(unavailableStore);
@@ -638,5 +639,32 @@ describe("Tournament management HTTP", () => {
       ok: false,
       error: { code: "INVALID_INPUT", details: { unknownOracleIds: ["outside-snapshot"] } },
     });
+  });
+
+  it("deletes an existing tournament via DELETE /api/tournaments/:id", async () => {
+    const { baseUrl } = await startHttpServer();
+    const creation = await fetch(`${baseUrl}/api/tournaments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "to-be-deleted",
+      },
+      body: JSON.stringify({ name: "Tournoi éphémère" }),
+    });
+    expect(creation.status).toBe(201);
+    const body = (await creation.json()) as { tournament: { tournamentId: string } };
+    const tournamentId = body.tournament.tournamentId;
+
+    const deletion = await fetch(`${baseUrl}/api/tournaments/${tournamentId}`, {
+      method: "DELETE",
+    });
+    expect(deletion.status).toBe(200);
+    await expect(deletion.json()).resolves.toMatchObject({
+      ok: true,
+      deleted: true,
+    });
+
+    const getAfterDelete = await fetch(`${baseUrl}/api/tournaments/${tournamentId}`);
+    expect(getAfterDelete.status).toBe(404);
   });
 });

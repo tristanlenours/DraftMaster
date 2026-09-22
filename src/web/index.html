@@ -2763,6 +2763,34 @@
             </table>
           </div>
         </div>
+
+        <!-- Section 4: Gestion des Tournois de Cube -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="ach-title-wrap">
+              <span class="ach-icon">🏟️</span>
+              <h2 class="ach-title">Gestion des Tournois de Cube</h2>
+            </div>
+            <span class="ach-badge">Archives & Administration</span>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-drafts-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Nom du Tournoi</th>
+                  <th>Statut</th>
+                  <th>Format</th>
+                  <th>Participants</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-tournaments-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
     <!-- /view-admin -->
@@ -3075,6 +3103,7 @@
                 <div>
                   <span class="tournament-panel-eyebrow">Configuration</span>
                   <h2 id="tournament-editor-title">Tournoi</h2>
+                  <span class="tournament-editor-date" id="tournament-editor-date"></span>
                 </div>
                 <span
                   class="tournament-status tournament-status-preparation"

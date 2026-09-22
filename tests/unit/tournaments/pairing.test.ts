@@ -94,6 +94,7 @@ function createLoadedCoordinator(initial: Readonly<TournamentProjection>): {
         value: { kind: "committed", tournament: attempt.response },
       });
     },
+    delete: () => Promise.resolve({ ok: true, value: { deleted: true as const } }),
     checkReadiness: () => Promise.resolve({ ok: true, value: { ready: true } }),
   };
   const coordinator = createTournamentCoordinator({

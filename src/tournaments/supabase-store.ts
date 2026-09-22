@@ -41,6 +41,9 @@ export interface TournamentSupabaseGateway {
   commitTournament(
     attempt: Readonly<TournamentStoreCommitAttempt>,
   ): Promise<TournamentSupabaseGatewayResult<TournamentSupabaseCommitResponse>>;
+  deleteTournament(
+    tournamentId: string,
+  ): Promise<TournamentSupabaseGatewayResult<{ readonly deleted: true }>>;
   checkReadiness(): Promise<TournamentSupabaseGatewayResult<{ readonly ready: true }>>;
 }
 
@@ -223,6 +226,10 @@ class SupabaseTournamentStore implements TournamentStore {
     return { ok: true, value: result.value };
   }
 
+  public delete(tournamentId: string): Promise<TournamentResult<{ readonly deleted: true }>> {
+    return this.invoke(this.gateway.deleteTournament(tournamentId));
+  }
+
   public checkReadiness(): Promise<TournamentResult<{ readonly ready: true }>> {
     return this.invoke(this.gateway.checkReadiness());
   }
@@ -328,6 +335,27 @@ class SupabaseClientTournamentGateway implements TournamentSupabaseGateway {
     return response === null
       ? { data: null, error: { message: "Malformed commit_tournament response" } }
       : { data: response, error: null };
+  }
+
+  public async deleteTournament(
+    tournamentId: string,
+  ): Promise<TournamentSupabaseGatewayResult<{ readonly deleted: true }>> {
+    const receiptsDel = await this.client
+      .from("tournament_command_receipts")
+      .delete()
+      .eq("tournament_id", tournamentId);
+    if (receiptsDel.error !== null) return { data: null, error: receiptsDel.error };
+
+    const eventsDel = await this.client
+      .from("tournament_events")
+      .delete()
+      .eq("tournament_id", tournamentId);
+    if (eventsDel.error !== null) return { data: null, error: eventsDel.error };
+
+    const tournamentDel = await this.client.from("tournaments").delete().eq("id", tournamentId);
+    if (tournamentDel.error !== null) return { data: null, error: tournamentDel.error };
+
+    return { data: { deleted: true }, error: null };
   }
 
   public async checkReadiness(): Promise<

@@ -812,6 +812,12 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
   ): Promise<TournamentResult<readonly TournamentSummary[]>> {
     return this.dependencies.store.list(query);
   }
+
+  public deleteTournament(
+    tournamentId: string,
+  ): Promise<TournamentResult<{ readonly deleted: true }>> {
+    return this.dependencies.store.delete(tournamentId);
+  }
 }
 
 export function createTournamentCoordinator(

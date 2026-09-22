@@ -383,6 +383,18 @@ export function createTournamentHttpHandler(
       return true;
     }
 
+    if (detailMatch && request.method === "DELETE") {
+      try {
+        const tournamentId = decodeURIComponent(detailMatch[1] ?? "");
+        const result = await dependencies.coordinator.deleteTournament(tournamentId);
+        observe("delete", result);
+        sendResult(response, result, () => ({ deleted: true }));
+      } catch {
+        sendInvalidInput(response, "L'identifiant du tournoi est invalide.");
+      }
+      return true;
+    }
+
     return false;
   };
 }

@@ -101,6 +101,7 @@ function coordinatorFromState(initial: Readonly<TournamentProjection>): Tourname
         value: { kind: "committed", tournament: attempt.response },
       });
     },
+    delete: () => Promise.resolve({ ok: true, value: { deleted: true as const } }),
     checkReadiness: () => Promise.resolve({ ok: true, value: { ready: true } }),
   };
   return createTournamentCoordinator({

@@ -127,6 +127,16 @@ class InMemoryTournamentStore implements TournamentStore {
     );
   }
 
+  public delete(tournamentId: string): Promise<TournamentResult<{ readonly deleted: true }>> {
+    this.records.delete(tournamentId);
+    for (const [key, receipt] of this.receipts) {
+      if (receipt.response.tournamentId === tournamentId) {
+        this.receipts.delete(key);
+      }
+    }
+    return Promise.resolve(success({ deleted: true } as const));
+  }
+
   public checkReadiness(): Promise<TournamentResult<{ readonly ready: true }>> {
     return Promise.resolve(success({ ready: true } as const));
   }

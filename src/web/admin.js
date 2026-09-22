@@ -4,6 +4,7 @@
  * et audit des rapports HTML archivés.
  */
 import { render17LandsDeckView } from "./deck-viewer-17lands.js";
+import { formatTournamentDate } from "./tournaments.js";
 
 let allDrafts = [];
 let currentDraft = null;
@@ -21,7 +22,7 @@ export async function initAdminView() {
 }
 
 export async function loadAdminData() {
-  await Promise.all([loadAdminDrafts(), loadAdminReports()]);
+  await Promise.all([loadAdminDrafts(), loadAdminReports(), loadAdminTournaments()]);
 }
 
 async function loadAdminDrafts() {
@@ -410,4 +411,108 @@ function escapeHtml(text) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+async function loadAdminTournaments() {
+  const tbody = document.getElementById("admin-tournaments-tbody");
+  if (!tbody) return;
+
+  tbody.innerHTML = '<tr><td colspan="6" class="loading-cell">Chargement des tournois...</td></tr>';
+
+  try {
+    const res = await fetch("/api/tournaments?status=all&limit=100");
+    const data = await res.json();
+    if (data.ok && Array.isArray(data.tournaments)) {
+      renderAdminTournaments(data.tournaments);
+    } else {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-cell">Erreur lors de la récupération des tournois.</td></tr>';
+    }
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-cell">Erreur de connexion : ${err.message}</td></tr>`;
+  }
+}
+
+function tournamentStatusBadge(status) {
+  if (status === "active") {
+    return '<span class="tournament-status tournament-status-active">En cours</span>';
+  }
+  if (status === "completed") {
+    return '<span class="tournament-status tournament-status-completed">Terminé</span>';
+  }
+  return '<span class="tournament-status tournament-status-preparation">Préparation</span>';
+}
+
+function tournamentFormatLabel(format) {
+  if (format === "round-robin-three") return "Toutes rondes (3j)";
+  if (format === "swiss") return "Rondes suisses";
+  return "À choisir";
+}
+
+function renderAdminTournaments(tournaments) {
+  const tbody = document.getElementById("admin-tournaments-tbody");
+  if (!tbody) return;
+
+  if (tournaments.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="empty-cell">
+          <div style="padding: 1.5rem; text-align: center; color: var(--text-muted);">
+            <p style="font-size: 1rem; font-weight: 600;">Aucun tournoi enregistré</p>
+          </div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = tournaments
+    .map((t) => {
+      const dateStr = formatTournamentDate(t.createdAt) || "—";
+      return `
+        <tr data-tournament-id="${t.tournamentId}">
+          <td><strong>${dateStr}</strong></td>
+          <td><span class="player-tag">${escapeHtml(t.name)}</span></td>
+          <td>${tournamentStatusBadge(t.status)}</td>
+          <td><span class="archetype-pill">${escapeHtml(tournamentFormatLabel(t.format))}</span></td>
+          <td>${t.participantCount} joueurs</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-danger delete-tournament-btn" data-tournament-id="${t.tournamentId}" data-tournament-name="${escapeHtml(t.name)}" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.3rem 0.65rem; cursor: pointer; font-weight: 600;">
+              🗑️ Supprimer
+            </button>
+          </td>
+        </tr>
+      `;
+    })
+    .join("");
+
+  tbody.querySelectorAll(".delete-tournament-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const tournamentId = btn.dataset.tournamentId;
+      const tournamentName = btn.dataset.tournamentName || "ce tournoi";
+      if (!tournamentId) return;
+
+      const confirmed = window.confirm(`Supprimer définitivement le tournoi "${tournamentName}" ?`);
+      if (!confirmed) return;
+
+      btn.disabled = true;
+      btn.textContent = "Suppression...";
+      try {
+        const res = await fetch(`/api/tournaments/${encodeURIComponent(tournamentId)}`, {
+          method: "DELETE",
+        });
+        const body = await res.json();
+        if (res.ok && body.ok) {
+          await loadAdminTournaments();
+        } else {
+          alert(body.error?.message || "Échec de la suppression.");
+          btn.disabled = false;
+          btn.textContent = "🗑️ Supprimer";
+        }
+      } catch (err) {
+        alert(`Erreur réseau : ${err.message}`);
+        btn.disabled = false;
+        btn.textContent = "🗑️ Supprimer";
+      }
+    });
+  });
 }

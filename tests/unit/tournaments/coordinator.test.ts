@@ -6,6 +6,7 @@ import {
   type TournamentCoordinator,
   type TournamentCubeCatalog,
   type TournamentProjection,
+  type TournamentSummary,
 } from "../../../src/tournaments/index.ts";
 import {
   buildTournamentCubeSnapshot,
@@ -991,5 +992,34 @@ describe("TournamentCoordinator", () => {
         ({ participantId }) => participantId === participant.participantId,
       )?.deck.keyCards,
     ).toEqual([{ oracleId: card.oracleId, name: card.name }]);
+  });
+
+  it("deletes a tournament and removes it from list and get queries", async () => {
+    const coordinator = createTournamentCoordinator({
+      store: createInMemoryTournamentStore(),
+      cubeCatalog: createCubeCatalog(),
+      now: createTournamentTestClock().now,
+      createId: createTournamentSequence("tournament"),
+      createSeed: () => 42,
+    });
+    const created = await coordinator.createTournament({
+      requestId: "delete-test",
+      name: "Tournoi à supprimer",
+    });
+    if (!created.ok) throw new Error(created.error.message);
+    const tournamentId = created.value.tournamentId;
+
+    const deleteResult = await coordinator.deleteTournament(tournamentId);
+    expect(deleteResult).toEqual({ ok: true, value: { deleted: true } });
+
+    await expect(coordinator.getTournament(tournamentId)).resolves.toMatchObject({
+      ok: false,
+      error: { code: "TOURNAMENT_NOT_FOUND" },
+    });
+    const listResult = await coordinator.listTournaments();
+    if (!listResult.ok) throw new Error(listResult.error.message);
+    expect(listResult.value.some((t: TournamentSummary) => t.tournamentId === tournamentId)).toBe(
+      false,
+    );
   });
 });

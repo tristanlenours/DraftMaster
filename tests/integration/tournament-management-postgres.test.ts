@@ -83,7 +83,7 @@ function createDurableGateway(initial: PersistedTournament): {
   readonly commitCalls: TournamentStoreCommitAttempt[];
   readonly archivedSnapshots: { readonly snapshotId: string; readonly canonicalSha256: string }[];
 } {
-  let persisted = clone(initial);
+  let persisted: PersistedTournament | null = clone(initial);
   const commitCalls: TournamentStoreCommitAttempt[] = [];
   const archivedSnapshots: { snapshotId: string; canonicalSha256: string }[] = [];
   const receipts = new Map<
@@ -97,13 +97,25 @@ function createDurableGateway(initial: PersistedTournament): {
     listTournaments: () => Promise.resolve({ data: [], error: null }),
     loadTournament: (tournamentId) =>
       Promise.resolve({
-        data: persisted.checkpoint.tournamentId === tournamentId ? clone(persisted) : null,
+        data:
+          persisted !== null && persisted.checkpoint.tournamentId === tournamentId
+            ? clone(persisted)
+            : null,
         error: null,
       }),
     commitTournament: (attempt) => {
       commitCalls.push(clone(attempt));
       const receiptKey = `${attempt.scope}\0${attempt.requestId}`;
       const receipt = receipts.get(receiptKey);
+      if (persisted === null) {
+        return Promise.resolve({
+          data: {
+            code: "REVISION_CONFLICT" as const,
+            details: { currentRevision: 0 },
+          },
+          error: null,
+        });
+      }
       if (receipt !== undefined) {
         return Promise.resolve({
           data:
@@ -143,6 +155,12 @@ function createDurableGateway(initial: PersistedTournament): {
         data: { kind: "committed" as const, tournament: clone(attempt.response) },
         error: null,
       });
+    },
+    deleteTournament: (id: string) => {
+      if (persisted !== null && persisted.checkpoint.tournamentId === id) {
+        persisted = null;
+      }
+      return Promise.resolve({ data: { deleted: true as const }, error: null });
     },
     checkReadiness: () => Promise.resolve({ data: { ready: true as const }, error: null }),
   };
@@ -262,6 +280,8 @@ describe("Tournament PostgreSQL storage integration", () => {
         ),
       commitTournament: () =>
         Promise.resolve({ data: null, error: { message: "database unavailable" } }),
+      deleteTournament: () =>
+        Promise.resolve({ data: null, error: { message: "database unavailable" } }),
       checkReadiness: () =>
         Promise.resolve({ data: null, error: { message: "database unavailable" } }),
     };
@@ -323,5 +343,14 @@ describe("Tournament PostgreSQL storage integration", () => {
     expect(migration).toMatch(
       /grant execute on function public\.commit_tournament\([\s\S]+?\) to service_role;/u,
     );
+  });
+
+  it("deletes a tournament via Supabase tournament store", async () => {
+    const { persistedBefore } = buildConfiguredCommit();
+    const durable = createDurableGateway(persistedBefore);
+    const store = createSupabaseTournamentStore({ gateway: durable.gateway });
+
+    const deleteResult = await store.delete(persistedBefore.checkpoint.tournamentId);
+    expect(deleteResult).toEqual({ ok: true, value: { deleted: true } });
   });
 });

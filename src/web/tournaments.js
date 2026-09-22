@@ -86,6 +86,17 @@ function formatLabel(format) {
   return "Format à choisir";
 }
 
+export function formatTournamentDate(dateIso) {
+  if (!dateIso) return "";
+  const d = new Date(dateIso);
+  if (isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 function renderHistory() {
   const list = element("tournament-history-list");
   const empty = element("tournament-empty-state");
@@ -99,17 +110,23 @@ function renderHistory() {
     button.dataset.tournamentId = tournament.tournamentId;
     button.setAttribute("aria-label", `Ouvrir le tournoi ${tournament.name}`);
 
-    const heading = document.createElement("span");
-    heading.className = "tournament-history-name";
-    heading.textContent = tournament.name;
+    const dateBadge = document.createElement("span");
+    dateBadge.className = "tournament-history-date";
+    dateBadge.textContent = `📅 ${formatTournamentDate(tournament.createdAt)}`;
+
     const status = document.createElement("span");
     status.className = `tournament-status tournament-status-${tournament.status}`;
     status.textContent = statusLabel(tournament.status);
+
+    const heading = document.createElement("span");
+    heading.className = "tournament-history-name";
+    heading.textContent = tournament.name;
+
     const meta = document.createElement("span");
     meta.className = "tournament-history-meta";
     meta.textContent = `${String(tournament.participantCount)} joueurs · ${formatLabel(tournament.format)}`;
 
-    button.append(heading, status, meta);
+    button.append(dateBadge, status, heading, meta);
     button.addEventListener("click", () => void openTournament(tournament.tournamentId));
     list.append(button);
   }
@@ -557,6 +574,11 @@ function renderTournament(tournament) {
 
   const title = element("tournament-editor-title");
   if (title) title.textContent = tournament.name;
+  const dateEl = element("tournament-editor-date");
+  if (dateEl) {
+    const formatted = formatTournamentDate(tournament.createdAt);
+    dateEl.textContent = formatted ? `📅 ${formatted}` : "";
+  }
   const status = element("tournament-current-status");
   if (status) {
     status.textContent = statusLabel(tournament.status);
