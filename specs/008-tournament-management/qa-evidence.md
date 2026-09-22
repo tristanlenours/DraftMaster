@@ -190,8 +190,8 @@
 
 ## Committé
 
-- Prêt pour commit et fusion sur `main`.
+- Committé sur `008-tournament-management` (commit `765c8cce`) et fusionné sur `main` (commit `8f7b47e4`).
 
 ## Poussé
 
-- Prêt pour synchronisation avec origin.
+- Poussé sur `origin/main` et `origin/008-tournament-management`.
