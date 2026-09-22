@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-import { createRoundRobinThreeRounds, createSwissRound } from "./internal/pairing.ts";
+import { createRoundRobinRounds, createSwissRound } from "./internal/pairing.ts";
 import { reduceTournamentEvent } from "./internal/state-reducer.ts";
 import type {
   CreateTournamentCommand,
@@ -219,7 +219,7 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
               createMatchId: this.dependencies.createId,
             }),
           ]
-        : createRoundRobinThreeRounds({
+        : createRoundRobinRounds({
             tournamentId: current.tournamentId,
             sourceRevision: current.revision,
             pairingSeed: current.pairingSeed,
@@ -735,6 +735,19 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
         message: "Le format toutes-rondes à trois contient exactement trois rondes.",
         details: { plannedRoundCount: command.plannedRoundCount, expected: 3 },
       });
+    }
+    if (command.format === "round-robin") {
+      const expectedRounds =
+        command.participants.length % 2 === 0
+          ? command.participants.length - 1
+          : command.participants.length;
+      if (command.plannedRoundCount !== expectedRounds) {
+        return failure({
+          code: "INVALID_INPUT",
+          message: `Le format toutes-rondes avec ${String(command.participants.length)} participants exige exactement ${String(expectedRounds)} rondes.`,
+          details: { plannedRoundCount: command.plannedRoundCount, expected: expectedRounds },
+        });
+      }
     }
 
     const existingById = new Map(

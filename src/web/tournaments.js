@@ -81,7 +81,7 @@ function statusLabel(status) {
 }
 
 function formatLabel(format) {
-  if (format === "round-robin-three") return "Toutes rondes · 3 joueurs";
+  if (format === "round-robin" || format === "round-robin-three") return "Toutes rondes";
   if (format === "swiss") return "Rondes suisses";
   return "Format à choisir";
 }
@@ -95,6 +95,80 @@ export function formatTournamentDate(dateIso) {
     month: "long",
     year: "numeric",
   });
+}
+
+export function formatShortDate(date = new Date()) {
+  const d = date instanceof Date ? date : new Date(date);
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = String(d.getFullYear()).slice(-2);
+  return `${day}/${month}/${year}`;
+}
+
+export function generateTournamentName(cubeKey, cubeName, date = new Date()) {
+  const dateStr = formatShortDate(date);
+  if (!cubeKey) return `Tournoi du ${dateStr}`;
+  let baseName = cubeName || "";
+  if (cubeKey === "titou_tribal") {
+    baseName = "titou's tribal";
+  } else {
+    baseName = baseName
+      .replace(/^(cube\s+de\s+|cube\s+d'|cube\s+)/i, "")
+      .replace(/\s+cube$/i, "")
+      .trim();
+  }
+  return `Cube ${baseName} du ${dateStr}`;
+}
+
+export const DEFAULT_MAGICIENS = [
+  "Tristan",
+  "Cédric",
+  "Hugues",
+  "Ivan",
+  "Nico",
+  "Papayou",
+  "Rémi",
+  "Théo",
+];
+const OCCASIONAL_MAGICIENS_KEY = "draftmaster_occasional_magiciens";
+
+export function getStoredOccasionalMagiciens() {
+  try {
+    const raw = localStorage.getItem(OCCASIONAL_MAGICIENS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveOccasionalMagicien(name) {
+  const trimmed = name?.trim();
+  if (!trimmed) return;
+  if (DEFAULT_MAGICIENS.some((m) => m.toLowerCase() === trimmed.toLowerCase())) return;
+  const list = getStoredOccasionalMagiciens();
+  if (!list.some((m) => m.toLowerCase() === trimmed.toLowerCase())) {
+    list.push(trimmed);
+    try {
+      localStorage.setItem(OCCASIONAL_MAGICIENS_KEY, JSON.stringify(list));
+    } catch {
+      // Ignore storage errors
+    }
+  }
+}
+
+function updateRoundRobinRoundCount() {
+  const format = element("tournament-format");
+  const roundCount = element("tournament-round-count");
+  if (!(format instanceof HTMLSelectElement) || !(roundCount instanceof HTMLInputElement)) return;
+  if (format.value === "round-robin" || format.value === "round-robin-three") {
+    const players = document.querySelectorAll("[data-tournament-player-row]");
+    const count = players.length;
+    if (count >= 2) {
+      const expected = count % 2 === 0 ? count - 1 : count;
+      roundCount.value = String(expected);
+      roundCount.title = `Toutes rondes : ${count} participants = ${expected} rondes`;
+    }
+  }
 }
 
 function renderHistory() {
@@ -139,21 +213,23 @@ async function refreshHistory() {
 }
 
 function populateCubeSelect() {
-  const select = element("tournament-cube");
-  if (!(select instanceof HTMLSelectElement)) return;
-  const current = select.value;
-  select.replaceChildren();
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = "Choisir un cube";
-  select.append(placeholder);
-  for (const cube of tournamentUi.cubes) {
-    const option = document.createElement("option");
-    option.value = cube.cubeKey;
-    option.textContent = cube.cubeName;
-    select.append(option);
+  const selects = [element("tournament-cube"), element("tournament-create-cube")];
+  for (const select of selects) {
+    if (!(select instanceof HTMLSelectElement)) continue;
+    const current = select.value;
+    select.replaceChildren();
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Choisir un cube";
+    select.append(placeholder);
+    for (const cube of tournamentUi.cubes) {
+      const option = document.createElement("option");
+      option.value = cube.cubeKey;
+      option.textContent = cube.cubeName;
+      select.append(option);
+    }
+    select.value = current;
   }
-  select.value = current;
 }
 
 async function loadCubes() {
@@ -169,17 +245,88 @@ function createPlayerRow(participant = null) {
   if (participant?.participantId) row.dataset.participantId = participant.participantId;
 
   const playerLabel = document.createElement("label");
-  playerLabel.className = "tournament-field";
+  playerLabel.className = "tournament-field tournament-player-field";
   const playerCaption = document.createElement("span");
   playerCaption.textContent = "Joueur";
+
+  const initialName = participant?.displayName ?? "";
+  const occasionalList = getStoredOccasionalMagiciens();
+
+  const select = document.createElement("select");
+  select.className = "tournament-player-select";
+  select.dataset.playerSelect = "";
+  select.setAttribute("aria-label", "Sélectionner un magicien");
+
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "-- Choisir un magicien --";
+  select.append(placeholder);
+
+  const habituelsGroup = document.createElement("optgroup");
+  habituelsGroup.label = "Magiciens habituels";
+  for (const name of DEFAULT_MAGICIENS) {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    habituelsGroup.append(opt);
+  }
+  select.append(habituelsGroup);
+
+  if (occasionalList.length > 0) {
+    const occGroup = document.createElement("optgroup");
+    occGroup.label = "Magiciens occasionnels";
+    for (const name of occasionalList) {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      occGroup.append(opt);
+    }
+    select.append(occGroup);
+  }
+
+  const customOpt = document.createElement("option");
+  customOpt.value = "__custom__";
+  customOpt.textContent = "➕ Nouveau magicien…";
+  select.append(customOpt);
+
   const playerInput = document.createElement("input");
   playerInput.type = "text";
   playerInput.required = true;
   playerInput.maxLength = 80;
-  playerInput.placeholder = "Alice";
+  playerInput.placeholder = "Alice ou choisir ci-dessus";
   playerInput.dataset.playerName = "";
-  playerInput.value = participant?.displayName ?? "";
-  playerLabel.append(playerCaption, playerInput);
+  playerInput.value = initialName;
+
+  if (initialName) {
+    if (DEFAULT_MAGICIENS.includes(initialName) || occasionalList.includes(initialName)) {
+      select.value = initialName;
+    } else {
+      select.value = "__custom__";
+    }
+  }
+
+  select.addEventListener("change", () => {
+    if (select.value && select.value !== "__custom__") {
+      playerInput.value = select.value;
+      playerInput.dispatchEvent(new Event("input", { bubbles: true }));
+    } else if (select.value === "__custom__") {
+      playerInput.value = "";
+      playerInput.focus();
+    }
+  });
+
+  playerInput.addEventListener("input", () => {
+    const val = playerInput.value.trim();
+    if (DEFAULT_MAGICIENS.includes(val) || occasionalList.includes(val)) {
+      select.value = val;
+    } else if (val) {
+      select.value = "__custom__";
+    } else {
+      select.value = "";
+    }
+  });
+
+  playerLabel.append(playerCaption, select, playerInput);
 
   const deckLabel = document.createElement("label");
   deckLabel.className = "tournament-field";
@@ -201,7 +348,10 @@ function createPlayerRow(participant = null) {
   remove.setAttribute("aria-label", "Retirer ce joueur");
   remove.addEventListener("click", () => {
     const container = element("tournament-player-list");
-    if (container?.children.length > 2) row.remove();
+    if (container?.children.length > 2) {
+      row.remove();
+      updateRoundRobinRoundCount();
+    }
   });
 
   row.append(playerLabel, deckLabel, remove);
@@ -212,6 +362,7 @@ function appendPlayer(participant = null) {
   const list = element("tournament-player-list");
   if (!list || list.children.length >= 32) return;
   list.append(createPlayerRow(participant));
+  updateRoundRobinRoundCount();
 }
 
 function participantById(tournament, participantId) {
@@ -334,6 +485,56 @@ function snapshotCardsByOracleId(tournament) {
   return uniqueCards;
 }
 
+function hideCardHoverPreview() {
+  const popover = document.getElementById("card-hover-popover");
+  if (popover) {
+    popover.hidden = true;
+    popover.style.display = "none";
+    popover.classList.remove("is-hover-preview");
+  }
+}
+
+function attachCardHoverPreview(element, cardName) {
+  if (!element || !cardName) return;
+  element.addEventListener("mouseenter", () => {
+    const popover = document.getElementById("card-hover-popover");
+    const img = document.getElementById("popover-img");
+    if (!popover || !img) return;
+
+    img.src = `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(cardName)}&format=image`;
+    img.alt = cardName;
+    popover.hidden = false;
+    popover.style.display = "block";
+    popover.classList.add("is-hover-preview");
+
+    const rect = element.getBoundingClientRect();
+    const popoverWidth = 260;
+    const popoverHeight = 362;
+    const offset = 12;
+
+    let left = rect.right + offset;
+    let top = rect.top + rect.height / 2 - popoverHeight / 2;
+
+    if (left + popoverWidth > window.innerWidth - 16) {
+      left = rect.left - popoverWidth - offset;
+    }
+    if (left < 16) left = 16;
+    if (top + popoverHeight > window.innerHeight - 16) {
+      top = window.innerHeight - popoverHeight - 16;
+    }
+    if (top < 16) top = 16;
+
+    popover.style.position = "fixed";
+    popover.style.left = `${Math.round(left)}px`;
+    popover.style.top = `${Math.round(top)}px`;
+    popover.style.zIndex = "9999";
+  });
+
+  element.addEventListener("mouseleave", () => {
+    hideCardHoverPreview();
+  });
+}
+
 function renderKeyCardEditors(tournament) {
   const container = element("tournament-key-card-list");
   if (!container) return;
@@ -380,12 +581,14 @@ function renderKeyCardEditors(tournament) {
         remove.textContent = "Retirer";
         remove.setAttribute("aria-label", `Retirer ${card.name}`);
         remove.addEventListener("click", () => {
+          hideCardHoverPreview();
           selectedOracleIds.delete(oracleId);
           renderChips();
           renderOptions();
         });
         chip.append(name, remove);
         chips.append(chip);
+        attachCardHoverPreview(chip, card.name);
       }
     };
     const renderOptions = () => {
@@ -405,11 +608,13 @@ function renderKeyCardEditors(tournament) {
         option.dataset.keyCardOption = card.oracleId;
         option.textContent = card.name;
         option.addEventListener("click", () => {
+          hideCardHoverPreview();
           selectedOracleIds.add(card.oracleId);
           search.value = "";
           renderChips();
           renderOptions();
         });
+        attachCardHoverPreview(option, card.name);
         options.append(option);
       }
     };
@@ -430,8 +635,9 @@ function renderKeyCardEditors(tournament) {
 
 function renderRound(tournament) {
   const round = tournament.rounds?.at(-1);
-  const roundsToRender =
-    tournament.format === "round-robin-three" ? (tournament.rounds ?? []) : round ? [round] : [];
+  const isRoundRobin =
+    tournament.format === "round-robin" || tournament.format === "round-robin-three";
+  const roundsToRender = isRoundRobin ? (tournament.rounds ?? []) : round ? [round] : [];
   const title = element("tournament-round-title");
   const tableList = element("tournament-table-list");
   const standingsBody = element("tournament-standings-body");
@@ -589,7 +795,18 @@ function renderTournament(tournament) {
   if (setupForm) setupForm.hidden = tournament.status !== "preparation";
   if (roundView) roundView.hidden = tournament.status === "preparation";
   const name = element("tournament-name");
-  if (name instanceof HTMLInputElement) name.value = tournament.name;
+  if (name instanceof HTMLInputElement) {
+    name.value = tournament.name;
+    const isAutoName =
+      tournamentUi.cubes.some(
+        (c) =>
+          generateTournamentName(c.cubeKey, c.cubeName, tournament.createdAt) === tournament.name ||
+          generateTournamentName(c.cubeKey, c.cubeName) === tournament.name,
+      ) ||
+      tournament.name === generateTournamentName(null, null, tournament.createdAt) ||
+      tournament.name === generateTournamentName(null, null);
+    name.dataset.autoGenerated = isAutoName ? "true" : "false";
+  }
   const cube = element("tournament-cube");
   if (cube instanceof HTMLSelectElement) cube.value = tournament.cube?.cubeKey ?? "";
   const format = element("tournament-format");
@@ -610,6 +827,11 @@ function renderTournament(tournament) {
       tournament.cube === null ||
       tournament.participants.length < 2;
   }
+  const cancelBtn = element("tournament-cancel-btn");
+  if (cancelBtn instanceof HTMLButtonElement) {
+    cancelBtn.hidden = tournament.status === "completed";
+  }
+  updateRoundRobinRoundCount();
   if (tournament.status !== "preparation") renderRound(tournament);
 }
 
@@ -636,10 +858,15 @@ function readParticipantRows() {
   return [...document.querySelectorAll("[data-tournament-player-row]")].map((row) => {
     const playerInput = row.querySelector("[data-player-name]");
     const deckInput = row.querySelector("[data-deck-name]");
+    const displayName =
+      playerInput instanceof HTMLInputElement ? playerInput.value.trim() : "";
+    if (displayName) {
+      saveOccasionalMagicien(displayName);
+    }
     return {
       participantId: row.dataset.participantId || null,
-      displayName: playerInput instanceof HTMLInputElement ? playerInput.value : "",
-      deckName: deckInput instanceof HTMLInputElement ? deckInput.value : "",
+      displayName,
+      deckName: deckInput instanceof HTMLInputElement ? deckInput.value.trim() : "",
     };
   });
 }
@@ -648,8 +875,11 @@ async function submitCreation(event) {
   event.preventDefault();
   clearFeedback();
   const input = element("tournament-create-name");
+  const createCubeSelect = element("tournament-create-cube");
   const submit = element("tournament-create-submit");
   if (!(input instanceof HTMLInputElement) || !input.value.trim()) return;
+  const chosenCubeKey =
+    createCubeSelect instanceof HTMLSelectElement ? createCubeSelect.value : "";
   setBusy(submit, true, "Création…");
   try {
     const body = await readResponse(
@@ -663,6 +893,16 @@ async function submitCreation(event) {
       }),
     );
     renderTournament(body.tournament);
+    if (chosenCubeKey) {
+      const editorCubeSelect = element("tournament-cube");
+      if (editorCubeSelect instanceof HTMLSelectElement) {
+        editorCubeSelect.value = chosenCubeKey;
+      }
+    }
+    if (createCubeSelect instanceof HTMLSelectElement) {
+      createCubeSelect.value = "";
+    }
+    input.value = "";
     await refreshHistory();
     showFeedback("Tournoi créé. Ajoutez les joueurs et choisissez le cube.");
   } catch (error) {
@@ -936,13 +1176,98 @@ function bindTournamentEvents() {
     if (createPanel) createPanel.hidden = false;
     if (editor) editor.hidden = true;
     if (welcome) welcome.hidden = true;
-    element("tournament-create-name")?.focus();
+    const createCube = element("tournament-create-cube");
+    const createName = element("tournament-create-name");
+    if (createCube instanceof HTMLSelectElement) createCube.value = "";
+    if (createName instanceof HTMLInputElement) {
+      createName.value = "";
+      createName.dataset.autoGenerated = "false";
+    }
+    createCube?.focus();
   });
   element("tournament-create-cancel")?.addEventListener("click", () => {
     const createPanel = element("tournament-create-panel");
     const welcome = element("tournament-welcome");
     if (createPanel) createPanel.hidden = true;
     if (welcome) welcome.hidden = false;
+  });
+  element("tournament-create-cube")?.addEventListener("change", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLSelectElement)) return;
+    const cube = tournamentUi.cubes.find((c) => c.cubeKey === target.value);
+    const nameInput = element("tournament-create-name");
+    if (nameInput instanceof HTMLInputElement) {
+      if (cube) {
+        if (!nameInput.value.trim() || nameInput.dataset.autoGenerated === "true") {
+          nameInput.value = generateTournamentName(cube.cubeKey, cube.cubeName);
+          nameInput.dataset.autoGenerated = "true";
+        }
+      } else if (nameInput.dataset.autoGenerated === "true") {
+        nameInput.value = "";
+        nameInput.dataset.autoGenerated = "false";
+      }
+    }
+  });
+  element("tournament-create-name")?.addEventListener("input", () => {
+    const nameInput = element("tournament-create-name");
+    if (nameInput instanceof HTMLInputElement) {
+      nameInput.dataset.autoGenerated = "false";
+    }
+  });
+  element("tournament-cube")?.addEventListener("change", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLSelectElement)) return;
+    const cube = tournamentUi.cubes.find((c) => c.cubeKey === target.value);
+    const nameInput = element("tournament-name");
+    if (nameInput instanceof HTMLInputElement && cube) {
+      if (!nameInput.value.trim() || nameInput.dataset.autoGenerated === "true") {
+        nameInput.value = generateTournamentName(cube.cubeKey, cube.cubeName);
+        nameInput.dataset.autoGenerated = "true";
+      }
+    }
+  });
+  element("tournament-name")?.addEventListener("input", () => {
+    const nameInput = element("tournament-name");
+    if (nameInput instanceof HTMLInputElement) {
+      nameInput.dataset.autoGenerated = "false";
+    }
+  });
+  element("tournament-format")?.addEventListener("change", () => {
+    updateRoundRobinRoundCount();
+  });
+  element("tournament-cancel-btn")?.addEventListener("click", async () => {
+    const tournament = tournamentUi.selectedTournament;
+    if (!tournament) return;
+    const confirmed = window.confirm(
+      `Voulez-vous vraiment annuler et supprimer le tournoi "${tournament.name}" ? Cette action est irréversible.`,
+    );
+    if (!confirmed) return;
+    const cancelBtn = element("tournament-cancel-btn");
+    if (cancelBtn instanceof HTMLButtonElement) setBusy(cancelBtn, true, "Annulation…");
+    try {
+      const response = await fetch(
+        `/api/tournaments/${encodeURIComponent(tournament.tournamentId)}`,
+        { method: "DELETE" },
+      );
+      if (!response.ok) {
+        throw new Error("Impossible d'annuler le tournoi.");
+      }
+      tournamentUi.selectedTournament = null;
+      const editor = element("tournament-editor");
+      const welcome = element("tournament-welcome");
+      if (editor) editor.hidden = true;
+      if (welcome) welcome.hidden = false;
+      await refreshHistory();
+      showFeedback(`Le tournoi "${tournament.name}" a été annulé avec succès.`);
+    } catch (error) {
+      showFeedback(
+        error instanceof Error ? error.message : "Erreur lors de l'annulation.",
+        "error",
+      );
+    } finally {
+      if (cancelBtn instanceof HTMLButtonElement)
+        setBusy(cancelBtn, false, "🗑️ Annuler le tournoi");
+    }
   });
   element("tournament-create-form")?.addEventListener("submit", (event) => {
     void submitCreation(event);

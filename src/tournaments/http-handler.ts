@@ -153,7 +153,9 @@ export function createTournamentHttpHandler(
           !Number.isInteger(body.expectedRevision) ||
           typeof body.name !== "string" ||
           typeof body.cubeKey !== "string" ||
-          (body.format !== "swiss" && body.format !== "round-robin-three") ||
+          (body.format !== "swiss" &&
+            body.format !== "round-robin-three" &&
+            body.format !== "round-robin") ||
           !Number.isInteger(body.plannedRoundCount) ||
           !Array.isArray(body.participants) ||
           !body.participants.every(isSetupParticipant)

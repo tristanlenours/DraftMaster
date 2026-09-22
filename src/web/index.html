@@ -3069,13 +3069,19 @@
                 </div>
               </div>
               <form class="tournament-create-form" id="tournament-create-form">
+                <label class="tournament-field" for="tournament-create-cube">
+                  <span>Cube</span>
+                  <select id="tournament-create-cube">
+                    <option value="">Choisir un cube</option>
+                  </select>
+                </label>
                 <label class="tournament-field tournament-field-grow" for="tournament-create-name">
                   <span>Nom du tournoi</span>
                   <input
                     id="tournament-create-name"
                     type="text"
                     maxlength="120"
-                    placeholder="Cube de septembre"
+                    placeholder="ex: Cube titou's tribal du 22/09/26"
                     required
                   />
                 </label>
@@ -3105,19 +3111,25 @@
                   <h2 id="tournament-editor-title">Tournoi</h2>
                   <span class="tournament-editor-date" id="tournament-editor-date"></span>
                 </div>
-                <span
-                  class="tournament-status tournament-status-preparation"
-                  id="tournament-current-status"
-                  >Préparation</span
-                >
+                <div class="tournament-heading-actions">
+                  <span
+                    class="tournament-status tournament-status-preparation"
+                    id="tournament-current-status"
+                    >Préparation</span
+                  >
+                  <button
+                    class="tournament-cancel-button"
+                    id="tournament-cancel-btn"
+                    type="button"
+                    title="Annuler définitivement ce tournoi"
+                  >
+                    🗑️ Annuler le tournoi
+                  </button>
+                </div>
               </div>
 
               <form id="tournament-setup-form">
                 <div class="tournament-settings-grid">
-                  <label class="tournament-field">
-                    <span>Nom</span>
-                    <input id="tournament-name" type="text" maxlength="120" required />
-                  </label>
                   <label class="tournament-field">
                     <span>Cube</span>
                     <select id="tournament-cube" required>
@@ -3125,10 +3137,14 @@
                     </select>
                   </label>
                   <label class="tournament-field">
+                    <span>Nom</span>
+                    <input id="tournament-name" type="text" maxlength="120" required />
+                  </label>
+                  <label class="tournament-field">
                     <span>Format</span>
                     <select id="tournament-format" required>
                       <option value="swiss">Rondes suisses</option>
-                      <option value="round-robin-three">Toutes rondes · 3 joueurs</option>
+                      <option value="round-robin">Toutes rondes</option>
                     </select>
                   </label>
                   <label class="tournament-field">
@@ -3137,7 +3153,7 @@
                       id="tournament-round-count"
                       type="number"
                       min="1"
-                      max="5"
+                      max="31"
                       value="3"
                       required
                     />

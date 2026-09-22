@@ -443,7 +443,7 @@ function tournamentStatusBadge(status) {
 }
 
 function tournamentFormatLabel(format) {
-  if (format === "round-robin-three") return "Toutes rondes (3j)";
+  if (format === "round-robin" || format === "round-robin-three") return "Toutes rondes";
   if (format === "swiss") return "Rondes suisses";
   return "À choisir";
 }

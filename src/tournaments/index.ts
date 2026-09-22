@@ -3,6 +3,7 @@ export { createTournamentCoordinator } from "./coordinator.ts";
 export { createTournamentHttpHandler } from "./http-handler.ts";
 export { createInMemoryTournamentStore } from "./in-memory-store.ts";
 export { createJsonLineTournamentObservability, observeTournamentResult } from "./observability.ts";
+export { isRoundRobinFormat } from "./types.ts";
 export {
   createSupabaseTournamentStore,
   createTournamentSupabaseGateway,

@@ -5,7 +5,7 @@ interface BrowserTournament {
   revision: number;
   name: string;
   status: "preparation";
-  format: "swiss" | "round-robin-three" | null;
+  format: "swiss" | "round-robin-three" | "round-robin" | null;
   plannedRoundCount: number | null;
   cube: { cubeKey: string; cubeName: string; snapshotId: string } | null;
   participants: {
@@ -909,11 +909,21 @@ test("recherche, sélectionne et retrouve une carte clé du Snapshot après relo
 
   await page.reload();
   await page.locator('[data-tournament-id="tournament-key-cards"]').click();
-  await expect(
-    page
-      .locator('[data-key-cards-participant="participant-alice"]')
-      .locator("[data-key-card-chip]"),
-  ).toContainText("Lightning Bolt");
+  const savedChip = page
+    .locator('[data-key-cards-participant="participant-alice"]')
+    .locator("[data-key-card-chip]");
+  await expect(savedChip).toContainText("Lightning Bolt");
+
+  await savedChip.hover();
+  const popover = page.locator("#card-hover-popover");
+  await expect(popover).toBeVisible();
+  await expect(page.locator("#popover-img")).toHaveAttribute(
+    "src",
+    /api\.scryfall\.com\/cards\/named\?exact=Lightning%20Bolt/,
+  );
+
+  await page.mouse.move(0, 0);
+  await expect(popover).toBeHidden();
 });
 
 test("annonce le chargement et permet de réessayer après une indisponibilité du stockage", async ({
@@ -983,4 +993,112 @@ test("conserve un formulaire compact sans débordement à 360 px", async ({ page
       ),
     )
     .toBe(true);
+});
+
+test("UX tournoi: auto-nommage via cube, sélection magiciens et annulation", async ({ page }) => {
+  let tournamentDeleted = false;
+  let currentTournament: BrowserTournament | null = null;
+
+  await page.route("**/api/tournaments**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+
+    if (request.method() === "GET" && url.pathname === "/api/tournaments/cubes") {
+      await route.fulfill({
+        json: {
+          ok: true,
+          cubes: [
+            {
+              cubeKey: "titou_tribal",
+              cubeName: "Titou Tribal",
+              activeSnapshotId: "titou_tribal@2026-09-21.1",
+            },
+          ],
+        },
+      });
+      return;
+    }
+
+    if (request.method() === "GET" && url.pathname === "/api/tournaments") {
+      await route.fulfill({
+        json: {
+          ok: true,
+          tournaments:
+            tournamentDeleted || currentTournament === null
+              ? []
+              : [
+                  {
+                    tournamentId: currentTournament.tournamentId,
+                    name: currentTournament.name,
+                    status: currentTournament.status,
+                    format: currentTournament.format,
+                    cube: currentTournament.cube,
+                    participantCount: currentTournament.participants.length,
+                    currentRoundNumber: null,
+                    leaders: [],
+                    revision: currentTournament.revision,
+                    createdAt: currentTournament.createdAt,
+                    updatedAt: currentTournament.updatedAt,
+                  },
+                ],
+        },
+      });
+      return;
+    }
+
+    if (request.method() === "POST" && url.pathname === "/api/tournaments") {
+      const body = request.postDataJSON() as { name: string };
+      currentTournament = {
+        tournamentId: "tournament-ux-001",
+        revision: 1,
+        name: body.name,
+        status: "preparation",
+        format: "round-robin",
+        plannedRoundCount: 3,
+        cube: null,
+        participants: [],
+        rounds: [],
+        standings: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      await route.fulfill({ json: { ok: true, tournament: currentTournament } });
+      return;
+    }
+
+    if (request.method() === "DELETE" && url.pathname === "/api/tournaments/tournament-ux-001") {
+      tournamentDeleted = true;
+      currentTournament = null;
+      await route.fulfill({ json: { ok: true } });
+      return;
+    }
+
+    await route.fulfill({ status: 404, json: { ok: false } });
+  });
+
+  await page.goto("/tournaments");
+
+  // 1. Cube selection in creation panel auto-fills name
+  await page.locator("#tournament-new-btn").click();
+  await page.locator("#tournament-create-cube").selectOption("titou_tribal");
+  const nameValue = await page.locator("#tournament-create-name").inputValue();
+  expect(nameValue).toMatch(/^Cube titou's tribal du \d{2}\/\d{2}\/\d{2}$/);
+
+  // 2. Submit creation and check setup form displays the auto-generated name
+  await page.locator("#tournament-create-submit").click();
+  await expect(page.locator("#tournament-setup-form")).toBeVisible();
+  await expect(page.locator("#tournament-name")).toHaveValue(nameValue);
+
+  // 3. Select magicien habituel from dropdown
+  const firstRow = page.locator("[data-tournament-player-row]").first();
+  await firstRow.locator("[data-player-select]").selectOption("Tristan");
+  await expect(firstRow.locator("[data-player-name]")).toHaveValue("Tristan");
+
+  // 4. Cancel tournament via direct button
+  page.on("dialog", (dialog) => dialog.accept());
+  await page.locator("#tournament-cancel-btn").click();
+
+  await expect(page.locator("#tournament-feedback")).toContainText("annulé avec succès");
+  await expect(page.locator("#tournament-editor")).toBeHidden();
+  expect(tournamentDeleted).toBe(true);
 });

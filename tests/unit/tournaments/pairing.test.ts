@@ -395,6 +395,95 @@ describe("Three-player round robin", () => {
     ).toBe(true);
   });
 
+  it("publishes complete schedules for 4-player and 5-player round-robin", async () => {
+    const coordinator = createTournamentCoordinator({
+      store: createInMemoryTournamentStore(),
+      cubeCatalog: createCubeCatalog(),
+      now: createTournamentTestClock().now,
+      createId: createTournamentSequence("round-robin-gen"),
+      createSeed: () => 42,
+    });
+
+    // 4 players: 3 rounds, 2 matches per round, 0 pauses, 6 unique matchups
+    const created4 = await coordinator.createTournament({
+      requestId: "create-rr-4",
+      name: "Toutes rondes à quatre",
+    });
+    if (!created4.ok) throw new Error(created4.error.message);
+    const configured4 = await coordinator.execute({
+      type: "replace-setup",
+      requestId: "setup-rr-4",
+      tournamentId: created4.value.tournamentId,
+      expectedRevision: created4.value.revision,
+      name: created4.value.name,
+      cubeKey: "titou_tribal",
+      format: "round-robin",
+      plannedRoundCount: 3,
+      participants: [
+        { participantId: null, displayName: "Alice", deckName: "Deck 1" },
+        { participantId: null, displayName: "Bob", deckName: "Deck 2" },
+        { participantId: null, displayName: "Charlie", deckName: "Deck 3" },
+        { participantId: null, displayName: "David", deckName: "Deck 4" },
+      ],
+    });
+    if (!configured4.ok) throw new Error(configured4.error.message);
+
+    const started4 = await coordinator.execute({
+      type: "start",
+      requestId: "start-rr-4",
+      tournamentId: created4.value.tournamentId,
+      expectedRevision: configured4.value.revision,
+    });
+    if (!started4.ok) throw new Error(started4.error.message);
+    expect(started4.value.rounds).toHaveLength(3);
+    const allMatches4 = started4.value.rounds.flatMap((r) => r.matches);
+    expect(allMatches4).toHaveLength(6);
+    const pairKeys4 = allMatches4.map((m) => [m.participantAId, m.participantBId].sort().join(":"));
+    expect(new Set(pairKeys4).size).toBe(6);
+    expect(started4.value.rounds.flatMap((r) => r.pauses)).toHaveLength(0);
+
+    // 5 players: 5 rounds, 2 matches per round, 1 pause per round, 10 unique matchups
+    const created5 = await coordinator.createTournament({
+      requestId: "create-rr-5",
+      name: "Toutes rondes à cinq",
+    });
+    if (!created5.ok) throw new Error(created5.error.message);
+    const configured5 = await coordinator.execute({
+      type: "replace-setup",
+      requestId: "setup-rr-5",
+      tournamentId: created5.value.tournamentId,
+      expectedRevision: created5.value.revision,
+      name: created5.value.name,
+      cubeKey: "titou_tribal",
+      format: "round-robin",
+      plannedRoundCount: 5,
+      participants: [
+        { participantId: null, displayName: "P1", deckName: "D1" },
+        { participantId: null, displayName: "P2", deckName: "D2" },
+        { participantId: null, displayName: "P3", deckName: "D3" },
+        { participantId: null, displayName: "P4", deckName: "D4" },
+        { participantId: null, displayName: "P5", deckName: "D5" },
+      ],
+    });
+    if (!configured5.ok) throw new Error(configured5.error.message);
+
+    const started5 = await coordinator.execute({
+      type: "start",
+      requestId: "start-rr-5",
+      tournamentId: created5.value.tournamentId,
+      expectedRevision: configured5.value.revision,
+    });
+    if (!started5.ok) throw new Error(started5.error.message);
+    expect(started5.value.rounds).toHaveLength(5);
+    const allMatches5 = started5.value.rounds.flatMap((r) => r.matches);
+    expect(allMatches5).toHaveLength(10);
+    const pairKeys5 = allMatches5.map((m) => [m.participantAId, m.participantBId].sort().join(":"));
+    expect(new Set(pairKeys5).size).toBe(10);
+    const pauses5 = started5.value.rounds.flatMap((r) => r.pauses);
+    expect(pauses5).toHaveLength(5);
+    expect(new Set(pauses5.map((p) => p.participantId)).size).toBe(5);
+  });
+
   it.each([2, 4])("rejects round-robin-three with %s participants", async (participantCount) => {
     const coordinator = createTournamentCoordinator({
       store: createInMemoryTournamentStore(),

@@ -15,9 +15,9 @@ create table if not exists public.tournaments (
   id text primary key,
   name text not null,
   status text not null check (status in ('preparation', 'active', 'completed')),
-  format text check (format is null or format in ('swiss', 'round-robin-three')),
+  format text check (format is null or format in ('swiss', 'round-robin-three', 'round-robin')),
   planned_round_count integer check (
-    planned_round_count is null or planned_round_count between 1 and 5
+    planned_round_count is null or planned_round_count between 1 and 31
   ),
   cube_key text,
   snapshot_id text,

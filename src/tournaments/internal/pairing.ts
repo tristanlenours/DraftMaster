@@ -8,7 +8,12 @@ import type {
   PairingEvidence,
   TournamentStanding,
 } from "./types.ts";
-import type { TournamentMatch, TournamentParticipant, TournamentRound } from "../types.ts";
+import type {
+  TournamentMatch,
+  TournamentParticipant,
+  TournamentPause,
+  TournamentRound,
+} from "../types.ts";
 
 export interface SwissPairingInput {
   readonly tournamentId: string;
@@ -23,10 +28,167 @@ export interface SwissPairingInput {
   readonly createMatchId: () => string;
 }
 
-export type RoundRobinThreeInput = Omit<
-  SwissPairingInput,
-  "roundNumber" | "standings" | "priorRounds"
->;
+export type RoundRobinInput = Omit<SwissPairingInput, "roundNumber" | "standings" | "priorRounds">;
+export type RoundRobinThreeInput = RoundRobinInput;
+
+export function createRoundRobinRounds(
+  input: Readonly<RoundRobinInput>,
+): readonly TournamentRound[] {
+  const activeParticipants = input.participants.filter(({ status }) => status === "active");
+  if (activeParticipants.length < 2 || activeParticipants.length > 32) {
+    throw new Error("round-robin requires between 2 and 32 active participants.");
+  }
+  const standingsBefore = [...initialStandings(activeParticipants, input.pairingSeed)].sort(
+    (left, right) => left.displayOrder - right.displayOrder,
+  );
+  const ordered = standingsBefore.map(({ participantId }) => participantId);
+  const n = ordered.length;
+
+  if (n === 3) {
+    const schedules = [
+      { participantAId: ordered[0], participantBId: ordered[1], pausedParticipantId: ordered[2] },
+      { participantAId: ordered[0], participantBId: ordered[2], pausedParticipantId: ordered[1] },
+      { participantAId: ordered[1], participantBId: ordered[2], pausedParticipantId: ordered[0] },
+    ];
+    return schedules.map((schedule, index) => {
+      if (
+        schedule.participantAId === undefined ||
+        schedule.participantBId === undefined ||
+        schedule.pausedParticipantId === undefined
+      ) {
+        throw new Error("Incomplete round-robin schedule.");
+      }
+      const roundNumber = index + 1;
+      const roundInput: SwissPairingInput = {
+        ...input,
+        roundNumber,
+        standings: standingsBefore,
+        priorRounds: [],
+      };
+      const match = pendingMatch(roundInput, 1, schedule.participantAId, schedule.participantBId);
+      return {
+        roundNumber,
+        status: "published" as const,
+        sourceRevision: input.sourceRevision,
+        publishedAt: input.publishedAt,
+        completedAt: null,
+        pairingEvidence: {
+          engineVersion: "tournament-pairing@1" as const,
+          pairingSeed: input.pairingSeed,
+          inputSha256: buildInputSha256(roundInput, standingsBefore),
+          standingsBefore,
+          cost: ZERO_COST,
+          decisions: [
+            {
+              matchId: match.matchId,
+              participantIds: [schedule.participantAId, schedule.participantBId],
+              reasons: ["same-score" as const],
+            },
+            {
+              matchId: null,
+              participantIds: [schedule.pausedParticipantId],
+              reasons: ["round-robin-pause" as const],
+            },
+          ],
+        },
+        matches: [match],
+        pauses: [
+          {
+            participantId: schedule.pausedParticipantId,
+            reason: "round-robin-pause" as const,
+          },
+        ],
+      };
+    });
+  }
+
+  const isOdd = n % 2 !== 0;
+  const m = isOdd ? n + 1 : n;
+  const totalRounds = m - 1;
+
+  const fixed = ordered[0];
+  if (fixed === undefined) {
+    throw new Error("round-robin requires active participants.");
+  }
+  const rotatable: (string | null)[] = ordered.slice(1);
+  if (isOdd) rotatable.push(null);
+
+  const rounds: TournamentRound[] = [];
+
+  for (let r = 0; r < totalRounds; r++) {
+    const roundNumber = r + 1;
+    const currentRotatable = [...rotatable];
+    const shift = r % currentRotatable.length;
+    if (shift > 0) {
+      const tail = currentRotatable.splice(currentRotatable.length - shift, shift);
+      currentRotatable.unshift(...tail);
+    }
+    const positions: (string | null)[] = [fixed, ...currentRotatable];
+
+    const roundInput: SwissPairingInput = {
+      ...input,
+      roundNumber,
+      standings: standingsBefore,
+      priorRounds: [],
+    };
+
+    const matches: TournamentMatch[] = [];
+    const pauses: TournamentPause[] = [];
+    const decisions: PairingDecisionEvidence[] = [];
+
+    const half = m / 2;
+    for (let i = 0; i < half; i++) {
+      const p1 = positions[i];
+      const p2 = positions[m - 1 - i];
+
+      if (p1 !== null && p1 !== undefined && p2 !== null && p2 !== undefined) {
+        const tableNumber = matches.length + 1;
+        const match = pendingMatch(roundInput, tableNumber, p1, p2);
+        matches.push(match);
+        decisions.push({
+          matchId: match.matchId,
+          participantIds: [p1, p2],
+          reasons: ["same-score" as const],
+        });
+      } else {
+        const pausedId = p1 ?? p2 ?? null;
+        if (pausedId !== null) {
+          pauses.push({
+            participantId: pausedId,
+            reason: "round-robin-pause" as const,
+          });
+          decisions.push({
+            matchId: null,
+            participantIds: [pausedId],
+            reasons: ["round-robin-pause" as const],
+          });
+        }
+      }
+    }
+
+    rounds.push({
+      roundNumber,
+      status: "published" as const,
+      sourceRevision: input.sourceRevision,
+      publishedAt: input.publishedAt,
+      completedAt: null,
+      pairingEvidence: {
+        engineVersion: "tournament-pairing@1" as const,
+        pairingSeed: input.pairingSeed,
+        inputSha256: buildInputSha256(roundInput, standingsBefore),
+        standingsBefore,
+        cost: ZERO_COST,
+        decisions,
+      },
+      matches,
+      pauses,
+    });
+  }
+
+  return rounds;
+}
+
+export const createRoundRobinThreeRounds = createRoundRobinRounds;
 
 function initialStandings(
   participants: readonly Readonly<TournamentParticipant>[],
@@ -449,72 +611,4 @@ export function createSwissRound(input: Readonly<SwissPairingInput>): Tournament
     matches,
     pauses: [],
   };
-}
-
-export function createRoundRobinThreeRounds(
-  input: Readonly<RoundRobinThreeInput>,
-): readonly TournamentRound[] {
-  const activeParticipants = input.participants.filter(({ status }) => status === "active");
-  if (activeParticipants.length !== 3) {
-    throw new Error("round-robin-three requires exactly three active participants.");
-  }
-  const standingsBefore = [...initialStandings(activeParticipants, input.pairingSeed)].sort(
-    (left, right) => left.displayOrder - right.displayOrder,
-  );
-  const ordered = standingsBefore.map(({ participantId }) => participantId);
-  const schedules = [
-    { participantAId: ordered[0], participantBId: ordered[1], pausedParticipantId: ordered[2] },
-    { participantAId: ordered[0], participantBId: ordered[2], pausedParticipantId: ordered[1] },
-    { participantAId: ordered[1], participantBId: ordered[2], pausedParticipantId: ordered[0] },
-  ];
-  return schedules.map((schedule, index) => {
-    if (
-      schedule.participantAId === undefined ||
-      schedule.participantBId === undefined ||
-      schedule.pausedParticipantId === undefined
-    ) {
-      throw new Error("Incomplete round-robin-three schedule.");
-    }
-    const roundNumber = index + 1;
-    const roundInput: SwissPairingInput = {
-      ...input,
-      roundNumber,
-      standings: standingsBefore,
-      priorRounds: [],
-    };
-    const match = pendingMatch(roundInput, 1, schedule.participantAId, schedule.participantBId);
-    return {
-      roundNumber,
-      status: "published" as const,
-      sourceRevision: input.sourceRevision,
-      publishedAt: input.publishedAt,
-      completedAt: null,
-      pairingEvidence: {
-        engineVersion: "tournament-pairing@1" as const,
-        pairingSeed: input.pairingSeed,
-        inputSha256: buildInputSha256(roundInput, standingsBefore),
-        standingsBefore,
-        cost: ZERO_COST,
-        decisions: [
-          {
-            matchId: match.matchId,
-            participantIds: [schedule.participantAId, schedule.participantBId],
-            reasons: ["same-score" as const],
-          },
-          {
-            matchId: null,
-            participantIds: [schedule.pausedParticipantId],
-            reasons: ["round-robin-pause" as const],
-          },
-        ],
-      },
-      matches: [match],
-      pauses: [
-        {
-          participantId: schedule.pausedParticipantId,
-          reason: "round-robin-pause" as const,
-        },
-      ],
-    };
-  });
 }

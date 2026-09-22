@@ -27,7 +27,11 @@ export interface TournamentError {
 }
 
 export type TournamentStatus = "preparation" | "active" | "completed";
-export type TournamentFormat = "swiss" | "round-robin-three";
+export type TournamentFormat = "swiss" | "round-robin" | "round-robin-three";
+
+export function isRoundRobinFormat(format: TournamentFormat | null | undefined): boolean {
+  return format === "round-robin" || format === "round-robin-three";
+}
 
 export interface TournamentCubeSummary {
   readonly cubeKey: string;
