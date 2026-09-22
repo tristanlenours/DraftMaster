@@ -2,6 +2,16 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
+import {
+  createInMemoryTournamentStore,
+  createTournamentCoordinator,
+  type TournamentCubeCatalog,
+} from "../../src/tournaments/index.ts";
+import {
+  buildTournamentCubeSnapshot,
+  createTournamentSequence,
+  createTournamentTestClock,
+} from "../helpers/tournament-fixtures.ts";
 
 describe("Site Auth Gatekeeper & Guild Passcode Integration", () => {
   const TEST_PASSWORD = "DraftMaster007!";
@@ -9,9 +19,32 @@ describe("Site Auth Gatekeeper & Guild Passcode Integration", () => {
   let baseUrl: string;
 
   beforeAll(async () => {
+    const snapshot = buildTournamentCubeSnapshot();
+    const cubeCatalog: TournamentCubeCatalog = {
+      listCubes: () =>
+        Promise.resolve({
+          ok: true,
+          value: [
+            {
+              cubeKey: snapshot.cubeKey,
+              cubeName: snapshot.cubeName,
+              activeSnapshotId: snapshot.snapshotId,
+            },
+          ],
+        }),
+      loadSnapshot: () => Promise.resolve({ ok: true, value: snapshot }),
+    };
+    const tournamentCoordinator = createTournamentCoordinator({
+      store: createInMemoryTournamentStore(),
+      cubeCatalog,
+      now: createTournamentTestClock().now,
+      createId: createTournamentSequence("tournament"),
+      createSeed: () => 42,
+    });
     const handler = createRequestHandler({
       authEnabled: true,
       sitePassword: TEST_PASSWORD,
+      tournamentCoordinator,
     });
     server = createServer(handler);
     await new Promise<void>((resolve) => {
@@ -70,6 +103,53 @@ describe("Site Auth Gatekeeper & Guild Passcode Integration", () => {
     const body = (await res.json()) as { ok: boolean; error: string };
     expect(body.ok).toBe(false);
     expect(body.error).toContain("mot de passe");
+  });
+
+  it("protects tournament reads and mutations, then serves them after guild authentication", async () => {
+    const unauthorizedRead = await fetch(`${baseUrl}/api/tournaments/cubes`);
+    expect(unauthorizedRead.status).toBe(401);
+    const unauthorizedWrite = await fetch(`${baseUrl}/api/tournaments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "unauthorized-tournament",
+      },
+      body: JSON.stringify({ name: "Tournoi interdit" }),
+    });
+    expect(unauthorizedWrite.status).toBe(401);
+
+    const login = await fetch(`${baseUrl}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: TEST_PASSWORD }),
+    });
+    const cookie = login.headers.get("set-cookie")?.match(/dm_auth=([^;]+)/u)?.[1];
+    expect(cookie).toBeTruthy();
+    if (!cookie) throw new Error("Le cookie de guilde de test est absent.");
+
+    const catalog = await fetch(`${baseUrl}/api/tournaments/cubes`, {
+      headers: { Cookie: `dm_auth=${cookie}` },
+    });
+    expect(catalog.status).toBe(200);
+    await expect(catalog.json()).resolves.toMatchObject({
+      ok: true,
+      cubes: [{ cubeKey: "titou_tribal" }],
+    });
+
+    const creation = await fetch(`${baseUrl}/api/tournaments`, {
+      method: "POST",
+      headers: {
+        Cookie: `dm_auth=${cookie}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": "authenticated-tournament",
+      },
+      body: JSON.stringify({ name: "Tournoi autorisé" }),
+    });
+    expect(creation.status).toBe(201);
+    await expect(creation.json()).resolves.toMatchObject({
+      ok: true,
+      tournament: { tournamentId: "tournament-001", name: "Tournoi autorisé" },
+    });
   });
 
   it("rejects invalid password submissions with 401", async () => {

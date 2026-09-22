@@ -51,6 +51,7 @@ Interface publique proposée :
 - `execute(command)` applique les mutations typées de configuration, démarrage, résultat, correction, ronde suivante, carte clé et finalisation ;
 - `getTournament(tournamentId)` retourne la projection complète révisionnée ;
 - `listTournaments()` retourne les résumés historiques.
+- `listCubes()` retourne le catalogue de Snapshots sélectionnables sans exposer le registre au handler HTTP.
 
 Le coordinateur dépend uniquement de `TournamentStore`, `TournamentCubeCatalog`, d'une horloge et de générateurs d'identifiants/seed injectés. Le solveur d'Appariement, les calculs de classement et le réducteur d'événements restent internes. L'interface publique renvoie un résultat typé ; un refus ne produit aucune mutation.
 

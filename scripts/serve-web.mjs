@@ -14,6 +14,7 @@ import {
   isSupabaseConfigured,
   getCleanUrl,
   getCleanKey,
+  getSupabaseServiceRoleClient,
 } from "../src/storage/supabase-client.ts";
 import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-drafts.ts";
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
@@ -26,6 +27,14 @@ import {
   createMultiplayerDraftCoordinator,
   createMultiplayerDraftHttpHandler,
 } from "../src/multiplayer-draft/index.ts";
+import {
+  createJsonLineTournamentObservability,
+  createSupabaseTournamentStore,
+  createTournamentCoordinator,
+  createTournamentCubeCatalog,
+  createTournamentHttpHandler,
+  createTournamentSupabaseGateway,
+} from "../src/tournaments/index.ts";
 
 try {
   process.loadEnvFile?.();
@@ -359,6 +368,24 @@ function sendJson(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+function createUnavailableTournamentStore() {
+  const unavailable = () =>
+    Promise.resolve({
+      ok: false,
+      error: {
+        code: "STORE_UNAVAILABLE",
+        message: "Le stockage durable des tournois n'est pas configuré.",
+        details: {},
+      },
+    });
+  return {
+    list: unavailable,
+    load: unavailable,
+    commit: unavailable,
+    checkReadiness: unavailable,
+  };
+}
+
 export function createRequestHandler(options = {}) {
   const sitePassword =
     options.sitePassword !== undefined ? options.sitePassword : process.env.SITE_PASSWORD;
@@ -502,6 +529,28 @@ export function createRequestHandler(options = {}) {
   const multiplayerHandler = createMultiplayerDraftHttpHandler({
     coordinator: multiplayerCoordinator,
   });
+  const tournamentCoordinator =
+    options.tournamentCoordinator ??
+    createTournamentCoordinator({
+      store: (() => {
+        const client = getSupabaseServiceRoleClient();
+        return client === null
+          ? createUnavailableTournamentStore()
+          : createSupabaseTournamentStore({
+              gateway: createTournamentSupabaseGateway(client),
+            });
+      })(),
+      cubeCatalog: createTournamentCubeCatalog({ projectRoot: rootDir }),
+      now: () => new Date().toISOString(),
+      createId: randomUUID,
+      createSeed: () => randomBytes(4).readInt32BE(0),
+    });
+  const tournamentHandler = createTournamentHttpHandler({
+    coordinator: tournamentCoordinator,
+    observability:
+      options.tournamentObservability ??
+      (isTestEnv ? undefined : createJsonLineTournamentObservability()),
+  });
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
@@ -523,10 +572,7 @@ export function createRequestHandler(options = {}) {
     // ==========================================
 
     // Healthchecks pour Railway et monitoring d'uptime
-    if (
-      (pathname === "/health" || pathname === "/health/live" || pathname === "/health/ready") &&
-      req.method === "GET"
-    ) {
+    if ((pathname === "/health" || pathname === "/health/live") && req.method === "GET") {
       sendJson(res, 200, {
         status: "ok",
         uptimeSeconds: Math.floor(process.uptime()),
@@ -536,13 +582,26 @@ export function createRequestHandler(options = {}) {
           hasRawUrl: Boolean(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL),
           hasRawKey: Boolean(
             process.env.SUPABASE_SERVICE_ROLE_KEY ||
-              process.env.SUPABASE_ANON_KEY ||
-              process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-              process.env.SUPABASE_KEY,
+            process.env.SUPABASE_ANON_KEY ||
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+            process.env.SUPABASE_KEY,
           ),
           urlResolved: Boolean(getCleanUrl()),
           keyResolved: Boolean(getCleanKey()),
         },
+      });
+      return;
+    }
+
+    if (pathname === "/health/ready" && req.method === "GET") {
+      const tournamentReadiness = await tournamentCoordinator.checkReadiness();
+      sendJson(res, tournamentReadiness.ok ? 200 : 503, {
+        status: tournamentReadiness.ok ? "ready" : "unavailable",
+        uptimeSeconds: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString(),
+        tournaments: tournamentReadiness.ok
+          ? { ready: true }
+          : { ready: false, errorCode: tournamentReadiness.error.code },
       });
       return;
     }
@@ -664,6 +723,10 @@ export function createRequestHandler(options = {}) {
     // ==========================================
 
     if (await multiplayerHandler(req, res)) {
+      return;
+    }
+
+    if (await tournamentHandler(req, res)) {
       return;
     }
 

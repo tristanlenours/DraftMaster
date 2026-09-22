@@ -1,6 +1,9 @@
 import { configDefaults, defineConfig } from "vitest/config";
 
-const performanceTest = "tests/integration/performance.test.ts";
+const performanceTests = [
+  "tests/integration/performance.test.ts",
+  "tests/integration/tournament-management-performance.test.ts",
+];
 
 export default defineConfig({
   test: {
@@ -17,7 +20,7 @@ export default defineConfig({
         statements: 80,
       },
     },
-    exclude: [...configDefaults.exclude, performanceTest],
+    exclude: [...configDefaults.exclude, ...performanceTests],
     include: ["tests/{unit,contract,integration,e2e}/**/*.test.ts"],
     passWithNoTests: false,
     setupFiles: ["tests/setup/fast-check.ts"],

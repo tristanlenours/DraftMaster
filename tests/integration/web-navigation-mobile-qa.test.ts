@@ -60,13 +60,15 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('class="brand-tagline"');
     });
 
-    it("declares desktop navigation tabs for all 8 SPA views (including multi and tournaments teasers)", () => {
+    it("declares desktop navigation tabs for all 8 SPA views including tournament management", () => {
       const views = ["home", "cubes", "cards", "bots", "draft", "records", "multi", "tournaments"];
       for (const view of views) {
         expect(htmlContent).toContain(`id="nav-btn-${view}"`);
         expect(htmlContent).toContain(`data-view="${view}"`);
       }
-      expect(htmlContent).toContain('class="nav-badge-soon"');
+      expect(htmlContent).not.toContain(
+        'Tournois</span>\n            <span class="nav-badge-soon"',
+      );
     });
 
     it("declares mobile hamburger button with accessible ARIA contract and bars", () => {
@@ -103,12 +105,20 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('id="mobile-nav-backdrop"');
     });
 
-    it("declares dedicated presentation views and home teaser card for tournaments", () => {
+    it("declares the tournament history and setup workspace behind its home entry point", () => {
       expect(htmlContent).toContain('id="view-multi"');
       expect(htmlContent).toContain('id="view-tournaments"');
       expect(htmlContent).toContain('class="home-teaser-section"');
       expect(htmlContent).toContain('id="home-cta-tournaments"');
-      expect(htmlContent).toContain('class="mystery-coming-soon-banner"');
+      expect(htmlContent).toContain('id="tournament-history-list"');
+      expect(htmlContent).toContain('id="tournament-new-btn"');
+      expect(htmlContent).toContain('id="tournament-setup-form"');
+      expect(htmlContent).toContain('id="tournament-add-player"');
+      expect(htmlContent).not.toContain('class="mystery-coming-soon-banner"');
+      expect(jsContent).toContain(
+        'import { initTournamentManagementView } from "./tournaments.js";',
+      );
+      expect(jsContent).toContain("void initTournamentManagementView()");
     });
 
     it("declares both desktop tier matrix and mobile LimitedGrades tier container in view-cards", () => {
