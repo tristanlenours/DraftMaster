@@ -16,6 +16,7 @@ import {
 } from "./leaderboard.js";
 import { initAdminView } from "./admin.js";
 import { initMultiplayerDraftView } from "./multiplayer-draft.js";
+import { initTournamentManagementView } from "./tournaments.js";
 import {
   loadImageWithFallback,
   isMatchingScryfallPrint,
@@ -629,13 +630,7 @@ const CUBE_STRATEGIC_ADVICE = {
   },
 };
 
-const TIERS = [
-  "A+", "A", "A-",
-  "B+", "B", "B-",
-  "C+", "C", "C-",
-  "D+", "D", "D-",
-  "F",
-];
+const TIERS = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"];
 
 function toTierCssClass(tier) {
   const normalized = String(tier).toLowerCase();
@@ -785,13 +780,10 @@ const elements = {
   homeCtaMulti: document.getElementById("home-cta-multi"),
   homeCtaTournaments: document.getElementById("home-cta-tournaments"),
 
-  // Teaser Interactive Elements
+  // Multiplayer teaser interactive elements
   btnMultiVip: document.getElementById("btn-multi-vip"),
   multiVipEmail: document.getElementById("multi-vip-email"),
   multiVipFeedback: document.getElementById("multi-vip-feedback"),
-  btnTournamentsPilot: document.getElementById("btn-tournaments-pilot"),
-  tournamentsPilotContact: document.getElementById("tournaments-pilot-contact"),
-  tournamentsPilotFeedback: document.getElementById("tournaments-pilot-feedback"),
 
   // Deck Review Modal
   deckReviewBackdrop: document.getElementById("deck-review-backdrop"),
@@ -1343,6 +1335,8 @@ function navigateTo(viewName, cubeKey = null) {
     initAdminView();
   } else if (viewName === "multi") {
     initMultiplayerDraftView();
+  } else if (viewName === "tournaments") {
+    void initTournamentManagementView();
   }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1485,26 +1479,6 @@ function setupEventListeners() {
     }
     if (typeof confetti === "function") {
       confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
-    }
-  });
-
-  elements.btnTournamentsPilot?.addEventListener("click", () => {
-    const contact = elements.tournamentsPilotContact?.value?.trim();
-    if (!contact) {
-      if (elements.tournamentsPilotFeedback) {
-        elements.tournamentsPilotFeedback.textContent =
-          "Veuillez renseigner votre association ou contact.";
-        elements.tournamentsPilotFeedback.style.color = "var(--accent-coral)";
-      }
-      return;
-    }
-    if (elements.tournamentsPilotFeedback) {
-      elements.tournamentsPilotFeedback.textContent =
-        "🛡️ Candidature reçue ! Notre équipe prendra contact pour configurer votre premier tournoi test.";
-      elements.tournamentsPilotFeedback.style.color = "var(--tier-s)";
-    }
-    if (typeof confetti === "function") {
-      confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
     }
   });
 
@@ -3142,7 +3116,9 @@ function openCardModal(card, comparisonOverride) {
               ? "Piège"
               : "Neutre";
       const bonusText =
-        metaBonus !== 0 ? ` • Méta : ${metaRoleLabel} (${metaBonus > 0 ? "+" : ""}${metaBonus})` : "";
+        metaBonus !== 0
+          ? ` • Méta : ${metaRoleLabel} (${metaBonus > 0 ? "+" : ""}${metaBonus})`
+          : "";
       elements.modalHeroCubeRole.textContent = `${formatFit(analysis?.fit)}${bonusText}`;
     } else {
       const role =
@@ -3334,7 +3310,7 @@ function openCardModal(card, comparisonOverride) {
       // Badges (Nouveauté & CubeCobra Benchmark)
       const isRecent = Boolean(
         comparison.proposal.isRecent ||
-          (comparison.proposal.releaseYear && comparison.proposal.releaseYear >= 2023),
+        (comparison.proposal.releaseYear && comparison.proposal.releaseYear >= 2023),
       );
       if (elements.modalUpgradeRecencyPill) {
         if (isRecent) {
@@ -3416,9 +3392,12 @@ function openCardModal(card, comparisonOverride) {
           "Recommandation Maybeboard (IA & Tendances)";
       }
 
-      if (elements.modalUpgradeCurrName) elements.modalUpgradeCurrName.textContent = "Nouveau Choix";
-      if (elements.modalUpgradeCurrScore) elements.modalUpgradeCurrScore.textContent = "Suggestion IA";
-      if (elements.modalUpgradeCurrPaneLabel) elements.modalUpgradeCurrPaneLabel.textContent = "Statut";
+      if (elements.modalUpgradeCurrName)
+        elements.modalUpgradeCurrName.textContent = "Nouveau Choix";
+      if (elements.modalUpgradeCurrScore)
+        elements.modalUpgradeCurrScore.textContent = "Suggestion IA";
+      if (elements.modalUpgradeCurrPaneLabel)
+        elements.modalUpgradeCurrPaneLabel.textContent = "Statut";
       if (elements.modalUpgradeCurrPane) {
         elements.modalUpgradeCurrPane.classList.remove("is-inspected");
         elements.modalUpgradeCurrPane.setAttribute("aria-current", "false");
@@ -3435,7 +3414,8 @@ function openCardModal(card, comparisonOverride) {
       if (elements.modalUpgradeSuggScore) {
         elements.modalUpgradeSuggScore.textContent = `${mb.card.score}/55 (Tier ${mb.card.tier || "B"})`;
       }
-      if (elements.modalUpgradeSuggPaneLabel) elements.modalUpgradeSuggPaneLabel.textContent = "Carte Recommandée";
+      if (elements.modalUpgradeSuggPaneLabel)
+        elements.modalUpgradeSuggPaneLabel.textContent = "Carte Recommandée";
       if (elements.modalUpgradeSuggPane) {
         elements.modalUpgradeSuggPane.classList.add("is-inspected");
         elements.modalUpgradeSuggPane.setAttribute("aria-current", "true");
@@ -3450,12 +3430,11 @@ function openCardModal(card, comparisonOverride) {
 
       if (elements.modalBtnSwapArrow) elements.modalBtnSwapArrow.onclick = null;
       if (elements.modalUpgradeDelta) elements.modalUpgradeDelta.textContent = "★";
-      if (elements.modalUpgradeMultiTargetsWrap) elements.modalUpgradeMultiTargetsWrap.hidden = true;
+      if (elements.modalUpgradeMultiTargetsWrap)
+        elements.modalUpgradeMultiTargetsWrap.hidden = true;
       if (elements.modalUpgradeReason) elements.modalUpgradeReason.textContent = mb.rationale;
 
-      const isRecent = Boolean(
-        mb.isRecent || (mb.releaseYear && mb.releaseYear >= 2023),
-      );
+      const isRecent = Boolean(mb.isRecent || (mb.releaseYear && mb.releaseYear >= 2023));
       if (elements.modalUpgradeRecencyPill) {
         if (isRecent) {
           elements.modalUpgradeRecencyPill.hidden = false;
@@ -3519,7 +3498,6 @@ function openCardModal(card, comparisonOverride) {
       }
     }
   }
-
 
   // Rules text (French default with toggle)
   updateModalCardText(card);

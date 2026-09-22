@@ -108,3 +108,49 @@ _Avoid_: Re-simulation when referring to recorded choices, session resume
 **Re-simulation de draft**:
 A new execution using the same functional inputs and versions to check that distribution and participant decisions are reproducible.
 _Avoid_: Relecture de draft when referring to recalculated choices
+
+## Tournament Management
+
+**Tournoi de cube**:
+Une compétition organisée autour d'un Snapshot de cube verrouillé, d'un ensemble de Participants de tournoi, de Rondes de tournoi et d'un classement historisé.
+_Avoid_: Session de draft, ligue, événement
+
+**Organisateur de tournoi**:
+La personne qui configure un Tournoi de cube, inscrit ses participants, lance ses rondes et confirme ou corrige ses Résultats de match.
+_Avoid_: Admin, arbitre when no rules adjudication is implied
+
+**Participant de tournoi**:
+Un joueur inscrit à un Tournoi de cube avec un nom affiché et un Deck déclaré.
+_Avoid_: siège, compte, utilisateur
+
+**Deck déclaré**:
+L'identité publique du deck joué par un Participant de tournoi, composée au minimum de son nom d'archétype et, facultativement, de Cartes clés de deck.
+_Avoid_: Liste finale, pool, proposition du Coach
+
+**Carte clé de deck**:
+Une carte du Snapshot de cube que l'Organisateur de tournoi associe au Deck déclaré pour en décrire les pièces marquantes ; elle n'affecte ni les appariements ni le classement.
+_Avoid_: Carte clé when referring to an archetype-synergy role
+
+**Ronde de tournoi**:
+Une étape ordonnée d'un Tournoi de cube qui regroupe des Matchs de tournoi simultanés et, selon le format, au plus une Exemption suisse ou une Pause toutes-rondes.
+_Avoid_: Tour de draft, manche
+
+**Match de tournoi**:
+La confrontation planifiée entre deux Participants de tournoi au cours d'une Ronde de tournoi, ou l'exemption attribuée à un seul participant.
+_Avoid_: partie when referring to the whole match
+
+**Appariement**:
+L'affectation auditable des Participants de tournoi aux Matchs de tournoi d'une ronde selon le format et les résultats déjà confirmés.
+_Avoid_: matchmaking
+
+**Exemption suisse**:
+Une victoire de match automatique attribuée à un Participant de tournoi sans adversaire dans une ronde suisse impaire.
+_Avoid_: Pause toutes-rondes, match fantôme
+
+**Pause toutes-rondes**:
+La ronde sans match d'un Participant de tournoi dans le format toutes-rondes à trois ; elle n'accorde aucun point et ne crée aucune partie fictive.
+_Avoid_: Exemption suisse, bye
+
+**Résultat de match**:
+Le relevé confirmé des parties gagnées et nulles d'un Match de tournoi, dont sont dérivés le vainqueur éventuel, les points et le classement.
+_Avoid_: Score de deck, résultat de draft

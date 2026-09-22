@@ -74,7 +74,6 @@
           <button class="nav-tab-btn" data-view="tournaments" id="nav-btn-tournaments">
             <span class="tab-icon">🏟️</span>
             <span class="tab-label">Tournois</span>
-            <span class="nav-badge-soon">Soon</span>
           </button>
           <button
             class="nav-tab-btn btn-auth-logout"
@@ -158,7 +157,7 @@
           </button>
           <button class="mobile-nav-item" data-view="tournaments" id="mobile-nav-tournaments">
             <span class="mobile-nav-icon">🏟️</span>
-            <span class="mobile-nav-label">Tournois <span class="nav-badge-soon">Soon</span></span>
+            <span class="mobile-nav-label">Tournois</span>
           </button>
           <button
             class="mobile-nav-item btn-auth-logout-mobile"
@@ -430,21 +429,21 @@
             <!-- Teaser Card: Tournois -->
             <div class="home-teaser-card" id="home-teaser-tournaments">
               <div class="teaser-card-badge">
-                <span class="pulse-dot-amber"></span><span>Bientôt • IRL & Online</span>
+                <span class="pulse-dot-amber"></span><span>Disponible en préparation</span>
               </div>
               <div class="teaser-card-icon">🏟️</div>
               <h3 class="teaser-card-title">Gestion de Tournois & Rondes Suisses</h3>
               <p class="teaser-card-summary">
-                L'arbitre numérique de vos soirées et tournois Cube. Inscriptions QR code, moteur
-                d'appariements suisses officiel, saisie des scores et intégration dans le Panthéon.
+                Créez votre tournoi Cube, choisissez le cube et enregistrez les joueurs avec leur
+                archétype avant de lancer les rondes.
               </p>
               <div class="teaser-card-meta">
                 <span>Système Suisse</span>
-                <span>Rondes 50min</span>
-                <span>Tie-Breakers</span>
+                <span>3 joueurs</span>
+                <span>Historique</span>
               </div>
               <button class="btn-teaser-action" id="home-cta-tournaments">
-                Découvrir la vision ➔
+                Gérer les tournois ➔
               </button>
             </div>
           </div>
@@ -1048,11 +1047,26 @@
         <div class="meta-subbar-inner">
           <div class="subbar-left">
             <span class="results-stats" id="results-stats">Chargement des cartes...</span>
-            <div class="view-mode-toggle" id="cards-view-mode-group" role="group" aria-label="Mode d'exploration">
-              <button type="button" class="view-mode-btn active" id="btn-view-cube-cards" data-mode="cube">
+            <div
+              class="view-mode-toggle"
+              id="cards-view-mode-group"
+              role="group"
+              aria-label="Mode d'exploration"
+            >
+              <button
+                type="button"
+                class="view-mode-btn active"
+                id="btn-view-cube-cards"
+                data-mode="cube"
+              >
                 🎴 Cube Actuel
               </button>
-              <button type="button" class="view-mode-btn" id="btn-view-maybeboard" data-mode="maybeboard">
+              <button
+                type="button"
+                class="view-mode-btn"
+                id="btn-view-maybeboard"
+                data-mode="maybeboard"
+              >
                 💡 Maybeboard IA & Tendances
               </button>
             </div>
@@ -3003,112 +3017,256 @@
     <!-- /view-multi -->
 
     <!-- ==========================================================================
-         VIEW 8: TOURNOIS IRL & ONLINE (Teaser & Vision Produit)
+         VIEW 8: GESTION DE TOURNOIS
          ========================================================================== -->
     <section class="app-view view-tournaments" id="view-tournaments" hidden style="display: none">
-      <div class="teaser-page-container">
-        <!-- Hero Banner with mysterious Coming Soon -->
-        <div class="teaser-page-hero">
-          <div class="teaser-status-badge">
-            <span class="pulse-dot-amber"></span>
-            <span>LE COLISEE DES MAGICIENS • EN DÉVELOPPEMENT</span>
+      <div class="tournament-page-container">
+        <header class="tournament-page-header">
+          <div>
+            <span class="tournament-kicker">LE COLISÉE DES MAGICIENS</span>
+            <h1>Tournois Cube</h1>
+            <p>
+              Préparez les joueurs et leurs decks, choisissez le cube, puis retrouvez chaque tournoi
+              dans son historique.
+            </p>
           </div>
-          <h1 class="teaser-page-title">
-            <span class="gold-gradient">GESTION DE TOURNOIS</span>
-            <span class="white-text">IRL & EN LIGNE</span>
-          </h1>
-          <p class="teaser-page-subtitle">
-            L'arbitre numérique ultime de vos événements Cube. De la confirmation des inscriptions
-            jusqu'au sacre final, organisez des compétitions impeccables et mémorables.
-          </p>
-          <div class="mystery-coming-soon-banner">
-            <span class="mystery-icon">⚔️</span>
-            <span class="mystery-text">COMING SOON</span>
-            <span class="mystery-subtext"
-              >Système d'appariements et d'arbitrage en préparation</span
-            >
-          </div>
+          <button class="tournament-primary-button" id="tournament-new-btn" type="button">
+            Nouveau tournoi
+          </button>
+        </header>
+
+        <div class="tournament-feedback" id="tournament-feedback" role="status" hidden>
+          <span id="tournament-feedback-message"></span>
+          <button class="tournament-secondary-button" id="tournament-reload" type="button" hidden>
+            Recharger
+          </button>
+        </div>
+        <div class="tournament-loading" id="tournament-loading" role="status" hidden>
+          Chargement des tournois…
         </div>
 
-        <!-- Pillars / Teaser Features Grid -->
-        <div class="teaser-features-grid">
-          <div class="teaser-feature-card">
-            <div class="feature-icon">📱</div>
-            <h3 class="feature-title">Inscriptions Éclair & QR Code IRL</h3>
-            <p class="feature-desc">
-              Pour vos soirées autour d'une vraie table physique, les joueurs scannent un QR Code
-              pour confirmer leur présence en 3 secondes. Pour les tournois en ligne, un lien
-              d'invitation rassemble tous les inscrits dans le salon d'arbitrage.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">⚖️</div>
-            <h3 class="feature-title">Appariements Suisses Automatisés</h3>
-            <p class="feature-desc">
-              Algorithme officiel inspiré des règles DCI : chaque ronde apparie les joueurs ayant le
-              même score (3-0 vs 3-0, 2-1 vs 2-1), en évitant strictement les doublons d'adversaires
-              et en attribuant les numéros de table physique ou virtuelle.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">⏱️</div>
-            <h3 class="feature-title">Chronomètre de Ronde & 5 Tours Additionnels</h3>
-            <p class="feature-desc">
-              Minuteur global synchronisé de 50 minutes par ronde, signal sonore de fin de ronde et
-              gestion intégrée des 5 tours additionnels (« End of Match ») pour sceller les égalités
-              équitablement.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">📝</div>
-            <h3 class="feature-title">Saisie Rapide & Validation des Scores</h3>
-            <p class="feature-desc">
-              Interface tactile pour renseigner le score en un geste (2-0, 2-1, 1-1, 0-2). Double
-              validation par les deux joueurs sur smartphone avec console d'arbitre pour corriger
-              tout litige en direct.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">📐</div>
-            <h3 class="feature-title">Tie-Breakers Mathématiques (OMW%)</h3>
-            <p class="feature-desc">
-              Fini les classements litigieux : calcul automatique et transparent des départages
-              officiels (Opponents' Match Win %, Game Win %, Opponents' Game Win %) affichés en
-              direct après chaque ronde.
-            </p>
-          </div>
-          <div class="teaser-feature-card">
-            <div class="feature-icon">🏆</div>
-            <h3 class="feature-title">Panthéon des Champions & Mur des Records</h3>
-            <p class="feature-desc">
-              À l'issue de la ronde finale, le deck vainqueur, les statistiques de parties et les
-              exploits du champion sont archivés éternellement dans l'historique officiel de LMCDEU.
-            </p>
-          </div>
-        </div>
-
-        <!-- Organizer Pilot Call to Action -->
-        <div class="teaser-cta-card">
-          <div class="cta-inner">
-            <span class="cta-badge">🎯 ORGANISATEURS & CLUBS</span>
-            <h2 class="cta-title">Vous organisez des tournois de Cube IRL ou en ligne ?</h2>
-            <p class="cta-desc">
-              Participez au programme pilote pour tester la plateforme en avant-première lors de vos
-              soirées de jeu.
-            </p>
-            <div class="cta-form-row">
-              <input
-                type="text"
-                id="tournaments-pilot-contact"
-                placeholder="Votre nom, club ou ville..."
-                class="teaser-input"
-              />
-              <button class="btn-teaser-submit" id="btn-tournaments-pilot">
-                Postuler au Programme Pilote 🚀
-              </button>
+        <div class="tournament-workspace" id="tournament-workspace" aria-busy="false">
+          <aside
+            class="tournament-panel tournament-history"
+            aria-labelledby="tournament-history-title"
+          >
+            <div class="tournament-panel-heading">
+              <div>
+                <span class="tournament-panel-eyebrow">Archives</span>
+                <h2 id="tournament-history-title">Historique</h2>
+              </div>
             </div>
-            <div class="teaser-feedback-msg" id="tournaments-pilot-feedback" hidden></div>
-          </div>
+            <div class="tournament-empty-state" id="tournament-empty-state" hidden>
+              Aucun tournoi pour le moment. Créez la prochaine soirée Cube.
+            </div>
+            <div class="tournament-history-list" id="tournament-history-list"></div>
+          </aside>
+
+          <main class="tournament-main-column">
+            <section
+              class="tournament-panel tournament-create-panel"
+              id="tournament-create-panel"
+              hidden
+            >
+              <div class="tournament-panel-heading">
+                <div>
+                  <span class="tournament-panel-eyebrow">Étape 1</span>
+                  <h2>Créer le tournoi</h2>
+                </div>
+              </div>
+              <form class="tournament-create-form" id="tournament-create-form">
+                <label class="tournament-field tournament-field-grow" for="tournament-create-name">
+                  <span>Nom du tournoi</span>
+                  <input
+                    id="tournament-create-name"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Cube de septembre"
+                    required
+                  />
+                </label>
+                <div class="tournament-form-actions">
+                  <button
+                    class="tournament-secondary-button"
+                    id="tournament-create-cancel"
+                    type="button"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    class="tournament-primary-button"
+                    id="tournament-create-submit"
+                    type="submit"
+                  >
+                    Créer
+                  </button>
+                </div>
+              </form>
+            </section>
+
+            <section class="tournament-panel tournament-editor" id="tournament-editor" hidden>
+              <div class="tournament-panel-heading">
+                <div>
+                  <span class="tournament-panel-eyebrow">Configuration</span>
+                  <h2 id="tournament-editor-title">Tournoi</h2>
+                </div>
+                <span
+                  class="tournament-status tournament-status-preparation"
+                  id="tournament-current-status"
+                  >Préparation</span
+                >
+              </div>
+
+              <form id="tournament-setup-form">
+                <div class="tournament-settings-grid">
+                  <label class="tournament-field">
+                    <span>Nom</span>
+                    <input id="tournament-name" type="text" maxlength="120" required />
+                  </label>
+                  <label class="tournament-field">
+                    <span>Cube</span>
+                    <select id="tournament-cube" required>
+                      <option value="">Choisir un cube</option>
+                    </select>
+                  </label>
+                  <label class="tournament-field">
+                    <span>Format</span>
+                    <select id="tournament-format" required>
+                      <option value="swiss">Rondes suisses</option>
+                      <option value="round-robin-three">Toutes rondes · 3 joueurs</option>
+                    </select>
+                  </label>
+                  <label class="tournament-field">
+                    <span>Nombre de rondes</span>
+                    <input
+                      id="tournament-round-count"
+                      type="number"
+                      min="1"
+                      max="5"
+                      value="3"
+                      required
+                    />
+                  </label>
+                </div>
+
+                <div class="tournament-players-heading">
+                  <div>
+                    <span class="tournament-panel-eyebrow">Participants</span>
+                    <h3>Joueurs et decks</h3>
+                  </div>
+                  <button
+                    class="tournament-secondary-button"
+                    id="tournament-add-player"
+                    type="button"
+                  >
+                    Ajouter un joueur
+                  </button>
+                </div>
+                <div class="tournament-player-list" id="tournament-player-list"></div>
+                <div class="tournament-form-actions tournament-form-actions-end">
+                  <button
+                    class="tournament-secondary-button"
+                    id="tournament-start"
+                    type="button"
+                    hidden
+                  >
+                    Lancer le tournoi
+                  </button>
+                  <button
+                    class="tournament-primary-button"
+                    id="tournament-setup-submit"
+                    type="submit"
+                  >
+                    Enregistrer la configuration
+                  </button>
+                </div>
+              </form>
+
+              <section class="tournament-round-view" id="tournament-round-view" hidden>
+                <div class="tournament-round-heading">
+                  <div>
+                    <span class="tournament-panel-eyebrow">Appariements</span>
+                    <h3 id="tournament-round-title">Ronde</h3>
+                  </div>
+                  <div class="tournament-round-actions">
+                    <button
+                      class="tournament-primary-button"
+                      id="tournament-next-round"
+                      type="button"
+                    >
+                      Ronde suivante
+                    </button>
+                    <button
+                      class="tournament-primary-button"
+                      id="tournament-complete"
+                      type="button"
+                      hidden
+                    >
+                      Finaliser le tournoi
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="tournament-table-list"
+                  id="tournament-table-list"
+                  aria-label="Tables de la ronde"
+                ></div>
+
+                <div class="tournament-participant-actions" id="tournament-participant-actions">
+                  <div class="tournament-standings-heading">
+                    <div>
+                      <span class="tournament-panel-eyebrow">Présences</span>
+                      <h3>Abandons</h3>
+                    </div>
+                  </div>
+                  <div id="tournament-drop-list"></div>
+                </div>
+
+                <div class="tournament-key-cards-section">
+                  <div class="tournament-standings-heading">
+                    <div>
+                      <span class="tournament-panel-eyebrow">Decks</span>
+                      <h3>Cartes clés</h3>
+                    </div>
+                  </div>
+                  <p class="tournament-section-help">
+                    Recherchez uniquement dans le Snapshot verrouillé du tournoi.
+                  </p>
+                  <div id="tournament-key-card-list"></div>
+                </div>
+
+                <div class="tournament-standings-heading">
+                  <span class="tournament-panel-eyebrow">Classement</span>
+                  <h3>Après la dernière ronde terminée</h3>
+                </div>
+                <div class="tournament-standings-scroll">
+                  <table class="tournament-standings">
+                    <thead>
+                      <tr>
+                        <th scope="col">Rang</th>
+                        <th scope="col">Joueur</th>
+                        <th scope="col">Deck</th>
+                        <th scope="col">Pts</th>
+                        <th scope="col">OMW%</th>
+                        <th scope="col">GWP%</th>
+                        <th scope="col">OGW%</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tournament-standings-body"></tbody>
+                  </table>
+                </div>
+              </section>
+            </section>
+
+            <section class="tournament-panel tournament-welcome" id="tournament-welcome">
+              <span class="tournament-welcome-icon">🏟️</span>
+              <h2>Préparez votre prochaine table</h2>
+              <p>
+                Créez un tournoi ou rouvrez-en un depuis l'historique pour retrouver les joueurs et
+                leurs archétypes.
+              </p>
+            </section>
+          </main>
         </div>
       </div>
     </section>
@@ -3283,17 +3441,31 @@
             <div class="modal-section upgrade-advisor-section" id="modal-upgrade-section" hidden>
               <div class="modal-section-header">
                 <span class="section-badge-icon">⚡</span>
-                <h3 class="modal-section-title" id="modal-upgrade-section-title">Mise à Niveau Suggérée (Poste pour Poste)</h3>
+                <h3 class="modal-section-title" id="modal-upgrade-section-title">
+                  Mise à Niveau Suggérée (Poste pour Poste)
+                </h3>
               </div>
               <div class="upgrade-advisor-card" id="modal-upgrade-card">
                 <div class="upgrade-badges-row" id="modal-upgrade-badges-row">
-                  <span class="upgrade-recency-pill" id="modal-upgrade-recency-pill">✨ Nouveauté (Veille)</span>
-                  <span class="upgrade-benchmark-pill" id="modal-upgrade-benchmark-pill">⚡ Référence CubeCobra</span>
+                  <span class="upgrade-recency-pill" id="modal-upgrade-recency-pill"
+                    >✨ Nouveauté (Veille)</span
+                  >
+                  <span class="upgrade-benchmark-pill" id="modal-upgrade-benchmark-pill"
+                    >⚡ Référence CubeCobra</span
+                  >
                 </div>
                 <div class="upgrade-proposal-grid">
-                  <div class="upgrade-current-pane" id="modal-upgrade-curr-pane" role="button" tabindex="0" title="Cliquer pour afficher cette carte">
+                  <div
+                    class="upgrade-current-pane"
+                    id="modal-upgrade-curr-pane"
+                    role="button"
+                    tabindex="0"
+                    title="Cliquer pour afficher cette carte"
+                  >
                     <div class="pane-header-row">
-                      <span class="upgrade-pane-label" id="modal-upgrade-curr-pane-label">Carte en Place</span>
+                      <span class="upgrade-pane-label" id="modal-upgrade-curr-pane-label"
+                        >Carte en Place</span
+                      >
                       <span class="pane-status-pill" id="modal-upgrade-curr-status"></span>
                     </div>
                     <div class="upgrade-card-summary">
@@ -3302,12 +3474,27 @@
                     </div>
                   </div>
                   <div class="upgrade-arrow-pane" id="modal-upgrade-arrow-pane">
-                    <button type="button" class="btn-swap-arrow" id="modal-btn-swap-arrow" title="Basculer entre la carte en place et la remplaçante">⇄</button>
+                    <button
+                      type="button"
+                      class="btn-swap-arrow"
+                      id="modal-btn-swap-arrow"
+                      title="Basculer entre la carte en place et la remplaçante"
+                    >
+                      ⇄
+                    </button>
                     <span class="upgrade-delta-badge" id="modal-upgrade-delta">+0</span>
                   </div>
-                  <div class="upgrade-target-pane" id="modal-upgrade-sugg-pane" role="button" tabindex="0" title="Cliquer pour afficher cette carte">
+                  <div
+                    class="upgrade-target-pane"
+                    id="modal-upgrade-sugg-pane"
+                    role="button"
+                    tabindex="0"
+                    title="Cliquer pour afficher cette carte"
+                  >
                     <div class="pane-header-row">
-                      <span class="upgrade-pane-label" id="modal-upgrade-sugg-pane-label">Remplacement Suggéré</span>
+                      <span class="upgrade-pane-label" id="modal-upgrade-sugg-pane-label"
+                        >Remplacement Suggéré</span
+                      >
                       <span class="pane-status-pill" id="modal-upgrade-sugg-status"></span>
                     </div>
                     <div class="upgrade-card-summary highlight">
@@ -3318,8 +3505,14 @@
                 </div>
 
                 <!-- Multi-Targets list when suggested card can replace multiple cards in the cube -->
-                <div class="upgrade-multi-targets-wrap" id="modal-upgrade-multi-targets-wrap" hidden>
-                  <span class="multi-targets-label">Autre(s) carte(s) remplaçable(s) dans ce Cube :</span>
+                <div
+                  class="upgrade-multi-targets-wrap"
+                  id="modal-upgrade-multi-targets-wrap"
+                  hidden
+                >
+                  <span class="multi-targets-label"
+                    >Autre(s) carte(s) remplaçable(s) dans ce Cube :</span
+                  >
                   <div class="multi-targets-chips" id="modal-upgrade-multi-targets-chips"></div>
                 </div>
 
@@ -3329,9 +3522,13 @@
                 <div class="upgrade-meta-added-value-box" id="modal-upgrade-meta-box">
                   <div class="meta-box-header">
                     <span class="meta-box-icon">🎯</span>
-                    <span class="meta-box-title" id="modal-upgrade-meta-title">Plus-Value pour la Méta du Cube</span>
+                    <span class="meta-box-title" id="modal-upgrade-meta-title"
+                      >Plus-Value pour la Méta du Cube</span
+                    >
                   </div>
-                  <div class="meta-box-role" id="modal-upgrade-strategic-role">Interaction & Retrait Premium Inconditionnel</div>
+                  <div class="meta-box-role" id="modal-upgrade-strategic-role">
+                    Interaction & Retrait Premium Inconditionnel
+                  </div>
                   <p class="meta-box-summary" id="modal-upgrade-meta-summary"></p>
                   <div class="meta-box-archetypes" id="modal-upgrade-archetypes-wrap">
                     <span class="meta-arch-label">Archétypes renforcés :</span>
