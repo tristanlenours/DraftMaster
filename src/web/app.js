@@ -778,7 +778,6 @@ const elements = {
   homeCtaCards: document.getElementById("home-cta-cards"),
   homeCtaBots: document.getElementById("home-cta-bots"),
   homeCtaMulti: document.getElementById("home-cta-multi"),
-  homeCtaTournaments: document.getElementById("home-cta-tournaments"),
 
   // Multiplayer teaser interactive elements
   btnMultiVip: document.getElementById("btn-multi-vip"),

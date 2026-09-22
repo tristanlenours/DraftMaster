@@ -333,10 +333,7 @@ class SupabaseClientTournamentGateway implements TournamentSupabaseGateway {
   public async checkReadiness(): Promise<
     TournamentSupabaseGatewayResult<{ readonly ready: true }>
   > {
-    const { error } = await this.client
-      .from("tournaments")
-      .select("id", { count: "exact", head: true })
-      .limit(1);
+    const { error } = await this.client.from("tournaments").select("id").limit(1);
     return error === null ? { data: { ready: true }, error: null } : { data: null, error };
   }
 }

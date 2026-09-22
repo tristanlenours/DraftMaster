@@ -105,11 +105,11 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('id="mobile-nav-backdrop"');
     });
 
-    it("declares the tournament history and setup workspace behind its home entry point", () => {
+    it("declares the tournament history and setup workspace without home roadmap teaser", () => {
       expect(htmlContent).toContain('id="view-multi"');
       expect(htmlContent).toContain('id="view-tournaments"');
-      expect(htmlContent).toContain('class="home-teaser-section"');
-      expect(htmlContent).toContain('id="home-cta-tournaments"');
+      expect(htmlContent).not.toContain('class="home-teaser-section"');
+      expect(htmlContent).not.toContain('id="home-cta-tournaments"');
       expect(htmlContent).toContain('id="tournament-history-list"');
       expect(htmlContent).toContain('id="tournament-new-btn"');
       expect(htmlContent).toContain('id="tournament-setup-form"');
