@@ -76,6 +76,16 @@
             <span class="tab-label">Tournois</span>
           </button>
           <button
+            class="nav-tab-btn"
+            data-view="deck-lab"
+            id="nav-btn-deck-lab"
+            aria-label="Rate my deck et Pimp my deck"
+            title="Rate my deck et Pimp my deck"
+          >
+            <span class="tab-icon">🃏</span>
+            <span class="tab-label">Rate / Pimp</span>
+          </button>
+          <button
             class="nav-tab-btn btn-auth-logout"
             id="nav-btn-logout"
             title="Verrouiller la session / Déconnexion"
@@ -158,6 +168,15 @@
           <button class="mobile-nav-item" data-view="tournaments" id="mobile-nav-tournaments">
             <span class="mobile-nav-icon">🏟️</span>
             <span class="mobile-nav-label">Tournois</span>
+          </button>
+          <button
+            class="mobile-nav-item"
+            data-view="deck-lab"
+            id="mobile-nav-deck-lab"
+            aria-label="Rate my deck et Pimp my deck"
+          >
+            <span class="mobile-nav-icon">🃏</span>
+            <span class="mobile-nav-label">Rate / Pimp my deck</span>
           </button>
           <button
             class="mobile-nav-item btn-auth-logout-mobile"
@@ -3006,7 +3025,11 @@
               <button class="multi-secondary-btn" id="multi-copy-tournament-export" type="button">
                 Copier pour tournoi
               </button>
-              <button class="multi-secondary-btn" id="multi-download-tournament-export" type="button">
+              <button
+                class="multi-secondary-btn"
+                id="multi-download-tournament-export"
+                type="button"
+              >
                 Télécharger pour tournoi
               </button>
             </div>
@@ -3015,6 +3038,53 @@
       </div>
     </section>
     <!-- /view-multi -->
+
+    <section class="app-view view-deck-lab" id="view-deck-lab" hidden style="display: none">
+      <div class="deck-lab-container">
+        <header class="deck-lab-header">
+          <span class="tournament-kicker">ATELIER DE DECK</span>
+          <h1>Rate my deck · Pimp my deck</h1>
+          <p>
+            Collez une liste MTGA ou importez une photo, corrigez les cartes reconnues, puis lancez
+            l'analyse.
+          </p>
+        </header>
+        <div class="deck-lab-layout">
+          <section class="deck-lab-panel" aria-labelledby="deck-lab-input-title">
+            <h2 id="deck-lab-input-title">Votre liste</h2>
+            <label for="deck-lab-cube">Cube de référence</label>
+            <select id="deck-lab-cube" required>
+              <option value="">Chargement des cubes…</option>
+            </select>
+            <label for="deck-lab-text">Liste MTGA</label>
+            <textarea
+              id="deck-lab-text"
+              rows="14"
+              spellcheck="false"
+              placeholder="Deck&#10;1 Lightning Bolt&#10;…&#10;17 Mountain"
+            ></textarea>
+            <p id="deck-lab-count" class="deck-lab-hint">
+              40 cartes pour noter le deck ; jusqu'à 45 cartes, réserve comprise, pour le pimp.
+            </p>
+            <div class="deck-lab-actions">
+              <button type="button" class="deck-lab-photo-button" id="deck-lab-photo-trigger">
+                📷 Importer une photo
+              </button>
+              <input id="deck-lab-photo" type="file" accept="image/*" tabindex="-1" />
+              <button type="button" id="deck-lab-rate">Rate my deck</button>
+              <button type="button" id="deck-lab-pimp">Pimp my deck</button>
+            </div>
+            <p id="deck-lab-status" role="status" aria-live="polite"></p>
+          </section>
+          <section class="deck-lab-panel" aria-labelledby="deck-lab-result-title">
+            <h2 id="deck-lab-result-title">Analyse</h2>
+            <div id="deck-lab-result" aria-live="polite">
+              <p>Ajoutez votre liste pour afficher la note et les cartes à garder ou à écarter.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
 
     <!-- ==========================================================================
          VIEW 8: GESTION DE TOURNOIS
@@ -3359,17 +3429,34 @@
               placeholder="Deck&#10;1 Karakas&#10;8 Plains"
             ></textarea>
             <div class="tournament-deck-mtga-actions">
-              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-apply">
+              <button
+                type="button"
+                class="tournament-secondary-button"
+                id="tournament-deck-mtga-apply"
+              >
                 Appliquer la liste
               </button>
-              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-copy">
+              <button
+                type="button"
+                class="tournament-secondary-button"
+                id="tournament-deck-mtga-copy"
+              >
                 Copier MTGA
               </button>
-              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-download">
+              <button
+                type="button"
+                class="tournament-secondary-button"
+                id="tournament-deck-mtga-download"
+              >
                 Télécharger .txt
               </button>
             </div>
-            <p id="tournament-deck-mtga-status" class="tournament-deck-mtga-status" role="status" aria-live="polite"></p>
+            <p
+              id="tournament-deck-mtga-status"
+              class="tournament-deck-mtga-status"
+              role="status"
+              aria-live="polite"
+            ></p>
           </section>
 
           <!-- 17Lands Mana Curve Columns View -->

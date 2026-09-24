@@ -1,6 +1,7 @@
 import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 import { readCardLanguage } from "./card-language.js";
 import { formatMtgaDeckText, parseMtgaDeckText } from "./mtga-deck-text.js";
+import { optimizeImageForUpload } from "./deck-photo-upload.js";
 
 const tournamentUi = {
   initialized: false,
@@ -304,38 +305,6 @@ function updateViewDeckButton(row) {
     viewBtn.textContent = "🃏 Deck";
     viewBtn.classList.remove("has-cards");
   }
-}
-
-async function optimizeImageForUpload(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const maxDim = 1400;
-        let { width, height } = img;
-        if (width > maxDim || height > maxDim) {
-          if (width > height) {
-            height = Math.round((height * maxDim) / width);
-            width = maxDim;
-          } else {
-            width = Math.round((width * maxDim) / height);
-            height = maxDim;
-          }
-        }
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", 0.8));
-      };
-      img.onerror = () => reject(new Error("Impossible de charger l'image sélectionnée."));
-      img.src = e.target?.result;
-    };
-    reader.onerror = () => reject(new Error("Impossible de lire le fichier image."));
-    reader.readAsDataURL(file);
-  });
 }
 
 async function triggerDeckPhotoRecognition(file, row, photoBtn, fileInput) {

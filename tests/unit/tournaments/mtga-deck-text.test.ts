@@ -33,6 +33,7 @@ describe("MTGA text for a tournament Deck déclaré", () => {
     expect(parsed.cards).toEqual([{ name: "Teferi, Time Raveler", count: 3 }]);
     expect(parsed.basicLands).toMatchObject({ Plains: 8, Island: 7 });
     expect(parsed.sideboardCount).toBe(2);
+    expect(parsed.sideboardCards).toEqual([{ name: "Disdainful Stroke", count: 2 }]);
     expect(parsed.totalCount).toBe(18);
   });
 

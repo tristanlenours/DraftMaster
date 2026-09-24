@@ -520,6 +520,12 @@ body {
   }
 }
 
+@media (max-width: 380px) {
+  .site-header .brand-text {
+    display: none;
+  }
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -12234,5 +12240,223 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 @media (max-width: 768px) {
   .tournament-deck-editor-toolbar {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+.deck-lab-container {
+  width: min(1180px, calc(100% - 32px));
+  margin: 48px auto 80px;
+  color: var(--text-primary);
+}
+
+.deck-lab-header {
+  margin-bottom: 28px;
+}
+
+.deck-lab-header h1 {
+  margin: 8px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+}
+
+.deck-lab-header p,
+.deck-lab-hint {
+  color: var(--text-secondary);
+}
+
+.deck-lab-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.deck-lab-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  background: var(--bg-card, #171b22);
+}
+
+.deck-lab-panel h2,
+.deck-lab-panel h3,
+.deck-lab-panel h4 {
+  margin-top: 0;
+}
+
+.deck-lab-panel label {
+  display: block;
+  margin: 20px 0 8px;
+  font-weight: 700;
+}
+
+#deck-lab-cube,
+#deck-lab-text {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border-medium);
+  border-radius: 10px;
+  background: #0e1115;
+  color: var(--text-primary);
+  font: inherit;
+  padding: 12px;
+}
+
+#deck-lab-text {
+  resize: vertical;
+  min-height: 250px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  line-height: 1.5;
+}
+
+#deck-lab-cube:focus-visible,
+#deck-lab-text:focus-visible,
+.deck-lab-actions button:focus-visible,
+.deck-lab-photo-button:focus-visible,
+.deck-lab-copy:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+.deck-lab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.deck-lab-actions button,
+.deck-lab-photo-button,
+.deck-lab-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(234, 179, 8, 0.5);
+  border-radius: 9px;
+  background: rgba(234, 179, 8, 0.16);
+  color: var(--text-primary);
+  font: 700 0.9rem var(--font-sans);
+  cursor: pointer;
+}
+
+.deck-lab-actions button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+#deck-lab-photo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+#deck-lab-status[data-kind="error"],
+.deck-lab-warnings {
+  color: #fca5a5;
+}
+
+#deck-lab-status[data-kind="success"] {
+  color: #86efac;
+}
+
+.deck-lab-score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 8px 0 22px;
+}
+
+.deck-lab-score strong {
+  font-size: 2.5rem;
+  color: #fbbf24;
+}
+
+.deck-lab-axes {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.deck-lab-evidence {
+  margin: 0 0 24px;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.deck-lab-evidence p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.deck-lab-evidence p:last-child {
+  margin-bottom: 0;
+}
+
+.deck-lab-axis {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) 65px;
+  align-items: center;
+  gap: 12px;
+}
+
+.deck-lab-axis meter {
+  width: 100%;
+}
+
+.deck-lab-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.deck-lab-card-list {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+
+.deck-lab-card-list ul,
+.deck-lab-warnings {
+  padding-left: 20px;
+  overflow-wrap: anywhere;
+}
+
+.deck-lab-card-list li {
+  margin: 3px 0;
+}
+
+.deck-lab-before,
+.deck-lab-basics {
+  font-weight: 700;
+}
+
+@media (max-width: 850px) {
+  .deck-lab-layout,
+  .deck-lab-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 390px) {
+  .deck-lab-container {
+    width: calc(100% - 20px);
+    margin-top: 24px;
+  }
+
+  .deck-lab-panel {
+    padding: 14px;
+  }
+
+  .deck-lab-axis {
+    grid-template-columns: 85px minmax(0, 1fr) 55px;
+    gap: 6px;
+    font-size: 0.85rem;
   }
 }

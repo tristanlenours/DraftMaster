@@ -42,7 +42,9 @@ export function parseMtgaDeckText(text) {
   }
 
   const cardsByName = new Map();
+  const sideboardByName = new Map();
   const basicLands = Object.fromEntries(BASIC_LANDS.map((name) => [name, 0]));
+  const sideboardBasicLands = Object.fromEntries(BASIC_LANDS.map((name) => [name, 0]));
   let section = "deck";
   let deckName = null;
   let sideboardCount = 0;
@@ -97,22 +99,24 @@ export function parseMtgaDeckText(text) {
         lineNumber,
       );
     }
-    if (section === "sideboard") {
-      sideboardCount += quantity;
-      continue;
-    }
-
     const basic = basicLandName(name);
     if (basic) {
-      basicLands[basic] += quantity;
+      if (section === "sideboard") {
+        sideboardBasicLands[basic] += quantity;
+        sideboardCount += quantity;
+      } else {
+        basicLands[basic] += quantity;
+      }
       continue;
     }
+    const target = section === "sideboard" ? sideboardByName : cardsByName;
     const key = normalizedKey(name);
-    const previous = cardsByName.get(key);
-    cardsByName.set(key, {
+    const previous = target.get(key);
+    target.set(key, {
       name: previous?.name ?? name,
       count: (previous?.count ?? 0) + quantity,
     });
+    if (section === "sideboard") sideboardCount += quantity;
   }
 
   const cards = [...cardsByName.values()];
@@ -123,7 +127,15 @@ export function parseMtgaDeckText(text) {
     throw new MtgaDeckTextError("Le maindeck MTGA est vide.");
   }
 
-  return { deckName, cards, basicLands, sideboardCount, totalCount };
+  return {
+    deckName,
+    cards,
+    basicLands,
+    sideboardCards: [...sideboardByName.values()],
+    sideboardBasicLands,
+    sideboardCount,
+    totalCount,
+  };
 }
 
 export function formatMtgaDeckText({ deckName = null, cards = [], basicLands = {} }) {
