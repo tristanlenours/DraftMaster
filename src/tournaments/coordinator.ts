@@ -99,6 +99,7 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
     if (command.type === "drop-participant") return this.dropParticipant(command);
     if (command.type === "complete") return this.completeTournament(command);
     if (command.type === "update-key-cards") return this.updateDeckKeyCards(command);
+    if (command.type === "update-participant-deck") return this.updateParticipantDeck(command);
 
     const loaded = await this.dependencies.store.load(command.tournamentId);
     if (!loaded.ok) return loaded;
@@ -697,6 +698,68 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
     return committed.ok ? { ok: true, value: committed.value.tournament } : committed;
   }
 
+  private async updateParticipantDeck(
+    command: Extract<Readonly<TournamentCommand>, { readonly type: "update-participant-deck" }>,
+  ): Promise<TournamentResult<TournamentProjection>> {
+    const loaded = await this.dependencies.store.load(command.tournamentId);
+    if (!loaded.ok) return loaded;
+    if (loaded.value === null) {
+      return failure({
+        code: "TOURNAMENT_NOT_FOUND",
+        message: "Ce tournoi n'existe pas.",
+        details: { tournamentId: command.tournamentId },
+      });
+    }
+    const current = loaded.value.checkpoint;
+    const staleResult = await this.resolveStaleMutation(command, current);
+    if (staleResult !== null) return staleResult;
+    const participant = current.participants.find(
+      ({ participantId }) => participantId === command.participantId,
+    );
+    if (participant === undefined) {
+      return failure({
+        code: "INVALID_INPUT",
+        message: "Le participant demandé n'appartient pas à ce tournoi.",
+        details: { participantId: command.participantId },
+      });
+    }
+    if (command.requestId.trim() === "") {
+      return failure({
+        code: "INVALID_INPUT",
+        message: "La clé d'idempotence est obligatoire.",
+        details: { field: "requestId" },
+      });
+    }
+
+    const occurredAt = this.dependencies.now();
+    const event = {
+      schemaVersion: 1,
+      sequence: loaded.value.events.length + 1,
+      tournamentId: current.tournamentId,
+      revision: current.revision + 1,
+      requestId: command.requestId,
+      occurredAt,
+      type: "ParticipantDeckUpdated",
+      participantId: command.participantId,
+      deckName: command.deckName.trim() || participant.deck.name,
+      cards: command.cards,
+      basicLands: command.basicLands,
+    } as const;
+    const nextState = reduceTournamentEvent(current, event);
+    const committed = await this.dependencies.store.commit({
+      scope: current.tournamentId,
+      tournamentId: current.tournamentId,
+      expectedRevision: command.expectedRevision,
+      requestId: command.requestId,
+      requestFingerprint: fingerprint(command),
+      snapshotArchives: [],
+      appendedEvents: [event],
+      nextState,
+      response: nextState,
+    });
+    return committed.ok ? { ok: true, value: committed.value.tournament } : committed;
+  }
+
   private validateSetup(
     command: Extract<Readonly<TournamentCommand>, { readonly type: "replace-setup" }>,
     current: Readonly<TournamentProjection>,
@@ -797,7 +860,12 @@ class DefaultTournamentCoordinator implements TournamentCoordinator {
         normalizedName,
         registrationOrder,
         status: "active",
-        deck: { name: deckName, keyCards: existing?.deck.keyCards ?? [] },
+        deck: {
+          name: deckName,
+          keyCards: existing?.deck.keyCards ?? [],
+          cards: input.deckCards ?? existing?.deck.cards ?? [],
+          basicLands: input.basicLands ?? existing?.deck.basicLands ?? {},
+        },
       });
       usedIds.add(participantId);
       usedNames.add(normalizedName);

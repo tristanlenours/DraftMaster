@@ -1,3 +1,6 @@
+import { render17LandsDeckView } from "./deck-viewer-17lands.js";
+import { readCardLanguage } from "./card-language.js";
+
 const tournamentUi = {
   initialized: false,
   cubes: [],
@@ -238,6 +241,512 @@ async function loadCubes() {
   populateCubeSelect();
 }
 
+let activeDeckModal = {
+  isOpen: false,
+  targetRow: null,
+  participant: null,
+  participantId: null,
+  displayName: "",
+  archetype: "",
+  cards: [],
+  basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
+  isReadOnly: false,
+  cubeCards: [],
+};
+
+async function loadCubeCards(cubeKey) {
+  if (!cubeKey) return [];
+  if (
+    tournamentUi.selectedTournament?.cube?.cubeKey === cubeKey &&
+    Array.isArray(tournamentUi.selectedTournament.cube.payload?.cards)
+  ) {
+    return tournamentUi.selectedTournament.cube.payload.cards;
+  }
+  try {
+    const cubeMetaRes = await fetch(`/data/cubes/${cubeKey}/cube.json`);
+    if (cubeMetaRes.ok) {
+      const cubeData = await cubeMetaRes.json();
+      if (cubeData.activeSnapshotId) {
+        const snapRes = await fetch(`/data/cubes/${cubeKey}/${cubeData.activeSnapshotId}.json`);
+        if (snapRes.ok) {
+          const snapData = await snapRes.json();
+          if (Array.isArray(snapData.cards)) return snapData.cards;
+        }
+      }
+    }
+  } catch {
+    // fallback gracefully
+  }
+  return [];
+}
+
+function computeDeckTotalCards(cards, basicLands) {
+  const spells = (cards || []).reduce((sum, c) => sum + (c.count || 1), 0);
+  const lands = Object.values(basicLands || {}).reduce(
+    (sum, qty) => sum + (typeof qty === "number" ? qty : 0),
+    0,
+  );
+  return { spells, lands, total: spells + lands };
+}
+
+function updateViewDeckButton(row) {
+  const viewBtn = row.querySelector("[data-view-deck-btn]");
+  if (!viewBtn) return;
+  const cards = row._deckData?.cards || [];
+  const basicLands = row._deckData?.basicLands || {};
+  const { total } = computeDeckTotalCards(cards, basicLands);
+  if (total > 0) {
+    viewBtn.textContent = `🃏 Deck (${total})`;
+    viewBtn.classList.add("has-cards");
+  } else {
+    viewBtn.textContent = "🃏 Deck";
+    viewBtn.classList.remove("has-cards");
+  }
+}
+
+async function optimizeImageForUpload(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 1800;
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", 0.85));
+      };
+      img.onerror = () => reject(new Error("Impossible de charger l'image sélectionnée."));
+      img.src = e.target?.result;
+    };
+    reader.onerror = () => reject(new Error("Impossible de lire le fichier image."));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function triggerDeckPhotoRecognition(file, row, photoBtn, fileInput) {
+  const cubeSelect = element("tournament-cube");
+  const cubeKey =
+    (cubeSelect instanceof HTMLSelectElement ? cubeSelect.value : "") ||
+    tournamentUi.selectedTournament?.cube?.cubeKey ||
+    "";
+  if (!cubeKey) {
+    showFeedback("Veuillez d'abord sélectionner un cube pour ce tournoi.", "error");
+    return;
+  }
+
+  const prevText = photoBtn.textContent;
+  photoBtn.disabled = true;
+  photoBtn.textContent = "⏳ Analyse IA…";
+  clearFeedback();
+
+  try {
+    const dataUrl = await optimizeImageForUpload(file);
+    const response = await fetch("/api/tournaments/recognize-deck", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: dataUrl, cubeKey }),
+    });
+    const body = await response.json();
+    if (!response.ok || !body.ok) {
+      throw new Error(body.error?.message || "Échec de la reconnaissance visuelle du deck.");
+    }
+
+    const deckInput = row.querySelector("[data-deck-name]");
+    if (deckInput instanceof HTMLInputElement && body.archetype && !deckInput.value.trim()) {
+      deckInput.value = body.archetype;
+    }
+
+    row._deckData = {
+      cards: Array.isArray(body.cards) ? body.cards : [],
+      basicLands: body.basicLands || { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
+      archetype:
+        body.archetype || (deckInput instanceof HTMLInputElement ? deckInput.value.trim() : ""),
+    };
+
+    updateViewDeckButton(row);
+    showFeedback(
+      `Deck reconnu avec succès ! ${body.totalCount ?? row._deckData.cards.length} cartes identifiées (${body.archetype || "Archétype détecté"}).`,
+      "success",
+    );
+
+    void openTournamentDeckModal({ row });
+  } catch (error) {
+    showFeedback(
+      error instanceof Error ? error.message : "Erreur lors de la reconnaissance du deck.",
+      "error",
+    );
+  } finally {
+    photoBtn.disabled = false;
+    photoBtn.textContent = prevText;
+    fileInput.value = "";
+  }
+}
+
+async function openTournamentDeckModal({
+  row = null,
+  participant = null,
+  isReadOnly = false,
+} = {}) {
+  const modalBackdrop = element("tournament-deck-modal-backdrop");
+  if (!modalBackdrop) return;
+
+  const cubeSelect = element("tournament-cube");
+  const cubeKey =
+    (cubeSelect instanceof HTMLSelectElement ? cubeSelect.value : "") ||
+    tournamentUi.selectedTournament?.cube?.cubeKey ||
+    "";
+
+  let displayName = "Joueur";
+  let archetype = "";
+  let cards = [];
+  let basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
+  let participantId = null;
+
+  if (row) {
+    const playerInput = row.querySelector("[data-player-name]");
+    const deckInput = row.querySelector("[data-deck-name]");
+    displayName =
+      (playerInput instanceof HTMLInputElement ? playerInput.value.trim() : "") || "Joueur";
+    archetype =
+      (deckInput instanceof HTMLInputElement ? deckInput.value.trim() : "") ||
+      row._deckData?.archetype ||
+      "";
+    cards = row._deckData?.cards ? JSON.parse(JSON.stringify(row._deckData.cards)) : [];
+    basicLands = {
+      Plains: row._deckData?.basicLands?.Plains ?? 0,
+      Island: row._deckData?.basicLands?.Island ?? 0,
+      Swamp: row._deckData?.basicLands?.Swamp ?? 0,
+      Mountain: row._deckData?.basicLands?.Mountain ?? 0,
+      Forest: row._deckData?.basicLands?.Forest ?? 0,
+    };
+    participantId = row.dataset.participantId || null;
+  } else if (participant) {
+    displayName = participant.displayName || "Joueur";
+    archetype = participant.deck?.name || "";
+    cards = participant.deck?.cards ? JSON.parse(JSON.stringify(participant.deck.cards)) : [];
+    basicLands = {
+      Plains: participant.deck?.basicLands?.Plains ?? 0,
+      Island: participant.deck?.basicLands?.Island ?? 0,
+      Swamp: participant.deck?.basicLands?.Swamp ?? 0,
+      Mountain: participant.deck?.basicLands?.Mountain ?? 0,
+      Forest: participant.deck?.basicLands?.Forest ?? 0,
+    };
+    participantId = participant.participantId;
+  }
+
+  activeDeckModal = {
+    isOpen: true,
+    targetRow: row,
+    participant,
+    participantId,
+    displayName,
+    archetype,
+    cards,
+    basicLands,
+    isReadOnly,
+    cubeCards: [],
+  };
+
+  const playerNameEl = element("tournament-deck-player-name");
+  const modalTitleEl = element("tournament-deck-modal-title");
+  const archetypeInput = element("tournament-deck-archetype-input");
+  const editorToolbar = element("tournament-deck-editor-toolbar");
+  const landsPanel = element("tournament-deck-lands-panel");
+  const saveBtn = element("tournament-deck-save-btn");
+
+  if (playerNameEl) playerNameEl.textContent = displayName;
+  if (modalTitleEl) modalTitleEl.textContent = `Deck de ${displayName}`;
+  if (archetypeInput instanceof HTMLInputElement) {
+    archetypeInput.value = archetype;
+    archetypeInput.disabled = isReadOnly;
+  }
+  if (editorToolbar) editorToolbar.hidden = isReadOnly;
+  if (landsPanel) {
+    landsPanel.querySelectorAll(".tournament-land-btn").forEach((btn) => {
+      if (btn instanceof HTMLButtonElement) btn.disabled = isReadOnly;
+    });
+  }
+  if (saveBtn) saveBtn.hidden = isReadOnly;
+
+  refreshModalDeckView();
+  modalBackdrop.hidden = false;
+  modalBackdrop.classList.add("is-open");
+
+  void loadCubeCards(cubeKey).then((cards) => {
+    activeDeckModal.cubeCards = cards;
+  });
+}
+
+function refreshModalDeckView() {
+  const target17Lands = element("tournament-deck-17lands-target");
+  const statsBadge = element("tournament-deck-total-count");
+  if (!target17Lands) return;
+
+  const { cards, basicLands, isReadOnly } = activeDeckModal;
+  const { spells, lands, total } = computeDeckTotalCards(cards, basicLands);
+
+  if (statsBadge) {
+    statsBadge.textContent = `${total} cartes (${spells} sorts + ${lands} terrains)`;
+  }
+
+  for (const land of ["Plains", "Island", "Swamp", "Mountain", "Forest"]) {
+    const qtyEl = document.querySelector(`[data-land-qty="${land}"]`);
+    if (qtyEl) {
+      qtyEl.textContent = String(basicLands[land] ?? 0);
+    }
+  }
+
+  const flatCards = [];
+  for (const card of cards) {
+    const count = card.count || 1;
+    for (let i = 0; i < count; i++) {
+      flatCards.push(card);
+    }
+  }
+
+  const cardLanguage = readCardLanguage();
+  render17LandsDeckView(target17Lands, flatCards, {
+    basicLands,
+    language: cardLanguage,
+  });
+
+  if (!isReadOnly) {
+    target17Lands.querySelectorAll(".curve-card-slot").forEach((slot) => {
+      const colKey = slot.getAttribute("data-col-key");
+      const title = slot.getAttribute("title") || "";
+      if (colKey === "lands") {
+        const isBasic =
+          /^(plains|island|swamp|mountain|forest|plaine|île|marais|montagne|forêt)/i.test(title);
+        if (isBasic) return;
+      }
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "tournament-deck-card-remove-btn";
+      removeBtn.textContent = "✕";
+      removeBtn.title = `Retirer ${title} du deck`;
+      removeBtn.setAttribute("aria-label", `Retirer ${title}`);
+      removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        removeCardFromActiveDeck(title);
+      });
+      slot.append(removeBtn);
+    });
+  }
+}
+
+function removeCardFromActiveDeck(cardTitleOrName) {
+  if (!cardTitleOrName) return;
+  const targetName = cardTitleOrName.toLowerCase().trim();
+  const cardIndex = activeDeckModal.cards.findIndex(
+    (c) =>
+      (c.name || "").toLowerCase().trim() === targetName ||
+      (c.frenchName || "").toLowerCase().trim() === targetName,
+  );
+  if (cardIndex !== -1) {
+    const card = activeDeckModal.cards[cardIndex];
+    if (card.count > 1) {
+      card.count -= 1;
+    } else {
+      activeDeckModal.cards.splice(cardIndex, 1);
+    }
+    refreshModalDeckView();
+  }
+}
+
+function addCardToActiveDeck(card) {
+  if (!card || !card.name) return;
+  const existing = activeDeckModal.cards.find(
+    (c) =>
+      (c.name || "").toLowerCase() === card.name.toLowerCase() ||
+      (card.oracleId && c.oracleId === card.oracleId),
+  );
+  if (existing) {
+    existing.count = (existing.count || 1) + 1;
+  } else {
+    activeDeckModal.cards.push({
+      name: card.name,
+      oracleId: card.oracleId,
+      count: 1,
+      cmc: typeof card.cmc === "number" ? card.cmc : 0,
+      typeLine: card.typeLine || "",
+      isLand:
+        card.isLand === true ||
+        Boolean(card.typeLine && card.typeLine.toLowerCase().includes("land")),
+      imageUrl: card.imageUrl || card.image?.url,
+      frenchName: card.frenchName,
+    });
+  }
+  refreshModalDeckView();
+}
+
+function setupBasicLandSteppers() {
+  document.querySelectorAll("[data-land-action]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (activeDeckModal.isReadOnly) return;
+      const stepper = btn.closest(".tournament-land-stepper");
+      const land = stepper instanceof HTMLElement ? stepper.dataset.land : null;
+      const action = btn instanceof HTMLElement ? btn.dataset.landAction : null;
+      if (!land || !action) return;
+
+      const current = activeDeckModal.basicLands[land] ?? 0;
+      if (action === "plus") {
+        activeDeckModal.basicLands[land] = current + 1;
+      } else if (action === "minus") {
+        activeDeckModal.basicLands[land] = Math.max(0, current - 1);
+      }
+      refreshModalDeckView();
+    });
+  });
+}
+
+function setupDeckCardSearch() {
+  const searchInput = element("tournament-deck-add-search");
+  const resultsDropdown = element("tournament-deck-search-results");
+  if (!searchInput || !resultsDropdown) return;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query || activeDeckModal.isReadOnly) {
+      resultsDropdown.hidden = true;
+      resultsDropdown.replaceChildren();
+      return;
+    }
+
+    const matches = (activeDeckModal.cubeCards || [])
+      .filter((c) => {
+        const nameMatch = (c.name || "").toLowerCase().includes(query);
+        const frMatch = (c.frenchName || "").toLowerCase().includes(query);
+        return nameMatch || frMatch;
+      })
+      .slice(0, 10);
+
+    resultsDropdown.replaceChildren();
+    if (matches.length === 0) {
+      const emptyItem = document.createElement("div");
+      emptyItem.className = "tournament-deck-search-empty";
+      emptyItem.textContent = "Aucune carte trouvée dans le cube.";
+      resultsDropdown.append(emptyItem);
+      resultsDropdown.hidden = false;
+      return;
+    }
+
+    for (const card of matches) {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "tournament-deck-search-item";
+      item.textContent = `${card.name} (CMC ${card.cmc ?? 0})`;
+      item.addEventListener("click", () => {
+        addCardToActiveDeck(card);
+        searchInput.value = "";
+        resultsDropdown.hidden = true;
+        resultsDropdown.replaceChildren();
+      });
+      resultsDropdown.append(item);
+    }
+    resultsDropdown.hidden = false;
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
+      resultsDropdown.hidden = true;
+    }
+  });
+}
+
+async function saveActiveDeckModal() {
+  if (activeDeckModal.isReadOnly) {
+    closeActiveDeckModal();
+    return;
+  }
+
+  const archetypeInput = element("tournament-deck-archetype-input");
+  const newArchetype =
+    archetypeInput instanceof HTMLInputElement ? archetypeInput.value.trim() : "";
+
+  // 1. Setup view (before tournament starts)
+  if (activeDeckModal.targetRow) {
+    const row = activeDeckModal.targetRow;
+    row._deckData = {
+      cards: activeDeckModal.cards,
+      basicLands: activeDeckModal.basicLands,
+      archetype: newArchetype,
+    };
+    if (newArchetype) {
+      const deckInput = row.querySelector("[data-deck-name]");
+      if (deckInput instanceof HTMLInputElement) {
+        deckInput.value = newArchetype;
+      }
+    }
+    updateViewDeckButton(row);
+    closeActiveDeckModal();
+    return;
+  }
+
+  // 2. Active tournament participant update
+  const tournament = tournamentUi.selectedTournament;
+  if (tournament && activeDeckModal.participantId) {
+    const saveBtn = element("tournament-deck-save-btn");
+    setBusy(saveBtn, true, "Enregistrement…");
+    try {
+      const res = await fetch(
+        `/api/tournaments/${encodeURIComponent(tournament.tournamentId)}/participants/${encodeURIComponent(activeDeckModal.participantId)}/deck`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Idempotency-Key": createRequestId("update-participant-deck"),
+          },
+          body: JSON.stringify({
+            expectedRevision: tournament.revision,
+            deckName: newArchetype || undefined,
+            cards: activeDeckModal.cards,
+            basicLands: activeDeckModal.basicLands,
+          }),
+        },
+      );
+      const data = await readResponse(res);
+      renderTournament(data.tournament);
+      showFeedback("Deck du joueur mis à jour avec succès !", "success");
+      closeActiveDeckModal();
+    } catch (err) {
+      showFeedback(
+        err instanceof Error ? err.message : "Impossible de mettre à jour le deck.",
+        "error",
+      );
+    } finally {
+      setBusy(saveBtn, false, "");
+    }
+  } else {
+    closeActiveDeckModal();
+  }
+}
+
+function closeActiveDeckModal() {
+  const modalBackdrop = element("tournament-deck-modal-backdrop");
+  if (modalBackdrop) {
+    modalBackdrop.hidden = true;
+    modalBackdrop.classList.remove("is-open");
+  }
+  activeDeckModal.isOpen = false;
+  activeDeckModal.targetRow = null;
+  activeDeckModal.participant = null;
+  activeDeckModal.cards = [];
+}
+
 function createPlayerRow(participant = null) {
   const row = document.createElement("div");
   row.className = "tournament-player-row";
@@ -329,7 +838,7 @@ function createPlayerRow(participant = null) {
   playerLabel.append(playerCaption, select, playerInput);
 
   const deckLabel = document.createElement("label");
-  deckLabel.className = "tournament-field";
+  deckLabel.className = "tournament-field tournament-deck-field";
   const deckCaption = document.createElement("span");
   deckCaption.textContent = "Deck / archétype";
   const deckInput = document.createElement("input");
@@ -339,7 +848,56 @@ function createPlayerRow(participant = null) {
   deckInput.placeholder = "Aggro Boros";
   deckInput.dataset.deckName = "";
   deckInput.value = participant?.deck?.name ?? "";
-  deckLabel.append(deckCaption, deckInput);
+
+  const deckActions = document.createElement("div");
+  deckActions.className = "tournament-deck-row-actions";
+
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+  fileInput.style.display = "none";
+  fileInput.setAttribute("aria-label", "Fichier photo du deck");
+
+  const photoBtn = document.createElement("button");
+  photoBtn.type = "button";
+  photoBtn.className = "tournament-deck-photo-btn";
+  photoBtn.textContent = "📷 Photo";
+  photoBtn.title = "Scanner une photo du deck avec reconnaissance Gemini";
+  photoBtn.setAttribute("aria-label", "Scanner la photo du deck avec l'IA");
+  photoBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    fileInput.click();
+  });
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files?.[0];
+    if (file) {
+      void triggerDeckPhotoRecognition(file, row, photoBtn, fileInput);
+    }
+  });
+
+  const viewBtn = document.createElement("button");
+  viewBtn.type = "button";
+  viewBtn.className = "tournament-deck-view-btn";
+  viewBtn.dataset.viewDeckBtn = "";
+  viewBtn.textContent = "🃏 Deck";
+  viewBtn.title = "Consulter et ajuster le deck (vue 17Lands)";
+  viewBtn.setAttribute("aria-label", "Voir le deck dans la vue 17Lands");
+  viewBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    void openTournamentDeckModal({ row });
+  });
+
+  deckActions.append(fileInput, photoBtn, viewBtn);
+  deckLabel.append(deckCaption, deckInput, deckActions);
+
+  row._deckData = {
+    cards: participant?.deck?.cards ? JSON.parse(JSON.stringify(participant.deck.cards)) : [],
+    basicLands: participant?.deck?.basicLands ? { ...participant.deck.basicLands } : {},
+    archetype: participant?.deck?.name ?? "",
+  };
 
   const remove = document.createElement("button");
   remove.type = "button";
@@ -355,6 +913,7 @@ function createPlayerRow(participant = null) {
   });
 
   row.append(playerLabel, deckLabel, remove);
+  updateViewDeckButton(row);
   return row;
 }
 
@@ -546,6 +1105,94 @@ function renderKeyCardEditors(tournament) {
     panel.dataset.keyCardsParticipant = participant.participantId;
     const title = document.createElement("h4");
     title.textContent = `${participant.displayName} · ${participant.deck.name}`;
+
+    const deckBar = document.createElement("div");
+    deckBar.className = "tournament-key-card-deck-bar";
+
+    const cardCount = participant.deck?.cards?.length ?? 0;
+    const viewDeckBtn = document.createElement("button");
+    viewDeckBtn.type = "button";
+    viewDeckBtn.className = "tournament-secondary-button tournament-panel-deck-btn";
+    viewDeckBtn.textContent =
+      cardCount > 0 ? `🃏 Voir le deck (${cardCount})` : "🃏 Voir / modifier deck";
+    viewDeckBtn.addEventListener("click", () => {
+      void openTournamentDeckModal({
+        participant,
+        isReadOnly: tournament.status === "completed",
+      });
+    });
+
+    const photoInput = document.createElement("input");
+    photoInput.type = "file";
+    photoInput.accept = "image/*";
+    photoInput.style.display = "none";
+    photoInput.setAttribute("aria-label", `Photo du deck de ${participant.displayName}`);
+
+    const photoBtn = document.createElement("button");
+    photoBtn.type = "button";
+    photoBtn.className = "tournament-secondary-button tournament-panel-photo-btn";
+    photoBtn.textContent = "📷 Scanner photo";
+    photoBtn.title = "Scanner une photo du deck avec reconnaissance Gemini";
+    photoBtn.addEventListener("click", () => photoInput.click());
+
+    photoInput.addEventListener("change", async () => {
+      const file = photoInput.files?.[0];
+      if (!file) return;
+      const cubeKey = tournament.cube?.cubeKey;
+      if (!cubeKey) {
+        showFeedback("Aucun cube associé à ce tournoi.", "error");
+        return;
+      }
+      photoBtn.disabled = true;
+      photoBtn.textContent = "⏳ Analyse IA…";
+      clearFeedback();
+      try {
+        const dataUrl = await optimizeImageForUpload(file);
+        const res = await fetch("/api/tournaments/recognize-deck", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: dataUrl, cubeKey }),
+        });
+        const body = await res.json();
+        if (!res.ok || !body.ok) {
+          throw new Error(body.error?.message || "Échec de la reconnaissance.");
+        }
+        const updateRes = await fetch(
+          `/api/tournaments/${encodeURIComponent(tournament.tournamentId)}/participants/${encodeURIComponent(participant.participantId)}/deck`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Idempotency-Key": createRequestId("scan-keycard-deck"),
+            },
+            body: JSON.stringify({
+              expectedRevision: tournament.revision,
+              deckName: body.archetype || participant.deck?.name,
+              cards: body.cards,
+              basicLands: body.basicLands,
+            }),
+          },
+        );
+        const updateData = await readResponse(updateRes);
+        renderTournament(updateData.tournament);
+        showFeedback(
+          `Deck de ${participant.displayName} reconnu et mis à jour (${body.totalCount ?? body.cards.length} cartes) !`,
+          "success",
+        );
+      } catch (err) {
+        showFeedback(
+          err instanceof Error ? err.message : "Erreur de reconnaissance du deck.",
+          "error",
+        );
+      } finally {
+        photoBtn.disabled = false;
+        photoBtn.textContent = "📷 Scanner photo";
+        photoInput.value = "";
+      }
+    });
+
+    deckBar.append(viewDeckBtn, photoInput, photoBtn);
+
     const selectedOracleIds = new Set(
       (participant.deck.keyCards ?? []).map(({ oracleId }) => oracleId),
     );
@@ -739,20 +1386,46 @@ function renderRound(tournament) {
     const participant = participantById(tournament, standing.participantId);
     const row = document.createElement("tr");
     row.dataset.tournamentStanding = "";
-    const cells = [
-      String(standing.competitiveRank),
-      participant?.displayName ?? "Joueur inconnu",
-      participant?.deck?.name ?? "Deck non renseigné",
-      String(standing.matchPoints),
-      formatPercentage(standing.opponentsMatchWinPercentage),
-      formatPercentage(standing.gameWinPercentage),
-      formatPercentage(standing.opponentsGameWinPercentage),
-    ];
-    for (const value of cells) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      row.append(cell);
+
+    const rankCell = document.createElement("td");
+    rankCell.textContent = String(standing.competitiveRank);
+
+    const playerCell = document.createElement("td");
+    playerCell.textContent = participant?.displayName ?? "Joueur inconnu";
+
+    const deckCell = document.createElement("td");
+    const hasDeckCards = (participant?.deck?.cards?.length ?? 0) > 0;
+    if (hasDeckCards) {
+      const deckBtn = document.createElement("button");
+      deckBtn.type = "button";
+      deckBtn.className = "tournament-standing-deck-btn";
+      deckBtn.textContent = `🃏 ${participant?.deck?.name ?? "Deck"}`;
+      deckBtn.title = "Consulter le deck (vue mana curve 17Lands)";
+      deckBtn.setAttribute("aria-label", `Voir le deck de ${participant?.displayName}`);
+      deckBtn.addEventListener("click", () => {
+        void openTournamentDeckModal({
+          participant,
+          isReadOnly: tournament.status === "completed",
+        });
+      });
+      deckCell.append(deckBtn);
+    } else {
+      deckCell.textContent = participant?.deck?.name ?? "Deck non renseigné";
     }
+
+    const matchPointsCell = document.createElement("td");
+    matchPointsCell.textContent = String(standing.matchPoints);
+
+    const omwCell = document.createElement("td");
+    omwCell.textContent = formatPercentage(standing.opponentsMatchWinPercentage);
+
+    const gwpCell = document.createElement("td");
+    gwpCell.textContent = formatPercentage(standing.gameWinPercentage);
+
+    const ogwCell = document.createElement("td");
+    ogwCell.textContent = formatPercentage(standing.opponentsGameWinPercentage);
+
+    row.append(rankCell, playerCell, deckCell, matchPointsCell, omwCell, gwpCell, ogwCell);
     standingsBody?.append(row);
   }
 
@@ -858,15 +1531,18 @@ function readParticipantRows() {
   return [...document.querySelectorAll("[data-tournament-player-row]")].map((row) => {
     const playerInput = row.querySelector("[data-player-name]");
     const deckInput = row.querySelector("[data-deck-name]");
-    const displayName =
-      playerInput instanceof HTMLInputElement ? playerInput.value.trim() : "";
+    const displayName = playerInput instanceof HTMLInputElement ? playerInput.value.trim() : "";
     if (displayName) {
       saveOccasionalMagicien(displayName);
     }
+    const deckCards = row._deckData?.cards ?? [];
+    const basicLands = row._deckData?.basicLands ?? {};
     return {
       participantId: row.dataset.participantId || null,
       displayName,
       deckName: deckInput instanceof HTMLInputElement ? deckInput.value.trim() : "",
+      deckCards,
+      basicLands,
     };
   });
 }
@@ -878,8 +1554,7 @@ async function submitCreation(event) {
   const createCubeSelect = element("tournament-create-cube");
   const submit = element("tournament-create-submit");
   if (!(input instanceof HTMLInputElement) || !input.value.trim()) return;
-  const chosenCubeKey =
-    createCubeSelect instanceof HTMLSelectElement ? createCubeSelect.value : "";
+  const chosenCubeKey = createCubeSelect instanceof HTMLSelectElement ? createCubeSelect.value : "";
   setBusy(submit, true, "Création…");
   try {
     const body = await readResponse(
@@ -1284,6 +1959,16 @@ function bindTournamentEvents() {
     if (tournamentId) void openTournament(tournamentId);
     else void initTournamentManagementView();
   });
+  element("tournament-deck-close-btn")?.addEventListener("click", () => closeActiveDeckModal());
+  element("tournament-deck-cancel-btn")?.addEventListener("click", () => closeActiveDeckModal());
+  element("tournament-deck-save-btn")?.addEventListener("click", () => void saveActiveDeckModal());
+  element("tournament-deck-modal-backdrop")?.addEventListener("click", (e) => {
+    if (e.target === element("tournament-deck-modal-backdrop")) {
+      closeActiveDeckModal();
+    }
+  });
+  setupBasicLandSteppers();
+  setupDeckCardSearch();
 }
 
 export async function initTournamentManagementView() {

@@ -160,6 +160,35 @@ export function reduceTournamentEvent(
       updatedAt: event.occurredAt,
     };
   }
+  if (event.type === "ParticipantDeckUpdated") {
+    if (state === null) {
+      throw new Error("ParticipantDeckUpdated requires an existing tournament.");
+    }
+    const participant = state.participants.find(
+      ({ participantId }) => participantId === event.participantId,
+    );
+    if (participant === undefined) {
+      throw new Error("ParticipantDeckUpdated requires an existing participant.");
+    }
+    return {
+      ...state,
+      revision: event.revision,
+      participants: state.participants.map((candidate) =>
+        candidate.participantId === event.participantId
+          ? {
+              ...candidate,
+              deck: {
+                ...candidate.deck,
+                name: event.deckName,
+                cards: event.cards,
+                basicLands: event.basicLands,
+              },
+            }
+          : candidate,
+      ),
+      updatedAt: event.occurredAt,
+    };
+  }
   if (state === null) {
     throw new Error("DeckKeyCardsUpdated requires an existing tournament.");
   }

@@ -1,13 +1,21 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
+import { createDeckPhotoRecognizer, type DeckPhotoRecognizer } from "./deck-photo-recognition.ts";
 import { observeTournamentResult } from "./observability.ts";
 import type { TournamentObservability } from "./observability.ts";
-import type { TournamentCoordinator, TournamentResult } from "./types.ts";
+import type {
+  DeclaredDeckCard,
+  SetupParticipantInput,
+  TournamentCoordinator,
+  TournamentResult,
+} from "./types.ts";
 
 export interface TournamentHttpHandlerDependencies {
   readonly coordinator: TournamentCoordinator;
   readonly observability?: TournamentObservability;
   readonly nowMs?: () => number;
+  readonly deckRecognizer?: DeckPhotoRecognizer;
+  readonly loadCubeSnapshot?: (cubeKey: string) => Promise<readonly string[]>;
 }
 
 export type TournamentHttpHandler = (
@@ -47,13 +55,13 @@ function sendResult<T>(
   sendJson(response, status, { ok: false, error: result.error });
 }
 
-async function readJsonBody(request: IncomingMessage): Promise<unknown> {
+async function readJsonBody(request: IncomingMessage, maxSize = 64 * 1024): Promise<unknown> {
   const chunks: Uint8Array[] = [];
   let size = 0;
   for await (const chunk of request) {
     const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
     size += buffer.byteLength;
-    if (size > 64 * 1024) throw new Error("REQUEST_TOO_LARGE");
+    if (size > maxSize) throw new Error("REQUEST_TOO_LARGE");
     chunks.push(Uint8Array.from(buffer));
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
@@ -68,9 +76,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isSetupParticipant(
-  value: unknown,
-): value is { participantId: string | null; displayName: string; deckName: string } {
+function isSetupParticipant(value: unknown): value is SetupParticipantInput {
   return (
     isRecord(value) &&
     (value.participantId === null || typeof value.participantId === "string") &&
@@ -112,6 +118,61 @@ export function createTournamentHttpHandler(
       const result = await dependencies.coordinator.listCubes();
       observe("list-cubes", result);
       sendResult(response, result, (cubes) => ({ cubes }));
+      return true;
+    }
+
+    if (url.pathname === "/api/tournaments/recognize-deck" && request.method === "POST") {
+      try {
+        const body = await readJsonBody(request, 25 * 1024 * 1024);
+        if (!isRecord(body) || typeof body.image !== "string" || !body.image) {
+          sendInvalidInput(response, "L'image du deck est obligatoire.");
+          return true;
+        }
+
+        let mimeType = typeof body.mimeType === "string" ? body.mimeType : "image/jpeg";
+        let base64Data = body.image;
+        if (base64Data.startsWith("data:")) {
+          const match = /^data:(image\/[a-zA-Z0-9.+_-]+);base64,(.+)$/.exec(base64Data);
+          if (match && typeof match[1] === "string" && typeof match[2] === "string") {
+            mimeType = match[1];
+            base64Data = match[2];
+          }
+        }
+
+        const buffer = Buffer.from(base64Data, "base64");
+        const cubeKey = typeof body.cubeKey === "string" ? body.cubeKey : undefined;
+
+        let candidateCardNames: string[] | undefined;
+        let cubeName: string | undefined;
+        if (dependencies.loadCubeSnapshot && cubeKey) {
+          try {
+            candidateCardNames = [...(await dependencies.loadCubeSnapshot(cubeKey))];
+          } catch {
+            // Ignore snapshot load error
+          }
+        }
+
+        const recognizer = dependencies.deckRecognizer ?? createDeckPhotoRecognizer();
+        const recognizerOptions: {
+          cubeKey?: string;
+          cubeName?: string;
+          candidateCardNames?: readonly string[];
+        } = {};
+        if (cubeKey) recognizerOptions.cubeKey = cubeKey;
+        if (cubeName) recognizerOptions.cubeName = cubeName;
+        if (candidateCardNames) recognizerOptions.candidateCardNames = candidateCardNames;
+
+        const result = await recognizer.recognizeDeck(buffer, mimeType, recognizerOptions);
+
+        if (result.ok) {
+          sendJson(response, 200, { ok: true, ...result.value });
+        } else {
+          sendJson(response, 400, { ok: false, error: result.error });
+        }
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : "";
+        sendInvalidInput(response, `Image invalide ou trop volumineuse : ${msg}`);
+      }
       return true;
     }
 
@@ -318,6 +379,45 @@ export function createTournamentHttpHandler(
           oracleIds: body.oracleIds,
         });
         observe("update-key-cards", result);
+        sendResult(response, result, (tournament) => ({ tournament }));
+      } catch {
+        sendInvalidInput(response, "Le corps JSON est invalide.");
+      }
+      return true;
+    }
+
+    const participantDeckMatch = /^\/api\/tournaments\/([^/]+)\/participants\/([^/]+)\/deck$/u.exec(
+      url.pathname,
+    );
+    if (participantDeckMatch && request.method === "PUT") {
+      const requestId = getHeader(request, "idempotency-key")?.trim();
+      if (!requestId) {
+        sendInvalidInput(response, "L'en-tête Idempotency-Key est obligatoire.");
+        return true;
+      }
+      try {
+        const body = await readJsonBody(request);
+        if (
+          !isRecord(body) ||
+          !Number.isInteger(body.expectedRevision) ||
+          typeof body.deckName !== "string" ||
+          !Array.isArray(body.cards) ||
+          !isRecord(body.basicLands)
+        ) {
+          sendInvalidInput(response, "La déclaration du deck est invalide.");
+          return true;
+        }
+        const result = await dependencies.coordinator.execute({
+          type: "update-participant-deck",
+          requestId,
+          tournamentId: decodeURIComponent(participantDeckMatch[1] ?? ""),
+          expectedRevision: Number(body.expectedRevision),
+          participantId: decodeURIComponent(participantDeckMatch[2] ?? ""),
+          deckName: typeof body.deckName === "string" ? body.deckName : "",
+          cards: Array.isArray(body.cards) ? (body.cards as DeclaredDeckCard[]) : [],
+          basicLands: isRecord(body.basicLands) ? (body.basicLands as Record<string, number>) : {},
+        });
+        observe("update-participant-deck", result);
         sendResult(response, result, (tournament) => ({ tournament }));
       } catch {
         sendInvalidInput(response, "Le corps JSON est invalide.");

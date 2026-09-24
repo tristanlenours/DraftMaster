@@ -1102,3 +1102,137 @@ test("UX tournoi: auto-nommage via cube, sélection magiciens et annulation", as
   await expect(page.locator("#tournament-editor")).toBeHidden();
   expect(tournamentDeleted).toBe(true);
 });
+
+test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive", async ({
+  page,
+}) => {
+  let recognizedCalled = false;
+  await page.route("**/api/tournaments/**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+
+    if (request.method() === "GET" && url.pathname === "/api/tournaments/cubes") {
+      await route.fulfill({
+        json: {
+          ok: true,
+          cubes: [{ cubeKey: "titou_tribal", cubeName: "Titou Tribal" }],
+        },
+      });
+      return;
+    }
+
+    if (request.method() === "GET" && url.pathname === "/api/tournaments") {
+      await route.fulfill({ json: { ok: true, tournaments: [] } });
+      return;
+    }
+
+    if (request.method() === "POST" && url.pathname === "/api/tournaments") {
+      await route.fulfill({
+        status: 201,
+        json: {
+          ok: true,
+          tournament: {
+            tournamentId: "t-deck-001",
+            revision: 0,
+            name: "Tournoi Deck IA",
+            status: "preparation",
+            format: "swiss",
+            plannedRoundCount: 3,
+            cube: { cubeKey: "titou_tribal", cubeName: "Titou Tribal" },
+            participants: [],
+            rounds: [],
+            standings: [],
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+        },
+      });
+      return;
+    }
+
+    if (request.method() === "POST" && url.pathname === "/api/tournaments/recognize-deck") {
+      recognizedCalled = true;
+      await route.fulfill({
+        json: {
+          ok: true,
+          archetype: "Aggro Boros",
+          cards: [
+            {
+              name: "Champion of the Parish",
+              count: 2,
+              cmc: 1,
+              typeLine: "Creature — Human Soldier",
+              imageUrl: "https://example.com/champion.jpg",
+            },
+          ],
+          basicLands: { Plains: 8, Mountain: 8, Island: 0, Swamp: 0, Forest: 0 },
+          totalCount: 18,
+          confidence: 0.98,
+        },
+      });
+      return;
+    }
+
+    await route.fulfill({ status: 404, json: { ok: false } });
+  });
+
+  await page.goto("/tournaments");
+
+  // Create tournament
+  await page.locator("#tournament-new-btn").click();
+  await page.locator("#tournament-create-name").fill("Tournoi Deck IA");
+  await page.locator("#tournament-create-cube").selectOption("titou_tribal");
+  await page.locator("#tournament-create-submit").click();
+
+  // Ensure setup is visible
+  await expect(page.locator("#tournament-setup-form")).toBeVisible();
+  const firstRow = page.locator("[data-tournament-player-row]").first();
+
+  // Set file input on the first row
+  const fileInput = firstRow.locator('input[type="file"]');
+  const buffer = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "base64",
+  );
+  await fileInput.setInputFiles({
+    name: "deck.png",
+    mimeType: "image/png",
+    buffer,
+  });
+
+  // Verify recognition called and feedback shown
+  await expect(page.locator("#tournament-feedback")).toContainText("Deck reconnu avec succès");
+  expect(recognizedCalled).toBe(true);
+
+  // Verify archetype updated in row input
+  await expect(firstRow.locator("[data-deck-name]")).toHaveValue("Aggro Boros");
+
+  // Verify deck modal opened
+  const modalBackdrop = page.locator("#tournament-deck-modal-backdrop");
+  await expect(modalBackdrop).toBeVisible();
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("18 cartes");
+
+  // Verify 17Lands target has rendered columns
+  await expect(page.locator(".deck-17lands-board")).toBeVisible();
+
+  // Verify basic lands stepper
+  await expect(page.locator('[data-land-qty="Plains"]')).toHaveText("8");
+  await expect(page.locator('[data-land-qty="Mountain"]')).toHaveText("8");
+
+  // Click Validate
+  await page.locator("#tournament-deck-save-btn").click();
+  await expect(modalBackdrop).toBeHidden();
+
+  // Verify view deck button on row has card count
+  const viewDeckBtn = firstRow.locator("[data-view-deck-btn]");
+  await expect(viewDeckBtn).toContainText("Deck (18)");
+
+  // Click view deck button to reopen
+  await viewDeckBtn.click();
+  await expect(modalBackdrop).toBeVisible();
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("18 cartes");
+
+  // Close modal via close button
+  await page.locator("#tournament-deck-close-btn").click();
+  await expect(modalBackdrop).toBeHidden();
+});

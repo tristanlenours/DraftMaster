@@ -551,6 +551,18 @@ export function createRequestHandler(options = {}) {
     observability:
       options.tournamentObservability ??
       (isTestEnv ? undefined : createJsonLineTournamentObservability()),
+    deckRecognizer: options.deckRecognizer,
+    loadCubeSnapshot: async (cubeKey) => {
+      try {
+        const snap = await loadActiveCubeSnapshot(rootDir, cubeKey);
+        if (snap.ok) {
+          return snap.value.cards.map((c) => c.name);
+        }
+      } catch {
+        // Fallback
+      }
+      return [];
+    },
   });
 
   return async (req, res) => {

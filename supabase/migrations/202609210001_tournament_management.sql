@@ -321,10 +321,10 @@ revoke all on table public.tournaments from public, anon, authenticated;
 revoke all on table public.tournament_events from public, anon, authenticated;
 revoke all on table public.tournament_command_receipts from public, anon, authenticated;
 
-grant select on table public.cube_snapshot_archive to service_role;
-grant select on table public.tournaments to service_role;
-grant select on table public.tournament_events to service_role;
-grant select on table public.tournament_command_receipts to service_role;
+grant select, insert, update, delete on table public.cube_snapshot_archive to service_role;
+grant select, insert, update, delete on table public.tournaments to service_role;
+grant select, insert, update, delete on table public.tournament_events to service_role;
+grant select, insert, update, delete on table public.tournament_command_receipts to service_role;
 
 revoke all on function public.commit_tournament(
   text, text, bigint, text, text, jsonb, jsonb, jsonb, jsonb

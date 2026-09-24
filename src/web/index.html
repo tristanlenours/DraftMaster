@@ -3283,6 +3283,190 @@
     </section>
     <!-- /view-tournaments -->
 
+    <!-- Tournament Deck Viewer & Editor Modal -->
+    <div class="modal-backdrop" id="tournament-deck-modal-backdrop" hidden>
+      <div
+        class="card-modal tournament-deck-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tournament-deck-modal-title"
+      >
+        <button
+          class="modal-close-btn"
+          id="tournament-deck-close-btn"
+          type="button"
+          aria-label="Fermer la vue du deck"
+        >
+          ✕
+        </button>
+        <div class="tournament-deck-modal-body">
+          <div class="tournament-deck-modal-header">
+            <div>
+              <span class="tournament-panel-eyebrow" id="tournament-deck-player-name">Joueur</span>
+              <h2 id="tournament-deck-modal-title">Deck du tournoi</h2>
+            </div>
+            <div class="tournament-deck-modal-stats" id="tournament-deck-modal-stats">
+              <span class="tournament-deck-badge" id="tournament-deck-total-count">0 cartes</span>
+            </div>
+          </div>
+
+          <div class="tournament-deck-editor-toolbar" id="tournament-deck-editor-toolbar">
+            <div class="tournament-deck-archetype-edit">
+              <label>
+                <span>Nom de l'archétype</span>
+                <input
+                  type="text"
+                  id="tournament-deck-archetype-input"
+                  placeholder="Aggro Boros"
+                  maxlength="120"
+                />
+              </label>
+            </div>
+            <div class="tournament-deck-add-card">
+              <label>
+                <span>Ajouter une carte du Cube</span>
+                <input
+                  type="search"
+                  id="tournament-deck-add-search"
+                  placeholder="Nom de carte (ex: Lightning Bolt)"
+                />
+              </label>
+              <div
+                class="tournament-deck-search-results"
+                id="tournament-deck-search-results"
+                hidden
+              ></div>
+            </div>
+          </div>
+
+          <!-- 17Lands Mana Curve Columns View -->
+          <div class="tournament-deck-17lands-wrap">
+            <div id="tournament-deck-17lands-target"></div>
+          </div>
+
+          <!-- Basic lands adjusters -->
+          <div class="tournament-deck-lands-panel" id="tournament-deck-lands-panel">
+            <span class="tournament-deck-lands-title">🏔️ Terrains de base :</span>
+            <div class="tournament-deck-lands-controls">
+              <div class="tournament-land-stepper" data-land="Plains">
+                <span class="tournament-land-label">☀️ Plaine</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="minus"
+                  aria-label="Moins de Plaines"
+                >
+                  −
+                </button>
+                <span class="tournament-land-qty" data-land-qty="Plains">0</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="plus"
+                  aria-label="Plus de Plaines"
+                >
+                  +
+                </button>
+              </div>
+              <div class="tournament-land-stepper" data-land="Island">
+                <span class="tournament-land-label">💧 Île</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="minus"
+                  aria-label="Moins d'Îles"
+                >
+                  −
+                </button>
+                <span class="tournament-land-qty" data-land-qty="Island">0</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="plus"
+                  aria-label="Plus d'Îles"
+                >
+                  +
+                </button>
+              </div>
+              <div class="tournament-land-stepper" data-land="Swamp">
+                <span class="tournament-land-label">💀 Marais</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="minus"
+                  aria-label="Moins de Marais"
+                >
+                  −
+                </button>
+                <span class="tournament-land-qty" data-land-qty="Swamp">0</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="plus"
+                  aria-label="Plus de Marais"
+                >
+                  +
+                </button>
+              </div>
+              <div class="tournament-land-stepper" data-land="Mountain">
+                <span class="tournament-land-label">🔥 Montagne</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="minus"
+                  aria-label="Moins de Montagnes"
+                >
+                  −
+                </button>
+                <span class="tournament-land-qty" data-land-qty="Mountain">0</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="plus"
+                  aria-label="Plus de Montagnes"
+                >
+                  +
+                </button>
+              </div>
+              <div class="tournament-land-stepper" data-land="Forest">
+                <span class="tournament-land-label">🌲 Forêt</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="minus"
+                  aria-label="Moins de Forêts"
+                >
+                  −
+                </button>
+                <span class="tournament-land-qty" data-land-qty="Forest">0</span>
+                <button
+                  type="button"
+                  class="tournament-land-btn"
+                  data-land-action="plus"
+                  aria-label="Plus de Forêts"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tournament-deck-modal-actions">
+            <button
+              type="button"
+              class="tournament-secondary-button"
+              id="tournament-deck-cancel-btn"
+            >
+              Fermer
+            </button>
+            <button type="button" class="tournament-primary-button" id="tournament-deck-save-btn">
+              Valider le deck
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Deck Review Modal for Leaderboard Entries -->
     <div class="modal-backdrop" id="deck-review-backdrop" hidden>
       <div

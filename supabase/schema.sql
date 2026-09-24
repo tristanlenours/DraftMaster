@@ -110,6 +110,16 @@ create policy "Mise à jour profils"
   on public.magiciens_profiles for update
   using (true);
 
+-- Droits d'accès Data API (PostgREST / supabase-js, requis post-30 octobre)
+grant select, update on table public.magiciens_profiles to anon, authenticated;
+grant select, insert, update, delete on table public.magiciens_profiles to service_role;
+
+grant select, insert on table public.draft_records to anon, authenticated;
+grant select, insert, update, delete on table public.draft_records to service_role;
+
+grant select, insert on table public.admin_drafts to anon, authenticated;
+grant select, insert, update, delete on table public.admin_drafts to service_role;
+
 -- 6. Données Initiales : Les 8 Magiciens Officiels
 insert into public.magiciens_profiles (slug, name, nickname, title, quote, level, preferred_colors, avatar_url)
 values
@@ -323,5 +333,13 @@ revoke all on table public.multiplayer_events from anon, authenticated;
 revoke all on table public.multiplayer_command_receipts from anon, authenticated;
 revoke all on table public.multiplayer_resume_access from anon, authenticated;
 revoke all on table public.multiplayer_deck_workspaces from anon, authenticated;
+
+grant select, insert, update, delete on table public.multiplayer_lobbies to service_role;
+grant select, insert, update, delete on table public.multiplayer_sessions to service_role;
+grant select, insert, update, delete on table public.multiplayer_events to service_role;
+grant select, insert, update, delete on table public.multiplayer_command_receipts to service_role;
+grant select, insert, update, delete on table public.multiplayer_resume_access to service_role;
+grant select, insert, update, delete on table public.multiplayer_deck_workspaces to service_role;
+
 revoke all on function public.commit_multiplayer_lobby(bigint, text, text, text, jsonb, jsonb) from public, anon, authenticated;
 grant execute on function public.commit_multiplayer_lobby(bigint, text, text, text, jsonb, jsonb) to service_role;

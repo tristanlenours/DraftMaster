@@ -52,9 +52,23 @@ export interface DeckKeyCard {
   readonly name: string;
 }
 
+export interface DeclaredDeckCard {
+  readonly oracleId?: string;
+  readonly name: string;
+  readonly count?: number;
+  readonly cmc?: number;
+  readonly manaCost?: string;
+  readonly typeLine?: string;
+  readonly isLand?: boolean;
+  readonly imageUrl?: string;
+  readonly frenchName?: string;
+}
+
 export interface DeclaredDeck {
   readonly name: string;
   readonly keyCards: readonly Readonly<DeckKeyCard>[];
+  readonly cards?: readonly Readonly<DeclaredDeckCard>[];
+  readonly basicLands?: Readonly<Record<string, number>>;
 }
 
 export interface TournamentParticipant {
@@ -201,6 +215,14 @@ export interface DeckKeyCardsUpdatedEvent extends TournamentEventBase {
   readonly keyCards: readonly Readonly<DeckKeyCard>[];
 }
 
+export interface ParticipantDeckUpdatedEvent extends TournamentEventBase {
+  readonly type: "ParticipantDeckUpdated";
+  readonly participantId: string;
+  readonly deckName: string;
+  readonly cards: readonly Readonly<DeclaredDeckCard>[];
+  readonly basicLands: Readonly<Record<string, number>>;
+}
+
 export interface TournamentCompletedEvent extends TournamentEventBase {
   readonly type: "TournamentCompleted";
   readonly completedAt: string;
@@ -215,6 +237,7 @@ export type TournamentEvent =
   | MatchResultCorrectedEvent
   | ParticipantDroppedEvent
   | DeckKeyCardsUpdatedEvent
+  | ParticipantDeckUpdatedEvent
   | TournamentCompletedEvent;
 
 export interface CreateTournamentCommand {
@@ -226,6 +249,8 @@ export interface SetupParticipantInput {
   readonly participantId: string | null;
   readonly displayName: string;
   readonly deckName: string;
+  readonly deckCards?: readonly Readonly<DeclaredDeckCard>[];
+  readonly basicLands?: Readonly<Record<string, number>>;
 }
 
 interface TournamentMutationCommandBase {
@@ -273,6 +298,14 @@ export interface UpdateDeckKeyCardsCommand extends TournamentMutationCommandBase
   readonly oracleIds: readonly string[];
 }
 
+export interface UpdateParticipantDeckCommand extends TournamentMutationCommandBase {
+  readonly type: "update-participant-deck";
+  readonly participantId: string;
+  readonly deckName: string;
+  readonly cards: readonly Readonly<DeclaredDeckCard>[];
+  readonly basicLands: Readonly<Record<string, number>>;
+}
+
 export interface CompleteTournamentCommand extends TournamentMutationCommandBase {
   readonly type: "complete";
 }
@@ -284,6 +317,7 @@ export type TournamentCommand =
   | RecordMatchResultCommand
   | DropParticipantCommand
   | UpdateDeckKeyCardsCommand
+  | UpdateParticipantDeckCommand
   | CompleteTournamentCommand;
 
 export interface TournamentListQuery {

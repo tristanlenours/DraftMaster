@@ -8,6 +8,7 @@ import {
   createInMemoryTournamentStore,
   createTournamentCoordinator,
   createTournamentHttpHandler,
+  type DeclaredDeckCard,
   type TournamentCubeCatalog,
   type TournamentResult,
   type TournamentStore,
@@ -60,7 +61,36 @@ async function startHttpServer(): Promise<{ readonly baseUrl: string }> {
     createId: createTournamentSequence("id"),
     createSeed: () => 42,
   });
-  const tournamentHandler = createTournamentHttpHandler({ coordinator });
+  const tournamentHandler = createTournamentHttpHandler({
+    coordinator,
+    deckRecognizer: {
+      recognizeDeck: () =>
+        Promise.resolve({
+          ok: true,
+          value: {
+            archetype: "Aggro Boros",
+            cards: [
+              {
+                name: "Champion of the Parish",
+                count: 2,
+                cmc: 1,
+                isLand: false,
+                oracleId: "faeaa3eb-6eb8-4621-98c7-0c6f58bbff85",
+              },
+            ],
+            basicLands: {
+              Plains: 8,
+              Mountain: 8,
+              Island: 0,
+              Swamp: 0,
+              Forest: 0,
+            },
+            totalCount: 18,
+            confidence: 0.98,
+          },
+        }),
+    },
+  });
   const server = createServer((request, response) => {
     void tournamentHandler(request, response).then((handled) => {
       if (!handled) response.writeHead(404).end();
@@ -666,5 +696,99 @@ describe("Tournament management HTTP", () => {
 
     const getAfterDelete = await fetch(`${baseUrl}/api/tournaments/${tournamentId}`);
     expect(getAfterDelete.status).toBe(404);
+  });
+
+  it("recognizes a deck from an uploaded photo via POST /api/tournaments/recognize-deck", async () => {
+    const { baseUrl } = await startHttpServer();
+    const response = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        image: "data:image/jpeg;base64,aGVsbG8=",
+        cubeKey: "titou_tribal",
+      }),
+    });
+    expect(response.status).toBe(200);
+    interface RecognizeDeckResponse {
+      readonly ok: boolean;
+      readonly archetype: string;
+      readonly cards: readonly DeclaredDeckCard[];
+      readonly basicLands: Record<string, number>;
+      readonly totalCount: number;
+    }
+    const body = (await response.json()) as RecognizeDeckResponse;
+    expect(body.ok).toBe(true);
+    expect(body.archetype).toBe("Aggro Boros");
+    expect(body.cards.length).toBeGreaterThan(0);
+    expect(body.cards[0]?.name).toBe("Champion of the Parish");
+    expect(body.basicLands.Plains).toBe(8);
+    expect(body.totalCount).toBe(18);
+  });
+
+  it("updates a participant's deck via PUT /api/tournaments/:id/participants/:participantId/deck", async () => {
+    const { baseUrl } = await startHttpServer();
+    await fetch(`${baseUrl}/api/tournaments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "setup-deck-update-test",
+      },
+      body: JSON.stringify({ name: "Tournoi Deck" }),
+    });
+
+    await fetch(`${baseUrl}/api/tournaments/id-001/setup`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "setup-deck-update",
+      },
+      body: JSON.stringify({
+        expectedRevision: 0,
+        name: "Tournoi Deck",
+        cubeKey: "titou_tribal",
+        format: "swiss",
+        plannedRoundCount: 3,
+        participants: [
+          { participantId: null, displayName: "Alice", deckName: "Unknown" },
+          { participantId: null, displayName: "Bob", deckName: "Unknown" },
+        ],
+      }),
+    });
+
+    const updateRes = await fetch(`${baseUrl}/api/tournaments/id-001/participants/id-002/deck`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "update-alice-deck",
+      },
+      body: JSON.stringify({
+        expectedRevision: 1,
+        deckName: "Aggro Boros",
+        cards: [{ name: "Champion of the Parish", count: 2, cmc: 1 }],
+        basicLands: { Plains: 8, Mountain: 8 },
+      }),
+    });
+
+    expect(updateRes.status).toBe(200);
+    interface UpdateParticipantDeckResponse {
+      readonly ok: boolean;
+      readonly tournament: {
+        readonly participants: readonly {
+          readonly displayName: string;
+          readonly deck: {
+            readonly name: string;
+            readonly cards: readonly DeclaredDeckCard[];
+            readonly basicLands: Record<string, number>;
+          };
+        }[];
+      };
+    }
+    const updated = (await updateRes.json()) as UpdateParticipantDeckResponse;
+    expect(updated.ok).toBe(true);
+    const alice = updated.tournament.participants.find((p) => p.displayName === "Alice");
+    expect(alice?.deck.name).toBe("Aggro Boros");
+    expect(alice?.deck.cards.length).toBe(1);
+    expect(alice?.deck.cards[0]?.name).toBe("Champion of the Parish");
+    expect(alice?.deck.basicLands.Plains).toBe(8);
   });
 });

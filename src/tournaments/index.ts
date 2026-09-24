@@ -1,6 +1,11 @@
 export { createTournamentCubeCatalog } from "./cube-catalog.ts";
 export { createTournamentCoordinator } from "./coordinator.ts";
 export { createTournamentHttpHandler } from "./http-handler.ts";
+export {
+  createDeckPhotoRecognizer,
+  GeminiDeckPhotoRecognizer,
+  MasterCardsIndex,
+} from "./deck-photo-recognition.ts";
 export { createInMemoryTournamentStore } from "./in-memory-store.ts";
 export { createJsonLineTournamentObservability, observeTournamentResult } from "./observability.ts";
 export { isRoundRobinFormat } from "./types.ts";
@@ -13,10 +18,12 @@ export type {
   CompleteTournamentCommand,
   CreateTournamentCommand,
   DeclaredDeck,
+  DeclaredDeckCard,
   DeckKeyCard,
   DropParticipantCommand,
   MatchResultKind,
   MatchResultVersion,
+  ParticipantDeckUpdatedEvent,
   PersistedTournament,
   PublishNextRoundCommand,
   RecordMatchResultCommand,
@@ -47,7 +54,14 @@ export type {
   TournamentStoreCommitResult,
   TournamentSummary,
   UpdateDeckKeyCardsCommand,
+  UpdateParticipantDeckCommand,
 } from "./types.ts";
+
+export type {
+  DeckPhotoRecognizer,
+  DeckPhotoRecognizerOptions,
+  RecognizedDeckResult,
+} from "./deck-photo-recognition.ts";
 
 export type { TournamentCubeCatalogOptions } from "./cube-catalog.ts";
 export type {
