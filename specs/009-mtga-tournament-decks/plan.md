@@ -24,6 +24,8 @@
 - Tests unitaires : syntaxe, agrégation, noms avec apostrophes/accents, suffixes d'édition, sideboard, erreur sans mutation, aller-retour.
 - Intégration HTTP : prévisualisation, absence de persistance et erreurs.
 - Navigateur : photo simulée puis correction MTGA, collage d'export multijoueur, validation et présence après réouverture, viewport 360 px et clavier.
+- Accessibilité : les contrôles Appliquer/Valider restent accessibles au clavier, les erreurs sont annoncées par `role="alert"`, et aucun débordement horizontal n'apparaît à 360 px.
+- Performance : le parseur local d'une liste de 40 cartes termine en moins de 100 ms au p95 sur 1 000 itérations Node 24 ; la latence Gemini dépend du fournisseur et n'entre pas dans ce budget.
 - Vérifier `npm run lint`, `npm run typecheck`, tests ciblés, `git diff --check`; test live photo témoin seulement pour la chaîne Gemini déjà existante.
 
 ## Risk & Limits

@@ -1355,6 +1355,14 @@ test("colle un export MTGA multijoueur et enregistre le maindeck dans le tournoi
   await page.setViewportSize({ width: 360, height: 780 });
   let savedDeckCards: { name: string; count: number }[] = [];
   let parseCount = 0;
+  let signalSecondPreview!: () => void;
+  let releaseSecondPreview!: () => void;
+  const secondPreviewStarted = new Promise<void>((resolve) => {
+    signalSecondPreview = resolve;
+  });
+  const secondPreviewGate = new Promise<void>((resolve) => {
+    releaseSecondPreview = resolve;
+  });
   const createdTournament = {
     tournamentId: "t-mtga-import",
     revision: 0,
@@ -1392,6 +1400,10 @@ test("colle un export MTGA multijoueur et enregistre le maindeck dans le tournoi
       if (parseCount === 0) expect(importedText).toContain("Sideboard");
       else expect(importedText).not.toContain("Sideboard");
       parseCount += 1;
+      if (parseCount === 2) {
+        signalSecondPreview();
+        await secondPreviewGate;
+      }
       await route.fulfill({
         json: {
           ok: true,
@@ -1470,6 +1482,17 @@ test("colle un export MTGA multijoueur et enregistre le maindeck dans le tournoi
   expect(download.suggestedFilename()).toBe("draftmaster-tournoi-deck.mtga.txt");
   const downloadedText = await readFile(await download.path(), "utf8");
   expect(downloadedText).toContain("2 Lightning Bolt");
+  await textArea.fill(downloadedText);
+  await page.locator("#tournament-deck-mtga-apply").click();
+  await secondPreviewStarted;
+  await textArea.fill(`${downloadedText}1 Karakas\n`);
+  releaseSecondPreview();
+  await expect(page.locator("#tournament-deck-mtga-status")).toContainText(
+    "La liste a changé pendant l'analyse",
+  );
+  await expect(textArea).toHaveValue(/1 Karakas/u);
+  await page.locator("#tournament-deck-save-btn").click();
+  await expect(page.locator("#tournament-deck-mtga-status")).toContainText("Appliquez la liste");
   await textArea.fill(downloadedText);
   await page.locator("#tournament-deck-mtga-apply").click();
   await expect(page.locator("#tournament-deck-total-count")).toContainText("10 cartes");

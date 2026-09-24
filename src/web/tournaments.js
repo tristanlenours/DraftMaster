@@ -489,6 +489,7 @@ async function openTournamentDeckModal({
   if (saveBtn) saveBtn.hidden = isReadOnly;
   if (mtgaText instanceof HTMLTextAreaElement) mtgaText.readOnly = isReadOnly;
   if (mtgaApply instanceof HTMLButtonElement) mtgaApply.hidden = isReadOnly;
+  setBusy(mtgaApply, false, "");
   setMtgaDeckStatus("");
 
   refreshModalDeckView();
@@ -587,15 +588,22 @@ async function applyActiveMtgaText() {
   const text = element("tournament-deck-mtga-text");
   const applyButton = element("tournament-deck-mtga-apply");
   if (!(text instanceof HTMLTextAreaElement)) return false;
+  const submittedText = text.value;
+  const modalState = activeDeckModal;
   setBusy(applyButton, true, "Analyse…");
   try {
     const body = await readResponse(
       await fetch("/api/tournaments/parse-deck", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: text.value }),
+        body: JSON.stringify({ text: submittedText }),
       }),
     );
+    if (activeDeckModal !== modalState) return false;
+    if (text.value !== submittedText) {
+      setMtgaDeckStatus("La liste a changé pendant l'analyse. Appliquez-la de nouveau.", "warning");
+      return false;
+    }
     activeDeckModal.cards = body.cards;
     activeDeckModal.basicLands = body.basicLands;
     activeDeckModal.mtgaTextDirty = false;
@@ -612,13 +620,14 @@ async function applyActiveMtgaText() {
     );
     return true;
   } catch (error) {
+    if (activeDeckModal !== modalState) return false;
     setMtgaDeckStatus(
       error instanceof Error ? error.message : "Impossible de lire la liste MTGA.",
       "error",
     );
     return false;
   } finally {
-    setBusy(applyButton, false, "");
+    if (activeDeckModal === modalState) setBusy(applyButton, false, "");
   }
 }
 
