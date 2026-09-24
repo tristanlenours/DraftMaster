@@ -284,7 +284,7 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
     const base64Image = imageBuffer.toString("base64");
     const formattedCandidates: string[] = [];
     if (options?.candidateCardNames && options.candidateCardNames.length > 0) {
-      for (const name of options.candidateCardNames.slice(0, 600)) {
+      for (const name of options.candidateCardNames.slice(0, 900)) {
         const resolved = this.cardsIndex.resolveCard(name);
         if (resolved.frenchName && resolved.frenchName !== resolved.name) {
           formattedCandidates.push(`${resolved.name} (${resolved.frenchName})`);
@@ -326,8 +326,8 @@ Consignes :
 }`;
 
     const modelsToTry = [
-      this.configuredModel,
       "gemini-3.5-flash",
+      this.configuredModel,
       "gemini-3.5-flash-lite",
       "gemini-3.6-flash",
       "gemini-flash-latest",
@@ -466,9 +466,9 @@ Consignes :
         resolve({ status: "error", error: err.message });
       });
 
-      req.setTimeout(25000, () => {
+      req.setTimeout(65000, () => {
         req.destroy();
-        resolve({ status: "error", error: "Délai d'attente dépassé (25s)" });
+        resolve({ status: "error", error: "Délai d'attente dépassé (65s)" });
       });
 
       req.write(payload);

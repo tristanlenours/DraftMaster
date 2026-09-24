@@ -310,7 +310,7 @@ async function optimizeImageForUpload(file) {
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        const maxDim = 1800;
+        const maxDim = 1400;
         let { width, height } = img;
         if (width > maxDim || height > maxDim) {
           if (width > height) {
@@ -326,7 +326,7 @@ async function optimizeImageForUpload(file) {
         canvas.height = height;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", 0.85));
+        resolve(canvas.toDataURL("image/jpeg", 0.8));
       };
       img.onerror = () => reject(new Error("Impossible de charger l'image sélectionnée."));
       img.src = e.target?.result;
@@ -350,7 +350,7 @@ async function triggerDeckPhotoRecognition(file, row, photoBtn, fileInput) {
   const prevText = photoBtn.textContent;
   photoBtn.disabled = true;
   photoBtn.textContent = "⏳ Analyse IA…";
-  clearFeedback();
+  showFeedback("Analyse du deck en cours avec Gemini (15 à 30s)…", "info");
 
   try {
     const dataUrl = await optimizeImageForUpload(file);

@@ -1107,7 +1107,7 @@ test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive"
   page,
 }) => {
   let recognizedCalled = false;
-  await page.route("**/api/tournaments/**", async (route) => {
+  await page.route("**/api/tournaments**", async (route) => {
     const request = route.request();
     const url = new URL(request.url());
 
