@@ -25,7 +25,7 @@ Date: 2026-09-24. Issue: #82. Branch: `codex/009-mtga-tournament-decks`.
 
 - Clarification pass found no unresolved question that would change the implementation or acceptance tests; defaults for sideboard and out-of-Snapshot cards are explicit in the specification.
 - Retrospective cross-artifact analysis mapped all 10 functional requirements and 4 buildable success criteria to T001–T014. The sole planning gap was the missing measurable performance target; the plan now states a 40-card parser p95 budget, and the measurement above is below it.
-- Post-implementation convergence found no remaining code work in the feature scope. The custom requirements checklist remains for its human owner under Constitution Delivery Workflow §2.
+- Post-implementation convergence found no remaining code work in the feature scope. The human reviewer approved the custom requirements checklist in the Codex task on 2026-09-24 before PR #83 merge.
 
 ## Requirement review
 
