@@ -3003,6 +3003,12 @@
               <button class="multi-secondary-btn" id="multi-download-export" type="button">
                 Télécharger .txt
               </button>
+              <button class="multi-secondary-btn" id="multi-copy-tournament-export" type="button">
+                Copier pour tournoi
+              </button>
+              <button class="multi-secondary-btn" id="multi-download-tournament-export" type="button">
+                Télécharger pour tournoi
+              </button>
             </div>
           </section>
         </article>
@@ -3338,6 +3344,33 @@
               ></div>
             </div>
           </div>
+
+          <section class="tournament-deck-mtga-panel" aria-labelledby="tournament-deck-mtga-title">
+            <h3 id="tournament-deck-mtga-title">Liste MTGA du maindeck</h3>
+            <p>
+              Corrigez la liste reconnue sur la photo, ou collez un export Arena / Draft
+              multijoueur. Le sideboard sera signalé et ignoré.
+            </p>
+            <label for="tournament-deck-mtga-text">Texte du deck</label>
+            <textarea
+              id="tournament-deck-mtga-text"
+              rows="8"
+              spellcheck="false"
+              placeholder="Deck&#10;1 Karakas&#10;8 Plains"
+            ></textarea>
+            <div class="tournament-deck-mtga-actions">
+              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-apply">
+                Appliquer la liste
+              </button>
+              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-copy">
+                Copier MTGA
+              </button>
+              <button type="button" class="tournament-secondary-button" id="tournament-deck-mtga-download">
+                Télécharger .txt
+              </button>
+            </div>
+            <p id="tournament-deck-mtga-status" class="tournament-deck-mtga-status" role="status" aria-live="polite"></p>
+          </section>
 
           <!-- 17Lands Mana Curve Columns View -->
           <div class="tournament-deck-17lands-wrap">

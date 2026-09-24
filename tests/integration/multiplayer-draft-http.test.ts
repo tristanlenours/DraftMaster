@@ -553,5 +553,11 @@ describe("Draft multijoueur HTTP", () => {
     expect(exportResponse.status).toBe(200);
     expect(exportResponse.headers.get("content-type")).toContain("text/plain");
     expect(await exportResponse.text()).toMatch(/^Deck\n[\s\S]+\n\nSideboard\n/u);
+
+    const tournamentExport = await fetch(`${baseUrl}/api/multiplayer/deck/export.tournament.txt`, {
+      headers: { Authorization: `Bearer ${alice.value.resumeToken}` },
+    });
+    expect(tournamentExport.status).toBe(200);
+    expect(await tournamentExport.text()).toMatch(/^Deck\n[\s\S]+\n\nSideboard\n/u);
   });
 });

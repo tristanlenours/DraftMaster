@@ -9,6 +9,7 @@ import {
   createTournamentCoordinator,
   createTournamentHttpHandler,
   type DeclaredDeckCard,
+  type DeckPhotoRecognizer,
   type TournamentCubeCatalog,
   type TournamentResult,
   type TournamentStore,
@@ -53,7 +54,9 @@ function createCubeCatalog(): TournamentCubeCatalog {
   };
 }
 
-async function startHttpServer(): Promise<{ readonly baseUrl: string }> {
+async function startHttpServer(
+  deckRecognizer?: DeckPhotoRecognizer,
+): Promise<{ readonly baseUrl: string }> {
   const coordinator = createTournamentCoordinator({
     store: createInMemoryTournamentStore(),
     cubeCatalog: createCubeCatalog(),
@@ -63,7 +66,7 @@ async function startHttpServer(): Promise<{ readonly baseUrl: string }> {
   });
   const tournamentHandler = createTournamentHttpHandler({
     coordinator,
-    deckRecognizer: {
+    deckRecognizer: deckRecognizer ?? {
       recognizeDeck: () =>
         Promise.resolve({
           ok: true,
@@ -723,6 +726,79 @@ describe("Tournament management HTTP", () => {
     expect(body.cards[0]?.name).toBe("Champion of the Parish");
     expect(body.basicLands.Plains).toBe(8);
     expect(body.totalCount).toBe(18);
+  });
+
+  it("returns 503 when the deck recognition provider is unavailable", async () => {
+    const { baseUrl } = await startHttpServer({
+      recognizeDeck: () =>
+        Promise.resolve({
+          ok: false,
+          error: {
+            code: "STORE_UNAVAILABLE",
+            message: "Gemini est temporairement indisponible (HTTP 503).",
+            details: {},
+          },
+        }),
+    });
+    const response = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: "data:image/jpeg;base64,aGVsbG8=" }),
+    });
+
+    expect(response.status).toBe(503);
+    await expect(response.json()).resolves.toMatchObject({
+      ok: false,
+      error: {
+        code: "STORE_UNAVAILABLE",
+        message: "Gemini est temporairement indisponible (HTTP 503).",
+      },
+    });
+  });
+
+  it("previews pasted MTGA main deck without saving it or losing unknown names", async () => {
+    const { baseUrl } = await startHttpServer();
+    const response = await fetch(`${baseUrl}/api/tournaments/parse-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text: "About\nName Arena Draft\n\nDeck\n1 Karakas\n1 Uncatalogued Test Dragon\n8 Plains\n\nSideboard\n2 Lightning Bolt\n",
+      }),
+    });
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      ok: true,
+      deckName: "Arena Draft",
+      cards: [
+        { name: "Karakas", count: 1 },
+        { name: "Uncatalogued Test Dragon", count: 1 },
+      ],
+      basicLands: { Plains: 8 },
+      totalCount: 10,
+      sideboardCount: 2,
+      unverifiedNames: ["Uncatalogued Test Dragon"],
+    });
+    const tournaments = await fetch(`${baseUrl}/api/tournaments`);
+    await expect(tournaments.json()).resolves.toMatchObject({
+      ok: true,
+      tournaments: [],
+    });
+  });
+
+  it("rejects a partial MTGA export before any deck mutation", async () => {
+    const { baseUrl } = await startHttpServer();
+    const response = await fetch(`${baseUrl}/api/tournaments/parse-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: "# Export MTGA partiel non importable\nDeck\n1 Karakas" }),
+    });
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      ok: false,
+      error: { code: "INVALID_INPUT" },
+    });
   });
 
   it("updates a participant's deck via PUT /api/tournaments/:id/participants/:participantId/deck", async () => {

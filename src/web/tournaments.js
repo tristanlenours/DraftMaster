@@ -1,5 +1,6 @@
 import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 import { readCardLanguage } from "./card-language.js";
+import { formatMtgaDeckText, parseMtgaDeckText } from "./mtga-deck-text.js";
 
 const tournamentUi = {
   initialized: false,
@@ -252,6 +253,7 @@ let activeDeckModal = {
   basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
   isReadOnly: false,
   cubeCards: [],
+  mtgaTextDirty: false,
 };
 
 async function loadCubeCards(cubeKey) {
@@ -399,6 +401,7 @@ async function openTournamentDeckModal({
   row = null,
   participant = null,
   isReadOnly = false,
+  proposedDeck = null,
 } = {}) {
   const modalBackdrop = element("tournament-deck-modal-backdrop");
   if (!modalBackdrop) return;
@@ -435,14 +438,15 @@ async function openTournamentDeckModal({
     participantId = row.dataset.participantId || null;
   } else if (participant) {
     displayName = participant.displayName || "Joueur";
-    archetype = participant.deck?.name || "";
-    cards = participant.deck?.cards ? JSON.parse(JSON.stringify(participant.deck.cards)) : [];
+    archetype = proposedDeck?.archetype || participant.deck?.name || "";
+    const sourceCards = proposedDeck?.cards ?? participant.deck?.cards;
+    cards = sourceCards ? JSON.parse(JSON.stringify(sourceCards)) : [];
     basicLands = {
-      Plains: participant.deck?.basicLands?.Plains ?? 0,
-      Island: participant.deck?.basicLands?.Island ?? 0,
-      Swamp: participant.deck?.basicLands?.Swamp ?? 0,
-      Mountain: participant.deck?.basicLands?.Mountain ?? 0,
-      Forest: participant.deck?.basicLands?.Forest ?? 0,
+      Plains: proposedDeck?.basicLands?.Plains ?? participant.deck?.basicLands?.Plains ?? 0,
+      Island: proposedDeck?.basicLands?.Island ?? participant.deck?.basicLands?.Island ?? 0,
+      Swamp: proposedDeck?.basicLands?.Swamp ?? participant.deck?.basicLands?.Swamp ?? 0,
+      Mountain: proposedDeck?.basicLands?.Mountain ?? participant.deck?.basicLands?.Mountain ?? 0,
+      Forest: proposedDeck?.basicLands?.Forest ?? participant.deck?.basicLands?.Forest ?? 0,
     };
     participantId = participant.participantId;
   }
@@ -458,6 +462,7 @@ async function openTournamentDeckModal({
     basicLands,
     isReadOnly,
     cubeCards: [],
+    mtgaTextDirty: false,
   };
 
   const playerNameEl = element("tournament-deck-player-name");
@@ -466,6 +471,8 @@ async function openTournamentDeckModal({
   const editorToolbar = element("tournament-deck-editor-toolbar");
   const landsPanel = element("tournament-deck-lands-panel");
   const saveBtn = element("tournament-deck-save-btn");
+  const mtgaText = element("tournament-deck-mtga-text");
+  const mtgaApply = element("tournament-deck-mtga-apply");
 
   if (playerNameEl) playerNameEl.textContent = displayName;
   if (modalTitleEl) modalTitleEl.textContent = `Deck de ${displayName}`;
@@ -480,6 +487,10 @@ async function openTournamentDeckModal({
     });
   }
   if (saveBtn) saveBtn.hidden = isReadOnly;
+  if (mtgaText instanceof HTMLTextAreaElement) mtgaText.readOnly = isReadOnly;
+  if (mtgaApply instanceof HTMLButtonElement) mtgaApply.hidden = isReadOnly;
+  setBusy(mtgaApply, false, "");
+  setMtgaDeckStatus("");
 
   refreshModalDeckView();
   modalBackdrop.hidden = false;
@@ -546,9 +557,123 @@ function refreshModalDeckView() {
       slot.append(removeBtn);
     });
   }
+  syncMtgaTextFromDeck();
+}
+
+function setMtgaDeckStatus(message, kind = "info") {
+  const status = element("tournament-deck-mtga-status");
+  if (!status) return;
+  status.textContent = message;
+  status.dataset.kind = kind;
+  status.setAttribute("role", kind === "error" ? "alert" : "status");
+}
+
+function syncMtgaTextFromDeck() {
+  const text = element("tournament-deck-mtga-text");
+  if (!(text instanceof HTMLTextAreaElement) || activeDeckModal.mtgaTextDirty) return;
+  const archetypeInput = element("tournament-deck-archetype-input");
+  const deckName =
+    archetypeInput instanceof HTMLInputElement
+      ? archetypeInput.value.trim()
+      : activeDeckModal.archetype;
+  text.value = formatMtgaDeckText({
+    deckName,
+    cards: activeDeckModal.cards,
+    basicLands: activeDeckModal.basicLands,
+  });
+}
+
+async function applyActiveMtgaText() {
+  if (activeDeckModal.isReadOnly) return false;
+  const text = element("tournament-deck-mtga-text");
+  const applyButton = element("tournament-deck-mtga-apply");
+  if (!(text instanceof HTMLTextAreaElement)) return false;
+  const submittedText = text.value;
+  const modalState = activeDeckModal;
+  setBusy(applyButton, true, "Analyse…");
+  try {
+    const body = await readResponse(
+      await fetch("/api/tournaments/parse-deck", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: submittedText }),
+      }),
+    );
+    if (activeDeckModal !== modalState) return false;
+    if (text.value !== submittedText) {
+      setMtgaDeckStatus("La liste a changé pendant l'analyse. Appliquez-la de nouveau.", "warning");
+      return false;
+    }
+    activeDeckModal.cards = body.cards;
+    activeDeckModal.basicLands = body.basicLands;
+    activeDeckModal.mtgaTextDirty = false;
+    const archetypeInput = element("tournament-deck-archetype-input");
+    if (body.deckName && archetypeInput instanceof HTMLInputElement) {
+      archetypeInput.value = body.deckName;
+    }
+    refreshModalDeckView();
+    setMtgaDeckStatus(
+      body.warnings?.length
+        ? `${body.totalCount} cartes appliquées. ${body.warnings.join(" ")}`
+        : `${body.totalCount} cartes appliquées. Vérifiez le deck avant de valider.`,
+      body.warnings?.length ? "warning" : "success",
+    );
+    return true;
+  } catch (error) {
+    if (activeDeckModal !== modalState) return false;
+    setMtgaDeckStatus(
+      error instanceof Error ? error.message : "Impossible de lire la liste MTGA.",
+      "error",
+    );
+    return false;
+  } finally {
+    if (activeDeckModal === modalState) setBusy(applyButton, false, "");
+  }
+}
+
+function getExportableMtgaText() {
+  const text = element("tournament-deck-mtga-text");
+  if (!(text instanceof HTMLTextAreaElement)) return null;
+  try {
+    parseMtgaDeckText(text.value);
+    return text.value;
+  } catch (error) {
+    setMtgaDeckStatus(
+      error instanceof Error ? error.message : "La liste MTGA est invalide.",
+      "error",
+    );
+    return null;
+  }
+}
+
+async function copyActiveMtgaText() {
+  const text = getExportableMtgaText();
+  if (text === null) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    setMtgaDeckStatus("Liste MTGA copiée.", "success");
+  } catch {
+    setMtgaDeckStatus("Copie impossible. Sélectionnez le texte pour le copier.", "error");
+  }
+}
+
+function downloadActiveMtgaText() {
+  const text = getExportableMtgaText();
+  if (text === null) return;
+  const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = "draftmaster-tournoi-deck.mtga.txt";
+  anchor.click();
+  URL.revokeObjectURL(url);
+  setMtgaDeckStatus("Liste MTGA téléchargée.", "success");
 }
 
 function removeCardFromActiveDeck(cardTitleOrName) {
+  if (activeDeckModal.mtgaTextDirty) {
+    setMtgaDeckStatus("Appliquez d'abord les modifications du texte MTGA.", "warning");
+    return;
+  }
   if (!cardTitleOrName) return;
   const targetName = cardTitleOrName.toLowerCase().trim();
   const cardIndex = activeDeckModal.cards.findIndex(
@@ -568,6 +693,10 @@ function removeCardFromActiveDeck(cardTitleOrName) {
 }
 
 function addCardToActiveDeck(card) {
+  if (activeDeckModal.mtgaTextDirty) {
+    setMtgaDeckStatus("Appliquez d'abord les modifications du texte MTGA.", "warning");
+    return;
+  }
   if (!card || !card.name) return;
   const existing = activeDeckModal.cards.find(
     (c) =>
@@ -597,6 +726,10 @@ function setupBasicLandSteppers() {
   document.querySelectorAll("[data-land-action]").forEach((btn) => {
     btn.addEventListener("click", () => {
       if (activeDeckModal.isReadOnly) return;
+      if (activeDeckModal.mtgaTextDirty) {
+        setMtgaDeckStatus("Appliquez d'abord les modifications du texte MTGA.", "warning");
+        return;
+      }
       const stepper = btn.closest(".tournament-land-stepper");
       const land = stepper instanceof HTMLElement ? stepper.dataset.land : null;
       const action = btn instanceof HTMLElement ? btn.dataset.landAction : null;
@@ -673,6 +806,12 @@ async function saveActiveDeckModal() {
     return;
   }
 
+  if (activeDeckModal.mtgaTextDirty) {
+    setMtgaDeckStatus("Appliquez la liste puis vérifiez le deck avant de valider.", "warning");
+    element("tournament-deck-mtga-apply")?.focus();
+    return;
+  }
+
   const archetypeInput = element("tournament-deck-archetype-input");
   const newArchetype =
     archetypeInput instanceof HTMLInputElement ? archetypeInput.value.trim() : "";
@@ -745,6 +884,7 @@ function closeActiveDeckModal() {
   activeDeckModal.targetRow = null;
   activeDeckModal.participant = null;
   activeDeckModal.cards = [];
+  activeDeckModal.mtgaTextDirty = false;
 }
 
 function createPlayerRow(participant = null) {
@@ -1133,6 +1273,7 @@ function renderKeyCardEditors(tournament) {
     photoBtn.className = "tournament-secondary-button tournament-panel-photo-btn";
     photoBtn.textContent = "📷 Scanner photo";
     photoBtn.title = "Scanner une photo du deck avec reconnaissance Gemini";
+    photoBtn.hidden = tournament.status === "completed";
     photoBtn.addEventListener("click", () => photoInput.click());
 
     photoInput.addEventListener("change", async () => {
@@ -1153,31 +1294,18 @@ function renderKeyCardEditors(tournament) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ image: dataUrl, cubeKey }),
         });
-        const body = await res.json();
-        if (!res.ok || !body.ok) {
-          throw new Error(body.error?.message || "Échec de la reconnaissance.");
-        }
-        const updateRes = await fetch(
-          `/api/tournaments/${encodeURIComponent(tournament.tournamentId)}/participants/${encodeURIComponent(participant.participantId)}/deck`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "Idempotency-Key": createRequestId("scan-keycard-deck"),
-            },
-            body: JSON.stringify({
-              expectedRevision: tournament.revision,
-              deckName: body.archetype || participant.deck?.name,
-              cards: body.cards,
-              basicLands: body.basicLands,
-            }),
+        const body = await readResponse(res);
+        void openTournamentDeckModal({
+          participant,
+          proposedDeck: {
+            archetype: body.archetype || participant.deck?.name,
+            cards: body.cards,
+            basicLands: body.basicLands,
           },
-        );
-        const updateData = await readResponse(updateRes);
-        renderTournament(updateData.tournament);
+        });
         showFeedback(
-          `Deck de ${participant.displayName} reconnu et mis à jour (${body.totalCount ?? body.cards.length} cartes) !`,
-          "success",
+          `Deck de ${participant.displayName} reconnu (${body.totalCount ?? body.cards.length} cartes). Vérifiez la liste avant de valider.`,
+          "info",
         );
       } catch (err) {
         showFeedback(
@@ -1275,7 +1403,7 @@ function renderKeyCardEditors(tournament) {
       );
     });
     renderChips();
-    panel.append(title, chips, search, options, save);
+    panel.append(title, deckBar, chips, search, options, save);
     container.append(panel);
   }
 }
@@ -1962,6 +2090,18 @@ function bindTournamentEvents() {
   element("tournament-deck-close-btn")?.addEventListener("click", () => closeActiveDeckModal());
   element("tournament-deck-cancel-btn")?.addEventListener("click", () => closeActiveDeckModal());
   element("tournament-deck-save-btn")?.addEventListener("click", () => void saveActiveDeckModal());
+  element("tournament-deck-mtga-text")?.addEventListener("input", () => {
+    activeDeckModal.mtgaTextDirty = true;
+    setMtgaDeckStatus("Texte modifié : appliquez la liste pour mettre à jour la vue.", "info");
+  });
+  element("tournament-deck-mtga-apply")?.addEventListener("click", () => {
+    void applyActiveMtgaText();
+  });
+  element("tournament-deck-mtga-copy")?.addEventListener("click", () => {
+    void copyActiveMtgaText();
+  });
+  element("tournament-deck-mtga-download")?.addEventListener("click", downloadActiveMtgaText);
+  element("tournament-deck-archetype-input")?.addEventListener("input", syncMtgaTextFromDeck);
   element("tournament-deck-modal-backdrop")?.addEventListener("click", (e) => {
     if (e.target === element("tournament-deck-modal-backdrop")) {
       closeActiveDeckModal();

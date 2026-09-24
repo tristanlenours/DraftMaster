@@ -154,16 +154,8 @@ export class MasterCardsIndex {
 
   public resolveCard(inputName: string): DeclaredDeckCard {
     const trimmed = inputName.trim();
-    const lower = trimmed.toLowerCase();
-    const foundByName = this.cardByName.get(lower);
-    if (foundByName !== undefined) {
-      return foundByName;
-    }
-    const norm = normalizeNameKey(trimmed);
-    const foundByNorm = this.cardByNormalized.get(norm);
-    if (foundByNorm !== undefined) {
-      return foundByNorm;
-    }
+    const exact = this.findExactCard(trimmed);
+    if (exact !== undefined) return exact;
 
     // Try fuzzy match
     let bestScore = 0;
@@ -184,13 +176,23 @@ export class MasterCardsIndex {
     }
 
     // Fallback if not found in catalog
-    const isLand = ["plains", "island", "swamp", "mountain", "forest"].includes(lower);
+    const isLand = ["plains", "island", "swamp", "mountain", "forest"].includes(
+      trimmed.toLowerCase(),
+    );
     return {
       name: trimmed,
       cmc: isLand ? 0 : 1,
       isLand,
       imageUrl: `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(trimmed)}&format=image`,
     };
+  }
+
+  public findExactCard(inputName: string): DeclaredDeckCard | undefined {
+    const trimmed = inputName.trim();
+    return (
+      this.cardByName.get(trimmed.toLowerCase()) ??
+      this.cardByNormalized.get(normalizeNameKey(trimmed))
+    );
   }
 }
 
@@ -326,18 +328,21 @@ Consignes :
 }`;
 
     const modelsToTry = [
-      "gemini-3.5-flash",
       this.configuredModel,
       "gemini-3.5-flash-lite",
+      "gemini-3.5-flash",
       "gemini-3.6-flash",
       "gemini-flash-latest",
     ];
     const uniqueModels = Array.from(new Set(modelsToTry));
 
-    let lastError = "Reconnaissance impossible.";
+    let lastError = "Aucun modèle Gemini n'a pu analyser la photo.";
+    let providerUnavailable = false;
 
     for (const model of uniqueModels) {
       for (const key of keys) {
+        const cooldownUntil = this.keyCooldowns.get(key);
+        if (cooldownUntil !== undefined && cooldownUntil >= Date.now()) continue;
         try {
           const outcome = await this.callGeminiVision(
             key,
@@ -354,16 +359,21 @@ Consignes :
           }
           if (outcome.status === "quota_exceeded") {
             this.keyCooldowns.set(key, Date.now() + 600_000);
+            lastError = "Limite ou quota Gemini atteint (HTTP 429). Réessayez plus tard.";
+            providerUnavailable = true;
             continue;
           }
           if (outcome.status === "service_unavailable") {
-            // Model capacity spike; do not cool down the key so fallback models can try it
-            continue;
-          } else {
-            lastError = outcome.error;
+            lastError = `Le modèle ${model} est temporairement indisponible (HTTP ${String(outcome.httpStatus)}). Réessayez plus tard.`;
+            providerUnavailable = true;
+            // A capacity error is model-wide; another key does not help.
+            break;
           }
+          lastError = outcome.error;
+          providerUnavailable = false;
         } catch (err: unknown) {
           lastError = err instanceof Error ? err.message : String(err);
+          providerUnavailable = false;
         }
       }
     }
@@ -371,7 +381,7 @@ Consignes :
     return {
       ok: false,
       error: {
-        code: "INVALID_INPUT",
+        code: providerUnavailable ? "STORE_UNAVAILABLE" : "INVALID_INPUT",
         message: `La reconnaissance visuelle du deck a échoué : ${lastError}`,
         details: {},
       },
@@ -387,7 +397,7 @@ Consignes :
   ): Promise<
     | { readonly status: "success"; readonly data: unknown }
     | { readonly status: "quota_exceeded" }
-    | { readonly status: "service_unavailable" }
+    | { readonly status: "service_unavailable"; readonly httpStatus: number }
     | { readonly status: "error"; readonly error: string }
   > {
     return new Promise((resolve) => {
@@ -450,8 +460,13 @@ Consignes :
               }
             } else if (res.statusCode === 429) {
               resolve({ status: "quota_exceeded" });
-            } else if (res.statusCode === 503 || res.statusCode === 502 || res.statusCode === 504) {
-              resolve({ status: "service_unavailable" });
+            } else if (
+              res.statusCode === 500 ||
+              res.statusCode === 502 ||
+              res.statusCode === 503 ||
+              res.statusCode === 504
+            ) {
+              resolve({ status: "service_unavailable", httpStatus: res.statusCode });
             } else {
               resolve({
                 status: "error",
