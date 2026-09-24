@@ -46,6 +46,7 @@
     "test:simulate:witness": "node --no-warnings --experimental-strip-types scripts/simulate-witness-picks.ts",
     "test:jev:bots": "node --no-warnings --experimental-strip-types scripts/test-jev-bot-draft.ts",
     "test:coverage": "vitest run --coverage",
+    "test:deck-ocr": "node --no-warnings --experimental-strip-types scripts/test-deck-ocr.mjs",
     "test:domain-errors": "vitest run tests/contract/draft-engine.test.ts tests/unit/draft/submit-pick-round.test.ts tests/unit/draft/report-integrity.test.ts",
     "test:e2e": "vitest run tests/e2e/simulate-cli.test.ts tests/e2e/offline-and-errors.test.ts",
     "test:mobile": "vitest run tests/integration/web-navigation-mobile-qa.test.ts",

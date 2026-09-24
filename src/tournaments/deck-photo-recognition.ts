@@ -212,22 +212,42 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
     this.cardsIndex = options?.cardsIndex ?? MasterCardsIndex.getInstance(this.projectRoot);
     this.configuredModel = options?.model ?? process.env.GEMINI_MODEL ?? "gemini-3.5-flash";
 
-    if (options?.geminiKeys && options.geminiKeys.length > 0) {
+    if (options?.geminiKeys !== undefined) {
       this.geminiKeys = [...options.geminiKeys];
     } else {
-      const rawEnv = process.env.GEMINI_API_KEYS ?? process.env.GEMINI_API_KEY ?? "";
-      const splitKeys = rawEnv
-        .split(/[,\s]+/)
-        .map((k) => k.trim())
-        .filter((k) => k.length > 0);
-
-      // Also check numbered keys like GEMINI_API_KEY_1, GEMINI_API_KEY_2...
-      for (let i = 1; i <= 10; i++) {
-        const numberedKey = process.env[`GEMINI_API_KEY_${String(i)}`]?.trim();
-        if (numberedKey && !splitKeys.includes(numberedKey)) {
-          splitKeys.push(numberedKey);
+      const splitKeys: string[] = [];
+      for (const [envKey, val] of Object.entries(process.env)) {
+        if (envKey.startsWith("GEMINI_API_KEY") && val) {
+          for (const k of val.split(/[,\s]+/)) {
+            const trimmed = k.trim();
+            if (trimmed && !splitKeys.includes(trimmed)) splitKeys.push(trimmed);
+          }
         }
       }
+
+      // If still empty, check .env.local and .env
+      if (splitKeys.length === 0) {
+        for (const envFile of [".env.local", ".env"]) {
+          const envPath = path.resolve(this.projectRoot, envFile);
+          if (fs.existsSync(envPath)) {
+            const content = fs.readFileSync(envPath, "utf8");
+            for (const line of content.split("\n")) {
+              const trimmed = line.trim();
+              if (trimmed.startsWith("GEMINI_API_KEY")) {
+                const eq = trimmed.indexOf("=");
+                if (eq > 0) {
+                  const val = trimmed.slice(eq + 1).trim();
+                  for (const k of val.split(/[,\s]+/)) {
+                    const clean = k.trim();
+                    if (clean && !splitKeys.includes(clean)) splitKeys.push(clean);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
       this.geminiKeys = splitKeys;
     }
   }
@@ -262,23 +282,38 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
     }
 
     const base64Image = imageBuffer.toString("base64");
+    const formattedCandidates: string[] = [];
+    if (options?.candidateCardNames && options.candidateCardNames.length > 0) {
+      for (const name of options.candidateCardNames.slice(0, 600)) {
+        const resolved = this.cardsIndex.resolveCard(name);
+        if (resolved.frenchName && resolved.frenchName !== resolved.name) {
+          formattedCandidates.push(`${resolved.name} (${resolved.frenchName})`);
+        } else {
+          formattedCandidates.push(resolved.name);
+        }
+      }
+    }
+
     const candidateListStr =
-      options?.candidateCardNames && options.candidateCardNames.length > 0
-        ? `\nListe des cartes du Cube (${options.cubeName ?? options.cubeKey ?? "Cube"}) :\n${JSON.stringify(options.candidateCardNames.slice(0, 700))}`
+      formattedCandidates.length > 0
+        ? `\nListe des cartes candidates du Cube (${options?.cubeName ?? options?.cubeKey ?? "Cube"}) avec nom anglais et traduction française :\n${JSON.stringify(formattedCandidates)}`
         : "";
 
     const systemPrompt = `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
 Consignes :
-1. Détecte et identifie chaque carte non-terrain et terrain non-de-base visible dans la photo. Si une liste de cartes du Cube est fournie ci-dessus, fais correspondre les cartes reconnues aux noms exacts de cette liste.
-2. Identifie les terrains de base visibles (Plains, Island, Swamp, Mountain, Forest) et déduis ou estime leurs quantités.
-3. Détermine l'archétype général ou les couleurs du deck (ex: "Aggro Boros", "Dimir Contrôle", "Elfes Golgari", "Tokens Selesnya", etc.).
-4. Réponds UNIQUEMENT avec un objet JSON valide respectant cette structure exacte :
+1. Détecte et identifie minutieusement chaque carte visible dans la photo (qu'elle soit en version anglaise ou française).
+2. Si une liste de cartes du Cube est fournie ci-dessus, fais correspondre chaque carte reconnue à son nom anglais officiel exact de la liste.
+3. Attention aux cartes empilées en colonnes / cascade (très fréquent en MTG) où seul le haut ou le bandeau de titre d'une carte dépasse sous la suivante : examine chaque carte visible dans chaque colonne de haut en bas sans en omettre !
+4. Attention à l'orientation : la photo peut être pivotée (ex: 90° à l'horizontale ou verticale). Lis le texte selon l'orientation naturelle des cartes.
+5. Identifie les terrains de base visibles (Plains, Island, Swamp, Mountain, Forest) et déduis ou estime leurs quantités.
+6. Détermine l'archétype général ou les couleurs du deck (ex: "Azorius Contrôle", "Aggro Boros", "Dimir Tempo", etc.).
+7. Réponds UNIQUEMENT avec un objet JSON valide respectant cette structure exacte :
 {
   "archetype": "string",
   "cards": [
-    { "name": "Nom Exact de la Carte en Anglais", "count": 1 }
+    { "name": "Exact Card Name in English", "count": 1 }
   ],
   "basicLands": {
     "Plains": 0,
@@ -293,6 +328,7 @@ Consignes :
     const modelsToTry = [
       this.configuredModel,
       "gemini-3.5-flash",
+      "gemini-3.5-flash-lite",
       "gemini-3.6-flash",
       "gemini-flash-latest",
     ];
@@ -321,7 +357,7 @@ Consignes :
             continue;
           }
           if (outcome.status === "service_unavailable") {
-            this.keyCooldowns.set(key, Date.now() + 60_000);
+            // Model capacity spike; do not cool down the key so fallback models can try it
             continue;
           } else {
             lastError = outcome.error;
