@@ -569,7 +569,17 @@ export function createRequestHandler(options = {}) {
     projectRoot: rootDir,
     loadContext: async (cubeKey) => {
       const context = await loadCoachContext(rootDir, cubeKey);
-      if (context.ok) return { ...context.value, coverage: "full" };
+      if (context.ok) {
+        return {
+          ...context.value,
+          coverage: "full",
+          provenance: {
+            source: "coach-context@1",
+            ...context.value.provenance,
+            catalogGeneratedAt: context.value.catalog.catalog.generatedAt,
+          },
+        };
+      }
       if (context.error.code !== "CONTEXT_NOT_READY") {
         throw new Error(context.error.message);
       }
@@ -577,13 +587,25 @@ export function createRequestHandler(options = {}) {
       if (!snapshot.ok && snapshot.error.code !== "INSUFFICIENT_CARDS") {
         throw new Error(snapshot.error.message);
       }
+      const catalog = await loadMultiplayerCatalog();
       return {
         cubeKey,
         snapshotId: snapshot.ok ? snapshot.value.snapshotId : null,
         ...(snapshot.ok ? { snapshot: snapshot.value } : {}),
-        catalog: await loadMultiplayerCatalog(),
+        catalog,
         deckEvaluationOptions: {},
         coverage: snapshot.ok ? "basic" : "catalog_only",
+        provenance: {
+          source: snapshot.ok ? "snapshot-catalog" : "catalog-only",
+          catalogCardCount: catalog.totalCards,
+          catalogGeneratedAt: catalog.catalog.generatedAt,
+          ...(snapshot.ok
+            ? {
+                snapshotSha256: snapshot.value.integrity.canonicalSha256,
+                snapshotSourceSha256: snapshot.value.source.rawSha256,
+              }
+            : {}),
+        },
       };
     },
   });

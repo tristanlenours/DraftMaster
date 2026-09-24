@@ -12057,7 +12057,10 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   border-radius: var(--radius-sm);
   background: #101827;
   color: #f8fafc;
-  font: 0.85rem/1.5 ui-monospace, Consolas, monospace;
+  font:
+    0.85rem/1.5 ui-monospace,
+    Consolas,
+    monospace;
 }
 
 #tournament-deck-mtga-text:focus-visible {
@@ -12396,6 +12399,18 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 
 .deck-lab-evidence p:last-child {
   margin-bottom: 0;
+}
+
+.deck-lab-audit,
+.deck-lab-provenance {
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+
+.deck-lab-audit summary,
+.deck-lab-provenance summary {
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .deck-lab-axis {

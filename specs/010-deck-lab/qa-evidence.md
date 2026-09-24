@@ -2,15 +2,13 @@
 
 ## Automated results (2026-09-24)
 
-- `npm run format:check`, `npm run lint`, `npm run typecheck`, and `git diff --check` — passed after the final code change.
-- `npm run cards:facts:verify`, `npm run synergy:profiles:verify`, `npm run coach:data:verify`, and `npm run reports:verify` — passed in the full quality command.
-- `npm run test` — 109 files passed, 699 tests passed, 1 skipped, with Supabase environment values set to blank for offline execution.
-- `npm run test:coverage` — 109 files passed; 84.31% statements and 72.06% branches across the repository. Coverage is diagnostic, not an acceptance substitute.
-- `npx playwright test` — 42 Chromium journeys passed. Four Deck Lab journeys cover desktop navigation, mobile drawer at 360 px, rating, proposal, French basic land display, cube coverage warnings and photo correction. The existing tournament photo journey also passed.
-- `npm run check` passed through report verification. Its final browser stage could not launch Chromium in the local sandbox, so the approved `npx playwright test` command was run separately and passed. An earlier run also exposed two existing auth-test timeouts caused by `.env` Supabase credentials; rerunning the suite with blank process values passed.
+- `npm run check` — passed end to end with Chromium launch authorized and Supabase environment values set to blank for offline execution. This includes format, lint, types, card facts, synergy profiles, coach data, tests, coverage, report verification, and browser journeys.
+- Vitest: 109 files passed, 700 tests passed, 1 skipped. V8 coverage: 84.33% statements and 72.08% branches across the repository. Coverage is diagnostic, not an acceptance substitute.
+- Playwright: 43 Chromium journeys passed. Five Deck Lab journeys cover desktop navigation, mobile drawer at 360 px, rating, distinct Pimp changes and copied final deck, French basic land display, provenance, cube coverage warnings and photo correction. The existing tournament photo journey also passed.
+- `git diff --check` — passed after the final code change.
 
 ## Review and release limits
 
 - The full Spec Kit artifacts and issue were completed after initial implementation; [plan.md](plan.md) discloses this ordering gap for reviewer judgment.
 - Human review of photo recognition on representative images, recommendation quality on real 45-card pools, and a smoke test of a deployed instance remain.
-- Required remote CI, Standards + Spec review, and human PR approval are separate delivery gates until recorded as passed.
+- The initial Standards + Spec review found missing score audit/provenance and ambiguous Pimp card movements; these were corrected and verified with focused unit and browser regressions. Remote CI, follow-up review, and human PR approval remain separate gates until recorded as passed.

@@ -35,6 +35,8 @@ describe("deck lab", () => {
       "interaction",
     ]);
     expect(result.rating.formulaVersion).toMatch(/^deck-evaluation@/u);
+    expect(result.rating.audit.contributions).toHaveLength(5);
+    expect(result.rating.audit.power.components).toHaveProperty("bombDensityBonus");
     expect(result.rating.evidence.power.examples).toContain("Lightning Bolt");
     expect(result.rating.evidence.interaction.examples).toContain("Lightning Bolt");
     expect(result.warnings.join(" ")).toMatch(/réserve ignorée/iu);
@@ -67,12 +69,35 @@ describe("deck lab", () => {
     );
     expect(result.input.poolCount).toBe(45);
     if (!("build" in result)) throw new Error("Pimp result is missing its build");
-    const selected = result.build.keep.reduce((sum, card) => sum + card.count, 0);
+    const selected = result.build.final.reduce((sum, card) => sum + card.count, 0);
     const basics = Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0);
     expect(selected + basics).toBe(40);
     expect(result.build.reserve.reduce((sum, card) => sum + card.count, 0)).toBe(28 - selected);
-    expect(result.build.add.every((card) => card.name === "Counterspell")).toBe(true);
-    expect(result.build.remove.every((card) => card.name === "Lightning Bolt")).toBe(true);
+    expect(
+      result.build.add.every((card) =>
+        ["Counterspell", "Plains", "Island", "Swamp", "Mountain", "Forest"].includes(card.name),
+      ),
+    ).toBe(true);
+    expect(
+      result.build.remove.every((card) => ["Lightning Bolt", "Mountain"].includes(card.name)),
+    ).toBe(true);
+  });
+
+  it("separates retained cards from additions and names removed basic lands", () => {
+    const result = analyzeDeckText(
+      "Deck\n20 Lightning Bolt\n20 Mountain\nSideboard\n5 Black Lotus",
+      "pimp",
+      catalog,
+    );
+    if (!("build" in result)) throw new Error("Pimp result is missing its build");
+    const count = (cards: readonly { name: string; count: number }[], name: string) =>
+      cards.find((card) => card.name === name)?.count ?? 0;
+    expect(count(result.build.add, "Black Lotus")).toBe(5);
+    expect(count(result.build.keep, "Black Lotus")).toBe(0);
+    expect(count(result.build.final, "Black Lotus")).toBe(5);
+    expect(count(result.build.remove, "Mountain")).toBe(
+      20 - (result.build.basicLands.Mountain ?? 0),
+    );
   });
 
   it("returns the same proposal and rating for the same pool", () => {
@@ -96,7 +121,7 @@ describe("deck lab", () => {
     const result = analyzeDeckText("Deck\n10 Lightning Bolt", "pimp", catalog);
     expect(result.warnings.join(" ")).toMatch(/préliminaire/iu);
     if (!("build" in result)) throw new Error("Pimp result is missing its build");
-    const selected = result.build.keep.reduce((sum, card) => sum + card.count, 0);
+    const selected = result.build.final.reduce((sum, card) => sum + card.count, 0);
     const basics = Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0);
     expect(selected + basics).toBe(40);
   });

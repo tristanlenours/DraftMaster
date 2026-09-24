@@ -17,6 +17,10 @@ test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-axis")).toHaveCount(5);
   await expect(page.locator("#deck-lab-result .deck-lab-evidence")).toContainText("Lightning Bolt");
+  await expect(page.locator("#deck-lab-result .deck-lab-audit")).toContainText("Détail du score");
+  await expect(page.locator("#deck-lab-result .deck-lab-provenance")).toContainText(
+    "coach-context@1",
+  );
 
   await page.locator("#deck-lab-text").fill("Deck\n45 Lightning Bolt");
   await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
@@ -39,6 +43,27 @@ test("the desktop navigation opens Rate and Pimp", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Rate my deck · Pimp my deck" })).toBeVisible();
 });
 
+test("pimp distinguishes additions, removals and the copied final deck", async ({ page }) => {
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/deck-lab");
+  await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  await page
+    .locator("#deck-lab-text")
+    .fill("Deck\n20 Lightning Bolt\n20 Mountain\nSideboard\n5 Black Lotus");
+  await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
+  const additions = page
+    .locator(".deck-lab-card-list")
+    .filter({ hasText: "À ajouter au maindeck" });
+  const retained = page.locator(".deck-lab-card-list").filter({ hasText: "Cartes retenues" });
+  const removals = page.locator(".deck-lab-card-list").filter({ hasText: "À retirer du maindeck" });
+  await expect(additions).toContainText("5 × Black Lotus");
+  await expect(retained).not.toContainText("Black Lotus");
+  await expect(removals).toContainText("Mountain");
+  await page.getByRole("button", { name: "Copier la liste (format MTGA)" }).click();
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toContain("5 Black Lotus");
+});
+
 test("a cube without a ready synergy profile gives a clearly limited rating", async ({
   request,
 }) => {
@@ -51,10 +76,12 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
   });
   expect(response.status()).toBe(200);
   const result = (await response.json()) as {
-    context: { coverage: string };
+    context: { coverage: string; provenance: { source: string; catalogCardCount: number } };
     warnings: string[];
   };
   expect(result.context.coverage).toBe("catalog_only");
+  expect(result.context.provenance.source).toBe("catalog-only");
+  expect(result.context.provenance.catalogCardCount).toBeGreaterThan(0);
   expect(result.warnings.join(" ")).toMatch(/pas de snapshot valide/iu);
 
   const arenaResponse = await request.post("/api/deck-lab/analyze", {
@@ -66,10 +93,12 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
   });
   expect(arenaResponse.status()).toBe(200);
   const arenaResult = (await arenaResponse.json()) as {
-    context: { coverage: string };
+    context: { coverage: string; provenance: { source: string; snapshotSha256: string } };
     warnings: string[];
   };
   expect(arenaResult.context.coverage).toBe("basic");
+  expect(arenaResult.context.provenance.source).toBe("snapshot-catalog");
+  expect(arenaResult.context.provenance.snapshotSha256).toMatch(/^[a-f0-9]{64}$/u);
   expect(arenaResult.warnings.join(" ")).toMatch(/profil de synergie.*pas prêt/iu);
 });
 

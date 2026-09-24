@@ -127,6 +127,7 @@ function compactEvaluation(evaluation: DeckEvaluation, deck: readonly CardEvalua
     },
     formulaVersion: evaluation.audit.formulaVersion,
     scoreMeaning: evaluation.audit.scoreMeaning,
+    audit: evaluation.audit,
   };
 }
 
@@ -231,6 +232,14 @@ export function analyzeDeckText(
         : proposal.maindeck.filter((id) => id === BASIC_INPUTS[name].id).length,
     ]),
   );
+  const addedBasics = BASIC_NAMES.flatMap((name) => {
+    const count = (basicLands[name] ?? 0) - parsed.basicLands[name];
+    return count > 0 ? [{ name, count }] : [];
+  });
+  const removedBasics = BASIC_NAMES.flatMap((name) => {
+    const count = parsed.basicLands[name] - (basicLands[name] ?? 0);
+    return count > 0 ? [{ name, count }] : [];
+  });
   return {
     mode,
     input,
@@ -238,15 +247,25 @@ export function analyzeDeckText(
     rating: useCurrent ? previous : compactEvaluation(proposal.evaluation, proposedDeck),
     build: {
       title: useCurrent ? "Deck actuel conservé" : proposal.title,
-      keep: summarize(chosenIds, byId),
-      add: summarize(
-        chosenIds.filter((id) => !mainIds.has(id)),
+      final: summarize(chosenIds, byId),
+      keep: summarize(
+        chosenIds.filter((id) => mainIds.has(id)),
         byId,
       ),
-      remove: summarize(
-        main.filter((card) => !chosen.has(card.id)).map((card) => card.id),
-        byId,
-      ),
+      add: [
+        ...summarize(
+          chosenIds.filter((id) => !mainIds.has(id)),
+          byId,
+        ),
+        ...addedBasics,
+      ],
+      remove: [
+        ...summarize(
+          main.filter((card) => !chosen.has(card.id)).map((card) => card.id),
+          byId,
+        ),
+        ...removedBasics,
+      ],
       reserve: summarize(
         pool.filter((card) => !chosen.has(card.id)).map((card) => card.id),
         byId,

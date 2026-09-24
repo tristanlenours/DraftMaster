@@ -14,6 +14,17 @@ export interface DeckLabAnalysisContext {
   readonly deckEvaluationOptions: DeckEvaluationOptions;
   readonly synergyProfile?: DeckSynergyProfile;
   readonly coverage: "full" | "basic" | "catalog_only";
+  readonly provenance: {
+    readonly source: "coach-context@1" | "snapshot-catalog" | "catalog-only";
+    readonly catalogCardCount: number;
+    readonly catalogGeneratedAt: string;
+    readonly snapshotSha256?: string;
+    readonly snapshotSourceSha256?: string;
+    readonly profileSourceSha256?: string;
+    readonly archetypeModelVersion?: string;
+    readonly archetypeGeneratorVersion?: string;
+    readonly powerRankingId?: string;
+  };
 }
 
 export interface DeckLabHttpDependencies {
@@ -124,6 +135,7 @@ export function createDeckLabHttpHandler(dependencies: Readonly<DeckLabHttpDepen
           snapshotId: context.snapshotId,
           profileVersion: context.synergyProfile?.modelVersion ?? null,
           coverage: context.coverage,
+          provenance: context.provenance,
         },
       });
     } catch (error: unknown) {

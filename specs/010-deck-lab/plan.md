@@ -28,8 +28,8 @@ Expose the existing deck evaluator and deterministic deck recommender through a 
 ## Design
 
 1. Extend `src/web/mtga-deck-text.js` to retain sideboard cards and French basic land aliases for this flow without changing tournament interpretation.
-2. `src/deck-lab/analyze-deck.ts` validates the 40/45 boundaries, resolves exact catalog facts, calls the shared evaluator/recommender, and returns a compact explanation with provenance and card movements.
-3. `src/deck-lab/http-handler.ts` selects the cube context and translates typed input errors into HTTP responses. `scripts/serve-web.mjs` mounts the endpoint.
+2. `src/deck-lab/analyze-deck.ts` validates the 40/45 boundaries, resolves exact catalog facts, calls the shared evaluator/recommender, and returns a compact explanation plus the full scoring audit. It separates cards kept from the maindeck, added, removed (including basics), and present in the final export.
+3. `src/deck-lab/http-handler.ts` selects the cube context, exposes available snapshot/catalog/profile provenance, and translates typed input errors into HTTP responses. `scripts/serve-web.mjs` mounts the endpoint.
 4. `src/web/deck-lab.js` owns the form and result presentation. `src/web/deck-photo-upload.js` shares photo input handling with the tournament flow. `src/web/index.html`, `src/web/app.js`, and `src/web/styles.css` expose `/deck-lab` in desktop and mobile navigation.
 5. Keep photo text editable and never submit it for rating without the player's explicit action.
 

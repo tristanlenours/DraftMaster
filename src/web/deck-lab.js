@@ -123,6 +123,38 @@ function renderRating(parent, rating, label, translations) {
     section.append(list);
   }
   section.append(node("p", "deck-lab-hint", `${rating.formulaVersion} · ${rating.scoreMeaning}`));
+  const audit = node("details", "deck-lab-audit");
+  audit.append(node("summary", "", "Détail du score et facteurs"));
+  const breakdown = node("ul");
+  for (const contribution of rating.audit.contributions) {
+    const axisLabel = AXES.find(([key]) => key === contribution.axis)?.[1] ?? contribution.axis;
+    breakdown.append(
+      node(
+        "li",
+        "",
+        `${axisLabel} : ${contribution.weightedPoints.toFixed(1)} point(s) (${contribution.score}/100 × ${Math.round(contribution.weight * 100)} %).`,
+      ),
+    );
+  }
+  const { bombDensityBonus, fastManaBonus } = rating.audit.power.components;
+  if (bombDensityBonus > 0) {
+    breakdown.append(node("li", "", `Bonus de densité de bombes : +${bombDensityBonus}.`));
+  }
+  if (fastManaBonus > 0) {
+    breakdown.append(node("li", "", `Bonus de mana rapide : +${fastManaBonus}.`));
+  }
+  for (const pack of rating.audit.synergy.packages) {
+    if (pack.contribution > 0) {
+      breakdown.append(node("li", "", `${pack.label} : +${pack.contribution} en synergie.`));
+    }
+    if (pack.fragilityPenalty > 0) {
+      breakdown.append(
+        node("li", "", `${pack.label} : −${pack.fragilityPenalty} pour fragilité du plan.`),
+      );
+    }
+  }
+  audit.append(breakdown);
+  section.append(audit);
   parent.append(section);
 }
 
@@ -161,11 +193,29 @@ function renderResult(result) {
     result.mode === "rate" ? "Note du deck" : "Construction proposée",
     result.translations,
   );
+  const provenance = result.context.provenance;
+  const sources = node("details", "deck-lab-provenance");
+  sources.append(node("summary", "", "Sources et versions des données"));
+  const sourceList = node("ul");
+  for (const [label, value] of [
+    ["Couverture", result.context.coverage],
+    ["Source", provenance.source],
+    ["Catalogue", `${provenance.catalogCardCount} cartes · ${provenance.catalogGeneratedAt}`],
+    ["Classement de puissance", provenance.powerRankingId],
+    ["SHA-256 du snapshot", provenance.snapshotSha256],
+    ["SHA-256 de la source", provenance.snapshotSourceSha256],
+    ["SHA-256 du profil", provenance.profileSourceSha256],
+    ["Version du profil", provenance.archetypeModelVersion],
+  ]) {
+    if (value) sourceList.append(node("li", "", `${label} : ${value}`));
+  }
+  sources.append(sourceList);
+  root.append(sources);
   if (result.build) {
     const build = result.build;
     root.append(node("h3", "deck-lab-build-title", build.title));
     const lists = node("div", "deck-lab-card-grid");
-    renderCardList(lists, "À ajouter depuis la réserve", build.add, result.translations);
+    renderCardList(lists, "À ajouter au maindeck", build.add, result.translations);
     renderCardList(lists, "À retirer du maindeck", build.remove, result.translations);
     renderCardList(lists, "Cartes retenues", build.keep, result.translations);
     renderCardList(lists, "Cartes écartées", build.reserve, result.translations);
@@ -185,7 +235,7 @@ function renderResult(result) {
         await navigator.clipboard.writeText(
           formatMtgaDeckText({
             deckName: build.title,
-            cards: build.keep,
+            cards: build.final,
             basicLands: build.basicLands,
           }),
         );
