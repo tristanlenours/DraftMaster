@@ -10205,6 +10205,16 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
     width: 100%;
   }
 
+  .tournament-create-form,
+  .tournament-form-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tournament-form-actions > * {
+    width: 100%;
+  }
+
   .tournament-history {
     order: 2;
   }
@@ -10236,8 +10246,6 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   }
 
   .tournament-settings-grid,
-  .tournament-create-form,
-  .tournament-form-actions,
   .tournament-panel-heading,
   .tournament-players-heading,
   .tournament-round-heading,
@@ -10247,7 +10255,6 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .tournament-form-actions > *,
   .tournament-players-heading .tournament-secondary-button,
   .tournament-form-actions-end .tournament-primary-button {
     width: 100%;

@@ -1072,6 +1072,36 @@ test("conserve un formulaire compact sans débordement à 360 px", async ({ page
     .toBe(true);
 });
 
+test("garde le nom du tournoi saisissable sur un mobile de 412 px", async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 800 });
+  await page.route("**/api/tournaments**", async (route) => {
+    const url = new URL(route.request().url());
+    await route.fulfill({
+      json:
+        url.pathname === "/api/tournaments/cubes"
+          ? {
+              ok: true,
+              cubes: [
+                {
+                  cubeKey: "titou_tribal",
+                  cubeName: "Titou Tribal",
+                  activeSnapshotId: "titou_tribal@2026-09-21.1",
+                },
+              ],
+            }
+          : { ok: true, tournaments: [] },
+    });
+  });
+
+  await page.goto("/tournaments");
+  await page.locator("#tournament-new-btn").click();
+  const nameInput = page.locator("#tournament-create-name");
+  await expect(nameInput).toBeVisible();
+  await expect.poll(async () => (await nameInput.boundingBox())?.width ?? 0).toBeGreaterThan(250);
+  await nameInput.fill("Tournoi mobile");
+  await expect(nameInput).toHaveValue("Tournoi mobile");
+});
+
 test("UX tournoi: auto-nommage via cube, sélection magiciens et annulation", async ({ page }) => {
   let tournamentDeleted = false;
   let currentTournament: BrowserTournament | null = null;

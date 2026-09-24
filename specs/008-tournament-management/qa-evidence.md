@@ -195,3 +195,10 @@
 ## Poussé
 
 - Poussé sur `origin/main` et `origin/008-tournament-management`.
+
+## Correctif mobile du formulaire de création — Issue #84
+
+- Reproduction Playwright à 412 px : le champ « Nom du tournoi » mesurait 43,84 px avant correction.
+- La disposition en une colonne s'applique désormais dès 768 px, comme le reste de la page tournoi.
+- Le test navigateur vérifie une largeur supérieure à 250 px et la saisie du nom à 412 px ; le contrôle de débordement à 360 px reste vert.
+- `npm run check` : format, ESLint, TypeScript, vérifications de données, 692 tests Vitest (1 ignoré), couverture, rapports et 38 parcours navigateur réussis. `git diff --check` réussit.
