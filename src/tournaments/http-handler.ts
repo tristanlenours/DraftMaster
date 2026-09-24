@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
 import { createDeckPhotoRecognizer, type DeckPhotoRecognizer } from "./deck-photo-recognition.ts";
+import { previewTournamentMtgaDeck } from "./mtga-deck-import.ts";
 import { observeTournamentResult } from "./observability.ts";
 import type { TournamentObservability } from "./observability.ts";
 import type {
@@ -121,6 +122,22 @@ export function createTournamentHttpHandler(
       return true;
     }
 
+    if (url.pathname === "/api/tournaments/parse-deck" && request.method === "POST") {
+      try {
+        const body = await readJsonBody(request, 128 * 1024);
+        if (!isRecord(body) || typeof body.text !== "string") {
+          sendInvalidInput(response, "La liste MTGA est obligatoire.");
+          return true;
+        }
+        const result = previewTournamentMtgaDeck(body.text);
+        if (result.ok) sendJson(response, 200, { ok: true, ...result.value });
+        else sendJson(response, 400, { ok: false, error: result.error });
+      } catch {
+        sendInvalidInput(response, "La liste MTGA est invalide ou trop volumineuse.");
+      }
+      return true;
+    }
+
     if (url.pathname === "/api/tournaments/recognize-deck" && request.method === "POST") {
       try {
         const body = await readJsonBody(request, 25 * 1024 * 1024);
@@ -167,7 +184,10 @@ export function createTournamentHttpHandler(
         if (result.ok) {
           sendJson(response, 200, { ok: true, ...result.value });
         } else {
-          sendJson(response, 400, { ok: false, error: result.error });
+          sendJson(response, result.error.code === "STORE_UNAVAILABLE" ? 503 : 400, {
+            ok: false,
+            error: result.error,
+          });
         }
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : "";

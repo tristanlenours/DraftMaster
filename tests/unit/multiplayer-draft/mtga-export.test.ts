@@ -81,6 +81,9 @@ describe("generateMtgaExport", () => {
     ]);
     expect(result.warnings[0]).toContain("ne peut pas etre presente comme importable");
     expect(result.text).toContain("# Export MTGA partiel non importable");
+    expect(result.tournamentText).toContain("1 Mystery Card");
+    expect(result.tournamentText).toContain("15 Mountain\n\nSideboard\n");
+    expect(result.tournamentText).not.toContain("partiel non importable");
   });
 
   it("refuse une liste qui n'a pas exactement 40 cartes", () => {

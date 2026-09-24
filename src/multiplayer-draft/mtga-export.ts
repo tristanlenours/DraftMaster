@@ -25,6 +25,7 @@ export interface MtgaIncompatibleCard {
 export interface MtgaExportResult {
   readonly compatible: boolean;
   readonly text: string;
+  readonly tournamentText: string;
   readonly warnings: readonly string[];
   readonly incompatibleCards: readonly MtgaIncompatibleCard[];
   readonly deckCount: number;
@@ -101,11 +102,15 @@ function getIncompatibility(card: MtgaExportCard): MtgaIncompatibleCard | undefi
   return undefined;
 }
 
-function aggregate(cards: readonly MtgaExportCard[]): readonly ExportLine[] {
+function aggregate(
+  cards: readonly MtgaExportCard[],
+  naming: "arena" | "printed" = "arena",
+): readonly ExportLine[] {
   const lines = new Map<string, ExportLine>();
   for (const card of cards) {
-    if (getIncompatibility(card)) continue;
-    const name = (card.arenaName ?? card.name).trim();
+    if (naming === "arena" && getIncompatibility(card)) continue;
+    const name = (naming === "arena" ? (card.arenaName ?? card.name) : card.name).trim();
+    if (!name) throw new Error("Une carte du deck n'a pas de nom exportable.");
     const current = lines.get(name);
     lines.set(name, {
       name,
@@ -167,6 +172,11 @@ export function generateMtgaExport(input: Readonly<FinalizedDeckForMtga>): MtgaE
   const compatible = incompatibleCards.length === 0;
   const deckText = renderSection("Deck", [...aggregate(selectedCards), ...basicLines]);
   const sideboardText = renderSection("Sideboard", aggregate(sideboardCards));
+  const tournamentDeckText = renderSection("Deck", [
+    ...aggregate(selectedCards, "printed"),
+    ...basicLines,
+  ]);
+  const tournamentSideboardText = renderSection("Sideboard", aggregate(sideboardCards, "printed"));
   const marker = compatible ? "" : "# Export MTGA partiel non importable\n";
   const warnings = compatible
     ? []
@@ -177,6 +187,7 @@ export function generateMtgaExport(input: Readonly<FinalizedDeckForMtga>): MtgaE
   return {
     compatible,
     text: `${marker}${deckText}\n\n${sideboardText}\n`,
+    tournamentText: `${tournamentDeckText}\n\n${tournamentSideboardText}\n`,
     warnings,
     incompatibleCards,
     deckCount,

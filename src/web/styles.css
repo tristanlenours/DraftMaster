@@ -12010,6 +12010,62 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   flex-direction: column;
 }
 
+.tournament-deck-mtga-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.tournament-deck-mtga-panel h3,
+.tournament-deck-mtga-panel p {
+  margin: 0;
+}
+
+.tournament-deck-mtga-panel p {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+}
+
+.tournament-deck-mtga-panel label {
+  font-weight: 700;
+  color: #f5d77f;
+}
+
+#tournament-deck-mtga-text {
+  width: 100%;
+  min-height: 9rem;
+  resize: vertical;
+  padding: 0.7rem;
+  border: 1px solid #64748b;
+  border-radius: var(--radius-sm);
+  background: #101827;
+  color: #f8fafc;
+  font: 0.85rem/1.5 ui-monospace, Consolas, monospace;
+}
+
+#tournament-deck-mtga-text:focus-visible {
+  outline: 2px solid #f5d77f;
+  outline-offset: 2px;
+}
+
+.tournament-deck-mtga-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tournament-deck-mtga-status[data-kind="error"] {
+  color: #fca5a5;
+}
+
+.tournament-deck-mtga-status[data-kind="warning"] {
+  color: #f5d77f;
+}
+
 .tournament-deck-search-results {
   position: absolute;
   top: calc(100% + 4px);

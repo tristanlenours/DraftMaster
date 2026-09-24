@@ -375,6 +375,14 @@ test("atelier 40 cartes modifiable et export MTGA au clavier sur mobile", async 
       });
       return;
     }
+    if (url.endsWith("/api/multiplayer/deck/export.tournament.txt")) {
+      expect(request.headers().authorization).toBe("Bearer private-alice");
+      await route.fulfill({
+        contentType: "text/plain; charset=utf-8",
+        body: "Deck\n1 Carte 24\n22 Carte 2\n9 Plains\n8 Island\n\nSideboard\n1 Carte 1\n",
+      });
+      return;
+    }
     await route.abort();
   });
 
@@ -403,6 +411,12 @@ test("atelier 40 cartes modifiable et export MTGA au clavier sur mobile", async 
     await page.keyboard.press("Enter");
     await expect(page.locator("#multi-feedback")).toHaveText("Liste MTGA copiée.");
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain("Deck");
+    await page.locator("#multi-copy-tournament-export").focus();
+    await page.keyboard.press("Enter");
+    await expect(page.locator("#multi-feedback")).toHaveText("Liste pour tournoi copiée.");
+    await expect
+      .poll(() => page.evaluate(() => navigator.clipboard.readText()))
+      .toContain("Carte 24");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );

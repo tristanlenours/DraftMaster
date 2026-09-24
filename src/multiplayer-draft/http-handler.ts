@@ -383,6 +383,29 @@ export function createMultiplayerDraftHttpHandler(
       return true;
     }
 
+    if (
+      url.pathname === "/api/multiplayer/deck/export.tournament.txt" &&
+      request.method === "GET"
+    ) {
+      const resumeToken = getBearerToken(request);
+      if (!resumeToken) {
+        sendInvalidInput(response, "L'Acces de reprise est obligatoire.");
+        return true;
+      }
+      const result = await dependencies.coordinator.getDeckExport(resumeToken);
+      if (!result.ok) {
+        sendResult(response, result, () => ({}));
+        return true;
+      }
+      response.writeHead(200, {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+        "Content-Disposition": 'attachment; filename="draftmaster-tournoi-deck.txt"',
+      });
+      response.end(result.value.tournamentText);
+      return true;
+    }
+
     if (url.pathname === "/api/multiplayer/abandon" && request.method === "POST") {
       const requestId = getHeader(request, "idempotency-key")?.trim();
       const resumeToken = getBearerToken(request);

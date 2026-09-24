@@ -83,6 +83,8 @@ function getElements() {
     exportActions: document.getElementById("multi-export-actions"),
     copyExport: document.getElementById("multi-copy-export"),
     downloadExport: document.getElementById("multi-download-export"),
+    copyTournamentExport: document.getElementById("multi-copy-tournament-export"),
+    downloadTournamentExport: document.getElementById("multi-download-tournament-export"),
   };
 }
 
@@ -756,6 +758,44 @@ async function downloadMtgaExport() {
   }
 }
 
+async function fetchTournamentDeckExport() {
+  const resumeToken = localStorage.getItem(RESUME_TOKEN_KEY);
+  if (!resumeToken) throw new Error("Code de reprise manquant.");
+  const response = await fetch("/api/multiplayer/deck/export.tournament.txt", {
+    cache: "no-store",
+    headers: { Authorization: `Bearer ${resumeToken}` },
+  });
+  if (!response.ok) {
+    const payload = await response.json();
+    throw new Error(payload.error?.message ?? "Export pour tournoi indisponible.");
+  }
+  return response.text();
+}
+
+async function copyTournamentDeckExport() {
+  try {
+    await navigator.clipboard.writeText(await fetchTournamentDeckExport());
+    showFeedback("Liste pour tournoi copiée.");
+  } catch (error) {
+    showFeedback(error instanceof Error ? error.message : "Copie impossible.", true);
+  }
+}
+
+async function downloadTournamentDeckExport() {
+  try {
+    const text = await fetchTournamentDeckExport();
+    const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "draftmaster-tournoi-deck.txt";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    showFeedback("Liste pour tournoi téléchargée.");
+  } catch (error) {
+    showFeedback(error instanceof Error ? error.message : "Téléchargement impossible.", true);
+  }
+}
+
 async function resumeWithCode() {
   const elements = getElements();
   const resumeToken = elements.importCode?.value.trim();
@@ -836,6 +876,14 @@ export function initMultiplayerDraftView() {
     getElements().finalizeDeck?.addEventListener("click", () => void saveDeck(true));
     getElements().copyExport?.addEventListener("click", () => void copyMtgaExport());
     getElements().downloadExport?.addEventListener("click", () => void downloadMtgaExport());
+    getElements().copyTournamentExport?.addEventListener(
+      "click",
+      () => void copyTournamentDeckExport(),
+    );
+    getElements().downloadTournamentExport?.addEventListener(
+      "click",
+      () => void downloadTournamentDeckExport(),
+    );
     for (const [name, input] of Object.entries(getBasicLandInputs())) {
       input?.addEventListener("input", (event) => updateBasicLand(name, event.target.value));
     }

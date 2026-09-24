@@ -1,4 +1,5 @@
 import { expect, test, type Route } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
 interface BrowserTournament {
   tournamentId: string;
@@ -789,6 +790,11 @@ test("recherche, sélectionne et retrouve une carte clé du Snapshot après relo
     { oracleId: "oracle-counterspell", name: "Counterspell" },
   ];
   let keyCards: { oracleId: string; name: string }[] = [];
+  let photoDeck: {
+    deckName: string;
+    cards: { name: string; count: number }[];
+    basicLands: Record<string, number>;
+  } | null = null;
   let revision = 2;
   const buildTournament = () => ({
     schemaVersion: 1,
@@ -820,7 +826,12 @@ test("recherche, sélectionne et retrouve une carte clé du Snapshot après relo
         normalizedName: "alice",
         registrationOrder: 0,
         status: "active",
-        deck: { name: "Aggro Boros", keyCards },
+        deck: {
+          name: photoDeck?.deckName ?? "Aggro Boros",
+          keyCards,
+          cards: photoDeck?.cards ?? [],
+          basicLands: photoDeck?.basicLands ?? {},
+        },
       },
       {
         participantId: "participant-bob",
@@ -895,6 +906,45 @@ test("recherche, sélectionne et retrouve une carte clé du Snapshot après relo
       await route.fulfill({ json: { ok: true, tournament: buildTournament() } });
       return;
     }
+    if (request.method() === "POST" && url.pathname === "/api/tournaments/recognize-deck") {
+      await route.fulfill({
+        json: {
+          ok: true,
+          archetype: "Aggro Boros",
+          cards: [{ name: "Lightning Bolt", count: 1, cmc: 1 }],
+          basicLands: { Plains: 8, Island: 0, Swamp: 0, Mountain: 8, Forest: 0 },
+          totalCount: 17,
+        },
+      });
+      return;
+    }
+    if (request.method() === "POST" && url.pathname === "/api/tournaments/parse-deck") {
+      await route.fulfill({
+        json: {
+          ok: true,
+          deckName: "Aggro Boros",
+          cards: [
+            { name: "Lightning Bolt", count: 1, cmc: 1 },
+            { name: "Maul of the Skyclaves", count: 1, cmc: 3 },
+          ],
+          basicLands: { Plains: 8, Island: 0, Swamp: 0, Mountain: 8, Forest: 0 },
+          totalCount: 18,
+          sideboardCount: 0,
+          unverifiedNames: [],
+          warnings: [],
+        },
+      });
+      return;
+    }
+    if (
+      request.method() === "PUT" &&
+      url.pathname === "/api/tournaments/tournament-key-cards/participants/participant-alice/deck"
+    ) {
+      photoDeck = request.postDataJSON() as typeof photoDeck;
+      revision += 1;
+      await route.fulfill({ json: { ok: true, tournament: buildTournament() } });
+      return;
+    }
     await route.fulfill({ status: 404, json: { ok: false } });
   });
 
@@ -924,6 +974,33 @@ test("recherche, sélectionne et retrouve une carte clé du Snapshot après relo
 
   await page.mouse.move(0, 0);
   await expect(popover).toBeHidden();
+
+  const photoInput = page
+    .locator('[data-key-cards-participant="participant-alice"]')
+    .locator('input[type="file"]');
+  await photoInput.setInputFiles({
+    name: "deck.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "base64",
+    ),
+  });
+  await expect(page.locator("#tournament-deck-modal-backdrop")).toBeVisible();
+  expect(photoDeck).toBeNull();
+  const mtgaText = page.locator("#tournament-deck-mtga-text");
+  await expect(mtgaText).toHaveValue(/1 Lightning Bolt/u);
+  await mtgaText.fill(`${await mtgaText.inputValue()}1 Maul of the Skyclaves\n`);
+  await page.locator("#tournament-deck-mtga-apply").click();
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("18 cartes");
+  await page.locator("#tournament-deck-save-btn").click();
+  await expect(page.locator("#tournament-deck-modal-backdrop")).toBeHidden();
+  expect(photoDeck).toMatchObject({
+    cards: [
+      expect.objectContaining({ name: "Lightning Bolt" }),
+      expect.objectContaining({ name: "Maul of the Skyclaves" }),
+    ],
+  });
 });
 
 test("annonce le chargement et permet de réessayer après une indisponibilité du stockage", async ({
@@ -1107,6 +1184,7 @@ test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive"
   page,
 }) => {
   let recognizedCalled = false;
+  let parsedCalled = false;
   await page.route("**/api/tournaments**", async (route) => {
     const request = route.request();
     const url = new URL(request.url());
@@ -1173,6 +1251,28 @@ test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive"
       return;
     }
 
+    if (request.method() === "POST" && url.pathname === "/api/tournaments/parse-deck") {
+      parsedCalled = true;
+      const submitted = request.postDataJSON() as { text: string };
+      expect(submitted.text).toContain("1 Maul of the Skyclaves");
+      await route.fulfill({
+        json: {
+          ok: true,
+          deckName: "Aggro Boros",
+          cards: [
+            { name: "Champion of the Parish", count: 2, cmc: 1, isLand: false },
+            { name: "Maul of the Skyclaves", count: 1, cmc: 3, isLand: false },
+          ],
+          basicLands: { Plains: 8, Mountain: 8, Island: 0, Swamp: 0, Forest: 0 },
+          totalCount: 19,
+          sideboardCount: 0,
+          unverifiedNames: [],
+          warnings: [],
+        },
+      });
+      return;
+    }
+
     await route.fulfill({ status: 404, json: { ok: false } });
   });
 
@@ -1212,6 +1312,18 @@ test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive"
   await expect(modalBackdrop).toBeVisible();
   await expect(page.locator("#tournament-deck-total-count")).toContainText("18 cartes");
 
+  // Correct a card missed by photo OCR in the prefilled MTGA text.
+  const mtgaText = page.locator("#tournament-deck-mtga-text");
+  await expect(mtgaText).toHaveValue(/2 Champion of the Parish/u);
+  await mtgaText.fill(`${await mtgaText.inputValue()}1 Maul of the Skyclaves\n`);
+  await page.locator("#tournament-deck-save-btn").click();
+  await expect(modalBackdrop).toBeVisible();
+  await expect(page.locator("#tournament-deck-mtga-status")).toContainText("Appliquez la liste");
+  expect(parsedCalled).toBe(false);
+  await page.locator("#tournament-deck-mtga-apply").click();
+  expect(parsedCalled).toBe(true);
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("19 cartes");
+
   // Verify 17Lands target has rendered columns
   await expect(page.locator(".deck-17lands-board")).toBeVisible();
 
@@ -1225,14 +1337,149 @@ test("reconnaît un deck depuis une photo et affiche la vue 17Lands interactive"
 
   // Verify view deck button on row has card count
   const viewDeckBtn = firstRow.locator("[data-view-deck-btn]");
-  await expect(viewDeckBtn).toContainText("Deck (18)");
+  await expect(viewDeckBtn).toContainText("Deck (19)");
 
   // Click view deck button to reopen
   await viewDeckBtn.click();
   await expect(modalBackdrop).toBeVisible();
-  await expect(page.locator("#tournament-deck-total-count")).toContainText("18 cartes");
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("19 cartes");
 
   // Close modal via close button
   await page.locator("#tournament-deck-close-btn").click();
   await expect(modalBackdrop).toBeHidden();
+});
+
+test("colle un export MTGA multijoueur et enregistre le maindeck dans le tournoi", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  let savedDeckCards: { name: string; count: number }[] = [];
+  let parseCount = 0;
+  const createdTournament = {
+    tournamentId: "t-mtga-import",
+    revision: 0,
+    name: "Tournoi MTGA",
+    status: "preparation",
+    format: "swiss",
+    plannedRoundCount: 3,
+    cube: { cubeKey: "titou_tribal", cubeName: "Titou Tribal" },
+    participants: [],
+    rounds: [],
+    standings: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  await page.route("**/api/tournaments**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (request.method() === "GET" && url.pathname === "/api/tournaments/cubes") {
+      await route.fulfill({
+        json: { ok: true, cubes: [{ cubeKey: "titou_tribal", cubeName: "Titou Tribal" }] },
+      });
+      return;
+    }
+    if (request.method() === "GET" && url.pathname === "/api/tournaments") {
+      await route.fulfill({ json: { ok: true, tournaments: [] } });
+      return;
+    }
+    if (request.method() === "POST" && url.pathname === "/api/tournaments") {
+      await route.fulfill({ status: 201, json: { ok: true, tournament: createdTournament } });
+      return;
+    }
+    if (request.method() === "POST" && url.pathname === "/api/tournaments/parse-deck") {
+      const importedText = (request.postDataJSON() as { text: string }).text;
+      expect(importedText).toContain("2 Lightning Bolt");
+      if (parseCount === 0) expect(importedText).toContain("Sideboard");
+      else expect(importedText).not.toContain("Sideboard");
+      parseCount += 1;
+      await route.fulfill({
+        json: {
+          ok: true,
+          deckName: "Mono-Red Draft",
+          cards: [{ name: "Lightning Bolt", count: 2, cmc: 1, isLand: false }],
+          basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 8, Forest: 0 },
+          totalCount: 10,
+          sideboardCount: parseCount === 1 ? 1 : 0,
+          unverifiedNames: [],
+          warnings: parseCount === 1 ? ["1 carte(s) du sideboard ignorée(s)."] : [],
+        },
+      });
+      return;
+    }
+    if (request.method() === "PUT" && url.pathname === "/api/tournaments/t-mtga-import/setup") {
+      const setup = request.postDataJSON() as {
+        participants: {
+          displayName: string;
+          deckName: string;
+          deckCards: { name: string; count: number }[];
+          basicLands: Record<string, number>;
+        }[];
+      };
+      savedDeckCards = setup.participants[0]?.deckCards ?? [];
+      await route.fulfill({
+        json: {
+          ok: true,
+          tournament: {
+            ...createdTournament,
+            revision: 1,
+            participants: setup.participants.map((player, index) => ({
+              participantId: `p-${String(index)}`,
+              displayName: player.displayName,
+              normalizedName: player.displayName.toLowerCase(),
+              registrationOrder: index,
+              status: "active",
+              deck: {
+                name: player.deckName,
+                keyCards: [],
+                cards: player.deckCards,
+                basicLands: player.basicLands,
+              },
+            })),
+          },
+        },
+      });
+      return;
+    }
+    await route.fulfill({ status: 404, json: { ok: false } });
+  });
+
+  await page.goto("/tournaments");
+  await page.locator("#tournament-new-btn").click();
+  await page.locator("#tournament-create-name").fill("Tournoi MTGA");
+  await page.locator("#tournament-create-cube").selectOption("titou_tribal");
+  await page.locator("#tournament-create-submit").click();
+
+  const rows = page.locator("[data-tournament-player-row]");
+  await rows.first().locator("[data-player-name]").fill("Alice");
+  await rows.first().locator("[data-deck-name]").fill("Mono-Red Draft");
+  await rows.nth(1).locator("[data-player-name]").fill("Bob");
+  await rows.nth(1).locator("[data-deck-name]").fill("Azorius");
+  await rows.first().locator("[data-view-deck-btn]").click();
+
+  const textArea = page.locator("#tournament-deck-mtga-text");
+  await textArea.fill(
+    "About\nName Mono-Red Draft\n\nDeck\n2 Lightning Bolt\n8 Mountain\n\nSideboard\n1 Karakas\n",
+  );
+  await page.locator("#tournament-deck-mtga-apply").click();
+  await expect(page.locator("#tournament-deck-mtga-status")).toContainText("sideboard ignorée");
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("10 cartes");
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.locator("#tournament-deck-mtga-download").click(),
+  ]);
+  expect(download.suggestedFilename()).toBe("draftmaster-tournoi-deck.mtga.txt");
+  const downloadedText = await readFile(await download.path(), "utf8");
+  expect(downloadedText).toContain("2 Lightning Bolt");
+  await textArea.fill(downloadedText);
+  await page.locator("#tournament-deck-mtga-apply").click();
+  await expect(page.locator("#tournament-deck-total-count")).toContainText("10 cartes");
+  await page.locator("#tournament-deck-save-btn").click();
+  await page.locator("#tournament-setup-submit").click();
+
+  expect(savedDeckCards).toEqual([expect.objectContaining({ name: "Lightning Bolt", count: 2 })]);
+  await expect(page.locator("#tournament-feedback")).toContainText("Configuration enregistrée");
+  await expect(page.locator("[data-view-deck-btn]").first()).toContainText("Deck (10)");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  );
 });
