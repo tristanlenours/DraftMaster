@@ -58,10 +58,18 @@ test("pimp distinguishes additions, removals and the copied final deck", async (
   const removals = page.locator(".deck-lab-card-list").filter({ hasText: "À retirer du maindeck" });
   await expect(additions).toContainText("5 × Black Lotus");
   await expect(retained).not.toContainText("Black Lotus");
+  await expect(retained).toContainText("Mountain");
   await expect(removals).toContainText("Mountain");
   await page.getByRole("button", { name: "Copier la liste (format MTGA)" }).click();
   const copied = await page.evaluate(() => navigator.clipboard.readText());
   expect(copied).toContain("5 Black Lotus");
+
+  await page
+    .locator("#deck-lab-text")
+    .fill("Deck\n23 Lightning Bolt\n17 Mountain\nSideboard\n5 Island");
+  await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
+  const unused = page.locator(".deck-lab-card-list").filter({ hasText: "Cartes écartées" });
+  await expect(unused).toContainText("5 × Island");
 });
 
 test("a cube without a ready synergy profile gives a clearly limited rating", async ({

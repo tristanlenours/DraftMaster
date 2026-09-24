@@ -30,6 +30,8 @@
 - [x] T010 Verify existing navigation, tournament photo handling and the full test gates in `tests/integration/web-navigation-mobile-qa.test.ts`, `tests/browser/deck-lab.spec.ts`, and `specs/010-deck-lab/qa-evidence.md`.
 - [x] T011 Preserve engine audit and data provenance in `src/deck-lab/analyze-deck.ts`, `src/deck-lab/http-handler.ts`, `scripts/serve-web.mjs`, and `src/web/deck-lab.js`.
 - [x] T012 Separate kept and added cards, name basic land moves, and copy the complete build in `src/deck-lab/analyze-deck.ts`, `src/web/deck-lab.js`, `tests/unit/deck-lab/analyze-deck.test.ts`, and `tests/browser/deck-lab.spec.ts`.
+- [x] T013 Include submitted basic lands left unused in the Pimp reserve in `src/deck-lab/analyze-deck.ts` and `tests/unit/deck-lab/analyze-deck.test.ts`.
+- [x] T014 Include basic lands retained from the maindeck in the Pimp keep list in `src/deck-lab/analyze-deck.ts`, `tests/unit/deck-lab/analyze-deck.test.ts`, and `tests/browser/deck-lab.spec.ts`.
 
 ## Dependencies
 

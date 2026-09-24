@@ -32,7 +32,7 @@
 - **FR-002 / US1:** A 40-card maindeck can be rated using the existing five Axes de deck and receives card-level evidence plus the evaluation formula version. A different maindeck size is rejected.
 - **FR-003 / US1:** The player can paste MTGA text or import a photo, inspect and correct the recognized text before analysis.
 - **FR-004 / US2:** A pool of at most 45 cards across maindeck and sideboard yields a 40-card proposal using only submitted nonbasic cards and freely allocated basic lands. More than 45 cards is rejected.
-- **FR-005 / US2:** Pimp names cards kept from the maindeck, added from the reserve or basic lands, removed including basic lands, and left unused. It reports before/after scores when the input was 40 cards, and copies the complete proposed deck as MTGA text.
+- **FR-005 / US2:** Pimp names cards kept from the maindeck, added from the reserve or basic lands, removed including basic lands, and left unused including submitted basic lands. It reports before/after scores when the input was 40 cards, and copies the complete proposed deck as MTGA text.
 - **FR-006 / US1+US2:** Unknown analyzed card names stop analysis. Cube provenance and reduced context coverage are shown; neither flow persists the submitted list. Each rating exposes the five weighted score contributions and material scoring factors.
 - **SC-001:** Desktop and 360–375 px mobile navigation reach the feature without horizontal overflow; critical controls retain accessible names and keyboard access.
 - **SC-002:** Automated tests cover 39/40 Rate and 45/46 Pimp boundaries, unknown cards, deterministic proposal, HTTP behavior, photo correction and browser navigation.

@@ -72,7 +72,10 @@ describe("deck lab", () => {
     const selected = result.build.final.reduce((sum, card) => sum + card.count, 0);
     const basics = Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0);
     expect(selected + basics).toBe(40);
-    expect(result.build.reserve.reduce((sum, card) => sum + card.count, 0)).toBe(28 - selected);
+    const unusedBasics = 17 - (result.build.basicLands.Mountain ?? 0);
+    expect(result.build.reserve.reduce((sum, card) => sum + card.count, 0)).toBe(
+      28 - selected + Math.max(0, unusedBasics),
+    );
     expect(
       result.build.add.every((card) =>
         ["Counterspell", "Plains", "Island", "Swamp", "Mountain", "Forest"].includes(card.name),
@@ -94,10 +97,24 @@ describe("deck lab", () => {
       cards.find((card) => card.name === name)?.count ?? 0;
     expect(count(result.build.add, "Black Lotus")).toBe(5);
     expect(count(result.build.keep, "Black Lotus")).toBe(0);
+    expect(count(result.build.keep, "Mountain")).toBe(
+      Math.min(20, result.build.basicLands.Mountain ?? 0),
+    );
     expect(count(result.build.final, "Black Lotus")).toBe(5);
     expect(count(result.build.remove, "Mountain")).toBe(
       20 - (result.build.basicLands.Mountain ?? 0),
     );
+  });
+
+  it("names unused sideboard basic lands in the reserve", () => {
+    const result = analyzeDeckText(
+      "Deck\n23 Lightning Bolt\n17 Mountain\nSideboard\n5 Island",
+      "pimp",
+      catalog,
+    );
+    if (!("build" in result)) throw new Error("Pimp result is missing its build");
+    const unusedIslands = result.build.reserve.find((card) => card.name === "Island")?.count ?? 0;
+    expect(unusedIslands).toBe(Math.max(0, 5 - (result.build.basicLands.Island ?? 0)));
   });
 
   it("returns the same proposal and rating for the same pool", () => {

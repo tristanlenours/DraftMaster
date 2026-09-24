@@ -240,6 +240,17 @@ export function analyzeDeckText(
     const count = parsed.basicLands[name] - (basicLands[name] ?? 0);
     return count > 0 ? [{ name, count }] : [];
   });
+  const keptBasics = BASIC_NAMES.flatMap((name) => {
+    const count = Math.min(parsed.basicLands[name], basicLands[name] ?? 0);
+    return count > 0 ? [{ name, count }] : [];
+  });
+  const unusedBasics = BASIC_NAMES.flatMap((name) => {
+    const count = Math.max(
+      0,
+      parsed.basicLands[name] + parsed.sideboardBasicLands[name] - (basicLands[name] ?? 0),
+    );
+    return count > 0 ? [{ name, count }] : [];
+  });
   return {
     mode,
     input,
@@ -248,10 +259,13 @@ export function analyzeDeckText(
     build: {
       title: useCurrent ? "Deck actuel conservé" : proposal.title,
       final: summarize(chosenIds, byId),
-      keep: summarize(
-        chosenIds.filter((id) => mainIds.has(id)),
-        byId,
-      ),
+      keep: [
+        ...summarize(
+          chosenIds.filter((id) => mainIds.has(id)),
+          byId,
+        ),
+        ...keptBasics,
+      ],
       add: [
         ...summarize(
           chosenIds.filter((id) => !mainIds.has(id)),
@@ -266,10 +280,13 @@ export function analyzeDeckText(
         ),
         ...removedBasics,
       ],
-      reserve: summarize(
-        pool.filter((card) => !chosen.has(card.id)).map((card) => card.id),
-        byId,
-      ),
+      reserve: [
+        ...summarize(
+          pool.filter((card) => !chosen.has(card.id)).map((card) => card.id),
+          byId,
+        ),
+        ...unusedBasics,
+      ],
       basicLands,
       improved: previous === null ? null : !useCurrent,
     },
