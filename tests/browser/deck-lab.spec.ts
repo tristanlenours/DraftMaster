@@ -111,7 +111,11 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
 });
 
 test("a photo populates editable MTGA text before rating", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 812 });
+  let uploadedImages: string[] = [];
   await page.route("**/api/tournaments/recognize-deck", async (route) => {
+    const requestBody = route.request().postDataJSON() as { images?: string[] };
+    uploadedImages = requestBody.images ?? [];
     await route.fulfill({
       json: {
         ok: true,
@@ -119,11 +123,68 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
         cards: [{ name: "Lightning Bolt", count: 22 }],
         basicLands: { Mountain: 17 },
         totalCount: 39,
+        unverifiedTitles: ["Titre partiel"],
       },
     });
   });
   await page.goto("/deck-lab");
   await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  await page.evaluate(async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 2268;
+    canvas.height = 4032;
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Canvas unavailable");
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 2; column++) {
+        context.fillStyle = `hsl(${String((row * 2 + column) * 60)} 80% 60%)`;
+        context.fillRect(column * 1134, row * 1344, 1134, 1344);
+      }
+    }
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((value) => {
+        if (value) resolve(value);
+        else reject(new Error("JPEG unavailable"));
+      }, "image/jpeg");
+    });
+    const transfer = new DataTransfer();
+    transfer.items.add(new File([blob], "deck.jpg", { type: "image/jpeg" }));
+    const input = document.getElementById("deck-lab-photo") as HTMLInputElement;
+    input.files = transfer.files;
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  await expect(page.locator("#deck-lab-status")).toContainText("Vérifiez chaque carte");
+  expect(uploadedImages).toHaveLength(6);
+  expect(new Set(uploadedImages).size).toBe(6);
+  expect(uploadedImages.every((image) => image.startsWith("data:image/jpeg;base64,"))).toBe(true);
+  await expect(page.locator("#deck-lab-unverified")).toContainText("Titre partiel");
+  await expect(page.locator("#deck-lab-rate")).toBeDisabled();
+  await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+  const text = page.locator("#deck-lab-text");
+  await expect(text).toHaveValue(/22 Lightning Bolt/u);
+  await text.fill(`${await text.inputValue()}1 Counterspell\n`);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > window.innerWidth,
+  );
+  expect(overflow).toBe(false);
+  await page.locator("#deck-lab-photo-confirm").focus();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
+  await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
+  await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
+});
+
+test("a failed photo recognition preserves the editable deck", async ({ page }) => {
+  await page.route("**/api/tournaments/recognize-deck", async (route) => {
+    await route.fulfill({
+      status: 503,
+      json: { ok: false, error: { message: "Gemini indisponible." } },
+    });
+  });
+  await page.goto("/deck-lab");
+  await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  const deckText = "Deck\n23 Lightning Bolt\n17 Mountain";
+  await page.locator("#deck-lab-text").fill(deckText);
   await page.locator("#deck-lab-photo").setInputFiles({
     name: "deck.png",
     mimeType: "image/png",
@@ -132,10 +193,8 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
       "base64",
     ),
   });
-  await expect(page.locator("#deck-lab-status")).toContainText("Vérifiez chaque carte");
-  const text = page.locator("#deck-lab-text");
-  await expect(text).toHaveValue(/22 Lightning Bolt/u);
-  await text.fill(`${await text.inputValue()}1 Counterspell\n`);
-  await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
-  await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
+  await expect(page.locator("#deck-lab-status")).toContainText("Gemini indisponible");
+  await expect(page.locator("#deck-lab-text")).toHaveValue(deckText);
+  await expect(page.locator("#deck-lab-photo-review")).toBeHidden();
+  await expect(page.locator("#deck-lab-rate")).toBeEnabled();
 });

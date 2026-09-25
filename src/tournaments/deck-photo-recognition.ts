@@ -10,6 +10,7 @@ export interface RecognizedDeckResult {
   readonly basicLands: Record<string, number>;
   readonly totalCount: number;
   readonly confidence?: number;
+  readonly unverifiedTitles?: readonly string[];
 }
 
 export interface DeckPhotoRecognizerOptions {
@@ -21,7 +22,7 @@ export interface DeckPhotoRecognizerOptions {
 
 export interface DeckPhotoRecognizer {
   recognizeDeck(
-    imageBuffer: Buffer,
+    imageBuffer: Buffer | readonly Buffer[],
     mimeType: string,
     options?: {
       readonly cubeKey?: string;
@@ -263,7 +264,7 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
   }
 
   public async recognizeDeck(
-    imageBuffer: Buffer,
+    imageBuffer: Buffer | readonly Buffer[],
     mimeType: string,
     options?: {
       readonly cubeKey?: string;
@@ -283,9 +284,12 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
       };
     }
 
-    const base64Image = imageBuffer.toString("base64");
+    const tiled = Array.isArray(imageBuffer);
+    const base64Images = (tiled ? (imageBuffer as readonly Buffer[]) : [imageBuffer as Buffer]).map(
+      (image) => image.toString("base64"),
+    );
     const formattedCandidates: string[] = [];
-    if (options?.candidateCardNames && options.candidateCardNames.length > 0) {
+    if (!tiled && options?.candidateCardNames && options.candidateCardNames.length > 0) {
       for (const name of options.candidateCardNames.slice(0, 900)) {
         const resolved = this.cardsIndex.resolveCard(name);
         if (resolved.frenchName && resolved.frenchName !== resolved.name) {
@@ -301,7 +305,9 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
         ? `\nListe des cartes candidates du Cube (${options?.cubeName ?? options?.cubeKey ?? "Cube"}) avec nom anglais et traduction française :\n${JSON.stringify(formattedCandidates)}`
         : "";
 
-    const systemPrompt = `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
+    const systemPrompt = tiled
+      ? `Transcris uniquement les titres imprimés et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque titre distinct apparaît au plus une fois par région.`
+      : `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
 Consignes :
@@ -347,14 +353,27 @@ Consignes :
           const outcome = await this.callGeminiVision(
             key,
             model,
-            base64Image,
+            base64Images,
             mimeType,
             systemPrompt,
           );
           if (outcome.status === "success") {
+            const value = tiled
+              ? this.enrichTiledResult(outcome.data, base64Images.length)
+              : this.enrichDeckResult(outcome.data);
+            if (value === undefined) {
+              return {
+                ok: false,
+                error: {
+                  code: "INVALID_INPUT",
+                  message: "Aucun titre de carte lisible dans la photo.",
+                  details: {},
+                },
+              };
+            }
             return {
               ok: true,
-              value: this.enrichDeckResult(outcome.data),
+              value,
             };
           }
           if (outcome.status === "quota_exceeded") {
@@ -391,7 +410,7 @@ Consignes :
   private callGeminiVision(
     key: string,
     model: string,
-    base64Image: string,
+    base64Images: readonly string[],
     mimeType: string,
     prompt: string,
   ): Promise<
@@ -405,12 +424,9 @@ Consignes :
         contents: [
           {
             parts: [
-              {
-                inlineData: {
-                  mimeType: mimeType || "image/jpeg",
-                  data: base64Image,
-                },
-              },
+              ...base64Images.map((data) => ({
+                inlineData: { mimeType: mimeType || "image/jpeg", data },
+              })),
               { text: prompt },
             ],
           },
@@ -418,7 +434,7 @@ Consignes :
         generationConfig: {
           responseMimeType: "application/json",
           temperature: 0.1,
-          maxOutputTokens: 3000,
+          maxOutputTokens: base64Images.length > 1 ? 4500 : 3000,
         },
       });
 
@@ -489,6 +505,85 @@ Consignes :
       req.write(payload);
       req.end();
     });
+  }
+
+  private enrichTiledResult(raw: unknown, regionCount: number): RecognizedDeckResult | undefined {
+    if (!isRecord(raw) || !Array.isArray(raw.tiles)) return undefined;
+    const basicNames: Record<string, string> = {
+      plains: "Plains",
+      plaine: "Plains",
+      island: "Island",
+      ile: "Island",
+      swamp: "Swamp",
+      marais: "Swamp",
+      mountain: "Mountain",
+      montagne: "Mountain",
+      forest: "Forest",
+      foret: "Forest",
+    };
+    const counts = new Map<string, { card: DeclaredDeckCard; count: number }>();
+    const basicLands: Record<string, number> = {
+      Plains: 0,
+      Island: 0,
+      Swamp: 0,
+      Mountain: 0,
+      Forest: 0,
+    };
+    const unverifiedTitles = new Set<string>();
+    let readableTitles = 0;
+    const seenRegions = new Set<number>();
+    for (const tile of raw.tiles) {
+      if (
+        !isRecord(tile) ||
+        !Number.isInteger(tile.tile) ||
+        !Array.isArray(tile.titles) ||
+        (tile.tile as number) < 1 ||
+        (tile.tile as number) > regionCount ||
+        seenRegions.has(tile.tile as number)
+      )
+        continue;
+      seenRegions.add(tile.tile as number);
+      const regionCounts = new Map<string, number>();
+      const regionCards = new Map<string, DeclaredDeckCard>();
+      for (const title of tile.titles) {
+        if (typeof title !== "string" || !title.trim()) continue;
+        readableTitles++;
+        const trimmed = title.trim();
+        const basic = basicNames[normalizeNameKey(trimmed)];
+        const card = basic ? undefined : this.cardsIndex.findExactCard(trimmed);
+        if (!basic && !card) {
+          unverifiedTitles.add(trimmed);
+          continue;
+        }
+        const name = basic ?? card?.name;
+        if (!name) continue;
+        // Photo regions overlap, and the model may repeat one printed title within a region.
+        // Keep one conservative copy; the player verifies quantities in the editable list.
+        regionCounts.set(name, 1);
+        if (card) regionCards.set(name, card);
+      }
+      for (const [name, count] of regionCounts) {
+        if (name in basicLands) basicLands[name] = Math.max(basicLands[name] ?? 0, count);
+        else {
+          const card = regionCards.get(name);
+          if (!card) continue;
+          counts.set(name, { card, count: Math.max(counts.get(name)?.count ?? 0, count) });
+        }
+      }
+    }
+    if (readableTitles === 0) return undefined;
+    const cards = [...counts.values()]
+      .map(({ card, count }) => ({ ...card, count }))
+      .sort((a, b) => (a.cmc ?? 0) - (b.cmc ?? 0) || a.name.localeCompare(b.name));
+    return {
+      archetype: "Liste photo à vérifier",
+      cards,
+      basicLands,
+      totalCount:
+        cards.reduce((sum, card) => sum + card.count, 0) +
+        Object.values(basicLands).reduce((sum, count) => sum + count, 0),
+      unverifiedTitles: [...unverifiedTitles],
+    };
   }
 
   public enrichDeckResult(raw: unknown): RecognizedDeckResult {

@@ -728,6 +728,51 @@ describe("Tournament management HTTP", () => {
     expect(body.totalCount).toBe(18);
   });
 
+  it("passes bounded photo regions to the recognizer and rejects malformed regions", async () => {
+    const jpeg = `data:image/jpeg;base64,${Buffer.from([0xff, 0xd8, 0xff, 0xd9]).toString("base64")}`;
+    const calls: { images: Buffer | readonly Buffer[]; mimeType: string }[] = [];
+    const { baseUrl } = await startHttpServer({
+      recognizeDeck: (images, mimeType) => {
+        calls.push({ images, mimeType });
+        return Promise.resolve({
+          ok: true,
+          value: {
+            archetype: "À vérifier",
+            cards: [],
+            basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
+            totalCount: 0,
+            unverifiedTitles: ["Titre incomplet"],
+          },
+        });
+      },
+    });
+    const valid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ images: [jpeg, jpeg] }),
+    });
+    expect(valid.status).toBe(200);
+    await expect(valid.json()).resolves.toMatchObject({ unverifiedTitles: ["Titre incomplet"] });
+    expect(calls).toHaveLength(1);
+    expect(Array.isArray(calls[0]?.images)).toBe(true);
+    expect(calls[0]?.mimeType).toBe("image/jpeg");
+    for (const images of [
+      [],
+      Array(7).fill(jpeg),
+      ["data:image/png;base64,aGVsbG8="],
+      ["data:image/jpeg;base64,aGVsbG8="],
+      ["invalid"],
+    ]) {
+      const invalid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ images }),
+      });
+      expect(invalid.status).toBe(400);
+    }
+    expect(calls).toHaveLength(1);
+  });
+
   it("returns 503 when the deck recognition provider is unavailable", async () => {
     const { baseUrl } = await startHttpServer({
       recognizeDeck: () =>

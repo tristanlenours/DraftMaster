@@ -12315,6 +12315,7 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 
 #deck-lab-cube:focus-visible,
 #deck-lab-text:focus-visible,
+#deck-lab-photo-confirm:focus-visible,
 .deck-lab-actions button:focus-visible,
 .deck-lab-photo-button:focus-visible,
 .deck-lab-copy:focus-visible {
@@ -12347,7 +12348,36 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
 
 .deck-lab-actions button:disabled {
   opacity: 0.5;
-  cursor: wait;
+  cursor: not-allowed;
+}
+
+#deck-lab-photo-review {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+#deck-lab-photo-review p {
+  margin: 0 0 8px;
+}
+
+#deck-lab-unverified ul {
+  margin: 0 0 8px;
+  padding-left: 22px;
+}
+
+#deck-lab-photo-review label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+#deck-lab-photo-confirm {
+  margin-top: 4px;
+  flex: none;
 }
 
 #deck-lab-photo {

@@ -6,6 +6,8 @@ const fakeGemini = vi.hoisted(() => ({
   responses: [] as number[],
   paths: [] as string[],
   defaultStatus: 503,
+  responseData: undefined as Record<string, unknown> | undefined,
+  payloads: [] as string[],
 }));
 
 vi.mock("node:https", () => ({
@@ -18,7 +20,9 @@ vi.mock("node:https", () => ({
       const statusCode = fakeGemini.responses.shift() ?? fakeGemini.defaultStatus;
       const request = Object.assign(new EventEmitter(), {
         setTimeout: vi.fn(),
-        write: vi.fn(),
+        write: vi.fn((payload: string) => {
+          fakeGemini.payloads.push(payload);
+        }),
         destroy: vi.fn(),
         end: () => {
           queueMicrotask(() => {
@@ -33,11 +37,13 @@ vi.mock("node:https", () => ({
                         content: {
                           parts: [
                             {
-                              text: JSON.stringify({
-                                archetype: "Azorius Tempo",
-                                cards: [{ name: "Karakas", count: 1 }],
-                                basicLands: {},
-                              }),
+                              text: JSON.stringify(
+                                fakeGemini.responseData ?? {
+                                  archetype: "Azorius Tempo",
+                                  cards: [{ name: "Karakas", count: 1 }],
+                                  basicLands: {},
+                                },
+                              ),
                             },
                           ],
                         },
@@ -61,6 +67,8 @@ describe("Gemini deck photo service fallback", () => {
   beforeEach(() => {
     fakeGemini.responses.length = 0;
     fakeGemini.paths.length = 0;
+    fakeGemini.payloads.length = 0;
+    fakeGemini.responseData = undefined;
     fakeGemini.defaultStatus = 503;
   });
 
@@ -110,5 +118,71 @@ describe("Gemini deck photo service fallback", () => {
     expect(result.error.code).toBe("STORE_UNAVAILABLE");
     expect(result.error.message).toMatch(/quota|limite|429/iu);
     expect(fakeGemini.paths).toHaveLength(1);
+  });
+
+  it("transcribes regions without cube suggestions and keeps uncertain names out of the MTGA list", async () => {
+    fakeGemini.responses.push(200);
+    fakeGemini.responseData = {
+      tiles: [
+        {
+          tile: 1,
+          titles: ["Mana Vault", "Mana Vault", "Swords to Plowshares", "Réduire au s", "Plains"],
+        },
+        { tile: 2, titles: ["Mana Vault", "Swords to Plowshares", "Plains"] },
+      ],
+      basicLands: { Island: 17 },
+      cards: [{ name: "Giant Killer", count: 1 }],
+      confidence: 0.99,
+    };
+    const recognizer = new GeminiDeckPhotoRecognizer({
+      projectRoot: process.cwd(),
+      geminiKeys: ["key-one"],
+      model: "gemini-3.5-flash-lite",
+    });
+    const result = await recognizer.recognizeDeck(
+      [Buffer.from("region-one"), Buffer.from("region-two")],
+      "image/jpeg",
+      {
+        candidateCardNames: ["Giant Killer"],
+      },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.cards).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: "Mana Vault", count: 1 }),
+        expect.objectContaining({ name: "Swords to Plowshares", count: 1 }),
+      ]),
+    );
+    expect(
+      result.value.cards.some(
+        (card) => card.name === "Giant Killer" || card.name === "Render Silent",
+      ),
+    ).toBe(false);
+    expect(result.value.basicLands).toMatchObject({ Plains: 1, Island: 0 });
+    expect(result.value.unverifiedTitles).toEqual(["Réduire au s"]);
+    expect(result.value.confidence).toBeUndefined();
+    const requestPayload = fakeGemini.payloads[0];
+    expect(requestPayload).toBeDefined();
+    const payload = JSON.parse(requestPayload ?? "") as {
+      contents: { parts: { inlineData?: unknown; text?: string }[] }[];
+    };
+    expect(payload.contents[0]?.parts.filter((part) => part.inlineData)).toHaveLength(2);
+    expect(payload.contents[0]?.parts.at(-1)?.text).not.toContain("Giant Killer");
+    expect(payload.contents[0]?.parts.at(-1)?.text).not.toMatch(/estime leurs quantités/iu);
+  });
+
+  it("rejects a tiled response with no readable titles", async () => {
+    fakeGemini.responses.push(200);
+    fakeGemini.responseData = { tiles: [{ tile: 1, titles: [] }] };
+    const recognizer = new GeminiDeckPhotoRecognizer({
+      projectRoot: process.cwd(),
+      geminiKeys: ["key-one"],
+    });
+    const result = await recognizer.recognizeDeck([Buffer.from("region")], "image/jpeg");
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.code).toBe("INVALID_INPUT");
+    expect(result.error.message).toMatch(/aucun titre/iu);
   });
 });

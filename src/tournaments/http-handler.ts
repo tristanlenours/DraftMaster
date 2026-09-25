@@ -141,13 +141,47 @@ export function createTournamentHttpHandler(
     if (url.pathname === "/api/tournaments/recognize-deck" && request.method === "POST") {
       try {
         const body = await readJsonBody(request, 25 * 1024 * 1024);
-        if (!isRecord(body) || typeof body.image !== "string" || !body.image) {
+        if (
+          !isRecord(body) ||
+          (body.images === undefined && (typeof body.image !== "string" || !body.image))
+        ) {
           sendInvalidInput(response, "L'image du deck est obligatoire.");
           return true;
         }
 
+        let regions: Buffer[] | undefined;
+        if (body.images !== undefined) {
+          if (
+            !Array.isArray(body.images) ||
+            body.images.length < 1 ||
+            body.images.length > 6 ||
+            body.images.some(
+              (image: unknown) =>
+                typeof image !== "string" ||
+                !/^data:image\/jpeg;base64,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(
+                  image,
+                ),
+            )
+          ) {
+            sendInvalidInput(response, "Fournissez entre une et six régions JPEG valides.");
+            return true;
+          }
+          regions = body.images.map((image: string) =>
+            Buffer.from(image.slice("data:image/jpeg;base64,".length), "base64"),
+          );
+          if (
+            regions.some(
+              (region) =>
+                region.length < 4 || region[0] !== 0xff || region[1] !== 0xd8 || region[2] !== 0xff,
+            )
+          ) {
+            sendInvalidInput(response, "Les régions doivent contenir des images JPEG.");
+            return true;
+          }
+        }
+
         let mimeType = typeof body.mimeType === "string" ? body.mimeType : "image/jpeg";
-        let base64Data = body.image;
+        let base64Data = typeof body.image === "string" ? body.image : "";
         if (base64Data.startsWith("data:")) {
           const match = /^data:(image\/[a-zA-Z0-9.+_-]+);base64,(.+)$/.exec(base64Data);
           if (match && typeof match[1] === "string" && typeof match[2] === "string") {
@@ -156,12 +190,12 @@ export function createTournamentHttpHandler(
           }
         }
 
-        const buffer = Buffer.from(base64Data, "base64");
+        const buffer = regions ?? Buffer.from(base64Data, "base64");
         const cubeKey = typeof body.cubeKey === "string" ? body.cubeKey : undefined;
 
         let candidateCardNames: string[] | undefined;
         let cubeName: string | undefined;
-        if (dependencies.loadCubeSnapshot && cubeKey) {
+        if (!regions && dependencies.loadCubeSnapshot && cubeKey) {
           try {
             candidateCardNames = [...(await dependencies.loadCubeSnapshot(cubeKey))];
           } catch {

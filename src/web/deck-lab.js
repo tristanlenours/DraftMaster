@@ -1,10 +1,17 @@
 import { getCardDisplayName, readCardLanguage } from "./card-language.js";
-import { optimizeImageForUpload } from "./deck-photo-upload.js";
+import { prepareDeckPhotoRegions } from "./deck-photo-upload.js";
 import { formatMtgaDeckText, parseMtgaDeckText } from "./mtga-deck-text.js";
 
 let initialized = false;
 let latestResult = null;
 let cubeLoading = false;
+let photoReviewRequired = false;
+
+function updatePhotoGate() {
+  const blocked = photoReviewRequired && !element("deck-lab-photo-confirm").checked;
+  element("deck-lab-rate").disabled = blocked;
+  element("deck-lab-pimp").disabled = blocked;
+}
 
 const AXES = [
   ["power", "Puissance"],
@@ -265,6 +272,10 @@ async function readResponse(response) {
 }
 
 async function analyze(mode) {
+  if (photoReviewRequired && !element("deck-lab-photo-confirm").checked) {
+    setStatus("Vérifiez et confirmez la liste issue de la photo avant l'analyse.", "error");
+    return;
+  }
   const text = element("deck-lab-text").value;
   const cubeKey = element("deck-lab-cube").value;
   if (!cubeKey) {
@@ -305,7 +316,7 @@ async function analyze(mode) {
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
-    buttons.forEach((button) => (button.disabled = false));
+    updatePhotoGate();
   }
 }
 
@@ -319,11 +330,11 @@ async function recognizePhoto(file) {
   const currentText = element("deck-lab-text").value;
   setStatus("Reconnaissance de la photo en cours…");
   try {
-    const image = await optimizeImageForUpload(file);
+    const images = await prepareDeckPhotoRegions(file);
     const response = await fetch("/api/tournaments/recognize-deck", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image, cubeKey }),
+      body: JSON.stringify({ images, cubeKey }),
     });
     const recognized = await readResponse(response);
     if (currentText !== element("deck-lab-text").value) {
@@ -337,12 +348,25 @@ async function recognizePhoto(file) {
       cards: recognized.cards,
       basicLands: recognized.basicLands,
     });
+    photoReviewRequired = true;
+    element("deck-lab-photo-review").hidden = false;
+    element("deck-lab-photo-confirm").checked = false;
+    const unresolved = element("deck-lab-unverified");
+    const titles = Array.isArray(recognized.unverifiedTitles) ? recognized.unverifiedTitles : [];
+    unresolved.replaceChildren();
+    if (titles.length > 0) {
+      unresolved.append(node("p", "", "Titres à vérifier et ajouter manuellement si présents :"));
+      const list = node("ul", "");
+      for (const title of titles) list.append(node("li", "", title));
+      unresolved.append(list);
+    }
+    updatePhotoGate();
     latestResult = null;
     element("deck-lab-result").replaceChildren(
       node("p", "", "Vérifiez la liste reconnue puis lancez l'analyse."),
     );
     updateCount();
-    setStatus("Photo reconnue. Vérifiez chaque carte et quantité avant l'analyse.", "success");
+    setStatus("Photo analysée : liste partielle. Vérifiez chaque carte et quantité avant l'analyse.");
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
@@ -355,10 +379,13 @@ export async function initDeckLabView(preferredCubeKey) {
   if (!initialized) {
     initialized = true;
     element("deck-lab-text").addEventListener("input", () => {
+      if (photoReviewRequired) element("deck-lab-photo-confirm").checked = false;
+      updatePhotoGate();
       updateCount();
       invalidateResult();
     });
     element("deck-lab-cube").addEventListener("change", invalidateResult);
+    element("deck-lab-photo-confirm").addEventListener("change", updatePhotoGate);
     element("deck-lab-rate").addEventListener("click", () => void analyze("rate"));
     element("deck-lab-pimp").addEventListener("click", () => void analyze("pimp"));
     element("deck-lab-photo-trigger").addEventListener("click", () =>
