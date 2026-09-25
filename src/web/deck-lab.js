@@ -45,12 +45,16 @@ function updateCount() {
   const count = element("deck-lab-count");
   if (!text.trim()) {
     count.textContent =
-      "40 cartes pour noter le deck ; jusqu'à 45 cartes, réserve comprise, pour le pimp.";
+      "Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : 23 cartes hors terrain parmi 45 cartes non basiques maximum.";
     return;
   }
   try {
     const parsed = parseMtgaDeckText(text);
-    count.textContent = `${parsed.totalCount} carte(s) de maindeck · ${parsed.sideboardCount} en réserve · ${parsed.totalCount + parsed.sideboardCount} au total`;
+    const nonbasicCount = [...parsed.cards, ...parsed.sideboardCards].reduce(
+      (sum, card) => sum + card.count,
+      0,
+    );
+    count.textContent = `${parsed.totalCount} carte(s) de maindeck · ${parsed.sideboardCount} en réserve · ${nonbasicCount}/45 carte(s) non basiques pour Pimp`;
   } catch (error) {
     count.textContent = error.message;
   }
@@ -286,11 +290,14 @@ async function analyze(mode) {
   }
   try {
     const parsed = parseMtgaDeckText(text);
-    if (mode === "rate" && parsed.totalCount !== 40) {
-      throw new Error("Rate my deck attend exactement 40 cartes dans le maindeck.");
+    if (mode === "rate" && parsed.totalCount > 40) {
+      throw new Error("Rate my deck accepte au maximum 40 cartes dans le maindeck.");
     }
-    if (mode === "pimp" && parsed.totalCount + parsed.sideboardCount > 45) {
-      throw new Error("Pimp my deck accepte au maximum 45 cartes, réserve comprise.");
+    if (
+      mode === "pimp" &&
+      [...parsed.cards, ...parsed.sideboardCards].reduce((sum, card) => sum + card.count, 0) > 45
+    ) {
+      throw new Error("Pimp my deck accepte au maximum 45 cartes non basiques, réserve comprise.");
     }
   } catch (error) {
     setStatus(error.message, "error");

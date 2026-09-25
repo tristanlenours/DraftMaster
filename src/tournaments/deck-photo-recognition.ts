@@ -306,7 +306,7 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
         : "";
 
     const systemPrompt = tiled
-      ? `Transcris uniquement les titres imprimés et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque titre distinct apparaît au plus une fois par région.`
+      ? `Transcris uniquement les titres imprimés et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque carte non basique apparaît au plus une fois par région. Répète un nom de terrain de base seulement si plusieurs cartes physiques distinctes portent ce titre lisible dans cette région.`
       : `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
@@ -557,9 +557,9 @@ Consignes :
         }
         const name = basic ?? card?.name;
         if (!name) continue;
-        // Photo regions overlap, and the model may repeat one printed title within a region.
-        // Keep one conservative copy; the player verifies quantities in the editable list.
-        regionCounts.set(name, 1);
+        // Regions overlap. Keep singleton nonbasics and the largest visible basic count
+        // from one region; the player verifies quantities in the editable list.
+        regionCounts.set(name, basic ? (regionCounts.get(name) ?? 0) + 1 : 1);
         if (card) regionCards.set(name, card);
       }
       for (const [name, count] of regionCounts) {

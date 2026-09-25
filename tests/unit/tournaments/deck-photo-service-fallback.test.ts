@@ -126,7 +126,14 @@ describe("Gemini deck photo service fallback", () => {
       tiles: [
         {
           tile: 1,
-          titles: ["Mana Vault", "Mana Vault", "Swords to Plowshares", "Réduire au s", "Plains"],
+          titles: [
+            "Mana Vault",
+            "Mana Vault",
+            "Swords to Plowshares",
+            "Réduire au s",
+            "Plains",
+            "Plains",
+          ],
         },
         { tile: 2, titles: ["Mana Vault", "Swords to Plowshares", "Plains"] },
       ],
@@ -159,7 +166,7 @@ describe("Gemini deck photo service fallback", () => {
         (card) => card.name === "Giant Killer" || card.name === "Render Silent",
       ),
     ).toBe(false);
-    expect(result.value.basicLands).toMatchObject({ Plains: 1, Island: 0 });
+    expect(result.value.basicLands).toMatchObject({ Plains: 2, Island: 0 });
     expect(result.value.unverifiedTitles).toEqual(["Réduire au s"]);
     expect(result.value.confidence).toBeUndefined();
     const requestPayload = fakeGemini.payloads[0];

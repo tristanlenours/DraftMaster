@@ -1,5 +1,33 @@
 import { expect, test } from "@playwright/test";
 
+const RED_SPELLS = [
+  "Lightning Bolt",
+  "Abrade",
+  "Act of Treason",
+  "Arc Trail",
+  "Battle Cry Goblin",
+  "Bloodmark Mentor",
+  "Bonfire of the Damned",
+  "Brimstone Volley",
+  "Broadside Bombardiers",
+  "Burn Down the House",
+  "Chandra, Acolyte of Flame",
+  "Descent of the Dragons",
+  "Devil's Play",
+  "Draconic Roar",
+  "Dragon Tempest",
+  "Dragonlord's Servant",
+  "Dragonmaster Outcast",
+  "Embercleave",
+  "Flames of the Firebrand",
+  "Glorybringer",
+  "Goblin Bombardment",
+  "Goblin Chieftain",
+  "Goblin Cratermaker",
+] as const;
+const redDeck = (mountains = 17) =>
+  `Deck\n${RED_SPELLS.map((name) => `1 ${name}`).join("\n")}\n${String(mountains)} Mountain`;
+
 test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 812 });
   await page.goto("/");
@@ -9,9 +37,7 @@ test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Rate my deck · Pimp my deck" })).toBeVisible();
   await expect(page.locator("#deck-lab-cube option")).not.toHaveCount(1);
   await page.locator("#deck-lab-cube").selectOption("titou_tribal");
-  await page
-    .locator("#deck-lab-text")
-    .fill("Deck\n23 Lightning Bolt\n17 Mountain\nSideboard\n5 Counterspell");
+  await page.locator("#deck-lab-text").fill(redDeck());
 
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
@@ -22,7 +48,7 @@ test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
     "coach-context@1",
   );
 
-  await page.locator("#deck-lab-text").fill("Deck\n45 Lightning Bolt");
+  await page.locator("#deck-lab-text").fill(`${redDeck()}\nSideboard\n1 Black Lotus`);
   await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
   await expect(page.getByRole("heading", { name: /Cartes retenues/u })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Cartes écartées/u })).toBeVisible();
@@ -47,26 +73,26 @@ test("pimp distinguishes additions, removals and the copied final deck", async (
   await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/deck-lab");
   await page.locator("#deck-lab-cube").selectOption("titou_tribal");
-  await page
-    .locator("#deck-lab-text")
-    .fill("Deck\n20 Lightning Bolt\n20 Mountain\nSideboard\n5 Black Lotus");
+  await page.locator("#deck-lab-text").fill(
+    `Deck\n${RED_SPELLS.slice(0, 22)
+      .map((name) => `1 ${name}`)
+      .join("\n")}\n20 Mountain\nSideboard\n1 Black Lotus`,
+  );
   await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
   const additions = page
     .locator(".deck-lab-card-list")
     .filter({ hasText: "À ajouter au maindeck" });
   const retained = page.locator(".deck-lab-card-list").filter({ hasText: "Cartes retenues" });
   const removals = page.locator(".deck-lab-card-list").filter({ hasText: "À retirer du maindeck" });
-  await expect(additions).toContainText("5 × Black Lotus");
+  await expect(additions).toContainText("1 × Black Lotus");
   await expect(retained).not.toContainText("Black Lotus");
   await expect(retained).toContainText("Mountain");
   await expect(removals).toContainText("Mountain");
   await page.getByRole("button", { name: "Copier la liste (format MTGA)" }).click();
   const copied = await page.evaluate(() => navigator.clipboard.readText());
-  expect(copied).toContain("5 Black Lotus");
+  expect(copied).toContain("1 Black Lotus");
 
-  await page
-    .locator("#deck-lab-text")
-    .fill("Deck\n23 Lightning Bolt\n17 Mountain\nSideboard\n5 Island");
+  await page.locator("#deck-lab-text").fill(`${redDeck()}\nSideboard\n5 Island`);
   await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
   const unused = page.locator(".deck-lab-card-list").filter({ hasText: "Cartes écartées" });
   await expect(unused).toContainText("5 × Island");
@@ -79,7 +105,7 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
     data: {
       cubeKey: "hugues_pauper",
       mode: "rate",
-      text: "Deck\n23 Lightning Bolt\n17 Mountain",
+      text: redDeck(),
     },
   });
   expect(response.status()).toBe(200);
@@ -96,7 +122,7 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
     data: {
       cubeKey: "titou_arena_peasant_plus",
       mode: "rate",
-      text: "Deck\n23 Lightning Bolt\n17 Mountain",
+      text: redDeck(),
     },
   });
   expect(arenaResponse.status()).toBe(200);
@@ -120,9 +146,9 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
       json: {
         ok: true,
         archetype: "Mono Red",
-        cards: [{ name: "Lightning Bolt", count: 22 }],
-        basicLands: { Mountain: 17 },
-        totalCount: 39,
+        cards: [{ name: "Lightning Bolt", count: 1 }],
+        basicLands: { Mountain: 16 },
+        totalCount: 17,
         unverifiedTitles: ["Titre partiel"],
       },
     });
@@ -161,8 +187,7 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
   await expect(page.locator("#deck-lab-rate")).toBeDisabled();
   await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
   const text = page.locator("#deck-lab-text");
-  await expect(text).toHaveValue(/22 Lightning Bolt/u);
-  await text.fill(`${await text.inputValue()}1 Counterspell\n`);
+  await expect(text).toHaveValue(/1 Lightning Bolt/u);
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > window.innerWidth,
   );
@@ -172,8 +197,9 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
   await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
+  await expect(page.locator("#deck-lab-result .deck-lab-warnings")).toContainText("virtuel");
   await text.fill("");
-  await text.fill("Deck\n23 Lightning Bolt\n17 Mountain");
+  await text.fill(redDeck());
   await expect(page.locator("#deck-lab-photo-review")).toBeHidden();
   await expect(page.locator("#deck-lab-rate")).toBeEnabled();
 });
@@ -191,10 +217,10 @@ test("editing during an analysis does not enable a second submission", async ({ 
   });
   await page.goto("/deck-lab");
   await page.locator("#deck-lab-cube").selectOption("titou_tribal");
-  await page.locator("#deck-lab-text").fill("Deck\n23 Lightning Bolt\n17 Mountain");
+  await page.locator("#deck-lab-text").fill(redDeck());
   await page.locator("#deck-lab-rate").click();
   await expect.poll(() => intercepted).toBe(true);
-  await page.locator("#deck-lab-text").fill("Deck\n22 Lightning Bolt\n18 Mountain");
+  await page.locator("#deck-lab-text").fill(redDeck(16));
   try {
     await expect(page.locator("#deck-lab-rate")).toBeDisabled();
     await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
@@ -213,7 +239,7 @@ test("a failed photo recognition preserves the editable deck", async ({ page }) 
   });
   await page.goto("/deck-lab");
   await page.locator("#deck-lab-cube").selectOption("titou_tribal");
-  const deckText = "Deck\n23 Lightning Bolt\n17 Mountain";
+  const deckText = redDeck();
   await page.locator("#deck-lab-text").fill(deckText);
   await page.locator("#deck-lab-photo").setInputFiles({
     name: "deck.png",

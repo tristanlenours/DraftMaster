@@ -18,9 +18,10 @@ Deck Lab currently shrinks a large deck photo to 1400 px and asks a vision model
 - FR-002: The Deck Lab photo API accepts one to six JPEG regions within the existing request-size limit. It rejects malformed base64, empty or excessive arrays, and JPEG regions missing the expected segment structure or end marker. A region request always uses JPEG MIME regardless of legacy request fields. Pixel data is not fully decoded by this HTTP adapter; provider rejection remains an error to the player.
 - FR-003: Vision output transcribes printed titles without a cube candidate list or inferred deck completion. Basic lands must come from transcribed visible titles, never an estimated aggregate.
 - FR-004: Only exact catalog or basic-land title matches enter the editable MTGA list. Unresolved titles remain visible as text to review; fuzzy matches do not silently substitute cards.
-- FR-005: Duplicate readings from overlapping regions do not multiply a card's count. One copy per title enters the draft list; the player corrects actual quantities.
+- FR-005: Duplicate readings from overlapping regions do not multiply nonbasic cards. A cube card enters the draft list once. Basic lands may appear multiple times or be absent; the player can correct their counts, and Rate can add missing basics virtually.
 - FR-006: After photo import, Rate and Pimp require explicit player confirmation of the editable list. Clearing the photo list returns to manual entry; manual paste remains directly analyzable. Editing during an in-flight analysis never enables duplicate submissions.
 - FR-007: Provider failure and no readable titles preserve the player's existing text. Raw photos and credentials are not persisted or logged.
+- FR-008: Rate accepts up to 40 submitted maindeck cards and discloses deterministic virtual basic lands used to reach 40. Pimp selects exactly 23 nonland cards plus 17 land cards from at most 45 distinct nonbasic inputs; a modal spell/land card such as Emeria's Call counts as a land.
 
 ## Acceptance evidence
 
