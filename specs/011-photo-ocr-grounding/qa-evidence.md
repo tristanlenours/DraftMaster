@@ -22,7 +22,7 @@ The player's visual review identified `Ruisseau éclatant` and the Jwari land fa
 - The photo/browser journey now uses a singleton recognized Lightning Bolt and 16 Mountains, confirms the list, and displays the virtual-basic warning after Rate. The submitted photo remains untracked.
 - The photo review was inspected from browser screenshots at 360 × 812 and 1280 × 800. The review checkbox, uncertain title, editable list, and disabled actions remain visible. A 1280 px regression exposed header overflow; compact desktop navigation now retains visually hidden accessible tab labels and no horizontal overflow.
 - `npm run check`: passed with 708 Vitest tests, 1 skipped, and 45 Playwright tests; format, lint, types, catalog/profile/coach-data checks, coverage, and report verification passed.
-- After review changes, the full local check passed through report verification. Its parallel browser phase had one unrelated intermittent image-load failure in Solo (14/15 images after 10 seconds); a rerun had an unrelated 39/40 keyboard-update failure in multiplayer. Each failing test passed alone, and the complete browser suite passed 45/45 with one worker. The final pushed commit still needs CI confirmation.
+- After review changes, the full local check passed through report verification. Its parallel browser phase had one unrelated intermittent image-load failure in Solo (14/15 images after 10 seconds); a rerun had an unrelated 39/40 keyboard-update failure in multiplayer. Each failing test passed alone, and the complete browser suite passed 45/45 with one worker. CI for commit `30d12f7e` passed all required jobs on Linux, macOS, and Windows, including browser, security, dependency, and performance checks.
 
 ## Gates
 
@@ -35,5 +35,7 @@ The player's visual review identified `Ruisseau éclatant` and the Jwari land fa
 FR-001 through FR-008 and the plan decisions were checked against the present code at the agreed seams. No buildable gap remains; the latest Standards + Spec review's visual evidence and truncated-title findings were resolved above. The remaining risk is inherent in model transcription: a plausible wrong full title may still match the catalog, so user confirmation is mandatory. The custom requirements checklist remains for human review.
 
 The Standards review identified MIME override, in-flight button unlocking, and acceptance of JPEG data missing its end marker; the Spec review identified MIME override and return to manual entry. Regression tests were added and all findings were fixed before the final gate.
+
+The quantity follow-up review identified missing desktop photo-review evidence, duplicated test fixtures, an unchecked gate task, and no targeted evidence for the two truncated titles named by the player. The desktop and partial-title regressions, shared fixture, artifact alignment, and CI evidence above close these findings.
 
 The JPEG check is structural, not a full image decode. Corrupt pixel data can still reach Gemini; a provider error leaves the editable list unchanged.
