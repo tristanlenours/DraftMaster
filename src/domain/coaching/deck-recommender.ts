@@ -21,6 +21,10 @@ export interface BasicLandDefinitions {
   readonly G: CardEvaluationInput;
 }
 
+export interface DeckBuildConstraints {
+  readonly targetNonlandCards?: number;
+}
+
 export const DEFAULT_BASIC_LANDS: BasicLandDefinitions = {
   W: {
     id: "basic-plains",
@@ -274,6 +278,7 @@ function assembleDeckOption(
   allPool: readonly CardEvaluationInput[],
   basics: BasicLandDefinitions,
   evaluationOptions: DeckEvaluationOptions = {},
+  constraints: DeckBuildConstraints = {},
 ): { maindeck: CardEvaluationInput[]; sideboard: CardEvaluationInput[] } {
   const bombThreshold = evaluationOptions.bombThreshold ?? 45;
 
@@ -297,15 +302,17 @@ function assembleDeckOption(
   const sortedSpells = scoredSpells.map((s) => s.card);
 
   const targetLands = estimateTargetLandCount(sortedSpells);
-  let targetSpellCards = 40 - targetLands;
-  for (let pass = 0; pass < 4; pass++) {
-    const modalLandCount = Math.min(
-      4,
-      sortedSpells.slice(0, targetSpellCards).filter(isModalLand).length,
-    );
-    const nextTargetSpellCards = 40 - Math.max(0, targetLands - modalLandCount);
-    if (nextTargetSpellCards === targetSpellCards) break;
-    targetSpellCards = nextTargetSpellCards;
+  let targetSpellCards = constraints.targetNonlandCards ?? 40 - targetLands;
+  if (constraints.targetNonlandCards === undefined) {
+    for (let pass = 0; pass < 4; pass++) {
+      const modalLandCount = Math.min(
+        4,
+        sortedSpells.slice(0, targetSpellCards).filter(isModalLand).length,
+      );
+      const nextTargetSpellCards = 40 - Math.max(0, targetLands - modalLandCount);
+      if (nextTargetSpellCards === targetSpellCards) break;
+      targetSpellCards = nextTargetSpellCards;
+    }
   }
   const actualLandSlots = 40 - targetSpellCards;
   const nonBasicLands = [...candidate.lands]
@@ -417,6 +424,7 @@ export function recommendDeckBuilds(
   pool: readonly CardEvaluationInput[],
   customBasics: BasicLandDefinitions = DEFAULT_BASIC_LANDS,
   evaluationOptions: DeckEvaluationOptions = {},
+  constraints: DeckBuildConstraints = {},
 ): readonly DeckBuildOption[] {
   const spells = pool.filter((c) => !c.isLand);
   const lands = pool.filter((c) => c.isLand);
@@ -428,14 +436,15 @@ export function recommendDeckBuilds(
   const evaluatePath = (colors: readonly MtGColor[]) => {
     const colorSet = new Set(colors);
     const compatibleSpells = spells.filter((c) => canCastWithColors(c, colorSet));
-    if (compatibleSpells.length < 22) return;
+    if (compatibleSpells.length < (constraints.targetNonlandCards ?? 22)) return;
 
     const compatibleLands = lands.filter((land) => {
       const produced = getEffectiveProducingColors(land);
       return produced.length === 0 || produced.some((c) => colorSet.has(c));
     });
 
-    const targetSpellCount = 40 - estimateTargetLandCount(compatibleSpells);
+    const targetSpellCount =
+      constraints.targetNonlandCards ?? 40 - estimateTargetLandCount(compatibleSpells);
     const viableTribes = detectViableTribeClusters(compatibleSpells);
 
     if (viableTribes.length > 0) {
@@ -523,7 +532,13 @@ export function recommendDeckBuilds(
 
   // Assemble and evaluate options
   const options: DeckBuildOption[] = selectedPaths.map((cand, idx) => {
-    const { maindeck, sideboard } = assembleDeckOption(cand, pool, customBasics, evaluationOptions);
+    const { maindeck, sideboard } = assembleDeckOption(
+      cand,
+      pool,
+      customBasics,
+      evaluationOptions,
+      constraints,
+    );
     const evaluation = evaluateDeck(maindeck, evaluationOptions);
     const position = idx + 1;
     let label = evaluation.archetype.label;

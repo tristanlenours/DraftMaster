@@ -1,10 +1,19 @@
 import { getCardDisplayName, readCardLanguage } from "./card-language.js";
-import { optimizeImageForUpload } from "./deck-photo-upload.js";
+import { prepareDeckPhotoRegions } from "./deck-photo-upload.js";
 import { formatMtgaDeckText, parseMtgaDeckText } from "./mtga-deck-text.js";
 
 let initialized = false;
 let latestResult = null;
 let cubeLoading = false;
+let photoReviewRequired = false;
+let analysisPending = false;
+
+function updatePhotoGate() {
+  const blocked =
+    analysisPending || (photoReviewRequired && !element("deck-lab-photo-confirm").checked);
+  element("deck-lab-rate").disabled = blocked;
+  element("deck-lab-pimp").disabled = blocked;
+}
 
 const AXES = [
   ["power", "Puissance"],
@@ -36,12 +45,16 @@ function updateCount() {
   const count = element("deck-lab-count");
   if (!text.trim()) {
     count.textContent =
-      "40 cartes pour noter le deck ; jusqu'à 45 cartes, réserve comprise, pour le pimp.";
+      "Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : 23 cartes hors terrain parmi 45 cartes non basiques maximum.";
     return;
   }
   try {
     const parsed = parseMtgaDeckText(text);
-    count.textContent = `${parsed.totalCount} carte(s) de maindeck · ${parsed.sideboardCount} en réserve · ${parsed.totalCount + parsed.sideboardCount} au total`;
+    const nonbasicCount = [...parsed.cards, ...parsed.sideboardCards].reduce(
+      (sum, card) => sum + card.count,
+      0,
+    );
+    count.textContent = `${parsed.totalCount} carte(s) de maindeck · ${parsed.sideboardCount} en réserve · ${nonbasicCount}/45 carte(s) non basiques pour Pimp`;
   } catch (error) {
     count.textContent = error.message;
   }
@@ -265,6 +278,10 @@ async function readResponse(response) {
 }
 
 async function analyze(mode) {
+  if (photoReviewRequired && !element("deck-lab-photo-confirm").checked) {
+    setStatus("Vérifiez et confirmez la liste issue de la photo avant l'analyse.", "error");
+    return;
+  }
   const text = element("deck-lab-text").value;
   const cubeKey = element("deck-lab-cube").value;
   if (!cubeKey) {
@@ -273,18 +290,21 @@ async function analyze(mode) {
   }
   try {
     const parsed = parseMtgaDeckText(text);
-    if (mode === "rate" && parsed.totalCount !== 40) {
-      throw new Error("Rate my deck attend exactement 40 cartes dans le maindeck.");
+    if (mode === "rate" && parsed.totalCount > 40) {
+      throw new Error("Rate my deck accepte au maximum 40 cartes dans le maindeck.");
     }
-    if (mode === "pimp" && parsed.totalCount + parsed.sideboardCount > 45) {
-      throw new Error("Pimp my deck accepte au maximum 45 cartes, réserve comprise.");
+    if (
+      mode === "pimp" &&
+      [...parsed.cards, ...parsed.sideboardCards].reduce((sum, card) => sum + card.count, 0) > 45
+    ) {
+      throw new Error("Pimp my deck accepte au maximum 45 cartes non basiques, réserve comprise.");
     }
   } catch (error) {
     setStatus(error.message, "error");
     return;
   }
-  const buttons = [element("deck-lab-rate"), element("deck-lab-pimp")];
-  buttons.forEach((button) => (button.disabled = true));
+  analysisPending = true;
+  updatePhotoGate();
   setStatus("Analyse du deck en cours…");
   try {
     const response = await fetch("/api/deck-lab/analyze", {
@@ -305,7 +325,8 @@ async function analyze(mode) {
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
-    buttons.forEach((button) => (button.disabled = false));
+    analysisPending = false;
+    updatePhotoGate();
   }
 }
 
@@ -319,11 +340,11 @@ async function recognizePhoto(file) {
   const currentText = element("deck-lab-text").value;
   setStatus("Reconnaissance de la photo en cours…");
   try {
-    const image = await optimizeImageForUpload(file);
+    const images = await prepareDeckPhotoRegions(file);
     const response = await fetch("/api/tournaments/recognize-deck", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image, cubeKey }),
+      body: JSON.stringify({ images, cubeKey }),
     });
     const recognized = await readResponse(response);
     if (currentText !== element("deck-lab-text").value) {
@@ -337,12 +358,27 @@ async function recognizePhoto(file) {
       cards: recognized.cards,
       basicLands: recognized.basicLands,
     });
+    photoReviewRequired = true;
+    element("deck-lab-photo-review").hidden = false;
+    element("deck-lab-photo-confirm").checked = false;
+    const unresolved = element("deck-lab-unverified");
+    const titles = Array.isArray(recognized.unverifiedTitles) ? recognized.unverifiedTitles : [];
+    unresolved.replaceChildren();
+    if (titles.length > 0) {
+      unresolved.append(node("p", "", "Titres à vérifier et ajouter manuellement si présents :"));
+      const list = node("ul", "");
+      for (const title of titles) list.append(node("li", "", title));
+      unresolved.append(list);
+    }
+    updatePhotoGate();
     latestResult = null;
     element("deck-lab-result").replaceChildren(
       node("p", "", "Vérifiez la liste reconnue puis lancez l'analyse."),
     );
     updateCount();
-    setStatus("Photo reconnue. Vérifiez chaque carte et quantité avant l'analyse.", "success");
+    setStatus(
+      "Photo analysée : liste partielle. Vérifiez chaque carte et quantité avant l'analyse.",
+    );
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
@@ -355,10 +391,20 @@ export async function initDeckLabView(preferredCubeKey) {
   if (!initialized) {
     initialized = true;
     element("deck-lab-text").addEventListener("input", () => {
+      if (photoReviewRequired) {
+        element("deck-lab-photo-confirm").checked = false;
+        if (!element("deck-lab-text").value.trim()) {
+          photoReviewRequired = false;
+          element("deck-lab-photo-review").hidden = true;
+          element("deck-lab-unverified").replaceChildren();
+        }
+      }
+      updatePhotoGate();
       updateCount();
       invalidateResult();
     });
     element("deck-lab-cube").addEventListener("change", invalidateResult);
+    element("deck-lab-photo-confirm").addEventListener("change", updatePhotoGate);
     element("deck-lab-rate").addEventListener("click", () => void analyze("rate"));
     element("deck-lab-pimp").addEventListener("click", () => void analyze("pimp"));
     element("deck-lab-photo-trigger").addEventListener("click", () =>

@@ -77,6 +77,34 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function isCompleteJpegRegion(region: Buffer): boolean {
+  if (
+    region.length < 100 ||
+    region[0] !== 0xff ||
+    region[1] !== 0xd8 ||
+    region[region.length - 2] !== 0xff ||
+    region[region.length - 1] !== 0xd9
+  )
+    return false;
+  let offset = 2;
+  let hasFrame = false;
+  while (offset < region.length - 2) {
+    if (region[offset] !== 0xff) return false;
+    while (region[offset] === 0xff) offset++;
+    const marker = region[offset++];
+    if (marker === undefined || marker === 0x00 || marker === 0xd8 || marker === 0xd9) return false;
+    if (offset + 2 > region.length - 2) return false;
+    const segmentLength = region.readUInt16BE(offset);
+    if (segmentLength < 2 || offset + segmentLength > region.length - 2) return false;
+    if (marker === 0xda) return hasFrame && offset + segmentLength < region.length - 2;
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      hasFrame = true;
+    }
+    offset += segmentLength;
+  }
+  return false;
+}
+
 function isSetupParticipant(value: unknown): value is SetupParticipantInput {
   return (
     isRecord(value) &&
@@ -141,14 +169,47 @@ export function createTournamentHttpHandler(
     if (url.pathname === "/api/tournaments/recognize-deck" && request.method === "POST") {
       try {
         const body = await readJsonBody(request, 25 * 1024 * 1024);
-        if (!isRecord(body) || typeof body.image !== "string" || !body.image) {
+        if (
+          !isRecord(body) ||
+          (body.images === undefined && (typeof body.image !== "string" || !body.image))
+        ) {
           sendInvalidInput(response, "L'image du deck est obligatoire.");
           return true;
         }
 
-        let mimeType = typeof body.mimeType === "string" ? body.mimeType : "image/jpeg";
-        let base64Data = body.image;
-        if (base64Data.startsWith("data:")) {
+        let regions: Buffer[] | undefined;
+        if (body.images !== undefined) {
+          if (
+            !Array.isArray(body.images) ||
+            body.images.length < 1 ||
+            body.images.length > 6 ||
+            body.images.some(
+              (image: unknown) =>
+                typeof image !== "string" ||
+                !/^data:image\/jpeg;base64,(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(
+                  image,
+                ),
+            )
+          ) {
+            sendInvalidInput(response, "Fournissez entre une et six régions JPEG valides.");
+            return true;
+          }
+          regions = body.images.map((image: string) =>
+            Buffer.from(image.slice("data:image/jpeg;base64,".length), "base64"),
+          );
+          if (regions.some((region) => !isCompleteJpegRegion(region))) {
+            sendInvalidInput(response, "Les régions doivent contenir des images JPEG.");
+            return true;
+          }
+        }
+
+        let mimeType = regions
+          ? "image/jpeg"
+          : typeof body.mimeType === "string"
+            ? body.mimeType
+            : "image/jpeg";
+        let base64Data = typeof body.image === "string" ? body.image : "";
+        if (!regions && base64Data.startsWith("data:")) {
           const match = /^data:(image\/[a-zA-Z0-9.+_-]+);base64,(.+)$/.exec(base64Data);
           if (match && typeof match[1] === "string" && typeof match[2] === "string") {
             mimeType = match[1];
@@ -156,12 +217,12 @@ export function createTournamentHttpHandler(
           }
         }
 
-        const buffer = Buffer.from(base64Data, "base64");
+        const buffer = regions ?? Buffer.from(base64Data, "base64");
         const cubeKey = typeof body.cubeKey === "string" ? body.cubeKey : undefined;
 
         let candidateCardNames: string[] | undefined;
         let cubeName: string | undefined;
-        if (dependencies.loadCubeSnapshot && cubeKey) {
+        if (!regions && dependencies.loadCubeSnapshot && cubeKey) {
           try {
             candidateCardNames = [...(await dependencies.loadCubeSnapshot(cubeKey))];
           } catch {

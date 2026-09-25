@@ -74,6 +74,39 @@ function expandBasics(counts: Readonly<Record<string, number>>): CardEvaluationI
   );
 }
 
+function virtualBasicsForRate(
+  cards: readonly CardEvaluationInput[],
+  supplied: Readonly<Record<string, number>>,
+  missing: number,
+): NamedCount[] {
+  const demand = Object.fromEntries(BASIC_NAMES.map((name) => [name, 0])) as Record<
+    (typeof BASIC_NAMES)[number],
+    number
+  >;
+  const colors = ["W", "U", "B", "R", "G"] as const;
+  for (const card of cards) {
+    if (card.isLand) continue;
+    for (const [index, color] of colors.entries()) {
+      const name = BASIC_NAMES[index];
+      if (name) demand[name] += card.manaCost?.match(new RegExp(`o?${color}`, "giu"))?.length ?? 0;
+    }
+  }
+  if (Object.values(demand).every((count) => count === 0)) demand.Plains = 1;
+  const totalDemand = Object.values(demand).reduce((sum, count) => sum + count, 0);
+  const totalBasics = BASIC_NAMES.reduce((sum, name) => sum + (supplied[name] ?? 0), missing);
+  const added = Object.fromEntries(BASIC_NAMES.map((name) => [name, 0])) as typeof demand;
+  for (let index = 0; index < missing; index++) {
+    const best = BASIC_NAMES.reduce((left, right) =>
+      (demand[right] / totalDemand) * totalBasics - (supplied[right] ?? 0) - added[right] >
+      (demand[left] / totalDemand) * totalBasics - (supplied[left] ?? 0) - added[left]
+        ? right
+        : left,
+    );
+    added[best]++;
+  }
+  return BASIC_NAMES.flatMap((name) => (added[name] > 0 ? [{ name, count: added[name] }] : []));
+}
+
 function summarize(
   ids: readonly string[],
   cards: ReadonlyMap<string, CardEvaluationInput>,
@@ -147,13 +180,15 @@ export function analyzeDeckText(
   }
 
   const totalPoolCount = parsed.totalCount + parsed.sideboardCount;
-  if (mode === "rate" && parsed.totalCount !== 40) {
-    throw new DeckLabInputError("Rate my deck attend un maindeck de 40 cartes, terrains compris.");
+  const nonbasicPoolCount = countCards([...parsed.cards, ...parsed.sideboardCards]);
+  if (mode === "rate" && parsed.totalCount > 40) {
+    throw new DeckLabInputError("Rate my deck accepte au maximum 40 cartes dans le maindeck.");
   }
-  if (mode === "pimp" && totalPoolCount > 45) {
-    throw new DeckLabInputError("Pimp my deck accepte au maximum 45 cartes, réserve comprise.");
+  if (mode === "pimp" && nonbasicPoolCount > 45) {
+    throw new DeckLabInputError(
+      "Pimp my deck accepte au maximum 45 cartes non basiques, réserve comprise.",
+    );
   }
-  const sparsePool = countCards([...parsed.cards, ...parsed.sideboardCards]) < 20;
 
   const analyzedCards =
     mode === "rate" ? parsed.cards : [...parsed.cards, ...parsed.sideboardCards];
@@ -164,6 +199,17 @@ export function analyzeDeckText(
     throw new DeckLabInputError(
       `Cartes absentes du catalogue local : ${[...new Set(unknownNames)].join(", ")}. Corrigez les noms avant l'analyse.`,
     );
+  }
+  const seenOracleIds = new Set<string>();
+  for (const { name, count } of [...parsed.cards, ...parsed.sideboardCards]) {
+    const oracleId = catalog.resolveCard(name)?.oracleId;
+    if (!oracleId) continue;
+    if (count !== 1 || seenOracleIds.has(oracleId)) {
+      throw new DeckLabInputError(
+        `En cube, un seul exemplaire de chaque carte non basique est autorisé : ${name}.`,
+      );
+    }
+    seenOracleIds.add(oracleId);
   }
   const outsideCube = cubeOracleIds
     ? analyzedCards
@@ -182,12 +228,27 @@ export function analyzeDeckText(
 
   const main = expandCards(parsed.cards, catalog, 0);
   const reserve = expandCards(parsed.sideboardCards, catalog, main.length);
-  const currentDeck = [...main, ...expandBasics(parsed.basicLands)];
+  if (mode === "pimp" && [...main, ...reserve].filter((card) => !card.isLand).length < 23) {
+    throw new DeckLabInputError(
+      "Pimp my deck demande au moins 23 cartes hors terrain distinctes. Les cartes recto sort, verso terrain comptent comme terrains.",
+    );
+  }
+  const virtualBasicLands =
+    mode === "rate" ? virtualBasicsForRate(main, parsed.basicLands, 40 - parsed.totalCount) : [];
+  const currentDeck = [
+    ...main,
+    ...expandBasics(parsed.basicLands),
+    ...virtualBasicLands.flatMap(({ name, count }) =>
+      Array.from({ length: count }, () => BASIC_INPUTS[name as (typeof BASIC_NAMES)[number]]),
+    ),
+  ];
   const input = {
     deckName: parsed.deckName,
     maindeckCount: parsed.totalCount,
     sideboardCount: parsed.sideboardCount,
     poolCount: totalPoolCount,
+    nonbasicPoolCount,
+    virtualBasicLands,
   };
 
   if (mode === "rate") {
@@ -195,13 +256,17 @@ export function analyzeDeckText(
       mode,
       input,
       rating: compactEvaluation(evaluateDeck(currentDeck, options), currentDeck),
-      warnings:
-        parsed.sideboardCount > 0
+      warnings: [
+        ...contextWarnings,
+        ...(virtualBasicLands.length > 0
           ? [
-              ...contextWarnings,
-              `${String(parsed.sideboardCount)} carte(s) de réserve ignorée(s) dans la note.`,
+              `${String(40 - parsed.totalCount)} terrain(s) de base virtuel(s) ajouté(s) pour atteindre 40 cartes : ${virtualBasicLands.map(({ name, count }) => `${String(count)} ${name}`).join(", ")}. Vérifiez la répartition avant de jouer.`,
             ]
-          : contextWarnings,
+          : []),
+        ...(parsed.sideboardCount > 0
+          ? [`${String(parsed.sideboardCount)} carte(s) de réserve ignorée(s) dans la note.`]
+          : []),
+      ],
     };
   }
 
@@ -211,14 +276,20 @@ export function analyzeDeckText(
     parsed.totalCount === 40
       ? compactEvaluation(evaluateDeck(currentDeck, options), currentDeck)
       : null;
-  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options)[0];
+  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options, {
+    targetNonlandCards: 23,
+  })[0];
   if (!proposal) throw new DeckLabInputError("Aucune construction de deck n'a été trouvée.");
   const basicsById = new Map(Object.values(BASIC_INPUTS).map((card) => [card.id, card]));
   const proposedDeck = proposal.maindeck.flatMap((id) => {
     const card = byId.get(id) ?? basicsById.get(id);
     return card ? [card] : [];
   });
-  const useCurrent = previous !== null && previous.score >= proposal.evaluation.overallScore;
+  const useCurrent =
+    previous !== null &&
+    main.filter((card) => !card.isLand).length === 23 &&
+    currentDeck.filter((card) => card.isLand).length === 17 &&
+    previous.score >= proposal.evaluation.overallScore;
   const chosenIds = useCurrent
     ? main.map((card) => card.id)
     : proposal.maindeck.filter((id) => byId.has(id));
@@ -292,9 +363,6 @@ export function analyzeDeckText(
     },
     warnings: [
       ...contextWarnings,
-      ...(sparsePool
-        ? ["Moins de 20 cartes hors terrains de base : la construction proposée est préliminaire."]
-        : []),
       ...(previous === null
         ? ["La liste initiale ne contient pas 40 cartes : aucune note avant modification."]
         : useCurrent

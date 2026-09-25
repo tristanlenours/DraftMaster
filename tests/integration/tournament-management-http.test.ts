@@ -1,5 +1,6 @@
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import { readFileSync } from "node:fs";
 
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -726,6 +727,53 @@ describe("Tournament management HTTP", () => {
     expect(body.cards[0]?.name).toBe("Champion of the Parish");
     expect(body.basicLands.Plains).toBe(8);
     expect(body.totalCount).toBe(18);
+  });
+
+  it("passes bounded photo regions to the recognizer and rejects malformed regions", async () => {
+    const jpegBytes = readFileSync("tests/fixtures/photo-region.jpg");
+    const jpeg = `data:image/jpeg;base64,${jpegBytes.toString("base64")}`;
+    const calls: { images: Buffer | readonly Buffer[]; mimeType: string }[] = [];
+    const { baseUrl } = await startHttpServer({
+      recognizeDeck: (images, mimeType) => {
+        calls.push({ images, mimeType });
+        return Promise.resolve({
+          ok: true,
+          value: {
+            archetype: "À vérifier",
+            cards: [],
+            basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
+            totalCount: 0,
+            unverifiedTitles: ["Titre incomplet"],
+          },
+        });
+      },
+    });
+    const valid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ images: [jpeg, jpeg], mimeType: "image/png" }),
+    });
+    expect(valid.status).toBe(200);
+    await expect(valid.json()).resolves.toMatchObject({ unverifiedTitles: ["Titre incomplet"] });
+    expect(calls).toHaveLength(1);
+    expect(Array.isArray(calls[0]?.images)).toBe(true);
+    expect(calls[0]?.mimeType).toBe("image/jpeg");
+    for (const images of [
+      [],
+      Array(7).fill(jpeg),
+      ["data:image/png;base64,aGVsbG8="],
+      ["data:image/jpeg;base64,aGVsbG8="],
+      [`data:image/jpeg;base64,${jpegBytes.subarray(0, -2).toString("base64")}`],
+      ["invalid"],
+    ]) {
+      const invalid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ images }),
+      });
+      expect(invalid.status).toBe(400);
+    }
+    expect(calls).toHaveLength(1);
   });
 
   it("returns 503 when the deck recognition provider is unavailable", async () => {
