@@ -20,6 +20,7 @@ import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-draft
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
 import { loadCoachContext } from "../src/cubes/coach-context.ts";
 import { CardCatalog } from "../src/cards/card-catalog.ts";
+import { createDeckLabHttpHandler } from "../src/deck-lab/http-handler.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
 import {
   createFinalDeckCoach,
@@ -564,6 +565,50 @@ export function createRequestHandler(options = {}) {
       return [];
     },
   });
+  const deckLabHandler = createDeckLabHttpHandler({
+    projectRoot: rootDir,
+    loadContext: async (cubeKey) => {
+      const context = await loadCoachContext(rootDir, cubeKey);
+      if (context.ok) {
+        return {
+          ...context.value,
+          coverage: "full",
+          provenance: {
+            source: "coach-context@1",
+            ...context.value.provenance,
+            catalogGeneratedAt: context.value.catalog.catalog.generatedAt,
+          },
+        };
+      }
+      if (context.error.code !== "CONTEXT_NOT_READY") {
+        throw new Error(context.error.message);
+      }
+      const snapshot = await loadActiveCubeSnapshot(rootDir, cubeKey);
+      if (!snapshot.ok && snapshot.error.code !== "INSUFFICIENT_CARDS") {
+        throw new Error(snapshot.error.message);
+      }
+      const catalog = await loadMultiplayerCatalog();
+      return {
+        cubeKey,
+        snapshotId: snapshot.ok ? snapshot.value.snapshotId : null,
+        ...(snapshot.ok ? { snapshot: snapshot.value } : {}),
+        catalog,
+        deckEvaluationOptions: {},
+        coverage: snapshot.ok ? "basic" : "catalog_only",
+        provenance: {
+          source: snapshot.ok ? "snapshot-catalog" : "catalog-only",
+          catalogCardCount: catalog.totalCards,
+          catalogGeneratedAt: catalog.catalog.generatedAt,
+          ...(snapshot.ok
+            ? {
+                snapshotSha256: snapshot.value.integrity.canonicalSha256,
+                snapshotSourceSha256: snapshot.value.source.rawSha256,
+              }
+            : {}),
+        },
+      };
+    },
+  });
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
@@ -740,6 +785,9 @@ export function createRequestHandler(options = {}) {
     }
 
     if (await tournamentHandler(req, res)) {
+      return;
+    }
+    if (await deckLabHandler(req, res)) {
       return;
     }
 

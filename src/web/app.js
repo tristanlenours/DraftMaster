@@ -17,6 +17,7 @@ import {
 import { initAdminView } from "./admin.js";
 import { initMultiplayerDraftView } from "./multiplayer-draft.js";
 import { initTournamentManagementView } from "./tournaments.js";
+import { initDeckLabView } from "./deck-lab.js";
 import {
   loadImageWithFallback,
   isMatchingScryfallPrint,
@@ -745,6 +746,7 @@ const elements = {
   viewAdmin: document.getElementById("view-admin"),
   viewMulti: document.getElementById("view-multi"),
   viewTournaments: document.getElementById("view-tournaments"),
+  viewDeckLab: document.getElementById("view-deck-lab"),
 
   // Navigation Links (Desktop)
   brandHomeBtn: document.getElementById("brand-home-btn"),
@@ -756,6 +758,7 @@ const elements = {
   navBtnRecords: document.getElementById("nav-btn-records"),
   navBtnMulti: document.getElementById("nav-btn-multi"),
   navBtnTournaments: document.getElementById("nav-btn-tournaments"),
+  navBtnDeckLab: document.getElementById("nav-btn-deck-lab"),
   globalLangFr: document.getElementById("global-lang-fr"),
   globalLangEn: document.getElementById("global-lang-en"),
 
@@ -771,6 +774,7 @@ const elements = {
   mobileNavRecords: document.getElementById("mobile-nav-records"),
   mobileNavMulti: document.getElementById("mobile-nav-multi"),
   mobileNavTournaments: document.getElementById("mobile-nav-tournaments"),
+  mobileNavDeckLab: document.getElementById("mobile-nav-deck-lab"),
 
   // Home CTA Buttons
   homeCtaDraft: document.getElementById("home-cta-draft"),
@@ -1074,6 +1078,7 @@ function syncLanguageControls() {
 
 function setGlobalCardLanguage(language) {
   state.cardLanguage = writeCardLanguage(language);
+  window.dispatchEvent(new Event("draftmaster:card-language-change"));
   syncLanguageControls();
   hideCardPopover();
   renderMatrix();
@@ -1260,6 +1265,7 @@ function navigateTo(viewName, cubeKey = null) {
   elements.navBtnRecords?.classList.toggle("active", viewName === "records");
   elements.navBtnMulti?.classList.toggle("active", viewName === "multi");
   elements.navBtnTournaments?.classList.toggle("active", viewName === "tournaments");
+  elements.navBtnDeckLab?.classList.toggle("active", viewName === "deck-lab");
 
   // Header active tabs (Mobile Drawer)
   elements.mobileNavHome?.classList.toggle("active", viewName === "home");
@@ -1270,6 +1276,7 @@ function navigateTo(viewName, cubeKey = null) {
   elements.mobileNavRecords?.classList.toggle("active", viewName === "records");
   elements.mobileNavMulti?.classList.toggle("active", viewName === "multi");
   elements.mobileNavTournaments?.classList.toggle("active", viewName === "tournaments");
+  elements.mobileNavDeckLab?.classList.toggle("active", viewName === "deck-lab");
 
   // Show/Hide Views
   if (elements.viewHome) {
@@ -1308,6 +1315,10 @@ function navigateTo(viewName, cubeKey = null) {
     elements.viewTournaments.hidden = viewName !== "tournaments";
     elements.viewTournaments.style.display = viewName === "tournaments" ? "block" : "none";
   }
+  if (elements.viewDeckLab) {
+    elements.viewDeckLab.hidden = viewName !== "deck-lab";
+    elements.viewDeckLab.style.display = viewName === "deck-lab" ? "block" : "none";
+  }
 
   // URL routing
   let targetPath = "/";
@@ -1319,6 +1330,7 @@ function navigateTo(viewName, cubeKey = null) {
   else if (viewName === "admin") targetPath = "/admin";
   else if (viewName === "multi") targetPath = "/multi";
   else if (viewName === "tournaments") targetPath = "/tournaments";
+  else if (viewName === "deck-lab") targetPath = "/deck-lab";
 
   if (window.location.pathname !== targetPath) {
     window.history.pushState({ view: viewName, cube: cubeKey }, "", targetPath);
@@ -1336,6 +1348,8 @@ function navigateTo(viewName, cubeKey = null) {
     initMultiplayerDraftView();
   } else if (viewName === "tournaments") {
     void initTournamentManagementView();
+  } else if (viewName === "deck-lab") {
+    void initDeckLabView(state.activeCubeKey);
   }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1362,6 +1376,8 @@ function initRouter() {
     initialView = "multi";
   } else if (path === "/tournaments" || hash === "#tournaments") {
     initialView = "tournaments";
+  } else if (path === "/deck-lab" || hash === "#deck-lab") {
+    initialView = "deck-lab";
   }
 
   navigateTo(initialView, state.activeCubeKey);
@@ -1376,6 +1392,7 @@ function initRouter() {
     else if (p === "/admin") navigateTo("admin");
     else if (p === "/multi") navigateTo("multi");
     else if (p === "/tournaments") navigateTo("tournaments");
+    else if (p === "/deck-lab") navigateTo("deck-lab");
     else navigateTo("home");
   });
 }
@@ -1410,6 +1427,7 @@ function setupEventListeners() {
   elements.navBtnRecords?.addEventListener("click", () => navigateTo("records"));
   elements.navBtnMulti?.addEventListener("click", () => navigateTo("multi"));
   elements.navBtnTournaments?.addEventListener("click", () => navigateTo("tournaments"));
+  elements.navBtnDeckLab?.addEventListener("click", () => navigateTo("deck-lab"));
 
   // SPA Navigation handlers (Mobile Drawer)
   elements.mobileMenuBtn?.addEventListener("click", () => toggleMobileNav());
@@ -1444,6 +1462,10 @@ function setupEventListeners() {
   });
   elements.mobileNavTournaments?.addEventListener("click", () => {
     navigateTo("tournaments");
+    closeMobileNav();
+  });
+  elements.mobileNavDeckLab?.addEventListener("click", () => {
+    navigateTo("deck-lab");
     closeMobileNav();
   });
 

@@ -9,6 +9,8 @@ export interface ParsedMtgaDeckText {
   readonly deckName: string | null;
   readonly cards: readonly MtgaDeckTextCard[];
   readonly basicLands: Readonly<Record<MtgaBasicLandName, number>>;
+  readonly sideboardCards: readonly MtgaDeckTextCard[];
+  readonly sideboardBasicLands: Readonly<Record<MtgaBasicLandName, number>>;
   readonly sideboardCount: number;
   readonly totalCount: number;
 }

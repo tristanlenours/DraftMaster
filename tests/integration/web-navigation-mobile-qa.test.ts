@@ -60,8 +60,18 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('class="brand-tagline"');
     });
 
-    it("declares desktop navigation tabs for all 8 SPA views including tournament management", () => {
-      const views = ["home", "cubes", "cards", "bots", "draft", "records", "multi", "tournaments"];
+    it("declares desktop navigation tabs for all 9 SPA views including the deck lab", () => {
+      const views = [
+        "home",
+        "cubes",
+        "cards",
+        "bots",
+        "draft",
+        "records",
+        "multi",
+        "tournaments",
+        "deck-lab",
+      ];
       for (const view of views) {
         expect(htmlContent).toContain(`id="nav-btn-${view}"`);
         expect(htmlContent).toContain(`data-view="${view}"`);
@@ -82,7 +92,7 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(barMatches?.length).toBe(3);
     });
 
-    it("declares mobile navigation drawer with touch targets for all 8 views", () => {
+    it("declares mobile navigation drawer with touch targets for all 9 views", () => {
       expect(htmlContent).toContain('id="mobile-nav-drawer"');
       expect(htmlContent).toContain('class="mobile-nav-drawer"');
       expect(htmlContent).toContain('aria-label="Navigation mobile"');
@@ -96,6 +106,7 @@ describe("Web Navigation & Mobile Target QA", () => {
         "records",
         "multi",
         "tournaments",
+        "deck-lab",
       ];
       for (const view of mobileViews) {
         expect(htmlContent).toContain(`id="mobile-nav-${view}"`);
@@ -242,7 +253,7 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(jsContent).toContain("Escape");
     });
 
-    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 8 views", () => {
+    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 9 views", () => {
       const navKeys = [
         "Home",
         "Cubes",
@@ -252,6 +263,7 @@ describe("Web Navigation & Mobile Target QA", () => {
         "Records",
         "Multi",
         "Tournaments",
+        "DeckLab",
       ];
       for (const key of navKeys) {
         expect(jsContent).toContain(`elements.navBtn${key}?.classList.toggle("active"`);
