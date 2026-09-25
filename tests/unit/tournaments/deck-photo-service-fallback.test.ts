@@ -131,6 +131,8 @@ describe("Gemini deck photo service fallback", () => {
             "Mana Vault",
             "Swords to Plowshares",
             "Réduire au s",
+            "Ruisseau éclat…",
+            "Jwari Ruin…",
             "Plains",
             "Plains",
           ],
@@ -167,7 +169,14 @@ describe("Gemini deck photo service fallback", () => {
       ),
     ).toBe(false);
     expect(result.value.basicLands).toMatchObject({ Plains: 2, Island: 0 });
-    expect(result.value.unverifiedTitles).toEqual(["Réduire au s"]);
+    expect(result.value.unverifiedTitles).toEqual([
+      "Réduire au s",
+      "Ruisseau éclat…",
+      "Jwari Ruin…",
+    ]);
+    expect(
+      result.value.cards.some((card) => ["Vivid Creek", "Jwari Disruption"].includes(card.name)),
+    ).toBe(false);
     expect(result.value.confidence).toBeUndefined();
     const requestPayload = fakeGemini.payloads[0];
     expect(requestPayload).toBeDefined();

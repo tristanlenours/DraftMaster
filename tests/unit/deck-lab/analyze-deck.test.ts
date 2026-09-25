@@ -4,36 +4,10 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { CardCatalog } from "../../../src/cards/card-catalog.ts";
 import { analyzeDeckText, type DeckLabCatalog } from "../../../src/deck-lab/analyze-deck.ts";
+import { RED_SPELLS, redDeck } from "../../fixtures/deck-lab-red-cards.ts";
 
 let catalog: DeckLabCatalog;
 
-const RED_SPELLS = [
-  "Lightning Bolt",
-  "Abrade",
-  "Act of Treason",
-  "Arc Trail",
-  "Battle Cry Goblin",
-  "Bloodmark Mentor",
-  "Bonfire of the Damned",
-  "Brimstone Volley",
-  "Broadside Bombardiers",
-  "Burn Down the House",
-  "Chandra, Acolyte of Flame",
-  "Descent of the Dragons",
-  "Devil's Play",
-  "Draconic Roar",
-  "Dragon Tempest",
-  "Dragonlord's Servant",
-  "Dragonmaster Outcast",
-  "Embercleave",
-  "Flames of the Firebrand",
-  "Glorybringer",
-  "Goblin Bombardment",
-  "Goblin Chieftain",
-  "Goblin Cratermaker",
-] as const;
-const redDeck = (basics = 0) =>
-  `Deck\n${RED_SPELLS.map((name) => `1 ${name}`).join("\n")}${basics ? `\n${String(basics)} Mountain` : ""}`;
 const WHITE_SPELLS = [
   "Adeline, Resplendent Cathar",
   "Ajani, Strength of the Pride",

@@ -1,32 +1,7 @@
 import { expect, test } from "@playwright/test";
+import { RED_SPELLS, redDeck as formatRedDeck } from "../fixtures/deck-lab-red-cards.ts";
 
-const RED_SPELLS = [
-  "Lightning Bolt",
-  "Abrade",
-  "Act of Treason",
-  "Arc Trail",
-  "Battle Cry Goblin",
-  "Bloodmark Mentor",
-  "Bonfire of the Damned",
-  "Brimstone Volley",
-  "Broadside Bombardiers",
-  "Burn Down the House",
-  "Chandra, Acolyte of Flame",
-  "Descent of the Dragons",
-  "Devil's Play",
-  "Draconic Roar",
-  "Dragon Tempest",
-  "Dragonlord's Servant",
-  "Dragonmaster Outcast",
-  "Embercleave",
-  "Flames of the Firebrand",
-  "Glorybringer",
-  "Goblin Bombardment",
-  "Goblin Chieftain",
-  "Goblin Cratermaker",
-] as const;
-const redDeck = (mountains = 17) =>
-  `Deck\n${RED_SPELLS.map((name) => `1 ${name}`).join("\n")}\n${String(mountains)} Mountain`;
+const redDeck = (mountains = 17) => formatRedDeck(mountains);
 
 test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 812 });
@@ -136,7 +111,7 @@ test("a cube without a ready synergy profile gives a clearly limited rating", as
   expect(arenaResult.warnings.join(" ")).toMatch(/profil de synergie.*pas prêt/iu);
 });
 
-test("a photo populates editable MTGA text before rating", async ({ page }) => {
+test("a photo populates editable MTGA text before rating", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 360, height: 812 });
   let uploadedImages: string[] = [];
   await page.route("**/api/tournaments/recognize-deck", async (route) => {
@@ -186,6 +161,14 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
   await expect(page.locator("#deck-lab-unverified")).toContainText("Titre partiel");
   await expect(page.locator("#deck-lab-rate")).toBeDisabled();
   await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+  await page.screenshot({ path: testInfo.outputPath("photo-review-mobile.png"), fullPage: true });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await expect(page.locator("#deck-lab-photo-review")).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("photo-review-desktop.png"), fullPage: true });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(
+    false,
+  );
+  await page.setViewportSize({ width: 360, height: 812 });
   const text = page.locator("#deck-lab-text");
   await expect(text).toHaveValue(/1 Lightning Bolt/u);
   const overflow = await page.evaluate(
