@@ -77,6 +77,34 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function isCompleteJpegRegion(region: Buffer): boolean {
+  if (
+    region.length < 100 ||
+    region[0] !== 0xff ||
+    region[1] !== 0xd8 ||
+    region[region.length - 2] !== 0xff ||
+    region[region.length - 1] !== 0xd9
+  )
+    return false;
+  let offset = 2;
+  let hasFrame = false;
+  while (offset < region.length - 2) {
+    if (region[offset] !== 0xff) return false;
+    while (region[offset] === 0xff) offset++;
+    const marker = region[offset++];
+    if (marker === undefined || marker === 0x00 || marker === 0xd8 || marker === 0xd9) return false;
+    if (offset + 2 > region.length - 2) return false;
+    const segmentLength = region.readUInt16BE(offset);
+    if (segmentLength < 2 || offset + segmentLength > region.length - 2) return false;
+    if (marker === 0xda) return hasFrame && offset + segmentLength < region.length - 2;
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      hasFrame = true;
+    }
+    offset += segmentLength;
+  }
+  return false;
+}
+
 function isSetupParticipant(value: unknown): value is SetupParticipantInput {
   return (
     isRecord(value) &&
@@ -169,20 +197,19 @@ export function createTournamentHttpHandler(
           regions = body.images.map((image: string) =>
             Buffer.from(image.slice("data:image/jpeg;base64,".length), "base64"),
           );
-          if (
-            regions.some(
-              (region) =>
-                region.length < 4 || region[0] !== 0xff || region[1] !== 0xd8 || region[2] !== 0xff,
-            )
-          ) {
+          if (regions.some((region) => !isCompleteJpegRegion(region))) {
             sendInvalidInput(response, "Les régions doivent contenir des images JPEG.");
             return true;
           }
         }
 
-        let mimeType = typeof body.mimeType === "string" ? body.mimeType : "image/jpeg";
+        let mimeType = regions
+          ? "image/jpeg"
+          : typeof body.mimeType === "string"
+            ? body.mimeType
+            : "image/jpeg";
         let base64Data = typeof body.image === "string" ? body.image : "";
-        if (base64Data.startsWith("data:")) {
+        if (!regions && base64Data.startsWith("data:")) {
           const match = /^data:(image\/[a-zA-Z0-9.+_-]+);base64,(.+)$/.exec(base64Data);
           if (match && typeof match[1] === "string" && typeof match[2] === "string") {
             mimeType = match[1];

@@ -172,6 +172,36 @@ test("a photo populates editable MTGA text before rating", async ({ page }) => {
   await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
+  await text.fill("");
+  await text.fill("Deck\n23 Lightning Bolt\n17 Mountain");
+  await expect(page.locator("#deck-lab-photo-review")).toBeHidden();
+  await expect(page.locator("#deck-lab-rate")).toBeEnabled();
+});
+
+test("editing during an analysis does not enable a second submission", async ({ page }) => {
+  let releaseRequest: (() => void) | undefined;
+  let intercepted = false;
+  const gate = new Promise<void>((resolve) => {
+    releaseRequest = resolve;
+  });
+  await page.route("**/api/deck-lab/analyze", async (route) => {
+    intercepted = true;
+    await gate;
+    await route.continue();
+  });
+  await page.goto("/deck-lab");
+  await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  await page.locator("#deck-lab-text").fill("Deck\n23 Lightning Bolt\n17 Mountain");
+  await page.locator("#deck-lab-rate").click();
+  await expect.poll(() => intercepted).toBe(true);
+  await page.locator("#deck-lab-text").fill("Deck\n22 Lightning Bolt\n18 Mountain");
+  try {
+    await expect(page.locator("#deck-lab-rate")).toBeDisabled();
+    await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+  } finally {
+    releaseRequest?.();
+  }
+  await expect(page.locator("#deck-lab-rate")).toBeEnabled();
 });
 
 test("a failed photo recognition preserves the editable deck", async ({ page }) => {

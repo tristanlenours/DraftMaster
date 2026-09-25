@@ -6,9 +6,11 @@ let initialized = false;
 let latestResult = null;
 let cubeLoading = false;
 let photoReviewRequired = false;
+let analysisPending = false;
 
 function updatePhotoGate() {
-  const blocked = photoReviewRequired && !element("deck-lab-photo-confirm").checked;
+  const blocked =
+    analysisPending || (photoReviewRequired && !element("deck-lab-photo-confirm").checked);
   element("deck-lab-rate").disabled = blocked;
   element("deck-lab-pimp").disabled = blocked;
 }
@@ -294,8 +296,8 @@ async function analyze(mode) {
     setStatus(error.message, "error");
     return;
   }
-  const buttons = [element("deck-lab-rate"), element("deck-lab-pimp")];
-  buttons.forEach((button) => (button.disabled = true));
+  analysisPending = true;
+  updatePhotoGate();
   setStatus("Analyse du deck en cours…");
   try {
     const response = await fetch("/api/deck-lab/analyze", {
@@ -316,6 +318,7 @@ async function analyze(mode) {
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
+    analysisPending = false;
     updatePhotoGate();
   }
 }
@@ -366,7 +369,9 @@ async function recognizePhoto(file) {
       node("p", "", "Vérifiez la liste reconnue puis lancez l'analyse."),
     );
     updateCount();
-    setStatus("Photo analysée : liste partielle. Vérifiez chaque carte et quantité avant l'analyse.");
+    setStatus(
+      "Photo analysée : liste partielle. Vérifiez chaque carte et quantité avant l'analyse.",
+    );
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
@@ -379,7 +384,14 @@ export async function initDeckLabView(preferredCubeKey) {
   if (!initialized) {
     initialized = true;
     element("deck-lab-text").addEventListener("input", () => {
-      if (photoReviewRequired) element("deck-lab-photo-confirm").checked = false;
+      if (photoReviewRequired) {
+        element("deck-lab-photo-confirm").checked = false;
+        if (!element("deck-lab-text").value.trim()) {
+          photoReviewRequired = false;
+          element("deck-lab-photo-review").hidden = true;
+          element("deck-lab-unverified").replaceChildren();
+        }
+      }
       updatePhotoGate();
       updateCount();
       invalidateResult();

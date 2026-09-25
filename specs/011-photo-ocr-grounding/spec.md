@@ -15,11 +15,11 @@ Deck Lab currently shrinks a large deck photo to 1400 px and asks a vision model
 ## Requirements
 
 - FR-001: Deck Lab prepares at most six overlapping, readable image regions from a large photo. Existing tournament photo uploads keep their current single-image contract.
-- FR-002: The Deck Lab photo API accepts one to six JPEG regions within the existing request-size limit, and rejects malformed, empty, or excessive region arrays.
+- FR-002: The Deck Lab photo API accepts one to six JPEG regions within the existing request-size limit, and rejects malformed, truncated, empty, or excessive region arrays. A region request always uses JPEG MIME regardless of legacy request fields.
 - FR-003: Vision output transcribes printed titles without a cube candidate list or inferred deck completion. Basic lands must come from transcribed visible titles, never an estimated aggregate.
 - FR-004: Only exact catalog or basic-land title matches enter the editable MTGA list. Unresolved titles remain visible as text to review; fuzzy matches do not silently substitute cards.
 - FR-005: Duplicate readings from overlapping regions do not multiply a card's count. One copy per title enters the draft list; the player corrects actual quantities.
-- FR-006: After photo import, Rate and Pimp require explicit player confirmation of the editable list. Manual paste remains directly analyzable.
+- FR-006: After photo import, Rate and Pimp require explicit player confirmation of the editable list. Clearing the photo list returns to manual entry; manual paste remains directly analyzable. Editing during an in-flight analysis never enables duplicate submissions.
 - FR-007: Provider failure and no readable titles preserve the player's existing text. Raw photos and credentials are not persisted or logged.
 
 ## Acceptance evidence

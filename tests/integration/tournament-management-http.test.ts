@@ -1,5 +1,6 @@
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import { readFileSync } from "node:fs";
 
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -729,7 +730,8 @@ describe("Tournament management HTTP", () => {
   });
 
   it("passes bounded photo regions to the recognizer and rejects malformed regions", async () => {
-    const jpeg = `data:image/jpeg;base64,${Buffer.from([0xff, 0xd8, 0xff, 0xd9]).toString("base64")}`;
+    const jpegBytes = readFileSync("tests/fixtures/photo-region.jpg");
+    const jpeg = `data:image/jpeg;base64,${jpegBytes.toString("base64")}`;
     const calls: { images: Buffer | readonly Buffer[]; mimeType: string }[] = [];
     const { baseUrl } = await startHttpServer({
       recognizeDeck: (images, mimeType) => {
@@ -749,7 +751,7 @@ describe("Tournament management HTTP", () => {
     const valid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ images: [jpeg, jpeg] }),
+      body: JSON.stringify({ images: [jpeg, jpeg], mimeType: "image/png" }),
     });
     expect(valid.status).toBe(200);
     await expect(valid.json()).resolves.toMatchObject({ unverifiedTitles: ["Titre incomplet"] });
@@ -761,6 +763,7 @@ describe("Tournament management HTTP", () => {
       Array(7).fill(jpeg),
       ["data:image/png;base64,aGVsbG8="],
       ["data:image/jpeg;base64,aGVsbG8="],
+      [`data:image/jpeg;base64,${jpegBytes.subarray(0, -2).toString("base64")}`],
       ["invalid"],
     ]) {
       const invalid = await fetch(`${baseUrl}/api/tournaments/recognize-deck`, {
