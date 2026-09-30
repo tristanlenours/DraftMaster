@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import type { CardCatalog } from "../cards/card-catalog.ts";
+import { toCardEvaluationInput } from "../cards/evaluation-input.ts";
 import { loadCoachContext, type CoachContext } from "../cubes/coach-context.ts";
 import type { CubeSnapshot } from "../cubes/validate-snapshot.ts";
 import {
@@ -48,7 +49,6 @@ import type {
   DeckBuildOption,
   DeckEvaluation,
   DeckEvaluationOptions,
-  DeckSynergyProfile,
   MtGColor,
   PackEvaluationContext,
 } from "../domain/coaching/types.ts";
@@ -147,7 +147,6 @@ export class SoloDraftSession {
   private readonly snapshot: CubeSnapshot;
   private readonly catalog: Readonly<CardCatalog>;
   private readonly bombDefinition: CubeBombDefinition;
-  private readonly synergyProfile: DeckSynergyProfile | undefined;
   private readonly coachContext: Readonly<CoachContext>;
   private readonly bombOracleIds: ReadonlySet<string>;
   private readonly instanceToInputMap = new Map<string, CardEvaluationInput>();
@@ -201,7 +200,6 @@ export class SoloDraftSession {
     this.catalog = params.coachContext.catalog;
     this.currentDraft = params.currentDraft;
     this.bombDefinition = params.bombDefinition;
-    this.synergyProfile = params.coachContext.synergyProfile;
     this.bombOracleIds = params.bombOracleIds;
     this.instanceToInputMap = params.instanceToInputMap;
     this.instanceToEnrichedMap = params.instanceToEnrichedMap;
@@ -253,56 +251,24 @@ export class SoloDraftSession {
 
     for (const card of snapshot.cards) {
       const doc = catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
-      const name = doc?.name ?? card.name;
-      const staticScore = doc ? doc.powerScore.score : 28;
-      let colors = (doc?.colors ?? []) as MtGColor[];
-      const cmc = doc?.cmc ?? 0;
-      const types = doc?.types ?? [];
-      const subtypes = doc?.subtypes ?? [];
-      const typeLine = doc?.typeLine ?? "Card";
-      const isLand = doc?.isLand ?? false;
-      const producesColors = (doc?.producesColors ?? []) as MtGColor[];
-      const oracleText =
-        doc?.oracleText && doc.oracleText.length > 0 ? doc.oracleText : (doc?.frenchText ?? "");
-      const manaCost = doc?.manaCost ?? "";
-      const oracleId = doc?.oracleId ?? card.oracleId;
-
-      if (
-        colors.length === 0 &&
-        (!isLand || typeLine.includes("//")) &&
-        doc?.colorIdentity &&
-        doc.colorIdentity.length > 0
-      ) {
-        colors = [...doc.colorIdentity] as MtGColor[];
-      }
-      const slug = doc?.slug;
-      const imageUrl =
-        doc?.image?.url ??
-        `https://api.scryfall.com/cards/named?format=image&exact=${encodeURIComponent(name)}`;
-      const localImagePath = doc?.image?.localPath ?? `data/cards/images/${slug ?? "unknown"}.jpg`;
-
-      const evalInput: CardEvaluationInput = {
-        id: card.instanceId,
-        name,
-        staticScore,
-        colors,
-        cmc,
-        types,
-        subtypes,
-        typeLine,
-        isLand,
-        producesColors,
-        oracleText,
-        manaCost,
-        oracleId,
-      };
+      if (!doc) throw new Error("Missing verified catalog card: " + card.oracleId);
+      const evalInput = toCardEvaluationInput(doc, card.instanceId);
       instanceToInputMap.set(card.instanceId, evalInput);
+      const { name, staticScore, colors, oracleText, manaCost } = evalInput;
+      const { isLand, oracleId } = doc;
+      const cmc = doc.cmc;
+      const types = doc.types;
+      const typeLine = doc.typeLine;
+      const slug = doc.slug;
+      const imageUrl =
+        doc.image?.url ??
+        "https://api.scryfall.com/cards/named?format=image&exact=" + encodeURIComponent(name);
+      const localImagePath =
+        doc.image?.localPath ?? "data/cards/images/" + (slug ?? "unknown") + ".jpg";
 
-      const analysis =
-        doc?.cubeAnalyses[snapshot.cubeKey] ??
-        (doc ? Object.values(doc.cubeAnalyses)[0] : undefined);
+      const analysis = doc.cubeAnalyses[snapshot.cubeKey] ?? Object.values(doc.cubeAnalyses)[0];
       const howToPlay =
-        analysis?.pedagogy?.howToPlay ?? analysis?.analysis ?? doc?.objectiveAnalysis.summary;
+        analysis?.pedagogy?.howToPlay ?? analysis?.analysis ?? doc.objectiveAnalysis.summary;
 
       const enriched: EnrichedCard = {
         instanceId: card.instanceId,
@@ -319,10 +285,10 @@ export class SoloDraftSession {
         imageUrl,
         localImagePath,
         slug,
-        frenchName: doc?.frenchName,
-        frenchText: doc?.frenchText,
-        frenchImageUrl: doc?.frenchImageUrl,
-        localFrenchImagePath: doc?.image?.localFrenchPath ?? doc?.localFrenchPath,
+        frenchName: doc.frenchName,
+        frenchText: doc.frenchText,
+        frenchImageUrl: doc.frenchImageUrl,
+        localFrenchImagePath: doc.image?.localFrenchPath ?? doc.localFrenchPath,
         oracleText,
         howToPlay,
       };
@@ -1379,10 +1345,7 @@ export class SoloDraftSession {
       };
     });
 
-    const evaluationOptions: DeckEvaluationOptions = {
-      bombThreshold: this.bombDefinition.cutoffScore,
-      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
-    };
+    const evaluationOptions = this.coachContext.deckEvaluationOptions;
     const humanEvaluation: DeckEvaluation = evaluateDeck(humanDeckInputs, evaluationOptions);
 
     const humanDeckSummary: FinalDeckSummary = {
@@ -1615,10 +1578,7 @@ export class SoloDraftSession {
   public startBotDeckbuilding(): void {
     if (this.botDecksPromise) return;
     const finalDraftView = getDraftView(this.currentDraft);
-    const evaluationOptions: DeckEvaluationOptions = {
-      bombThreshold: this.bombDefinition.cutoffScore,
-      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
-    };
+    const evaluationOptions = this.coachContext.deckEvaluationOptions;
     this.botDecksPromise = this.computeAllBotDecks(finalDraftView, evaluationOptions);
   }
 
@@ -1844,10 +1804,7 @@ export class SoloDraftSession {
       (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
     );
 
-    const evaluationOptions: DeckEvaluationOptions = {
-      bombThreshold: this.bombDefinition.cutoffScore,
-      ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
-    };
+    const evaluationOptions = this.coachContext.deckEvaluationOptions;
 
     const options = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
     const bestOption = options[0];
@@ -1893,10 +1850,7 @@ export class SoloDraftSession {
       cubeKey: this.snapshot.cubeKey,
       snapshotId: this.snapshot.snapshotId,
       pool,
-      evaluationOptions: {
-        bombThreshold: this.bombDefinition.cutoffScore,
-        ...(this.synergyProfile ? { synergyProfile: this.synergyProfile } : {}),
-      },
+      evaluationOptions: this.coachContext.deckEvaluationOptions,
     });
 
     return {

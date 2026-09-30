@@ -41,6 +41,27 @@ beforeAll(async () => {
 });
 
 describe("deck lab", () => {
+  it("uses the draft color-identity fallback for a colorless spell", () => {
+    const bolt = catalog.resolveCard("Lightning Bolt");
+    if (!bolt) throw new Error("Missing catalog fixture");
+    const colorlessCatalog: DeckLabCatalog = {
+      resolveCard: () => ({ ...bolt, colors: [], colorIdentity: ["R"] }),
+    };
+    const result = analyzeDeckText("Deck\n1 Lightning Bolt\n39 Mountain", "rate", colorlessCatalog);
+    expect(result.rating.audit.mana.usedColors).toEqual(["R"]);
+  });
+  it("uses the draft adaptive build for a pool of 22 nonlands", () => {
+    const result = analyzeDeckText(
+      `Deck\n${RED_SPELLS.slice(0, 22)
+        .map((name) => `1 ${name}`)
+        .join("\n")}`,
+      "pimp",
+      catalog,
+    );
+    if (!("build" in result)) throw new Error("Pimp result is missing its build");
+    expect(result.build.final.reduce((sum, card) => sum + card.count, 0)).toBe(22);
+    expect(Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0)).toBe(18);
+  });
   it("rates exactly the 40-card maindeck with the five existing axes", () => {
     const result = analyzeDeckText(`${redDeck(17)}\nSideboard\n1 Counterspell`, "rate", catalog);
 
@@ -102,15 +123,16 @@ describe("deck lab", () => {
     expect(result.input.nonbasicPoolCount).toBe(24);
   });
 
-  it("rebuilds a 40-card deck that starts with 24 nonlands", () => {
+  it("retains a better 40-card deck with an adaptive 24/16 composition", () => {
     const result = analyzeDeckText(`${redDeck(16)}\n1 Goblin Guide`, "pimp", catalog);
     if (!("build" in result)) throw new Error("Pimp result is missing its build");
     expect(result.before).not.toBeNull();
-    expect(result.build.title).not.toBe("Deck actuel conservé");
+    expect(result.build.title).toBe("Deck actuel conservé");
     expect(
       result.build.final.filter((card) => !catalog.resolveCard(card.name)?.isLand),
-    ).toHaveLength(23);
-    expect(Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0)).toBe(17);
+    ).toHaveLength(24);
+    expect(Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0)).toBe(16);
+    expect(result.rating).toEqual(result.before);
   });
 
   it("rejects a maindeck above 40 cards and unknown card names", () => {
@@ -191,15 +213,15 @@ describe("deck lab", () => {
     expect(() => analyzeDeckText(list(46), "pimp", catalog)).toThrow(/45 cartes non basiques/iu);
   });
 
-  it("rejects a pool with fewer than 23 true nonlands", () => {
+  it("rejects a pool with fewer than 22 true nonlands", () => {
     expect(() =>
       analyzeDeckText(
-        `Deck\n${RED_SPELLS.slice(0, 22)
+        `Deck\n${RED_SPELLS.slice(0, 21)
           .map((name) => `1 ${name}`)
           .join("\n")}\n1 Emeria's Call`,
         "pimp",
         catalog,
       ),
-    ).toThrow(/23 cartes hors terrain/iu);
+    ).toThrow(/22 cartes hors terrain/iu);
   });
 });

@@ -1,6 +1,8 @@
 import type { MasterCatalogCard } from "../cards/types.ts";
+import { toCardEvaluationInput } from "../cards/evaluation-input.ts";
 import {
   DEFAULT_BASIC_LANDS,
+  MIN_BUILD_NONLAND_CARDS,
   evaluateDeck,
   recommendDeckBuilds,
   type CardEvaluationInput,
@@ -49,22 +51,9 @@ function expandCards(
   return cards.flatMap(({ name, count }) => {
     const document = catalog.resolveCard(name);
     if (!document) return [];
-    return Array.from({ length: count }, () => ({
-      id: `uploaded-${String(index++)}`,
-      name: document.name,
-      oracleId: document.oracleId,
-      staticScore: document.powerScore.score,
-      colors: document.colors,
-      cmc: document.cmc,
-      types: document.types,
-      subtypes: document.subtypes,
-      typeLine: document.typeLine,
-      isLand: document.isLand,
-      producesColors: document.producesColors,
-      oracleText: document.oracleText,
-      manaCost: document.manaCost,
-      roles: document.objectiveAnalysis.roles,
-    }));
+    return Array.from({ length: count }, () =>
+      toCardEvaluationInput(document, `uploaded-${String(index++)}`),
+    );
   });
 }
 
@@ -228,9 +217,12 @@ export function analyzeDeckText(
 
   const main = expandCards(parsed.cards, catalog, 0);
   const reserve = expandCards(parsed.sideboardCards, catalog, main.length);
-  if (mode === "pimp" && [...main, ...reserve].filter((card) => !card.isLand).length < 23) {
+  if (
+    mode === "pimp" &&
+    [...main, ...reserve].filter((card) => !card.isLand).length < MIN_BUILD_NONLAND_CARDS
+  ) {
     throw new DeckLabInputError(
-      "Pimp my deck demande au moins 23 cartes hors terrain distinctes. Les cartes recto sort, verso terrain comptent comme terrains.",
+      `Pimp my deck demande au moins ${String(MIN_BUILD_NONLAND_CARDS)} cartes hors terrain distinctes. Les cartes recto sort, verso terrain comptent comme terrains.`,
     );
   }
   const virtualBasicLands =
@@ -276,20 +268,14 @@ export function analyzeDeckText(
     parsed.totalCount === 40
       ? compactEvaluation(evaluateDeck(currentDeck, options), currentDeck)
       : null;
-  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options, {
-    targetNonlandCards: 23,
-  })[0];
+  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options)[0];
   if (!proposal) throw new DeckLabInputError("Aucune construction de deck n'a été trouvée.");
   const basicsById = new Map(Object.values(BASIC_INPUTS).map((card) => [card.id, card]));
   const proposedDeck = proposal.maindeck.flatMap((id) => {
     const card = byId.get(id) ?? basicsById.get(id);
     return card ? [card] : [];
   });
-  const useCurrent =
-    previous !== null &&
-    main.filter((card) => !card.isLand).length === 23 &&
-    currentDeck.filter((card) => card.isLand).length === 17 &&
-    previous.score >= proposal.evaluation.overallScore;
+  const useCurrent = previous !== null && previous.score >= proposal.evaluation.overallScore;
   const chosenIds = useCurrent
     ? main.map((card) => card.id)
     : proposal.maindeck.filter((id) => byId.has(id));

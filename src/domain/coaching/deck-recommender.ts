@@ -25,6 +25,8 @@ export interface DeckBuildConstraints {
   readonly targetNonlandCards?: number;
 }
 
+export const MIN_BUILD_NONLAND_CARDS = 22;
+
 export const DEFAULT_BASIC_LANDS: BasicLandDefinitions = {
   W: {
     id: "basic-plains",
@@ -436,7 +438,8 @@ export function recommendDeckBuilds(
   const evaluatePath = (colors: readonly MtGColor[]) => {
     const colorSet = new Set(colors);
     const compatibleSpells = spells.filter((c) => canCastWithColors(c, colorSet));
-    if (compatibleSpells.length < (constraints.targetNonlandCards ?? 22)) return;
+    if (compatibleSpells.length < (constraints.targetNonlandCards ?? MIN_BUILD_NONLAND_CARDS))
+      return;
 
     const compatibleLands = lands.filter((land) => {
       const produced = getEffectiveProducingColors(land);

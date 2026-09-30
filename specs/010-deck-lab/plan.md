@@ -46,3 +46,7 @@ Expose the existing deck evaluator and deterministic deck recommender through a 
 - A blocked cube profile reduces archetype coverage and is disclosed in the response.
 - OCR can misread cards; the player must inspect and correct text before analysis.
 - The score is a heuristic diagnostic, not a calibrated league tier or match win probability.
+
+## Shared engine follow-up — 2026-09-30
+
+Feature 012 supersedes the fixed 23/17 build contract. Deck Lab uses the same catalog conversion, cube evaluation options and adaptive local recommender as the draft; no new engine or dependency is introduced. See ../012-shared-deck-engine/plan.md.

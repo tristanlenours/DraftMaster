@@ -1577,7 +1577,13 @@ class DefaultMultiplayerDraftCoordinator implements MultiplayerDraftCoordinator 
           ),
         ),
       ];
-      const evaluation = evaluateDeck(evaluationDeck);
+      const coachContext = this.dependencies.loadCoachContext
+        ? await this.dependencies.loadCoachContext(session.cubeKey)
+        : undefined;
+      if (coachContext && coachContext.snapshotId !== session.snapshotId) {
+        throw new Error("COACH_CONTEXT_SNAPSHOT_MISMATCH");
+      }
+      const evaluation = evaluateDeck(evaluationDeck, coachContext?.deckEvaluationOptions);
       const existing = session.deckWorkspaces?.[participantId];
       const workspace: Readonly<DeckWorkspace> = {
         participantId,

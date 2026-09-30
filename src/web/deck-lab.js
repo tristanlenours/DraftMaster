@@ -45,7 +45,7 @@ function updateCount() {
   const count = element("deck-lab-count");
   if (!text.trim()) {
     count.textContent =
-      "Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : 23 cartes hors terrain parmi 45 cartes non basiques maximum.";
+      "Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : au moins 22 cartes hors terrain parmi 45 cartes non basiques maximum, terrains adaptés au deck.";
     return;
   }
   try {

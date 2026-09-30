@@ -20,6 +20,7 @@ import { getAdminDrafts, getAdminDraftById } from "../src/solo-draft/admin-draft
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
 import { loadCoachContext } from "../src/cubes/coach-context.ts";
 import { CardCatalog } from "../src/cards/card-catalog.ts";
+import { toCardEvaluationInput } from "../src/cards/evaluation-input.ts";
 import { createDeckLabHttpHandler } from "../src/deck-lab/http-handler.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
 import {
@@ -477,22 +478,8 @@ export function createRequestHandler(options = {}) {
         return cards.map((card) => {
           const document =
             catalog.getCardByOracleId(card.oracleId) ?? catalog.getCardByName(card.name);
-          return {
-            id: card.instanceId,
-            name: document?.name ?? card.name,
-            staticScore: document?.powerScore.score ?? 25,
-            colors: document?.colors ?? [],
-            cmc: document?.cmc ?? 0,
-            types: document?.types ?? [],
-            subtypes: document?.subtypes ?? [],
-            typeLine: document?.typeLine ?? "Card",
-            isLand: document?.isLand ?? false,
-            producesColors: document?.producesColors ?? [],
-            oracleText: document?.oracleText ?? "",
-            manaCost: document?.manaCost ?? "",
-            oracleId: document?.oracleId ?? card.oracleId,
-            roles: document?.objectiveAnalysis.roles ?? [],
-          };
+          if (!document) throw new Error(`Missing catalog card: ${card.oracleId}`);
+          return toCardEvaluationInput(document, card.instanceId);
         });
       },
       loadMtgaPool: async (cubeKey, cards) => {
