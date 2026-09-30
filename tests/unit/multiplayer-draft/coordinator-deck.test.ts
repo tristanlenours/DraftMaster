@@ -18,6 +18,7 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
     const contextResult = await loadCoachContext(process.cwd(), "titou_tribal");
     if (!contextResult.ok) throw new Error(contextResult.error.message);
     let receivedCoachRequest: Readonly<FinalDeckCoachRequest> | undefined;
+    let mismatchedContext = false;
     const fallbackCoach = createFinalDeckCoach();
     const coordinator = createMultiplayerDraftCoordinator({
       store: createMemoryMultiplayerDraftStore(),
@@ -30,7 +31,9 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
       loadCoachContext: () =>
         Promise.resolve({
           ...contextResult.value,
-          snapshotId: buildMultiplayerSnapshot().snapshotId,
+          snapshotId: mismatchedContext
+            ? "different-snapshot"
+            : buildMultiplayerSnapshot().snapshotId,
         }),
       finalDeckCoach: {
         recommend: (request) => {
@@ -139,6 +142,20 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
       }),
     ).resolves.toMatchObject({ ok: false, error: { code: "INVALID_DECK" } });
 
+    mismatchedContext = true;
+    const beforeMismatch = await coordinator.getPlayerState(alice.value.resumeToken);
+    const mismatched = await coordinator.finalizeDeck({
+      requestId: "finalize-wrong-snapshot",
+      expectedRevision: revision,
+      resumeToken: alice.value.resumeToken,
+      maindeckCardInstanceIds: aliceRecommendation.value.maindeckCardInstanceIds,
+      basicLands: aliceRecommendation.value.basicLands,
+      finalize: true,
+    });
+    expect(mismatched).toMatchObject({ ok: false, error: { code: "STORE_UNAVAILABLE" } });
+    expect(await coordinator.getPlayerState(alice.value.resumeToken)).toEqual(beforeMismatch);
+    mismatchedContext = false;
+
     const finalized = await coordinator.finalizeDeck({
       requestId: "finalize-alice",
       expectedRevision: revision++,
@@ -148,6 +165,8 @@ describe("MultiplayerDraftCoordinator deckbuilding", () => {
       finalize: true,
     });
     expect(finalized).toMatchObject({ ok: true, value: { status: "finalized" } });
+    if (!finalized.ok) throw new Error(finalized.error.message);
+    expect(finalized.value.evaluation).toEqual(aliceRecommendation.value.evaluation);
 
     const exported = await coordinator.getDeckExport(alice.value.resumeToken);
     expect(exported).toMatchObject({
