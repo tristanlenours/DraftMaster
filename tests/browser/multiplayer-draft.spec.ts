@@ -1,5 +1,15 @@
 import { expect, test, type BrowserContext, type Route } from "@playwright/test";
 
+async function isolateExternalResources(context: BrowserContext) {
+  await context.route("**/*", async (route) => {
+    if (new URL(route.request().url()).origin === "http://127.0.0.1:4173") {
+      await route.continue();
+    } else {
+      await route.abort();
+    }
+  });
+}
+
 interface PublicLobby {
   lobbyId: "global";
   generation: number;
@@ -152,6 +162,7 @@ test("deux amis rejoignent le Salon et conservent chacun leur Acces de reprise",
   };
   const createFriendContext = async (): Promise<BrowserContext> => {
     const context = await browser.newContext({ baseURL: "http://127.0.0.1:4173" });
+    await isolateExternalResources(context);
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await context.route("**/api/multiplayer/**", routeApi);
     return context;
@@ -257,6 +268,7 @@ test("atelier 40 cartes modifiable et export MTGA au clavier sur mobile", async 
     baseURL: "http://127.0.0.1:4173",
     viewport: { width: 360, height: 800 },
   });
+  await isolateExternalResources(context);
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await context.addInitScript(() => {
     localStorage.setItem("draftmaster_multiplayer_resume_token", "private-alice");
@@ -397,6 +409,8 @@ test("atelier 40 cartes modifiable et export MTGA au clavier sur mobile", async 
     await expect(page.locator("#multi-coach-strategy")).toContainText("Tempo azorius");
 
     await page.getByRole("button", { name: "Retirer Carte 1 du deck" }).focus();
+    await page.waitForResponse((response) => response.url().endsWith("/api/multiplayer/state"));
+    await expect(page.getByRole("button", { name: "Retirer Carte 1 du deck" })).toBeFocused();
     await page.keyboard.press("Enter");
     await expect(page.locator("#multi-deck-count")).toHaveText("39 / 40");
     await page.getByRole("button", { name: "Ajouter Carte 24 au deck" }).focus();

@@ -270,7 +270,15 @@ function renderDeckWorkshop(playerState) {
   if (elements.exportActions) elements.exportActions.hidden = workspace?.status !== "finalized";
 
   const cardsById = new Map(playerState.pool.map((card) => [card.instanceId, card]));
-  if (elements.deckCards && elements.sideboardCards) {
+  const deckCardsSignature = JSON.stringify(
+    playerState.pool.map((card) => [card.instanceId, card.name, editingDeckIds.has(card.instanceId)]),
+  );
+  if (
+    elements.deckCards &&
+    elements.sideboardCards &&
+    elements.deckCards.dataset.signature !== deckCardsSignature
+  ) {
+    elements.deckCards.dataset.signature = deckCardsSignature;
     elements.deckCards.replaceChildren();
     elements.sideboardCards.replaceChildren();
     for (const card of playerState.pool) {

@@ -21,3 +21,7 @@ Specification/clarification/design/checklist/tasks/analysis precede source chang
 
 ## Verification
 Vertical slices: multiplayer parity and snapshot rejection; adaptive Pimp fixture; Solo/Rate public parity. Then complete quality gate and reference/replay. Disclose intentional score changes from corrected inputs. No new visual design.
+
+## Gate qualification follow-up — 2026-09-30
+
+T006/T007 cover the user-authorized continuation of PR #90. Reproduce the two multiplayer browser failures at their existing public journey seam. Isolate optional external scripts/fonts/images in these mocked browser scenarios; keep local application/API behavior exercised. Add a regression that retains keyboard focus across an actual player-state poll before Enter, then fix only the verified rendering defect. No domain/scoring change, timeout increase or SLA waiver. Update only the vulnerable transitive lock entries within existing dependency ranges and verify npm audit plus schema/reference/replay behavior. Record remote matrix/browser/security outcomes and repeat Standards + Spec review for the follow-up diff.

@@ -41,6 +41,8 @@ SC-002: Pimp matches the local draft build for an adaptive fixture and returns 4
 SC-003: Affected tests, reference/replay, quality and browser gates pass, with unexecuted or failing gates explicitly recorded.
 SC-004: Mobile/keyboard presentation is unchanged; existing 360 px browser journeys remain valid. No new external per-card requests or runtime dependencies.
 
+Gate qualification acceptance: unchanged multiplayer polling responses retain the focused deck-card control so Enter still edits the selection. Browser scenarios with mocked multiplayer APIs isolate optional external assets/services while exercising the local UI, polling, clipboard and exports. Dependency vulnerability checks remain enabled.
+
 ## Key Entities
 
 Catalog card facts; cube evaluation context; pool; proposed build; deck evaluation. Existing types remain the domain model.
