@@ -40,6 +40,14 @@ Code-review skill, baseline 828bcf9, working-tree/new files:
 - Standards: no actionable findings; converter/locality, public tests and checked cross-platform cleanup are appropriate.
 - Spec: no actionable findings; FR-001–FR-005 covered; final gate/QA evidence remained pending at review time.
 
+## PR #90 conflict resolution (2026-09-30)
+
+The user opened PR [#90](https://github.com/tristanlenours/DraftMaster/pull/90) against `main` after the connector refused creation. Main commit `1f243e16` squash-merges the preceding photo feature (#89). Its complete tracked tree is identical to the feature-012 starting commit `828bcf9b` (`git diff 828bcf9b origin/main` is empty).
+
+Merged `origin/main` into the feature branch without rewriting published history. The six conflicts all concern changes already superseded by feature 012: shared conversion, adaptive minimum/land allocation, UI copy, spec and regression tests. Kept the feature-012 versions. After staging the resolutions, the merge has no tracked implementation difference from the pre-merge feature head; therefore all photo/quantity corrections on main are preserved. This resolves branch integration only; earlier qualification failures and human approval requirements still apply.
+
+Post-resolution TypeScript and `git diff --check` passed. Focused default-timeout run: 32 passed, multiplayer test exceeded 5 seconds. Controlled rerun with two workers and a 15-second completion timeout: all four suites / 33 tests passed. No test/configuration change or assertion waiver. PR #90 now uses `main` as base; the earlier intended stacked base and failed creation attempt below are historical delivery evidence.
+
 ## Runtime and delivery limits
 
 Node 24.19.0 from the bundled runtime; npm 10.9.2. Repository pins Node 24.20.0/npm 11.19.0; exact runtime reproduction is not claimed. No Node/npm runtime was installed.
