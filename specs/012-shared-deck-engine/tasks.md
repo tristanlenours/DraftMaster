@@ -12,5 +12,8 @@ Dependencies: T001 → T002 → T003 → T004 → T005. One vertical slice at a 
 
 FR-001–FR-005 are implemented and public parity is verified. SC-001/SC-002 are met. SC-004 has passing Deck Lab mobile/desktop evidence. SC-003 is partial: controlled coverage, formatting/lint/types/data, reference/replay/reports/performance pass; default quality and global browser runs are not green. No remaining engine implementation was found. Remaining delivery/qualification tasks are explicit:
 
-- [ ] T006 Qualify default-runner timing on the pinned runtime and resolve the two multiplayer browser failures before approving the required quality gates; see qa-evidence.md. Do not hide failures by changing business SLA assertions.
+- [x] T006 Qualify default-runner timing on the pinned runtime and resolve both multiplayer browser failures. All 711 tests pass locally with one worker and original budgets; required default-runner CI passes on three OS, plus 45 local browser scenarios. Raw local seven-worker timing failures are disclosed in qa-evidence.md. No business SLA, timeout or runner configuration change.
 - [ ] T007 Complete required remote CI and obtain human review/checklist approval on PR #90 before merge. The user created it against main; its squash-history conflicts were resolved locally on 2026-09-30. Never merge from local controlled-run evidence alone.
+- [x] T008 Clear the observed dependency-audit gate with only brace-expansion and fast-uri transitive patches. Local audit reports zero vulnerabilities; required Security and Quality CI on implementation head 016721ad both pass, including schema/reference/replay. No audit waiver or new direct dependency.
+
+Final convergence: no remaining implementation work found. T007 covers final-head CI and human review/checklist approval before merge. Reviewer-owned checklists stay unchecked.
