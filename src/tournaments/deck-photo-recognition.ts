@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as https from "node:https";
 import * as path from "node:path";
+import { BASIC_LAND_IDENTITIES } from "../cards/import-printed-names.ts";
 
 import type { DeclaredDeckCard, TournamentResult } from "./types.ts";
 
@@ -43,8 +44,8 @@ function normalizeNameKey(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]/g, "");
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}]/gu, "");
 }
 
 function calculateSimilarity(str1: string, str2: string): number {
@@ -88,8 +89,8 @@ interface GeminiApiResponse {
 
 export class MasterCardsIndex {
   private static instance: MasterCardsIndex | null = null;
-  private readonly cardByName = new Map<string, DeclaredDeckCard>();
-  private readonly cardByNormalized = new Map<string, DeclaredDeckCard>();
+  private readonly cardByName = new Map<string, Map<string, DeclaredDeckCard>>();
+  private readonly cardByNormalized = new Map<string, Map<string, DeclaredDeckCard>>();
   private readonly allCards: DeclaredDeckCard[] = [];
   private isLoaded = false;
 
@@ -107,6 +108,19 @@ export class MasterCardsIndex {
 
   private loadCatalog(): void {
     if (this.isLoaded) return;
+    const frenchBasics: Record<string, string> = {
+      Plains: "Plaine",
+      Island: "Île",
+      Swamp: "Marais",
+      Mountain: "Montagne",
+      Forest: "Forêt",
+    };
+    for (const [name, oracleId] of Object.entries(BASIC_LAND_IDENTITIES)) {
+      const card: DeclaredDeckCard = { name, oracleId, cmc: 0, isLand: true };
+      this.addAlias(name, card);
+      const frenchName = frenchBasics[name];
+      if (frenchName) this.addAlias(frenchName, card);
+    }
     try {
       const catalogPath = path.resolve(this.projectRoot, "data", "cards", "master-cards.json");
       if (!fs.existsSync(catalogPath)) return;
@@ -139,17 +153,55 @@ export class MasterCardsIndex {
         };
 
         this.allCards.push(entry);
-        this.cardByName.set(name.toLowerCase(), entry);
-        this.cardByNormalized.set(normalizeNameKey(name), entry);
+        this.addAlias(name, entry);
         if (frenchName) {
-          this.cardByName.set(frenchName.toLowerCase(), entry);
-          this.cardByNormalized.set(normalizeNameKey(frenchName), entry);
+          this.addAlias(frenchName, entry);
         }
       }
+      this.loadPrintedNames();
       this.isLoaded = true;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.warn("[MasterCardsIndex] Error loading master cards:", message);
+    }
+  }
+
+  private addAlias(name: string, card: DeclaredDeckCard): void {
+    const identity = card.oracleId ?? card.name;
+    for (const [index, key] of [
+      [this.cardByName, name.trim().toLowerCase()],
+      [this.cardByNormalized, normalizeNameKey(name)],
+    ] as const) {
+      if (!key) continue;
+      const candidates = index.get(key) ?? new Map<string, DeclaredDeckCard>();
+      candidates.set(identity, card);
+      index.set(key, candidates);
+    }
+  }
+
+  private loadPrintedNames(): void {
+    const aliasPath = path.resolve(this.projectRoot, "data", "cards", "printed-names.json");
+    if (!fs.existsSync(aliasPath)) return;
+    try {
+      const data: unknown = JSON.parse(fs.readFileSync(aliasPath, "utf8"));
+      if (!isRecord(data) || data.schemaVersion !== 1 || !Array.isArray(data.aliases)) return;
+      for (const alias of data.aliases) {
+        if (
+          !isRecord(alias) ||
+          typeof alias.name !== "string" ||
+          typeof alias.oracleId !== "string" ||
+          typeof alias.printedName !== "string" ||
+          typeof alias.lang !== "string" ||
+          typeof alias.scryfallId !== "string"
+        )
+          continue;
+        const card = this.findExactCard(alias.name);
+        if (card?.name !== alias.name || card.oracleId !== alias.oracleId) continue;
+        this.addAlias(alias.printedName, card);
+      }
+    } catch {
+      // Optional alias data must not disable the existing canonical catalog.
+      console.warn("[MasterCardsIndex] Invalid printed-name dataset; using canonical catalog.");
     }
   }
 
@@ -190,10 +242,12 @@ export class MasterCardsIndex {
 
   public findExactCard(inputName: string): DeclaredDeckCard | undefined {
     const trimmed = inputName.trim();
-    return (
-      this.cardByName.get(trimmed.toLowerCase()) ??
-      this.cardByNormalized.get(normalizeNameKey(trimmed))
-    );
+    if (!trimmed) return undefined;
+    const literal = this.cardByName.get(trimmed.toLowerCase());
+    if (literal) return literal.size === 1 ? literal.values().next().value : undefined;
+    if (/…|\.{2,}/u.test(trimmed)) return undefined;
+    const candidates = this.cardByNormalized.get(normalizeNameKey(trimmed));
+    return candidates?.size === 1 ? candidates.values().next().value : undefined;
   }
 }
 
@@ -311,7 +365,7 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
 Consignes :
-1. Détecte et identifie minutieusement chaque carte visible dans la photo (qu'elle soit en version anglaise ou française).
+1. Détecte et identifie minutieusement chaque carte visible dans la photo, quelle que soit sa langue imprimée (y compris les alphabets non latins).
 2. Si une liste de cartes du Cube est fournie ci-dessus, fais correspondre chaque carte reconnue à son nom anglais officiel exact de la liste.
 3. Attention aux cartes empilées en colonnes / cascade (très fréquent en MTG) où seul le haut ou le bandeau de titre d'une carte dépasse sous la suivante : examine chaque carte visible dans chaque colonne de haut en bas sans en omettre !
 4. Attention à l'orientation : la photo peut être pivotée (ex: 90° à l'horizontale ou verticale). Lis le texte selon l'orientation naturelle des cartes.
@@ -509,18 +563,6 @@ Consignes :
 
   private enrichTiledResult(raw: unknown, regionCount: number): RecognizedDeckResult | undefined {
     if (!isRecord(raw) || !Array.isArray(raw.tiles)) return undefined;
-    const basicNames: Record<string, string> = {
-      plains: "Plains",
-      plaine: "Plains",
-      island: "Island",
-      ile: "Island",
-      swamp: "Swamp",
-      marais: "Swamp",
-      mountain: "Mountain",
-      montagne: "Mountain",
-      forest: "Forest",
-      foret: "Forest",
-    };
     const counts = new Map<string, { card: DeclaredDeckCard; count: number }>();
     const basicLands: Record<string, number> = {
       Plains: 0,
@@ -549,8 +591,12 @@ Consignes :
         if (typeof title !== "string" || !title.trim()) continue;
         readableTitles++;
         const trimmed = title.trim();
-        const basic = basicNames[normalizeNameKey(trimmed)];
-        const card = basic ? undefined : this.cardsIndex.findExactCard(trimmed);
+        const resolved = this.cardsIndex.findExactCard(trimmed);
+        const basic =
+          resolved && Object.hasOwn(BASIC_LAND_IDENTITIES, resolved.name)
+            ? resolved.name
+            : undefined;
+        const card = basic ? undefined : resolved;
         if (!basic && !card) {
           unverifiedTitles.add(trimmed);
           continue;
@@ -610,10 +656,9 @@ Consignes :
 
     if (isRecord(raw) && isRecord(raw.basicLands)) {
       for (const [land, count] of Object.entries(raw.basicLands)) {
-        const titleLand = (land.charAt(0).toUpperCase() +
-          land.slice(1).toLowerCase()) as BasicLandKey;
-        if (typeof count === "number" && titleLand in basicLands) {
-          basicLands[titleLand] = Math.max(0, count);
+        const resolved = this.cardsIndex.findExactCard(land);
+        if (typeof count === "number" && resolved && Object.hasOwn(basicLands, resolved.name)) {
+          basicLands[resolved.name as BasicLandKey] = Math.max(0, count);
         }
       }
     }

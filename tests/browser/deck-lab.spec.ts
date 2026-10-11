@@ -1,7 +1,110 @@
 import { expect, test } from "@playwright/test";
+import { GeminiDeckPhotoRecognizer } from "../../src/tournaments/deck-photo-recognition.ts";
+import {
+  nicoPhotoCorpus,
+  readableNicoTitles,
+} from "../fixtures/deck-photos/nico-candyshop/manifest.ts";
 import { RED_SPELLS, redDeck as formatRedDeck } from "../fixtures/deck-lab-red-cards.ts";
 
 const redDeck = (mountains = 17) => formatRedDeck(mountains);
+
+for (const photo of nicoPhotoCorpus.photos) {
+  test(`Nico photo ${photo.file} keeps canonical multilingual titles editable`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({ width: 360, height: 812 });
+    await page.addInitScript(() => {
+      const original = Reflect.get(CanvasRenderingContext2D.prototype, "drawImage");
+      const bounds: number[][] = [];
+      Reflect.set(window, "photoRegionBounds", bounds);
+      CanvasRenderingContext2D.prototype.drawImage = function (
+        image: CanvasImageSource,
+        ...args: number[]
+      ) {
+        if (args.length === 8) bounds.push(args.slice(0, 4));
+        Reflect.apply(original, this, [image, ...args]);
+      };
+    });
+    // The UI and image crops are real; transcription is replayed, not live Gemini accuracy.
+    const recognizer = new GeminiDeckPhotoRecognizer({ geminiKeys: [] });
+    const expectedTitles = readableNicoTitles(photo.file);
+    const cards = recognizer.enrichDeckResult({
+      cards: expectedTitles.map(([name]) => ({ name, count: 1 })),
+    }).cards;
+    let images: string[] = [];
+    await page.route("**/api/tournaments/recognize-deck", async (route) => {
+      const body = route.request().postDataJSON() as { images: string[]; cubeKey: string };
+      expect(body.cubeKey).toBe(nicoPhotoCorpus.cubeKey);
+      images = body.images;
+      await route.fulfill({
+        json: {
+          ok: true,
+          cards,
+          archetype: "Liste photo à vérifier",
+          basicLands: {},
+          totalCount: cards.length,
+          unverifiedTitles: nicoPhotoCorpus.unverifiedTitles,
+        },
+      });
+    });
+    await page.goto("/deck-lab");
+    await page.locator("#deck-lab-cube").selectOption(nicoPhotoCorpus.cubeKey);
+    await page
+      .locator("#deck-lab-photo")
+      .setInputFiles(`tests/fixtures/deck-photos/nico-candyshop/${photo.file}`);
+    await expect(page.locator("#deck-lab-status")).toContainText("Vérifiez chaque carte");
+    expect(images).toHaveLength(6);
+    expect(new Set(images).size).toBe(6);
+    if ("titleBand" in photo) {
+      const bounds = await page.evaluate(
+        () => Reflect.get(window, "photoRegionBounds") as number[][],
+      );
+      const band = photo.titleBand;
+      expect(
+        bounds.some(
+          ([x = 0, y = 0, width = 0, height = 0]) =>
+            x <= band.x &&
+            y <= band.y &&
+            x + width >= band.x + band.width &&
+            y + height >= band.y + band.height,
+        ),
+        "The complete Serum Visions title must fit within at least one uploaded region",
+      ).toBe(true);
+    }
+    for (const dataUrl of images) {
+      const dimensions = await page.evaluate(async (url) => {
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+        return [image.naturalWidth, image.naturalHeight];
+      }, dataUrl);
+      expect(Math.max(...dimensions)).toBeLessThanOrEqual(1600);
+    }
+    for (const [, name] of expectedTitles)
+      await expect(page.locator("#deck-lab-text")).toHaveValue(
+        new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"),
+      );
+    await expect(page.locator("#deck-lab-unverified")).toContainText("Malcolm, …");
+    await expect(page.locator("#deck-lab-rate")).toBeDisabled();
+    await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+    await page.screenshot({ path: testInfo.outputPath("nico-review-mobile.png"), fullPage: true });
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth),
+    ).toBe(false);
+    await page.locator("#deck-lab-photo-confirm").focus();
+    await page.keyboard.press("Space");
+    await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
+    await expect(page.locator("#deck-lab-rate")).toBeEnabled();
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.screenshot({ path: testInfo.outputPath("nico-review-desktop.png"), fullPage: true });
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth),
+    ).toBe(false);
+    await page.locator("#deck-lab-text").fill("Deck\n1 Brainstorm\n");
+    await expect(page.locator("#deck-lab-text")).toHaveValue("Deck\n1 Brainstorm\n");
+    await expect(page.locator("#deck-lab-photo-confirm")).not.toBeChecked();
+  });
+}
 
 test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 812 });

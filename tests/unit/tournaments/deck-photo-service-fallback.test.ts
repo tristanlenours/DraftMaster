@@ -1,4 +1,6 @@
 import { EventEmitter } from "node:events";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import type { ClientRequest, IncomingMessage } from "node:http";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -62,6 +64,10 @@ vi.mock("node:https", () => ({
 }));
 
 import { GeminiDeckPhotoRecognizer } from "../../../src/tournaments/deck-photo-recognition.ts";
+import {
+  nicoPhotoCorpus,
+  readableNicoTitles,
+} from "../../fixtures/deck-photos/nico-candyshop/manifest.ts";
 
 describe("Gemini deck photo service fallback", () => {
   beforeEach(() => {
@@ -201,4 +207,74 @@ describe("Gemini deck photo service fallback", () => {
     expect(result.error.code).toBe("INVALID_INPUT");
     expect(result.error.message).toMatch(/aucun titre/iu);
   });
+
+  it("deduplicates canonical identities across printed languages and counts translated basics conservatively", async () => {
+    fakeGemini.responses.push(200);
+    fakeGemini.responseData = {
+      tiles: [
+        {
+          tile: 1,
+          titles: [
+            "Remue-méninges",
+            "渦まく知識",
+            "海岛",
+            "海岛",
+            "Île…",
+            "Remue-méninges…",
+            "金属モックス",
+            "未知のカード",
+          ],
+        },
+        { tile: 2, titles: ["Brainstorm", "Island", "Île", "海岛"] },
+      ],
+    };
+    const recognizer = new GeminiDeckPhotoRecognizer({ geminiKeys: ["test-key"] });
+    const result = await recognizer.recognizeDeck(
+      [Buffer.from("one"), Buffer.from("two")],
+      "image/jpeg",
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.cards.map((card) => [card.name, card.count])).toEqual(
+      expect.arrayContaining([
+        ["Brainstorm", 1],
+        ["Chrome Mox", 1],
+      ]),
+    );
+    expect(result.value.cards).toHaveLength(2);
+    expect(result.value.basicLands.Island).toBe(3);
+    expect(result.value.totalCount).toBe(5);
+    expect(result.value.unverifiedTitles).toEqual(["Île…", "Remue-méninges…", "未知のカード"]);
+  });
+
+  it.each(nicoPhotoCorpus.photos)(
+    "resolves the visible French titles of Nico photo $file",
+    async (photo) => {
+      const bytes = readFileSync(`tests/fixtures/deck-photos/nico-candyshop/${photo.file}`);
+      expect(createHash("sha256").update(bytes).digest("hex")).toBe(photo.sha256);
+      const expectedTitles = readableNicoTitles(photo.file);
+      fakeGemini.responses.push(200);
+      fakeGemini.responseData = {
+        tiles: [
+          {
+            tile: 1,
+            titles: [
+              ...expectedTitles.map(([title]) => title),
+              ...nicoPhotoCorpus.unverifiedTitles,
+            ],
+          },
+        ],
+      };
+      const recognizer = new GeminiDeckPhotoRecognizer({ geminiKeys: ["test-key"] });
+      const result = await recognizer.recognizeDeck([bytes], "image/jpeg", {
+        cubeKey: nicoPhotoCorpus.cubeKey,
+      });
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.unverifiedTitles).toEqual([...nicoPhotoCorpus.unverifiedTitles]);
+      expect(result.value.cards.map((card) => card.name).sort()).toEqual(
+        expectedTitles.map(([, name]) => name).sort(),
+      );
+    },
+  );
 });
