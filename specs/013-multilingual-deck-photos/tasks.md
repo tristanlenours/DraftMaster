@@ -13,7 +13,7 @@
 
 - [x] T004 [US1] Test and implement bounded paginated source import in src/cards/import-printed-names.ts and scripts/import-printed-card-names.mjs; generate data/cards/printed-names.json.
 - [x] T005 [US1] Test Unicode/collision/face/provenance resolution and update src/tournaments/deck-photo-recognition.ts and tests/unit/tournaments/deck-photo-recognition.test.ts.
-- [x] T006 [US1] Preserve region counts and translated basics and broaden language prompt in src/tournaments/deck-photo-recognition.ts.
+- [x] T006 [US1] Preserve region counts and translated basics and limit the language prompt to English and French in src/tournaments/deck-photo-recognition.ts.
 
 ## Phase 4: US2 — Photo regression corpus
 
@@ -33,3 +33,7 @@ T001 -> T002/T003 -> T004 -> T005/T006 -> T007/T008 -> T009/T010. Independent fi
 ## Phase 6: Gate follow-up
 
 - [x] T012 Update only the vulnerable transitive source-map-js lock entry to 1.2.2 within its existing range and verify npm audit (Constitution IV, required Security gate).
+
+## Phase 7: English/French scope correction
+
+- [x] T013 Restrict source requests, cache, loader and prompts to English/French per user clarification; preserve photo corpus, verify scoped regressions and record updated reviews/convergence/quality evidence. [FR-001, FR-005, FR-006]

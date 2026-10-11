@@ -27,13 +27,13 @@ const aliases = await importPrintedNames([...cards, ...basics], {
 });
 const dataset = {
   schemaVersion: 1,
-  generator: "DraftMaster/import-printed-card-names@1",
+  generator: "DraftMaster/import-printed-card-names@2",
   generatedAt: new Date().toISOString(),
   source: {
     name: "Scryfall",
     url: "https://api.scryfall.com/cards/search",
     method:
-      "Batches of ten oracle IDs; lang:any -lang:en unique:prints; include_multilingual=true; all pages; top-level and face printed_name; deduplicate identity/language/title.",
+      "Batches of ten oracle IDs; lang:fr unique:prints; include_multilingual=true; all pages; French top-level and face printed_name; deduplicate identity/language/title. English canonical names remain in the master catalog.",
     attribution:
       "Scryfall API data; Magic: The Gathering card names, translations and related intellectual property belong to Wizards of the Coast. https://scryfall.com/docs/api",
     usage: {

@@ -49,7 +49,7 @@ export async function importPrintedNames(
   const aliases = new Map<string, PrintedNameAlias>();
   for (let offset = 0; offset < uniqueCards.length; offset += 10) {
     const batch = uniqueCards.slice(offset, offset + 10);
-    const query = `(${batch.map((card) => `oracleid:${card.oracleId}`).join(" or ")}) lang:any -lang:en unique:prints`;
+    const query = `(${batch.map((card) => `oracleid:${card.oracleId}`).join(" or ")}) lang:fr unique:prints`;
     let next: string | undefined =
       `https://api.scryfall.com/cards/search?${new URLSearchParams({ q: query, include_multilingual: "true" })}`;
     const visited = new Set<string>();
@@ -78,7 +78,7 @@ export async function importPrintedNames(
         const card = identities.get(print.oracle_id);
         if (!card || !batch.some((entry) => entry.oracleId === print.oracle_id))
           throw new Error("Unexpected Scryfall printing identity.");
-        if (typeof print.id !== "string" || typeof print.lang !== "string" || print.lang === "en")
+        if (typeof print.id !== "string" || print.lang !== "fr")
           throw new Error("Invalid Scryfall printing provenance.");
         const titles: string[] = [];
         if (typeof print.printed_name === "string") titles.push(print.printed_name);

@@ -1,6 +1,18 @@
 # QA evidence — 2026-10-11
 
-## Diagnosis and regression
+## Current English/French scope
+
+The user clarified that only English and French are needed. The canonical English master catalog is retained; the alias cache is a French-only projection of the earlier source import, with its original printing provenance and explicit selection timestamp/method. Current cache: 771 aliases, 177,764 bytes, languages=[fr]. All 771/771 resolve to their recorded oracle identity. Importer refreshes query lang:fr and reject other-language source records; the runtime loader ignores other-language aliases. Both recognition prompts now specify English/French. Photos and crop behavior are unchanged.
+
+Red scope tests reproduced three failures (wrong query language, foreign source record accepted, foreign alias loaded). After correction, 23 targeted import/index/HTTP-photo tests pass. French face names, collisions, rejection of foreign aliases, overlap counts and both original photo hashes remain covered. Focused independent Standards and Spec rechecks report no actionable source findings; documentation follow-ups are incorporated. Final Node 24 quality results are recorded below.
+
+Current Node 24.20.0 / npm 11.19.0 qualification, VITEST_MAX_WORKERS=1: formatting, lint, types and catalog/coach/synergy checks pass. All 726 unit/integration/contract tests pass (111 files pass, one file and three tests opt-in/existing skips). Coverage also passes with 726 tests: statements 84.79%, branches 73.24%, functions 91.28%, lines 86.18%, meeting existing thresholds. Seed 42 report verification passes unchanged. Browser stage finishes with 46/47 passes, including all nine Deck Lab scenarios and both original photos. The unchanged multiplayer join/resume journey again exceeds 30 seconds at four workers, as in the prior qualification; the combined npm run check exits 1 and remains a red delivery gate. No assertion, timeout or threshold is relaxed.
+
+Current convergence: the revised seven functional requirements, four success criteria and plan decisions are implemented, with actual SC-004 failures recorded. No remaining buildable English/French feature gap; remote CI and human approval still qualify delivery. Standards: zero remaining findings. Spec: zero remaining actionable findings. T013 is implemented and verified; it does not approve a release.
+
+## Historical qualification — before scope reduction
+
+### Diagnosis and regression
 
 Initial `npx vitest run tests/unit/tournaments/deck-photo-service-fallback.test.ts`: 5 existing tests pass and both actual-photo title replays fail on absent French aliases. The manifest was independently corrected after rendering both original photos upright: Convulsion cérébrale is Mind Twist, Preneuse d'otage is Hostage Taker, the rear black creature is Crabomination, and Brainstorm is not visible. Synthetic Brainstorm titles remain appropriate independent multilingual index regressions.
 
@@ -8,7 +20,7 @@ Explicit Scryfall import completed for 730 Nico catalog entries plus five ordina
 
 Targeted recognition/index/import/HTTP/integration suite: 38 passed, one existing opt-in live sample skipped. Subsequent corpus/index replay: 13 passed after correcting and expanding the independently inspected visible subset.
 
-## Actual image preparation and live vision
+### Actual image preparation and live vision
 
 The second image places the Serum Visions title ribbon at original JPEG coordinates x=770, y=1210, width=60, height=310. The actual canvas crop regression fails before the overlap correction: the complete ribbon does not fit in any uploaded region. Overlap changes from 12% to 35%, retaining six regions, maximum dimension 1600 px and existing body limits.
 
@@ -16,17 +28,17 @@ Before this correction, live Gemini missed the central French column in photo 2 
 
 `npx playwright test tests/browser/deck-lab.spec.ts`: 9/9 passed, including both original JPEG uploads, six distinct bounded regions, canonical editable titles, review-gated Rate/Pimp, Space-key confirmation, editing requiring reconfirmation, 360 px/desktop layouts and no horizontal overflow. See [photo 1 mobile](evidence/photo-1-mobile.png), [photo 1 desktop](evidence/photo-1-desktop.png), [photo 2 mobile](evidence/photo-2-mobile.png), [photo 2 desktop](evidence/photo-2-desktop.png). Mobile evidence visually inspected; existing UI is unchanged.
 
-## Quality and delivery
+### Quality and delivery
 
 Initial unconstrained `npm run check` passed formatting/lint/type/catalog checks but two existing computational tests timed out under full local worker contention. Both pass unchanged when run with VITEST_MAX_WORKERS=2 (3/3 tests, 2.99 s). Full quality rerun uses that documented environment limit; no test timeout, assertion or threshold was relaxed. Final outcome and reviews pending below.
 
 GitHub connector issue creation returned 403, “Resource not accessible by integration”. Originating #88/#86 are linked. A dedicated remote issue, PR, CI and human review are delivery gates; no remote success or human approval is claimed.
 
-## Standards review
+### Standards review
 
 One P2: generated source metadata needed explicit license/use-condition status. Importer and dataset now consistently record source terms and rights conditions, explicitly assuming no open-content license grant. Focused independent recheck: resolved; no remaining Standards findings.
 
-## Spec review
+### Spec review
 
 One P2: the truncation guard rejected the official complete French title “Il était une fois...”. A red regression reproduced this failure; literal aliases now precede the truncation guard, while unmatched truncated readings stay unresolved. Targeted suite: 22/22 passed. Independent exhaustive recheck: 6,586/6,592 aliases resolve correctly; the remaining six are intentional identity collisions (Isla, Llanura, Liquidar). No remaining actionable Spec findings.
 
@@ -48,7 +60,7 @@ Branch codex/013-multilingual-deck-photos is pushed; source commit 62c2ddbe. Dra
 
 Focused Node 24 browser rerun, one worker, same multiplayer journey: passes in 21.8 s (24.3 s including startup), with the original 30 s timeout. Thus all 47 journeys have passing Node 24 evidence: 46 in the combined run, one isolated. The combined command remains recorded as red under four-worker concurrency; remote required CI must still qualify before merge.
 
-## Convergence and final delivery status
+### Convergence and final delivery status
 
 Present implementation compared with seven functional requirements, four success criteria, seven plan decisions and five constitution principles. No remaining buildable feature gap, partial language-resolution implementation or unrequested scoring/domain change. SC-004 explicitly records actual gate failures; this is not a release waiver. No empty convergence phase was added. Standards: zero remaining findings; Spec: zero remaining actionable findings after independent rechecks, including the focused lockfile maintenance.
 

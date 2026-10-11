@@ -27,3 +27,7 @@ FR-007 -> T011 and recorded plan step 6. No conflict with the conservative groun
 ## Post-implementation review
 
 The complete official title “Il était une fois...” resolves through its literal alias before the truncation guard. Both reviewers rechecked their fixes: source-use metadata is explicit and exact-name resolution satisfies FR-001/FR-002, including deliberate collisions. Per-photo expectations exclude the clipped Archon title in photo 1. FR-007 is covered by the real canvas bounds assertion and two opt-in live checks. Remaining delivery gates are tracked in qa-evidence.md; reviewer-owned checklist remains unchecked.
+
+## English/French scope correction
+
+User clarification supersedes the earlier all-language requirement. FR-001/005/006, SC-002 and plan now cover English/French only before implementation changes. Three red regressions reproduce the wider importer/cache scope; 23 targeted checks pass after the French-only restriction. 771/771 retained source aliases resolve. Source and face identities, conservative counts, exact matching, photo hashes, crop bounds and human review remain consistent with the unchanged requirements.

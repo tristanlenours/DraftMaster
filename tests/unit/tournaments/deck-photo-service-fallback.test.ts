@@ -208,7 +208,7 @@ describe("Gemini deck photo service fallback", () => {
     expect(result.error.message).toMatch(/aucun titre/iu);
   });
 
-  it("deduplicates canonical identities across printed languages and counts translated basics conservatively", async () => {
+  it("deduplicates canonical identities across English and French and counts translated basics conservatively", async () => {
     fakeGemini.responses.push(200);
     fakeGemini.responseData = {
       tiles: [
@@ -216,16 +216,16 @@ describe("Gemini deck photo service fallback", () => {
           tile: 1,
           titles: [
             "Remue-méninges",
-            "渦まく知識",
-            "海岛",
-            "海岛",
+            "Brainstorm",
+            "Île",
+            "Île",
             "Île…",
             "Remue-méninges…",
-            "金属モックス",
-            "未知のカード",
+            "Mox de chrome",
+            "Carte inconnue",
           ],
         },
-        { tile: 2, titles: ["Brainstorm", "Island", "Île", "海岛"] },
+        { tile: 2, titles: ["Brainstorm", "Island", "Île", "Île"] },
       ],
     };
     const recognizer = new GeminiDeckPhotoRecognizer({ geminiKeys: ["test-key"] });
@@ -244,7 +244,7 @@ describe("Gemini deck photo service fallback", () => {
     expect(result.value.cards).toHaveLength(2);
     expect(result.value.basicLands.Island).toBe(3);
     expect(result.value.totalCount).toBe(5);
-    expect(result.value.unverifiedTitles).toEqual(["Île…", "Remue-méninges…", "未知のカード"]);
+    expect(result.value.unverifiedTitles).toEqual(["Île…", "Remue-méninges…", "Carte inconnue"]);
   });
 
   it.each(nicoPhotoCorpus.photos)(

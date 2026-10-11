@@ -6,6 +6,6 @@ Primary Scryfall API observed 2026-10-11: named?exact=Remue-méninges and the Ja
 
 Local catalog: 730 Nico entries, 172 distinct French translations. Brainstorm, Vampiric Tutor, Ancestral Vision, Serum Visions, Baleful Strix and Hullbreacher have no French names. ASCII-only normalization would collapse CJK names to empty keys.
 
-Alternatives: French-only patch misses other languages; runtime lookup adds latency/network failure; model translations lack independent grounding. Offline aliases preserve exact identity and old translation variants.
+Current decision after user clarification: English canonical names plus French-only offline aliases are sufficient. Runtime lookup adds latency/network failure; model translations lack independent grounding. Offline French aliases preserve exact identity and old translation variants. The earlier multilingual source exploration above is historical evidence, not the current supported scope.
 
 Source: [Scryfall card search API](https://scryfall.com/docs/api/cards/search), [card objects](https://scryfall.com/docs/api/cards). Card names/art and translations are Wizards of the Coast material; retain this attribution and Scryfall provenance.

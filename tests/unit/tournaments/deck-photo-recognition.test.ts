@@ -15,7 +15,7 @@ describe("Deck photo recognition and card indexing", () => {
     expect(index.findExactCard("Il était…")).toBeUndefined();
     expect(index.findExactCard("Réanimation...")).toBeUndefined();
   });
-  it("keeps non-Latin titles distinct and rejects ambiguous, empty, truncated or mismatched aliases", () => {
+  it("loads only French aliases and rejects ambiguous, empty, truncated or mismatched aliases", () => {
     const root = mkdtempSync(join(tmpdir(), "draftmaster-aliases-"));
     try {
       const directory = join(root, "data", "cards");
@@ -29,36 +29,36 @@ describe("Deck photo recognition and card indexing", () => {
         {
           name: "Brainstorm",
           oracleId: "one",
-          printedName: "渦まく知識",
-          lang: "ja",
+          printedName: "Pensées tourbillonnantes",
+          lang: "fr",
           scryfallId: "print-one",
         },
         {
           name: "Omniscience",
           oracleId: "two",
-          printedName: "全知",
-          lang: "ja",
+          printedName: "Science absolue",
+          lang: "fr",
           scryfallId: "print-two",
         },
         {
           name: "Brainstorm",
           oracleId: "one",
-          printedName: "思绪",
+          printedName: "渦まく知識",
           lang: "zhs",
           scryfallId: "print-three",
         },
         {
           name: "Brainstorm",
           oracleId: "one",
-          printedName: "同名",
-          lang: "ja",
+          printedName: "Titre partagé",
+          lang: "fr",
           scryfallId: "print-four",
         },
         {
           name: "Omniscience",
           oracleId: "two",
-          printedName: "同名",
-          lang: "ja",
+          printedName: "Titre partagé",
+          lang: "fr",
           scryfallId: "print-five",
         },
         {
@@ -81,12 +81,12 @@ describe("Deck photo recognition and card indexing", () => {
         JSON.stringify({ schemaVersion: 1, aliases }),
       );
       const index = new MasterCardsIndex(root);
-      expect(index.findExactCard("渦まく知識")?.name).toBe("Brainstorm");
-      expect(index.findExactCard("全知")?.name).toBe("Omniscience");
-      expect(index.findExactCard("思绪")?.name).toBe("Brainstorm");
+      expect(index.findExactCard("Pensées tourbillonnantes")?.name).toBe("Brainstorm");
+      expect(index.findExactCard("Science absolue")?.name).toBe("Omniscience");
+      expect(index.findExactCard("渦まく知識")).toBeUndefined();
       expect(index.findExactCard("REMUE–MÉNINGES")?.name).toBe("Brainstorm");
       for (const title of [
-        "同名",
+        "Titre partagé",
         "別のカード",
         "???",
         "",

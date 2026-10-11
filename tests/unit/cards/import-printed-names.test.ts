@@ -12,7 +12,7 @@ const print = (id: string, lang: string, printedName: string) => ({
 const pause = () => Promise.resolve();
 
 describe("explicit printed-name import", () => {
-  it("follows pagination, preserves non-Latin and face aliases and deterministically deduplicates printings", async () => {
+  it("follows pagination, preserves French face aliases and deterministically deduplicates printings", async () => {
     const next = "https://api.scryfall.com/cards/search?page=2";
     const request = vi
       .fn()
@@ -28,7 +28,10 @@ describe("explicit printed-name import", () => {
           has_more: false,
           data: [
             print("a", "fr", "Remue-méninges"),
-            { ...print("c", "ja", "渦まく知識"), card_faces: [{ printed_name: "裏面" }] },
+            {
+              ...print("c", "fr", "Pensées tourbillonnantes"),
+              card_faces: [{ printed_name: "Verso" }],
+            },
           ],
         }),
       );
@@ -42,13 +45,13 @@ describe("explicit printed-name import", () => {
       scryfallId: "a",
     });
     expect(aliases.map((alias) => alias.printedName)).toEqual(
-      expect.arrayContaining(["渦まく知識", "裏面"]),
+      expect.arrayContaining(["Pensées tourbillonnantes", "Verso"]),
     );
     expect(request).toHaveBeenCalledTimes(2);
     expect(request).toHaveBeenLastCalledWith(next);
     const query = new URL(String(request.mock.calls[0]?.[0])).searchParams.get("q");
     expect(query).toContain(`oracleid:${card.oracleId}`);
-    expect(query).toContain("lang:any -lang:en unique:prints");
+    expect(query).toContain("lang:fr unique:prints");
   });
 
   it("treats a first-page 404 as no translated printings", async () => {
@@ -73,6 +76,7 @@ describe("explicit printed-name import", () => {
     { has_more: true, next_page: "https://example.com/leak", data: [] },
     { has_more: true, data: [] },
     { has_more: false, data: [{ ...print("a", "fr", "Remue-méninges"), oracle_id: "wrong" }] },
+    { has_more: false, data: [print("a", "ja", "渦まく知識")] },
     { data: [] },
   ])("rejects malformed or unrelated source data", async (page) => {
     const request = vi.fn(() => Promise.resolve(Response.json(page)));

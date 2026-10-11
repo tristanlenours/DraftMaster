@@ -191,7 +191,7 @@ export class MasterCardsIndex {
           typeof alias.name !== "string" ||
           typeof alias.oracleId !== "string" ||
           typeof alias.printedName !== "string" ||
-          typeof alias.lang !== "string" ||
+          alias.lang !== "fr" ||
           typeof alias.scryfallId !== "string"
         )
           continue;
@@ -360,12 +360,12 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
         : "";
 
     const systemPrompt = tiled
-      ? `Transcris uniquement les titres imprimés et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque carte non basique apparaît au plus une fois par région. Répète un nom de terrain de base seulement si plusieurs cartes physiques distinctes portent ce titre lisible dans cette région.`
+      ? `Transcris uniquement les titres imprimés en anglais ou en français et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque carte non basique apparaît au plus une fois par région. Répète un nom de terrain de base seulement si plusieurs cartes physiques distinctes portent ce titre lisible dans cette région.`
       : `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
 Consignes :
-1. Détecte et identifie minutieusement chaque carte visible dans la photo, quelle que soit sa langue imprimée (y compris les alphabets non latins).
+1. Détecte et identifie minutieusement chaque carte visible imprimée en anglais ou en français dans la photo.
 2. Si une liste de cartes du Cube est fournie ci-dessus, fais correspondre chaque carte reconnue à son nom anglais officiel exact de la liste.
 3. Attention aux cartes empilées en colonnes / cascade (très fréquent en MTG) où seul le haut ou le bandeau de titre d'une carte dépasse sous la suivante : examine chaque carte visible dans chaque colonne de haut en bas sans en omettre !
 4. Attention à l'orientation : la photo peut être pivotée (ex: 90° à l'horizontale ou verticale). Lis le texte selon l'orientation naturelle des cartes.
