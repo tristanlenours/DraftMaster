@@ -23,8 +23,8 @@
 ## Phase 5: Verification and delivery
 
 - [x] T011 [US1] Reproduce the split title ribbon from photo 1000019032.jpg in tests/browser/deck-lab.spec.ts, then adjust overlap in src/web/deck-photo-upload.js and rerun live anchor checks in tests/integration/nico-photo-live-ocr.test.ts. FR-007 follow-up precedes final verification.
-- [ ] T009 Run quality, HTTP, reference/replay and browser checks and record results in specs/013-multilingual-deck-photos/qa-evidence.md.
-- [ ] T010 Run Standards + Spec review and convergence; record delivery status in specs/013-multilingual-deck-photos/qa-evidence.md and pull-request.md.
+- [x] T009 Run quality, HTTP, reference/replay and browser checks and record results in specs/013-multilingual-deck-photos/qa-evidence.md.
+- [x] T010 Run Standards + Spec review and convergence; record delivery status in specs/013-multilingual-deck-photos/qa-evidence.md and pull-request.md.
 
 ## Dependencies and execution
 

@@ -2,7 +2,7 @@
 
 **Feature Branch**: `codex/013-multilingual-deck-photos`
 **Created**: 2026-10-11
-**Status**: Ready for implementation; human release review pending
+**Status**: Implemented on dedicated branch; local gate outcomes recorded, remote CI and human release review pending
 **Origin**: [Photo import #88](https://github.com/tristanlenours/DraftMaster/issues/88), [Deck Lab #86](https://github.com/tristanlenours/DraftMaster/issues/86). Creating a dedicated issue through the GitHub connector returned 403; no new issue is claimed.
 **Input**: Preserve the two root photos for tests and recognize cards regardless of printed language, specifically Nico's Candyshop.
 

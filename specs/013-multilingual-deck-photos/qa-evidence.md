@@ -39,3 +39,17 @@ Initial `npm audit --audit-level=high` reported one existing high-severity depen
 Gate follow-up: update only source-map-js 1.2.1 -> 1.2.2 within its existing range (three lockfile values). Node 24.20.0 / npm 11.19.0 dependency audit now reports zero vulnerabilities. The earlier global Node 22 / npm 10 invocation rejected maintenance on engine-strict; it made no lockfile change. No dependency was added.
 
 Supplementary verification accidentally used the global Node 22 runtime: 30 reference/replay tests pass and all 47 browser tests pass with one worker (4.1 min); a simultaneous coverage run hit the same two computational 5 s limits. These are supplementary diagnostics, not the required Node 24 qualification. Final isolated Node 24 quality rerun follows, with one Vitest worker and unchanged thresholds.
+
+Node 24.20.0 / npm 11.19.0, VITEST_MAX_WORKERS=1: full unit/integration/contract suite passes 725 tests, with three existing/opt-in skips (111 files pass, one skip). The coverage rerun also passes 725 tests: statements 84.77%, branches 73.23%, functions 91.28%, lines 86.15%, existing thresholds met. Formatting, lint, types, catalog facts, synergy/coach data and reference report verification pass. Seed 42 reports retain 24 boosters, 21 bombs and 360 traced decisions.
+
+Final Node 24 browser stage: 46/47 pass, including all nine Deck Lab scenarios. The same existing multiplayer join/resume journey exceeds 30 s at four workers. Consequently the combined npm run check command exits 1: no green combined-gate claim and no merge waiver. A focused direct Node 24, one-worker rerun of that journey follows; assertions and timeouts stay unchanged. Durable screenshots are refreshed from this final Node 24 execution.
+
+Branch codex/013-multilingual-deck-photos is pushed; source commit 62c2ddbe. Draft PR creation via the connector also returned 403, “Resource not accessible by integration”. Proposed description is preserved in pull-request.md. Remote CI and human approval are unverified; no merge performed.
+
+Focused Node 24 browser rerun, one worker, same multiplayer journey: passes in 21.8 s (24.3 s including startup), with the original 30 s timeout. Thus all 47 journeys have passing Node 24 evidence: 46 in the combined run, one isolated. The combined command remains recorded as red under four-worker concurrency; remote required CI must still qualify before merge.
+
+## Convergence and final delivery status
+
+Present implementation compared with seven functional requirements, four success criteria, seven plan decisions and five constitution principles. No remaining buildable feature gap, partial language-resolution implementation or unrequested scoring/domain change. SC-004 explicitly records actual gate failures; this is not a release waiver. No empty convergence phase was added. Standards: zero remaining findings; Spec: zero remaining actionable findings after independent rechecks, including the focused lockfile maintenance.
+
+T009/T010 mean checks, reviews, convergence and delivery status have been executed and recorded. They do not approve the human checklist or claim remote delivery success. Branch is reviewable; PR creation, remote CI and human release approval remain pending. Original root photos and all unrelated local files remain untouched.
