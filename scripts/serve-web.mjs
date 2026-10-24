@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
-import { join, extname, resolve } from "node:path";
+import { join, extname, resolve, relative, isAbsolute } from "node:path";
 import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
 import { getLeaderboard } from "../src/solo-draft/leaderboard.ts";
@@ -71,11 +71,25 @@ const MIME_TYPES = {
 // In-memory active draft sessions
 const activeSessions = new Map();
 
+const SESSION_ID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
+const CUBE_KEY_PATTERN = /^[a-z0-9_]{1,64}$/;
+
+function isValidSessionId(sessionId) {
+  return typeof sessionId === "string" && SESSION_ID_PATTERN.test(sessionId);
+}
+
+function sessionFilePath(sessionId) {
+  if (!isValidSessionId(sessionId)) {
+    throw new Error("Identifiant de session invalide.");
+  }
+  return join(draftSessionsDir, `${sessionId}.json`);
+}
+
 async function saveSessionToDisk(session) {
   try {
     await mkdir(draftSessionsDir, { recursive: true });
     const snapshot = session.getPersistenceSnapshot();
-    const filePath = join(draftSessionsDir, `${snapshot.sessionId}.json`);
+    const filePath = sessionFilePath(snapshot.sessionId);
     await writeFile(filePath, JSON.stringify(snapshot, null, 2), "utf-8");
   } catch (err) {
     console.error("[Persistence] Erreur sauvegarde session:", err?.message || err);
@@ -83,12 +97,12 @@ async function saveSessionToDisk(session) {
 }
 
 async function getOrRestoreSession(sessionId) {
-  if (!sessionId) return null;
+  if (!isValidSessionId(sessionId)) return null;
   let session = activeSessions.get(sessionId);
   if (session) return session;
 
   try {
-    const filePath = join(draftSessionsDir, `${sessionId}.json`);
+    const filePath = sessionFilePath(sessionId);
     const content = await readFile(filePath, "utf-8");
     const snapshot = JSON.parse(content);
     session = await SoloDraftSession.restore(snapshot);
@@ -103,10 +117,52 @@ async function getOrRestoreSession(sessionId) {
 }
 
 async function removeSessionFromDisk(sessionId) {
-  try {
-    const filePath = join(draftSessionsDir, `${sessionId}.json`);
-    await unlink(filePath).catch(() => {});
-  } catch {}
+  const filePath = sessionFilePath(sessionId);
+  await unlink(filePath).catch(() => {});
+}
+
+// Only these subtrees of data/ are public; sessions, records and archives stay private.
+const PUBLIC_DATA_PREFIXES = ["cubes/", "cards/master-cards.json", "cards/images/"];
+
+function isInside(root, candidate) {
+  const rel = relative(root, candidate);
+  return rel !== "" && !rel.startsWith("..") && !isAbsolute(rel);
+}
+
+/**
+ * Maps a decoded URL pathname to a file under an allowed root, or null.
+ * Rejects any traversal segment after decoding (%2F, %5C, ..).
+ */
+function resolveStaticFile(pathname, roots) {
+  if (pathname.includes("\0")) return null;
+  const segments = pathname.split(/[/\\]+/);
+  if (segments.some((segment) => segment === "..")) return null;
+
+  let root;
+  let relativePath;
+  if (pathname.startsWith("/data/")) {
+    relativePath = pathname.slice("/data/".length);
+    if (!PUBLIC_DATA_PREFIXES.some((prefix) => relativePath.startsWith(prefix))) return null;
+    root = roots.dataDir;
+  } else if (pathname.startsWith("/reports/")) {
+    relativePath = pathname.slice("/reports/".length);
+    root = roots.reportsDir;
+  } else {
+    relativePath = pathname.slice(1);
+    root = roots.webDir;
+  }
+
+  const filePath = resolve(root, relativePath);
+  return isInside(root, filePath) ? filePath : null;
+}
+
+function parseAllowedOrigins(value) {
+  return new Set(
+    String(value ?? "")
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+  );
 }
 
 function computeAuthToken(password) {
@@ -363,9 +419,6 @@ async function readJsonBody(req) {
 function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
   });
   res.end(JSON.stringify(data));
 }
@@ -401,6 +454,10 @@ export function createRequestHandler(options = {}) {
       ? Boolean(options.authEnabled && sitePassword)
       : Boolean(sitePassword && !isTestEnv);
   const handlerReportsDir = resolve(options.reportsDirectory ?? reportsDir);
+  const staticRoots = { dataDir: resolve(rootDir, "data"), reportsDir: handlerReportsDir, webDir };
+  const allowedOrigins = parseAllowedOrigins(
+    options.corsAllowedOrigins ?? process.env.CORS_ALLOWED_ORIGINS,
+  );
   const adminDraftsPath = options.adminDraftsPath;
   const leaderboardPath = options.leaderboardPath;
   const multiplayerResumeSecret =
@@ -599,12 +656,23 @@ export function createRequestHandler(options = {}) {
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-    const pathname = decodeURIComponent(url.pathname);
+    let pathname;
+    try {
+      pathname = decodeURIComponent(url.pathname);
+    } catch {
+      res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("400 Bad Request");
+      return;
+    }
 
-    // Permissive CORS
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key");
+    // CORS only for explicitly allowed origins; the web app itself is same-origin.
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.has(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Vary", "Origin");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key");
+    }
 
     if (req.method === "OPTIONS") {
       res.writeHead(204);
@@ -690,7 +758,6 @@ export function createRequestHandler(options = {}) {
           res.writeHead(200, {
             "Content-Type": "application/json; charset=utf-8",
             "Set-Cookie": cookieHeader,
-            "Access-Control-Allow-Origin": "*",
           });
           res.end(JSON.stringify({ ok: true, message: "Accès déverrouillé avec succès." }));
           return;
@@ -718,7 +785,6 @@ export function createRequestHandler(options = {}) {
       res.writeHead(200, {
         "Content-Type": "application/json; charset=utf-8",
         "Set-Cookie": clearCookie,
-        "Access-Control-Allow-Origin": "*",
       });
       res.end(JSON.stringify({ ok: true, message: "Déconnexion effectuée." }));
       return;
@@ -877,10 +943,16 @@ export function createRequestHandler(options = {}) {
           return;
         }
 
+        const cubeKey = body.cubeKey || "titou_tribal";
+        if (typeof cubeKey !== "string" || !CUBE_KEY_PATTERN.test(cubeKey)) {
+          sendJson(res, 400, { ok: false, error: "Cube inconnu." });
+          return;
+        }
+
         const session = await SoloDraftSession.create({
           playerName,
           magicienSlug: body.magicienSlug,
-          cubeKey: body.cubeKey || "titou_tribal",
+          cubeKey,
           seed: body.seed,
           randomizeSeats: body.randomizeSeats ?? true,
           seatAssignments: body.seatAssignments,
@@ -1088,28 +1160,17 @@ export function createRequestHandler(options = {}) {
     // ==========================================
     // STATIC FILE SERVING
     // ==========================================
-    let filePath;
     const ext = extname(pathname).toLowerCase();
+    const isAppRoute = !pathname.startsWith("/data/") && !pathname.startsWith("/reports/") && !ext;
+    let filePath =
+      isAppRoute || pathname === "/index.html"
+        ? join(webDir, "index.html")
+        : resolveStaticFile(pathname, staticRoots);
 
-    if (pathname.startsWith("/data/")) {
-      filePath = join(rootDir, pathname);
-    } else if (pathname.startsWith("/reports/")) {
-      filePath = join(handlerReportsDir, pathname.slice("/reports/".length));
-    } else if (
-      pathname === "/" ||
-      pathname === "/index.html" ||
-      pathname === "/cards" ||
-      pathname === "/cubes" ||
-      pathname === "/bots" ||
-      pathname === "/home" ||
-      pathname === "/draft" ||
-      pathname === "/records" ||
-      pathname === "/admin" ||
-      !ext
-    ) {
-      filePath = join(webDir, "index.html");
-    } else {
-      filePath = join(webDir, pathname);
+    if (!filePath) {
+      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("404 Not Found");
+      return;
     }
 
     try {
