@@ -1,5 +1,11 @@
 # QA evidence — 2026-10-11
 
+## Release decision — 2026-10-25
+
+- Product owner accepts the 40-card gap (32/40 and 31/40, below) for this feature; the live 40-card check stays opt-in and red, by design, as a measurement rather than a gate.
+- The photo-review confirmation gate is removed by decision (commit d1eb9daf); spec FR-006 and SC-003 are amended accordingly.
+- The branch was brought up to date with main (#91 to #105) before the pull request; on Node 24.22.1 the full suite (795 tests), lint, types, format and data verifiers pass.
+
 ## Follow-up: model and API-key diagnosis
 
 The web server loads .env.local, which configures GEMINI_MODEL=gemini-3.6-flash. The earlier standalone Vitest process did not load that model setting: its recognizer started with the default gemini-3.5-flash, although it separately read API keys from local files. The previously archived count observations contain no actual successful-model metadata, so their responses cannot be attributed to a particular model.

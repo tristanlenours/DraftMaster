@@ -38,7 +38,7 @@ Out-of-scope language aliases, accents and typographic punctuation; printed card
 - **FR-003**: Preserve conservative region counting and unresolved-title review. English and French basic names retain their basic-land identity.
 - **FR-004**: Version both supplied JPEGs with source names, cube, SHA-256, permission and independently inspected visible-title expectations. Ordinary uploaded photos remain transient.
 - **FR-005**: Refresh French source data explicitly and reproducibly, recording source, method, rights attribution and generation version. Photo recognition adds zero per-card network requests.
-- **FR-006**: Preserve the editable list, keyboard confirmation before Rate/Pimp, 360 px layout and existing single-image behavior. The prompt must allow English and French printed names without translating or guessing tiled titles.
+- **FR-006**: Preserve the editable list, 360 px layout and existing single-image behavior. Rate/Pimp run directly on the recognised list: no separate confirmation step (product decision of 2026-10-25, see Clarifications). The prompt must allow English and French printed names without translating or guessing tiled titles.
 - **FR-007**: A readable title crossing a crop boundary in the second supplied photo (Serum Visions) must be contained completely in at least one uploaded region, while retaining the six-region and image-size limits.
 
 ## Key Entities
@@ -49,12 +49,17 @@ Existing canonical catalog card and printed name alias; photo fixture; visible t
 
 - **SC-001**: All independently listed readable titles in the supplied corpus resolve to their documented identity, except entries explicitly marked unresolved.
 - **SC-002**: Regression tests cover English/French names, rejection of other language aliases, card faces, alias collisions, translated basics and overlap counts, and reproduce the original French-title rejection before correction.
-- **SC-003**: Both original photo hashes pass, and browser uploads produce six distinct bounded JPEG regions plus an editable canonical list and mandatory keyboard review at 360 px and desktop.
+- **SC-003**: Both original photo hashes pass, and browser uploads produce six distinct bounded JPEG regions plus an editable canonical list, keyboard-operable at 360 px and desktop.
 - **SC-004**: Quality gate, affected HTTP/browser journeys and reference/replay checks pass or have their actual failures recorded. Human checklist and remote CI remain release gates.
 
 ## Clarifications — 2026-10-11
 
 No blocking product ambiguity: the user identifies Nico's cube, explicitly authorizes retaining the photos, and now limits recognition to English and French. Existing exact title and human review constraints from feature 011 remain binding. This feature extends the offline name coverage, not the vision model's ability to read hidden or glare-obscured text. Other cubes can use the same importer; untranslated or unreadable names remain reviewable.
+
+## Clarifications — 2026-10-25
+
+- The mandatory photo-review confirmation before Rate/Pimp is removed by product decision: the recognised list stays fully editable and analysis runs directly on it.
+- The whole-deck criterion (40 main-deck cards recognised from each supplied photo) is **not met** (32/40 and 31/40 in the last live audit) and the gap is **accepted** by the product owner for this feature. Unread and glare-obscured cards remain manual corrections in the editable list. The opt-in live check `TEST_NICO_REQUIRE_40` keeps measuring it.
 
 ## Assumptions
 
