@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { rm } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 import {
   rankLeaderboardEntries,
   getLeaderboard,
@@ -113,6 +113,45 @@ describe("Mur des Records / Leaderboard", () => {
   it("loads empty records if file is absent", async () => {
     const list = await getLeaderboard(TEST_LEADERBOARD_FILE);
     expect(list.length).toBe(0);
+  });
+
+  it("starts a missing runtime leaderboard from the versioned seed, then keeps its own file", async () => {
+    const seedFile = "data/test-leaderboard-seed.json";
+    const seeded = {
+      id: "rec-seed",
+      playerName: "Seed Champion",
+      overallScore: 88,
+      macroAxes: { power: 88, synergy: 88, consistency: 88 },
+      radar: { power: 88, synergy: 88, curve: 88, mana: 88, interaction: 88 },
+      archetype: {
+        category: "aggro" as const,
+        primaryColors: ["R" as const],
+        splashColors: [],
+        label: "Mono-Red",
+        description: "",
+      },
+      draftDurationSeconds: 200,
+      totalDurationSeconds: 400,
+      seed: 1,
+      cubeKey: "titou_tribal",
+      occurredAt: "2026-09-14T16:50:00.000Z",
+      isHomologated: true,
+      reports: { walkthroughUrl: "/reports/s.html", boostersUrl: "/reports/s-boosters.html" },
+      maindeckCards: [],
+      basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 17, Forest: 0 },
+    };
+    await writeFile(seedFile, JSON.stringify([seeded]), "utf8");
+    try {
+      const fromSeed = await getLeaderboard(TEST_LEADERBOARD_FILE, { seedPath: seedFile });
+      expect(fromSeed.map((entry) => entry.playerName)).toEqual(["Seed Champion"]);
+
+      // The runtime file now exists: later changes to the seed no longer leak in.
+      await writeFile(seedFile, "[]", "utf8");
+      const later = await getLeaderboard(TEST_LEADERBOARD_FILE, { seedPath: seedFile });
+      expect(later.map((entry) => entry.playerName)).toEqual(["Seed Champion"]);
+    } finally {
+      await rm(seedFile, { force: true });
+    }
   });
 
   it("adds a new high score at rank 1 and flags isNewHighScore", async () => {
