@@ -18,6 +18,7 @@ The TypeScript runtime on Node.js 24 LTS and npm is active. Available scripts:
 - `npm run test:mobile` — verify web navigation contracts, ARIA accessibility, responsive rules, and mobile viewport guarantees.
 - `npm run test:e2e` — end-to-end CLI execution, pure stdout JSON, structured stderr, and offline exit codes (0, 2, 3, 4, 5).
 - `npm run test:performance` — isolated SC-006 performance benchmark running 3 warmups + 5 fresh sessions under 2 000 ms.
+- `npm run cards:build` — rebuild the unversioned `data/cards/master-cards.json` from `data/cards/items/` (source of truth); runs on install, build and start.
 - `npm run cube:validate -- --file <path>` — validate cube snapshot schema (Draft 2020-12) and canonical RFC 8785 SHA-256 integrity.
 - `npm --silent run simulate -- --seed 42` — run the headless draft simulator CLI.
 - `npm run format` / `npm run format:check` — format / verify formatting across source, tests, config, and `.github/workflows/`.
