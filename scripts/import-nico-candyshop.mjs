@@ -6,7 +6,6 @@ const itemsDir = resolve(rootDir, 'data/cards/items');
 const rawPath = resolve(rootDir, 'data/cubes/nico_candyshop/cubecobra-raw.json');
 const nicoMetaPath = resolve(rootDir, 'data/cubes/nico_candyshop/cube-meta.json');
 const nicoCubePath = resolve(rootDir, 'data/cubes/nico_candyshop/cube.json');
-const MAX_POWER_SCORE = 55;
 
 export function cardNameToSlug(name) {
   return name
@@ -74,21 +73,6 @@ const VINTAGE_S_TIER = new Set([
   'Orcish Bowmasters',
   'Time Vault',
 ]);
-
-const VALID_ROLES = [
-  'bomb',
-  'engine',
-  'premium_removal',
-  'situational_removal',
-  'mana_ramp',
-  'mana_fixing',
-  'beater',
-  'finisher',
-  'card_advantage',
-  'synergy_enabler',
-  'synergy_payoff',
-  'cantrip',
-];
 
 const VALID_MTG_COLORS = new Set(['W', 'U', 'B', 'R', 'G']);
 

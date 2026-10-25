@@ -8,9 +8,7 @@ import { SoloDraftController, openDeckShowcaseModal } from "./solo-draft.js";
 import { render17LandsDeckView } from "./deck-viewer-17lands.js";
 import {
   fetchLeaderboard,
-  fetchReports,
   renderLeaderboardTable,
-  renderAdminReportsTable,
   initSupabaseRealtime,
   getScoreGrade,
 } from "./leaderboard.js";
@@ -19,7 +17,6 @@ import { initMultiplayerDraftView } from "./multiplayer-draft.js";
 import { initTournamentManagementView } from "./tournaments.js";
 import { initDeckLabView } from "./deck-lab.js";
 import {
-  loadImageWithFallback,
   isMatchingScryfallPrint,
   sanitizeFrenchCache,
 } from "./card-image.js";
@@ -1382,7 +1379,7 @@ function initRouter() {
 
   navigateTo(initialView, state.activeCubeKey);
 
-  window.addEventListener("popstate", (e) => {
+  window.addEventListener("popstate", () => {
     const p = window.location.pathname;
     if (p === "/cards") navigateTo("cards");
     else if (p === "/cubes") navigateTo("cubes");
@@ -2677,7 +2674,7 @@ function createLimitedGradesMobileTierSection(tier, count, colorBuckets) {
     cardsList.className = "lg-cards-list";
 
     cards.forEach((card) => {
-      const cardRow = createLimitedGradesCardRow(card, tier);
+      const cardRow = createLimitedGradesCardRow(card);
       cardsList.appendChild(cardRow);
     });
 
@@ -2690,7 +2687,7 @@ function createLimitedGradesMobileTierSection(tier, count, colorBuckets) {
 }
 
 // Create LimitedGrades Card Row (Compact, Interactive, with localized name & score)
-function createLimitedGradesCardRow(card, tier) {
+function createLimitedGradesCardRow(card) {
   const row = document.createElement("button");
   row.type = "button";
   row.className = "lg-card-row";

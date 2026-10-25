@@ -68,7 +68,6 @@ const restorationAngelOracle = getTitouOracleId("Restoration Angel");
 const guideOfSoulsOracle = getTitouOracleId("Guide of Souls");
 const soulWardenOracle = getTitouOracleId("Soul Warden");
 const luminarchOracle = getTitouOracleId("Luminarch Aspirant");
-const charmingPrinceOracle = getTitouOracleId("Charming Prince");
 
 const titouMeta = {
   schemaVersion: 1,
