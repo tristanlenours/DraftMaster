@@ -146,6 +146,7 @@ Cette première version se concentre exclusivement sur les fondations détermini
 
 - `npm run check` : vérification complète de la qualité (Prettier, ESLint, `tsc --noEmit`, Vitest, couverture V8).
 - `npm run cards:build` : régénère `data/cards/master-cards.json` à partir de `data/cards/items/`, la source de vérité. Ce fichier est un artefact de build non versionné, reconstruit automatiquement à l'installation, au build et au démarrage.
+- Sessions Solo : les drafts abandonnés et les résultats d'entraînement non publiés (`data/draft-sessions/`) sont supprimés après `SOLO_SESSION_TTL_DAYS` jours sans activité (7 par défaut). La purge a lieu au démarrage du serveur, puis toutes les 6 heures.
 - `npm run data:sync` : synchronisation des fiches `data/cards/items/` et des index `cube.json`, puis reconstruction de `master-cards.json`.
 - `npm run test` : exécution de l'ensemble des suites de tests Vitest.
 - `npm run test:reference` : test de non-régression sur le tirage de référence figé seed 42 (US2).

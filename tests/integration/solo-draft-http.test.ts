@@ -135,6 +135,7 @@ describe("Solo draft HTTP handler", () => {
     const flaky: SoloDraftStore = {
       load: (id) => durable.load(id),
       remove: (id) => durable.remove(id),
+      removeExpired: (cutoff) => durable.removeExpired(cutoff),
       save: (snapshot) =>
         failSaves ? Promise.reject(new Error("disk full")) : durable.save(snapshot),
     };

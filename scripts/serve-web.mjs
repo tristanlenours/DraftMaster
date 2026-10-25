@@ -11,6 +11,7 @@ import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypt
 import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 import { createSoloDraftHttpHandler } from "../src/solo-draft/http-handler.ts";
 import { createFileSoloDraftStore } from "../src/solo-draft/solo-draft-store.ts";
+import { soloSessionTtlMs, startSoloSessionExpiry } from "../src/solo-draft/session-expiry.ts";
 import {
   getUnifiedLeaderboard,
   getMagiciensProfilesWithStats,
@@ -998,6 +999,11 @@ const server = createServer(createRequestHandler());
 const PORT = parseInt(process.env.PORT || "3000", 10);
 
 if (process.argv[1] && process.argv[1].endsWith("serve-web.mjs")) {
+  // Abandoned drafts and unpublished training results are dropped after the TTL.
+  startSoloSessionExpiry(createFileSoloDraftStore(draftSessionsDir), {
+    maxAgeMs: soloSessionTtlMs(process.env),
+    intervalMs: 6 * 60 * 60 * 1000,
+  });
   server.listen(PORT, () => {
     console.log(`\n======================================================`);
     console.log(`  DraftMaster — Serveur Web Mobile-First Actif !`);
