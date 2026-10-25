@@ -7,18 +7,20 @@ import { join, resolve } from "node:path";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 import { createFinalDeckCoach } from "../../src/coach-advice/final-deck-coach.ts";
 
+async function readWorkspaceAdminDrafts(): Promise<string | null> {
+  return readFile(resolve(process.cwd(), "data/admin-drafts.json"), "utf8").catch(() => null);
+}
+
 describe("Solo Draft Web API & Flow Integration", () => {
   let server: Server;
   let baseUrl: string;
   let testStorageDir: string;
-  let workspaceAdminDraftsBefore: string;
+  let workspaceAdminDraftsBefore: string | null;
 
   beforeAll(async () => {
     testStorageDir = await mkdtemp(join(tmpdir(), "draftmaster-solo-flow-"));
-    workspaceAdminDraftsBefore = await readFile(
-      resolve(process.cwd(), "data/admin-drafts.json"),
-      "utf8",
-    );
+    // Runtime state, not versioned: it may legitimately be absent.
+    workspaceAdminDraftsBefore = await readWorkspaceAdminDrafts();
     const handler = createRequestHandler({
       reportsDirectory: join(testStorageDir, "reports"),
       soloSessionsDirectory: join(testStorageDir, "sessions"),
@@ -274,8 +276,6 @@ describe("Solo Draft Web API & Flow Integration", () => {
 
     const isolatedAdminDrafts = await readFile(join(testStorageDir, "admin-drafts.json"), "utf8");
     expect(isolatedAdminDrafts).toContain("API Tester");
-    expect(await readFile(resolve(process.cwd(), "data/admin-drafts.json"), "utf8")).toBe(
-      workspaceAdminDraftsBefore,
-    );
+    expect(await readWorkspaceAdminDrafts()).toBe(workspaceAdminDraftsBefore);
   }, 90000);
 });

@@ -964,5 +964,15 @@ for (const c of enrichedCards) {
 catalog.cardCount = Object.keys(catalog.cards).length;
 catalog.generatedAt = nowIso;
 
-fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf8');
-console.log('Successfully updated master-cards.json with S/A/B/C/D tiers and Scryfall images for', updatedCount, 'cards.');
+// data/cards/items is the source of truth: write each card there, then rebuild the bundle.
+const itemsDir = path.join(__dirname, '..', 'data', 'cards', 'items');
+for (const card of Object.values(catalog.cards)) {
+  fs.writeFileSync(path.join(itemsDir, `${card.slug}.json`), JSON.stringify(card, null, 2) + '\n', 'utf8');
+}
+fs.writeFileSync(
+  path.join(__dirname, '..', 'data', 'cards', 'catalog-meta.json'),
+  JSON.stringify({ schemaVersion: catalog.schemaVersion, generatedAt: catalog.generatedAt }, null, 2) + '\n',
+  'utf8',
+);
+require('child_process').execSync('npm run --silent cards:build', { stdio: 'inherit' });
+console.log('Successfully updated card items with S/A/B/C/D tiers and Scryfall images for', updatedCount, 'cards.');

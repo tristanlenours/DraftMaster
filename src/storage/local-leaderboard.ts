@@ -3,8 +3,8 @@ import { dirname, resolve } from "node:path";
 import type { LeaderboardEntry } from "../solo-draft/solo-draft-types.ts";
 
 const DEFAULT_LEADERBOARD_PATH = "data/leaderboard.json";
-
-export const INITIAL_REFERENCE_RECORDS: readonly LeaderboardEntry[] = [];
+/** Versioned reference records; the runtime file above is local state, not versioned. */
+const DEFAULT_LEADERBOARD_SEED_PATH = "data/seeds/leaderboard.json";
 
 export function rankLeaderboardEntries(entries: readonly LeaderboardEntry[]): LeaderboardEntry[] {
   const sorted = [...entries].sort((a, b) => {
@@ -26,22 +26,34 @@ export function rankLeaderboardEntries(entries: readonly LeaderboardEntry[]): Le
   }));
 }
 
+async function readEntries(path: string): Promise<LeaderboardEntry[] | null> {
+  try {
+    const parsed: unknown = JSON.parse(await readFile(resolve(process.cwd(), path), "utf8"));
+    return Array.isArray(parsed) ? (parsed as LeaderboardEntry[]) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Reads the local leaderboard. When the runtime file does not exist yet (fresh clone
+ * or deployment), it starts from the seed: the default one for the default path,
+ * none for custom paths unless `seedPath` is given.
+ */
 export async function getLeaderboard(
   customPath: string = DEFAULT_LEADERBOARD_PATH,
+  options: { readonly seedPath?: string | undefined } = {},
 ): Promise<LeaderboardEntry[]> {
-  const fullPath = resolve(process.cwd(), customPath);
-  try {
-    const raw = await readFile(fullPath, "utf8");
-    const parsed: unknown = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return rankLeaderboardEntries(parsed as LeaderboardEntry[]);
-    }
-  } catch {
-    // If missing or unreadable, initialize with empty array
-  }
+  const existing = await readEntries(customPath);
+  if (existing) return rankLeaderboardEntries(existing);
 
-  await saveLeaderboard([], customPath);
-  return [];
+  const seedPath =
+    options.seedPath ??
+    (customPath === DEFAULT_LEADERBOARD_PATH ? DEFAULT_LEADERBOARD_SEED_PATH : undefined);
+  const seeded = seedPath ? ((await readEntries(seedPath)) ?? []) : [];
+  const ranked = rankLeaderboardEntries(seeded);
+  await saveLeaderboard(ranked, customPath);
+  return ranked;
 }
 
 export async function saveLeaderboard(

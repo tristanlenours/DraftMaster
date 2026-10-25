@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { writeMasterCatalog } from '../src/cards/master-catalog-build.ts';
 
 const rootDir = process.cwd();
 const masterPath = resolve(rootDir, 'data/cards/master-cards.json');
@@ -145,7 +146,6 @@ for (let i = 0; i < cardsToProcess.length; i++) {
     }
 
     if ((i + 1) % 20 === 0) {
-      writeFileSync(masterPath, JSON.stringify(master, null, 2) + '\n', 'utf8');
       console.log(`💾 Progress saved (${i + 1}/${cardsToProcess.length})...`);
     }
 
@@ -157,7 +157,8 @@ for (let i = 0; i < cardsToProcess.length; i++) {
   }
 }
 
-writeFileSync(masterPath, JSON.stringify(master, null, 2) + '\n', 'utf8');
+// master-cards.json is rebuilt from the updated items (source of truth).
+await writeMasterCatalog(rootDir);
 console.log('\n======================================================');
 console.log('🎉 French text download finished!');
 console.log(`   Fetched: ${fetchedCount}`);

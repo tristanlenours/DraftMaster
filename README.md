@@ -145,7 +145,8 @@ Cette première version se concentre exclusivement sur les fondations détermini
 ## Commandes de vérification
 
 - `npm run check` : vérification complète de la qualité (Prettier, ESLint, `tsc --noEmit`, Vitest, couverture V8).
-- `npm run data:sync` : synchronisation du bundle `master-cards.json` et des index `cube.json` à partir de `data/cards/items/`.
+- `npm run cards:build` : régénère `data/cards/master-cards.json` à partir de `data/cards/items/`, la source de vérité. Ce fichier est un artefact de build non versionné, reconstruit automatiquement à l'installation, au build et au démarrage.
+- `npm run data:sync` : synchronisation des fiches `data/cards/items/` et des index `cube.json`, puis reconstruction de `master-cards.json`.
 - `npm run test` : exécution de l'ensemble des suites de tests Vitest.
 - `npm run test:reference` : test de non-régression sur le tirage de référence figé seed 42 (US2).
 - `npm run test:replay` : tests de déterminisme, validation de flux d'événements et équivalence de replay (US2).

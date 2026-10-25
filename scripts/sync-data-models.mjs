@@ -3,6 +3,7 @@ import { resolve, join } from "node:path";
 import { createHash } from "node:crypto";
 import { generateCubeSuggestionsReport } from "../src/cards/cube-upgrade-advisor.ts";
 import { assignRelativeTiers } from "../src/cards/relative-tier-engine.ts";
+import { writeMasterCatalog } from "../src/cards/master-catalog-build.ts";
 
 const rootDir = process.cwd();
 
@@ -27,9 +28,15 @@ const itemsDir = resolve(rootDir, "data/cards/items");
 mkdirSync(itemsDir, { recursive: true });
 
 // 2. Load master catalog base
+// master-cards.json is a build artifact of data/cards/items (npm run cards:build); it
+// may be absent on a fresh clone. Its generatedAt is versioned in catalog-meta.json.
 const masterPath = resolve(rootDir, "data/cards/master-cards.json");
-const masterRaw = readFileSync(masterPath, "utf8");
-const masterData = JSON.parse(masterRaw);
+const catalogMetaPath = resolve(rootDir, "data/cards/catalog-meta.json");
+const catalogMeta = JSON.parse(readFileSync(catalogMetaPath, "utf8"));
+const masterData = existsSync(masterPath)
+  ? JSON.parse(readFileSync(masterPath, "utf8"))
+  : { schemaVersion: catalogMeta.schemaVersion, generatedAt: catalogMeta.generatedAt, cardCount: 0, cards: {} };
+masterData.generatedAt = catalogMeta.generatedAt;
 const previousCatalogFingerprint = sha256(
   JSON.stringify({ cardCount: masterData.cardCount, cards: masterData.cards }),
 );
@@ -122,10 +129,14 @@ const nextCatalogFingerprint = sha256(
 );
 if (nextCatalogFingerprint !== previousCatalogFingerprint) {
   masterData.generatedAt = new Date().toISOString();
+  writeFileSync(
+    catalogMetaPath,
+    JSON.stringify({ schemaVersion: masterData.schemaVersion, generatedAt: masterData.generatedAt }, null, 2) + "\n",
+    "utf8",
+  );
 }
 const masterSerialized = JSON.stringify(masterData, null, 2) + "\n";
-writeFileSync(masterPath, masterSerialized, "utf8");
-console.log(`✅ Synchronized data/cards/master-cards.json bundle`);
+console.log(`✅ Indexed the master catalog (generatedAt ${masterData.generatedAt})`);
 
 // 5. Build Unified cube.json for each of the 3 community cubes
 const cubeConfigs = [
@@ -399,9 +410,9 @@ for (const card of Object.values(cardsByOracleId)) {
     writeFileSync(singleCardPath, JSON.stringify(card, null, 2) + "\n", "utf8");
   }
 }
-writeFileSync(masterPath, JSON.stringify(masterData, null, 2) + "\n", "utf8");
+await writeMasterCatalog(rootDir);
 console.log(
-  `✅ Updated individual items and master-cards.json with relative tiers and meta bonuses.`,
+  `✅ Updated individual items with relative tiers and meta bonuses, then rebuilt master-cards.json.`,
 );
 
 // 7. Synchronize power-ranking-v1.json with updated card scores to prevent drift
