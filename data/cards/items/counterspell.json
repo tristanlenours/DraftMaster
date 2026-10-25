@@ -73,7 +73,7 @@
         "hard_counter",
         "tempo_lock"
       ],
-      "scoreModifier": 8,
+      "scoreModifier": 0,
       "analysis": "Le roi du contrôle en Pauper. À UU, il stoppe net n'importe quelle menace ou payoff adverse sans restriction. Pilier indiscutable de la couleur bleue.",
       "pedagogy": {
         "howToPlay": "Gardez toujours deux îles détapées dès le tour 2 si vous n'avez pas de créature avec Ninjutsu à poser. La menace d'un Counterspell force l'adversaire à sous-jouer son tour.",
@@ -112,22 +112,24 @@
         "Mulldrifter"
       ],
       "relativeTier": "A+",
-      "metaBonus": 8,
-      "metaRole": "key"
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
       "tier": "A-",
       "archetypes": [
-        "nico:vintage_staple"
+        "nico:vintage_staple",
+        "nico:twin_kiki",
+        "nico:dimir_tempo"
       ],
       "synergyTags": [
         "single-target-instant-sorcery",
         "single-english-word-name",
         "card-names"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -144,8 +146,8 @@
         ]
       },
       "relativeTier": "A-",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "titou_tribal": {
       "cubeKey": "titou_tribal",
@@ -181,7 +183,11 @@
       "fit": "staple",
       "tier": "A",
       "archetypes": [
-        "cedric:high_power_staple"
+        "cedric:high_power_staple",
+        "cedric:azorius_control_blink",
+        "cedric:dimir_reanimator",
+        "cedric:izzet_spells_tempo",
+        "cedric:simic_ramp_goodstuff"
       ],
       "synergyTags": [
         "single-target-instant-sorcery",
@@ -213,14 +219,18 @@
       "fit": "staple",
       "tier": "A+",
       "archetypes": [
-        "titou_peasant:peasant_staple"
+        "titou_peasant:peasant_staple",
+        "titou_peasant:azorius_tempo",
+        "titou_peasant:dimir_control",
+        "titou_peasant:simic_tempo_ramp",
+        "titou_peasant:izzet_artifacts"
       ],
       "synergyTags": [
         "single-target-instant-sorcery",
         "single-english-word-name",
         "card-names"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
@@ -237,8 +247,8 @@
         ]
       },
       "relativeTier": "A+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   },
   "frenchName": "Contresort",

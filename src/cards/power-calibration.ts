@@ -24,14 +24,53 @@ interface MutableBlock {
   weight: number;
 }
 
+function medianScore(values: readonly number[]): number {
+  const sorted = [...values].sort((left, right) => left - right);
+  return sorted[Math.floor((sorted.length - 1) / 2)] ?? 0;
+}
+
 export function selectRepresentativeScore(
   observations: readonly ScoreObservation[],
 ): number | undefined {
   if (observations.length === 0) return undefined;
 
   const ordered = [...observations].sort((left, right) => right.observedAt - left.observedAt);
-  const score = ordered[0]?.score;
-  return score !== undefined ? Math.round(score) : undefined;
+  const roundedDesc = ordered.map((observation) => Math.round(observation.score));
+  const latest = roundedDesc[0];
+  if (latest === undefined) return undefined;
+
+  if (roundedDesc.length >= 6) {
+    // 1. Protect established high-tier cards from 1-2 noisy day-1/end-of-run observations
+    for (const tailSize of [1, 2]) {
+      if (roundedDesc.length - tailSize >= 5) {
+        const tailMax = Math.max(...roundedDesc.slice(0, tailSize));
+        const priorMedian = medianScore(roundedDesc.slice(tailSize));
+        if (priorMedian - tailMax >= 11 && priorMedian >= 35) {
+          return priorMedian;
+        }
+      }
+    }
+
+    // 2. Expert/historical pillar guardrail for cards with >= 10 observations suffering a >= 13pt drop
+    const maxScore = Math.max(...roundedDesc);
+    const sortedAsc = [...roundedDesc].sort((left, right) => left - right);
+    const upperHalfMedian = medianScore(sortedAsc.slice(Math.floor(sortedAsc.length / 2)));
+    if (roundedDesc.length >= 10 && maxScore - latest >= 13 && upperHalfMedian >= 30) {
+      const target = 0.65 * upperHalfMedian + 0.35 * latest;
+      let best = latest;
+      let bestDistance = Infinity;
+      for (const candidate of sortedAsc) {
+        const distance = Math.abs(candidate - target);
+        if (distance < bestDistance || (distance === bestDistance && candidate > best)) {
+          bestDistance = distance;
+          best = candidate;
+        }
+      }
+      return best;
+    }
+  }
+
+  return latest;
 }
 
 export function fitIsotonicCalibration(

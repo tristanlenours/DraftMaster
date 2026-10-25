@@ -69,7 +69,9 @@
       "cubeKey": "titou_tribal",
       "fit": "staple",
       "tier": "A",
-      "archetypes": [],
+      "archetypes": [
+        "titou:tribal_elves"
+      ],
       "synergyTags": [],
       "scoreModifier": 4,
       "analysis": "Carte de rang S (Score : 41.0) dans l'environnement tribal et interactif de Titou.",
@@ -96,14 +98,15 @@
       "fit": "staple",
       "tier": "A-",
       "archetypes": [
-        "nico:storm_combo"
+        "nico:storm_combo",
+        "nico:green_ramp"
       ],
       "synergyTags": [
         "has-identical-token",
         "token-versions-of-cards",
         "type-errata"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -120,22 +123,25 @@
         ]
       },
       "relativeTier": "A-",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "staple",
       "tier": "A+",
       "archetypes": [
-        "hugues:pauper_staple"
+        "hugues:pauper_staple",
+        "hugues:gruul_stompy",
+        "hugues:selesnya_tokens",
+        "hugues:simic_ramp_value"
       ],
       "synergyTags": [
         "has-identical-token",
         "token-versions-of-cards",
         "type-errata"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
       "pedagogy": {
         "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
@@ -152,22 +158,23 @@
         ]
       },
       "relativeTier": "A+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "staple",
       "tier": "A",
       "archetypes": [
-        "cedric:simic_ramp_goodstuff"
+        "cedric:simic_ramp_goodstuff",
+        "cedric:gruul_stompy_sneak"
       ],
       "synergyTags": [
         "has-identical-token",
         "token-versions-of-cards",
         "type-errata"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -184,8 +191,8 @@
         ]
       },
       "relativeTier": "A",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   },
   "frenchName": "Elfes de Llanowar",

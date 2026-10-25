@@ -1,0 +1,1100 @@
+{
+  "schemaVersion": 1,
+  "witnessId": "witness-deck-arena-powered-2026-09-25-temur-w",
+  "draftId": "0ff5873d-f3e1-4a36-9c2d-a1f81ec947e8",
+  "createdAt": "2026-09-25",
+  "leagueId": "powered_vintage",
+  "cubeKey": "arena_powered",
+  "cubeSnapshotId": "2026-09-08",
+  "format": "Cube - Powered PremierDraft",
+  "expectedTier": "S",
+  "tierPlacement": "middle",
+  "inferredArchetype": "Temur Splash White Midrange / Ramp",
+  "anchorRole": "qualitative-positive-anchor-power-ceiling",
+  "rawPowerRating": 98,
+  "annotation": {
+    "author": "Tristan",
+    "role": "expert_curator",
+    "reviewedAt": "2026-09-25T18:26:55.000Z",
+    "rationale": "Ce deck représente un étalon de puissance brute quasi-maximale pour le Cube Vintage (Arena Powered Cube). Il combine deux pièces de Power Nine (Mox Emerald, Ancestral Recall), un moteur de rampe dégénéré (Fastbond + Wrenn and Six + 3 fetchlands), et les bombes mythiques absolues du format (Oko, voleur de couronnes, Ouro, Minsc et Bouh, Forth Eorlingas !). Sa notation est nuancée en Tier S (placement middle) en raison d'une courbe de mana légèrement haute (7 cartes à 4+ manas) et d'un risque résiduel de friction de tempo inhérent aux decks 4 couleurs.",
+    "strengths": [
+      "Plafond de puissance brute proche du maximum théorique en Cube Vintage (Power Nine + Tier 0 bombs)",
+      "Moteur récursif illimité Fastbond + Wrenn and Six + 3 fetchlands + Traqueuse infatigable / Ouro",
+      "Manabase d'élite : 3 fetchlands allant chercher 2 Triomes (Ketria, Jetmir) et 4 bilands avec sous-type Forêt",
+      "Finishers imparables sur plusieurs axes : armée de jetons célérité/piétinement (Forth Eorlingas !), lancers de hamsters (Minsc & Bouh), et Ouro"
+    ],
+    "weaknesses": [
+      "Courbe légèrement lourde (5 cartes au CMC 4, 1 au CMC 5, Forth Eorlingas ! agissant comme mana sink à 4-6 manas)",
+      "Légère friction de tempo potentielle sur les 4 couleurs si les bilands arrivent engagés au mauvais tour face à un début très agressif",
+      "Sensibilité relative aux effets de taxe (Thalia) ou de destruction de bilands (Blood Moon, Wasteland)"
+    ],
+    "curveAnalysis": {
+      "cmc0": 1,
+      "cmc1": 4,
+      "cmc2": 8,
+      "cmc3": 4,
+      "cmc4": 5,
+      "cmc5": 1,
+      "lands": 17,
+      "averageNonlandCmc": 2.65
+    },
+    "manaFrictionAnalysis": {
+      "colors": [
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "baseColor": "Green (13 sources réelles dont Mox)",
+      "secondaryColors": [
+        "Red (9 sources)",
+        "Blue (8 sources)"
+      ],
+      "splashColor": "White (9 sources pour Forth Eorlingas !, Helix et Parallax Wave)",
+      "fetchlandsCount": 3,
+      "triomesCount": 2,
+      "shockAndDualsCount": 4,
+      "vergesCount": 2,
+      "fastlandsCount": 1,
+      "basicsCount": 5,
+      "frictionMitigation": "Utopia Sprawl nommant n'importe quelle couleur, Cariatide sylvestre (toutes couleurs hexproof), Fanatique de Rhonas (4 manas verts avec 4 de force)"
+    },
+    "confidence": "high"
+  },
+  "mainDeckSize": 40,
+  "landCount": 17,
+  "nonlandCount": 23,
+  "mainDeck": [
+    {
+      "id": "101020",
+      "name": "Mox Emerald",
+      "nameFr": "Mox d’émeraude",
+      "manaCost": "{0}",
+      "cmc": 0,
+      "types": [
+        "Artifact"
+      ],
+      "typeLine": "Artifact",
+      "isLand": false,
+      "colors": [],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "LEA"
+    },
+    {
+      "id": "59671",
+      "name": "Ancestral Recall",
+      "nameFr": "Rappel ancestral",
+      "manaCost": "{U}",
+      "cmc": 1,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "U"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "VMA"
+    },
+    {
+      "id": "60087",
+      "name": "Fastbond",
+      "nameFr": "Enchaînements",
+      "manaCost": "{G}",
+      "cmc": 1,
+      "types": [
+        "Enchantment"
+      ],
+      "typeLine": "Enchantment",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "VMA"
+    },
+    {
+      "id": "87101",
+      "name": "Utopia Sprawl",
+      "nameFr": "Étendue de l'utopie",
+      "manaCost": "{G}",
+      "cmc": 1,
+      "types": [
+        "Enchantment"
+      ],
+      "typeLine": "Enchantment",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "WOT"
+    },
+    {
+      "id": "39581",
+      "name": "Green Sun's Zenith",
+      "nameFr": "Zénith de Vertsoleil",
+      "manaCost": "{X}{G}",
+      "cmc": 1,
+      "types": [
+        "Sorcery"
+      ],
+      "typeLine": "Sorcery",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MBS"
+    },
+    {
+      "id": "71558",
+      "name": "Wrenn and Six",
+      "nameFr": "Wrenn et Six",
+      "manaCost": "{R}{G}",
+      "cmc": 2,
+      "types": [
+        "Legendary",
+        "Planeswalker"
+      ],
+      "typeLine": "Legendary Planeswalker",
+      "isLand": false,
+      "colors": [
+        "R",
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": "3",
+      "expansion": "MH1"
+    },
+    {
+      "id": "70316",
+      "name": "Once Upon a Time",
+      "nameFr": "Il était une fois...",
+      "manaCost": "{1}{G}",
+      "cmc": 2,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "ELD"
+    },
+    {
+      "id": "94435",
+      "name": "Sylvan Caryatid",
+      "nameFr": "Cariatide sylvestre",
+      "manaCost": "{1}{G}",
+      "cmc": 2,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": "0",
+      "toughness": "3",
+      "expansion": "PIO"
+    },
+    {
+      "id": "91002",
+      "name": "Fanatic of Rhonas",
+      "nameFr": "Fanatique de Rhonas",
+      "manaCost": "{1}{G}",
+      "cmc": 2,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": "1",
+      "toughness": "4",
+      "expansion": "MH3"
+    },
+    {
+      "id": "89131",
+      "name": "Lightning Helix",
+      "nameFr": "Hélice d'éclairs",
+      "manaCost": "{R}{W}",
+      "cmc": 2,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "W",
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MKM"
+    },
+    {
+      "id": "103663",
+      "name": "Forth Eorlingas!",
+      "nameFr": "En avant, Eorlingas !",
+      "manaCost": "{X}{R}{W}",
+      "cmc": 2,
+      "types": [
+        "Sorcery"
+      ],
+      "typeLine": "Sorcery",
+      "isLand": false,
+      "colors": [
+        "W",
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "LTC"
+    },
+    {
+      "id": "98475",
+      "name": "Sear",
+      "nameFr": "Griller",
+      "manaCost": "{1}{R}",
+      "cmc": 2,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "ECL"
+    },
+    {
+      "id": "90673",
+      "name": "Legion Extruder",
+      "nameFr": "Extrudeur de légion",
+      "manaCost": "{1}{R}",
+      "cmc": 2,
+      "types": [
+        "Artifact"
+      ],
+      "typeLine": "Artifact",
+      "isLand": false,
+      "colors": [
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "BIG"
+    },
+    {
+      "id": "70344",
+      "name": "Oko, Thief of Crowns",
+      "nameFr": "Oko, voleur de couronnes",
+      "manaCost": "{1}{G}{U}",
+      "cmc": 3,
+      "types": [
+        "Legendary",
+        "Planeswalker"
+      ],
+      "typeLine": "Legendary Planeswalker",
+      "isLand": false,
+      "colors": [
+        "U",
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": "4",
+      "expansion": "ELD"
+    },
+    {
+      "id": "70740",
+      "name": "Uro, Titan of Nature's Wrath",
+      "nameFr": "Ouro, titan de la Rage de la nature",
+      "manaCost": "{1}{G}{U}",
+      "cmc": 3,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "U",
+        "G"
+      ],
+      "producesColors": [],
+      "power": "6",
+      "toughness": "6",
+      "expansion": "THB"
+    },
+    {
+      "id": "91043",
+      "name": "Nadu, Winged Wisdom",
+      "nameFr": "Nadu, sagesse ailée",
+      "manaCost": "{1}{G}{U}",
+      "cmc": 3,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "U",
+        "G"
+      ],
+      "producesColors": [],
+      "power": "3",
+      "toughness": "4",
+      "expansion": "MH3"
+    },
+    {
+      "id": "63055",
+      "name": "Tireless Tracker",
+      "nameFr": "Traqueuse infatigable",
+      "manaCost": "{2}{G}",
+      "cmc": 3,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": "3",
+      "toughness": "2",
+      "expansion": "SOI"
+    },
+    {
+      "id": "81841",
+      "name": "Minsc & Boo, Timeless Heroes",
+      "nameFr": "Minsc et Bouh, héros éternels",
+      "manaCost": "{2}{R}{G}",
+      "cmc": 4,
+      "types": [
+        "Legendary",
+        "Planeswalker"
+      ],
+      "typeLine": "Legendary Planeswalker",
+      "isLand": false,
+      "colors": [
+        "R",
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": "3",
+      "expansion": "HBG"
+    },
+    {
+      "id": "105136",
+      "name": "Wolverine, Fierce Fighter",
+      "nameFr": "Wolverine, combattant féroce",
+      "manaCost": "{2}{R}{G}",
+      "cmc": 4,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "R",
+        "G"
+      ],
+      "producesColors": [],
+      "power": "3",
+      "toughness": "5",
+      "expansion": "MSH"
+    },
+    {
+      "id": "69669",
+      "name": "Tamiyo, Collector of Tales",
+      "nameFr": "Tamiyo, collectionneuse de récits",
+      "manaCost": "{2}{G}{U}",
+      "cmc": 4,
+      "types": [
+        "Legendary",
+        "Planeswalker"
+      ],
+      "typeLine": "Legendary Planeswalker",
+      "isLand": false,
+      "colors": [
+        "U",
+        "G"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": "5",
+      "expansion": "WAR"
+    },
+    {
+      "id": "96775",
+      "name": "Ouroboroid",
+      "nameFr": "Ouroboroïde",
+      "manaCost": "{2}{G}{G}",
+      "cmc": 4,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "G"
+      ],
+      "producesColors": [],
+      "power": "1",
+      "toughness": "3",
+      "expansion": "EOE"
+    },
+    {
+      "id": "13747",
+      "name": "Parallax Wave",
+      "nameFr": "Vague de parallaxe",
+      "manaCost": "{2}{W}{W}",
+      "cmc": 4,
+      "types": [
+        "Enchantment"
+      ],
+      "typeLine": "Enchantment",
+      "isLand": false,
+      "colors": [
+        "W"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "NEM"
+    },
+    {
+      "id": "73935",
+      "name": "Glorybringer",
+      "nameFr": "Annonciateur de gloire",
+      "manaCost": "{3}{R}{R}",
+      "cmc": 5,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "R"
+      ],
+      "producesColors": [],
+      "power": "4",
+      "toughness": "4",
+      "expansion": "AKR"
+    },
+    {
+      "id": "58433",
+      "name": "Windswept Heath",
+      "nameFr": "Lande venteuse",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "KTK"
+    },
+    {
+      "id": "77054",
+      "name": "Arid Mesa",
+      "nameFr": "Mesa aride",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MH2"
+    },
+    {
+      "id": "77063",
+      "name": "Verdant Catacombs",
+      "nameFr": "Catacombes verdoyantes",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MH2"
+    },
+    {
+      "id": "71317",
+      "name": "Ketria Triome",
+      "nameFr": "Triome de Ketria",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "R",
+        "U"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "IKO"
+    },
+    {
+      "id": "80401",
+      "name": "Jetmir's Garden",
+      "nameFr": "Jardin de Jetmir",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "R",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "SNC"
+    },
+    {
+      "id": "69394",
+      "name": "Breeding Pool",
+      "nameFr": "Bassin d'élevage",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "U"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "RNA"
+    },
+    {
+      "id": "68739",
+      "name": "Temple Garden",
+      "nameFr": "Jardin du temple",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "GRN"
+    },
+    {
+      "id": "60291",
+      "name": "Savannah",
+      "nameFr": "Savane",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "VMA"
+    },
+    {
+      "id": "101113",
+      "name": "Plateau",
+      "nameFr": "Plateau",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "R",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "ANA"
+    },
+    {
+      "id": "90614",
+      "name": "Botanical Sanctum",
+      "nameFr": "Sanctuaire botanique",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "U"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "OTJ"
+    },
+    {
+      "id": "92370",
+      "name": "Thornspire Verge",
+      "nameFr": "Orée de Cimeronce",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "R"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "DSK"
+    },
+    {
+      "id": "92359",
+      "name": "Floodfarm Verge",
+      "nameFr": "Orée de la ferme inondée",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "U",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "DSK"
+    },
+    {
+      "id": "95195",
+      "name": "Swamp",
+      "nameFr": "marais",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Basic",
+        "Land"
+      ],
+      "typeLine": "Basic Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "B"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "FDN"
+    },
+    {
+      "id": "95195",
+      "name": "Swamp",
+      "nameFr": "marais",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Basic",
+        "Land"
+      ],
+      "typeLine": "Basic Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "B"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "FDN"
+    },
+    {
+      "id": "95194",
+      "name": "Island",
+      "nameFr": "île",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Basic",
+        "Land"
+      ],
+      "typeLine": "Basic Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "U"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "FDN"
+    },
+    {
+      "id": "95193",
+      "name": "Island",
+      "nameFr": "île",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Basic",
+        "Land"
+      ],
+      "typeLine": "Basic Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "U"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "FDN"
+    },
+    {
+      "id": "95192",
+      "name": "Plains",
+      "nameFr": "plaine",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Basic",
+        "Land"
+      ],
+      "typeLine": "Basic Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "FDN"
+    }
+  ],
+  "sideboard": [
+    {
+      "id": "90887",
+      "name": "Ocelot Pride",
+      "nameFr": "Bande d'ocelots",
+      "manaCost": "{W}",
+      "cmc": 1,
+      "types": [
+        "Creature"
+      ],
+      "typeLine": "Creature",
+      "isLand": false,
+      "colors": [
+        "W"
+      ],
+      "producesColors": [],
+      "power": "1",
+      "toughness": "1",
+      "expansion": "MH3"
+    },
+    {
+      "id": "77494",
+      "name": "Counterspell",
+      "nameFr": "Contresort",
+      "manaCost": "{U}{U}",
+      "cmc": 2,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "U"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "STA"
+    },
+    {
+      "id": "103392",
+      "name": "The Queen of Dale",
+      "nameFr": "La reine du Val",
+      "manaCost": "{1}{W}",
+      "cmc": 2,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "W"
+      ],
+      "producesColors": [],
+      "power": "2",
+      "toughness": "1",
+      "expansion": "HOB"
+    },
+    {
+      "id": "78322",
+      "name": "Adeline, Resplendent Cathar",
+      "nameFr": "Adeline, cathare resplendissante",
+      "manaCost": "{1}{W}{W}",
+      "cmc": 3,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "W"
+      ],
+      "producesColors": [],
+      "power": "*",
+      "toughness": "4",
+      "expansion": "MID"
+    },
+    {
+      "id": "76254",
+      "name": "Vindicate",
+      "nameFr": "Justification",
+      "manaCost": "{1}{W}{B}",
+      "cmc": 3,
+      "types": [
+        "Sorcery"
+      ],
+      "typeLine": "Sorcery",
+      "isLand": false,
+      "colors": [
+        "W",
+        "B"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MH2"
+    },
+    {
+      "id": "105106",
+      "name": "Cloak and Dagger, Entwined",
+      "nameFr": "La Cape et l’Épée, entremêlés",
+      "manaCost": "{1}{W}{B}",
+      "cmc": 3,
+      "types": [
+        "Legendary",
+        "Creature"
+      ],
+      "typeLine": "Legendary Creature",
+      "isLand": false,
+      "colors": [
+        "W",
+        "B"
+      ],
+      "producesColors": [],
+      "power": "2",
+      "toughness": "2",
+      "expansion": "MSH"
+    },
+    {
+      "id": "102795",
+      "name": "Empty the Warrens",
+      "nameFr": "Évacuation des terriers",
+      "manaCost": "{3}{R}",
+      "cmc": 4,
+      "types": [
+        "Sorcery"
+      ],
+      "typeLine": "Sorcery",
+      "isLand": false,
+      "colors": [
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "SOA"
+    },
+    {
+      "id": "77004",
+      "name": "Mine Collapse",
+      "nameFr": "Effondrement de la mine",
+      "manaCost": "{3}{R}",
+      "cmc": 4,
+      "types": [
+        "Instant"
+      ],
+      "typeLine": "Instant",
+      "isLand": false,
+      "colors": [
+        "R"
+      ],
+      "producesColors": [],
+      "power": null,
+      "toughness": null,
+      "expansion": "MH2"
+    },
+    {
+      "id": "105162",
+      "name": "Gathering Place",
+      "nameFr": "Lieu de rassemblement",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "G",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "MSH"
+    },
+    {
+      "id": "73472",
+      "name": "Brightclimb Pathway",
+      "nameFr": "Passage de Hisseclair",
+      "manaCost": "",
+      "cmc": 0,
+      "types": [
+        "Land"
+      ],
+      "typeLine": "Land",
+      "isLand": true,
+      "colors": [],
+      "producesColors": [
+        "B",
+        "W"
+      ],
+      "power": null,
+      "toughness": null,
+      "expansion": "ZNR"
+    }
+  ],
+  "poolCardIds": [
+    77494,
+    13747,
+    91043,
+    96775,
+    103663,
+    69669,
+    78322,
+    63055,
+    68739,
+    90673,
+    101113,
+    98475,
+    70316,
+    73935,
+    73472,
+    81841,
+    101020,
+    77054,
+    87101,
+    69394,
+    91002,
+    80401,
+    94435,
+    90887,
+    90614,
+    71558,
+    105162,
+    70740,
+    105136,
+    76254,
+    77063,
+    59671,
+    71317,
+    60087,
+    58433,
+    89131,
+    39581,
+    92359,
+    92370,
+    70344,
+    77004,
+    60291,
+    103392,
+    102795,
+    105106
+  ],
+  "mtgaExportText": "Deck\n1 Mox Emerald\n1 Ancestral Recall\n1 Fastbond\n1 Utopia Sprawl\n1 Green Sun's Zenith\n1 Wrenn and Six\n1 Once Upon a Time\n1 Sylvan Caryatid\n1 Fanatic of Rhonas\n1 Lightning Helix\n1 Forth Eorlingas!\n1 Sear\n1 Legion Extruder\n1 Oko, Thief of Crowns\n1 Uro, Titan of Nature's Wrath\n1 Nadu, Winged Wisdom\n1 Tireless Tracker\n1 Minsc & Boo, Timeless Heroes\n1 Wolverine, Fierce Fighter\n1 Tamiyo, Collector of Tales\n1 Ouroboroid\n1 Parallax Wave\n1 Glorybringer\n1 Windswept Heath\n1 Arid Mesa\n1 Verdant Catacombs\n1 Ketria Triome\n1 Jetmir's Garden\n1 Breeding Pool\n1 Temple Garden\n1 Savannah\n1 Plateau\n1 Botanical Sanctum\n1 Thornspire Verge\n1 Floodfarm Verge\n2 Swamp\n2 Island\n1 Plains\n\nSideboard\n1 Ocelot Pride\n1 Counterspell\n1 The Queen of Dale\n1 Adeline, Resplendent Cathar\n1 Vindicate\n1 Cloak and Dagger, Entwined\n1 Empty the Warrens\n1 Mine Collapse\n1 Gathering Place\n1 Brightclimb Pathway\n"
+}

@@ -59,16 +59,17 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "B+",
+      "tier": "B",
       "archetypes": [
-        "nico:vintage_staple"
+        "nico:vintage_staple",
+        "nico:storm_combo"
       ],
       "synergyTags": [
         "single-english-word-name",
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -84,23 +85,27 @@
           }
         ]
       },
-      "relativeTier": "B+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "relativeTier": "B",
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "support",
       "tier": "A+",
       "archetypes": [
-        "hugues:pauper_staple"
+        "hugues:pauper_staple",
+        "hugues:azorius_blink",
+        "hugues:faeries_ninjas_tempo",
+        "hugues:izzet_spellslinger",
+        "hugues:simic_ramp_value"
       ],
       "synergyTags": [
         "single-english-word-name",
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 8,
       "analysis": "Sélectionné pour le Pauper Cube de Hugues. Pièce fondamentale valorisant le tempo et les échanges 2-pour-1 sur le Tour Pivot (T4-T5).",
       "pedagogy": {
         "howToPlay": "Optimiser les échanges de ressources et stabiliser la présence sur table vers le tour 4.",
@@ -117,22 +122,23 @@
         ]
       },
       "relativeTier": "A+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
       "tier": "A-",
       "archetypes": [
-        "cedric:high_power_staple"
+        "cedric:high_power_staple",
+        "cedric:izzet_spells_tempo"
       ],
       "synergyTags": [
         "single-english-word-name",
         "card-names",
         "cantrip"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -149,8 +155,8 @@
         ]
       },
       "relativeTier": "A-",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   },
   "frenchName": "Contemplation",

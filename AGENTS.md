@@ -39,6 +39,23 @@ Domain behavior follows red-green-refactor. Cover every invariant, boundary, rej
 
 Use concise Conventional Commit subjects, such as `test(draft): reject duplicate seat decisions`. Keep commits focused. Pull requests must link their issue and specification, explain trade-offs and remaining risks, and list verification evidence. Required CI, Standards + Spec review, and human approval must pass before merge.
 
+## Two-Tier Analytical Architecture: Foundational Intelligence vs. Runtime Engines
+
+DraftMaster enforces a strict separation between offline structural cube understanding and hot runtime execution:
+
+1. **Tier 1 — Cold Foundational Cube Intelligence (Frontier Reasoning AI)**:
+   - Deep structural and strategic analysis of cubes, archetypes, functional bricks, cross-synergies, and card power calibrations.
+   - Performed offline/a-priori by high-reasoning frontier models via the [analyzing-cubes](.agents/skills/analyzing-cubes/SKILL.md) skill.
+   - Produces durable, versioned "secondary matter": `cube-meta.json`, `archetype-synergy-v1.json`, `cube.json`, `master-cards.json` (`cubeAnalyses`), and calibrated `power-ranking-v1.json`.
+   - _Invariant_: Downstream evaluations and recommendations never attempt to infer deep cube theory from raw strings on the fly; they rely strictly on verified Tier 1 secondary matter.
+
+2. **Tier 2 — Hot Runtime Execution & Decision Engines (Deterministic + Lightweight AI)**:
+   - Low-latency evaluation during live drafts, simulations, and Deck Lab (_Rate my deck_ / _Pimp my deck_).
+   - Driven primarily by deterministic domain algorithms (`evaluatePack`, `evaluateDeck`, `analyzeDeck`) consuming Tier 1 pre-compiled artifacts.
+   - When AI inference is required at runtime, delegate to specialized, cost-effective tiers:
+     - Fast tactical drafting or silent choices without user explanation: lightweight models (e.g., `Jev`) with zero reasoning overhead.
+     - Pedagogical coaching tips, interactive rationale, or deck improvement suggestions: fast flash models (e.g., Gemini Flash, DeepSeek V4.1 Flash) guided by Tier 1 structured context.
+
 ## Domain and Issue Tracking
 
 Read `docs/agents/domain.md` before changing domain behavior. Use GitHub Issues according to `docs/agents/issue-tracker.md` and the labels in `docs/agents/triage-labels.md`.

@@ -1,0 +1,3874 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "archetype-synergy@2",
+  "cubeKey": "cedric_cube",
+  "cubeSnapshotId": "cedric_cube@2026-03-01.1",
+  "provenance": {
+    "sourceRawSha256": "cd8181d7827930afca34cd65c3a8e2e13848990bbebb639c4c2fd4fa48087c90",
+    "generatorVersion": "build-archetype-synergy-profiles@2"
+  },
+  "archetypes": [
+    {
+      "id": "cedric:azorius_control_blink",
+      "name": "Azorius Control and Blink",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "876ac6f6-74de-4666-84c6-83d81f054723",
+          "name": "Celestial Colonnade",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
+          "name": "Counterspell",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0a0b376d-7824-4ba5-8bc9-bc0be12800c5",
+          "name": "Detention Sphere",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+          "name": "Force of Negation",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "956381ba-6d37-4a8a-846c-bad79222dbee",
+          "name": "Force of Will",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
+          "name": "Hallowed Fountain",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "74d3277a-38e5-4732-afed-084a56148f20",
+          "name": "Mana Drain",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+          "name": "Memory Lapse",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
+          "name": "Monastery Mentor",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "24d0f5e7-0d9e-4b76-900e-a7274e80312d",
+          "name": "Mulldrifter",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+          "name": "Palace Jailer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
+          "name": "Remand",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+          "name": "Restoration Angel",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+          "name": "Skyclave Apparition",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+          "name": "Snapcaster Mage",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
+          "name": "Solitude",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "71d83fca-e40e-4d0e-956d-d0d6da9cc472",
+          "name": "Sphinx's Revelation",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0230de18-8d15-4cfa-9d42-7ccddd9f9570",
+          "name": "Supreme Verdict",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+          "name": "Swords to Plowshares",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0",
+          "name": "Teferi, Hero of Dominaria",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964",
+          "name": "Teferi, Time Raveler",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215",
+          "name": "The Wandering Emperor",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "02418479-9455-417f-a6a1-004356faff37",
+          "name": "Tundra",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Azorius Control and Blink."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:dimir_reanimator",
+      "name": "Dimir Reanimator and Tempo",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+          "name": "Animate Dead",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+          "name": "Archon of Cruelty",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "37688720-03de-4eca-a82d-a0afe8d58adc",
+          "name": "Baleful Strix",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
+          "name": "Counterspell",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "15d5b198-edbe-40f3-87e2-d72f7f0c58ab",
+          "name": "Dance of the Dead",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "70486bee-6ee7-41ea-b834-8caf4699302b",
+          "name": "Daze",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "82004860-e589-4e38-8d61-8c0210e4ea39",
+          "name": "Demonic Tutor",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "299fc083-0834-4064-8344-f895aff68867",
+          "name": "Entomb",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8",
+          "name": "Grief",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+          "name": "Griselbrand",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "16cd0b90-f70c-4efa-b252-8de8784ef9a3",
+          "name": "Imperial Seal",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+          "name": "Inquisition of Kozilek",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+          "name": "Jace, Vryn's Prodigy",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+          "name": "Liliana of the Veil",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
+          "name": "Necromancy",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "ea5103f5-27e0-4eb1-902c-7f34652d6bf3",
+          "name": "Orcish Bowmasters",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
+          "name": "Persist",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+          "name": "Reanimate",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "9843d8a6-bcbf-40c2-8c41-316e97db9c62",
+          "name": "Shallow Grave",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+          "name": "Thoughtseize",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
+          "name": "Underground Sea",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
+          "name": "Vampiric Tutor",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
+          "name": "Watery Grave",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Dimir Reanimator and Tempo."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:rakdos_aristocrats",
+      "name": "Rakdos Aristocrats and Attrition",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "13ff3222-91cb-4796-a34e-899ed817694c",
+          "name": "Badlands",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fb868840-09fa-49b1-85cb-b08ad065e972",
+          "name": "Bitterblossom",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
+          "name": "Blightning",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
+          "name": "Blood Crypt",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e97f9c2b-b41e-4f36-9245-77c0ac125647",
+          "name": "Bloodghast",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+          "name": "Bone Shards",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
+          "name": "Broadside Bombardiers",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "add0f7e7-8990-4fd1-8ac7-8115f7802912",
+          "name": "Daretti, Ingenious Iconoclast",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "fd74f8eb-0253-42dd-8277-186d4934da38",
+          "name": "Dismember",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c0957e5e-c71b-439c-931c-9f55d2f76ace",
+          "name": "Fable of the Mirror-Breaker",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "cd2a87c4-d1c3-4a9e-b2df-e6fe251421c4",
+          "name": "Falkenrath Aristocrat",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "24661b81-6bee-4ad8-b3ab-53cb65005c51",
+          "name": "Goblin Rabblemaster",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+          "name": "Inquisition of Kozilek",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "45f1e957-09f0-4d46-8e32-238f26060a87",
+          "name": "Kolaghan's Command",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a498bc70-36e7-4454-bc44-906893df38b8",
+          "name": "Murderous Redcap",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
+          "name": "Seasoned Pyromancer",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "34f34409-326d-4994-a0ea-1a69aa278f03",
+          "name": "Sheoldred, the Apocalypse",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
+          "name": "Skullclamp",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6257c2fd-005f-41e3-8a72-af76df1eb134",
+          "name": "Terminate",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+          "name": "Thoughtseize",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Rakdos Aristocrats and Attrition."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:gruul_stompy_sneak",
+      "name": "Gruul Stompy and Monster Cheat",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+          "name": "Birds of Paradise",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3f0c9466-5ab9-4205-a84f-b4b27b5a678e",
+          "name": "Bloodbraid Elf",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+          "name": "Delighted Halfling",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "daff70a4-a990-47c9-b6ef-2c379272c8a3",
+          "name": "Dragonlord Atarka",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+          "name": "Elvish Mystic",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+          "name": "Esika's Chariot",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+          "name": "Etali, Primal Conqueror",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+          "name": "Llanowar Elves",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+          "name": "Lotus Cobra",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3a310554-3f69-4158-bb94-9d6965c7125a",
+          "name": "Minsc & Boo, Timeless Heroes",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+          "name": "Natural Order",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b685757b-521e-4353-a233-97052359723d",
+          "name": "Questing Beast",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+          "name": "Sneak Attack",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
+          "name": "Stomping Ground",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+          "name": "Sylvan Caryatid",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "22e3cf1d-3559-4ce1-954c-8dc815342979",
+          "name": "Taiga",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
+          "name": "Worldspine Wurm",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "108ae90a-50fa-4cfd-b751-d630e41425fe",
+          "name": "Wrenn and Six",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "942a318e-90eb-4f10-bb30-2e10f5cc922a",
+          "name": "Xenagos, the Reveler",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Gruul Stompy and Monster Cheat."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:selesnya_tokens_midrange",
+      "name": "Selesnya Midrange and Hatebears",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+          "name": "Adeline, Resplendent Cathar",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "069f6530-e65c-4d52-85f3-e0a2acd148c5",
+          "name": "Avacyn's Pilgrim",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+          "name": "Birds of Paradise",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
+          "name": "Elite Spellbinder",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+          "name": "Esika's Chariot",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
+          "name": "Gaea's Cradle",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
+          "name": "Giver of Runes",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "5470dcfa-4eff-43da-abf7-19922841f719",
+          "name": "Kitchen Finks",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
+          "name": "Knight of Autumn",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
+          "name": "Mother of Runes",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "98aa9424-5912-4bd6-9300-b3972a31d8af",
+          "name": "Noble Hierarch",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d683d985-9888-4d21-8b5f-69e69ce4a03b",
+          "name": "Path to Exile",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
+          "name": "Qasali Pridemage",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "703243f0-8cb3-420f-958f-5fd4bde30293",
+          "name": "Savannah",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+          "name": "Skyclave Apparition",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+          "name": "Swords to Plowshares",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+          "name": "Sylvan Caryatid",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
+          "name": "Temple Garden",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5cbbb3f3-63a4-4983-81ea-8c405b10e63f",
+          "name": "Voice of Resurgence",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Selesnya Midrange and Hatebears."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "cedric:orzhov_attrition_tokens",
+      "name": "Orzhov Attrition and Tokens",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "fb868840-09fa-49b1-85cb-b08ad065e972",
+          "name": "Bitterblossom",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b01d61cc-9844-4191-86a0-f2db6d42d6e5",
+          "name": "Damn",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "f21d0319-0509-4ac1-b6e3-10955a26fd7a",
+          "name": "Fracture",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
+          "name": "Giver of Runes",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
+          "name": "Godless Shrine",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+          "name": "Inquisition of Kozilek",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0b8c3337-04dd-4798-8203-6d8b8cfb936b",
+          "name": "Lingering Souls",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+          "name": "Lurrus of the Dream-Den",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
+          "name": "Mother of Runes",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d683d985-9888-4d21-8b5f-69e69ce4a03b",
+          "name": "Path to Exile",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
+          "name": "Scrubland",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
+          "name": "Serra Paragon",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+          "name": "Skyclave Apparition",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5c780dda-ee76-482a-a610-53c321c4fdec",
+          "name": "Sorin, Lord of Innistrad",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+          "name": "Swords to Plowshares",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+          "name": "Thoughtseize",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+          "name": "Toxic Deluge",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d48e1545-7997-45ed-83a1-aee45b3d3d20",
+          "name": "Unburial Rites",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
+          "name": "Vindicate",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Orzhov Attrition and Tokens."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "cedric:izzet_spells_tempo",
+      "name": "Izzet Spells and Tempo",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+          "name": "Chain Lightning",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
+          "name": "Counterspell",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9d4b1e44-3c66-4b1b-8a1d-308aa4f841f8",
+          "name": "Dack Fayden",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "07b222d7-24f2-4994-9004-ff6672ebe161",
+          "name": "Electrolyze",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "c0957e5e-c71b-439c-931c-9f55d2f76ace",
+          "name": "Fable of the Mirror-Breaker",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ae92942b-919c-4ea9-b693-85fcef765d5a",
+          "name": "Fire // Ice",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
+          "name": "Flame Slash",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
+          "name": "Lutri, the Spellchaser",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
+          "name": "Mana Leak",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+          "name": "Memory Lapse",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
+          "name": "Monastery Mentor",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
+          "name": "Ponder",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
+          "name": "Preordain",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fa3e28b1-131c-4223-81e0-18dfbab22c26",
+          "name": "Prismari Command",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "37108cd4-bbab-4ce3-9ed6-f60e8422e703",
+          "name": "Ragavan, Nimble Pilferer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
+          "name": "Remand",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+          "name": "Snapcaster Mage",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "17039058-822d-409f-938c-b727a366ba63",
+          "name": "Steam Vents",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
+          "name": "Volcanic Island",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Izzet Spells and Tempo."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:golgari_rock_graveyard",
+      "name": "Golgari The Rock and Graveyard",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "1c747fe2-289e-492a-a846-aa77707e2dc3",
+          "name": "Abrupt Decay",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "ac10d218-f9a6-4058-9cda-a15ca1b0b7b5",
+          "name": "Assassin's Trophy",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
+          "name": "Bayou",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+          "name": "Birds of Paradise",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "46779609-4fa7-4fd2-b5b4-7d4d749339e6",
+          "name": "Courser of Kruphix",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+          "name": "Deathrite Shaman",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+          "name": "Delighted Halfling",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "7cec9021-6f25-4fd8-b40e-adf4ffd3a7b8",
+          "name": "Garruk Relentless",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0efb0d7e-dea0-4817-a243-15066e9ef333",
+          "name": "Grist, the Hunger Tide",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+          "name": "Inquisition of Kozilek",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+          "name": "Liliana of the Veil",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "95ce305f-34bc-4d6d-b7ba-ffd4b2a25336",
+          "name": "Maelstrom Pulse",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
+          "name": "Overgrown Tomb",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "62e44e0d-eda0-4275-8367-49dab9a087c3",
+          "name": "Pernicious Deed",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "1ff25f67-36a7-4cfa-a2b1-2135b5b6fb67",
+          "name": "Scavenging Ooze",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+          "name": "Sylvan Caryatid",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+          "name": "Thoughtseize",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0dd0e91a-d16b-4718-8d11-1a3fcf8e0753",
+          "name": "Thragtusk",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "131096a3-2d53-4ec2-96d3-fcb58e698a13",
+          "name": "Vraska, Golgari Queen",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Golgari The Rock and Graveyard."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:boros_aggro_equipment",
+      "name": "Boros Aggro and Equipment",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+          "name": "Adeline, Resplendent Cathar",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
+          "name": "Broadside Bombardiers",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+          "name": "Chain Lightning",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
+          "name": "Elite Spellbinder",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "35807c14-4647-482f-9ba1-6d640fd5e8d8",
+          "name": "Forth Eorlingas!",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "fbf9f8c5-849f-45d5-8129-5fc683c21a04",
+          "name": "Fury",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
+          "name": "Giver of Runes",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "51d9564b-44fc-4de1-9119-09d7b4089378",
+          "name": "Goblin Guide",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "454a8902-8120-4373-96ee-bbf352b04e8d",
+          "name": "Hero of Bladehold",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
+          "name": "Kytheon, Hero of Akros",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "800c258a-cfc4-4a54-a667-065ea8dea69e",
+          "name": "Lightning Helix",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "dafd2713-d1bc-474b-b390-d2ff20b5375e",
+          "name": "Monastery Swiftspear",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
+          "name": "Mother of Runes",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c7a15ca4-085f-4d92-8387-c3711c04c8fa",
+          "name": "Plateau",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "37108cd4-bbab-4ce3-9ed6-f60e8422e703",
+          "name": "Ragavan, Nimble Pilferer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "45181cb8-2090-4471-ba90-e5a8f04d525f",
+          "name": "Sacred Foundry",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
+          "name": "Sword of Fire and Ice",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+          "name": "Swords to Plowshares",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+          "name": "Thraben Inspector",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Boros Aggro and Equipment."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "cedric:simic_ramp_goodstuff",
+      "name": "Simic Ramp and Big Mana",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "payoff",
+          "name": "Carte clé ou moteur du plan",
+          "minimum": 1
+        },
+        {
+          "id": "support",
+          "name": "Support ou synergie du plan",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+          "name": "Birds of Paradise",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
+          "name": "Breeding Pool",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "69fd4ddf-9ed8-4c56-bef3-9944daf05e4f",
+          "name": "Coiling Oracle",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
+          "name": "Counterspell",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+          "name": "Delighted Halfling",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+          "name": "Elvish Mystic",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "0d96b60b-a060-48ee-bb83-93f1c4a10669",
+          "name": "Green Sun's Zenith",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "6bd872b2-5c40-4e11-9a7f-0136a51b0642",
+          "name": "Hydroid Krasis",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+          "name": "Llanowar Elves",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+          "name": "Lotus Cobra",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "74d3277a-38e5-4732-afed-084a56148f20",
+          "name": "Mana Drain",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
+          "name": "Mystic Confluence",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
+          "name": "Nissa, Who Shakes the World",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "60c60923-ff1b-43f7-8768-731499fcffc9",
+          "name": "Oko, Thief of Crowns",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "6c5b02eb-7829-436a-8555-fea200e4b67f",
+          "name": "Oracle of Mul Daya",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
+          "name": "Primeval Titan",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+          "name": "Restoration Angel",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+          "name": "Sylvan Caryatid",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
+          "name": "Tropical Island",
+          "strength": "support",
+          "roles": [
+            "enabler"
+          ],
+          "families": [
+            "support"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte support déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ee302659-59ed-4eef-babe-451b9ccf7f14",
+          "name": "Uro, Titan of Nature's Wrath",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "owner_description",
+              "detail": "Carte clé déclarée pour Simic Ramp and Big Mana."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    }
+  ]
+}
