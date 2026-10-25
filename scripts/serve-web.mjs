@@ -30,20 +30,20 @@ import { CardCatalog } from "../src/cards/card-catalog.ts";
 import { toCardEvaluationInput } from "../src/cards/evaluation-input.ts";
 import { createDeckLabHttpHandler } from "../src/deck-lab/http-handler.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
+import { createMultiplayerDraftCoordinator } from "../src/multiplayer-draft/index.ts";
 import {
-  createFinalDeckCoach,
   createLocalFileMultiplayerDraftStore,
-  createMultiplayerDraftCoordinator,
   createMultiplayerDraftHttpHandler,
-} from "../src/multiplayer-draft/index.ts";
+} from "../src/multiplayer-draft/adapters.ts";
+import { createFinalDeckCoach } from "../src/coach-advice/final-deck-coach.ts";
+import { createTournamentCoordinator } from "../src/tournaments/index.ts";
 import {
   createJsonLineTournamentObservability,
   createSupabaseTournamentStore,
-  createTournamentCoordinator,
   createTournamentCubeCatalog,
   createTournamentHttpHandler,
   createTournamentSupabaseGateway,
-} from "../src/tournaments/index.ts";
+} from "../src/tournaments/adapters.ts";
 
 loadLocalEnvFiles();
 

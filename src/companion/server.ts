@@ -15,7 +15,7 @@ import {
 } from "./coach-prompts.ts";
 import { getUnifiedDraftAdvice } from "../coach-advice/draft-coach-service.ts";
 import { loadCoachContext, type CoachContext } from "../cubes/coach-context.ts";
-import { createFinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
+import { createFinalDeckCoach } from "../coach-advice/final-deck-coach.ts";
 import type { CardEvaluationInput, MtGColor } from "../domain/coaching/types.ts";
 import { loadLocalEnvFiles } from "../config/env-files.ts";
 

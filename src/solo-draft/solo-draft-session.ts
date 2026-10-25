@@ -73,7 +73,7 @@ import {
   createFinalDeckCoach,
   type FinalDeckCoach,
   type FinalDeckRecommendation,
-} from "../multiplayer-draft/final-deck-coach.ts";
+} from "../coach-advice/final-deck-coach.ts";
 import type { CoachLanguageModel } from "../coach-advice/coach-language-model.ts";
 import type {
   AdminDraftEntry,

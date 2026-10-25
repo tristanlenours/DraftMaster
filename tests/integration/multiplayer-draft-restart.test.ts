@@ -5,10 +5,10 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
-  createLocalFileMultiplayerDraftStore,
   createMultiplayerDraftCoordinator,
   type MultiplayerDraftCoordinatorDependencies,
 } from "../../src/multiplayer-draft/index.ts";
+import { createLocalFileMultiplayerDraftStore } from "../../src/multiplayer-draft/adapters.ts";
 import {
   buildMultiplayerSnapshot,
   createSequenceFactory,

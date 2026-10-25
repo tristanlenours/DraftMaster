@@ -5,7 +5,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
-import { createFinalDeckCoach } from "../../src/multiplayer-draft/final-deck-coach.ts";
+import { createFinalDeckCoach } from "../../src/coach-advice/final-deck-coach.ts";
 
 describe("Solo Draft Web API & Flow Integration", () => {
   let server: Server;

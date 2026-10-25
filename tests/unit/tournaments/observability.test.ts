@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  createJsonLineTournamentObservability,
   observeTournamentResult,
   type TournamentMetricEvent,
   type TournamentObservability,
 } from "../../../src/tournaments/index.ts";
+import { createJsonLineTournamentObservability } from "../../../src/tournaments/adapters.ts";
 
 describe("Tournament observability", () => {
   it("records latency, technical failures and forced rematches without sensitive payloads", () => {

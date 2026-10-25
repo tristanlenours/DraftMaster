@@ -1,4 +1,4 @@
-import type { FinalDeckBasicLands } from "./final-deck-coach.ts";
+import type { FinalDeckBasicLands } from "../coach-advice/final-deck-coach.ts";
 
 export interface MtgaExportCard {
   readonly instanceId: string;

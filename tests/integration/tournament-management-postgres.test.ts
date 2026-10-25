@@ -4,11 +4,13 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
-  createSupabaseTournamentStore,
   type PersistedTournament,
   type TournamentStoreCommitAttempt,
-  type TournamentSupabaseGateway,
 } from "../../src/tournaments/index.ts";
+import {
+  createSupabaseTournamentStore,
+  type TournamentSupabaseGateway,
+} from "../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   buildTournamentParticipant,

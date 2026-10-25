@@ -5,7 +5,7 @@ import { createMultiplayerDraftCoordinator } from "../../../src/multiplayer-draf
 import {
   createFinalDeckCoach,
   type FinalDeckCoachRequest,
-} from "../../../src/multiplayer-draft/final-deck-coach.ts";
+} from "../../../src/coach-advice/final-deck-coach.ts";
 import {
   buildMultiplayerSnapshot,
   createMemoryMultiplayerDraftStore,

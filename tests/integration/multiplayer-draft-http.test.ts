@@ -4,10 +4,8 @@ import type { AddressInfo } from "node:net";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
-import {
-  createMultiplayerDraftCoordinator,
-  createMultiplayerDraftHttpHandler,
-} from "../../src/multiplayer-draft/index.ts";
+import { createMultiplayerDraftCoordinator } from "../../src/multiplayer-draft/index.ts";
+import { createMultiplayerDraftHttpHandler } from "../../src/multiplayer-draft/adapters.ts";
 import {
   buildMultiplayerSnapshot,
   createMemoryMultiplayerDraftStore,

@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
   type TournamentCoordinator,
   type TournamentCubeCatalog,
   type TournamentProjection,
   type TournamentSummary,
 } from "../../../src/tournaments/index.ts";
+import { createInMemoryTournamentStore } from "../../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   createTournamentSequence,

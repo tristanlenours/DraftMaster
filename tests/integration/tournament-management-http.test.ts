@@ -6,15 +6,17 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
-  createTournamentHttpHandler,
   type DeclaredDeckCard,
-  type DeckPhotoRecognizer,
   type TournamentCubeCatalog,
   type TournamentResult,
   type TournamentStore,
 } from "../../src/tournaments/index.ts";
+import {
+  createInMemoryTournamentStore,
+  createTournamentHttpHandler,
+  type DeckPhotoRecognizer,
+} from "../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   createTournamentSequence,

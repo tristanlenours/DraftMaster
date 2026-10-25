@@ -4,7 +4,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
-import { createFinalDeckCoach } from "../../src/multiplayer-draft/final-deck-coach.ts";
+import { createFinalDeckCoach } from "../../src/coach-advice/final-deck-coach.ts";
 import { createSoloDraftHttpHandler } from "../../src/solo-draft/http-handler.ts";
 import {
   createInMemorySoloDraftStore,

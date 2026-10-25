@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { rm, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { SoloDraftSession } from "../../../src/solo-draft/solo-draft-session.ts";
-import { createFinalDeckCoach } from "../../../src/multiplayer-draft/final-deck-coach.ts";
+import { createFinalDeckCoach } from "../../../src/coach-advice/final-deck-coach.ts";
 import type { CoachLanguageModel } from "../../../src/coach-advice/coach-language-model.ts";
 
 const TEST_REPORTS_DIR = ".scratch/test-reports";

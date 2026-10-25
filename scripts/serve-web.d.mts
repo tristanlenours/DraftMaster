@@ -1,6 +1,6 @@
 import type { RequestListener, Server } from "node:http";
 import type { MultiplayerDraftCoordinator } from "../src/multiplayer-draft/index.ts";
-import type { FinalDeckCoach } from "../src/multiplayer-draft/final-deck-coach.ts";
+import type { FinalDeckCoach } from "../src/coach-advice/final-deck-coach.ts";
 import type { TournamentCoordinator, TournamentObservability } from "../src/tournaments/index.ts";
 import type { CoachLanguageModel } from "../src/coach-advice/coach-language-model.ts";
 import type { SoloDraftStore } from "../src/solo-draft/solo-draft-store.ts";
