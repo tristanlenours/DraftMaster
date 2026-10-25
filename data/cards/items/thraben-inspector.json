@@ -69,7 +69,9 @@
       "cubeKey": "titou_tribal",
       "fit": "support",
       "tier": "A",
-      "archetypes": [],
+      "archetypes": [
+        "titou:tribal_humans"
+      ],
       "synergyTags": [],
       "scoreModifier": 4,
       "analysis": "Carte de rang A (Score : 33.0) dans l'environnement tribal et interactif de Titou.",
@@ -96,14 +98,15 @@
       "fit": "support",
       "tier": "B+",
       "archetypes": [
-        "nico:artifact_ramp"
+        "nico:artifact_ramp",
+        "nico:blink"
       ],
       "synergyTags": [
         "pure-draw",
         "draw",
         "card-advantage"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -120,15 +123,19 @@
         ]
       },
       "relativeTier": "B+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "hugues_pauper": {
       "cubeKey": "hugues_pauper",
       "fit": "support",
       "tier": "A+",
       "archetypes": [
-        "hugues:pauper_staple"
+        "hugues:pauper_staple",
+        "hugues:azorius_blink",
+        "hugues:selesnya_tokens",
+        "hugues:orzhov_drain_extort",
+        "hugues:boros_synth_tokens"
       ],
       "synergyTags": [
         "pure-draw",
@@ -160,14 +167,15 @@
       "fit": "support",
       "tier": "A-",
       "archetypes": [
-        "cedric:selesnya_tokens_midrange"
+        "cedric:selesnya_tokens_midrange",
+        "cedric:boros_aggro_equipment"
       ],
       "synergyTags": [
         "pure-draw",
         "draw",
         "card-advantage"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -184,22 +192,26 @@
         ]
       },
       "relativeTier": "A-",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "titou_arena_peasant_plus": {
       "cubeKey": "titou_arena_peasant_plus",
       "fit": "support",
       "tier": "A-",
       "archetypes": [
-        "titou_peasant:peasant_staple"
+        "titou_peasant:peasant_staple",
+        "titou_peasant:azorius_tempo",
+        "titou_peasant:selesnya_tokens",
+        "titou_peasant:orzhov_recursion",
+        "titou_peasant:boros_game_objects"
       ],
       "synergyTags": [
         "pure-draw",
         "draw",
         "card-advantage"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Titou Arena Peasant Plus Cube. Carte d'impact majeur sur le Tour Pivot (T3-T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer votre plan de jeu ou interagir efficacement au tour 3-4.",
@@ -216,8 +228,8 @@
         ]
       },
       "relativeTier": "A-",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   },
   "frenchName": "Inspectrice de Thraben",

@@ -31,9 +31,9 @@
   },
   "imageUrl": "https://assets.cubecobra.com/cardimages/16a5f644-771f-4c31-a595-0881003e7676/normal.webp",
   "powerScore": {
-    "score": 21,
+    "score": 27,
     "source": "untapped",
-    "rawSourceScore": 21,
+    "rawSourceScore": 27,
     "harmonizationDegree": "native",
     "confidence": 1,
     "updatedAt": "2026-09-15T21:17:13.920Z"
@@ -61,16 +61,18 @@
     "nico_candyshop": {
       "cubeKey": "nico_candyshop",
       "fit": "support",
-      "tier": "C",
+      "tier": "B",
       "archetypes": [
-        "nico:vintage_staple"
+        "nico:vintage_staple",
+        "nico:reanimator",
+        "nico:dimir_tempo"
       ],
       "synergyTags": [
         "opponent-chooses",
         "sweeper",
         "removal"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le Vintage Candyshop Cube de Fedor. Carte d'impact majeur sur le Tour Fondamental (T1-T3).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour accélérer ou neutraliser les sorties explosives adverses.",
@@ -86,23 +88,25 @@
           }
         ]
       },
-      "relativeTier": "C",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "relativeTier": "B",
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     "cedric_cube": {
       "cubeKey": "cedric_cube",
       "fit": "support",
-      "tier": "C+",
+      "tier": "B+",
       "archetypes": [
-        "cedric:rakdos_aristocrats"
+        "cedric:rakdos_aristocrats",
+        "cedric:dimir_reanimator",
+        "cedric:golgari_rock_graveyard"
       ],
       "synergyTags": [
         "opponent-chooses",
         "sweeper",
         "removal"
       ],
-      "scoreModifier": 0,
+      "scoreModifier": 4,
       "analysis": "Sélectionné pour le High-Power Cube de Cédric (Strobinellus). Carte d'impact majeur sur le Tour Pivot (T3.5 - T4).",
       "pedagogy": {
         "howToPlay": "Prioriser sur courbe pour développer des menaces résilientes ou interagir efficacement sur le tour 3-4.",
@@ -118,9 +122,9 @@
           }
         ]
       },
-      "relativeTier": "C+",
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "relativeTier": "B+",
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   }
 }

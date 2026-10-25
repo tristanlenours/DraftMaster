@@ -24,6 +24,38 @@ describe("power score calibration", () => {
     ).toBe(47);
   });
 
+  it("protects established high-tier cards from isolated noisy tail drops and applies pillar guardrails", () => {
+    // Sheoldred-like profile: 6 stable observations at 44 followed by 2 noisy day-1 observations at 28, 26
+    expect(
+      selectRepresentativeScore([
+        { score: 44, observedAt: 1 },
+        { score: 44, observedAt: 2 },
+        { score: 44, observedAt: 3 },
+        { score: 44, observedAt: 4 },
+        { score: 44, observedAt: 5 },
+        { score: 44, observedAt: 6 },
+        { score: 28, observedAt: 7 },
+        { score: 26, observedAt: 8 },
+      ]),
+    ).toBe(44);
+
+    // Skullclamp-like profile: 5 observations at 37-39 followed by 5 lower observations at 25-27
+    expect(
+      selectRepresentativeScore([
+        { score: 39, observedAt: 1 },
+        { score: 39, observedAt: 2 },
+        { score: 39, observedAt: 3 },
+        { score: 39, observedAt: 4 },
+        { score: 37, observedAt: 5 },
+        { score: 27, observedAt: 6 },
+        { score: 25, observedAt: 7 },
+        { score: 27, observedAt: 8 },
+        { score: 27, observedAt: 9 },
+        { score: 26, observedAt: 10 },
+      ]),
+    ).toBe(37);
+  });
+
   it("fits a monotonic calibration even when samples contain local inversions", () => {
     const blocks = fitIsotonicCalibration([
       { input: 1000, target: 20 },
