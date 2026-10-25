@@ -4,7 +4,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { SoloDraftSession } from "../../src/solo-draft/solo-draft-session.ts";
-import { getUnifiedDraftAdvice } from "../../src/domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../../src/coach-advice/draft-coach-service.ts";
 import type { LlmRouter } from "../../src/companion/llm-router.ts";
 import type { CardEvaluationInput } from "../../src/domain/coaching/types.ts";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
@@ -108,6 +108,7 @@ describe("Coach IA - Test de Non-Régression Obligatoire Tour 1 (Pertinence & Du
     // Création d'un mock router qui simule une requête pendante de 10 secondes (ou un 503)
     const slowRouter = {
       hasConfiguredKeys: () => true,
+      hasJevKey: () => false,
       generateJson: async () => {
         await new Promise((resolve) => setTimeout(resolve, 10_000));
         return { success: false, content: null, provider: "None" };
@@ -169,6 +170,7 @@ describe("Coach IA - Test de Non-Régression Obligatoire Tour 1 (Pertinence & Du
     const testDir = await mkdtemp(join(tmpdir(), "draftmaster-coach-http-"));
     const handler = createRequestHandler({
       reportsDirectory: join(testDir, "reports"),
+      soloSessionsDirectory: join(testDir, "sessions"),
       adminDraftsPath: join(testDir, "admin-drafts.json"),
       leaderboardPath: join(testDir, "leaderboard.json"),
     });

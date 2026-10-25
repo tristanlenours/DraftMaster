@@ -4,7 +4,7 @@ import {
   rankLeaderboardEntries,
   getLeaderboard,
   addLeaderboardEntry,
-} from "../../../src/solo-draft/leaderboard.ts";
+} from "../../../src/storage/local-leaderboard.ts";
 import type { LeaderboardEntry } from "../../../src/solo-draft/solo-draft-types.ts";
 
 const TEST_LEADERBOARD_FILE = "data/test-leaderboard.json";

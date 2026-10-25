@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import {
-  validateLeagueWitnessCorpusJson,
-  type DeckWitness,
-  type DraftWitness,
-  type LeagueWitnessCorpus,
+import type {
+  DeckWitness,
+  DraftWitness,
+  LeagueWitnessCorpus,
 } from "../../../src/domain/coaching/index.ts";
+import { validateLeagueWitnessCorpusJson } from "../../../src/domain/coaching/witness-corpus.ts";
 
 describe("Witness Corpus Unit Tests (US2 & US3)", () => {
   function createValidCorpusFixture(): LeagueWitnessCorpus {

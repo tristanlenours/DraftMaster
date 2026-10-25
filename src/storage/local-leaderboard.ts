@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import type { LeaderboardEntry } from "./solo-draft-types.ts";
+import type { LeaderboardEntry } from "../solo-draft/solo-draft-types.ts";
 
 const DEFAULT_LEADERBOARD_PATH = "data/leaderboard.json";
 

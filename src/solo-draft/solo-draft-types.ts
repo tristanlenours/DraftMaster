@@ -8,6 +8,7 @@ import type {
   RadarTiers,
 } from "../domain/coaching/types.ts";
 import type { WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
+import type { CoachLanguageModel } from "../coach-advice/coach-language-model.ts";
 
 export type SoloDraftStatus = "drafting" | "deckbuilding" | "completed";
 
@@ -58,6 +59,20 @@ export interface SoloDraftStartInput {
   readonly randomizeSeats?: boolean | undefined;
   readonly seatAssignments?: readonly (FriendProfile | null)[] | undefined;
   readonly botIds?: readonly string[] | undefined;
+  /** External advice provider; absent means deterministic engine only. */
+  readonly languageModel?: CoachLanguageModel | undefined;
+}
+
+/** Minimal durable state of an in-progress Solo session; picks are replayed on restore. */
+export interface SoloDraftPersistenceSnapshot {
+  readonly sessionId: string;
+  readonly seed: number;
+  readonly playerName: string;
+  readonly magicienSlug?: string | undefined;
+  readonly cubeKey?: string | undefined;
+  readonly humanPicks: readonly string[];
+  readonly isHomologated?: boolean | undefined;
+  readonly startedAtTimestamp?: number | undefined;
 }
 
 export interface SoloDraftPickInput {

@@ -398,11 +398,6 @@ function getScoreClass(score) {
   return "low";
 }
 
-function formatManaCost(colors, cmc) {
-  if (!colors || colors.length === 0) return `${cmc}`;
-  return colors.join("");
-}
-
 function escapeHtml(text) {
   if (text === undefined || text === null) return "";
   return String(text)

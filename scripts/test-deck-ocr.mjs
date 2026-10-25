@@ -2,13 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { GeminiDeckPhotoRecognizer } from "../src/tournaments/deck-photo-recognition.ts";
 import { loadActiveCubeSnapshot } from "../src/cubes/load-active-snapshot.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {}
+loadLocalEnvFiles();
 
 const rootDir = process.cwd();
 const imagePath = path.resolve(rootDir, "data/deck/1000018826.jpg");

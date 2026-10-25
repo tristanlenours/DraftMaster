@@ -6,7 +6,7 @@ import type { CubeMetaRegistry } from "../../cubes/cube-meta.ts";
 import type { FriendProfile } from "../friends/profiles.ts";
 import { computeFriendCardBiasContributions } from "../friends/friend-bot-policy.ts";
 import { evaluatePack } from "../../domain/coaching/dynamic-score.ts";
-import { LlmRouter } from "../../companion/llm-router.ts";
+import type { JevDecisionModel } from "../../coach-advice/coach-language-model.ts";
 
 export interface JevCubeCardInfo {
   readonly name: string;
@@ -28,7 +28,7 @@ export interface JevDraftContextOptions {
 }
 
 export interface JevBotPickOptions extends JevDraftContextOptions {
-  readonly router?: LlmRouter | undefined;
+  readonly router?: JevDecisionModel | undefined;
   readonly timeoutMs?: number | undefined;
   readonly model?: string | undefined;
 }
@@ -467,7 +467,7 @@ export function buildJevDraftContext(options: JevDraftContextOptions): {
  * Seamlessly falls back to local heuristic / friend bot policy if JEV is unavailable.
  */
 export async function chooseWithJevBot(options: JevBotPickOptions): Promise<JevBotPickResult> {
-  const router = options.router ?? new LlmRouter();
+  const router = options.router;
   const { offeredCards, priorPool, profile } = options;
 
   if (offeredCards.length === 0) {
@@ -482,7 +482,7 @@ export async function chooseWithJevBot(options: JevBotPickOptions): Promise<JevB
   const { state, criteria, instanceIdByName } = buildJevDraftContext(options);
 
   // 1. Attempt JEV Decision if key is available
-  if (router.hasJevKey()) {
+  if (router?.hasJevKey()) {
     const tStart = performance.now();
     try {
       const jevRes = await router.callJevDecision(

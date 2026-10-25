@@ -1,5 +1,4 @@
-import type { Result } from "../draft/internal/errors.ts";
-import type { PackNumber, SeatId } from "../draft/internal/types.ts";
+import type { PackNumber, Result, SeatId } from "../draft/index.ts";
 import type { CoachingScoreBreakdown } from "../domain/coaching/types.ts";
 import type { RandomStreamName } from "../random/seeded-random.ts";
 

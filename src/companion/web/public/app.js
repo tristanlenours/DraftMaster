@@ -1,6 +1,5 @@
 // Elements
 const modeBadge = document.getElementById("mode-badge");
-const providerBadge = document.getElementById("provider-badge");
 const contextTitle = document.getElementById("context-title");
 const packInfo = document.getElementById("pack-info");
 const draftView = document.getElementById("draft-view");
@@ -30,9 +29,8 @@ const btnSummarizeDraft = document.getElementById("btn-summarize-draft");
 const btnSummarizeMatch = document.getElementById("btn-summarize-match");
 const btnClearChat = document.getElementById("btn-clear-chat");
 
-let currentState = null;
 let activeStreamingBubble = null;
-let renderedMsgIds = new Set();
+const renderedMsgIds = new Set();
 let firstRenderedId = null;
 
 // Helper to escape HTML
@@ -89,7 +87,6 @@ function syncChat(chatHistory) {
 
 // Update UI according to current game state
 function renderState(state) {
-  currentState = state;
   const { mode, draft, match } = state;
 
   // 1. Mode Badge

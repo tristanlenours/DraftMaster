@@ -16,7 +16,7 @@ import {
   type StartDraftInput,
   type SubmitPickRound,
 } from "../draft/index.ts";
-import { failure, success } from "../draft/internal/errors.ts";
+import { failure, success } from "../draft/index.ts";
 import {
   deriveStreamSeed,
   getPolicyStreamName,

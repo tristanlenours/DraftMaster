@@ -1,18 +1,10 @@
 import { LlmRouter } from "../src/companion/llm-router.ts";
-import { getUnifiedDraftAdvice } from "../src/domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../src/coach-advice/draft-coach-service.ts";
 import type { CardEvaluationInput } from "../src/domain/coaching/types.ts";
 import { loadCoachContext } from "../src/cubes/coach-context.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {
-  // .env is optional
-}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {
-  // .env.local is optional
-}
+loadLocalEnvFiles();
 
 async function runLiveCoachSmokeTest(): Promise<void> {
   console.log("\n============================================================");

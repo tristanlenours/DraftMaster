@@ -26,7 +26,7 @@ import {
   type StartDraftInput,
   type SubmitPickRound,
 } from "../draft/index.ts";
-import { failure, success } from "../draft/internal/errors.ts";
+import { failure, success } from "../draft/index.ts";
 import {
   deriveStreamSeed,
   getPolicyStreamName,
@@ -62,7 +62,7 @@ import type {
   PackEvaluationContext,
   RadarTiers,
 } from "../domain/coaching/types.ts";
-import { createSessionIdentityGenerator } from "../cli/session-identity.ts";
+import { createSessionIdentityGenerator } from "../random/session-identity.ts";
 
 export interface EnrichedCard {
   readonly instanceId: string;

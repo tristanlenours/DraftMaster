@@ -1,4 +1,4 @@
-import type { Result } from "../draft/internal/errors.ts";
+import type { Result } from "../draft/index.ts";
 import {
   createSeededRandom,
   getPolicyStreamName,

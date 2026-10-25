@@ -54,21 +54,6 @@ const PRESERVED_SEED_NAMES = new Set([
   'preordain',
 ]);
 
-const VALID_ROLES = [
-  'bomb',
-  'engine',
-  'premium_removal',
-  'situational_removal',
-  'mana_ramp',
-  'mana_fixing',
-  'beater',
-  'finisher',
-  'card_advantage',
-  'synergy_enabler',
-  'synergy_payoff',
-  'cantrip',
-];
-
 const VALID_MTG_COLORS = new Set(['W', 'U', 'B', 'R', 'G']);
 
 let updatedExisting = 0;

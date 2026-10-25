@@ -242,6 +242,6 @@ Mesuré via `scripts/research/untapped-advanced-mana-benchmark.mjs` et versionn�
 
 ## Prototype interactif
 
-Le fichier autonome [`dynamic-score-calibration.prototype.html`](../../src/domain/coaching/dynamic-score-calibration.prototype.html) permet de manipuler les contributions des cinq axes sur plusieurs contre-exemples du draft témoin. Il comporte aussi cinq coefficients globaux appliqués simultanément aux 360 cartes : le préréglage « appris ailleurs » produit la MAE tenue à l'écart de 4,72 ; le préréglage « ajusté au témoin » atteint 4,44 après avoir vu les 360 cibles, et est explicitement signalé comme surajusté.
+Le fichier autonome [`dynamic-score-calibration.prototype.html`](prototypes/dynamic-score-calibration.prototype.html) permet de manipuler les contributions des cinq axes sur plusieurs contre-exemples du draft témoin. Il comporte aussi cinq coefficients globaux appliqués simultanément aux 360 cartes : le préréglage « appris ailleurs » produit la MAE tenue à l'écart de 4,72 ; le préréglage « ajusté au témoin » atteint 4,44 après avoir vu les 360 cibles, et est explicitement signalé comme surajusté.
 
 Il montre ainsi que le même résidu peut être attribué à des axes différents tout en reproduisant exactement le scalaire Untapped : atteindre la valeur cible après coup ne suffit donc pas à démontrer la causalité de la décomposition.

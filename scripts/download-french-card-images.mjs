@@ -190,7 +190,7 @@ async function resolveFrenchCardData(card) {
   };
 }
 
-async function processCard(card, index, total) {
+async function processCard(card) {
   const slug = card.slug;
   const frCardPath = join(frCardsDir, `${slug}.jpg`);
   const frArtPath = join(frArtDir, `${slug}.jpg`);
@@ -324,7 +324,7 @@ async function runWorkerPool() {
       const index = currentIndex++;
       const card = cardsToProcess[index];
       try {
-        const res = await processCard(card, index + 1, cardsToProcess.length);
+        const res = await processCard(card);
         completedCount++;
         const pct = Math.round((completedCount / cardsToProcess.length) * 100);
         if (res.hasFrenchPrint) {
