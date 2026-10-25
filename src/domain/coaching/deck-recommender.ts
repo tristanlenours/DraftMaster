@@ -262,11 +262,32 @@ function isModalLand(card: CardEvaluationInput): boolean {
 }
 
 function estimateTargetLandCount(spells: readonly CardEvaluationInput[]): 16 | 17 | 18 {
+  const hasCheatOrReanimate = spells.some((card) => {
+    const text = (card.oracleText ?? "").toLowerCase();
+    return (
+      /(?:put|return) target (?:nonlegendary )?creature card from (?:a|your) graveyard (?:onto|to) the battlefield/.test(
+        text,
+      ) ||
+      /enchant creature card in a graveyard[\s\S]*return enchanted creature card to the battlefield/.test(
+        text,
+      ) ||
+      /put (?:an? )?(?:artifact, )?creature(?:, enchantment, or land)? card from (?:your|their) hand onto the battlefield/.test(
+        text,
+      )
+    );
+  });
   const curveSample = [...spells].sort((a, b) => b.staticScore - a.staticScore).slice(0, 24);
+  const effectiveCmc = (card: CardEvaluationInput): number => {
+    const cmc = card.cmc ?? 3;
+    const isCreature =
+      (card.types?.includes("Creature") ?? false) || (card.typeLine ?? "").includes("Creature");
+    if (hasCheatOrReanimate && isCreature && cmc >= 6) return 3;
+    return cmc;
+  };
   const averageManaValue =
     curveSample.length === 0
       ? 3
-      : curveSample.reduce((sum, card) => sum + (card.cmc ?? 3), 0) / curveSample.length;
+      : curveSample.reduce((sum, card) => sum + effectiveCmc(card), 0) / curveSample.length;
   if (averageManaValue <= 2.25) return 16;
   if (averageManaValue >= 3.75) return 18;
   return 17;

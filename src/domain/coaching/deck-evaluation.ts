@@ -38,7 +38,7 @@ const DECK_AXIS_WEIGHTS = [
 ] as const satisfies readonly (readonly [keyof KiviatRadarScores, number])[];
 
 function isManaDorkOrRock(card: CardEvaluationInput): boolean {
-  if (card.isLand) return false;
+  if (card.isLand || isLandEquivalent(card)) return false;
   const produces = getEffectiveProducingColors(card);
   const text = (card.oracleText ?? "").toLowerCase();
   if (/(?:\{o?t\}|ot|sacrifice [^:]+): add/i.test(text)) return (card.cmc ?? 0) <= 3;
@@ -212,14 +212,21 @@ function isGraveyardSetup(card: CardEvaluationInput): boolean {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /put (?:that|a|target) card into your graveyard/.test(text) ||
-    /additional cost[^.]*discard a card/.test(text)
+    /additional cost[^.]*discard a card/.test(text) ||
+    /draw (?:a|one|two|three|\d+) cards?(?:, then|\.\s*if you do,) discard/.test(text) ||
+    text.includes("each player discards a card")
   );
 }
 
 function isReanimationEffect(card: CardEvaluationInput): boolean {
   const text = (card.oracleText ?? "").toLowerCase();
-  return /(?:put|return) target creature card from (?:a|your) graveyard (?:onto|to) the battlefield/.test(
-    text,
+  return (
+    /(?:put|return) target (?:nonlegendary )?creature card from (?:a|your) graveyard (?:onto|to) the battlefield/.test(
+      text,
+    ) ||
+    /enchant creature card in a graveyard[\s\S]*return enchanted creature card to the battlefield/.test(
+      text,
+    )
   );
 }
 
@@ -528,8 +535,13 @@ function analyzeInteraction(
 }
 
 function isLandEquivalent(card: CardEvaluationInput): boolean {
-  return /(?:basic )?landcycling|plainscycling|islandcycling|swampcycling|mountaincycling|forestcycling/i.test(
-    card.oracleText ?? "",
+  if (card.isLand) return false;
+  return (
+    /(?:basic )?landcycling|plainscycling|islandcycling|swampcycling|mountaincycling|forestcycling/i.test(
+      card.oracleText ?? "",
+    ) ||
+    /\/\/\s*(?:basic\s+)?land\b/i.test(card.typeLine ?? "") ||
+    /\b(?:as|when) (?:this|that) land enters\b/i.test(card.oracleText ?? "")
   );
 }
 
@@ -554,17 +566,21 @@ function getManaAccessColors(
     for (const color of usedColors) colors.add(color);
   } else if (/search your library|cycling/.test(text)) {
     for (const [landName, color] of Object.entries(BASIC_LAND_COLOR_BY_NAME)) {
-      if (text.includes(landName)) colors.add(color);
+      if (usedColors.includes(color) && text.includes(landName)) colors.add(color);
     }
   }
 
   return ALL_COLORS.filter((color) => colors.has(color));
 }
 
-function computeLandCountAdequacy(effectiveLandCount: number): number {
-  if (effectiveLandCount >= 16 && effectiveLandCount <= 18) return 1;
-  if (effectiveLandCount < 16) return Math.max(0, 1 - (16 - effectiveLandCount) * 0.15);
-  return Math.max(0, 1 - (effectiveLandCount - 18) * 0.1);
+function computeLandCountAdequacy(effectiveLandCount: number, fastManaCount = 0): number {
+  const lowLandAdjusted =
+    effectiveLandCount < 16
+      ? Math.min(16, effectiveLandCount + Math.min(1, fastManaCount * 0.25))
+      : effectiveLandCount;
+  if (lowLandAdjusted >= 16 && lowLandAdjusted <= 18) return 1;
+  if (lowLandAdjusted < 16) return Math.max(0, 1 - (16 - lowLandAdjusted) * 0.15);
+  return Math.max(0, 1 - (lowLandAdjusted - 18) * 0.1);
 }
 
 function analyzeMana(
@@ -652,6 +668,7 @@ function analyzeMana(
           ),
         ),
   );
+  const fastManaCount = accelerators.filter((accelerator) => accelerator.cmc <= 1).length;
 
   return {
     landCount: lands.length,
@@ -672,7 +689,7 @@ function analyzeMana(
     fixerUnits,
     requiredFixerUnits,
     fixingAdequacy,
-    landCountAdequacy: roundTo(computeLandCountAdequacy(effectiveLandCount)),
+    landCountAdequacy: roundTo(computeLandCountAdequacy(effectiveLandCount, fastManaCount)),
   };
 }
 
