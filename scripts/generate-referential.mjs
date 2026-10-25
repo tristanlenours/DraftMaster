@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
+import { writeCardItems } from "../src/cards/master-catalog-build.ts";
 
 const rootDir = process.cwd();
 
@@ -500,11 +501,8 @@ const masterCatalog = {
   cards: catalogCards,
 };
 
-mkdirSync(resolve(rootDir, "data/cards"), { recursive: true });
-writeFileSync(
-  resolve(rootDir, "data/cards/master-cards.json"),
-  JSON.stringify(masterCatalog, null, 2) + "\n"
-);
+// data/cards/items is the source of truth; master-cards.json is rebuilt from it.
+await writeCardItems(rootDir, Object.values(masterCatalog.cards), masterCatalog.generatedAt);
 
 console.log(`Successfully generated master catalog with ${masterCatalog.cardCount} cards.`);
 console.log(`Titou meta archetypes count: ${titouMeta.archetypes.length}`);
