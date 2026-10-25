@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
+import { readWebShellSource } from "../helpers/web-shell-source.ts";
 import type { CubeSuggestionsReport } from "../../src/cards/cube-upgrade-advisor.ts";
 import type { MasterCatalogCard } from "../../src/cards/types.ts";
 
@@ -12,7 +13,6 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
   const rootDir = process.cwd();
   const htmlPath = resolve(rootDir, "src", "web", "index.html");
   const cssPath = resolve(rootDir, "src", "web", "styles.css");
-  const jsPath = resolve(rootDir, "src", "web", "app.js");
 
   let htmlContent: string;
   let cssContent: string;
@@ -33,7 +33,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
     [htmlContent, cssContent, jsContent] = await Promise.all([
       readFile(htmlPath, "utf-8"),
       readFile(cssPath, "utf-8"),
-      readFile(jsPath, "utf-8"),
+      readWebShellSource(rootDir),
     ]);
 
     const handler = createRequestHandler();
