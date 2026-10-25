@@ -6,7 +6,13 @@ import { resolve } from "node:path";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 
 // Raw request: fetch() would normalise the path before sending it.
-function rawGet(port: number, path: string, method = "GET", body?: string) {
+function rawGet(
+  port: number,
+  path: string,
+  method = "GET",
+  body?: string,
+  extraHeaders: Record<string, string> = {},
+) {
   return new Promise<{ status: number; body: string; headers: Record<string, unknown> }>(
     (resolvePromise, reject) => {
       const req = request(
@@ -16,6 +22,8 @@ function rawGet(port: number, path: string, method = "GET", body?: string) {
           path,
           method,
           headers: {
+            "Accept-Encoding": "gzip",
+            ...extraHeaders,
             ...(body ? { "Content-Type": "application/json" } : {}),
           },
         },
@@ -89,6 +97,25 @@ describe("static file serving boundaries", () => {
     expect((await rawGet(port, "/data/cubes/titou_tribal/cube-meta.json")).status).toBe(200);
     expect((await rawGet(port, "/app.js")).status).toBe(200);
     expect((await rawGet(port, "/draft")).status).toBe(200);
+  });
+
+  it("compresses text assets when the client accepts gzip", async () => {
+    const res = await rawGet(port, "/data/cubes/titou_tribal/cube-meta.json");
+    expect(res.headers["content-encoding"]).toBe("gzip");
+    expect(res.headers.vary).toContain("Accept-Encoding");
+    expect(res.headers.etag).toBeTypeOf("string");
+  });
+
+  it("answers 304 when the cached copy is still current", async () => {
+    const first = await rawGet(port, "/app.js");
+    const etag = first.headers.etag;
+    expect(etag).toBeTypeOf("string");
+    expect(first.headers["cache-control"]).toBe("no-cache");
+    const second = await rawGet(port, "/app.js", "GET", undefined, {
+      "If-None-Match": String(etag),
+    });
+    expect(second.status).toBe(304);
+    expect(second.body).toBe("");
   });
 
   it("rejects a solo session id that would escape the sessions directory", async () => {

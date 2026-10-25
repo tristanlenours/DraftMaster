@@ -278,7 +278,7 @@ export async function runDetailedDraftSimulation(
       synergyProfile: synergyProfileResult.value.evaluationProfile,
     };
 
-    const catalogResult = await CardCatalog.fromFile(catalogPath);
+    const catalogResult = await CardCatalog.fromFileCached(catalogPath);
     if (!catalogResult.ok) {
       return failure("INVALID_SNAPSHOT", catalogResult.error.message, { ...catalogResult.error });
     }
