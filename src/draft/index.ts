@@ -76,6 +76,7 @@ export function replayDraft(events: readonly Readonly<DraftEvent>[]): Result<Dra
 
 export { calculateReportDigest, functionalProjection };
 export { DRAFT_CONFIGURATION } from "./internal/types.ts";
+export { failure, success } from "./internal/errors.ts";
 
 export type {
   Booster,
@@ -92,6 +93,7 @@ export type {
   DraftStartedEvent,
   DraftView,
   PackCompletedEvent,
+  PackNumber,
   SeatDecision,
   SeatId,
   SeatPolicyDescriptor,

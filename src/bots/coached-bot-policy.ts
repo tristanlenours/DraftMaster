@@ -1,4 +1,4 @@
-import type { Result } from "../draft/internal/errors.ts";
+import type { Result } from "../draft/index.ts";
 import type { CardEvaluationInput, PackEvaluationContext } from "../domain/coaching/types.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import type {
