@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildDraftAdvicePrompt } from "../../../src/companion/coach-prompts.ts";
-import { getUnifiedDraftAdvice } from "../../../src/domain/coaching/draft-coach-service.ts";
+import { buildDraftAdvicePrompt } from "../../../src/coach-advice/draft-advice-prompt.ts";
+import { getUnifiedDraftAdvice } from "../../../src/coach-advice/draft-coach-service.ts";
 import type { CardEvaluationInput } from "../../../src/domain/coaching/types.ts";
 import type { CubeMetaDefinition } from "../../../src/cubes/cube-meta-types.ts";
 import type { LlmRouter } from "../../../src/companion/llm-router.ts";
@@ -130,6 +130,7 @@ describe("AI Coach API Contracts & Client Experience (UX Safeguards)", () => {
   }): LlmRouter {
     return {
       hasConfiguredKeys: () => true,
+      hasJevKey: () => false,
       generateJson: () => {
         if (!scripted.success) {
           return Promise.resolve({

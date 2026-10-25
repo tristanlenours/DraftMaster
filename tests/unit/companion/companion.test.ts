@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { CardResolver } from "../../../src/companion/card-resolver.ts";
 import { CompanionState } from "../../../src/companion/companion-state.ts";
+import { buildDraftAdvicePrompt } from "../../../src/coach-advice/draft-advice-prompt.ts";
 import {
-  buildDraftAdvicePrompt,
   buildDraftSummaryPrompt,
   buildMatchAdvicePrompt,
   buildTurnCommentaryPrompt,

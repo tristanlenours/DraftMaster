@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildFinalDeckCoachPrompt } from "../../../src/companion/coach-prompts.ts";
+import { buildFinalDeckCoachPrompt } from "../../../src/coach-advice/final-deck-prompt.ts";
 
 describe("prompt final-deck-coach@1", () => {
   it("decrit une mission JSON flexible et ne transmet que le contexte utile", () => {

@@ -1,4 +1,4 @@
-import { buildFinalDeckCoachPrompt } from "../companion/coach-prompts.ts";
+import { buildFinalDeckCoachPrompt } from "../coach-advice/final-deck-prompt.ts";
 import {
   DEFAULT_BASIC_LANDS,
   evaluateDeck,
