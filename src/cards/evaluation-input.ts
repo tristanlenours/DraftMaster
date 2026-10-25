@@ -6,8 +6,15 @@ export function toCardEvaluationInput(
   card: Readonly<MasterCatalogCard>,
   instanceId: string,
 ): CardEvaluationInput {
+  const isColorlessManaSource =
+    card.colors.length === 0 &&
+    !card.isLand &&
+    card.producesColors.length > 0 &&
+    !/[WUBRG]/i.test(card.manaCost ?? "");
   const colors =
-    card.colors.length === 0 && (!card.isLand || card.typeLine.includes("//"))
+    card.colors.length === 0 &&
+    !isColorlessManaSource &&
+    (!card.isLand || card.typeLine.includes("//"))
       ? card.colorIdentity
       : card.colors;
   return {
