@@ -34,6 +34,11 @@ let currentLobby = null;
 let currentPlayerState = null;
 let selectedCardInstanceId = null;
 let pollTimer = null;
+// View lifecycle: polling runs only while the view is shown, one request at a time,
+// and answers that arrive after the view was left (or re-entered) are dropped.
+let viewActive = false;
+let viewGeneration = 0;
+let lobbyPollInFlight = false;
 let editingDeckIds = new Set();
 let editingBasicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
 let editingWorkspaceRevision = null;
@@ -411,6 +416,7 @@ function renderPlayerState(playerState) {
 async function refreshPlayerState(silent = false) {
   const resumeToken = localStorage.getItem(RESUME_TOKEN_KEY);
   if (!resumeToken) return;
+  const generation = viewGeneration;
   try {
     const response = await fetch("/api/multiplayer/state", {
       cache: "no-store",
@@ -420,6 +426,7 @@ async function refreshPlayerState(silent = false) {
     if (!response.ok || !payload.ok) {
       throw new Error(payload.error?.message ?? "Session indisponible.");
     }
+    if (generation !== viewGeneration) return;
     renderPlayerState(payload.state);
   } catch (error) {
     if (!silent) {
@@ -429,12 +436,14 @@ async function refreshPlayerState(silent = false) {
 }
 
 async function refreshLobby() {
+  const generation = viewGeneration;
   try {
     const response = await fetch("/api/multiplayer/lobby", { cache: "no-store" });
     const payload = await response.json();
     if (!response.ok || !payload.ok) {
       throw new Error(payload.error?.message ?? "Salon indisponible");
     }
+    if (generation !== viewGeneration) return;
     renderLobby(payload.state);
   } catch (error) {
     showFeedback(error instanceof Error ? error.message : "Salon indisponible", true);
@@ -896,9 +905,32 @@ export function initMultiplayerDraftView() {
       input?.addEventListener("input", (event) => updateBasicLand(name, event.target.value));
     }
   }
-  void refreshLobby();
+  viewActive = true;
+  viewGeneration++;
+  void pollLobby();
   if (localStorage.getItem(RESUME_TOKEN_KEY)) void refreshPlayerState(true);
   if (pollTimer === null) {
-    pollTimer = window.setInterval(() => void refreshLobby(), POLL_INTERVAL_MS);
+    pollTimer = window.setInterval(() => void pollLobby(), POLL_INTERVAL_MS);
+  }
+}
+
+/** Stops polling when the view is left; pending answers are ignored. */
+export function deactivateMultiplayerDraftView() {
+  viewActive = false;
+  viewGeneration++;
+  if (pollTimer !== null) {
+    window.clearInterval(pollTimer);
+    pollTimer = null;
+  }
+}
+
+/** One poll at a time, only while the view is shown and the tab is visible. */
+async function pollLobby() {
+  if (!viewActive || lobbyPollInFlight || document.hidden) return;
+  lobbyPollInFlight = true;
+  try {
+    await refreshLobby();
+  } finally {
+    lobbyPollInFlight = false;
   }
 }

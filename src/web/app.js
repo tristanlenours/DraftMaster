@@ -13,7 +13,10 @@ import {
   getScoreGrade,
 } from "./leaderboard.js";
 import { initAdminView } from "./admin.js";
-import { initMultiplayerDraftView } from "./multiplayer-draft.js";
+import {
+  deactivateMultiplayerDraftView,
+  initMultiplayerDraftView,
+} from "./multiplayer-draft.js";
 import { initTournamentManagementView } from "./tournaments.js";
 import { initDeckLabView } from "./deck-lab.js";
 import {
@@ -1251,6 +1254,9 @@ function navigateTo(viewName, cubeKey = null) {
     soloDraftCtrl.abandonDraft();
   }
 
+  if (state.currentView === "multi" && viewName !== "multi") {
+    deactivateMultiplayerDraftView();
+  }
   state.currentView = viewName;
 
   // Header active tabs (Desktop)
