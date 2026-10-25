@@ -330,7 +330,7 @@ const cubeMetaDoc = {
   cubeKey: 'titou_arena_peasant_plus',
   name: "Titou's Arena Peasant Plus Cube",
   owner: 'titou',
-  coverImage: 'data/cubes/titou_arena_peasant_plus/titouPeasant.jpg',
+  coverImage: 'data/cubes/titou_arena_peasant_plus/cover.webp',
   activeSnapshotId: 'titou_arena_peasant_plus@2026-09-08.1',
   cardCount: mainboard.length,
   powerTier: 'peasant',

@@ -328,14 +328,14 @@ console.log(`✅ Cards processed: ${updatedExisting} updated, ${createdNew} crea
 // Update nico_candyshop/cube-meta.json
 const nicoMeta = JSON.parse(readFileSync(nicoMetaPath, 'utf8'));
 nicoMeta.cardCount = mainboard.length;
-nicoMeta.coverImage = 'data/cubes/nico_candyshop/candyShop.jpg';
+nicoMeta.coverImage = 'data/cubes/nico_candyshop/cover.webp';
 writeFileSync(nicoMetaPath, JSON.stringify(nicoMeta, null, 2) + '\n', 'utf8');
 console.log(`✅ Updated nico_candyshop/cube-meta.json (cardCount: ${nicoMeta.cardCount})`);
 
 // Update nico_candyshop/cube.json
 const nicoCube = JSON.parse(readFileSync(nicoCubePath, 'utf8'));
 nicoCube.cardCount = mainboard.length;
-nicoCube.coverImage = 'data/cubes/nico_candyshop/candyShop.jpg';
+nicoCube.coverImage = 'data/cubes/nico_candyshop/cover.webp';
 nicoCube.cardIndex = nicoCardIndex;
 writeFileSync(nicoCubePath, JSON.stringify(nicoCube, null, 2) + '\n', 'utf8');
 console.log(`✅ Generated nico_candyshop/cube.json with ${nicoCardIndex.length} cards indexed.`);
