@@ -1,13 +1,23 @@
-import * as fs from "node:fs";
 import * as https from "node:https";
-import * as path from "node:path";
+import { type CatalogDeckCard, MasterCardsIndex } from "../cards/master-cards-index.ts";
 import { BASIC_LAND_IDENTITIES } from "../cards/import-printed-names.ts";
 
-import type { DeclaredDeckCard, TournamentResult } from "./types.ts";
+/** Error codes match the tournament API so the recognize-deck route answers unchanged. */
+export type DeckPhotoErrorCode = "INVALID_INPUT" | "STORE_UNAVAILABLE";
+
+export interface DeckPhotoError {
+  readonly code: DeckPhotoErrorCode;
+  readonly message: string;
+  readonly details: Readonly<Record<string, unknown>>;
+}
+
+export type DeckPhotoResult<T> =
+  | { readonly ok: true; readonly value: Readonly<T> }
+  | { readonly ok: false; readonly error: DeckPhotoError };
 
 export interface RecognizedDeckResult {
   readonly archetype: string;
-  readonly cards: readonly DeclaredDeckCard[];
+  readonly cards: readonly CatalogDeckCard[];
   readonly basicLands: Record<string, number>;
   readonly totalCount: number;
   readonly confidence?: number;
@@ -30,7 +40,7 @@ export interface DeckPhotoRecognizer {
       readonly cubeName?: string;
       readonly candidateCardNames?: readonly string[];
     },
-  ): Promise<TournamentResult<RecognizedDeckResult>>;
+  ): Promise<DeckPhotoResult<RecognizedDeckResult>>;
 }
 
 const httpsKeepAliveAgent = new https.Agent({
@@ -39,39 +49,6 @@ const httpsKeepAliveAgent = new https.Agent({
   maxSockets: 20,
   maxFreeSockets: 10,
 });
-
-function normalizeNameKey(name: string): string {
-  return name
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .replace(/[^\p{L}\p{N}]/gu, "");
-}
-
-function calculateSimilarity(str1: string, str2: string): number {
-  const s1 = normalizeNameKey(str1);
-  const s2 = normalizeNameKey(str2);
-  if (s1 === s2) return 1.0;
-  if (s1.length === 0 || s2.length === 0) return 0.0;
-  if (s1.includes(s2) || s2.includes(s1)) return 0.9;
-
-  // Simple bigram Dice coefficient
-  const getBigrams = (str: string): Set<string> => {
-    const bigrams = new Set<string>();
-    for (let i = 0; i < str.length - 1; i++) {
-      bigrams.add(str.slice(i, i + 2));
-    }
-    return bigrams;
-  };
-
-  const b1 = getBigrams(s1);
-  const b2 = getBigrams(s2);
-  let intersection = 0;
-  for (const b of b1) {
-    if (b2.has(b)) intersection++;
-  }
-  return (2 * intersection) / (b1.size + b2.size || 1);
-}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -85,261 +62,6 @@ interface GeminiApiResponse {
       }[];
     };
   }[];
-}
-
-export function calculateDiceSimilarity(str1: string, str2: string): number {
-  const s1 = normalizeNameKey(str1);
-  const s2 = normalizeNameKey(str2);
-  if (s1 === s2) return 1.0;
-  if (s1.length < 2 || s2.length < 2) return 0.0;
-
-  const getBigrams = (str: string): Set<string> => {
-    const bigrams = new Set<string>();
-    for (let i = 0; i < str.length - 1; i++) {
-      bigrams.add(str.slice(i, i + 2));
-    }
-    return bigrams;
-  };
-
-  const b1 = getBigrams(s1);
-  const b2 = getBigrams(s2);
-  let intersection = 0;
-  for (const b of b1) {
-    if (b2.has(b)) intersection++;
-  }
-  return (2 * intersection) / (b1.size + b2.size || 1);
-}
-
-export class MasterCardsIndex {
-  private static instance: MasterCardsIndex | null = null;
-  private readonly cardByName = new Map<string, Map<string, DeclaredDeckCard>>();
-  private readonly cardByNormalized = new Map<string, Map<string, DeclaredDeckCard>>();
-  private readonly aliasesByCard = new Map<string, Set<string>>();
-  private readonly allCards: DeclaredDeckCard[] = [];
-  private isLoaded = false;
-
-  public static getInstance(projectRoot: string): MasterCardsIndex {
-    MasterCardsIndex.instance ??= new MasterCardsIndex(projectRoot);
-    return MasterCardsIndex.instance;
-  }
-
-  private readonly projectRoot: string;
-
-  constructor(projectRoot: string) {
-    this.projectRoot = projectRoot;
-    this.loadCatalog();
-  }
-
-  private loadCatalog(): void {
-    if (this.isLoaded) return;
-    const frenchBasics: Record<string, string> = {
-      Plains: "Plaine",
-      Island: "Île",
-      Swamp: "Marais",
-      Mountain: "Montagne",
-      Forest: "Forêt",
-    };
-    for (const [name, oracleId] of Object.entries(BASIC_LAND_IDENTITIES)) {
-      const card: DeclaredDeckCard = { name, oracleId, cmc: 0, isLand: true };
-      this.addAlias(name, card);
-      const frenchName = frenchBasics[name];
-      if (frenchName) this.addAlias(frenchName, card);
-    }
-    try {
-      const catalogPath = path.resolve(this.projectRoot, "data", "cards", "master-cards.json");
-      if (!fs.existsSync(catalogPath)) return;
-      const raw = fs.readFileSync(catalogPath, "utf8");
-      const data: unknown = JSON.parse(raw);
-      const cardsObj: Record<string, unknown> =
-        isRecord(data) && isRecord(data.cards) ? data.cards : {};
-
-      for (const card of Object.values(cardsObj)) {
-        if (!isRecord(card) || typeof card.name !== "string" || !card.name) continue;
-        const name = card.name;
-        const oracleId = typeof card.oracleId === "string" ? card.oracleId : undefined;
-        const cmc = typeof card.cmc === "number" ? card.cmc : 0;
-        const typeLine = typeof card.typeLine === "string" ? card.typeLine : "";
-        const isLand = card.isLand === true;
-        const frenchName = typeof card.frenchName === "string" ? card.frenchName : undefined;
-        const imageUrl =
-          typeof card.imageUrl === "string"
-            ? card.imageUrl
-            : `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}&format=image`;
-
-        const entry: DeclaredDeckCard = {
-          name,
-          cmc,
-          typeLine,
-          isLand,
-          imageUrl,
-          ...(oracleId !== undefined ? { oracleId } : {}),
-          ...(frenchName !== undefined ? { frenchName } : {}),
-        };
-
-        this.allCards.push(entry);
-        this.addAlias(name, entry);
-        if (frenchName) {
-          this.addAlias(frenchName, entry);
-        }
-      }
-      this.loadPrintedNames();
-      this.isLoaded = true;
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.warn("[MasterCardsIndex] Error loading master cards:", message);
-    }
-  }
-
-  private addAlias(name: string, card: DeclaredDeckCard): void {
-    const identity = card.oracleId ?? card.name;
-    let aliasSet = this.aliasesByCard.get(card.name);
-    if (!aliasSet) {
-      aliasSet = new Set<string>();
-      this.aliasesByCard.set(card.name, aliasSet);
-    }
-    aliasSet.add(name.trim());
-    for (const [index, key] of [
-      [this.cardByName, name.trim().toLowerCase()],
-      [this.cardByNormalized, normalizeNameKey(name)],
-    ] as const) {
-      if (!key) continue;
-      const candidates = index.get(key) ?? new Map<string, DeclaredDeckCard>();
-      candidates.set(identity, card);
-      index.set(key, candidates);
-    }
-  }
-
-  private loadPrintedNames(): void {
-    const aliasPath = path.resolve(this.projectRoot, "data", "cards", "printed-names.json");
-    if (!fs.existsSync(aliasPath)) return;
-    try {
-      const data: unknown = JSON.parse(fs.readFileSync(aliasPath, "utf8"));
-      if (!isRecord(data) || data.schemaVersion !== 1 || !Array.isArray(data.aliases)) return;
-      for (const alias of data.aliases) {
-        if (
-          !isRecord(alias) ||
-          typeof alias.name !== "string" ||
-          typeof alias.oracleId !== "string" ||
-          typeof alias.printedName !== "string" ||
-          alias.lang !== "fr" ||
-          typeof alias.scryfallId !== "string"
-        )
-          continue;
-        const card = this.findExactCard(alias.name);
-        if (card?.name !== alias.name || card.oracleId !== alias.oracleId) continue;
-        this.addAlias(alias.printedName, card);
-      }
-    } catch {
-      // Optional alias data must not disable the existing canonical catalog.
-      console.warn("[MasterCardsIndex] Invalid printed-name dataset; using canonical catalog.");
-    }
-  }
-
-  public resolveCard(inputName: string): DeclaredDeckCard {
-    const trimmed = inputName.trim();
-    const exact = this.findExactCard(trimmed);
-    if (exact !== undefined) return exact;
-
-    // Try fuzzy match across English and French aliases
-    let bestScore = 0;
-    let bestMatch: DeclaredDeckCard | null = null;
-    for (const card of this.allCards) {
-      const aliases = this.aliasesByCard.get(card.name);
-      let sim = calculateSimilarity(trimmed, card.name);
-      if (aliases) {
-        for (const alias of aliases) {
-          sim = Math.max(sim, calculateSimilarity(trimmed, alias));
-        }
-      }
-      if (sim > bestScore && sim >= 0.8) {
-        bestScore = sim;
-        bestMatch = card;
-      }
-    }
-
-    if (bestMatch) {
-      return bestMatch;
-    }
-
-    // Fallback if not found in catalog
-    const isLand = ["plains", "island", "swamp", "mountain", "forest"].includes(
-      trimmed.toLowerCase(),
-    );
-    return {
-      name: trimmed,
-      cmc: isLand ? 0 : 1,
-      isLand,
-      imageUrl: `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(trimmed)}&format=image`,
-    };
-  }
-
-  public findExactCard(inputName: string): DeclaredDeckCard | undefined {
-    const trimmed = inputName.trim();
-    if (!trimmed) return undefined;
-    const literal = this.cardByName.get(trimmed.toLowerCase());
-    if (literal) return literal.size === 1 ? literal.values().next().value : undefined;
-    if (/…|\.{2,}/u.test(trimmed)) return undefined;
-    const candidates = this.cardByNormalized.get(normalizeNameKey(trimmed));
-    return candidates?.size === 1 ? candidates.values().next().value : undefined;
-  }
-
-  public findPhotoCard(
-    inputName: string,
-    candidateCardNames?: readonly string[],
-  ): DeclaredDeckCard | undefined {
-    const trimmed = inputName.trim();
-    if (!trimmed) return undefined;
-    const exact = this.findExactCard(trimmed);
-    if (exact !== undefined) return exact;
-    if (/…|\.{2,}/u.test(trimmed)) return undefined;
-
-    const pool: DeclaredDeckCard[] = [];
-    if (candidateCardNames && candidateCardNames.length > 0) {
-      for (const candidateName of candidateCardNames) {
-        const card = this.findExactCard(candidateName);
-        if (card) pool.push(card);
-      }
-    }
-    const searchCards = pool.length > 0 ? pool : this.allCards;
-
-    const commaIndex = trimmed.indexOf(",");
-    const leadPrefix = commaIndex >= 3 ? normalizeNameKey(trimmed.slice(0, commaIndex)) : undefined;
-    const restTokens =
-      commaIndex >= 3
-        ? trimmed
-            .slice(commaIndex + 1)
-            .split(/\s+/u)
-            .map((token) => normalizeNameKey(token))
-            .filter((token) => token.length >= 4)
-        : [];
-
-    let bestScore = 0;
-    let bestCard: DeclaredDeckCard | undefined;
-    for (const card of searchCards) {
-      const aliases = this.aliasesByCard.get(card.name) ?? new Set([card.name]);
-      for (const alias of aliases) {
-        const dice = calculateDiceSimilarity(trimmed, alias);
-        if (dice >= 0.78 && dice > bestScore) {
-          bestScore = dice;
-          bestCard = card;
-        }
-        if (leadPrefix && restTokens.length > 0) {
-          const aliasComma = alias.indexOf(",");
-          if (aliasComma >= 3 && normalizeNameKey(alias.slice(0, aliasComma)) === leadPrefix) {
-            const aliasRest = normalizeNameKey(alias.slice(aliasComma + 1));
-            if (
-              (restTokens.some((token) => aliasRest.includes(token)) || dice >= 0.62) &&
-              Math.max(dice, 0.79) > bestScore
-            ) {
-              bestScore = Math.max(dice, 0.79);
-              bestCard = card;
-            }
-          }
-        }
-      }
-    }
-    return bestCard;
-  }
 }
 
 export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
@@ -393,7 +115,7 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
       readonly cubeName?: string;
       readonly candidateCardNames?: readonly string[];
     },
-  ): Promise<TournamentResult<RecognizedDeckResult>> {
+  ): Promise<DeckPhotoResult<RecognizedDeckResult>> {
     const keys = this.getAvailableKeys();
     if (keys.length === 0) {
       return {
@@ -639,7 +361,7 @@ Consignes :
     candidateCardNames?: readonly string[],
   ): RecognizedDeckResult | undefined {
     if (!isRecord(raw) || !Array.isArray(raw.tiles)) return undefined;
-    const counts = new Map<string, { card: DeclaredDeckCard; count: number }>();
+    const counts = new Map<string, { card: CatalogDeckCard; count: number }>();
     const basicLands: Record<string, number> = {
       Plains: 0,
       Island: 0,
@@ -662,7 +384,7 @@ Consignes :
         continue;
       seenRegions.add(tile.tile as number);
       const regionCounts = new Map<string, number>();
-      const regionCards = new Map<string, DeclaredDeckCard>();
+      const regionCards = new Map<string, CatalogDeckCard>();
       for (const title of tile.titles) {
         if (typeof title !== "string" || !title.trim()) continue;
         readableTitles++;
@@ -739,7 +461,7 @@ Consignes :
       }
     }
 
-    const cardsMap = new Map<string, DeclaredDeckCard & { count: number }>();
+    const cardsMap = new Map<string, CatalogDeckCard & { count: number }>();
 
     for (const item of rawCards) {
       const count = typeof item.count === "number" && item.count > 0 ? item.count : 1;

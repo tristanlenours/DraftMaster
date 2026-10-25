@@ -15,8 +15,8 @@ import {
 import {
   createInMemoryTournamentStore,
   createTournamentHttpHandler,
-  type DeckPhotoRecognizer,
 } from "../../src/tournaments/adapters.ts";
+import type { DeckPhotoRecognizer } from "../../src/deck-photos/deck-photo-recognition.ts";
 import {
   buildTournamentCubeSnapshot,
   createTournamentSequence,
