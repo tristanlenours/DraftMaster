@@ -1,15 +1,7 @@
 import { LlmRouter } from "../src/companion/llm-router.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {
-  // .env is optional
-}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {
-  // .env.local is optional
-}
+loadLocalEnvFiles();
 
 async function runJevSmokeTest(): Promise<void> {
   console.log("\n============================================================");

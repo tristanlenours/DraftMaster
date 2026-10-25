@@ -16,13 +16,9 @@ import {
   loadCubeCardsWithScores,
 } from "../src/bots/jev/jev-bot-decision.ts";
 import type { CardEvaluationInput } from "../src/domain/coaching/types.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {}
+loadLocalEnvFiles();
 
 async function runJevBotDraftDemo(): Promise<void> {
   console.log("\n=========================================================================================");

@@ -3,13 +3,9 @@ import path from "node:path";
 import { LlmRouter } from "../src/companion/llm-router.ts";
 import { evaluatePack } from "../src/domain/coaching/dynamic-score.ts";
 import type { CardEvaluationInput } from "../src/domain/coaching/types.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {}
+loadLocalEnvFiles();
 
 interface WitnessPick {
   packNumber: number;

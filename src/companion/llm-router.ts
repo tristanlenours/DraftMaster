@@ -1,6 +1,4 @@
 import https from "node:https";
-import fs from "node:fs";
-import path from "node:path";
 
 const httpsKeepAliveAgent = new https.Agent({
   keepAlive: true,
@@ -109,53 +107,6 @@ export class LlmRouter {
     this.openrouterKey =
       process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_PREMIUM_API_KEY || "";
     this.jevKey = process.env.JEV_API_KEY || "";
-
-    // If keys not in process.env, look in .env.local and .env
-    if (rawGeminiKeys.length === 0) {
-      for (const envFile of [".env.local", ".env"]) {
-        const envPath = path.resolve(process.cwd(), envFile);
-        if (fs.existsSync(envPath)) {
-          const content = fs.readFileSync(envPath, "utf8");
-          for (const line of content.split("\n")) {
-            const trimmed = line.trim();
-            if (trimmed.startsWith("GEMINI_API_KEYS=")) {
-              const val = trimmed.replace("GEMINI_API_KEYS=", "").trim();
-              rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
-            } else if (trimmed.startsWith("GEMINI_API_KEY=")) {
-              const val = trimmed.replace("GEMINI_API_KEY=", "").trim();
-              rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
-            } else if (trimmed.startsWith("GEMINI_API_KEY_")) {
-              const equalIdx = trimmed.indexOf("=");
-              if (equalIdx > 0) {
-                const val = trimmed.slice(equalIdx + 1).trim();
-                rawGeminiKeys.push(...val.split(",").map((k) => k.trim()));
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (!this.openrouterKey || !this.jevKey) {
-      for (const envFile of [".env.local", ".env"]) {
-        const envPath = path.resolve(process.cwd(), envFile);
-        if (fs.existsSync(envPath)) {
-          const content = fs.readFileSync(envPath, "utf8");
-          for (const line of content.split("\n")) {
-            const trimmed = line.trim();
-            if (trimmed.startsWith("OPENROUTER_API_KEY=") && !this.openrouterKey) {
-              this.openrouterKey = trimmed.replace("OPENROUTER_API_KEY=", "").trim();
-            }
-            if (trimmed.startsWith("OPENROUTER_PREMIUM_API_KEY=") && !this.openrouterKey) {
-              this.openrouterKey = trimmed.replace("OPENROUTER_PREMIUM_API_KEY=", "").trim();
-            }
-            if (trimmed.startsWith("JEV_API_KEY=") && !this.jevKey) {
-              this.jevKey = trimmed.replace("JEV_API_KEY=", "").trim();
-            }
-          }
-        }
-      }
-    }
 
     if (!this.jevKey && this.openrouterKey) {
       this.jevKey = this.openrouterKey;

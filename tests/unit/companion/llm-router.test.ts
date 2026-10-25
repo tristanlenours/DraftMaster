@@ -1,7 +1,9 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { LlmRouter } from "../../../src/companion/llm-router.ts";
+import { loadLocalEnvFiles } from "../../../src/config/env-files.ts";
 
 describe("Companion - LlmRouter Key Pool & Rotation", () => {
   const originalEnv = { ...process.env };
@@ -17,7 +19,12 @@ describe("Companion - LlmRouter Key Pool & Rotation", () => {
   });
 
   afterEach(() => {
-    process.env = { ...originalEnv };
+    // Restore in place: replacing process.env would detach it from the real
+    // environment that process.loadEnvFile writes to.
+    for (const key of Object.keys(process.env)) {
+      if (!(key in originalEnv)) Reflect.deleteProperty(process.env, key);
+    }
+    Object.assign(process.env, originalEnv);
   });
 
   it("loads and deduplicates multiple Gemini keys from GEMINI_API_KEYS and GEMINI_API_KEY_*", () => {
@@ -31,21 +38,27 @@ describe("Companion - LlmRouter Key Pool & Rotation", () => {
     expect(router.hasAvailableGeminiKey()).toBe(true);
   });
 
-  it("loads configured keys from project env or fallback files when present", () => {
-    const hasLocalEnv =
-      fs.existsSync(path.resolve(process.cwd(), ".env")) ||
-      fs.existsSync(path.resolve(process.cwd(), ".env.local"));
+  it("reads keys from process.env only, never from .env files on disk", () => {
+    // Entry points load .env files explicitly (src/config/env-files.ts); the library
+    // stays hermetic so tests never pick up a developer's real keys.
+    const router = new LlmRouter();
+    expect(router.getGeminiKeyCount()).toBe(0);
+    expect(router.hasConfiguredKeys()).toBe(false);
+    expect(router.hasJevKey()).toBe(false);
+  });
 
-    if (hasLocalEnv) {
+  it("uses keys that an entry point loaded from env files", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "llm-env-"));
+    try {
+      fs.writeFileSync(path.join(dir, ".env.local"), "GEMINI_API_KEYS=local1,local2\n");
+      fs.writeFileSync(path.join(dir, ".env"), "GEMINI_API_KEYS=base\nJEV_API_KEY=jev\n");
+      loadLocalEnvFiles(dir);
+
       const router = new LlmRouter();
-      expect(router.getGeminiKeyCount()).toBeGreaterThanOrEqual(4);
-      expect(router.hasConfiguredKeys()).toBe(true);
-      expect(router.hasAvailableGeminiKey()).toBe(true);
-    } else {
-      const router = new LlmRouter();
-      expect(router.getGeminiKeyCount()).toBe(0);
-      expect(router.hasConfiguredKeys()).toBe(false);
-      expect(router.hasAvailableGeminiKey()).toBe(false);
+      expect(router.getGeminiKeyCount()).toBe(2);
+      expect(router.hasJevKey()).toBe(true);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
     }
   });
 
