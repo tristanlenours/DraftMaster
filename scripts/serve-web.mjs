@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { join, extname, resolve, relative, isAbsolute } from "node:path";
 import { promisify } from "node:util";
 import {
@@ -8,8 +8,9 @@ import {
   constants as zlibConstants,
 } from "node:zlib";
 import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
-import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
-import { getLeaderboard } from "../src/solo-draft/leaderboard.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
+import { createSoloDraftHttpHandler } from "../src/solo-draft/http-handler.ts";
+import { createFileSoloDraftStore } from "../src/solo-draft/solo-draft-store.ts";
 import {
   getUnifiedLeaderboard,
   getMagiciensProfilesWithStats,
@@ -44,16 +45,7 @@ import {
   createTournamentSupabaseGateway,
 } from "../src/tournaments/index.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {
-  // .env is optional
-}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {
-  // .env.local is optional
-}
+loadLocalEnvFiles();
 
 const rootDir = process.cwd();
 const webDir = resolve(rootDir, "src", "web");
@@ -76,61 +68,11 @@ const MIME_TYPES = {
   ".svg": "image/svg+xml",
 };
 
-// In-memory active draft sessions
-const activeSessions = new Map();
-
-const SESSION_ID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
-const CUBE_KEY_PATTERN = /^[a-z0-9_]{1,64}$/;
-
-function isValidSessionId(sessionId) {
-  return typeof sessionId === "string" && SESSION_ID_PATTERN.test(sessionId);
-}
-
-function sessionFilePath(sessionId) {
-  if (!isValidSessionId(sessionId)) {
-    throw new Error("Identifiant de session invalide.");
-  }
-  return join(draftSessionsDir, `${sessionId}.json`);
-}
-
-async function saveSessionToDisk(session) {
-  try {
-    await mkdir(draftSessionsDir, { recursive: true });
-    const snapshot = session.getPersistenceSnapshot();
-    const filePath = sessionFilePath(snapshot.sessionId);
-    await writeFile(filePath, JSON.stringify(snapshot, null, 2), "utf-8");
-  } catch (err) {
-    console.error("[Persistence] Erreur sauvegarde session:", err?.message || err);
-  }
-}
-
-async function getOrRestoreSession(sessionId) {
-  if (!isValidSessionId(sessionId)) return null;
-  let session = activeSessions.get(sessionId);
-  if (session) return session;
-
-  try {
-    const filePath = sessionFilePath(sessionId);
-    const content = await readFile(filePath, "utf-8");
-    const snapshot = JSON.parse(content);
-    session = await SoloDraftSession.restore(snapshot);
-    activeSessions.set(session.sessionId, session);
-    console.log(
-      `[Persistence] Session ${sessionId} restaurée depuis le disque (${snapshot.humanPicks?.length ?? 0} picks)`,
-    );
-    return session;
-  } catch {
-    return null;
-  }
-}
-
-async function removeSessionFromDisk(sessionId) {
-  const filePath = sessionFilePath(sessionId);
-  await unlink(filePath).catch(() => {});
-}
-
 // Only these subtrees of data/ are public; sessions, records and archives stay private.
 const PUBLIC_DATA_PREFIXES = ["cubes/", "cards/master-cards.json", "cards/images/"];
+
+const COMPRESSIBLE_EXTENSIONS = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg"]);
+const compressedAssetCache = new Map();
 
 function isInside(root, candidate) {
   const rel = relative(root, candidate);
@@ -164,9 +106,6 @@ function resolveStaticFile(pathname, roots) {
   return isInside(root, filePath) ? filePath : null;
 }
 
-const COMPRESSIBLE_EXTENSIONS = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg"]);
-const compressedAssetCache = new Map();
-
 function pickEncoding(acceptEncoding) {
   const accepted = String(acceptEncoding ?? "");
   if (/\bbr\b/.test(accepted)) return "br";
@@ -174,7 +113,6 @@ function pickEncoding(acceptEncoding) {
   return null;
 }
 
-/** Compresses once per file version; the 7 MB catalog drops to ~430 KB in brotli. */
 async function getEncodedAsset(filePath, fileStat, encoding, content) {
   const key = `${filePath}:${encoding}`;
   const cached = compressedAssetCache.get(key);
@@ -551,6 +489,25 @@ export function createRequestHandler(options = {}) {
       generateJson: (systemPrompt, userPrompt, profile) =>
         multiplayerLlm.generateJson(systemPrompt, userPrompt, profile),
     });
+  // Solo advice provider is chosen here, at the composition root. Tests get the
+  // deterministic engine unless they inject one explicitly.
+  const soloLanguageModel =
+    options.soloLanguageModel !== undefined
+      ? (options.soloLanguageModel ?? undefined)
+      : isTestEnv
+        ? undefined
+        : multiplayerLlm;
+  const soloDraftHandler = createSoloDraftHttpHandler({
+    store:
+      options.soloDraftStore ??
+      createFileSoloDraftStore(options.soloSessionsDirectory ?? draftSessionsDir),
+    finalDeckCoach,
+    languageModel: soloLanguageModel,
+    reportsDirectory: handlerReportsDir,
+    reportsUrlPrefix: "/reports",
+    adminDraftsPath,
+    leaderboardPath,
+  });
   const multiplayerCoordinator =
     options.multiplayerCoordinator ??
     createMultiplayerDraftCoordinator({
@@ -968,227 +925,7 @@ export function createRequestHandler(options = {}) {
       return;
     }
 
-    // 3. Draft Start
-    if (pathname === "/api/draft/start" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        const playerName = (body.playerName || "").trim();
-        if (!playerName) {
-          sendJson(res, 400, { ok: false, error: "Le nom du joueur est obligatoire." });
-          return;
-        }
-
-        const cubeKey = body.cubeKey || "titou_tribal";
-        if (typeof cubeKey !== "string" || !CUBE_KEY_PATTERN.test(cubeKey)) {
-          sendJson(res, 400, { ok: false, error: "Cube inconnu." });
-          return;
-        }
-
-        const session = await SoloDraftSession.create({
-          playerName,
-          magicienSlug: body.magicienSlug,
-          cubeKey,
-          seed: body.seed,
-          randomizeSeats: body.randomizeSeats ?? true,
-          seatAssignments: body.seatAssignments,
-          botIds: body.botIds,
-        });
-
-        activeSessions.set(session.sessionId, session);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, session: session.getStateDto() });
-      } catch (err) {
-        sendJson(res, 500, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 3b. Draft Session State Check / Resume
-    if (pathname === "/api/draft/session" && req.method === "GET") {
-      try {
-        const sessionId = url.searchParams.get("sessionId");
-        if (!sessionId) {
-          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
-          return;
-        }
-
-        const session = await getOrRestoreSession(sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        sendJson(res, 200, { ok: true, session: session.getStateDto() });
-      } catch (err) {
-        sendJson(res, 500, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4. Draft Pick
-    if (pathname === "/api/draft/pick" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId || !body.cardInstanceId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Les paramètres 'sessionId' et 'cardInstanceId' sont obligatoires.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const nextState = session.makePick(body.cardInstanceId);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, session: nextState });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4b. Draft Pick Advice (Coaching IA)
-    if (pathname === "/api/draft/advice" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Le paramètre 'sessionId' est obligatoire.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const advice = await session.getPickAdvice();
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, advice });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4c. Draft Deck Recommendation (Pré-construction IA)
-    if (pathname === "/api/draft/recommend-deck" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Le paramètre 'sessionId' est obligatoire.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const recommendation = await session.getAssistedDeckRecommendation(finalDeckCoach);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, {
-          ok: true,
-          recommendation,
-          isHomologated: session.isHomologated,
-        });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 5. Draft Deck Validation & Finalize
-    if (pathname === "/api/draft/deck" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-
-        if (!body.sessionId || !Array.isArray(body.maindeckCardInstanceIds)) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Paramètres 'sessionId' et 'maindeckCardInstanceIds' invalides.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const finalResult = await session.buildDeckAndFinalize(
-          {
-            sessionId: body.sessionId,
-            maindeckCardInstanceIds: body.maindeckCardInstanceIds,
-            basicLands: body.basicLands,
-            landCountRationale: body.landCountRationale,
-            publishToLeaderboard: Boolean(body.publishToLeaderboard),
-          },
-          {
-            customReportsDir: handlerReportsDir,
-            reportsUrlPrefix: "/reports",
-            customAdminDraftsPath: adminDraftsPath,
-            customLeaderboardPath: leaderboardPath,
-          },
-        );
-
-        await removeSessionFromDisk(body.sessionId);
-        sendJson(res, 200, { ok: true, result: finalResult });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 5b. Draft Publish (pour inscrire un draft d'entraînement après consultation)
-    if (pathname === "/api/draft/publish" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const publishResult = await session.publishToLeaderboard(leaderboardPath);
-        await removeSessionFromDisk(body.sessionId);
-        sendJson(res, 200, { ok: true, result: publishResult });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 6. Draft Abandon (Quitter et réinitialiser complètement)
-    if (pathname === "/api/draft/abandon" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (body.sessionId) {
-          activeSessions.delete(body.sessionId);
-          await removeSessionFromDisk(body.sessionId);
-        }
-        sendJson(res, 200, { ok: true, message: "Draft abandonné avec succès." });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
+    if (await soloDraftHandler(req, res)) {
       return;
     }
 
@@ -1202,9 +939,12 @@ export function createRequestHandler(options = {}) {
         ? join(webDir, "index.html")
         : resolveStaticFile(pathname, staticRoots);
 
-    if (!filePath) {
+    const sendNotFound = () => {
       res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
       res.end("404 Not Found");
+    };
+    if (!filePath) {
+      sendNotFound();
       return;
     }
 
@@ -1220,14 +960,15 @@ export function createRequestHandler(options = {}) {
       const isDynamicAsset = fileExt === ".html" || fileExt === ".js" || fileExt === ".css";
       // Revalidate app code on each load (cheap 304 via ETag) instead of re-downloading it.
       const cacheControl = isDynamicAsset ? "no-cache" : "public, max-age=3600";
-      const isCompressible = COMPRESSIBLE_EXTENSIONS.has(fileExt);
-      const encoding = isCompressible ? pickEncoding(req.headers["accept-encoding"]) : null;
+      const encoding = COMPRESSIBLE_EXTENSIONS.has(fileExt)
+        ? pickEncoding(req.headers["accept-encoding"])
+        : null;
       const etag = `W/"${fileStat.size.toString(16)}-${Math.trunc(fileStat.mtimeMs).toString(16)}${encoding ? `-${encoding}` : ""}"`;
       const headers = {
         "Content-Type": contentType,
         "Cache-Control": cacheControl,
         ETag: etag,
-        ...(isCompressible ? { Vary: "Accept-Encoding" } : {}),
+        ...(COMPRESSIBLE_EXTENSIONS.has(fileExt) ? { Vary: "Accept-Encoding" } : {}),
       };
 
       if (req.headers["if-none-match"] === etag) {
@@ -1247,8 +988,7 @@ export function createRequestHandler(options = {}) {
       });
       res.end(req.method === "HEAD" ? undefined : body);
     } catch {
-      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("404 Not Found");
+      sendNotFound();
     }
   };
 }

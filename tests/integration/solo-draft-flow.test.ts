@@ -21,6 +21,7 @@ describe("Solo Draft Web API & Flow Integration", () => {
     );
     const handler = createRequestHandler({
       reportsDirectory: join(testStorageDir, "reports"),
+      soloSessionsDirectory: join(testStorageDir, "sessions"),
       adminDraftsPath: join(testStorageDir, "admin-drafts.json"),
       leaderboardPath: join(testStorageDir, "leaderboard.json"),
       finalDeckCoach: createFinalDeckCoach(),

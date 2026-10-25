@@ -38,7 +38,7 @@ import {
   type FriendProfile,
 } from "../bots/friends/index.ts";
 import { chooseWithJevBot } from "../bots/jev/jev-bot-decision.ts";
-import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../coach-advice/draft-coach-service.ts";
 import { computeWheelSignals, type WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
@@ -52,7 +52,7 @@ import type {
   MtGColor,
   PackEvaluationContext,
 } from "../domain/coaching/types.ts";
-import { createSessionIdentityGenerator } from "../cli/session-identity.ts";
+import { createSessionIdentityGenerator } from "../random/session-identity.ts";
 import {
   classifyCubeBombs,
   BASIC_LAND_ENRICHED,
@@ -75,7 +75,7 @@ import {
   type FinalDeckCoach,
   type FinalDeckRecommendation,
 } from "../multiplayer-draft/final-deck-coach.ts";
-import { LlmRouter } from "../companion/llm-router.ts";
+import type { CoachLanguageModel } from "../coach-advice/coach-language-model.ts";
 import type {
   AdminDraftEntry,
   AdminDraftSeatSummary,
@@ -89,6 +89,7 @@ import type {
   SoloDraftStartInput,
   SoloDraftStateDto,
   SoloDraftStatus,
+  SoloDraftPersistenceSnapshot,
 } from "./solo-draft-types.ts";
 
 function getBotAvatar(profileId?: string): string {
@@ -169,6 +170,7 @@ export class SoloDraftSession {
   >();
   private cachedAdvicePromise: Promise<SoloDraftPickAdvice> | null = null;
   private readonly finalDeckCoach: FinalDeckCoach;
+  private readonly languageModel: CoachLanguageModel | undefined;
   private botDecksPromise: Promise<Map<SeatId, FinalDeckSummary>> | null = null;
   public roundIndex = 0;
   public readonly startedAtTimestamp: number;
@@ -190,6 +192,7 @@ export class SoloDraftSession {
     seatProfiles: readonly FriendProfile[];
     initialBoosters: InitialDealtBooster[];
     finalDeckCoach?: FinalDeckCoach | undefined;
+    languageModel?: CoachLanguageModel | undefined;
   }) {
     this.sessionId = params.sessionId;
     this.seed = params.seed;
@@ -210,17 +213,16 @@ export class SoloDraftSession {
     this.cubeName = params.coachContext.cubeMeta.meta.name;
     this.startedAtTimestamp = Date.now();
 
-    const isTestEnv = Boolean(process.env.VITEST ?? process.env.NODE_ENV === "test");
+    this.languageModel = params.languageModel;
+    const languageModel = params.languageModel;
     this.finalDeckCoach =
       params.finalDeckCoach ??
-      (isTestEnv
-        ? createFinalDeckCoach()
-        : createFinalDeckCoach({
-            generateJson: async (systemPrompt, userPrompt, options) => {
-              const router = new LlmRouter();
-              return router.generateJson(systemPrompt, userPrompt, options);
-            },
-          }));
+      (languageModel
+        ? createFinalDeckCoach({
+            generateJson: (systemPrompt, userPrompt, options) =>
+              languageModel.generateJson(systemPrompt, userPrompt, options),
+          })
+        : createFinalDeckCoach());
 
     for (let s = 0; s < 8; s++) {
       this.seatStepsMap.set(s as SeatId, []);
@@ -442,6 +444,7 @@ export class SoloDraftSession {
       policies,
       seatProfiles,
       initialBoosters,
+      languageModel: input.languageModel,
     });
     session.prefetchPickAdvice();
     return session;
@@ -846,8 +849,8 @@ export class SoloDraftSession {
     options: { prefetchAdvice?: boolean; botEngine?: "deterministic" | "jev" } = {},
   ): Promise<SoloDraftStateDto> {
     const botEngine = options.botEngine ?? "deterministic";
-    const router = new LlmRouter();
-    if (botEngine !== "jev" || !router.hasJevKey()) {
+    const router = this.languageModel;
+    if (botEngine !== "jev" || !router?.hasJevKey()) {
       return this.makePick(cardInstanceId, options);
     }
 
@@ -1689,6 +1692,7 @@ export class SoloDraftSession {
         synergyProfile: this.coachContext.synergyProfile,
       },
       skipLlm: options.skipLlm,
+      llmRouter: this.languageModel,
       wheelSignals,
       isPrefetch: options.isPrefetch,
     });
@@ -1738,13 +1742,8 @@ export class SoloDraftSession {
     return this.computePickAdvice(options);
   }
 
-  public getPersistenceSnapshot(): {
-    readonly sessionId: string;
-    readonly seed: number;
-    readonly playerName: string;
-    readonly magicienSlug?: string | undefined;
+  public getPersistenceSnapshot(): SoloDraftPersistenceSnapshot & {
     readonly cubeKey: string;
-    readonly humanPicks: readonly string[];
     readonly isHomologated: boolean;
     readonly startedAtTimestamp: number;
   } {
@@ -1760,16 +1759,12 @@ export class SoloDraftSession {
     };
   }
 
-  public static async restore(saved: {
-    readonly sessionId: string;
-    readonly seed: number;
-    readonly playerName: string;
-    readonly magicienSlug?: string | undefined;
-    readonly cubeKey?: string | undefined;
-    readonly humanPicks: readonly string[];
-    readonly isHomologated?: boolean | undefined;
-  }): Promise<SoloDraftSession> {
+  public static async restore(
+    saved: SoloDraftPersistenceSnapshot,
+    dependencies: { readonly languageModel?: CoachLanguageModel | undefined } = {},
+  ): Promise<SoloDraftSession> {
     const session = await SoloDraftSession.create({
+      languageModel: dependencies.languageModel,
       playerName: saved.playerName,
       magicienSlug: saved.magicienSlug,
       cubeKey: saved.cubeKey ?? "titou_tribal",
