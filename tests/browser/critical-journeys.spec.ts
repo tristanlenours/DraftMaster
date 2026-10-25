@@ -444,6 +444,13 @@ test.describe("Cubes view on mobile", () => {
       "Nico's Vintage Candyshop",
     );
 
+    // Cover art is the lightweight WebP and actually loads
+    const cover = page.locator("#cube-detail-panel .cube-detail-img");
+    await expect(cover).toHaveAttribute("src", /\/cover\.webp$/u);
+    await expect
+      .poll(() => cover.evaluate((img: HTMLImageElement) => (img.complete ? img.naturalWidth : 0)))
+      .toBeGreaterThan(0);
+
     // Switch to comparison table mode
     await page.locator("#btn-cubes-mode-table").tap();
     await expect(page.locator("#btn-cubes-mode-table")).toHaveClass(/active/);
