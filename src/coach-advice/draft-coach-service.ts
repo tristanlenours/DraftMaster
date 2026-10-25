@@ -390,8 +390,8 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       },
     );
 
-    // Live picks must answer within the 2 000 ms SLA (coach-first-round-regression).
-    const coachTimeoutMs = options.timeoutMs ?? (options.isPrefetch ? 12000 : 2000);
+    // Live picks give the LLM 3 500 ms before falling back to the engine (coach-first-round-regression).
+    const coachTimeoutMs = options.timeoutMs ?? (options.isPrefetch ? 12000 : 3500);
 
     let timeoutId: NodeJS.Timeout | undefined;
     const llmTimeoutPromise = new Promise<never>((_, reject) => {
