@@ -222,7 +222,7 @@ export function createTournamentHttpHandler(
 
         let candidateCardNames: string[] | undefined;
         let cubeName: string | undefined;
-        if (!regions && dependencies.loadCubeSnapshot && cubeKey) {
+        if (dependencies.loadCubeSnapshot && cubeKey) {
           try {
             candidateCardNames = [...(await dependencies.loadCubeSnapshot(cubeKey))];
           } catch {

@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as https from "node:https";
 import * as path from "node:path";
+import { BASIC_LAND_IDENTITIES } from "../cards/import-printed-names.ts";
 
 import type { DeclaredDeckCard, TournamentResult } from "./types.ts";
 
@@ -43,8 +44,8 @@ function normalizeNameKey(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]/g, "");
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}]/gu, "");
 }
 
 function calculateSimilarity(str1: string, str2: string): number {
@@ -86,10 +87,34 @@ interface GeminiApiResponse {
   }[];
 }
 
+export function calculateDiceSimilarity(str1: string, str2: string): number {
+  const s1 = normalizeNameKey(str1);
+  const s2 = normalizeNameKey(str2);
+  if (s1 === s2) return 1.0;
+  if (s1.length < 2 || s2.length < 2) return 0.0;
+
+  const getBigrams = (str: string): Set<string> => {
+    const bigrams = new Set<string>();
+    for (let i = 0; i < str.length - 1; i++) {
+      bigrams.add(str.slice(i, i + 2));
+    }
+    return bigrams;
+  };
+
+  const b1 = getBigrams(s1);
+  const b2 = getBigrams(s2);
+  let intersection = 0;
+  for (const b of b1) {
+    if (b2.has(b)) intersection++;
+  }
+  return (2 * intersection) / (b1.size + b2.size || 1);
+}
+
 export class MasterCardsIndex {
   private static instance: MasterCardsIndex | null = null;
-  private readonly cardByName = new Map<string, DeclaredDeckCard>();
-  private readonly cardByNormalized = new Map<string, DeclaredDeckCard>();
+  private readonly cardByName = new Map<string, Map<string, DeclaredDeckCard>>();
+  private readonly cardByNormalized = new Map<string, Map<string, DeclaredDeckCard>>();
+  private readonly aliasesByCard = new Map<string, Set<string>>();
   private readonly allCards: DeclaredDeckCard[] = [];
   private isLoaded = false;
 
@@ -107,6 +132,19 @@ export class MasterCardsIndex {
 
   private loadCatalog(): void {
     if (this.isLoaded) return;
+    const frenchBasics: Record<string, string> = {
+      Plains: "Plaine",
+      Island: "Île",
+      Swamp: "Marais",
+      Mountain: "Montagne",
+      Forest: "Forêt",
+    };
+    for (const [name, oracleId] of Object.entries(BASIC_LAND_IDENTITIES)) {
+      const card: DeclaredDeckCard = { name, oracleId, cmc: 0, isLand: true };
+      this.addAlias(name, card);
+      const frenchName = frenchBasics[name];
+      if (frenchName) this.addAlias(frenchName, card);
+    }
     try {
       const catalogPath = path.resolve(this.projectRoot, "data", "cards", "master-cards.json");
       if (!fs.existsSync(catalogPath)) return;
@@ -139,17 +177,61 @@ export class MasterCardsIndex {
         };
 
         this.allCards.push(entry);
-        this.cardByName.set(name.toLowerCase(), entry);
-        this.cardByNormalized.set(normalizeNameKey(name), entry);
+        this.addAlias(name, entry);
         if (frenchName) {
-          this.cardByName.set(frenchName.toLowerCase(), entry);
-          this.cardByNormalized.set(normalizeNameKey(frenchName), entry);
+          this.addAlias(frenchName, entry);
         }
       }
+      this.loadPrintedNames();
       this.isLoaded = true;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.warn("[MasterCardsIndex] Error loading master cards:", message);
+    }
+  }
+
+  private addAlias(name: string, card: DeclaredDeckCard): void {
+    const identity = card.oracleId ?? card.name;
+    let aliasSet = this.aliasesByCard.get(card.name);
+    if (!aliasSet) {
+      aliasSet = new Set<string>();
+      this.aliasesByCard.set(card.name, aliasSet);
+    }
+    aliasSet.add(name.trim());
+    for (const [index, key] of [
+      [this.cardByName, name.trim().toLowerCase()],
+      [this.cardByNormalized, normalizeNameKey(name)],
+    ] as const) {
+      if (!key) continue;
+      const candidates = index.get(key) ?? new Map<string, DeclaredDeckCard>();
+      candidates.set(identity, card);
+      index.set(key, candidates);
+    }
+  }
+
+  private loadPrintedNames(): void {
+    const aliasPath = path.resolve(this.projectRoot, "data", "cards", "printed-names.json");
+    if (!fs.existsSync(aliasPath)) return;
+    try {
+      const data: unknown = JSON.parse(fs.readFileSync(aliasPath, "utf8"));
+      if (!isRecord(data) || data.schemaVersion !== 1 || !Array.isArray(data.aliases)) return;
+      for (const alias of data.aliases) {
+        if (
+          !isRecord(alias) ||
+          typeof alias.name !== "string" ||
+          typeof alias.oracleId !== "string" ||
+          typeof alias.printedName !== "string" ||
+          alias.lang !== "fr" ||
+          typeof alias.scryfallId !== "string"
+        )
+          continue;
+        const card = this.findExactCard(alias.name);
+        if (card?.name !== alias.name || card.oracleId !== alias.oracleId) continue;
+        this.addAlias(alias.printedName, card);
+      }
+    } catch {
+      // Optional alias data must not disable the existing canonical catalog.
+      console.warn("[MasterCardsIndex] Invalid printed-name dataset; using canonical catalog.");
     }
   }
 
@@ -158,14 +240,17 @@ export class MasterCardsIndex {
     const exact = this.findExactCard(trimmed);
     if (exact !== undefined) return exact;
 
-    // Try fuzzy match
+    // Try fuzzy match across English and French aliases
     let bestScore = 0;
     let bestMatch: DeclaredDeckCard | null = null;
     for (const card of this.allCards) {
-      const sim = Math.max(
-        calculateSimilarity(trimmed, card.name),
-        card.frenchName ? calculateSimilarity(trimmed, card.frenchName) : 0,
-      );
+      const aliases = this.aliasesByCard.get(card.name);
+      let sim = calculateSimilarity(trimmed, card.name);
+      if (aliases) {
+        for (const alias of aliases) {
+          sim = Math.max(sim, calculateSimilarity(trimmed, alias));
+        }
+      }
       if (sim > bestScore && sim >= 0.8) {
         bestScore = sim;
         bestMatch = card;
@@ -190,10 +275,70 @@ export class MasterCardsIndex {
 
   public findExactCard(inputName: string): DeclaredDeckCard | undefined {
     const trimmed = inputName.trim();
-    return (
-      this.cardByName.get(trimmed.toLowerCase()) ??
-      this.cardByNormalized.get(normalizeNameKey(trimmed))
-    );
+    if (!trimmed) return undefined;
+    const literal = this.cardByName.get(trimmed.toLowerCase());
+    if (literal) return literal.size === 1 ? literal.values().next().value : undefined;
+    if (/…|\.{2,}/u.test(trimmed)) return undefined;
+    const candidates = this.cardByNormalized.get(normalizeNameKey(trimmed));
+    return candidates?.size === 1 ? candidates.values().next().value : undefined;
+  }
+
+  public findPhotoCard(
+    inputName: string,
+    candidateCardNames?: readonly string[],
+  ): DeclaredDeckCard | undefined {
+    const trimmed = inputName.trim();
+    if (!trimmed) return undefined;
+    const exact = this.findExactCard(trimmed);
+    if (exact !== undefined) return exact;
+    if (/…|\.{2,}/u.test(trimmed)) return undefined;
+
+    const pool: DeclaredDeckCard[] = [];
+    if (candidateCardNames && candidateCardNames.length > 0) {
+      for (const candidateName of candidateCardNames) {
+        const card = this.findExactCard(candidateName);
+        if (card) pool.push(card);
+      }
+    }
+    const searchCards = pool.length > 0 ? pool : this.allCards;
+
+    const commaIndex = trimmed.indexOf(",");
+    const leadPrefix = commaIndex >= 3 ? normalizeNameKey(trimmed.slice(0, commaIndex)) : undefined;
+    const restTokens =
+      commaIndex >= 3
+        ? trimmed
+            .slice(commaIndex + 1)
+            .split(/\s+/u)
+            .map((token) => normalizeNameKey(token))
+            .filter((token) => token.length >= 4)
+        : [];
+
+    let bestScore = 0;
+    let bestCard: DeclaredDeckCard | undefined;
+    for (const card of searchCards) {
+      const aliases = this.aliasesByCard.get(card.name) ?? new Set([card.name]);
+      for (const alias of aliases) {
+        const dice = calculateDiceSimilarity(trimmed, alias);
+        if (dice >= 0.78 && dice > bestScore) {
+          bestScore = dice;
+          bestCard = card;
+        }
+        if (leadPrefix && restTokens.length > 0) {
+          const aliasComma = alias.indexOf(",");
+          if (aliasComma >= 3 && normalizeNameKey(alias.slice(0, aliasComma)) === leadPrefix) {
+            const aliasRest = normalizeNameKey(alias.slice(aliasComma + 1));
+            if (
+              (restTokens.some((token) => aliasRest.includes(token)) || dice >= 0.62) &&
+              Math.max(dice, 0.79) > bestScore
+            ) {
+              bestScore = Math.max(dice, 0.79);
+              bestCard = card;
+            }
+          }
+        }
+      }
+    }
+    return bestCard;
   }
 }
 
@@ -283,12 +428,12 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
         : "";
 
     const systemPrompt = tiled
-      ? `Transcris uniquement les titres imprimés et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque carte non basique apparaît au plus une fois par région. Répète un nom de terrain de base seulement si plusieurs cartes physiques distinctes portent ce titre lisible dans cette région.`
+      ? `Transcris uniquement les titres imprimés en anglais ou en français et lisibles des cartes Magic dans chacune des ${String(base64Images.length)} régions de la même photo. Si un reflet masque le bandeau de titre d'une carte mais que son illustration, son coût ou son texte imprimé permet d'identifier avec certitude la carte Magic, indique son titre officiel. Les régions se chevauchent. Oriente mentalement chaque région pour lire les titres. Ne complète jamais un titre tronqué, ne devine aucune carte cachée et n'estime aucun nombre de terrains. Ne déduis aucun titre d'après le contexte du deck. Garde les titres dans leur langue imprimée. Réponds uniquement en JSON : {"tiles":[{"tile":1,"titles":["titre imprimé", "autre titre"]}]}. Inclus une entrée par région, numérotée de 1 à ${String(base64Images.length)}, avec une liste vide si rien n'est lisible. Chaque carte non basique apparaît au plus une fois par région. Répète un nom de terrain de base seulement si plusieurs cartes physiques distinctes portent ce titre lisible dans cette région.`
       : `Tu es un expert en analyse visuelle de decks de Magic: The Gathering (MTG).
 On te fournit une photo d'un deck physique de Magic posé sur une table ou un tapis de jeu.${candidateListStr}
 
 Consignes :
-1. Détecte et identifie minutieusement chaque carte visible dans la photo (qu'elle soit en version anglaise ou française).
+1. Détecte et identifie minutieusement chaque carte visible imprimée en anglais ou en français dans la photo.
 2. Si une liste de cartes du Cube est fournie ci-dessus, fais correspondre chaque carte reconnue à son nom anglais officiel exact de la liste.
 3. Attention aux cartes empilées en colonnes / cascade (très fréquent en MTG) où seul le haut ou le bandeau de titre d'une carte dépasse sous la suivante : examine chaque carte visible dans chaque colonne de haut en bas sans en omettre !
 4. Attention à l'orientation : la photo peut être pivotée (ex: 90° à l'horizontale ou verticale). Lis le texte selon l'orientation naturelle des cartes.
@@ -336,7 +481,11 @@ Consignes :
           );
           if (outcome.status === "success") {
             const value = tiled
-              ? this.enrichTiledResult(outcome.data, base64Images.length)
+              ? this.enrichTiledResult(
+                  outcome.data,
+                  base64Images.length,
+                  options?.candidateCardNames,
+                )
               : this.enrichDeckResult(outcome.data);
             if (value === undefined) {
               return {
@@ -439,14 +588,14 @@ Consignes :
                 const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
                 if (!text) {
                   resolve({ status: "error", error: "Réponse Gemini vide" });
-                  return;
+                } else {
+                  const cleaned = text
+                    .trim()
+                    .replace(/^```(?:json)?\s*/i, "")
+                    .replace(/\s*```$/, "");
+                  const json: unknown = JSON.parse(cleaned);
+                  resolve({ status: "success", data: json });
                 }
-                const cleaned = text
-                  .trim()
-                  .replace(/^```(?:json)?\s*/i, "")
-                  .replace(/\s*```$/, "");
-                const json: unknown = JSON.parse(cleaned);
-                resolve({ status: "success", data: json });
               } catch (e: unknown) {
                 const msg = e instanceof Error ? e.message : String(e);
                 resolve({ status: "error", error: `Erreur parse JSON: ${msg}` });
@@ -484,20 +633,12 @@ Consignes :
     });
   }
 
-  private enrichTiledResult(raw: unknown, regionCount: number): RecognizedDeckResult | undefined {
+  private enrichTiledResult(
+    raw: unknown,
+    regionCount: number,
+    candidateCardNames?: readonly string[],
+  ): RecognizedDeckResult | undefined {
     if (!isRecord(raw) || !Array.isArray(raw.tiles)) return undefined;
-    const basicNames: Record<string, string> = {
-      plains: "Plains",
-      plaine: "Plains",
-      island: "Island",
-      ile: "Island",
-      swamp: "Swamp",
-      marais: "Swamp",
-      mountain: "Mountain",
-      montagne: "Mountain",
-      forest: "Forest",
-      foret: "Forest",
-    };
     const counts = new Map<string, { card: DeclaredDeckCard; count: number }>();
     const basicLands: Record<string, number> = {
       Plains: 0,
@@ -526,8 +667,12 @@ Consignes :
         if (typeof title !== "string" || !title.trim()) continue;
         readableTitles++;
         const trimmed = title.trim();
-        const basic = basicNames[normalizeNameKey(trimmed)];
-        const card = basic ? undefined : this.cardsIndex.findExactCard(trimmed);
+        const resolved = this.cardsIndex.findPhotoCard(trimmed, candidateCardNames);
+        const basic =
+          resolved && Object.hasOwn(BASIC_LAND_IDENTITIES, resolved.name)
+            ? resolved.name
+            : undefined;
+        const card = basic ? undefined : resolved;
         if (!basic && !card) {
           unverifiedTitles.add(trimmed);
           continue;
@@ -587,10 +732,9 @@ Consignes :
 
     if (isRecord(raw) && isRecord(raw.basicLands)) {
       for (const [land, count] of Object.entries(raw.basicLands)) {
-        const titleLand = (land.charAt(0).toUpperCase() +
-          land.slice(1).toLowerCase()) as BasicLandKey;
-        if (typeof count === "number" && titleLand in basicLands) {
-          basicLands[titleLand] = Math.max(0, count);
+        const resolved = this.cardsIndex.findExactCard(land);
+        if (typeof count === "number" && resolved && Object.hasOwn(basicLands, resolved.name)) {
+          basicLands[resolved.name as BasicLandKey] = Math.max(0, count);
         }
       }
     }

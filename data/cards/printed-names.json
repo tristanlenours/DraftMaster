@@ -1,0 +1,5428 @@
+{
+  "schemaVersion": 1,
+  "generator": "DraftMaster/import-printed-card-names@1",
+  "generatedAt": "2026-10-11T19:14:23.424Z",
+  "source": {
+    "name": "Scryfall",
+    "url": "https://api.scryfall.com/cards/search",
+    "method": "Batches of ten oracle IDs; lang:any -lang:en unique:prints; include_multilingual=true; all pages; top-level and face printed_name; deduplicate identity/language/title. French-only local projection; English canonical names remain in the master catalog.",
+    "attribution": "Scryfall API data; Magic: The Gathering card names, translations and related intellectual property belong to Wizards of the Coast. https://scryfall.com/docs/api",
+    "usage": {
+      "termsUrl": "https://scryfall.com/docs/api",
+      "licenseStatus": "No open-content license grant is assumed for card names or translations.",
+      "conditions": "Use is subject to Scryfall API data-use guidance and underlying rights; source attribution is not a license grant."
+    },
+    "selection": {
+      "filteredAt": "2026-10-11T20:12:50.038Z",
+      "language": "fr",
+      "method": "Retain only lang=fr from the original import, without refetching or changing printing provenance."
+    }
+  },
+  "catalogSha256": "20e56f91499a2c011b209559d994081ec9c1c283cdf689f24de854165a0aa47e",
+  "cubeKeys": [
+    "nico_candyshop"
+  ],
+  "cardCount": 730,
+  "languages": [
+    "fr"
+  ],
+  "aliases": [
+    {
+      "name": "Abrade",
+      "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
+      "lang": "fr",
+      "printedName": "Fissuration",
+      "scryfallId": "0606b322-a21f-43f8-aef2-9f001322be6a"
+    },
+    {
+      "name": "Abstruse Appropriation",
+      "oracleId": "61a23402-3244-4b5e-9134-98e1f82eda65",
+      "lang": "fr",
+      "printedName": "Appropriation absconse",
+      "scryfallId": "0e84c109-753e-44ea-83f4-4ee48d10f26f"
+    },
+    {
+      "name": "Academy Ruins",
+      "oracleId": "a3da7d5b-2c2b-45fe-b9c5-413b8c8fc0a2",
+      "lang": "fr",
+      "printedName": "Ruines de l'académie",
+      "scryfallId": "40f2a7bb-3256-4e11-ba4f-2b03e995cd7c"
+    },
+    {
+      "name": "Adanto Vanguard",
+      "oracleId": "91c380f6-2c41-48b7-9f07-104e8659e397",
+      "lang": "fr",
+      "printedName": "Avant-garde d'Adanto",
+      "scryfallId": "01a0c6cb-f309-4c25-a315-f5b484b07b8c"
+    },
+    {
+      "name": "Adeline, Resplendent Cathar",
+      "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+      "lang": "fr",
+      "printedName": "Adeline, cathare resplendissante",
+      "scryfallId": "07545505-b6df-4a0a-ab7b-cc43db1ff73b"
+    },
+    {
+      "name": "Aether Channeler",
+      "oracleId": "fb220f46-f8b8-4804-baa4-e7d50b4871f7",
+      "lang": "fr",
+      "printedName": "Canaliseur d'Éther",
+      "scryfallId": "116020de-559d-4b37-907d-706c009e2d20"
+    },
+    {
+      "name": "Ajani, Nacatl Pariah",
+      "oracleId": "2588f348-d7a3-46c8-9ace-dca53ed5ef99",
+      "lang": "fr",
+      "printedName": "Ajani, paria nacatl",
+      "scryfallId": "e29ea83f-2459-4724-a5ab-7347d5e27b4b"
+    },
+    {
+      "name": "Ajani, Nacatl Pariah",
+      "oracleId": "2588f348-d7a3-46c8-9ace-dca53ed5ef99",
+      "lang": "fr",
+      "printedName": "Ajani, vengeur nacatl",
+      "scryfallId": "e29ea83f-2459-4724-a5ab-7347d5e27b4b"
+    },
+    {
+      "name": "Ancestral Vision",
+      "oracleId": "9728dec9-d482-4c7a-8cdc-44d010dc878d",
+      "lang": "fr",
+      "printedName": "Vision ancestrale",
+      "scryfallId": "09e31208-0fd6-4a6d-823f-113e735f17b1"
+    },
+    {
+      "name": "Ancient Tomb",
+      "oracleId": "23467047-6dba-4498-b783-1ebc4f74b8c2",
+      "lang": "fr",
+      "printedName": "Ancienne tombe",
+      "scryfallId": "28916227-215f-409a-868b-3feb653838a6"
+    },
+    {
+      "name": "Angel of Indemnity",
+      "oracleId": "4f57a320-b6b5-49de-af0a-f2e2649758a7",
+      "lang": "fr",
+      "printedName": "Ange de l'indemnisation",
+      "scryfallId": "7a9790dd-2842-488d-a63b-77e98027221f"
+    },
+    {
+      "name": "Angel of Invention",
+      "oracleId": "28c7f2b6-ba67-4ccf-9e1b-99c89a9d1f72",
+      "lang": "fr",
+      "printedName": "Ange de l'inventivité",
+      "scryfallId": "26384223-d20e-4589-ae7a-103150d242e0"
+    },
+    {
+      "name": "Angel of Sanctions",
+      "oracleId": "3c49e98d-d33b-47fa-8b07-b38b367de2c7",
+      "lang": "fr",
+      "printedName": "Ange des condamnations",
+      "scryfallId": "3b0ea3f6-ddab-4ead-bd18-b3797f60fb3e"
+    },
+    {
+      "name": "Animate Dead",
+      "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+      "lang": "fr",
+      "printedName": "Animation des morts",
+      "scryfallId": "01032b7b-799b-4408-b15d-0fc961076c3c"
+    },
+    {
+      "name": "Arbor Elf",
+      "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
+      "lang": "fr",
+      "printedName": "Elfe de la charmille",
+      "scryfallId": "8f26436f-4790-4c88-b1e0-6d3b2d176526"
+    },
+    {
+      "name": "Arc Trail",
+      "oracleId": "f1c26b25-371e-4fbf-a43d-7fd59a364d3a",
+      "lang": "fr",
+      "printedName": "Trace d'arc électrique",
+      "scryfallId": "80517254-eaa6-4681-b4d7-55338d7eb5dc"
+    },
+    {
+      "name": "Arcane Proxy",
+      "oracleId": "792f8235-f23b-4858-bdd4-c7a186b7a470",
+      "lang": "fr",
+      "printedName": "Intermédiaire ésotérique",
+      "scryfallId": "c1379e5f-31d6-4630-ab0a-a667fad18253"
+    },
+    {
+      "name": "Archangel Avacyn",
+      "oracleId": "432b37a5-d32a-4b78-91ab-860aa026b7cc",
+      "lang": "fr",
+      "printedName": "Archange Avacyn",
+      "scryfallId": "7fc52342-09a8-4f54-980c-e36e3c0193df"
+    },
+    {
+      "name": "Archangel Avacyn",
+      "oracleId": "432b37a5-d32a-4b78-91ab-860aa026b7cc",
+      "lang": "fr",
+      "printedName": "Avacyn, la purificatrice",
+      "scryfallId": "7fc52342-09a8-4f54-980c-e36e3c0193df"
+    },
+    {
+      "name": "Archdruid's Charm",
+      "oracleId": "3c1ef404-e2c6-486d-a5a2-d5779c71d498",
+      "lang": "fr",
+      "printedName": "Charme de l'archidruide",
+      "scryfallId": "300607d6-ad85-41e1-8877-ae2bef9c759f"
+    },
+    {
+      "name": "Archmage's Charm",
+      "oracleId": "85cbb035-25df-43bb-ae06-ab098f448b02",
+      "lang": "fr",
+      "printedName": "Charme de l'archimage",
+      "scryfallId": "44915184-4a08-4603-92dc-c100dd5da5db"
+    },
+    {
+      "name": "Archon of Cruelty",
+      "oracleId": "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+      "lang": "fr",
+      "printedName": "Archonte de la cruauté",
+      "scryfallId": "10129839-e43d-459d-8d7e-ba25b9ae6745"
+    },
+    {
+      "name": "Arid Mesa",
+      "oracleId": "c5acf2a5-40f4-433d-a74d-1cb56c521464",
+      "lang": "fr",
+      "printedName": "Mesa aride",
+      "scryfallId": "05c30633-1e0a-4d24-a821-08629b988969"
+    },
+    {
+      "name": "Armageddon",
+      "oracleId": "c9ed8b01-959a-47d6-891e-0abbdccf6e4f",
+      "lang": "fr",
+      "printedName": "Armaguedon",
+      "scryfallId": "55b7ef5a-4875-4c5a-9f96-0ce7825fe930"
+    },
+    {
+      "name": "Ashen Rider",
+      "oracleId": "455f66eb-3e33-4b51-9ec1-32288bdd3a68",
+      "lang": "fr",
+      "printedName": "Cavalière cendreuse",
+      "scryfallId": "2b33d1bf-60e7-41f2-abde-777b5975434f"
+    },
+    {
+      "name": "Assassin's Trophy",
+      "oracleId": "ac10d218-f9a6-4058-9cda-a15ca1b0b7b5",
+      "lang": "fr",
+      "printedName": "Trophée de l'assassin",
+      "scryfallId": "0b9551c2-a8d1-43bf-8fc8-1e15420ffe01"
+    },
+    {
+      "name": "Assimilation Aegis",
+      "oracleId": "6d39d218-254a-4886-907a-89df605d7ce4",
+      "lang": "fr",
+      "printedName": "Égide d'assimilation",
+      "scryfallId": "02270275-10ee-4b4e-b2ea-1debf79e6f31"
+    },
+    {
+      "name": "Atraxa, Grand Unifier",
+      "oracleId": "abbcb153-0763-44c6-964f-b4ff0eb64257",
+      "lang": "fr",
+      "printedName": "Atraxa, grande unificatrice",
+      "scryfallId": "398d6140-7e03-43ed-96b2-63bd06329777"
+    },
+    {
+      "name": "Badlands",
+      "oracleId": "13ff3222-91cb-4796-a34e-899ed817694c",
+      "lang": "fr",
+      "printedName": "Désolation",
+      "scryfallId": "2fb67912-3d3d-40d4-8aa0-141a8025b037"
+    },
+    {
+      "name": "Bag End",
+      "oracleId": "262a5d83-506c-4781-9bc9-1a2b5d83955c",
+      "lang": "fr",
+      "printedName": "Canopée d'horizon",
+      "scryfallId": "c9f90753-fcc9-4377-b591-4a8c4a230e98"
+    },
+    {
+      "name": "Balance",
+      "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
+      "lang": "fr",
+      "printedName": "Balance",
+      "scryfallId": "5dfea750-8a13-4932-acfe-caa3430158d9"
+    },
+    {
+      "name": "Baleful Mastery",
+      "oracleId": "adfcdadd-ddda-477b-8e72-0cae2430fb63",
+      "lang": "fr",
+      "printedName": "Maîtrise sinistre",
+      "scryfallId": "0f0e41d2-bd23-4264-95c9-f7f301702c04"
+    },
+    {
+      "name": "Baleful Strix",
+      "oracleId": "37688720-03de-4eca-a82d-a0afe8d58adc",
+      "lang": "fr",
+      "printedName": "Sinistre strix",
+      "scryfallId": "16121e5d-ecaf-4b37-9856-3129df04ecb2"
+    },
+    {
+      "name": "Baral, Chief of Compliance",
+      "oracleId": "baf80db7-2ca8-4bfc-b5b6-25ed51878dd7",
+      "lang": "fr",
+      "printedName": "Baral, directeur de conformité",
+      "scryfallId": "6deb7863-c0d9-4036-b3ab-7bd1cc6cff59"
+    },
+    {
+      "name": "Barrin, Tolarian Archmage",
+      "oracleId": "f98f7cb7-90ca-41e7-9f1d-8054931ecf0e",
+      "lang": "fr",
+      "printedName": "Barrin, archimage tolarian",
+      "scryfallId": "42f78d17-def0-49c8-a07d-282954f4acc7"
+    },
+    {
+      "name": "Barrowgoyf",
+      "oracleId": "74c0164c-130f-4572-9066-626c77f6e2ff",
+      "lang": "fr",
+      "printedName": "Tumulugoyf",
+      "scryfallId": "707b3df1-2f25-48e8-898b-41c0338a7023"
+    },
+    {
+      "name": "Basalt Monolith",
+      "oracleId": "6b8cf2a0-b045-4d91-9d91-c602d40c6237",
+      "lang": "fr",
+      "printedName": "Monolithe de basalte",
+      "scryfallId": "044beef9-6ed0-4d23-b724-f76dc1d26c09"
+    },
+    {
+      "name": "Batterskull",
+      "oracleId": "d12e5ce0-5705-4c35-9a93-b883db52c80c",
+      "lang": "fr",
+      "printedName": "Battecrâne",
+      "scryfallId": "9165b3a4-eb40-4892-a7ed-a72dc6d2a9d4"
+    },
+    {
+      "name": "Bayou",
+      "oracleId": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
+      "lang": "fr",
+      "printedName": "Bayou",
+      "scryfallId": "28c2aeb1-9c80-42b2-97e0-8e468673a16e"
+    },
+    {
+      "name": "Beast Whisperer",
+      "oracleId": "5da7eea8-bb9e-47ce-a554-8a1ee058bd7a",
+      "lang": "fr",
+      "printedName": "Chuchoteur de bête",
+      "scryfallId": "4bc08924-9ead-4169-8b9d-92887a549fa4"
+    },
+    {
+      "name": "Biophagus",
+      "oracleId": "7c06a368-3306-48e0-825e-a8fdc81fa343",
+      "lang": "fr",
+      "printedName": "Biophagus",
+      "scryfallId": "d52bd72f-e32b-426e-b389-653e13627afb"
+    },
+    {
+      "name": "Birds of Paradise",
+      "oracleId": "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+      "lang": "fr",
+      "printedName": "Oiseaux de paradis",
+      "scryfallId": "1a1092cf-fbb8-4520-84c7-9ffca1dae842"
+    },
+    {
+      "name": "Bitter Triumph",
+      "oracleId": "776341cb-d2ec-423f-9250-92dc8bd8d503",
+      "lang": "fr",
+      "printedName": "Triomphe amer",
+      "scryfallId": "302f2806-d9bb-42e3-96ec-4e1f4772bc53"
+    },
+    {
+      "name": "Bitterblossom",
+      "oracleId": "fb868840-09fa-49b1-85cb-b08ad065e972",
+      "lang": "fr",
+      "printedName": "Âpre fleur",
+      "scryfallId": "167e63e4-4eb6-4097-800c-cb3e08881ebd"
+    },
+    {
+      "name": "Blackcleave Cliffs",
+      "oracleId": "5ad94412-6f79-4c5d-bbd4-4ef5779a7b6d",
+      "lang": "fr",
+      "printedName": "Falaises de Coupenoire",
+      "scryfallId": "098c5e7e-e685-4676-8d84-078db7dd7a16"
+    },
+    {
+      "name": "Blade of the Oni",
+      "oracleId": "6d9ac636-3c6c-40ca-90f3-1a3387836bb4",
+      "lang": "fr",
+      "printedName": "Lame des oni",
+      "scryfallId": "717a3a42-ee3d-467c-b869-a2d6232278e6"
+    },
+    {
+      "name": "Blade Splicer",
+      "oracleId": "194166ad-0179-42a3-86b9-ba7f322ec576",
+      "lang": "fr",
+      "printedName": "Épisseuse de lames",
+      "scryfallId": "92e716de-ae96-4466-b544-1cb8f70c74c2"
+    },
+    {
+      "name": "Blightsteel Colossus",
+      "oracleId": "e80772e2-8623-4094-81a2-70828b2b151c",
+      "lang": "fr",
+      "printedName": "Colosse de pestacier",
+      "scryfallId": "43456e8f-fb85-4c6b-a3fb-3f217f1f0c99"
+    },
+    {
+      "name": "Blood Crypt",
+      "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
+      "lang": "fr",
+      "printedName": "Crypte de sang",
+      "scryfallId": "4215cab3-2ba1-4253-b61d-86769a6c385c"
+    },
+    {
+      "name": "Bloodbraid Challenger",
+      "oracleId": "6e111622-c7cc-49cf-83e8-3555e06518c1",
+      "lang": "fr",
+      "printedName": "Défieur aux Nattes sanguinolentes",
+      "scryfallId": "cee9988f-2b4b-4ee2-9d01-5841bbbc09df"
+    },
+    {
+      "name": "Bloodchief's Thirst",
+      "oracleId": "4236851b-5366-43a1-bde4-f525b4fbcbce",
+      "lang": "fr",
+      "printedName": "Soif de la chef de sang",
+      "scryfallId": "b0ad2b97-0663-4f59-a9fa-1c1b5b1e40f7"
+    },
+    {
+      "name": "Bloodghast",
+      "oracleId": "e97f9c2b-b41e-4f36-9245-77c0ac125647",
+      "lang": "fr",
+      "printedName": "Exécration de sang",
+      "scryfallId": "43d77195-d985-451b-95f3-b5d97ec2ec4e"
+    },
+    {
+      "name": "Bloodstained Mire",
+      "oracleId": "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57",
+      "lang": "fr",
+      "printedName": "Fondrière sanguinolente",
+      "scryfallId": "12f818ae-25a2-46f5-a8cb-11384087e2ea"
+    },
+    {
+      "name": "Bloodthirsty Adversary",
+      "oracleId": "3b943c3e-1f18-4997-b6d0-28ef75aed88e",
+      "lang": "fr",
+      "printedName": "Adversaire assoiffée de sang",
+      "scryfallId": "10ca06ed-e846-424a-b30e-e7135186f570"
+    },
+    {
+      "name": "Bloodtithe Harvester",
+      "oracleId": "419a8ab2-cff6-4811-a559-8791c9bb3d8e",
+      "lang": "fr",
+      "printedName": "Moissonneur de la dîme de sang",
+      "scryfallId": "74ca3941-b561-42b5-b343-bdee6febe059"
+    },
+    {
+      "name": "Bolas's Citadel",
+      "oracleId": "2bd111bb-ce02-414c-b5b7-e0e037d8d96b",
+      "lang": "fr",
+      "printedName": "Citadelle de Bolas",
+      "scryfallId": "63e86c7b-074e-4b31-8e1b-583083ba9123"
+    },
+    {
+      "name": "Bomat Courier",
+      "oracleId": "a88f3881-4f43-4473-965f-f5c24ae5752f",
+      "lang": "fr",
+      "printedName": "Messager de Bomat",
+      "scryfallId": "9319bbb7-5b05-4047-af1e-22238d60ef4d"
+    },
+    {
+      "name": "Bone Shards",
+      "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+      "lang": "fr",
+      "printedName": "Échardes d'os",
+      "scryfallId": "2937051e-e8fc-445f-9367-a4100c545b32"
+    },
+    {
+      "name": "Bonecrusher Giant",
+      "oracleId": "d6d72f5f-8f5d-4180-b514-f22ff5482902",
+      "lang": "fr",
+      "printedName": "Géant craque-os",
+      "scryfallId": "731320be-7f8e-49d6-8f1b-410310fbfbb5"
+    },
+    {
+      "name": "Bonecrusher Giant",
+      "oracleId": "d6d72f5f-8f5d-4180-b514-f22ff5482902",
+      "lang": "fr",
+      "printedName": "Piétineur",
+      "scryfallId": "731320be-7f8e-49d6-8f1b-410310fbfbb5"
+    },
+    {
+      "name": "Bonehoard Dracosaur",
+      "oracleId": "7ba550a5-81fc-42c2-8df8-ad455d938605",
+      "lang": "fr",
+      "printedName": "Dracosaure entasseur d'os",
+      "scryfallId": "0776b105-1766-4d9e-86ac-25821ab967cd"
+    },
+    {
+      "name": "Bonny Pall, Clearcutter",
+      "oracleId": "fcb811a8-c6e6-4bc4-b64b-8963a7183669",
+      "lang": "fr",
+      "printedName": "Bonny Pall, bûcheronne",
+      "scryfallId": "2091ce62-77f2-4e30-b435-5dfa99e3bc49"
+    },
+    {
+      "name": "Boogie Bomb",
+      "oracleId": "2c10cae2-951a-4f4f-94e4-8713b58d07dd",
+      "lang": "fr",
+      "printedName": "Bombe à sortilèges de pyrite",
+      "scryfallId": "757e89d1-26a9-4afb-a3e8-29b2b02bbb8f"
+    },
+    {
+      "name": "Boseiju, Who Endures",
+      "oracleId": "bf1341dd-41a3-49f6-87ec-63170dde4324",
+      "lang": "fr",
+      "printedName": "Boseiju, celui qui résiste",
+      "scryfallId": "3017be1f-bf39-49c7-be50-3c72b8488e20"
+    },
+    {
+      "name": "Brain Freeze",
+      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+      "lang": "fr",
+      "printedName": "Blocage cérébral",
+      "scryfallId": "f0f15cb9-ef7f-4ba2-8ff5-17b13d661750"
+    },
+    {
+      "name": "Brain Freeze",
+      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+      "lang": "fr",
+      "printedName": "Congélation cérébrale",
+      "scryfallId": "01474bf6-d17a-441e-81c4-b77000f05d3c"
+    },
+    {
+      "name": "Brainstorm",
+      "oracleId": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
+      "lang": "fr",
+      "printedName": "Remue-méninges",
+      "scryfallId": "023081e6-4033-49c8-aa5f-2848132a2b24"
+    },
+    {
+      "name": "Brazen Borrower",
+      "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
+      "lang": "fr",
+      "printedName": "Brazen Borrower",
+      "scryfallId": "4608f31f-d509-4b0c-8456-1857aacb2ed7"
+    },
+    {
+      "name": "Brazen Borrower",
+      "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
+      "lang": "fr",
+      "printedName": "Chapardage",
+      "scryfallId": "003ceff6-d8a0-4ac6-a1f2-64553b230f06"
+    },
+    {
+      "name": "Brazen Borrower",
+      "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
+      "lang": "fr",
+      "printedName": "Emprunteur intrépide",
+      "scryfallId": "003ceff6-d8a0-4ac6-a1f2-64553b230f06"
+    },
+    {
+      "name": "Breeding Pool",
+      "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
+      "lang": "fr",
+      "printedName": "Bassin d'élevage",
+      "scryfallId": "2f6152bc-e444-4b93-baec-9eb578561735"
+    },
+    {
+      "name": "Breya's Apprentice",
+      "oracleId": "8fb9ff2d-1e90-4a26-8397-bb981fda2f7b",
+      "lang": "fr",
+      "printedName": "Apprenti de Breya",
+      "scryfallId": "75a668b6-51c7-4f9e-9158-8077abce9f96"
+    },
+    {
+      "name": "Bribery",
+      "oracleId": "6d194882-ca37-49bb-ac9f-a751c53850a8",
+      "lang": "fr",
+      "printedName": "Subornation",
+      "scryfallId": "0d531be7-6264-4acc-aefa-16e4fad7c9a8"
+    },
+    {
+      "name": "Broadside Bombardiers",
+      "oracleId": "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
+      "lang": "fr",
+      "printedName": "Bombardiers latéraux",
+      "scryfallId": "c49b77f0-86ca-4eee-98d4-7cfeb0569bd5"
+    },
+    {
+      "name": "Brotherhood's End",
+      "oracleId": "fe7bf8ca-88ae-4c6d-8d71-ef170a87c0d0",
+      "lang": "fr",
+      "printedName": "Fin de la fraternité",
+      "scryfallId": "02c72ba9-71bf-437f-b2d8-3406e0d8c86b"
+    },
+    {
+      "name": "Brutal Cathar",
+      "oracleId": "1ed2d8e0-462b-468e-8fd3-1f3c6d99fb8a",
+      "lang": "fr",
+      "printedName": "Cathare brutal",
+      "scryfallId": "f69d3798-c66f-4eb9-8d1a-f1f85d78ca5f"
+    },
+    {
+      "name": "Brutal Cathar",
+      "oracleId": "1ed2d8e0-462b-468e-8fd3-1f3c6d99fb8a",
+      "lang": "fr",
+      "printedName": "Furielune brutal",
+      "scryfallId": "f69d3798-c66f-4eb9-8d1a-f1f85d78ca5f"
+    },
+    {
+      "name": "Burning-Tree Emissary",
+      "oracleId": "327d9679-0049-4401-8dab-e0fb362306bd",
+      "lang": "fr",
+      "printedName": "Émissaire de Brûle-Arbre",
+      "scryfallId": "0f2b7ae9-8da9-495c-9002-896f52200a6c"
+    },
+    {
+      "name": "Cabal Ritual",
+      "oracleId": "5b5bf1fa-6502-4790-b66b-f0f8504ebc7c",
+      "lang": "fr",
+      "printedName": "Messe de la Coterie",
+      "scryfallId": "d55fedb2-dc32-4a27-9822-e8c519429ed5"
+    },
+    {
+      "name": "Cathar Commando",
+      "oracleId": "774dce79-67e0-4820-8013-c7a7347993ce",
+      "lang": "fr",
+      "printedName": "Commando cathare",
+      "scryfallId": "39d0d720-b6b5-43d8-a93f-a3c7dbbfcdf9"
+    },
+    {
+      "name": "Caustic Bronco",
+      "oracleId": "165bdc68-1da0-47db-a069-978fc4c04b3f",
+      "lang": "fr",
+      "printedName": "Bronco caustique",
+      "scryfallId": "b81f6ede-167a-4fee-8d65-f3dbf1782ba0"
+    },
+    {
+      "name": "Caves of Chaos Adventurer",
+      "oracleId": "e4d2dcbb-9910-482e-9e46-dfed2097509b",
+      "lang": "fr",
+      "printedName": "Aventurière des Cavernes du Chaos",
+      "scryfallId": "7497af2a-4cc2-4951-928e-3fce81d15c3a"
+    },
+    {
+      "name": "Chain Lightning",
+      "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+      "lang": "fr",
+      "printedName": "Chaîne d'éclairs",
+      "scryfallId": "34a062d3-48db-42b5-b403-7540e5fc9617"
+    },
+    {
+      "name": "Chandra, Torch of Defiance",
+      "oracleId": "12cc800c-c7be-4811-8207-fd01a99cc892",
+      "lang": "fr",
+      "printedName": "Chandra, torche de la défiance",
+      "scryfallId": "8b54f465-702f-4497-bf3b-0c4642e5dd66"
+    },
+    {
+      "name": "Channel",
+      "oracleId": "d1b815d1-2848-40d4-a555-66822d1becbc",
+      "lang": "fr",
+      "printedName": "Transfert",
+      "scryfallId": "80f2c017-3fe4-4ff7-a8af-2ddf257c8bca"
+    },
+    {
+      "name": "Chaos Defiler",
+      "oracleId": "eba7ef08-f444-4d23-92b8-29d2ac08b156",
+      "lang": "fr",
+      "printedName": "Defiler du Chaos",
+      "scryfallId": "1a06f479-b20e-4dfb-9948-6d3cd88fd226"
+    },
+    {
+      "name": "Charming Prince",
+      "oracleId": "c48d844c-3976-4fa5-8e0d-3f0e535e7619",
+      "lang": "fr",
+      "printedName": "Prince charmant",
+      "scryfallId": "7ae85171-540c-4264-9f41-3130032043b4"
+    },
+    {
+      "name": "Chart a Course",
+      "oracleId": "05878e49-93ad-4144-9c50-a0bb86126c2e",
+      "lang": "fr",
+      "printedName": "Tracer un cap",
+      "scryfallId": "385ad1ac-b1ca-4bd8-85e2-396883697e47"
+    },
+    {
+      "name": "Chromatic Lantern",
+      "oracleId": "539f5396-d99a-417d-a84c-dff7930b5900",
+      "lang": "fr",
+      "printedName": "Lanterne chromatique",
+      "scryfallId": "2d6b4d9d-c4a4-4675-af85-b3bd5810eeef"
+    },
+    {
+      "name": "Chromatic Sphere",
+      "oracleId": "2e03e44a-9fff-4490-859f-b42e89e8563a",
+      "lang": "fr",
+      "printedName": "Sphère chromatique",
+      "scryfallId": "2475de54-8b01-420f-b25e-187d920d513e"
+    },
+    {
+      "name": "Chromatic Star",
+      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+      "lang": "fr",
+      "printedName": "Étoile chromatique",
+      "scryfallId": "557cd253-652d-4373-bae0-2ab03fda998a"
+    },
+    {
+      "name": "Chrome Mox",
+      "oracleId": "ec3d4466-547c-4e02-b1b5-a156ec4637e9",
+      "lang": "fr",
+      "printedName": "Mox de chrome",
+      "scryfallId": "12e5714f-92d8-4427-a56b-042c7ca80088"
+    },
+    {
+      "name": "Circuit Mender",
+      "oracleId": "1665ca9f-176d-40f1-a4e9-42da4f1236e9",
+      "lang": "fr",
+      "printedName": "Relieur de circuits",
+      "scryfallId": "4724af04-cef2-4b85-92a9-003b6201ff08"
+    },
+    {
+      "name": "City of Brass",
+      "oracleId": "f25351e3-539b-4bbc-b92d-6480acf4d722",
+      "lang": "fr",
+      "printedName": "Cité d'airain",
+      "scryfallId": "008ac738-013c-4c71-9944-9b4a50406526"
+    },
+    {
+      "name": "Cityscape Leveler",
+      "oracleId": "d4d65797-2b92-4265-9169-133120c86c7f",
+      "lang": "fr",
+      "printedName": "Lisseur de métropole",
+      "scryfallId": "1c1f8bd5-70a6-438e-8fa5-72aed475051a"
+    },
+    {
+      "name": "Coalition Relic",
+      "oracleId": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
+      "lang": "fr",
+      "printedName": "Relique de la Coalition",
+      "scryfallId": "1f9961b1-a7fe-4321-9812-feb03b87e79f"
+    },
+    {
+      "name": "Coercive Portal",
+      "oracleId": "eea4feef-2595-4ed2-92a0-11ccb3e7d40e",
+      "lang": "fr",
+      "printedName": "Portail coercitif",
+      "scryfallId": "1fe537af-d4aa-4c62-a823-b3dc4b65bf00"
+    },
+    {
+      "name": "Collective Brutality",
+      "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
+      "lang": "fr",
+      "printedName": "Brutalité collective",
+      "scryfallId": "36a83ad6-e519-4839-9c08-d7fa6f95f677"
+    },
+    {
+      "name": "Collective Defiance",
+      "oracleId": "43ddc3e8-936b-4be0-9e64-484bbbd69016",
+      "lang": "fr",
+      "printedName": "Défiance collective",
+      "scryfallId": "33c3eb6f-cfad-41c6-8e9d-7e69799486c6"
+    },
+    {
+      "name": "Commercial District",
+      "oracleId": "b33656ae-3473-4223-845f-f9147f87678b",
+      "lang": "fr",
+      "printedName": "Quartier commercial",
+      "scryfallId": "4c00f802-6f9b-447e-a703-30ee799575da"
+    },
+    {
+      "name": "Compulsive Research",
+      "oracleId": "f947808c-a1cc-41ea-9d06-e1279a0da527",
+      "lang": "fr",
+      "printedName": "Recherche compulsive",
+      "scryfallId": "40f9d525-6e7a-416d-835e-a3a745e644d9"
+    },
+    {
+      "name": "Conduit of Worlds",
+      "oracleId": "ed14be15-8f8d-4fe3-a147-f5da8ed873bf",
+      "lang": "fr",
+      "printedName": "Conduit des mondes",
+      "scryfallId": "312b58f0-da4b-49a6-91dd-7cd1eaf1bed4"
+    },
+    {
+      "name": "Containment Priest",
+      "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+      "lang": "fr",
+      "printedName": "Prêtresse du confinement",
+      "scryfallId": "36ff6681-f6ba-4f6d-93d1-659874191f8e"
+    },
+    {
+      "name": "Copperline Gorge",
+      "oracleId": "a05f641c-15c9-43dc-ae0d-1ea372fd33d5",
+      "lang": "fr",
+      "printedName": "Gorge de Lignecuivre",
+      "scryfallId": "19048969-a611-4557-878e-1fa72e302142"
+    },
+    {
+      "name": "Corpse Dance",
+      "oracleId": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
+      "lang": "fr",
+      "printedName": "Danse des cadavres",
+      "scryfallId": "18c8b318-9562-417d-9557-bf82e5ce4116"
+    },
+    {
+      "name": "Council's Judgment",
+      "oracleId": "acf4d685-a718-42f7-9a7a-dee069ae8db2",
+      "lang": "fr",
+      "printedName": "Jugement selon le Conseil",
+      "scryfallId": "01f48635-3b10-4034-9d6f-2c32a39d90b2"
+    },
+    {
+      "name": "Counterspell",
+      "oracleId": "cc187110-1148-4090-bbb8-e205694a39f5",
+      "lang": "fr",
+      "printedName": "Contresort",
+      "scryfallId": "00622151-6852-43d3-b825-02b4a2c0cbd5"
+    },
+    {
+      "name": "Courser of Kruphix",
+      "oracleId": "46779609-4fa7-4fd2-b5b4-7d4d749339e6",
+      "lang": "fr",
+      "printedName": "Coursière de Kruphix",
+      "scryfallId": "23e47e07-bf67-4f06-89b7-34d8fbc2e689"
+    },
+    {
+      "name": "Coveted Jewel",
+      "oracleId": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
+      "lang": "fr",
+      "printedName": "Joyau convoité",
+      "scryfallId": "397f1169-2ffa-41c6-ab4d-b1794771a137"
+    },
+    {
+      "name": "Crabomination",
+      "oracleId": "5c26c30b-bc4a-4d20-8406-ef9022256e0d",
+      "lang": "fr",
+      "printedName": "Crabomination",
+      "scryfallId": "c1e9aca8-5e3c-4d64-a139-66eb2b95c5b9"
+    },
+    {
+      "name": "Craterhoof Behemoth",
+      "oracleId": "8c52bd39-0586-48ca-b263-17210cf9feb6",
+      "lang": "fr",
+      "printedName": "Béhémoth caveur de cratères",
+      "scryfallId": "35ee9fd9-1734-47b7-bbb2-9fa1e1a841df"
+    },
+    {
+      "name": "Crucible of Worlds",
+      "oracleId": "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
+      "lang": "fr",
+      "printedName": "Creuset des mondes",
+      "scryfallId": "24928431-da3c-4782-8d94-50063c5b4235"
+    },
+    {
+      "name": "Cryptic Coat",
+      "oracleId": "73b8adea-1786-44fc-b190-bf240b07f5b6",
+      "lang": "fr",
+      "printedName": "Manteau cryptique",
+      "scryfallId": "044ae766-2080-421e-b4cd-a88226fbb567"
+    },
+    {
+      "name": "Cryptic Command",
+      "oracleId": "a3e51a35-09df-4189-b131-08a21e6a557d",
+      "lang": "fr",
+      "printedName": "Commandement cryptique",
+      "scryfallId": "3640e014-79c5-46ff-b365-dafb45f41641"
+    },
+    {
+      "name": "Cultivator's Caravan",
+      "oracleId": "c1eb530c-dd36-40ae-8617-6bb6969565e1",
+      "lang": "fr",
+      "printedName": "Caravane de cultivateur",
+      "scryfallId": "493daa3f-fcbc-408c-b4e9-400749a5e4e5"
+    },
+    {
+      "name": "Currency Converter",
+      "oracleId": "981298e6-ddee-49c0-9377-f47f019b4138",
+      "lang": "fr",
+      "printedName": "Convertisseur de devises",
+      "scryfallId": "14ef6a28-9671-420d-aef2-c09e01af529a"
+    },
+    {
+      "name": "Custodi Lich",
+      "oracleId": "0d95ee14-9ff0-4d7f-be56-361a500ce36f",
+      "lang": "fr",
+      "printedName": "Liche des Custodi",
+      "scryfallId": "1c938675-251e-4fea-b341-da36a76b85ae"
+    },
+    {
+      "name": "Cyclonic Rift",
+      "oracleId": "d75b9c82-1b49-4c3e-a1b5-aeef57d6644b",
+      "lang": "fr",
+      "printedName": "Faille cyclonique",
+      "scryfallId": "125084ff-43fc-418f-843b-0c1b8865d84e"
+    },
+    {
+      "name": "Damn",
+      "oracleId": "b01d61cc-9844-4191-86a0-f2db6d42d6e5",
+      "lang": "fr",
+      "printedName": "Damner",
+      "scryfallId": "222acf18-e1cc-4144-9cbf-749e2de8ddbc"
+    },
+    {
+      "name": "Damnation",
+      "oracleId": "d57a8f0b-7989-4db5-8756-6f2690097252",
+      "lang": "fr",
+      "printedName": "Damnation",
+      "scryfallId": "68f71585-fd10-4cb5-80dc-9adf1e3b6821"
+    },
+    {
+      "name": "Daretti, Scrap Savant",
+      "oracleId": "ea9f4de3-fc35-435a-8dff-a5657d14a9bd",
+      "lang": "fr",
+      "printedName": "Daretti, savant ferrailleur",
+      "scryfallId": "37f7b796-88c1-4083-953b-d1f8f9911270"
+    },
+    {
+      "name": "Dark Confidant",
+      "oracleId": "2068185c-1b50-47d0-aa3f-bf505d199428",
+      "lang": "fr",
+      "printedName": "Obscur confident",
+      "scryfallId": "1007dc5d-aae4-4dd7-a8c5-1afcf82d6912"
+    },
+    {
+      "name": "Dark Depths",
+      "oracleId": "c9b82110-7dfd-4617-9399-9510be449043",
+      "lang": "fr",
+      "printedName": "Profondeurs obscures",
+      "scryfallId": "0df213dd-12c5-40c4-95ae-260738be3b15"
+    },
+    {
+      "name": "Dark Ritual",
+      "oracleId": "53f7c868-b03e-4fc2-8dcf-a75bbfa3272b",
+      "lang": "fr",
+      "printedName": "Messe noire",
+      "scryfallId": "16ed3e8c-6f36-41d5-a13a-86b447f73d1a"
+    },
+    {
+      "name": "Darkslick Shores",
+      "oracleId": "a2b48695-f7d7-42ce-a8a0-2a723428542a",
+      "lang": "fr",
+      "printedName": "Rivages de Nappenoire",
+      "scryfallId": "2c28f3a4-b2c8-47c8-805e-ea71f4c5dbfd"
+    },
+    {
+      "name": "Darkstar Augur",
+      "oracleId": "67d2a021-a042-4e5f-b6e4-39cb35514794",
+      "lang": "fr",
+      "printedName": "Augure sombrétoile",
+      "scryfallId": "3e07efd1-95b5-445a-bd99-a1adc59cf6c6"
+    },
+    {
+      "name": "Dauthi Voidwalker",
+      "oracleId": "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
+      "lang": "fr",
+      "printedName": "Marchevide dauthi",
+      "scryfallId": "0273af33-0671-4683-b9a4-3759f4695af3"
+    },
+    {
+      "name": "Day of Judgment",
+      "oracleId": "d057289d-5e28-43d5-8ff3-4a1bc723477d",
+      "lang": "fr",
+      "printedName": "Jour de condamnation",
+      "scryfallId": "08a20447-228b-4bb7-940e-1fa11821de0c"
+    },
+    {
+      "name": "Daze",
+      "oracleId": "70486bee-6ee7-41ea-b834-8caf4699302b",
+      "lang": "fr",
+      "printedName": "Hébétude",
+      "scryfallId": "72ba3900-bdfa-4dfb-857f-f0cadb4a5d6b"
+    },
+    {
+      "name": "Death-Greeter's Champion",
+      "oracleId": "81abb451-5ee0-4f90-bacc-a8ff69726a27",
+      "lang": "fr",
+      "printedName": "Champion de la salueuse-de-mort",
+      "scryfallId": "98010668-ec55-4475-8a46-f914d9739913"
+    },
+    {
+      "name": "Deathrite Shaman",
+      "oracleId": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+      "lang": "fr",
+      "printedName": "Shamane ritemort",
+      "scryfallId": "78ace0c8-e4f0-40ab-88a0-c2f01623fcc9"
+    },
+    {
+      "name": "Deceiver Exarch",
+      "oracleId": "3c939ea6-68b7-4965-b1d3-af1d3dc79778",
+      "lang": "fr",
+      "printedName": "Exarque fourbe",
+      "scryfallId": "195edee3-3329-4847-857f-9a589a7874c6"
+    },
+    {
+      "name": "Deep-Cavern Bat",
+      "oracleId": "e46f6644-6bf1-47b1-817c-906bd3eca99f",
+      "lang": "fr",
+      "printedName": "Chauve-souris des profondeurs",
+      "scryfallId": "b19e7332-3e1d-49cd-9f05-aa79f0764fb9"
+    },
+    {
+      "name": "Delayed Blast Fireball",
+      "oracleId": "99915b5a-5092-4900-8824-6de2aab1b2c1",
+      "lang": "fr",
+      "printedName": "Boule de feu à retardement",
+      "scryfallId": "3d089973-a8a6-471d-b776-6950337f08a3"
+    },
+    {
+      "name": "Delighted Halfling",
+      "oracleId": "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+      "lang": "fr",
+      "printedName": "Halfeline ravie",
+      "scryfallId": "0037b8c1-19f6-4c82-a775-41090777e20a"
+    },
+    {
+      "name": "Demand Answers",
+      "oracleId": "c11e84a1-dbda-429b-8cd6-fd0deaefc689",
+      "lang": "fr",
+      "printedName": "Exiger des réponses",
+      "scryfallId": "61188fae-d4c9-4695-946f-10574e7d444b"
+    },
+    {
+      "name": "Demonic Tutor",
+      "oracleId": "82004860-e589-4e38-8d61-8c0210e4ea39",
+      "lang": "fr",
+      "printedName": "Précepteur diabolique",
+      "scryfallId": "1c6f5acc-a809-46ca-b802-63127fd25ebc"
+    },
+    {
+      "name": "Desperate Ritual",
+      "oracleId": "3620ab8f-b693-4225-bb96-5ca3cb3fa465",
+      "lang": "fr",
+      "printedName": "Rituel de désespoir",
+      "scryfallId": "89363b86-afe9-497e-840d-92f49c09fa8f"
+    },
+    {
+      "name": "Detective's Phoenix",
+      "oracleId": "52c3fe55-74ee-44cb-b62b-dc6c5dfdc33e",
+      "lang": "fr",
+      "printedName": "Phénix du détective",
+      "scryfallId": "2967c44f-2407-47de-b920-2b9b0f2a6277"
+    },
+    {
+      "name": "Devoted Druid",
+      "oracleId": "cb814e16-acf7-41d5-a357-1323dcc369f3",
+      "lang": "fr",
+      "printedName": "Druidesse dévouée",
+      "scryfallId": "4bfb6ae1-65bb-4b7b-8c20-37eceab94894"
+    },
+    {
+      "name": "Diabolic Servitude",
+      "oracleId": "e275cbfb-3d25-4189-84f0-3162eadc7d65",
+      "lang": "fr",
+      "printedName": "Servitude diabolique",
+      "scryfallId": "594808ae-76f5-4f4b-85bc-ebe7bd1c6a49"
+    },
+    {
+      "name": "Dig Through Time",
+      "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640",
+      "lang": "fr",
+      "printedName": "Fouille temporelle",
+      "scryfallId": "246ad783-2f61-4181-9197-c42d58539afe"
+    },
+    {
+      "name": "Dire Fleet Daredevil",
+      "oracleId": "7a3e50a5-c163-4c41-b62d-d52c233c55b7",
+      "lang": "fr",
+      "printedName": "Casse-cou de la Flotte implacable",
+      "scryfallId": "550e5b16-c281-40c6-85d3-5902e001ef29"
+    },
+    {
+      "name": "Disciple of Freyalise",
+      "oracleId": "2699005b-a471-429f-a9d8-fbf2077ee2fd",
+      "lang": "fr",
+      "printedName": "Disciple de Freyalise",
+      "scryfallId": "b1622bce-3504-47ef-8e53-1fd9b2e41491"
+    },
+    {
+      "name": "Disciple of Freyalise",
+      "oracleId": "2699005b-a471-429f-a9d8-fbf2077ee2fd",
+      "lang": "fr",
+      "printedName": "Jardin de Freyalise",
+      "scryfallId": "b1622bce-3504-47ef-8e53-1fd9b2e41491"
+    },
+    {
+      "name": "Dismember",
+      "oracleId": "fd74f8eb-0253-42dd-8277-186d4934da38",
+      "lang": "fr",
+      "printedName": "Dislocation",
+      "scryfallId": "18179649-4097-4d1e-95bb-949e6b0efc95"
+    },
+    {
+      "name": "Displacer Kitten",
+      "oracleId": "09ef446c-a13d-49d9-a94c-cd5f5a2d440b",
+      "lang": "fr",
+      "printedName": "Chaton éclipsant",
+      "scryfallId": "07ff7d62-15fc-4b87-8b62-4b076bd0a486"
+    },
+    {
+      "name": "Dragon's Rage Channeler",
+      "oracleId": "0c016ccc-a341-4b76-87ba-69c639d2746d",
+      "lang": "fr",
+      "printedName": "Canaliseuse de la rage du dragon",
+      "scryfallId": "56b7a6cd-6b00-4796-a4d7-c0cd53ef33df"
+    },
+    {
+      "name": "Dragonlord Atarka",
+      "oracleId": "daff70a4-a990-47c9-b6ef-2c379272c8a3",
+      "lang": "fr",
+      "printedName": "Atarka, seigneur-dragon",
+      "scryfallId": "17248c81-545c-4d4a-a992-b19a7091cfae"
+    },
+    {
+      "name": "Dread Wanderer",
+      "oracleId": "88154d64-221f-4742-bccb-b1b61a2e8bf0",
+      "lang": "fr",
+      "printedName": "Vagabond effroyable",
+      "scryfallId": "e7cb0fb0-5bd2-4a2b-a518-a893373805ba"
+    },
+    {
+      "name": "Dryad of the Ilysian Grove",
+      "oracleId": "bdbde5d0-f5e4-44da-b27c-b4ad6f374cc9",
+      "lang": "fr",
+      "printedName": "Dryade du bosquet ilyséen",
+      "scryfallId": "469511ff-06ba-4853-9374-a5399160d3fc"
+    },
+    {
+      "name": "Dualcaster Mage",
+      "oracleId": "8eb7c0a5-6190-40de-b473-2d1daa3bbe28",
+      "lang": "fr",
+      "printedName": "Mage ambisort",
+      "scryfallId": "08a51658-f8dc-465e-83cb-74adfbc08213"
+    },
+    {
+      "name": "Duress",
+      "oracleId": "33d405ea-7a9a-4970-b70f-9c05d90dd6f0",
+      "lang": "fr",
+      "printedName": "Contrainte",
+      "scryfallId": "052490e2-a07f-45b7-ac48-5afee13c062e"
+    },
+    {
+      "name": "Duskwatch Recruiter",
+      "oracleId": "87c43776-dd98-4e12-9b95-82d2b8f4f1ab",
+      "lang": "fr",
+      "printedName": "Hurleur Krallenhorde",
+      "scryfallId": "71d41a5a-eb2d-43b9-ba7a-205828b7dc5a"
+    },
+    {
+      "name": "Duskwatch Recruiter",
+      "oracleId": "87c43776-dd98-4e12-9b95-82d2b8f4f1ab",
+      "lang": "fr",
+      "printedName": "Recruteur de la garde crépusculaire",
+      "scryfallId": "71d41a5a-eb2d-43b9-ba7a-205828b7dc5a"
+    },
+    {
+      "name": "Eagles of the North",
+      "oracleId": "e519cebf-0f09-4da9-abef-82928738514d",
+      "lang": "fr",
+      "printedName": "Aigles du nord",
+      "scryfallId": "45cb14c7-75dd-47f1-aae0-1df4582bd87f"
+    },
+    {
+      "name": "Echo of Eons",
+      "oracleId": "23d3e5fe-3f82-44cf-91a1-6646a12a0255",
+      "lang": "fr",
+      "printedName": "Écho des éons",
+      "scryfallId": "f9a6de5f-cd4c-4acf-bc77-35a302f46147"
+    },
+    {
+      "name": "Elegant Parlor",
+      "oracleId": "9ea747cf-5d04-4aa7-bdc3-8145860cd1ba",
+      "lang": "fr",
+      "printedName": "Petit salon élégant",
+      "scryfallId": "321a4989-5bdd-4b14-896d-fc2f8a63cb89"
+    },
+    {
+      "name": "Elemental Eruption",
+      "oracleId": "8629fdef-dbbe-4a97-a7e1-6b1646f4ca0b",
+      "lang": "fr",
+      "printedName": "Éruption élémentaire",
+      "scryfallId": "0c90192d-6d88-45f6-8c93-3737416552cd"
+    },
+    {
+      "name": "Elite Spellbinder",
+      "oracleId": "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
+      "lang": "fr",
+      "printedName": "Entrave-sort d'élite",
+      "scryfallId": "40e1d7f2-bc58-482e-81f8-94673d4834b2"
+    },
+    {
+      "name": "Elspeth Conquers Death",
+      "oracleId": "40c88392-2aa7-4e12-86a4-8d680219e670",
+      "lang": "fr",
+      "printedName": "Elspeth conquiert la Mort",
+      "scryfallId": "81add879-7c3f-4236-b481-b2e7afe0781c"
+    },
+    {
+      "name": "Elspeth, Knight-Errant",
+      "oracleId": "eab0d8b9-c66f-402f-b259-f46f15cefd78",
+      "lang": "fr",
+      "printedName": "Elspeth, chevalière errante",
+      "scryfallId": "26841190-bafe-43dd-9839-8482f599f9a0"
+    },
+    {
+      "name": "Elvish Mystic",
+      "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+      "lang": "fr",
+      "printedName": "Mystique elfe",
+      "scryfallId": "21695f5d-c706-4c46-b9b8-0248b2af634d"
+    },
+    {
+      "name": "Elvish Reclaimer",
+      "oracleId": "94f01534-7bb3-4b1e-8f77-e84156408686",
+      "lang": "fr",
+      "printedName": "Recouvreur elfe",
+      "scryfallId": "6d93cb45-48ed-41b7-9925-022a4b2cffc7"
+    },
+    {
+      "name": "Embereth Shieldbreaker",
+      "oracleId": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
+      "lang": "fr",
+      "printedName": "Brise-bouclier de Braisereth",
+      "scryfallId": "22d9af95-ffee-43ee-9dce-644224270d45"
+    },
+    {
+      "name": "Embereth Shieldbreaker",
+      "oracleId": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
+      "lang": "fr",
+      "printedName": "Démonstration de combat",
+      "scryfallId": "22d9af95-ffee-43ee-9dce-644224270d45"
+    },
+    {
+      "name": "Emberwilde Captain",
+      "oracleId": "4f4ec0fa-fcaf-4dc2-9c67-ee7881f5f77d",
+      "lang": "fr",
+      "printedName": "Capitaine de Folbraise",
+      "scryfallId": "797b660b-b9d6-4120-8175-796fabf071be"
+    },
+    {
+      "name": "Emperor of Bones",
+      "oracleId": "cb70a360-898e-443a-b053-38e35ea2baa2",
+      "lang": "fr",
+      "printedName": "Empereur d'os",
+      "scryfallId": "876497ce-6b8f-41a3-b08a-af00e3a754d1"
+    },
+    {
+      "name": "Emrakul, the Aeons Torn",
+      "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
+      "lang": "fr",
+      "printedName": "Emrakul, Déchirure des Éons",
+      "scryfallId": "8174455d-6d76-4df2-b051-1d124577f1ec"
+    },
+    {
+      "name": "Emrakul, the Promised End",
+      "oracleId": "4e7a8817-1a66-45c3-ade9-eac79b40b89f",
+      "lang": "fr",
+      "printedName": "Emrakul, la Fin promise",
+      "scryfallId": "a937b5c7-587e-4128-8c7f-ca75f7eee2d8"
+    },
+    {
+      "name": "Emry, Lurker of the Loch",
+      "oracleId": "da3e7d3d-2ca0-40c3-9602-fca37c92f507",
+      "lang": "fr",
+      "printedName": "Emry, guetteuse du loch",
+      "scryfallId": "08cd6394-1c66-49a4-b33d-072d02001bee"
+    },
+    {
+      "name": "Endurance",
+      "oracleId": "c85d824b-c190-4d04-ab99-918ad0e6516c",
+      "lang": "fr",
+      "printedName": "Résilience",
+      "scryfallId": "005eab95-af0e-4e36-a6b3-1ff28c411577"
+    },
+    {
+      "name": "Enduring Innocence",
+      "oracleId": "98a389f4-2905-47f3-b60e-3d4afb3e5cb0",
+      "lang": "fr",
+      "printedName": "Innocence perpétuelle",
+      "scryfallId": "24c87c9b-6d06-4f1b-9dfe-84359cc656a0"
+    },
+    {
+      "name": "Entomb",
+      "oracleId": "299fc083-0834-4064-8344-f895aff68867",
+      "lang": "fr",
+      "printedName": "Ensevelissement",
+      "scryfallId": "4ebc8f18-5703-4871-9220-4fc9e80fd607"
+    },
+    {
+      "name": "Ephemerate",
+      "oracleId": "0fd57894-b917-41c8-a394-360d1d31b236",
+      "lang": "fr",
+      "printedName": "Éphémérer",
+      "scryfallId": "63346711-64fe-4db3-ac62-ea8ec08d1b91"
+    },
+    {
+      "name": "Esika, God of the Tree",
+      "oracleId": "92023a5d-a143-4950-a71b-d736e6b8e959",
+      "lang": "fr",
+      "printedName": "Esika, déesse de l'Arbre",
+      "scryfallId": "6948fba3-b983-4f27-b0f9-b09a4acc5c5e"
+    },
+    {
+      "name": "Esika, God of the Tree",
+      "oracleId": "92023a5d-a143-4950-a71b-d736e6b8e959",
+      "lang": "fr",
+      "printedName": "Le pont prismatique",
+      "scryfallId": "6948fba3-b983-4f27-b0f9-b09a4acc5c5e"
+    },
+    {
+      "name": "Esika's Chariot",
+      "oracleId": "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+      "lang": "fr",
+      "printedName": "Chariot d'Esika",
+      "scryfallId": "1423441d-c592-4101-8596-c82e502b3e18"
+    },
+    {
+      "name": "Esper Sentinel",
+      "oracleId": "5def9f38-0a0b-4e8d-9f9d-29dcb46520b4",
+      "lang": "fr",
+      "printedName": "Sentinelle d'Esper",
+      "scryfallId": "39442c9d-458d-415f-94ca-2445652914f1"
+    },
+    {
+      "name": "Etali, Primal Conqueror",
+      "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+      "lang": "fr",
+      "printedName": "Etali, conquérant primordial",
+      "scryfallId": "4706c644-b9b9-4c4a-bb20-3341ab009e2a"
+    },
+    {
+      "name": "Etali, Primal Conqueror",
+      "oracleId": "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+      "lang": "fr",
+      "printedName": "Etali, mal primordial",
+      "scryfallId": "4706c644-b9b9-4c4a-bb20-3341ab009e2a"
+    },
+    {
+      "name": "Eternal Witness",
+      "oracleId": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+      "lang": "fr",
+      "printedName": "Témoin éternel",
+      "scryfallId": "1be64f36-ebe9-4a4f-b9bf-f6a9a0dc257c"
+    },
+    {
+      "name": "Evolved Sleeper",
+      "oracleId": "12367806-5924-485c-814a-5b67dd79235e",
+      "lang": "fr",
+      "printedName": "Dormeur évolué",
+      "scryfallId": "163a7336-a427-4623-b09f-9ac41f181a9e"
+    },
+    {
+      "name": "Exhume",
+      "oracleId": "fbe61f74-1b3c-4e12-8758-7029872c9ff1",
+      "lang": "fr",
+      "printedName": "Déterrement",
+      "scryfallId": "cfa6c1cc-66ea-4f9a-8a0b-9a5afb18594a"
+    },
+    {
+      "name": "Expedition Map",
+      "oracleId": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
+      "lang": "fr",
+      "printedName": "Carte d'expédition",
+      "scryfallId": "1623cade-1eda-4a47-9b6a-c81f580c96c2"
+    },
+    {
+      "name": "Explore",
+      "oracleId": "b8f566ea-8283-4afa-9ac8-737e26419283",
+      "lang": "fr",
+      "printedName": "Explorer",
+      "scryfallId": "0915504f-530c-41f2-b7a0-ad167b6f1a9e"
+    },
+    {
+      "name": "Expressive Iteration",
+      "oracleId": "c7aecca5-2f67-4245-ab2d-e723d8b23a67",
+      "lang": "fr",
+      "printedName": "Itération expressive",
+      "scryfallId": "15ecebd4-6c09-47ed-9c3e-bbfa9f2b3040"
+    },
+    {
+      "name": "Fable of the Mirror-Breaker",
+      "oracleId": "c0957e5e-c71b-439c-931c-9f55d2f76ace",
+      "lang": "fr",
+      "printedName": "Fable du brise-miroir",
+      "scryfallId": "a9f77209-aa7b-4936-9fb1-854db7e6f876"
+    },
+    {
+      "name": "Fable of the Mirror-Breaker",
+      "oracleId": "c0957e5e-c71b-439c-931c-9f55d2f76ace",
+      "lang": "fr",
+      "printedName": "Reflets de Kiki-Jiki",
+      "scryfallId": "a9f77209-aa7b-4936-9fb1-854db7e6f876"
+    },
+    {
+      "name": "Fabled Passage",
+      "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
+      "lang": "fr",
+      "printedName": "Passage merveilleux",
+      "scryfallId": "08723670-2638-49ab-b73b-c30cc081820f"
+    },
+    {
+      "name": "Faerie Mastermind",
+      "oracleId": "a984db23-40ea-428d-829f-e944267280f8",
+      "lang": "fr",
+      "printedName": "Érudit faerie",
+      "scryfallId": "29edf8ba-b846-448c-81be-c7eeb0c6c397"
+    },
+    {
+      "name": "Faerie Mastermind",
+      "oracleId": "a984db23-40ea-428d-829f-e944267280f8",
+      "lang": "fr",
+      "printedName": "Érudit færie",
+      "scryfallId": "b47411b1-c2dc-40f1-91f8-5ccf42775a9d"
+    },
+    {
+      "name": "Faithless Looting",
+      "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
+      "lang": "fr",
+      "printedName": "Pillage sans foi",
+      "scryfallId": "0188b95d-0f8b-465e-8592-1884d5c4af93"
+    },
+    {
+      "name": "Fallen Shinobi",
+      "oracleId": "4fc5f871-a809-4a4a-adfb-eb4cd52837c8",
+      "lang": "fr",
+      "printedName": "Shinobi déchu",
+      "scryfallId": "04ec5526-0914-435b-aa46-6555dfe6b90e"
+    },
+    {
+      "name": "Fanatic of Rhonas",
+      "oracleId": "7973820b-fdaf-46ec-9e3e-d4c0e77b5067",
+      "lang": "fr",
+      "printedName": "Fanatique de Rhonas",
+      "scryfallId": "11ae253d-a024-4370-95dd-6888b10653e1"
+    },
+    {
+      "name": "Farewell",
+      "oracleId": "4eb813fd-2d5a-4b02-8193-662681ef4e7d",
+      "lang": "fr",
+      "printedName": "Adieu",
+      "scryfallId": "0723100e-a111-4233-b514-3ee3964bb2f2"
+    },
+    {
+      "name": "Farseek",
+      "oracleId": "495e52e6-4c2b-4574-9474-eadbdcc8b4ac",
+      "lang": "fr",
+      "printedName": "Cherchauloin",
+      "scryfallId": "16643fc0-dcbc-4a58-b714-b1bcfdb0224a"
+    },
+    {
+      "name": "Fastbond",
+      "oracleId": "e27193b7-1a47-4555-865d-b1fd4c6d597f",
+      "lang": "fr",
+      "printedName": "Enchaînements",
+      "scryfallId": "1d0cd3f9-6ce3-47be-b98c-26b279989dda"
+    },
+    {
+      "name": "Fateful Absence",
+      "oracleId": "35bba442-1aec-4d33-b502-4c580d61644b",
+      "lang": "fr",
+      "printedName": "Absence fatidique",
+      "scryfallId": "3e95752c-cc16-4207-9907-73fefd0cf0e9"
+    },
+    {
+      "name": "Fauna Shaman",
+      "oracleId": "35b8fa77-4e85-418b-b335-cd1af127075c",
+      "lang": "fr",
+      "printedName": "Shamane de la faune",
+      "scryfallId": "94eea023-9c0f-411c-9bd8-29a7ba8da514"
+    },
+    {
+      "name": "Fear of Missing Out",
+      "oracleId": "236ce592-1321-4a7c-b695-fd84496f8924",
+      "lang": "fr",
+      "printedName": "Peur de rater quelque chose",
+      "scryfallId": "0e4deebf-6be0-4f43-83f3-719bcd04f162"
+    },
+    {
+      "name": "Fell the Profane",
+      "oracleId": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+      "lang": "fr",
+      "printedName": "Anéantir les profanes",
+      "scryfallId": "98b5b2b8-0319-4798-9a89-01f56899c27e"
+    },
+    {
+      "name": "Fell the Profane",
+      "oracleId": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+      "lang": "fr",
+      "printedName": "Fondrière sinistre",
+      "scryfallId": "98b5b2b8-0319-4798-9a89-01f56899c27e"
+    },
+    {
+      "name": "Fiery Confluence",
+      "oracleId": "3c22e031-4804-4c31-bd3c-c3f29d456b34",
+      "lang": "fr",
+      "printedName": "Confluence ardente",
+      "scryfallId": "0fee5f67-3c01-4824-bbe2-17c44aa8a72c"
+    },
+    {
+      "name": "Fiery Islet",
+      "oracleId": "026f4a4b-eedd-44e1-9d37-ca4fb8d6db98",
+      "lang": "fr",
+      "printedName": "Îlot ardent",
+      "scryfallId": "1d5135ba-dd71-4400-8903-ae1b3602f975"
+    },
+    {
+      "name": "Figure of Destiny",
+      "oracleId": "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
+      "lang": "fr",
+      "printedName": "Représentation de la destinée",
+      "scryfallId": "6e4d1d8e-3075-4d11-84f6-51482041b340"
+    },
+    {
+      "name": "Filigree Familiar",
+      "oracleId": "b544f690-e4bf-4a5b-984d-9256518fd574",
+      "lang": "fr",
+      "printedName": "Familier de filigrane",
+      "scryfallId": "7bed5204-6ec1-45e4-a60e-53b4df386684"
+    },
+    {
+      "name": "Fire // Ice",
+      "oracleId": "ae92942b-919c-4ea9-b693-85fcef765d5a",
+      "lang": "fr",
+      "printedName": "Feu",
+      "scryfallId": "582f37f7-9f49-41ad-b888-3c0b1b0a9727"
+    },
+    {
+      "name": "Fire // Ice",
+      "oracleId": "ae92942b-919c-4ea9-b693-85fcef765d5a",
+      "lang": "fr",
+      "printedName": "Glace",
+      "scryfallId": "582f37f7-9f49-41ad-b888-3c0b1b0a9727"
+    },
+    {
+      "name": "Fire Covenant",
+      "oracleId": "025939a0-424a-41bf-8fc9-2ef9ea5485f7",
+      "lang": "fr",
+      "printedName": "Pacte de feu",
+      "scryfallId": "3e9459fc-16d8-420e-af60-346780a2b843"
+    },
+    {
+      "name": "Flame Slash",
+      "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
+      "lang": "fr",
+      "printedName": "Balafre de flammes",
+      "scryfallId": "26eda579-3ff5-42dd-a5d0-04c351f3761a"
+    },
+    {
+      "name": "Flare of Cultivation",
+      "oracleId": "1766f1f4-0924-4436-8379-94030adcccc5",
+      "lang": "fr",
+      "printedName": "Flamboiement de culture",
+      "scryfallId": "2c645764-9715-4e0c-b067-84352627ddcd"
+    },
+    {
+      "name": "Flare of Denial",
+      "oracleId": "437cfd16-94bc-43ba-afd8-e9e9d028a4ca",
+      "lang": "fr",
+      "printedName": "Flamboiement de déni",
+      "scryfallId": "53b8273a-1e2a-4413-9ff5-afb1b45640c0"
+    },
+    {
+      "name": "Flare of Duplication",
+      "oracleId": "f586ecb8-310c-4f40-a766-6a7ca46a254d",
+      "lang": "fr",
+      "printedName": "Flamboiement de duplication",
+      "scryfallId": "147b5a4f-1922-4f03-b6bb-e68d6f37502a"
+    },
+    {
+      "name": "Flare of Fortitude",
+      "oracleId": "4ff07b7c-e97a-4b57-bcf1-2f22c37a8bd6",
+      "lang": "fr",
+      "printedName": "Flamboiement de fortitude",
+      "scryfallId": "06a6d0d5-9d95-4149-abb5-495d7436135f"
+    },
+    {
+      "name": "Flickerwisp",
+      "oracleId": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
+      "lang": "fr",
+      "printedName": "Voloscille",
+      "scryfallId": "0f15a0db-9cd6-48ec-acad-767987528e04"
+    },
+    {
+      "name": "Flooded Strand",
+      "oracleId": "f3c7af78-a77d-4134-82a2-a5ce84285a84",
+      "lang": "fr",
+      "printedName": "Grève inondée",
+      "scryfallId": "30c7342b-26a2-46a4-b198-282e0aac6fa1"
+    },
+    {
+      "name": "Force of Negation",
+      "oracleId": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+      "lang": "fr",
+      "printedName": "Force de négation",
+      "scryfallId": "1eab59c3-fb63-4784-9cea-be550fdeb4e9"
+    },
+    {
+      "name": "Force of Virtue",
+      "oracleId": "4262893c-8cbe-4854-9762-b3b6b75c0e35",
+      "lang": "fr",
+      "printedName": "Force de vertu",
+      "scryfallId": "c509d314-81cb-4196-8553-89a4b643c6e5"
+    },
+    {
+      "name": "Force of Will",
+      "oracleId": "956381ba-6d37-4a8a-846c-bad79222dbee",
+      "lang": "fr",
+      "printedName": "Force de volonté",
+      "scryfallId": "00e84bf2-ac0f-489e-b9b9-4f33fbbd06db"
+    },
+    {
+      "name": "Forensic Gadgeteer",
+      "oracleId": "9d5917d5-4fb3-4f37-9278-e08c1f73aae5",
+      "lang": "fr",
+      "printedName": "Gadgeteuse légiste",
+      "scryfallId": "68e99e9f-b57d-4d10-ab8c-46987f550e98"
+    },
+    {
+      "name": "Forest",
+      "oracleId": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "lang": "fr",
+      "printedName": "Forest",
+      "scryfallId": "0835d092-2a03-46bf-8bf5-28deedc8cdaa"
+    },
+    {
+      "name": "Forest",
+      "oracleId": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "lang": "fr",
+      "printedName": "forêt",
+      "scryfallId": "07d372db-ebbb-4020-a2b7-b406d45b871f"
+    },
+    {
+      "name": "Forest",
+      "oracleId": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "lang": "fr",
+      "printedName": "Forêt",
+      "scryfallId": "0010f6c4-6335-471f-8b0f-15cba05e707c"
+    },
+    {
+      "name": "Forked Bolt",
+      "oracleId": "e0548f0d-4aec-4c39-8c34-52bfa2bf7c60",
+      "lang": "fr",
+      "printedName": "Éclair fourchu",
+      "scryfallId": "4af02aba-b396-441a-90fc-06eb762ea97e"
+    },
+    {
+      "name": "Forsaken Miner",
+      "oracleId": "d37e0127-6f68-438e-8b9e-a71bb3c34733",
+      "lang": "fr",
+      "printedName": "Mineur abandonné",
+      "scryfallId": "94cf9167-f5c3-4cd6-b611-9757cef327b1"
+    },
+    {
+      "name": "Forth Eorlingas!",
+      "oracleId": "35807c14-4647-482f-9ba1-6d640fd5e8d8",
+      "lang": "fr",
+      "printedName": "En avant, Eorlingas !",
+      "scryfallId": "380d6282-65d2-4751-87c8-f9e380e21bdd"
+    },
+    {
+      "name": "Fractured Identity",
+      "oracleId": "1515b0c2-1b55-4cd4-ad81-fb6b1f3e8188",
+      "lang": "fr",
+      "printedName": "Identité fracturée",
+      "scryfallId": "26ad8a0f-3aeb-4af8-90c4-e190eaa61f91"
+    },
+    {
+      "name": "Frantic Search",
+      "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+      "lang": "fr",
+      "printedName": "Recherche effrénée",
+      "scryfallId": "000ac5e3-043f-4a5d-8eea-a802225d17a6"
+    },
+    {
+      "name": "Fury",
+      "oracleId": "fbf9f8c5-849f-45d5-8129-5fc683c21a04",
+      "lang": "fr",
+      "printedName": "Fureur",
+      "scryfallId": "3a386fd6-9c86-45be-9724-d3b41f2b822f"
+    },
+    {
+      "name": "Fyndhorn Elves",
+      "oracleId": "df317532-7d36-40fd-938f-e972749c8792",
+      "lang": "fr",
+      "printedName": "Elfes cordelliens",
+      "scryfallId": "4226b5f7-4bbd-4d37-9ae3-01330e466caa"
+    },
+    {
+      "name": "Gaea's Cradle",
+      "oracleId": "7c427c3d-ecd8-45ef-bebd-8f10f4a311db",
+      "lang": "fr",
+      "printedName": "Berceau de Gaia",
+      "scryfallId": "91dc47be-7ca6-45e7-9eec-f846bc05857c"
+    },
+    {
+      "name": "Galvanic Blast",
+      "oracleId": "d211c03a-03cd-40c5-b7c8-ada352fd01a6",
+      "lang": "fr",
+      "printedName": "Salve zingante",
+      "scryfallId": "4b64d477-2ed3-4c3a-9afe-7f3fa8d17e83"
+    },
+    {
+      "name": "Garruk Relentless",
+      "oracleId": "7cec9021-6f25-4fd8-b40e-adf4ffd3a7b8",
+      "lang": "fr",
+      "printedName": "Garruk l'Implacable",
+      "scryfallId": "12ae40a0-9ead-4624-ae10-520bb7012ba0"
+    },
+    {
+      "name": "Garruk Relentless",
+      "oracleId": "7cec9021-6f25-4fd8-b40e-adf4ffd3a7b8",
+      "lang": "fr",
+      "printedName": "Garruk maudit par le Voile",
+      "scryfallId": "12ae40a0-9ead-4624-ae10-520bb7012ba0"
+    },
+    {
+      "name": "Garruk Wildspeaker",
+      "oracleId": "186b4def-4fff-4a2b-bcbf-5318b0ac5fa9",
+      "lang": "fr",
+      "printedName": "Garruk Languebestion",
+      "scryfallId": "d1c3fa9e-42ff-4122-bbdc-0bf3e3d2205b"
+    },
+    {
+      "name": "Generous Ent",
+      "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
+      "lang": "fr",
+      "printedName": "Ent généreux",
+      "scryfallId": "ecbe029a-8947-434e-b253-8e97dfc2b6fb"
+    },
+    {
+      "name": "Generous Plunderer",
+      "oracleId": "91c835d1-22ca-4c90-9ba6-c8e01bbc0347",
+      "lang": "fr",
+      "printedName": "Saccageur généreux",
+      "scryfallId": "57c1bb02-3ea7-4cc1-9bea-e7fe1dcf2384"
+    },
+    {
+      "name": "Get Lost",
+      "oracleId": "522dd417-364b-44ab-8ca9-fb55db5f26a6",
+      "lang": "fr",
+      "printedName": "Sortie explosive",
+      "scryfallId": "5029a4b2-6f8f-45a4-a321-a3129880a474"
+    },
+    {
+      "name": "Ghostfire Slice",
+      "oracleId": "986a7ad0-527a-4079-aa1b-c8acdf087020",
+      "lang": "fr",
+      "printedName": "Tranche d'ectofeu",
+      "scryfallId": "ade94032-1556-4f09-8193-a3b3473af82e"
+    },
+    {
+      "name": "Giant Killer",
+      "oracleId": "91e71279-c9d2-4873-916a-59da03a65741",
+      "lang": "fr",
+      "printedName": "Petit bois",
+      "scryfallId": "c4cbe2fe-b4ad-4826-89ee-24c58aeca0ed"
+    },
+    {
+      "name": "Giant Killer",
+      "oracleId": "91e71279-c9d2-4873-916a-59da03a65741",
+      "lang": "fr",
+      "printedName": "Tueur de géant",
+      "scryfallId": "c4cbe2fe-b4ad-4826-89ee-24c58aeca0ed"
+    },
+    {
+      "name": "Gideon, Ally of Zendikar",
+      "oracleId": "51eae7ff-fed9-4afe-8053-7690379449dd",
+      "lang": "fr",
+      "printedName": "Gideon, allié de Zendikar",
+      "scryfallId": "063a6ea4-c66e-4d34-ac32-ac274806e4ee"
+    },
+    {
+      "name": "Gilded Goose",
+      "oracleId": "f2f09757-1931-47c0-a5f0-39280445489d",
+      "lang": "fr",
+      "printedName": "Oie d'or",
+      "scryfallId": "333f4544-c500-44bc-82dc-94f0e4bb4341"
+    },
+    {
+      "name": "Gitaxian Probe",
+      "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
+      "lang": "fr",
+      "printedName": "Sonde gitaxienne",
+      "scryfallId": "ca52886c-a5df-48ab-8277-e8c81da43ed9"
+    },
+    {
+      "name": "Gix, Yawgmoth Praetor",
+      "oracleId": "928d977e-cff0-4e0e-83bb-16d73a754f35",
+      "lang": "fr",
+      "printedName": "Gix, praetor de Yaugzebul",
+      "scryfallId": "01bc5a3f-ecc0-4e03-b304-98992fb46946"
+    },
+    {
+      "name": "Glen Elendra Archmage",
+      "oracleId": "5f3f68b5-8c6a-4181-bb8a-9c73967d198a",
+      "lang": "fr",
+      "printedName": "Archimage du Vallon d'Elendra",
+      "scryfallId": "55bb9fba-23b0-4fe3-9f2d-b3fe41693c01"
+    },
+    {
+      "name": "Glimmer Lens",
+      "oracleId": "bb7cebb7-a979-4879-b834-deab13f2a22c",
+      "lang": "fr",
+      "printedName": "Lentille de lueur",
+      "scryfallId": "500d4c4f-391f-4da2-947d-003db36b98ca"
+    },
+    {
+      "name": "Glorybringer",
+      "oracleId": "b75c3902-633e-4d24-acde-d7a9cc8f466e",
+      "lang": "fr",
+      "printedName": "Annonciateur de gloire",
+      "scryfallId": "c9f59654-e6bd-44fa-b645-9502449178c6"
+    },
+    {
+      "name": "Goblin Bombardment",
+      "oracleId": "edad60c6-80de-4033-af1b-a703ac332983",
+      "lang": "fr",
+      "printedName": "Bombardement des gobelins",
+      "scryfallId": "107d58e3-1d19-44ed-81ba-57e35c929f74"
+    },
+    {
+      "name": "Goblin Cratermaker",
+      "oracleId": "1962d9b3-f057-4d2c-9c5b-386d9a66148a",
+      "lang": "fr",
+      "printedName": "Cratérier gobelin",
+      "scryfallId": "06b91f4e-2ef2-4cfa-8b36-48f18e7e241b"
+    },
+    {
+      "name": "Goblin Electromancer",
+      "oracleId": "81f06f84-1580-43c0-89d5-08d34541a519",
+      "lang": "fr",
+      "printedName": "Électromancien gobelin",
+      "scryfallId": "2b34d17c-3cf2-4288-ad4a-d224f74479f4"
+    },
+    {
+      "name": "Goblin Engineer",
+      "oracleId": "c1d6cce8-085f-42cb-8b0c-b6fbbf88b16a",
+      "lang": "fr",
+      "printedName": "Ingénieur gobelin",
+      "scryfallId": "1703c894-6bd2-4cc0-872e-0c7b304f0435"
+    },
+    {
+      "name": "Goblin Guide",
+      "oracleId": "51d9564b-44fc-4de1-9119-09d7b4089378",
+      "lang": "fr",
+      "printedName": "Guide gobelin",
+      "scryfallId": "d30272a6-e6d5-4c2c-b710-edcf301c88ee"
+    },
+    {
+      "name": "Goblin Rabblemaster",
+      "oracleId": "24661b81-6bee-4ad8-b3ab-53cb65005c51",
+      "lang": "fr",
+      "printedName": "Maître plébéien gobelin",
+      "scryfallId": "25d24309-c2ff-4faa-b5a2-28676382ca58"
+    },
+    {
+      "name": "Goblin Welder",
+      "oracleId": "9fc28e1f-f4ea-4bf8-9442-a36dba3b3b29",
+      "lang": "fr",
+      "printedName": "Soudeur gobelin",
+      "scryfallId": "d7a0072b-386c-46e4-b600-844d4a4bbe20"
+    },
+    {
+      "name": "Godless Shrine",
+      "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
+      "lang": "fr",
+      "printedName": "Reliquaire impie",
+      "scryfallId": "31864ccb-fa40-4bfd-be00-bdb0f6a4193d"
+    },
+    {
+      "name": "Goldspan Dragon",
+      "oracleId": "716b3ea2-45b7-4a8f-af72-de7f4e510eff",
+      "lang": "fr",
+      "printedName": "Dragon d'Orpont",
+      "scryfallId": "1dabacfb-1fa9-4cc4-973b-64d0d59e6058"
+    },
+    {
+      "name": "Golos, Tireless Pilgrim",
+      "oracleId": "efe9c3e0-7315-408e-9903-9d25a681039b",
+      "lang": "fr",
+      "printedName": "Golos, pèlerin infatigable",
+      "scryfallId": "0fc7b035-74f0-4d67-a715-aad67b3d80f4"
+    },
+    {
+      "name": "Gonti, Lord of Luxury",
+      "oracleId": "d5be0ff6-39d9-4f9f-a028-e62dc38463f2",
+      "lang": "fr",
+      "printedName": "Gonti, seigneur de l'opulence",
+      "scryfallId": "15118c74-9af6-495c-a564-c8f3bdab1ebb"
+    },
+    {
+      "name": "Grave Titan",
+      "oracleId": "f3abd4d1-a975-4e85-8684-aa0fce029670",
+      "lang": "fr",
+      "printedName": "Titan des tombes",
+      "scryfallId": "38ec4d35-be75-4c1c-9752-1725a18aed02"
+    },
+    {
+      "name": "Graveyard Trespasser",
+      "oracleId": "0bbd6cad-9b6f-45a6-9f2e-d7b4853586ae",
+      "lang": "fr",
+      "printedName": "Goinfre du cimetière",
+      "scryfallId": "527cbe24-902a-456d-8d59-9e34ddae1baf"
+    },
+    {
+      "name": "Graveyard Trespasser",
+      "oracleId": "0bbd6cad-9b6f-45a6-9f2e-d7b4853586ae",
+      "lang": "fr",
+      "printedName": "Intrus du cimetière",
+      "scryfallId": "527cbe24-902a-456d-8d59-9e34ddae1baf"
+    },
+    {
+      "name": "Green Sun's Zenith",
+      "oracleId": "0d96b60b-a060-48ee-bb83-93f1c4a10669",
+      "lang": "fr",
+      "printedName": "Zénith de Vertsoleil",
+      "scryfallId": "591de1ec-a69e-4662-8fde-2a912c619334"
+    },
+    {
+      "name": "Grief",
+      "oracleId": "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8",
+      "lang": "fr",
+      "printedName": "Chagrin",
+      "scryfallId": "2fb16e7f-448e-482d-a2f7-c7d367707437"
+    },
+    {
+      "name": "Grim Lavamancer",
+      "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
+      "lang": "fr",
+      "printedName": "Sinistre lavamancien",
+      "scryfallId": "23633024-b86a-4db0-872e-4b400922f542"
+    },
+    {
+      "name": "Grim Monolith",
+      "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
+      "lang": "fr",
+      "printedName": "Monolithe sinistre",
+      "scryfallId": "e90c57e7-41c6-4881-8c24-2ee8d7735b65"
+    },
+    {
+      "name": "Griselbrand",
+      "oracleId": "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+      "lang": "fr",
+      "printedName": "Griselbrand",
+      "scryfallId": "78e38bca-1c93-451e-914b-4f52f787aca6"
+    },
+    {
+      "name": "Grist, the Hunger Tide",
+      "oracleId": "0efb0d7e-dea0-4817-a243-15066e9ef333",
+      "lang": "fr",
+      "printedName": "Grist, la marée affamée",
+      "scryfallId": "09723348-c7b2-4a66-b59a-860119a4f63f"
+    },
+    {
+      "name": "Guardian of Ghirapur",
+      "oracleId": "2553ab57-ceb6-4654-a59d-bc61735da908",
+      "lang": "fr",
+      "printedName": "Gardienne de Ghirapur",
+      "scryfallId": "7b1cdd53-717b-4297-8002-419d337a7bec"
+    },
+    {
+      "name": "Gut, True Soul Zealot",
+      "oracleId": "60e7130a-d321-4e50-93a4-999013c76054",
+      "lang": "fr",
+      "printedName": "Boyaux, zélatrice des Vraies âmes",
+      "scryfallId": "6b9b6e01-52c9-445b-b881-92e7382d8406"
+    },
+    {
+      "name": "Gutterbones",
+      "oracleId": "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
+      "lang": "fr",
+      "printedName": "Carcasse des égouts",
+      "scryfallId": "5fb29165-ab95-4db8-94d4-29eccfd12a7c"
+    },
+    {
+      "name": "Hallowed Fountain",
+      "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
+      "lang": "fr",
+      "printedName": "Fontaine sacrée",
+      "scryfallId": "12ef9dc4-5a6b-4a41-a4c4-e8952678880f"
+    },
+    {
+      "name": "Harvester of Misery",
+      "oracleId": "a0d3bb63-2977-41b2-bcc3-2488e6696cb8",
+      "lang": "fr",
+      "printedName": "Moissonneur de misère",
+      "scryfallId": "15ba10bc-7993-4705-b121-177434de0ad8"
+    },
+    {
+      "name": "Haywire Mite",
+      "oracleId": "749d2994-44e7-40d3-8630-7bebed239e9e",
+      "lang": "fr",
+      "printedName": "Puce détraquée",
+      "scryfallId": "3c2c758c-2181-4ff2-bd0c-0ca4531e7039"
+    },
+    {
+      "name": "Heartbeat of Spring",
+      "oracleId": "f15911a5-f597-452e-a015-b115339f28fc",
+      "lang": "fr",
+      "printedName": "Rythme du printemps",
+      "scryfallId": "0541a4d9-f8d4-44a5-89dc-95ca623ce550"
+    },
+    {
+      "name": "Heartless Act",
+      "oracleId": "3641d572-8335-4804-88ad-edf4dc67a8e4",
+      "lang": "fr",
+      "printedName": "Acte cruel",
+      "scryfallId": "8450467d-a484-4731-84b1-bb37ac1df9b8"
+    },
+    {
+      "name": "Hedge Maze",
+      "oracleId": "ca4b6689-04ee-4227-9bdc-cb5a9590c745",
+      "lang": "fr",
+      "printedName": "Labyrinthe de haies",
+      "scryfallId": "399ffd9e-87c5-4f18-a4cf-dac3fe5fdcfb"
+    },
+    {
+      "name": "Heir of Falkenrath",
+      "oracleId": "d5b9c62d-fe98-4cbc-b4b6-012702bf6657",
+      "lang": "fr",
+      "printedName": "Héritière de la nuit",
+      "scryfallId": "ae25cdea-9f48-4452-bf9e-e9eaa5e8e163"
+    },
+    {
+      "name": "Heir of Falkenrath",
+      "oracleId": "d5b9c62d-fe98-4cbc-b4b6-012702bf6657",
+      "lang": "fr",
+      "printedName": "Héritière Falkenrath",
+      "scryfallId": "ae25cdea-9f48-4452-bf9e-e9eaa5e8e163"
+    },
+    {
+      "name": "Hex Parasite",
+      "oracleId": "c180f21b-f553-4839-80c7-a3ce2fae9b5a",
+      "lang": "fr",
+      "printedName": "Parasite de maléfice",
+      "scryfallId": "144a8c76-0f4f-4b93-84d5-b1f0a1be8c43"
+    },
+    {
+      "name": "Hexdrinker",
+      "oracleId": "69bc2afd-9f53-47f2-b9c8-f12732784e10",
+      "lang": "fr",
+      "printedName": "Buveur de sorts",
+      "scryfallId": "193a2003-96e5-4012-9cc8-cabf8ae5b574"
+    },
+    {
+      "name": "High Tide",
+      "oracleId": "dc671205-f2fa-454f-9957-921a6069ad53",
+      "lang": "fr",
+      "printedName": "Marée haute",
+      "scryfallId": "034f9ec4-ff26-4b1c-817d-76cd8602d747"
+    },
+    {
+      "name": "Hostage Taker",
+      "oracleId": "c5c2d209-e3ef-4b0d-85f5-e7402dcf09eb",
+      "lang": "fr",
+      "printedName": "Preneuse d'otage",
+      "scryfallId": "216089c7-9f28-47df-a3b9-6a0f6b18638c"
+    },
+    {
+      "name": "Hostile Investigator",
+      "oracleId": "de83b1a4-0ce0-4cc1-aff3-6d0239d92302",
+      "lang": "fr",
+      "printedName": "Enquêteur hostile",
+      "scryfallId": "129b1c62-bad2-4bf9-a838-5bfef6ba907b"
+    },
+    {
+      "name": "Hullbreacher",
+      "oracleId": "2f533667-e29b-4bec-897a-e7a9eee08314",
+      "lang": "fr",
+      "printedName": "Perceur de coque",
+      "scryfallId": "3d76d285-77d6-4a11-8db5-aeb644d31393"
+    },
+    {
+      "name": "Ignoble Hierarch",
+      "oracleId": "c8de43a3-ebd3-4000-b343-a6ffed11d34d",
+      "lang": "fr",
+      "printedName": "Ignoble hiérarche",
+      "scryfallId": "469f0dba-9586-4fb1-b408-03489b78da2a"
+    },
+    {
+      "name": "Imperial Recruiter",
+      "oracleId": "4d6a1391-817a-4ddc-840d-886b138eeb3f",
+      "lang": "fr",
+      "printedName": "Recruteur impérial",
+      "scryfallId": "533b41a0-b5b1-4827-a3d0-5ef5fae90850"
+    },
+    {
+      "name": "Imperial Seal",
+      "oracleId": "16cd0b90-f70c-4efa-b252-8de8784ef9a3",
+      "lang": "fr",
+      "printedName": "Sceau impérial",
+      "scryfallId": "13bdaf47-5518-4f1e-9ace-2f8302240e44"
+    },
+    {
+      "name": "Imposing Sovereign",
+      "oracleId": "4bba3663-7f3c-4589-88aa-cf0bfe36b171",
+      "lang": "fr",
+      "printedName": "Souveraine imposante",
+      "scryfallId": "eb46c26f-1a17-40ae-9289-0f754ec81729"
+    },
+    {
+      "name": "Indatha Triome",
+      "oracleId": "ec2b3779-55f7-4169-aa66-6312fb52721f",
+      "lang": "fr",
+      "printedName": "Triome d'Indatha",
+      "scryfallId": "63fd4371-4e63-476f-b051-4db8f678a99a"
+    },
+    {
+      "name": "Infernal Grasp",
+      "oracleId": "94f0a572-e91c-4b56-a5d1-6cbbeabd210d",
+      "lang": "fr",
+      "printedName": "Emprise infernale",
+      "scryfallId": "0c34c3a7-1287-40e4-adb2-75a5c70980ad"
+    },
+    {
+      "name": "Inferno Titan",
+      "oracleId": "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
+      "lang": "fr",
+      "printedName": "Titan de la fournaise",
+      "scryfallId": "00a669f0-99da-4d20-889a-87948643410e"
+    },
+    {
+      "name": "Inquisition of Kozilek",
+      "oracleId": "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+      "lang": "fr",
+      "printedName": "Inquisition de Kozilek",
+      "scryfallId": "3583b26c-b522-4836-add7-cfbb6c7c53c8"
+    },
+    {
+      "name": "Inti, Seneschal of the Sun",
+      "oracleId": "176f5ba8-6e7b-4234-a298-b6164f51656f",
+      "lang": "fr",
+      "printedName": "Inti, sénéchal du soleil",
+      "scryfallId": "a1728092-db75-4d87-bb56-509fbaece177"
+    },
+    {
+      "name": "Intrepid Adversary",
+      "oracleId": "b72fde5e-862a-45e8-9880-f2c16975a9ac",
+      "lang": "fr",
+      "printedName": "Adversaire intrépide",
+      "scryfallId": "d26d6364-4e9f-41dd-be20-321f7e3bfb7d"
+    },
+    {
+      "name": "Invasion of Ikoria",
+      "oracleId": "21d90735-5e04-4a8c-a546-ff26d4d5998d",
+      "lang": "fr",
+      "printedName": "Invasion d'Ikoria",
+      "scryfallId": "8511dded-580b-4dad-82dc-f1295cf8b26f"
+    },
+    {
+      "name": "Invasion of Ikoria",
+      "oracleId": "21d90735-5e04-4a8c-a546-ff26d4d5998d",
+      "lang": "fr",
+      "printedName": "Zilortha, zénith d'Ikoria",
+      "scryfallId": "8511dded-580b-4dad-82dc-f1295cf8b26f"
+    },
+    {
+      "name": "Invert Polarity",
+      "oracleId": "69e12b1f-0fd9-43a9-b3db-fe08290442c6",
+      "lang": "fr",
+      "printedName": "Interversion de polarité",
+      "scryfallId": "348935c7-f096-4e57-ad7d-06f4eb196d3c"
+    },
+    {
+      "name": "Island",
+      "oracleId": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "lang": "fr",
+      "printedName": "Ile",
+      "scryfallId": "001eb913-2afe-4d7d-89a1-7c35de92d702"
+    },
+    {
+      "name": "Island",
+      "oracleId": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "lang": "fr",
+      "printedName": "île",
+      "scryfallId": "0dcc9a8f-2ffb-466e-bbb2-d2adbb017938"
+    },
+    {
+      "name": "Island",
+      "oracleId": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "lang": "fr",
+      "printedName": "Île",
+      "scryfallId": "004bb1e0-03d5-445f-a5b0-e1f9521636a5"
+    },
+    {
+      "name": "Island",
+      "oracleId": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "lang": "fr",
+      "printedName": "Island",
+      "scryfallId": "0745033a-4c09-4944-811a-1c07b5bd00a1"
+    },
+    {
+      "name": "Jace, the Mind Sculptor",
+      "oracleId": "7f77a84e-5a4b-4834-aefa-3cecc175ae8e",
+      "lang": "fr",
+      "printedName": "Jace, le sculpteur de l'esprit",
+      "scryfallId": "c6bb45fe-7516-4b53-b703-b6cb924f87d0"
+    },
+    {
+      "name": "Jace, Vryn's Prodigy",
+      "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+      "lang": "fr",
+      "printedName": "Jace, prodige de Vryn",
+      "scryfallId": "54ce343e-93d0-4d71-91da-c15332b3f0ec"
+    },
+    {
+      "name": "Jace, Vryn's Prodigy",
+      "oracleId": "594f6881-c059-46f8-aa4e-7151d502de73",
+      "lang": "fr",
+      "printedName": "Jace, télépathe libéré",
+      "scryfallId": "54ce343e-93d0-4d71-91da-c15332b3f0ec"
+    },
+    {
+      "name": "Jace, Wielder of Mysteries",
+      "oracleId": "5277a68e-1ceb-4b40-8e10-3d0564f5d7be",
+      "lang": "fr",
+      "printedName": "Jace, porteur de mystères",
+      "scryfallId": "51b1acad-f923-4d39-b615-03389c261cad"
+    },
+    {
+      "name": "Jacked Rabbit",
+      "oracleId": "5a343a5f-3f9b-43c3-8532-8391de7a5443",
+      "lang": "fr",
+      "printedName": "Lièvre gaillard",
+      "scryfallId": "61d4e1cd-be84-454e-9f70-ec748055e26a"
+    },
+    {
+      "name": "Jetmir's Garden",
+      "oracleId": "f5896356-5744-4f7e-a4e5-1cc36dde5958",
+      "lang": "fr",
+      "printedName": "Jardin de Jetmir",
+      "scryfallId": "375f0ac7-99f8-44b8-87d9-fe194f7ae57b"
+    },
+    {
+      "name": "Joraga Treespeaker",
+      "oracleId": "a011aefe-5853-4435-b686-179e931ba897",
+      "lang": "fr",
+      "printedName": "Oratrice arboricole de Joraga",
+      "scryfallId": "8f4ebe97-0f78-4d9a-8545-e5f08d417a7a"
+    },
+    {
+      "name": "Kaito Shizuki",
+      "oracleId": "ba48e067-f4d9-45b2-ade1-71cf8cda418c",
+      "lang": "fr",
+      "printedName": "Kaito Shizuki",
+      "scryfallId": "3ce58186-1cfc-4005-b171-5cba92e85aed"
+    },
+    {
+      "name": "Kaldra Compleat",
+      "oracleId": "7359e82b-db79-488d-a1d4-75a00f12a4cf",
+      "lang": "fr",
+      "printedName": "Kaldra parachevée",
+      "scryfallId": "45c64f1c-6059-49a2-a808-3d16a05f70aa"
+    },
+    {
+      "name": "Kappa Cannoneer",
+      "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+      "lang": "fr",
+      "printedName": "Canonnier kappa",
+      "scryfallId": "0aed8155-046b-4c84-b457-23b999e324a9"
+    },
+    {
+      "name": "Karmic Guide",
+      "oracleId": "8c31fec9-e4b3-4761-990e-7be38eb05604",
+      "lang": "fr",
+      "printedName": "Guide karmique",
+      "scryfallId": "7a933e2b-0a2e-4175-9aa1-919925237d84"
+    },
+    {
+      "name": "Karn Liberated",
+      "oracleId": "0ca233f4-1b7f-4807-ab6e-2b1f5439b3db",
+      "lang": "fr",
+      "printedName": "Karn libéré",
+      "scryfallId": "65fbcc2e-4f88-4b1b-84bf-05e69cd670f9"
+    },
+    {
+      "name": "Karn, Legacy Reforged",
+      "oracleId": "bc8802db-8c94-4eb4-817f-5f4f5408b7a4",
+      "lang": "fr",
+      "printedName": "Karn, l'héritage reforgé",
+      "scryfallId": "8deb1029-5fc4-4a64-9dd9-46de90a43188"
+    },
+    {
+      "name": "Karn, Scion of Urza",
+      "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
+      "lang": "fr",
+      "printedName": "Karn, scion d'Urza",
+      "scryfallId": "423c783f-5dff-4f4c-b190-e0239ff58fd3"
+    },
+    {
+      "name": "Kellan, Inquisitive Prodigy",
+      "oracleId": "2f2d75a0-d751-4c74-b357-8f92a992447f",
+      "lang": "fr",
+      "printedName": "Filer le suspect",
+      "scryfallId": "cfaadb1b-c8ac-46f4-9126-c44ea393771c"
+    },
+    {
+      "name": "Kellan, Inquisitive Prodigy",
+      "oracleId": "2f2d75a0-d751-4c74-b357-8f92a992447f",
+      "lang": "fr",
+      "printedName": "Kellan, prodige curieux",
+      "scryfallId": "cfaadb1b-c8ac-46f4-9126-c44ea393771c"
+    },
+    {
+      "name": "Ketria Triome",
+      "oracleId": "6bae00e8-06cf-4ac4-a1cc-757e454109fe",
+      "lang": "fr",
+      "printedName": "Triome de Ketria",
+      "scryfallId": "b254ddbc-507c-4d86-ad00-7cd4d7327ccd"
+    },
+    {
+      "name": "Kiki-Jiki, Mirror Breaker",
+      "oracleId": "a34b7416-cfe3-4a1e-a8c1-a3056b747519",
+      "lang": "fr",
+      "printedName": "Kiki-Jiki, brise-miroir",
+      "scryfallId": "0943bee2-a121-4a48-afd8-132ae40bc66a"
+    },
+    {
+      "name": "Kitchen Finks",
+      "oracleId": "5470dcfa-4eff-43da-abf7-19922841f719",
+      "lang": "fr",
+      "printedName": "Fourbes de cuisine",
+      "scryfallId": "54ee0738-1d59-4842-96ad-48b00428d2c5"
+    },
+    {
+      "name": "Kitesail Larcenist",
+      "oracleId": "2452be47-cc23-47f7-a3a1-fec900bb0119",
+      "lang": "fr",
+      "printedName": "Voleur à voile volante",
+      "scryfallId": "1955e426-9fd4-47f2-93cf-1736dbc935ff"
+    },
+    {
+      "name": "Knight of Autumn",
+      "oracleId": "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
+      "lang": "fr",
+      "printedName": "Chevalière de l'automne",
+      "scryfallId": "039ef413-3980-4ebb-a2dc-20c1ad3efd43"
+    },
+    {
+      "name": "Knight of the Reliquary",
+      "oracleId": "393e5331-4456-4ba3-b410-bb630bb053db",
+      "lang": "fr",
+      "printedName": "Chevalière du Reliquaire",
+      "scryfallId": "2ba3fb43-99b7-43c3-9854-9484a4406c0d"
+    },
+    {
+      "name": "Kodama's Reach",
+      "oracleId": "1593ea18-2f2f-4ab4-83fb-6ccc0bec8a90",
+      "lang": "fr",
+      "printedName": "Portée du kodama",
+      "scryfallId": "0b05af00-254c-4483-a700-589be60b4442"
+    },
+    {
+      "name": "Kogla, the Titan Ape",
+      "oracleId": "8b21062e-97b0-4967-96df-30e8309f4fba",
+      "lang": "fr",
+      "printedName": "Kogla, le singe titan",
+      "scryfallId": "aa754702-9607-49c2-9a45-05d1ae8c9c40"
+    },
+    {
+      "name": "Kolaghan's Command",
+      "oracleId": "45f1e957-09f0-4d46-8e32-238f26060a87",
+      "lang": "fr",
+      "printedName": "Commandement de Kolaghan",
+      "scryfallId": "19b98358-8157-41d1-ad22-632725b03751"
+    },
+    {
+      "name": "Kozilek, Butcher of Truth",
+      "oracleId": "7b8528b0-71eb-4c9e-bed9-aa2d2e84038f",
+      "lang": "fr",
+      "printedName": "Kozilek, Boucher de la Vérité",
+      "scryfallId": "08ecdef4-d1db-46e6-9529-9060009508bd"
+    },
+    {
+      "name": "Kuldotha Forgemaster",
+      "oracleId": "b0f99367-4313-4bb1-a9fd-7711bc4ce40e",
+      "lang": "fr",
+      "printedName": "Maître-forgeron de Kuldotha",
+      "scryfallId": "55bc3eea-d50f-47ed-848b-5194981fe5d8"
+    },
+    {
+      "name": "Kytheon, Hero of Akros",
+      "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
+      "lang": "fr",
+      "printedName": "Gideon, forgé dans la bataille",
+      "scryfallId": "a034d9d9-9832-496e-ac51-0f74d29a03ca"
+    },
+    {
+      "name": "Kytheon, Hero of Akros",
+      "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
+      "lang": "fr",
+      "printedName": "Kytheon, héros d'Akros",
+      "scryfallId": "a034d9d9-9832-496e-ac51-0f74d29a03ca"
+    },
+    {
+      "name": "Laelia, the Blade Reforged",
+      "oracleId": "a0be9bb2-3234-4c6c-b8ce-0879b1f43003",
+      "lang": "fr",
+      "printedName": "Laelia, la lame reforgée",
+      "scryfallId": "1266301c-a480-4a3f-938c-eaa2da844c73"
+    },
+    {
+      "name": "Lavaspur Boots",
+      "oracleId": "63bfb9ca-d9d5-4c17-be39-82eb115bc20c",
+      "lang": "fr",
+      "printedName": "Bottes à lavéperons",
+      "scryfallId": "101b4df5-410b-41b8-81b7-7ac2aac5ac56"
+    },
+    {
+      "name": "Ledger Shredder",
+      "oracleId": "e9117015-1050-44dd-a46b-e7ffe2085fae",
+      "lang": "fr",
+      "printedName": "Déchiqueteur de registres",
+      "scryfallId": "32d919ce-600c-4a0a-9951-03b1e66462e6"
+    },
+    {
+      "name": "Legion Extruder",
+      "oracleId": "c77dc11e-d95d-4e7e-bb24-d971c179e9b0",
+      "lang": "fr",
+      "printedName": "Extrudeur de légion",
+      "scryfallId": "15b0e661-2439-45ed-acde-ebce8313c15b"
+    },
+    {
+      "name": "Leonin Relic-Warder",
+      "oracleId": "8e720216-a980-4a34-8aef-62ac3ef15a6e",
+      "lang": "fr",
+      "printedName": "Garde-relique léonin",
+      "scryfallId": "38586553-8cb9-4ead-bc70-94e22e76541e"
+    },
+    {
+      "name": "Lethal Scheme",
+      "oracleId": "c4660b3c-a234-4a3e-83e7-e2fa9d556685",
+      "lang": "fr",
+      "printedName": "Conspiration mortelle",
+      "scryfallId": "14e6588a-fcf8-47d7-bf24-9f8b3b4852a1"
+    },
+    {
+      "name": "Leyline Binding",
+      "oracleId": "b49642f6-20bd-468d-9dac-e578f9ac3091",
+      "lang": "fr",
+      "printedName": "Emprisonnement par les lignes ley",
+      "scryfallId": "01486746-f705-46aa-a484-eef9fe3b5d6e"
+    },
+    {
+      "name": "Lightning Bolt",
+      "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+      "lang": "fr",
+      "printedName": "Foudre",
+      "scryfallId": "1ac99521-7dba-4d53-b125-17f037180d09"
+    },
+    {
+      "name": "Lightning Greaves",
+      "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
+      "lang": "fr",
+      "printedName": "Jambières d'éclair",
+      "scryfallId": "0c388d0d-8405-4423-a665-c7607d74fdcc"
+    },
+    {
+      "name": "Liliana of the Veil",
+      "oracleId": "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+      "lang": "fr",
+      "printedName": "Liliana du voile",
+      "scryfallId": "57b3cfe6-3eee-45bb-bba4-70d8ebdd1248"
+    },
+    {
+      "name": "Liliana, Death's Majesty",
+      "oracleId": "7fca595e-1902-40fd-a359-622caa612b6a",
+      "lang": "fr",
+      "printedName": "Liliana, majesté de la mort",
+      "scryfallId": "50d33d55-f7a6-494c-920d-084aca5d6740"
+    },
+    {
+      "name": "Liliana, Heretical Healer",
+      "oracleId": "b96a8ad2-3d86-459b-a34f-19c9dc07c3c4",
+      "lang": "fr",
+      "printedName": "Liliana, guérisseuse hérétique",
+      "scryfallId": "cb93a0ec-46f1-4c1d-8a68-2deaee215c87"
+    },
+    {
+      "name": "Liliana, Heretical Healer",
+      "oracleId": "b96a8ad2-3d86-459b-a34f-19c9dc07c3c4",
+      "lang": "fr",
+      "printedName": "Liliana, nécromancienne provocatrice",
+      "scryfallId": "cb93a0ec-46f1-4c1d-8a68-2deaee215c87"
+    },
+    {
+      "name": "Liliana, the Last Hope",
+      "oracleId": "64a9a6b4-26b5-4d23-be86-85c54e9c4727",
+      "lang": "fr",
+      "printedName": "Liliana, dernier espoir",
+      "scryfallId": "0de7fa20-1392-4dbd-bebf-05fe7ab8b500"
+    },
+    {
+      "name": "Lingering Souls",
+      "oracleId": "0b8c3337-04dd-4798-8203-6d8b8cfb936b",
+      "lang": "fr",
+      "printedName": "Âmes persistantes",
+      "scryfallId": "57ab158e-bda2-4c2e-9573-0effef5f66bb"
+    },
+    {
+      "name": "Linvala, Keeper of Silence",
+      "oracleId": "88dadc31-dfac-41b3-bf2a-65fa89e3c16d",
+      "lang": "fr",
+      "printedName": "Linvala, Gardienne du Silence",
+      "scryfallId": "12ef006c-578e-4572-a343-1bfce75e0772"
+    },
+    {
+      "name": "Lion Sash",
+      "oracleId": "50330e48-db74-4c5f-a0bc-f9a8607e8f31",
+      "lang": "fr",
+      "printedName": "Écharpe de lion",
+      "scryfallId": "87ff18ae-e4c3-4970-9e54-fbe57841c555"
+    },
+    {
+      "name": "Lion's Eye Diamond",
+      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
+      "lang": "fr",
+      "printedName": "Diamant de l'œil du lion",
+      "scryfallId": "60f87b73-4baf-4755-8f4c-f07c3f036c2f"
+    },
+    {
+      "name": "Llanowar Elves",
+      "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+      "lang": "fr",
+      "printedName": "Elfes de Llanowar",
+      "scryfallId": "06374256-61c6-40d0-b039-b6f4ab625dcb"
+    },
+    {
+      "name": "Lodestone Golem",
+      "oracleId": "a698c9f5-325a-49f6-8902-eef09f4260c5",
+      "lang": "fr",
+      "printedName": "Golem de magnétite",
+      "scryfallId": "3395b3f5-baf8-4101-a5a3-f1d58de3d57a"
+    },
+    {
+      "name": "Loran of the Third Path",
+      "oracleId": "b3d81980-76f2-44e2-b1c9-01e30c726312",
+      "lang": "fr",
+      "printedName": "Loran de la Troisième Voie",
+      "scryfallId": "0dc217ca-53c6-4a9f-bbe1-ffd3db95c914"
+    },
+    {
+      "name": "Lórien Revealed",
+      "oracleId": "66f28905-c7fc-4ada-8fa0-199626d9bedb",
+      "lang": "fr",
+      "printedName": "La Lórien révélée",
+      "scryfallId": "145814ff-759d-4971-af81-47c91cc20122"
+    },
+    {
+      "name": "Lose Focus",
+      "oracleId": "1cea6439-7ae5-4887-8c33-7da9fb36e2d4",
+      "lang": "fr",
+      "printedName": "Déconcentration",
+      "scryfallId": "ea2ef133-ce30-4ce1-8b6b-0e9bfe64cf27"
+    },
+    {
+      "name": "Lotus Bloom",
+      "oracleId": "04cf02dc-f053-414e-87d8-1537f25bcbf4",
+      "lang": "fr",
+      "printedName": "Floraison de lotus",
+      "scryfallId": "4b0f03ea-7552-463a-bdaf-14fcb33037bf"
+    },
+    {
+      "name": "Lotus Cobra",
+      "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+      "lang": "fr",
+      "printedName": "Cobra de lotus",
+      "scryfallId": "0d490c5c-bab3-49b7-8f27-5356421349a2"
+    },
+    {
+      "name": "Lurrus of the Dream-Den",
+      "oracleId": "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+      "lang": "fr",
+      "printedName": "Lurrus de la Tanière des rêves",
+      "scryfallId": "11f32b9b-b3a2-45d7-b36f-7f03b6bc9b3f"
+    },
+    {
+      "name": "Lush Portico",
+      "oracleId": "d51831b1-7394-456e-a1de-6787a59f5932",
+      "lang": "fr",
+      "printedName": "Portique luxuriant",
+      "scryfallId": "ac65c29e-2a48-40b3-9dd5-3478e0bd83ce"
+    },
+    {
+      "name": "Lutri, the Spellchaser",
+      "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
+      "lang": "fr",
+      "printedName": "Lutri, le chasse-sorts",
+      "scryfallId": "10ecaae2-837a-43c0-b2eb-5a11b6864368"
+    },
+    {
+      "name": "Magda, Brazen Outlaw",
+      "oracleId": "3d268e48-3004-4384-bf52-e63243fb5e02",
+      "lang": "fr",
+      "printedName": "Magda, Hors-la-loi intrépide",
+      "scryfallId": "1965cfe7-b6d5-49e9-bf89-9dc981969cb2"
+    },
+    {
+      "name": "Magda, the Hoardmaster",
+      "oracleId": "7fd2beb8-f823-4723-beec-e59b62127490",
+      "lang": "fr",
+      "printedName": "Magda, maîtresse du butin",
+      "scryfallId": "2c74a501-c492-4108-a374-4756f60e4c1a"
+    },
+    {
+      "name": "Malcolm, Alluring Scoundrel",
+      "oracleId": "3bba3b36-f8d7-4fd6-892a-797226210b6e",
+      "lang": "fr",
+      "printedName": "Malcolm, vaurien attirant",
+      "scryfallId": "62de5ceb-213a-436e-8e02-5b236ba230e5"
+    },
+    {
+      "name": "Malevolent Rumble",
+      "oracleId": "d30d8968-ec24-4155-97e2-28efd52c8810",
+      "lang": "fr",
+      "printedName": "Grondement maléfique",
+      "scryfallId": "56e8b639-30f2-4fd7-bbe6-f4d178b919fb"
+    },
+    {
+      "name": "Mana Confluence",
+      "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
+      "lang": "fr",
+      "printedName": "Confluence de mana",
+      "scryfallId": "bcbe0ab7-2b58-41a7-b1cf-4b868aa3dfbd"
+    },
+    {
+      "name": "Mana Crypt",
+      "oracleId": "2c63e4e1-89d2-4bc6-a232-94e75c4b1c8a",
+      "lang": "fr",
+      "printedName": "Crypte de mana",
+      "scryfallId": "66c9c2c5-b608-4e6b-b9d3-e99e4f5c7d43"
+    },
+    {
+      "name": "Mana Drain",
+      "oracleId": "74d3277a-38e5-4732-afed-084a56148f20",
+      "lang": "fr",
+      "printedName": "Drain de mana",
+      "scryfallId": "69b34acf-d0c5-40dd-84f4-b33ef6b5a3c1"
+    },
+    {
+      "name": "Mana Flare",
+      "oracleId": "97159138-c34b-416e-b079-5c952383a243",
+      "lang": "fr",
+      "printedName": "Flamboiement de mana",
+      "scryfallId": "403fb2de-0b22-4b74-a86a-fcef95d5bed6"
+    },
+    {
+      "name": "Mana Leak",
+      "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
+      "lang": "fr",
+      "printedName": "Fuite de mana",
+      "scryfallId": "036b08cc-0f4d-4dd5-8040-9e5483275e58"
+    },
+    {
+      "name": "Mana Tithe",
+      "oracleId": "948217ac-289e-455f-8c7c-519aa75fa345",
+      "lang": "fr",
+      "printedName": "Dîme de mana",
+      "scryfallId": "a9c842e1-c4a2-4f5c-943e-71ed08d6219b"
+    },
+    {
+      "name": "Mana Vault",
+      "oracleId": "736892cb-a34b-4bb9-b56c-e26e3db207a2",
+      "lang": "fr",
+      "printedName": "Arche de mana",
+      "scryfallId": "233ec3cc-966d-45bd-9927-e634a3ccbb7b"
+    },
+    {
+      "name": "Manamorphose",
+      "oracleId": "89c83a6d-f6c8-4984-a888-0db62dfb93b1",
+      "lang": "fr",
+      "printedName": "Manamorphose",
+      "scryfallId": "63af9c6a-165f-4f1b-89c9-7f011104c036"
+    },
+    {
+      "name": "March of Otherworldly Light",
+      "oracleId": "ed06e421-480c-40c8-8c3e-1e466e5327b2",
+      "lang": "fr",
+      "printedName": "Marche de la lumière fantasmagorique",
+      "scryfallId": "4ab4cef3-890b-4df9-ba12-97ff936bf1ce"
+    },
+    {
+      "name": "Marchesa, Dealer of Death",
+      "oracleId": "37449c93-4d32-4f1a-982f-8f3416214368",
+      "lang": "fr",
+      "printedName": "Marchesa, pourvoyeuse de mort",
+      "scryfallId": "717b7920-8f28-4915-a8ae-c0c619ca6975"
+    },
+    {
+      "name": "Marsh Flats",
+      "oracleId": "dab520d0-20b4-4273-ba6b-eb07f85ea433",
+      "lang": "fr",
+      "printedName": "Plaines marécageuses",
+      "scryfallId": "059432b4-0371-4478-bc79-c86cd99f9816"
+    },
+    {
+      "name": "Mawloc",
+      "oracleId": "e5d928dc-b465-4cf7-ab11-d5bd3328f8e7",
+      "lang": "fr",
+      "printedName": "Mawloc",
+      "scryfallId": "d9739d75-1d1d-477a-a752-df14718a3c2d"
+    },
+    {
+      "name": "Mechagodzilla, Battle Fortress",
+      "oracleId": "dde55256-5259-44e7-a267-fca45a7f0d04",
+      "lang": "fr",
+      "printedName": "Marcheur porte-hangars",
+      "scryfallId": "58b07fd1-4763-4e34-ae07-400fbf9e753c"
+    },
+    {
+      "name": "Memory Deluge",
+      "oracleId": "e6fd55f2-7e26-469c-a44a-ea2eb90e19a9",
+      "lang": "fr",
+      "printedName": "Déluge de réminiscences",
+      "scryfallId": "5c082ccb-2cbc-409f-bdab-a27b12c2ffee"
+    },
+    {
+      "name": "Memory Jar",
+      "oracleId": "eb9c9a34-88a8-4afe-a053-806f6b29834f",
+      "lang": "fr",
+      "printedName": "Jarre-mémoire",
+      "scryfallId": "911626b0-0019-4ad0-bc8b-de2625cc4140"
+    },
+    {
+      "name": "Memory Lapse",
+      "oracleId": "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+      "lang": "fr",
+      "printedName": "Trou de mémoire",
+      "scryfallId": "13ae969c-3ec8-4b2a-8a54-4be9e17e1e58"
+    },
+    {
+      "name": "Mesmeric Fiend",
+      "oracleId": "fb46b300-8a39-40d2-8bc7-31b90c822e22",
+      "lang": "fr",
+      "printedName": "Fielleux mesmérien",
+      "scryfallId": "cdfe257d-6411-4ae0-a273-4595c0d9e00c"
+    },
+    {
+      "name": "Metalworker",
+      "oracleId": "9ed9accb-9f0c-40fa-aeea-2d1e1c9d1bd1",
+      "lang": "fr",
+      "printedName": "Ouvrier Métallurgiste",
+      "scryfallId": "5d3c2825-3c01-4387-b4a4-fe0999799a82"
+    },
+    {
+      "name": "Meticulous Archive",
+      "oracleId": "ccfb8b4d-651c-418a-aa19-cb23105b3f2f",
+      "lang": "fr",
+      "printedName": "Archives méticuleuses",
+      "scryfallId": "6702f6b1-1601-4473-b752-ae3124147def"
+    },
+    {
+      "name": "Mind Stone",
+      "oracleId": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
+      "lang": "fr",
+      "printedName": "Pierre de l'esprit",
+      "scryfallId": "1cc97ac3-8ea6-46bb-984b-496fca0a0dec"
+    },
+    {
+      "name": "Mind Twist",
+      "oracleId": "78f9c223-9982-4282-a496-a6f892f0a5bf",
+      "lang": "fr",
+      "printedName": "Convulsion cérébrale",
+      "scryfallId": "4eebf042-61e1-4b2a-a90e-fd8de18bfa3a"
+    },
+    {
+      "name": "Mind's Desire",
+      "oracleId": "b3739b5a-5731-4c64-a244-815a363b0d5c",
+      "lang": "fr",
+      "printedName": "À mon seul désir",
+      "scryfallId": "397fc1e0-753d-4716-84b5-7b95a8246615"
+    },
+    {
+      "name": "Mindslaver",
+      "oracleId": "a806f4ee-f48a-46c3-8772-5aaabebe4c7e",
+      "lang": "fr",
+      "printedName": "Esclavagiste d'âmes",
+      "scryfallId": "d14c2b09-b2f5-4db6-a8d9-d2209eae3f13"
+    },
+    {
+      "name": "Mine Collapse",
+      "oracleId": "83df0f44-86ca-4adb-9f3a-da1ba6dd7a6d",
+      "lang": "fr",
+      "printedName": "Effondrement de la mine",
+      "scryfallId": "b115e003-a34e-4557-be09-97e17a91dd50"
+    },
+    {
+      "name": "Minsc & Boo, Timeless Heroes",
+      "oracleId": "3a310554-3f69-4158-bb94-9d6965c7125a",
+      "lang": "fr",
+      "printedName": "Minsc et Bouh, héros éternels",
+      "scryfallId": "0da4fd23-d4dd-431d-ab30-41890eb9243c"
+    },
+    {
+      "name": "Miscalculation",
+      "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
+      "lang": "fr",
+      "printedName": "Erreur de calcul",
+      "scryfallId": "842d5d02-a81c-4ed3-a2b0-44bd23caa551"
+    },
+    {
+      "name": "Mishra's Bauble",
+      "oracleId": "63afc3d1-7653-476e-838f-fc18d4a62a21",
+      "lang": "fr",
+      "printedName": "Babiole de Mishra",
+      "scryfallId": "3039b1ed-3280-44de-8c64-162026e30ec7"
+    },
+    {
+      "name": "Mishra's Research Desk",
+      "oracleId": "95ac482c-c6ad-49b4-937e-460241ae355f",
+      "lang": "fr",
+      "printedName": "Bureau de recherche de Mishra",
+      "scryfallId": "3d9dd4ce-a40a-4666-813a-b37c67f44168"
+    },
+    {
+      "name": "Misty Rainforest",
+      "oracleId": "09dd85aa-47bc-4713-a9b9-8b52ff2285ed",
+      "lang": "fr",
+      "printedName": "Forêt pluviale embrumée",
+      "scryfallId": "0420d59b-d39c-49a4-96f4-6ee50ef76c87"
+    },
+    {
+      "name": "Mizzium Mortars",
+      "oracleId": "48ddba1e-2ad7-463f-9307-d2379a800e51",
+      "lang": "fr",
+      "printedName": "Mortiers de mizzium",
+      "scryfallId": "55a6eaa1-23c2-4800-b881-5fc4cb4ec434"
+    },
+    {
+      "name": "Molten Collapse",
+      "oracleId": "f0d1636e-6f80-44fe-869a-1749ab249815",
+      "lang": "fr",
+      "printedName": "Effondrement en fusion",
+      "scryfallId": "72c4c5e6-44b4-4233-8f82-410292d4eb5a"
+    },
+    {
+      "name": "Monastery Swiftspear",
+      "oracleId": "dafd2713-d1bc-474b-b390-d2ff20b5375e",
+      "lang": "fr",
+      "printedName": "Vive-lance du monastère",
+      "scryfallId": "16f2f7fc-5dff-4cac-af13-a029b8fdf3d4"
+    },
+    {
+      "name": "Monster Manual",
+      "oracleId": "6d4e7943-1fdf-4085-8af0-658badbd0cb8",
+      "lang": "fr",
+      "printedName": "Étude zoologique",
+      "scryfallId": "580d610f-7381-41fb-bd38-e1d247203121"
+    },
+    {
+      "name": "Monster Manual",
+      "oracleId": "6d4e7943-1fdf-4085-8af0-658badbd0cb8",
+      "lang": "fr",
+      "printedName": "Manuel des monstres",
+      "scryfallId": "580d610f-7381-41fb-bd38-e1d247203121"
+    },
+    {
+      "name": "Morgul-Knife",
+      "oracleId": "8b27326f-e7b8-4a4d-b589-df459246d19a",
+      "lang": "fr",
+      "printedName": "Ombrelance",
+      "scryfallId": "2f98ef12-9883-49aa-9d70-7912621e5f37"
+    },
+    {
+      "name": "Mother of Runes",
+      "oracleId": "60433b48-d27f-413c-905c-43839b1943f1",
+      "lang": "fr",
+      "printedName": "Mère des runes",
+      "scryfallId": "19ea6b02-40b0-4d27-99e5-acc612569b23"
+    },
+    {
+      "name": "Mothra, Supersonic Queen",
+      "oracleId": "28c7c816-07e7-42fb-923c-bf149ba28b38",
+      "lang": "fr",
+      "printedName": "Phalène pondeuse lumineuse",
+      "scryfallId": "3206c561-b3e6-47af-82f7-e71c43548a5f"
+    },
+    {
+      "name": "Mountain",
+      "oracleId": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "lang": "fr",
+      "printedName": "montagne",
+      "scryfallId": "03dcce6e-2524-45e5-9faa-48a5491cd33d"
+    },
+    {
+      "name": "Mountain",
+      "oracleId": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "lang": "fr",
+      "printedName": "Montagne",
+      "scryfallId": "000cb74e-2ebf-4c31-a334-4dbad1486ead"
+    },
+    {
+      "name": "Mountain",
+      "oracleId": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "lang": "fr",
+      "printedName": "Mountain",
+      "scryfallId": "21c0363c-57bb-4f1f-af0e-e94f75873c4d"
+    },
+    {
+      "name": "Mox Diamond",
+      "oracleId": "f3c5978a-70fa-431f-933b-b954bd0db0ea",
+      "lang": "fr",
+      "printedName": "Mox de diamant",
+      "scryfallId": "156875c0-3435-4dd4-ba6b-e748924c242e"
+    },
+    {
+      "name": "Murderous Redcap",
+      "oracleId": "a498bc70-36e7-4454-bc44-906893df38b8",
+      "lang": "fr",
+      "printedName": "Bonnet-rouge meurtrier",
+      "scryfallId": "e30fc8b8-31de-466c-852f-0dd2b41df68b"
+    },
+    {
+      "name": "Murderous Rider",
+      "oracleId": "1080c5b5-6651-4c6a-93e6-099fbe389e26",
+      "lang": "fr",
+      "printedName": "Cavalière meurtrière",
+      "scryfallId": "060cd53f-3eb8-48f7-bd1c-2b6346c792d3"
+    },
+    {
+      "name": "Murderous Rider",
+      "oracleId": "1080c5b5-6651-4c6a-93e6-099fbe389e26",
+      "lang": "fr",
+      "printedName": "Fin précipitée",
+      "scryfallId": "060cd53f-3eb8-48f7-bd1c-2b6346c792d3"
+    },
+    {
+      "name": "Myr Battlesphere",
+      "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+      "lang": "fr",
+      "printedName": "Sphère de bataille myr",
+      "scryfallId": "1316be2b-f761-4656-889d-edf32ed65de1"
+    },
+    {
+      "name": "Myrel, Shield of Argive",
+      "oracleId": "503094aa-6f8f-42c1-ad5a-9305934e5f0c",
+      "lang": "fr",
+      "printedName": "Myrel, bouclier d'Argive",
+      "scryfallId": "dc75cc79-ac85-4e1f-8140-6b8fb291643e"
+    },
+    {
+      "name": "Mystic Confluence",
+      "oracleId": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
+      "lang": "fr",
+      "printedName": "Confluence mystique",
+      "scryfallId": "07ef1be3-b209-4ef4-8c84-bdbc3333d233"
+    },
+    {
+      "name": "Mystical Tutor",
+      "oracleId": "fb81f95c-70f8-4eb7-8d15-15d0ae23ec03",
+      "lang": "fr",
+      "printedName": "Préceptrice mystique",
+      "scryfallId": "022c66e0-2e7e-4873-a7f0-b5b9512aa657"
+    },
+    {
+      "name": "Nadu, Winged Wisdom",
+      "oracleId": "0ff11a61-6fe3-4c70-aba8-417023a5e54e",
+      "lang": "fr",
+      "printedName": "Nadu, sagesse ailée",
+      "scryfallId": "1afd5ccf-c35a-4c24-8a27-2ce621d34118"
+    },
+    {
+      "name": "Nahiri, the Harbinger",
+      "oracleId": "d492eb9a-1f3b-4bf2-9a5d-0f4a4433f33f",
+      "lang": "fr",
+      "printedName": "Nahiri, l'annonciatrice",
+      "scryfallId": "94ec233e-bb13-45c4-a8b1-ec7a8766dd13"
+    },
+    {
+      "name": "Narset, Parter of Veils",
+      "oracleId": "ab26fbe2-e808-48b9-8d0d-3fbb6c3d554f",
+      "lang": "fr",
+      "printedName": "Narset, déchireuse des voiles",
+      "scryfallId": "1d0126ae-3bdf-4e1e-8fcc-e4888854587b"
+    },
+    {
+      "name": "Natural Order",
+      "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+      "lang": "fr",
+      "printedName": "Ordre naturel",
+      "scryfallId": "014e3c02-1cb2-4990-93be-599aeaeef6aa"
+    },
+    {
+      "name": "Necromancy",
+      "oracleId": "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
+      "lang": "fr",
+      "printedName": "Nécromancie",
+      "scryfallId": "2707f3bc-fabd-478b-93d2-d3b09991a45b"
+    },
+    {
+      "name": "Necron Deathmark",
+      "oracleId": "45866598-4ee4-46b6-ade2-ffcdbe98e58f",
+      "lang": "fr",
+      "printedName": "Traqueur nécron",
+      "scryfallId": "ff960ae4-1c15-4869-b5b3-ed8bf316eeb7"
+    },
+    {
+      "name": "Nettlecyst",
+      "oracleId": "04c7f4fe-2098-4311-866d-6733c08d5178",
+      "lang": "fr",
+      "printedName": "Urtikyste",
+      "scryfallId": "41eda833-0b7c-4e4a-997d-46e5fd92c274"
+    },
+    {
+      "name": "Nexus of Becoming",
+      "oracleId": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
+      "lang": "fr",
+      "printedName": "Nexus de conversion",
+      "scryfallId": "0ac9ad5e-a7d1-4492-b865-e320c6aa2b0a"
+    },
+    {
+      "name": "Night Scythe",
+      "oracleId": "dea9741a-3360-4a17-aeea-a854e2174d25",
+      "lang": "fr",
+      "printedName": "Moissonneur",
+      "scryfallId": "aa624ce8-fc7e-44d7-959f-d22b1875ad59"
+    },
+    {
+      "name": "Night's Whisper",
+      "oracleId": "7ffae8f8-3006-4969-a339-6d30678f87ea",
+      "lang": "fr",
+      "printedName": "Chuchotements nocturnes",
+      "scryfallId": "004ac363-715b-450e-8722-edfda16a2358"
+    },
+    {
+      "name": "Nissa, Ascended Animist",
+      "oracleId": "9c8845d6-fa65-4731-b348-dc724fc2d285",
+      "lang": "fr",
+      "printedName": "Nissa, animiste ascendue",
+      "scryfallId": "155cd512-e0b5-49be-99c4-82687af4776b"
+    },
+    {
+      "name": "Nissa, Who Shakes the World",
+      "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
+      "lang": "fr",
+      "printedName": "Nissa, celle qui fait trembler le monde",
+      "scryfallId": "025a7c01-1580-41cb-9096-ee6e39d25767"
+    },
+    {
+      "name": "Niv-Mizzet Reborn",
+      "oracleId": "10764b35-5c6c-4161-8579-1124d5963a0e",
+      "lang": "fr",
+      "printedName": "Niv-Mizzet revenu à la vie",
+      "scryfallId": "9065798e-1514-4a45-ab42-9e3219f0ac6d"
+    },
+    {
+      "name": "No More Lies",
+      "oracleId": "ead1ee6a-e0da-46d5-89e8-31e8c0270bc2",
+      "lang": "fr",
+      "printedName": "Fini les mensonges",
+      "scryfallId": "85d4f3ca-d4e0-4d1e-bc19-8127f5eb8c69"
+    },
+    {
+      "name": "Noble Hierarch",
+      "oracleId": "98aa9424-5912-4bd6-9300-b3972a31d8af",
+      "lang": "fr",
+      "printedName": "Noble hiérarche",
+      "scryfallId": "06773d09-6a35-4655-bab2-53dc281eeea4"
+    },
+    {
+      "name": "Noise Marine",
+      "oracleId": "1f7e85cf-afee-4041-9436-1fb69b4ec292",
+      "lang": "fr",
+      "printedName": "Marine du Vacarme",
+      "scryfallId": "ada4e1f5-a696-49a4-b307-c71dbebdcb1b"
+    },
+    {
+      "name": "Novice Inspector",
+      "oracleId": "c206bdcb-d2c4-4bda-a979-6c0627ef8f73",
+      "lang": "fr",
+      "printedName": "Inspecteur postulant",
+      "scryfallId": "94ebf507-2bcf-436e-b1bb-5855ba7b9214"
+    },
+    {
+      "name": "Noxious Gearhulk",
+      "oracleId": "a77b5be2-f361-4135-ba25-670a74d268ac",
+      "lang": "fr",
+      "printedName": "Carcasse mécanique délétère",
+      "scryfallId": "00f62db7-acab-4cb8-aecb-636b429abc90"
+    },
+    {
+      "name": "Nurturing Peatland",
+      "oracleId": "8ed932ff-986c-4592-ad70-53b3fac80d69",
+      "lang": "fr",
+      "printedName": "Tourbière nourricière",
+      "scryfallId": "d0868695-b9fa-4531-ad34-40943664d7a0"
+    },
+    {
+      "name": "Oath of Druids",
+      "oracleId": "cf0dcb27-f02e-4065-81dc-75fbbb09ea3f",
+      "lang": "fr",
+      "printedName": "Serment des druides",
+      "scryfallId": "3b9095f7-480f-462e-9aac-571ed2fb45aa"
+    },
+    {
+      "name": "Ocelot Pride",
+      "oracleId": "b4ce2c8f-a19c-461e-8a2e-0ec2bd3ebca3",
+      "lang": "fr",
+      "printedName": "Bande d'ocelots",
+      "scryfallId": "0dc33fbe-510c-4516-8174-783283011389"
+    },
+    {
+      "name": "Ojer Kaslem, Deepest Growth",
+      "oracleId": "eda11077-b2ce-408b-b982-def2da8fe599",
+      "lang": "fr",
+      "printedName": "Ojer Kaslem, Croissance des profondeurs",
+      "scryfallId": "40e6db74-ec7d-4304-bd96-fd5bc011a370"
+    },
+    {
+      "name": "Ojer Kaslem, Deepest Growth",
+      "oracleId": "eda11077-b2ce-408b-b982-def2da8fe599",
+      "lang": "fr",
+      "printedName": "Temple de la culture",
+      "scryfallId": "40e6db74-ec7d-4304-bd96-fd5bc011a370"
+    },
+    {
+      "name": "Oko, Thief of Crowns",
+      "oracleId": "60c60923-ff1b-43f7-8768-731499fcffc9",
+      "lang": "fr",
+      "printedName": "Oko, voleur de couronnes",
+      "scryfallId": "404e183d-5342-48ff-91e3-dac1387f3ae3"
+    },
+    {
+      "name": "Oliphaunt",
+      "oracleId": "186b2256-4af3-48cb-96b0-b0e80a7ee6dc",
+      "lang": "fr",
+      "printedName": "Olifant",
+      "scryfallId": "31c6a2e5-5f9e-4ceb-a7df-2194a57b5c5e"
+    },
+    {
+      "name": "Omnath, Locus of Creation",
+      "oracleId": "cd133d30-51ff-4114-a7d7-029345f0f0d7",
+      "lang": "fr",
+      "printedName": "Omnath, Locus de création",
+      "scryfallId": "1f57dddc-1233-4cef-ac1b-86a9c266e9b5"
+    },
+    {
+      "name": "Once Upon a Time",
+      "oracleId": "d00ade82-caab-43c6-9756-6e9e6edfc519",
+      "lang": "fr",
+      "printedName": "Il était une fois...",
+      "scryfallId": "a19b26a2-47ee-4582-9f26-b5e2174baf36"
+    },
+    {
+      "name": "Ophiomancer",
+      "oracleId": "55eca80c-dcd8-4c2f-aa0f-fb0aec7b80f7",
+      "lang": "fr",
+      "printedName": "Ophiomancienne",
+      "scryfallId": "4de4584d-5cf1-4e97-84cb-25d460d80eb3"
+    },
+    {
+      "name": "Oracle of Mul Daya",
+      "oracleId": "6c5b02eb-7829-436a-8555-fea200e4b67f",
+      "lang": "fr",
+      "printedName": "Oracle de Mul Daya",
+      "scryfallId": "01f348a4-97e9-4496-8e21-b76af1340fa9"
+    },
+    {
+      "name": "Orcish Bowmasters",
+      "oracleId": "ea5103f5-27e0-4eb1-902c-7f34652d6bf3",
+      "lang": "fr",
+      "printedName": "Maîtres archers orques",
+      "scryfallId": "071dbbb0-37ad-4b8d-b3aa-4371d0b8571e"
+    },
+    {
+      "name": "Orcish Lumberjack",
+      "oracleId": "383e3fe4-8558-4561-8632-6eadb5d5963c",
+      "lang": "fr",
+      "printedName": "Bûcheron orque",
+      "scryfallId": "eb2b3f5c-bfdc-47d9-a071-dc5b7b55d058"
+    },
+    {
+      "name": "Otawara, Soaring City",
+      "oracleId": "e9b6a394-691c-425a-9307-76d8edc7375e",
+      "lang": "fr",
+      "printedName": "Otawara, cité aérienne",
+      "scryfallId": "7675fab9-c311-4a2a-9761-05fffd156485"
+    },
+    {
+      "name": "Otharri, Suns' Glory",
+      "oracleId": "b081352b-d17b-4031-bbcc-c5c02cbfa6b6",
+      "lang": "fr",
+      "printedName": "Otharri, gloire des soleils",
+      "scryfallId": "1aa568c8-de37-4da6-90d2-699ef8328514"
+    },
+    {
+      "name": "Oust",
+      "oracleId": "efc12fda-054b-466a-a863-06cf54878172",
+      "lang": "fr",
+      "printedName": "Évincement",
+      "scryfallId": "0e37a5f1-6d27-40d1-bc6f-6cdb6dd45a29"
+    },
+    {
+      "name": "Outland Liberator",
+      "oracleId": "9545f126-062f-4410-a362-e16255a128d6",
+      "lang": "fr",
+      "printedName": "Casse-piège hystérique",
+      "scryfallId": "f61970d7-27f8-40f5-9f11-9af0c66fb003"
+    },
+    {
+      "name": "Outland Liberator",
+      "oracleId": "9545f126-062f-4410-a362-e16255a128d6",
+      "lang": "fr",
+      "printedName": "Libératrice de l'horizon",
+      "scryfallId": "f61970d7-27f8-40f5-9f11-9af0c66fb003"
+    },
+    {
+      "name": "Overgrown Tomb",
+      "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
+      "lang": "fr",
+      "printedName": "Tombeau luxuriant",
+      "scryfallId": "361df5f5-a237-4cca-b243-970e427e24fc"
+    },
+    {
+      "name": "Pack Rat",
+      "oracleId": "5632c2df-71e6-41b7-b8f5-c683812cc0e2",
+      "lang": "fr",
+      "printedName": "Rat de meute",
+      "scryfallId": "40aed53a-64cc-49cb-82b9-6a68c2713bfd"
+    },
+    {
+      "name": "Palace Jailer",
+      "oracleId": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+      "lang": "fr",
+      "printedName": "Gardien de prison du palais",
+      "scryfallId": "5657f4bd-ff48-4e7e-8155-1abc5e12341f"
+    },
+    {
+      "name": "Paradise Druid",
+      "oracleId": "e119869d-1f66-402b-8251-d351965cf0d3",
+      "lang": "fr",
+      "printedName": "Druidesse de paradis",
+      "scryfallId": "0bf331ff-b5d9-483f-90b5-4f048b127be5"
+    },
+    {
+      "name": "Path to Exile",
+      "oracleId": "d683d985-9888-4d21-8b5f-69e69ce4a03b",
+      "lang": "fr",
+      "printedName": "Chemin vers l'exil",
+      "scryfallId": "00f9e1f0-62f2-4c40-8228-483786255e81"
+    },
+    {
+      "name": "Pentad Prism",
+      "oracleId": "72e8d67a-41e6-4074-bcbd-b54ead995237",
+      "lang": "fr",
+      "printedName": "Pentode prismatique",
+      "scryfallId": "7639f72d-3c03-4f1f-94d7-ee64e327ea09"
+    },
+    {
+      "name": "Pernicious Deed",
+      "oracleId": "62e44e0d-eda0-4275-8367-49dab9a087c3",
+      "lang": "fr",
+      "printedName": "Action pernicieuse",
+      "scryfallId": "bc2a782b-d9cd-4824-ba9c-f0805156f144"
+    },
+    {
+      "name": "Persist",
+      "oracleId": "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
+      "lang": "fr",
+      "printedName": "Persistance",
+      "scryfallId": "0e461ac0-a92a-4092-9451-50e01ec14cb3"
+    },
+    {
+      "name": "Pest Infestation",
+      "oracleId": "1b704798-0c69-4c18-ac7e-42933ce90028",
+      "lang": "fr",
+      "printedName": "Infestation de parasites",
+      "scryfallId": "6073b7d2-b7cf-4f76-bdaf-084d14cc30cf"
+    },
+    {
+      "name": "Pestermite",
+      "oracleId": "83cf4235-eb4e-4c55-839a-f2740d41ed5e",
+      "lang": "fr",
+      "printedName": "Harceleuse",
+      "scryfallId": "843b1e38-7f63-42e0-a06d-b1173573b92e"
+    },
+    {
+      "name": "Phantasmal Image",
+      "oracleId": "bde94af8-faea-41ff-8eed-ba642eac9968",
+      "lang": "fr",
+      "printedName": "Image phantasmatique",
+      "scryfallId": "0b246012-752e-4bb4-9673-eca648c783e4"
+    },
+    {
+      "name": "Phelia, Exuberant Shepherd",
+      "oracleId": "5d86a59a-ba1f-45f7-b829-dca6f9f3e624",
+      "lang": "fr",
+      "printedName": "Phelia, bergère exubérante",
+      "scryfallId": "6bf82a2d-e637-4d39-a6bd-6e9d304a9de5"
+    },
+    {
+      "name": "Phlage, Titan of Fire's Fury",
+      "oracleId": "3407eb6e-b74d-4159-a801-d7163937953c",
+      "lang": "fr",
+      "printedName": "Phlage, titan de la furie du feu",
+      "scryfallId": "4a36abf4-8abf-418c-8888-cef813342084"
+    },
+    {
+      "name": "Phyrexian Arena",
+      "oracleId": "ee579a32-a048-4335-b966-231ba731cdea",
+      "lang": "fr",
+      "printedName": "Arène phyrexiane",
+      "scryfallId": "0883e5b4-008d-4e52-97b4-e8657563c06b"
+    },
+    {
+      "name": "Phyrexian Fleshgorger",
+      "oracleId": "d3a5a830-cd14-49da-9412-c50049c74c92",
+      "lang": "fr",
+      "printedName": "Avaleur de chair phyrexian",
+      "scryfallId": "adceeac3-78a4-4544-993c-4175743d1771"
+    },
+    {
+      "name": "Phyrexian Metamorph",
+      "oracleId": "340bbe8b-e987-4c3e-ab4e-9dee63e57d4f",
+      "lang": "fr",
+      "printedName": "Métamorphe phyrexian",
+      "scryfallId": "5044e3fa-242d-4a60-a7d5-cc40a890dc73"
+    },
+    {
+      "name": "Phyrexian Revoker",
+      "oracleId": "786b3657-b595-4b38-83f2-d40915e51e2b",
+      "lang": "fr",
+      "printedName": "Révocateur phyrexian",
+      "scryfallId": "006bd527-3ec1-4717-878f-858bab325f5c"
+    },
+    {
+      "name": "Pick Your Poison",
+      "oracleId": "9af4a832-d634-47aa-91ed-79d44fe08864",
+      "lang": "fr",
+      "printedName": "Choisissez votre poison",
+      "scryfallId": "a031988c-2a5a-46c6-b8b4-3eac04da3a0b"
+    },
+    {
+      "name": "Plains",
+      "oracleId": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "lang": "fr",
+      "printedName": "plaine",
+      "scryfallId": "43580c18-8f01-443f-bd54-7db926c357dd"
+    },
+    {
+      "name": "Plains",
+      "oracleId": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "lang": "fr",
+      "printedName": "Plaine",
+      "scryfallId": "0084c76e-e38f-4198-b459-2516cf6f8643"
+    },
+    {
+      "name": "Plains",
+      "oracleId": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "lang": "fr",
+      "printedName": "Plains",
+      "scryfallId": "0aef0b70-4a4f-49dd-820d-4a4877be127c"
+    },
+    {
+      "name": "Plateau",
+      "oracleId": "c7a15ca4-085f-4d92-8387-c3711c04c8fa",
+      "lang": "fr",
+      "printedName": "Plateau",
+      "scryfallId": "0e8ad25b-03dd-4238-a070-e962895e0557"
+    },
+    {
+      "name": "Polluted Delta",
+      "oracleId": "ef86989d-ce80-4e55-aece-7d11710eeffa",
+      "lang": "fr",
+      "printedName": "Estuaire pollué",
+      "scryfallId": "0b2c7f00-d99c-4ea7-8f77-ba1f80c15aea"
+    },
+    {
+      "name": "Ponder",
+      "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
+      "lang": "fr",
+      "printedName": "Contemplation",
+      "scryfallId": "0fb48d2a-f8d7-43b5-a47e-2b94b12f5a62"
+    },
+    {
+      "name": "Porcelain Legionnaire",
+      "oracleId": "66442396-f804-47f3-8daa-0d43d8cfb482",
+      "lang": "fr",
+      "printedName": "Légionnaire de porcelaine",
+      "scryfallId": "5b854190-31f6-40af-b887-160a0f7ef331"
+    },
+    {
+      "name": "Portable Hole",
+      "oracleId": "5e57a8cd-f4f0-40b2-84a0-e002751c0d40",
+      "lang": "fr",
+      "printedName": "Puits portable",
+      "scryfallId": "2a7289ef-c354-47e3-866c-47d7728af98d"
+    },
+    {
+      "name": "Portal to Phyrexia",
+      "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+      "lang": "fr",
+      "printedName": "Portail de Phyrexia",
+      "scryfallId": "1a84424e-84f1-4010-9f83-26fec0d1ad4a"
+    },
+    {
+      "name": "Preacher of the Schism",
+      "oracleId": "74947e47-c4ff-4f47-9845-befa7403cbde",
+      "lang": "fr",
+      "printedName": "Prêcheur du schisme",
+      "scryfallId": "3a81a653-ede0-4faa-9ddc-981f027708ca"
+    },
+    {
+      "name": "Preordain",
+      "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
+      "lang": "fr",
+      "printedName": "Prédestination",
+      "scryfallId": "112459b1-e7e1-407b-a373-716ec5251731"
+    },
+    {
+      "name": "Priest of Fell Rites",
+      "oracleId": "ec6ccd8f-cc75-4a50-8639-f4ec31a280aa",
+      "lang": "fr",
+      "printedName": "Prêtresse des rites cruels",
+      "scryfallId": "3056a906-b5d9-4546-b810-d7c06a706ac8"
+    },
+    {
+      "name": "Primeval Titan",
+      "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
+      "lang": "fr",
+      "printedName": "Titan primitif",
+      "scryfallId": "6460cfe8-de65-4857-9cbf-996f05788860"
+    },
+    {
+      "name": "Prismari Command",
+      "oracleId": "fa3e28b1-131c-4223-81e0-18dfbab22c26",
+      "lang": "fr",
+      "printedName": "Commandement de Prismari",
+      "scryfallId": "5661595e-0a57-4d00-b95f-0d536c5138ab"
+    },
+    {
+      "name": "Prismatic Vista",
+      "oracleId": "032b8a0d-491a-4a12-ab9f-689010054d5b",
+      "lang": "fr",
+      "printedName": "Vue prismatique",
+      "scryfallId": "a652afcc-2fe6-4503-99fa-6c9302ca4e0a"
+    },
+    {
+      "name": "Psychic Frog",
+      "oracleId": "e157ad1e-be35-47f3-92db-01799f8fb6a5",
+      "lang": "fr",
+      "printedName": "Grenouille psychique",
+      "scryfallId": "15a962a8-7658-4512-805e-5fb20aaab598"
+    },
+    {
+      "name": "Pyretic Ritual",
+      "oracleId": "86ef6474-613f-41fb-931c-d4279b03ed99",
+      "lang": "fr",
+      "printedName": "Rituel pyrétique",
+      "scryfallId": "752614d0-7f06-42cd-baa2-a17c7b2136db"
+    },
+    {
+      "name": "Pyrogoyf",
+      "oracleId": "7fd7457a-388d-4cca-a7cf-86b4ea922037",
+      "lang": "fr",
+      "printedName": "Pyrogoyf",
+      "scryfallId": "66038898-b1f6-471d-a218-a31761b4a3e3"
+    },
+    {
+      "name": "Pyrokinesis",
+      "oracleId": "d001febc-d511-4e65-a631-91dc9415056b",
+      "lang": "fr",
+      "printedName": "Pyrokinésie",
+      "scryfallId": "35142d1e-4ea4-47cf-80b8-727e8ca7e16d"
+    },
+    {
+      "name": "Qasali Pridemage",
+      "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
+      "lang": "fr",
+      "printedName": "Bandemage qasali",
+      "scryfallId": "15a4c450-fde7-48d8-9913-f06b56c6473f"
+    },
+    {
+      "name": "Questing Beast",
+      "oracleId": "b685757b-521e-4353-a233-97052359723d",
+      "lang": "fr",
+      "printedName": "Bête de Quête",
+      "scryfallId": "7ea45a5b-d9b7-463a-9cfa-1b17c20d32bb"
+    },
+    {
+      "name": "Rabbit Battery",
+      "oracleId": "c739e180-2f14-41ed-8e7e-50b7df985f35",
+      "lang": "fr",
+      "printedName": "Batterie lapin",
+      "scryfallId": "254d12ac-b85d-480c-b7d2-f9c63dfda2ad"
+    },
+    {
+      "name": "Raffine, Scheming Seer",
+      "oracleId": "9307f7e9-bcd9-41f9-88f8-0fb9700a6b12",
+      "lang": "fr",
+      "printedName": "Raffine, voyante rusée",
+      "scryfallId": "b02b5839-9211-46ab-a499-37d17af24d93"
+    },
+    {
+      "name": "Raffine's Tower",
+      "oracleId": "6e9ef5ef-6aed-4d3e-a59b-9e3dc8740b1b",
+      "lang": "fr",
+      "printedName": "Tour de Raffine",
+      "scryfallId": "756406cb-cf60-46c5-b1d3-14f5e45ac599"
+    },
+    {
+      "name": "Ragavan, Nimble Pilferer",
+      "oracleId": "37108cd4-bbab-4ce3-9ed6-f60e8422e703",
+      "lang": "fr",
+      "printedName": "Ragavan, habile chapardeur",
+      "scryfallId": "93cb61d8-9809-41c0-958d-f3d1db1728b0"
+    },
+    {
+      "name": "Ral, Monsoon Mage",
+      "oracleId": "16d40f56-691b-42a7-a5ab-157568921e03",
+      "lang": "fr",
+      "printedName": "Ral, mage de la mousson",
+      "scryfallId": "d985a5ee-9b2f-45c7-b1a1-bf5f415fdd7c"
+    },
+    {
+      "name": "Ral, Monsoon Mage",
+      "oracleId": "16d40f56-691b-42a7-a5ab-157568921e03",
+      "lang": "fr",
+      "printedName": "Ral, prodige des lignes ley",
+      "scryfallId": "d985a5ee-9b2f-45c7-b1a1-bf5f415fdd7c"
+    },
+    {
+      "name": "Rampaging Raptor",
+      "oracleId": "450a07f5-709c-48a6-aaa8-ddbd7da4fd2e",
+      "lang": "fr",
+      "printedName": "Raptor déchaîné",
+      "scryfallId": "a7074d01-23e1-455d-9b7e-cd2d3eb6dcc8"
+    },
+    {
+      "name": "Rampant Growth",
+      "oracleId": "8539f295-5d58-4436-a73a-b9277c4c7795",
+      "lang": "fr",
+      "printedName": "Croissance luxuriante",
+      "scryfallId": "104e72e3-058e-4839-a838-2b1cd7969126"
+    },
+    {
+      "name": "Ramunap Excavator",
+      "oracleId": "4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+      "lang": "fr",
+      "printedName": "Excavatrice de Ramunap",
+      "scryfallId": "1f219ba4-f51e-401a-902c-d6042191d259"
+    },
+    {
+      "name": "Ranger-Captain of Eos",
+      "oracleId": "cada3481-cc2b-4412-b9b5-0436af53aad2",
+      "lang": "fr",
+      "printedName": "Capitaine de rangers d'Éos",
+      "scryfallId": "df95eec2-80b1-4aa0-b78f-e1483a7fd3cf"
+    },
+    {
+      "name": "Rankle, Master of Pranks",
+      "oracleId": "b8619990-9dc2-4fcc-bc7e-457b77cd2a8e",
+      "lang": "fr",
+      "printedName": "Turlupin, Maître farceur",
+      "scryfallId": "1475b86d-0121-47fb-a777-e3bc7118da4e"
+    },
+    {
+      "name": "Raucous Theater",
+      "oracleId": "04e5e84f-8fd4-43ab-8f9d-5b24646f7ae5",
+      "lang": "fr",
+      "printedName": "Théâtre tapageur",
+      "scryfallId": "db55b2ec-4d03-4e37-bbef-9558e7870d01"
+    },
+    {
+      "name": "Raugrin Triome",
+      "oracleId": "c7fa1dda-9312-4ec8-82cd-a1ba7bc33497",
+      "lang": "fr",
+      "printedName": "Triome de Raugrin",
+      "scryfallId": "9e5f58bb-26e8-41b9-8d5f-2359272a00a3"
+    },
+    {
+      "name": "Ravenous Chupacabra",
+      "oracleId": "7b459306-149b-4f43-abc1-2dd70c748c0e",
+      "lang": "fr",
+      "printedName": "Chupacabra vorace",
+      "scryfallId": "27b427a0-a97c-44ee-8413-1d6acc226db5"
+    },
+    {
+      "name": "Reanimate",
+      "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+      "lang": "fr",
+      "printedName": "Réanimation",
+      "scryfallId": "287678d2-c1b6-49b3-8788-e94cc08af314"
+    },
+    {
+      "name": "Reckless Stormseeker",
+      "oracleId": "ea5fd21a-c23a-49ee-aab8-0a9618d65c11",
+      "lang": "fr",
+      "printedName": "Balafreuse chargée par l'orage",
+      "scryfallId": "5dc2e891-be95-4f33-9b1b-eb52a3aa0774"
+    },
+    {
+      "name": "Reckless Stormseeker",
+      "oracleId": "ea5fd21a-c23a-49ee-aab8-0a9618d65c11",
+      "lang": "fr",
+      "printedName": "Chasseuse d'orage imprudente",
+      "scryfallId": "5dc2e891-be95-4f33-9b1b-eb52a3aa0774"
+    },
+    {
+      "name": "Reckoner Bankbuster",
+      "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
+      "lang": "fr",
+      "printedName": "Brisebanque héliaste",
+      "scryfallId": "17122c4b-19ef-42ee-820b-923012e223c3"
+    },
+    {
+      "name": "Reclamation Sage",
+      "oracleId": "032ec6e2-6cc3-4a97-9cc7-3233f5e11904",
+      "lang": "fr",
+      "printedName": "Sage du reboisement",
+      "scryfallId": "02b9f9b0-141d-4e3d-9daa-cc036e798be2"
+    },
+    {
+      "name": "Recruiter of the Guard",
+      "oracleId": "d521a329-a53a-4962-810a-2abed80df260",
+      "lang": "fr",
+      "printedName": "Recruteuse de la garde",
+      "scryfallId": "cc9d355a-4adf-47d7-99eb-c795eef9dde1"
+    },
+    {
+      "name": "Recurring Nightmare",
+      "oracleId": "a6708b11-1bcd-4208-a967-fe91f2e3313c",
+      "lang": "fr",
+      "printedName": "Cauchemar récurrent",
+      "scryfallId": "a5adcf3e-539b-4833-afdf-28fee333fbb2"
+    },
+    {
+      "name": "Reidane, God of the Worthy",
+      "oracleId": "35ae7b25-6d0f-49f8-a40d-dd2cf88e6f44",
+      "lang": "fr",
+      "printedName": "Reidane, déesse des Valeureux",
+      "scryfallId": "a2c99dea-4241-4841-9985-5a8b1d80a697"
+    },
+    {
+      "name": "Reidane, God of the Worthy",
+      "oracleId": "35ae7b25-6d0f-49f8-a40d-dd2cf88e6f44",
+      "lang": "fr",
+      "printedName": "Valkmira, bouclier du protecteur",
+      "scryfallId": "a2c99dea-4241-4841-9985-5a8b1d80a697"
+    },
+    {
+      "name": "Relic of Progenitus",
+      "oracleId": "6a9c3401-570c-41cb-a605-75dfa57d6ab7",
+      "lang": "fr",
+      "printedName": "Relique de Progénitus",
+      "scryfallId": "2a3f0fb7-ec79-4342-8bdb-6676521c012a"
+    },
+    {
+      "name": "Relic of Sauron",
+      "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+      "lang": "fr",
+      "printedName": "Relique de Sauron",
+      "scryfallId": "6bee32f9-68bc-4425-9233-072052769cef"
+    },
+    {
+      "name": "Remand",
+      "oracleId": "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
+      "lang": "fr",
+      "printedName": "Déférence",
+      "scryfallId": "39e7e3b3-007e-469f-b1e1-610a3f7f7955"
+    },
+    {
+      "name": "Reprieve",
+      "oracleId": "f0449cbd-855c-4c20-a1f5-f76a395d8d39",
+      "lang": "fr",
+      "printedName": "Éclaircie",
+      "scryfallId": "4ef78ea7-930c-4eb3-aa28-6af8a445a5fc"
+    },
+    {
+      "name": "Restless Anchorage",
+      "oracleId": "91320daf-f69c-4350-b0fc-4bb37a6904b1",
+      "lang": "fr",
+      "printedName": "Mouillage tourmenté",
+      "scryfallId": "70f68518-dddf-4f52-bf7e-106ec7863c6a"
+    },
+    {
+      "name": "Restless Bivouac",
+      "oracleId": "b3c7b46f-c9ab-40ca-b50b-a4e0d0bd9be8",
+      "lang": "fr",
+      "printedName": "Bivouac tourmenté",
+      "scryfallId": "44f2c5de-67b1-47d8-89d5-44cb9b7756e7"
+    },
+    {
+      "name": "Restless Cottage",
+      "oracleId": "7e16595f-bdeb-422e-b99a-bfc0ed52e9f8",
+      "lang": "fr",
+      "printedName": "Maisonnette tourmentée",
+      "scryfallId": "773d4336-9331-4ee4-b260-f3cbb5895f23"
+    },
+    {
+      "name": "Restless Fortress",
+      "oracleId": "8b3726f1-20b8-42ec-8f9b-b361515c3f05",
+      "lang": "fr",
+      "printedName": "Forteresse tourmentée",
+      "scryfallId": "5582805b-b7e1-483d-80c0-aa359849f706"
+    },
+    {
+      "name": "Restless Prairie",
+      "oracleId": "c071257a-63e7-48d0-a677-0b396a09b624",
+      "lang": "fr",
+      "printedName": "Prairie tourmentée",
+      "scryfallId": "ca9b96c0-fb33-4769-a2bd-d66cf09d5043"
+    },
+    {
+      "name": "Restless Reef",
+      "oracleId": "df20f85b-5f81-4ee4-8487-55d90109ac36",
+      "lang": "fr",
+      "printedName": "Récif tourmenté",
+      "scryfallId": "bbe86b40-66e8-46e8-a8c8-f737d9b7f39b"
+    },
+    {
+      "name": "Restless Ridgeline",
+      "oracleId": "4c0f4a63-586a-4dde-9621-b0dd9118b2e5",
+      "lang": "fr",
+      "printedName": "Crêtes tourmentées",
+      "scryfallId": "356e00cf-976c-4b3b-b403-9f1bebab96b5"
+    },
+    {
+      "name": "Restless Spire",
+      "oracleId": "0ca4e80e-c19c-4b74-b531-c5a4dc5a8ba9",
+      "lang": "fr",
+      "printedName": "Tour tourmentée",
+      "scryfallId": "5c682d05-732f-4ee6-9b0c-4c4650cf774f"
+    },
+    {
+      "name": "Restless Vents",
+      "oracleId": "696e7ddb-bdc7-40ee-bc5c-59e98f4a7401",
+      "lang": "fr",
+      "printedName": "Cheminées tourmentées",
+      "scryfallId": "7313fb2a-57f4-442d-b810-9463d2cd21b5"
+    },
+    {
+      "name": "Restless Vinestalk",
+      "oracleId": "0935faa2-fb90-48db-8a92-906ba0f374c7",
+      "lang": "fr",
+      "printedName": "Tige de vigne tourmentée",
+      "scryfallId": "abac69a5-e3d6-474e-8850-f133539395f0"
+    },
+    {
+      "name": "Restoration Angel",
+      "oracleId": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+      "lang": "fr",
+      "printedName": "Ange de la restauration",
+      "scryfallId": "1912fcf8-d313-4710-9388-f52a9a0416e9"
+    },
+    {
+      "name": "Retrofitter Foundry",
+      "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
+      "lang": "fr",
+      "printedName": "Fonderie de modernisation",
+      "scryfallId": "3f24973d-ac55-43ea-8e31-a1a4666c861f"
+    },
+    {
+      "name": "Riftwing Cloudskate",
+      "oracleId": "ae2e6ffd-fb93-4c47-88e7-e84460eefbe5",
+      "lang": "fr",
+      "printedName": "Pastenuage planefaille",
+      "scryfallId": "2133f7da-1360-4490-a4a0-f7034d15d049"
+    },
+    {
+      "name": "Rip Apart",
+      "oracleId": "cbdbf18f-0180-4ade-a79e-1e644dd42d6f",
+      "lang": "fr",
+      "printedName": "Dilacérer",
+      "scryfallId": "3101d6d9-c8d6-4d14-a7a4-644967e63494"
+    },
+    {
+      "name": "Rofellos, Llanowar Emissary",
+      "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
+      "lang": "fr",
+      "printedName": "Rofellos, Emissaire de Llanowar",
+      "scryfallId": "af9db614-0f6c-4da9-a9b8-3db106ed9d62"
+    },
+    {
+      "name": "Rona, Herald of Invasion",
+      "oracleId": "cf5bd3a4-3899-4c25-ad1f-f1778c1d9c60",
+      "lang": "fr",
+      "printedName": "Rona, héraut de l'invasion",
+      "scryfallId": "462d5ec3-bc8c-4031-b431-b993deec19b8"
+    },
+    {
+      "name": "Rona, Herald of Invasion",
+      "oracleId": "cf5bd3a4-3899-4c25-ad1f-f1778c1d9c60",
+      "lang": "fr",
+      "printedName": "Rona, oblitératrice tolariane",
+      "scryfallId": "462d5ec3-bc8c-4031-b431-b993deec19b8"
+    },
+    {
+      "name": "Sacred Foundry",
+      "oracleId": "45181cb8-2090-4471-ba90-e5a8f04d525f",
+      "lang": "fr",
+      "printedName": "Fonderie sacrée",
+      "scryfallId": "05a01978-83e0-477f-8216-cf4cbc6620e8"
+    },
+    {
+      "name": "Saheeli, Sublime Artificer",
+      "oracleId": "ab655810-f67e-4576-9174-35b16f5e3235",
+      "lang": "fr",
+      "printedName": "Saheeli, sublime artificière",
+      "scryfallId": "339928c8-44d7-49b1-b535-637afa9902d3"
+    },
+    {
+      "name": "Sail into the West",
+      "oracleId": "0a8956d0-bd37-4305-8443-4df043796f6e",
+      "lang": "fr",
+      "printedName": "Voiles vers l'ouest",
+      "scryfallId": "e089307f-45fc-426b-9acd-71eb727879ca"
+    },
+    {
+      "name": "Sakura-Tribe Elder",
+      "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
+      "lang": "fr",
+      "printedName": "Ancêtre de la tribu Sakura",
+      "scryfallId": "16b8a68e-b0fb-4eb7-acba-d2c675d6f715"
+    },
+    {
+      "name": "Sandstorm Salvager",
+      "oracleId": "ec19a9bc-6fc1-4150-976b-37a47b165016",
+      "lang": "fr",
+      "printedName": "Récupératrice de la tempête de sable",
+      "scryfallId": "5c440d1a-acab-43cb-9220-5efb3b4dbdd6"
+    },
+    {
+      "name": "Satya, Aetherflux Genius",
+      "oracleId": "ce8af7dd-49df-4419-9776-4157efc60b0f",
+      "lang": "fr",
+      "printedName": "Satya, génie du flux éthérique",
+      "scryfallId": "285e1872-7c74-4c4b-9cb6-2958e6424852"
+    },
+    {
+      "name": "Savai Triome",
+      "oracleId": "00625242-9348-4ef4-b975-f2ac82fee21d",
+      "lang": "fr",
+      "printedName": "Triome de Savaï",
+      "scryfallId": "5e722cea-8321-4fc8-82a5-3623c90a5eaf"
+    },
+    {
+      "name": "Savannah",
+      "oracleId": "703243f0-8cb3-420f-958f-5fd4bde30293",
+      "lang": "fr",
+      "printedName": "Savane",
+      "scryfallId": "b3ffb3ef-d82b-4458-8aea-cc7259a88cdf"
+    },
+    {
+      "name": "Scalding Tarn",
+      "oracleId": "cb027150-848c-4a66-88ad-e20222304dd8",
+      "lang": "fr",
+      "printedName": "Lac de montagne bouillant",
+      "scryfallId": "2ee947df-6fbd-47b5-a744-98643ea1e5b8"
+    },
+    {
+      "name": "Scavenging Ooze",
+      "oracleId": "1ff25f67-36a7-4cfa-a2b1-2135b5b6fb67",
+      "lang": "fr",
+      "printedName": "Limon nécrophage",
+      "scryfallId": "063f223c-db0f-45ce-bc6e-e882425d1500"
+    },
+    {
+      "name": "Scrapheap Scrounger",
+      "oracleId": "d309e1e9-26e6-4a10-a3f4-352c7ba3f2ff",
+      "lang": "fr",
+      "printedName": "Parasite du rebut",
+      "scryfallId": "6ade13c5-3683-46e3-ae1e-21e9113195f1"
+    },
+    {
+      "name": "Scrapwork Mutt",
+      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
+      "lang": "fr",
+      "printedName": "Cabot de ferraille",
+      "scryfallId": "1d62d1b4-69b8-4046-a2c9-03ab07df9549"
+    },
+    {
+      "name": "Scrubland",
+      "oracleId": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
+      "lang": "fr",
+      "printedName": "Brousse",
+      "scryfallId": "e43ddf56-0572-4ac7-8434-6299b7e769e2"
+    },
+    {
+      "name": "Sea Gate Stormcaller",
+      "oracleId": "675de007-a71e-4036-8204-140c67871b7f",
+      "lang": "fr",
+      "printedName": "Meneuse d'orage de Porte des Mers",
+      "scryfallId": "7ce03723-56c3-44d7-aa95-01a68eb608f5"
+    },
+    {
+      "name": "Seachrome Coast",
+      "oracleId": "9e7a240d-dc33-47ac-9f17-77fab4c1c340",
+      "lang": "fr",
+      "printedName": "Côte de Chromemer",
+      "scryfallId": "480a2dc9-0334-4ae6-8c3d-124becee05ef"
+    },
+    {
+      "name": "Searing Spear",
+      "oracleId": "aafd44c1-74a9-4aa7-a4a2-67eb39a07478",
+      "lang": "fr",
+      "printedName": "Lance calcinante",
+      "scryfallId": "8e1e64df-79b7-4c5f-afd2-e4f934d86cf2"
+    },
+    {
+      "name": "Seasoned Dungeoneer",
+      "oracleId": "5ea675aa-88d6-4387-a14d-e606fa9c3aec",
+      "lang": "fr",
+      "printedName": "Exploratrice aguerrie",
+      "scryfallId": "50bf4b8e-8ee3-4ae3-ab86-8febce02646f"
+    },
+    {
+      "name": "Seasoned Hallowblade",
+      "oracleId": "d03dbb60-e32b-4b74-ae8a-73d428d344cd",
+      "lang": "fr",
+      "printedName": "Sacrelame aguerri",
+      "scryfallId": "1be1c279-a0fe-4cc8-b332-50e12738ddbd"
+    },
+    {
+      "name": "Seasoned Pyromancer",
+      "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
+      "lang": "fr",
+      "printedName": "Pyromancien aguerri",
+      "scryfallId": "068f9c64-663f-40a2-9b7d-4b55f158ae2b"
+    },
+    {
+      "name": "See the Truth",
+      "oracleId": "b23c1f40-291d-43b3-971d-97ded8b367cb",
+      "lang": "fr",
+      "printedName": "Voir la Vérité",
+      "scryfallId": "5e92e0a8-dcaf-41b3-a2c1-87e214b4adbe"
+    },
+    {
+      "name": "Seething Song",
+      "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
+      "lang": "fr",
+      "printedName": "Chant bouillonnant",
+      "scryfallId": "0659a516-47af-4e6f-ac58-a76cd2bb8dc2"
+    },
+    {
+      "name": "Selfless Spirit",
+      "oracleId": "71d785a9-ddc8-472e-a778-a551b444a4bd",
+      "lang": "fr",
+      "printedName": "Esprit dévoué",
+      "scryfallId": "368f7ace-c1e8-4fc1-a828-ae23df9414c5"
+    },
+    {
+      "name": "Selvala, Eager Trailblazer",
+      "oracleId": "95b20721-1af9-4f3f-a39b-7cd1d4ce0b20",
+      "lang": "fr",
+      "printedName": "Selvala, pionnière impatiente",
+      "scryfallId": "1c7d3cf0-6ca2-48b8-abba-bf7325d567cd"
+    },
+    {
+      "name": "Sensei's Divining Top",
+      "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
+      "lang": "fr",
+      "printedName": "Toupie de divination du sensei",
+      "scryfallId": "17401208-5d89-42e3-96d1-f34f3a573cf7"
+    },
+    {
+      "name": "Sentinel of the Nameless City",
+      "oracleId": "a5bbfe32-2fb9-48a0-bc8a-e9899aac1fda",
+      "lang": "fr",
+      "printedName": "Sentinelle de la cité sans nom",
+      "scryfallId": "26741248-03a6-4a06-a1f6-250c9e42452b"
+    },
+    {
+      "name": "Serra Paragon",
+      "oracleId": "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
+      "lang": "fr",
+      "printedName": "Parangon de Serra",
+      "scryfallId": "93af1ec7-1369-4979-9743-fbebd49d9208"
+    },
+    {
+      "name": "Serra's Emissary",
+      "oracleId": "7a56c6e1-0509-4783-9b29-cf3163977166",
+      "lang": "fr",
+      "printedName": "Émissaire de Serra",
+      "scryfallId": "2b789df7-fa96-4a62-86c7-efe863f32e9c"
+    },
+    {
+      "name": "Serum Visions",
+      "oracleId": "56956afd-db53-4542-816b-490c8b0bbcf7",
+      "lang": "fr",
+      "printedName": "Visions nées du sérum",
+      "scryfallId": "2a8a25a9-784b-4651-839a-e3ab06527532"
+    },
+    {
+      "name": "Settle the Wreckage",
+      "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
+      "lang": "fr",
+      "printedName": "Aménagement des décombres",
+      "scryfallId": "18d6d0ab-4d44-4519-900d-c528b8e0d8ad"
+    },
+    {
+      "name": "Shadowy Backstreet",
+      "oracleId": "216a2a92-9ca3-4ca3-8af7-686c13b04290",
+      "lang": "fr",
+      "printedName": "Ruelle sombre",
+      "scryfallId": "554dc029-b698-435f-b099-9e15a5ffc7ef"
+    },
+    {
+      "name": "Shelldock Isle",
+      "oracleId": "f748b2fb-6c2a-400a-8e96-fa4e4a1dfe80",
+      "lang": "fr",
+      "printedName": "Île du havre-coque",
+      "scryfallId": "466e7330-d4eb-4abe-bdec-621a0cbbe6bb"
+    },
+    {
+      "name": "Sheoldred, the Apocalypse",
+      "oracleId": "34f34409-326d-4994-a0ea-1a69aa278f03",
+      "lang": "fr",
+      "printedName": "Sheoldred, l'Apocalypse",
+      "scryfallId": "9249dd3c-59c9-4fad-9d16-fdb3a84b0d56"
+    },
+    {
+      "name": "Sheoldred's Edict",
+      "oracleId": "217062f5-96f1-454c-9507-17f34ef37070",
+      "lang": "fr",
+      "printedName": "Édit de Sheoldred",
+      "scryfallId": "1f7a3bbd-1bf7-4899-88bf-99246d73034d"
+    },
+    {
+      "name": "Shifting Woodland",
+      "oracleId": "7c2a4fe5-43e8-4e20-bef2-0278d18afc4b",
+      "lang": "fr",
+      "printedName": "Sylves changeantes",
+      "scryfallId": "6dd1522b-d7da-4076-8bb8-7c73b91818e2"
+    },
+    {
+      "name": "Shorikai, Genesis Engine",
+      "oracleId": "e2962883-6daf-4a84-af73-917afc73092c",
+      "lang": "fr",
+      "printedName": "Shorikai, machine de genèse",
+      "scryfallId": "46b60c90-7a1c-46b9-95c2-8f68d87362ed"
+    },
+    {
+      "name": "Show and Tell",
+      "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+      "lang": "fr",
+      "printedName": "Exposé libre",
+      "scryfallId": "22a49081-f384-4b81-994a-a0b5cd8b4bae"
+    },
+    {
+      "name": "Sicarian Infiltrator",
+      "oracleId": "65db1ec4-70b9-45f9-a2c2-01f6c8e8fd89",
+      "lang": "fr",
+      "printedName": "Infiltrateur sicarian",
+      "scryfallId": "f5a763c5-c434-46af-b503-ab82f3289a75"
+    },
+    {
+      "name": "Silent Clearing",
+      "oracleId": "fd45063f-c83c-431c-9104-f139c497ec0d",
+      "lang": "fr",
+      "printedName": "Clairière silencieuse",
+      "scryfallId": "47e9651b-dba3-42e6-8460-134ce5e39f87"
+    },
+    {
+      "name": "Simian Simulacrum",
+      "oracleId": "77eb44ca-53e9-4924-b19f-31732f14ef14",
+      "lang": "fr",
+      "printedName": "Simulacre simiesque",
+      "scryfallId": "4c52cb58-7909-4566-9995-fdb5de00e193"
+    },
+    {
+      "name": "Simulacrum Synthesizer",
+      "oracleId": "eb7a1f21-a66d-415b-8520-710b44890bb6",
+      "lang": "fr",
+      "printedName": "Synthétiseur de simulacre",
+      "scryfallId": "6afe9790-513a-4a4e-a790-4ab74bdc32ea"
+    },
+    {
+      "name": "Sink into Stupor",
+      "oracleId": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
+      "lang": "fr",
+      "printedName": "Sombrer dans la stupeur",
+      "scryfallId": "c27a65b9-1774-4889-8aa4-37856f26a15f"
+    },
+    {
+      "name": "Sink into Stupor",
+      "oracleId": "bcc6eece-75ea-494c-b33a-d4477d504e0b",
+      "lang": "fr",
+      "printedName": "Sources soporifiques",
+      "scryfallId": "c27a65b9-1774-4889-8aa4-37856f26a15f"
+    },
+    {
+      "name": "Six",
+      "oracleId": "dbcbdf37-c40f-4068-b4a7-a849cab1056c",
+      "lang": "fr",
+      "printedName": "Six",
+      "scryfallId": "226a0623-b6b8-49a6-8759-50076fc55377"
+    },
+    {
+      "name": "Skrelv, Defector Mite",
+      "oracleId": "20053847-6623-493c-8cdb-a69cda3b1577",
+      "lang": "fr",
+      "printedName": "Skrelv, puce défectrice",
+      "scryfallId": "04b557f3-50a0-4508-b5d9-f3f7e144a0ac"
+    },
+    {
+      "name": "Skullclamp",
+      "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
+      "lang": "fr",
+      "printedName": "Pincecrâne",
+      "scryfallId": "17aa185c-a3c4-4844-8f12-a2bd34c71583"
+    },
+    {
+      "name": "Skyclave Apparition",
+      "oracleId": "d90af00a-d322-4265-9954-7b1e80702e18",
+      "lang": "fr",
+      "printedName": "Apparition du fort céleste",
+      "scryfallId": "08b63e04-a3db-4b5d-8d8f-20d18f12c27f"
+    },
+    {
+      "name": "Skysovereign, Consul Flagship",
+      "oracleId": "50b14338-9318-4327-a1dd-c0ef38903cc4",
+      "lang": "fr",
+      "printedName": "Souverain des cieux, navire amiral du consul",
+      "scryfallId": "450aaef8-a36f-4676-b277-1929bbe5bdad"
+    },
+    {
+      "name": "Smirking Spelljacker",
+      "oracleId": "b23c28ec-dc4d-4072-8fd8-6640a104335a",
+      "lang": "fr",
+      "printedName": "Détourneuse de sorts narquoise",
+      "scryfallId": "0e25ec53-8705-45b3-931c-9410e0438b24"
+    },
+    {
+      "name": "Smuggler's Copter",
+      "oracleId": "49136bdc-bc50-49a2-999a-1ef9c16ea130",
+      "lang": "fr",
+      "printedName": "Coptère de contrebandier",
+      "scryfallId": "918c76d2-0056-4a9a-ba7d-bd3f5f3028b8"
+    },
+    {
+      "name": "Smuggler's Surprise",
+      "oracleId": "605f719d-01f8-406c-9d4c-3f4992c6a69f",
+      "lang": "fr",
+      "printedName": "Surprise de contrebandier",
+      "scryfallId": "20efcd8a-dc31-4a80-9193-2ed8e74a0887"
+    },
+    {
+      "name": "Snapcaster Mage",
+      "oracleId": "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+      "lang": "fr",
+      "printedName": "Mage lancevif",
+      "scryfallId": "1b39b716-1446-42d4-9f76-327603e0a8ac"
+    },
+    {
+      "name": "Sneak Attack",
+      "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+      "lang": "fr",
+      "printedName": "Attaque furtive",
+      "scryfallId": "a8657b22-93a3-46cf-b078-d6feb57a4b30"
+    },
+    {
+      "name": "Snuff Out",
+      "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
+      "lang": "fr",
+      "printedName": "Dégommage",
+      "scryfallId": "001fd8b3-63b9-4cfc-93b7-acaa6f97af89"
+    },
+    {
+      "name": "Sol Ring",
+      "oracleId": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "lang": "fr",
+      "printedName": "Anneau solaire",
+      "scryfallId": "02e512b7-4b3c-4606-9ef1-ccad8183f9ba"
+    },
+    {
+      "name": "Solemn Simulacrum",
+      "oracleId": "00c0543c-2a1f-4425-8283-4062d74a1637",
+      "lang": "fr",
+      "printedName": "Simulacre solennel",
+      "scryfallId": "07c68810-700b-49ea-a406-89fdd95b1b4a"
+    },
+    {
+      "name": "Solitude",
+      "oracleId": "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
+      "lang": "fr",
+      "printedName": "Solitude",
+      "scryfallId": "4c43bd57-9b05-48e7-9f8e-924300475c89"
+    },
+    {
+      "name": "Soul-Guide Lantern",
+      "oracleId": "1b5e6560-ff2e-4475-96cb-63f64c8a86db",
+      "lang": "fr",
+      "printedName": "Lanterne guide-âmes",
+      "scryfallId": "4533bffe-e353-437b-b381-d2b1c179ddc7"
+    },
+    {
+      "name": "Soulfire Grand Master",
+      "oracleId": "e65769f4-50ae-482b-933b-ac5cf3843f2a",
+      "lang": "fr",
+      "printedName": "Grande maîtresse âmefeu",
+      "scryfallId": "099f1af3-dad3-49c9-b2cc-a9a614dd220a"
+    },
+    {
+      "name": "Soulherder",
+      "oracleId": "92019547-f6db-4ea6-8356-d0a90ace5662",
+      "lang": "fr",
+      "printedName": "Berger des âmes",
+      "scryfallId": "93d852b9-866b-4789-9711-2e1e5e073f2d"
+    },
+    {
+      "name": "Sowing Mycospawn",
+      "oracleId": "63a19c7c-49d7-4b75-aac8-d0ff36c45fb8",
+      "lang": "fr",
+      "printedName": "Myco-engeance féconde",
+      "scryfallId": "b7de056e-1401-4bb0-83ae-1e235d8045cb"
+    },
+    {
+      "name": "Spara's Headquarters",
+      "oracleId": "3123ec89-8e95-4761-ba17-747ec667509f",
+      "lang": "fr",
+      "printedName": "Quartier général de Spara",
+      "scryfallId": "2694df9d-449b-4905-9b70-d66b07c528e8"
+    },
+    {
+      "name": "Spell Pierce",
+      "oracleId": "d64b0848-0193-4025-ba62-63ecd8fb9f50",
+      "lang": "fr",
+      "printedName": "Percesort",
+      "scryfallId": "2d9e380d-6479-4934-98a5-ab7a44624faa"
+    },
+    {
+      "name": "Spellseeker",
+      "oracleId": "47a785ed-8095-4685-8daa-02c4e2b0ffcd",
+      "lang": "fr",
+      "printedName": "Chercheur de sort",
+      "scryfallId": "954366bb-aec7-4439-8ec0-5faaf9ade5d6"
+    },
+    {
+      "name": "Splinter Twin",
+      "oracleId": "2df3187b-4b91-4de9-9b26-d48a30700cec",
+      "lang": "fr",
+      "printedName": "Jumeau par scission",
+      "scryfallId": "16558f3c-e4e2-4022-aaf8-3c4f320a9649"
+    },
+    {
+      "name": "Springbloom Druid",
+      "oracleId": "788a4896-3414-40bf-b391-d2efea2fb5f9",
+      "lang": "fr",
+      "printedName": "Druide du printemps",
+      "scryfallId": "201ee57f-6ec9-4de7-9ece-be747a834148"
+    },
+    {
+      "name": "Springheart Nantuko",
+      "oracleId": "8a3ad2ef-8bcb-40c0-85de-f03328c2b644",
+      "lang": "fr",
+      "printedName": "Nantuko cœur-de-printemps",
+      "scryfallId": "42298f3a-b053-47a0-a6d3-17bd209eb909"
+    },
+    {
+      "name": "Staff of the Storyteller",
+      "oracleId": "0c4e2c90-c17b-42cc-b4d7-cf75970fbe90",
+      "lang": "fr",
+      "printedName": "Bâton du conteur",
+      "scryfallId": "56c12269-8b60-4dd1-a3f1-521e31f16d5a"
+    },
+    {
+      "name": "Steam Vents",
+      "oracleId": "17039058-822d-409f-938c-b727a366ba63",
+      "lang": "fr",
+      "printedName": "Cheminées à vapeur",
+      "scryfallId": "1e37141e-8e40-4490-bc14-5234f7c88351"
+    },
+    {
+      "name": "Steam Vents",
+      "oracleId": "17039058-822d-409f-938c-b727a366ba63",
+      "lang": "fr",
+      "printedName": "Conduits de vapeur",
+      "scryfallId": "1d6b8600-2f57-4cbf-9600-5bc09ac556c2"
+    },
+    {
+      "name": "Steel Seraph",
+      "oracleId": "7ff8940f-d798-41eb-b82e-a1eba2163fe7",
+      "lang": "fr",
+      "printedName": "Séraphin d'acier",
+      "scryfallId": "5acb0457-fffe-4586-8b0d-833b13588653"
+    },
+    {
+      "name": "Stern Scolding",
+      "oracleId": "3bc8a406-3ae7-4f56-a33c-b4a2c115b917",
+      "lang": "fr",
+      "printedName": "Remontrance sévère",
+      "scryfallId": "7aa0832f-6280-4099-89e7-f83a70a283f7"
+    },
+    {
+      "name": "Stomping Ground",
+      "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
+      "lang": "fr",
+      "printedName": "Terrain de prédilection",
+      "scryfallId": "0c0cd6a7-a6b1-42e8-a127-ab5455e31e09"
+    },
+    {
+      "name": "Stonecoil Serpent",
+      "oracleId": "78124cd1-2658-43f3-a339-0755d84154d2",
+      "lang": "fr",
+      "printedName": "Grand serpent annoroc",
+      "scryfallId": "55d52339-92fd-4b3b-b804-fdadabfab29f"
+    },
+    {
+      "name": "Stoneforge Mystic",
+      "oracleId": "358789f9-7d87-411d-919e-d597da665cbd",
+      "lang": "fr",
+      "printedName": "Mystique forgepierre",
+      "scryfallId": "29c99afb-5e61-473f-8e62-64153a70df91"
+    },
+    {
+      "name": "Strip Mine",
+      "oracleId": "d21a89eb-7c5b-459a-acc7-12b20b13bf79",
+      "lang": "fr",
+      "printedName": "Mine des morts-terrains",
+      "scryfallId": "1e13c9e4-d8bc-4ed6-abe9-b39a552baed5"
+    },
+    {
+      "name": "Student of Warfare",
+      "oracleId": "0bc2875b-3a5a-4885-86b9-16ab7330ac10",
+      "lang": "fr",
+      "printedName": "Étudiante de la guerre",
+      "scryfallId": "09dd7949-49ae-4948-b62b-49224145314f"
+    },
+    {
+      "name": "Subtlety",
+      "oracleId": "377179d5-ac83-4d34-b5b1-f3d8caa60f79",
+      "lang": "fr",
+      "printedName": "Subtilité",
+      "scryfallId": "6ecd26df-a744-4a69-b532-f7a3bcda288c"
+    },
+    {
+      "name": "Sulfuric Vortex",
+      "oracleId": "7652f328-e142-494b-a869-772ced10c26a",
+      "lang": "fr",
+      "printedName": "Vortex sulfureux",
+      "scryfallId": "2df6e64f-e4f7-44e6-99f5-fb43e4ea8716"
+    },
+    {
+      "name": "Sun Titan",
+      "oracleId": "b2e950fb-cb7e-40a0-a311-5bbdd0477b29",
+      "lang": "fr",
+      "printedName": "Titan solaire",
+      "scryfallId": "00b89091-83f6-4646-b54e-d76c3ab4fd43"
+    },
+    {
+      "name": "Sun Titan",
+      "oracleId": "b2e950fb-cb7e-40a0-a311-5bbdd0477b29",
+      "lang": "fr",
+      "printedName": "Titan solaire,",
+      "scryfallId": "a3e54c0b-d3f1-46a7-88f0-1e3a4f9e6bfe"
+    },
+    {
+      "name": "Sunbaked Canyon",
+      "oracleId": "f97fd068-b83a-4621-bf8c-cc96e880ce90",
+      "lang": "fr",
+      "printedName": "Canyon séché par le soleil",
+      "scryfallId": "7c3af8d7-39db-4031-9e75-e79a8c1ea22a"
+    },
+    {
+      "name": "Sundering Titan",
+      "oracleId": "d17d071d-dbee-4d65-8435-137f35cd89ca",
+      "lang": "fr",
+      "printedName": "Titan morceleur",
+      "scryfallId": "0ad8a398-9a72-485f-8456-b8746169ac14"
+    },
+    {
+      "name": "Surge Engine",
+      "oracleId": "864d9db7-34ca-4440-8d6d-096f9eddedd4",
+      "lang": "fr",
+      "printedName": "Moteur de houle",
+      "scryfallId": "8c225d4d-3baf-4268-9810-5c91ee533af4"
+    },
+    {
+      "name": "Surrak, the Hunt Caller",
+      "oracleId": "fa56a5fa-ef96-404c-8fb6-d1f5fcebb52e",
+      "lang": "fr",
+      "printedName": "Surrak, le Grand veneur",
+      "scryfallId": "08dc7ddf-ffcb-4e19-be9c-637a40b9a76a"
+    },
+    {
+      "name": "Survival of the Fittest",
+      "oracleId": "119d719d-e965-45b4-9bc9-ac03211b10c2",
+      "lang": "fr",
+      "printedName": "Survie du plus apte",
+      "scryfallId": "ce633d70-26b3-4553-92d7-8abb140b62d9"
+    },
+    {
+      "name": "Suspicious Stowaway",
+      "oracleId": "da412474-1da8-409b-bd7b-87cbfc239fb0",
+      "lang": "fr",
+      "printedName": "Clandestine suspecte",
+      "scryfallId": "f475dbea-6d4a-4eaf-b63a-85018196214d"
+    },
+    {
+      "name": "Suspicious Stowaway",
+      "oracleId": "da412474-1da8-409b-bd7b-87cbfc239fb0",
+      "lang": "fr",
+      "printedName": "Loup-garou de mer",
+      "scryfallId": "f475dbea-6d4a-4eaf-b63a-85018196214d"
+    },
+    {
+      "name": "Swamp",
+      "oracleId": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "lang": "fr",
+      "printedName": "marais",
+      "scryfallId": "993937c6-cda4-4da3-9c10-52c19540db45"
+    },
+    {
+      "name": "Swamp",
+      "oracleId": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "lang": "fr",
+      "printedName": "Marais",
+      "scryfallId": "004f466e-0cd2-44cf-9c56-362fc548b307"
+    },
+    {
+      "name": "Swamp",
+      "oracleId": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "lang": "fr",
+      "printedName": "Swamp",
+      "scryfallId": "84f3d484-aa98-4426-b553-ab28b8e4b78a"
+    },
+    {
+      "name": "Sword of the Meek",
+      "oracleId": "215c287d-56a5-46da-b49e-8524b6d320a4",
+      "lang": "fr",
+      "printedName": "Épée des humbles",
+      "scryfallId": "97839d01-8763-4dcc-94e8-40088bf2102f"
+    },
+    {
+      "name": "Swords to Plowshares",
+      "oracleId": "b1544f21-7e98-461b-aed5-e748b0168c52",
+      "lang": "fr",
+      "printedName": "Retour au pays",
+      "scryfallId": "18adda7d-812d-42b7-b307-71f3242195b6"
+    },
+    {
+      "name": "Sylvan Library",
+      "oracleId": "92eed395-62ca-4293-882b-8565c40daab5",
+      "lang": "fr",
+      "printedName": "Bibliothèque sylvestre",
+      "scryfallId": "56696508-48d7-4eeb-8a42-eefca28ca532"
+    },
+    {
+      "name": "Syr Ginger, the Meal Ender",
+      "oracleId": "2eb16535-718f-4b88-92bc-96429d796327",
+      "lang": "fr",
+      "printedName": "Syr Gingembre, la fin du dessert",
+      "scryfallId": "507f7b48-270d-4db2-b9e0-3dd98f272b07"
+    },
+    {
+      "name": "Taiga",
+      "oracleId": "22e3cf1d-3559-4ce1-954c-8dc815342979",
+      "lang": "fr",
+      "printedName": "Taïga",
+      "scryfallId": "1ddfceae-b9d0-4de8-aaf1-c12f780536c6"
+    },
+    {
+      "name": "Talisman of Conviction",
+      "oracleId": "6c326439-5620-4ec6-a56a-fe9c3d5d2a46",
+      "lang": "fr",
+      "printedName": "Talisman de conviction",
+      "scryfallId": "2f8464eb-fceb-4e24-a6e5-342e99441629"
+    },
+    {
+      "name": "Talisman of Creativity",
+      "oracleId": "14d2979d-5728-42d7-a027-0eb1f754655d",
+      "lang": "fr",
+      "printedName": "Talisman de créativité",
+      "scryfallId": "2663f22b-135e-4885-9554-fdcfb444e3fb"
+    },
+    {
+      "name": "Talisman of Curiosity",
+      "oracleId": "8c34b089-aad1-476e-958a-3077bf1bbb51",
+      "lang": "fr",
+      "printedName": "Talisman de curiosité",
+      "scryfallId": "3c6f90f9-3359-4d1c-bfcb-dcb58af2209a"
+    },
+    {
+      "name": "Talisman of Dominance",
+      "oracleId": "4c0a0448-b9d6-43a0-8549-64066dac63f0",
+      "lang": "fr",
+      "printedName": "Talisman de dominance",
+      "scryfallId": "1f7e12a6-93fd-4381-ae7d-557d96bfe214"
+    },
+    {
+      "name": "Talisman of Hierarchy",
+      "oracleId": "b693c3de-2eaf-4850-b405-e79d00adefda",
+      "lang": "fr",
+      "printedName": "Talisman de hiérarchie",
+      "scryfallId": "0906019f-111e-4dfe-b1e6-b896d3713fae"
+    },
+    {
+      "name": "Talisman of Impulse",
+      "oracleId": "f2ccc9e8-8e92-4f8c-8728-8c748630e0dd",
+      "lang": "fr",
+      "printedName": "Talisman d'impulsion",
+      "scryfallId": "17251ffd-06b8-44f4-be10-d376b5cf2079"
+    },
+    {
+      "name": "Talisman of Indulgence",
+      "oracleId": "1d9aeaaa-66f6-41cb-9bac-162d6fd8662c",
+      "lang": "fr",
+      "printedName": "Talisman d'indulgence",
+      "scryfallId": "0b78a379-cd54-40f0-a9f6-3dff5596a35d"
+    },
+    {
+      "name": "Talisman of Indulgence",
+      "oracleId": "1d9aeaaa-66f6-41cb-9bac-162d6fd8662c",
+      "lang": "fr",
+      "printedName": "Talisman of Indulgence",
+      "scryfallId": "0b03f194-f0bb-4ecb-b151-c1f3e9789a35"
+    },
+    {
+      "name": "Talisman of Progress",
+      "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
+      "lang": "fr",
+      "printedName": "Talisman de progrès",
+      "scryfallId": "16868e19-a1d5-4af8-9c32-26b8f402d84a"
+    },
+    {
+      "name": "Talisman of Resilience",
+      "oracleId": "42b8aa14-10bc-4bd6-88d9-4bb287eadd19",
+      "lang": "fr",
+      "printedName": "Talisman de résistance",
+      "scryfallId": "00e286e0-8566-4f52-9c04-b602a87be9d9"
+    },
+    {
+      "name": "Talisman of Unity",
+      "oracleId": "e5fcc5d7-6a60-4a5b-9d02-6c30041a95b9",
+      "lang": "fr",
+      "printedName": "Talisman d'unité",
+      "scryfallId": "0031d8bf-aa27-466c-954f-9fb50eb2dcfe"
+    },
+    {
+      "name": "Tamiyo, Inquisitive Student",
+      "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a",
+      "lang": "fr",
+      "printedName": "Tamiyo, érudite aguerrie",
+      "scryfallId": "033cbd90-9899-4ef1-92f7-16d9cc1393b9"
+    },
+    {
+      "name": "Tamiyo, Inquisitive Student",
+      "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a",
+      "lang": "fr",
+      "printedName": "Tamiyo, étudiante curieuse",
+      "scryfallId": "033cbd90-9899-4ef1-92f7-16d9cc1393b9"
+    },
+    {
+      "name": "Tatyova, Benthic Druid",
+      "oracleId": "0715e860-3b3b-4331-9718-207973e94fee",
+      "lang": "fr",
+      "printedName": "Tatyova, druidesse benthique",
+      "scryfallId": "417d3891-985f-40cb-8135-304f3f31475c"
+    },
+    {
+      "name": "Teferi, Hero of Dominaria",
+      "oracleId": "f2f165b6-ef0a-42ad-9352-ba68be8248b0",
+      "lang": "fr",
+      "printedName": "Téfeiri, héros de Dominaria",
+      "scryfallId": "8b79031b-af7e-4d20-b525-2d23adc6606a"
+    },
+    {
+      "name": "Teferi, Time Raveler",
+      "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964",
+      "lang": "fr",
+      "printedName": "Téfeiri, effileur de temps",
+      "scryfallId": "081739ef-9afd-4d91-b425-df4570fc1d20"
+    },
+    {
+      "name": "Temple Garden",
+      "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
+      "lang": "fr",
+      "printedName": "Jardin du temple",
+      "scryfallId": "5529d73c-1b4f-4dcc-83ba-4df6cf66ad78"
+    },
+    {
+      "name": "Tendrils of Agony",
+      "oracleId": "78db3190-59bc-4033-95bc-32d8ed872b6a",
+      "lang": "fr",
+      "printedName": "Vrilles d'angoisse",
+      "scryfallId": "646c1db9-092c-4fc8-addd-b67e1b0c8d02"
+    },
+    {
+      "name": "Terastodon",
+      "oracleId": "17975a20-2c13-4325-be1e-0bcda5063a2d",
+      "lang": "fr",
+      "printedName": "Térastodon",
+      "scryfallId": "0bcc4d2b-ca9d-4a14-b566-9d0a11d39488"
+    },
+    {
+      "name": "Territorial Kavu",
+      "oracleId": "5f0be4ce-898e-4849-ab8f-a85fb05c3017",
+      "lang": "fr",
+      "printedName": "Kavru territorial",
+      "scryfallId": "0d5f69de-be75-4214-8f85-c268909955e6"
+    },
+    {
+      "name": "Tezzeret the Seeker",
+      "oracleId": "4aeafdf3-7828-4114-8c74-3bd46357caec",
+      "lang": "fr",
+      "printedName": "Tezzeret le Chercheur",
+      "scryfallId": "57079856-5e4b-43ca-919c-6de515c63c3e"
+    },
+    {
+      "name": "Tezzeret, Agent of Bolas",
+      "oracleId": "8ab7358e-a0f5-4220-8769-25177237bcdf",
+      "lang": "fr",
+      "printedName": "Tezzeret, agent de Bolas",
+      "scryfallId": "10a80544-6244-44f6-a29c-5f0bf6d226e0"
+    },
+    {
+      "name": "Tezzeret, Betrayer of Flesh",
+      "oracleId": "5dedd5a9-bc5d-47bb-9ae1-7d683843d041",
+      "lang": "fr",
+      "printedName": "Tezzeret, traître de la chair",
+      "scryfallId": "170e7551-0129-4e06-bb15-db08be9f47b0"
+    },
+    {
+      "name": "Thalia, Guardian of Thraben",
+      "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
+      "lang": "fr",
+      "printedName": "Thalia, gardienne de Thraben",
+      "scryfallId": "07c76c97-278c-4a1b-97ad-f66c2740e421"
+    },
+    {
+      "name": "Thalia, Guardian of Thraben",
+      "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
+      "lang": "fr",
+      "printedName": "Thalia, vigile de Thraben",
+      "scryfallId": "e6daf7a6-38d8-4d4d-add2-3aea88a82c70"
+    },
+    {
+      "name": "Thalia, Heretic Cathar",
+      "oracleId": "13be47e4-9da2-4f9e-baf0-db96f7777ccb",
+      "lang": "fr",
+      "printedName": "Thalia, cathare hérétique",
+      "scryfallId": "2dee9eba-cf0a-4978-ab89-bcbde5d7fc37"
+    },
+    {
+      "name": "Thassa's Oracle",
+      "oracleId": "1de1b591-a73f-4974-b507-8c63e07a0868",
+      "lang": "fr",
+      "printedName": "Oracle de Thassa",
+      "scryfallId": "783acbc7-57d4-4007-801e-65b134cd89a7"
+    },
+    {
+      "name": "The Eternal Wanderer",
+      "oracleId": "20a1671d-e8a4-4cf1-87a7-f2f6319f4b9e",
+      "lang": "fr",
+      "printedName": "L'éternelle Vagabonde",
+      "scryfallId": "386e703a-3425-4840-b581-12dd3a6e0208"
+    },
+    {
+      "name": "The Great Henge",
+      "oracleId": "78427103-9543-41fb-b6d4-72963fe87275",
+      "lang": "fr",
+      "printedName": "Le Grand Cromlech",
+      "scryfallId": "02971a09-6092-465a-8c81-67ad1a2585ba"
+    },
+    {
+      "name": "The Infamous Cruelclaw",
+      "oracleId": "e229d55c-9513-437d-bd67-015ac46aaa18",
+      "lang": "fr",
+      "printedName": "L'infâme Vilegriffe",
+      "scryfallId": "5d4315c5-6518-48e1-a528-715258744f31"
+    },
+    {
+      "name": "The Meathook Massacre",
+      "oracleId": "127de52b-df75-4342-95a0-20d84c5bf916",
+      "lang": "fr",
+      "printedName": "Le massacre au croc de boucher",
+      "scryfallId": "3d3978e8-00aa-4138-b72d-88441d05ae6a"
+    },
+    {
+      "name": "The One Ring",
+      "oracleId": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
+      "lang": "fr",
+      "printedName": "L'Anneau Unique",
+      "scryfallId": "5b6791c1-090e-4cd8-be9c-f25c702b7a36"
+    },
+    {
+      "name": "The Reality Chip",
+      "oracleId": "751f22bc-bcea-4213-a37b-b5f72448a4c4",
+      "lang": "fr",
+      "printedName": "La Puce de Réalité",
+      "scryfallId": "594d5b6f-d3e8-471e-b78e-2eb34fe0015c"
+    },
+    {
+      "name": "The Wandering Emperor",
+      "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215",
+      "lang": "fr",
+      "printedName": "L'Impératrice Vagabonde",
+      "scryfallId": "4e4796c3-74c5-43d0-bb19-ef67f297d3fb"
+    },
+    {
+      "name": "The World Tree",
+      "oracleId": "3437d504-bf62-4c27-b15f-f6330182ff7e",
+      "lang": "fr",
+      "printedName": "L'Arbre-monde",
+      "scryfallId": "28acb1a1-8f32-431d-8bb7-aebf49b779fe"
+    },
+    {
+      "name": "Thespian's Stage",
+      "oracleId": "b01e698b-608a-4fc7-8073-b01d044743ec",
+      "lang": "fr",
+      "printedName": "Scène de théâtre",
+      "scryfallId": "34b385c6-dbc1-41fe-8007-a12ddc30a4ae"
+    },
+    {
+      "name": "Thief of Sanity",
+      "oracleId": "68b51d58-7566-4a26-8c31-8da32799bea7",
+      "lang": "fr",
+      "printedName": "Voleur de sanité",
+      "scryfallId": "24758521-7827-49b7-be3d-df9271b382fd"
+    },
+    {
+      "name": "Thieving Skydiver",
+      "oracleId": "f509ac02-f22e-4d1a-9fe1-afa96dd7806d",
+      "lang": "fr",
+      "printedName": "Plongeuse céleste voleuse",
+      "scryfallId": "651c2922-b8fc-43bb-abab-5e3e0107ba33"
+    },
+    {
+      "name": "Third Path Iconoclast",
+      "oracleId": "f7156897-2b02-4ecd-868d-d4d59244e9ed",
+      "lang": "fr",
+      "printedName": "Iconoclaste de la Troisième Voie",
+      "scryfallId": "077205a6-1c52-45c8-b6e8-fe737cc49ab6"
+    },
+    {
+      "name": "Thirst for Knowledge",
+      "oracleId": "939e6f71-185e-41f2-9d54-72cce06f1dce",
+      "lang": "fr",
+      "printedName": "Soif de connaissance",
+      "scryfallId": "2a19a74a-2750-4277-9030-08ec1de02fe9"
+    },
+    {
+      "name": "Thopter Foundry",
+      "oracleId": "88bef744-550e-4f33-b1ff-a8ee990ec754",
+      "lang": "fr",
+      "printedName": "Fonderie mécanoptère",
+      "scryfallId": "8f7db18b-b2fa-448f-b71a-b3352235ce64"
+    },
+    {
+      "name": "Thought Monitor",
+      "oracleId": "9deded8b-cec4-4ede-a50b-131404d456d4",
+      "lang": "fr",
+      "printedName": "Surveillant de pensées",
+      "scryfallId": "113d5d67-2de3-4a19-968e-b920c13a2769"
+    },
+    {
+      "name": "Thoughtseize",
+      "oracleId": "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+      "lang": "fr",
+      "printedName": "Saisie des pensées",
+      "scryfallId": "507cbf24-710f-420d-915a-48463ac100c8"
+    },
+    {
+      "name": "Thraben Inspector",
+      "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+      "lang": "fr",
+      "printedName": "Inspectrice de Thraben",
+      "scryfallId": "00718375-364b-45e0-9712-fd2f7eb193dc"
+    },
+    {
+      "name": "Thran Dynamo",
+      "oracleId": "a699c663-8131-4045-9265-a83e86609374",
+      "lang": "fr",
+      "printedName": "Dynamo thran",
+      "scryfallId": "03ccec34-ae05-4460-a2e6-0bf4815ee307"
+    },
+    {
+      "name": "Thran Dynamo",
+      "oracleId": "a699c663-8131-4045-9265-a83e86609374",
+      "lang": "fr",
+      "printedName": "Dynamo Thran",
+      "scryfallId": "73ed3039-824d-48c4-b576-f9ae4fb5c183"
+    },
+    {
+      "name": "Three Steps Ahead",
+      "oracleId": "282dfeaa-6243-4f92-838a-5cb54fa85184",
+      "lang": "fr",
+      "printedName": "Trois coups d'avance",
+      "scryfallId": "0db610af-4882-4e2c-aa2c-4aba016483be"
+    },
+    {
+      "name": "Through the Breach",
+      "oracleId": "c207aaee-0b67-4520-ad02-2c289228be2a",
+      "lang": "fr",
+      "printedName": "Dans la brèche",
+      "scryfallId": "5eb1e19f-e250-4395-b09a-0acf7af7c98c"
+    },
+    {
+      "name": "Thundering Falls",
+      "oracleId": "d2bcff58-7a8a-46ef-b6b3-39501d4c8e6e",
+      "lang": "fr",
+      "printedName": "Chutes tumultueuses",
+      "scryfallId": "7fd74e32-3150-415a-ad21-ee5dd67a4f5f"
+    },
+    {
+      "name": "Tidehollow Sculler",
+      "oracleId": "51b55057-8b14-4277-894b-4813b4f7eb39",
+      "lang": "fr",
+      "printedName": "Passeur de la Mer creuse",
+      "scryfallId": "2327f21e-5516-4dd5-a55c-982a5d9fa7e9"
+    },
+    {
+      "name": "Time Spiral",
+      "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
+      "lang": "fr",
+      "printedName": "Spirale temporelle",
+      "scryfallId": "6c956f69-d613-48d3-bca5-f1d7f226b4f7"
+    },
+    {
+      "name": "Time Warp",
+      "oracleId": "dbd6a94b-62ff-4a10-9d52-bdd90b26e425",
+      "lang": "fr",
+      "printedName": "Distorsion temporelle",
+      "scryfallId": "0b2b4382-0788-48d8-bbba-01ef7d0eda61"
+    },
+    {
+      "name": "Tinker",
+      "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
+      "lang": "fr",
+      "printedName": "Bricolage",
+      "scryfallId": "9c0cb5c1-b195-4dcc-91c8-6b116ef0604f"
+    },
+    {
+      "name": "Tinybones, the Pickpocket",
+      "oracleId": "7bc4c7e2-6758-4a85-84e7-03ab93981106",
+      "lang": "fr",
+      "printedName": "Titos, le pickpocket",
+      "scryfallId": "1ea7f728-e2e4-4b46-aa62-047846cdb21c"
+    },
+    {
+      "name": "Tireless Provisioner",
+      "oracleId": "ab8d5f5c-1976-4f77-8ed2-8d28ee666741",
+      "lang": "fr",
+      "printedName": "Approvisionneuse infatigable",
+      "scryfallId": "0851d281-930b-43a6-99d0-f5087905462d"
+    },
+    {
+      "name": "Tireless Tracker",
+      "oracleId": "e6555cca-e608-4c87-b835-9cd47fd1f543",
+      "lang": "fr",
+      "printedName": "Traqueuse infatigable",
+      "scryfallId": "18c8366e-d96a-4598-aef0-245c679daa4d"
+    },
+    {
+      "name": "Titan of Industry",
+      "oracleId": "5d8acafe-c13e-43ca-a89e-0cfd12d95662",
+      "lang": "fr",
+      "printedName": "Titan de l'industrie",
+      "scryfallId": "7fbcfc27-3474-45f9-b1c1-4deac2e729d2"
+    },
+    {
+      "name": "Titania, Protector of Argoth",
+      "oracleId": "d0ade00d-a496-441d-9b7e-7dc033d3292c",
+      "lang": "fr",
+      "printedName": "Titania, protectrice d'Argoth",
+      "scryfallId": "387cffe3-5e79-46e3-923e-7dfff2670ba3"
+    },
+    {
+      "name": "Tolarian Academy",
+      "oracleId": "dba4fd31-8931-42dd-bd86-45479c2abf74",
+      "lang": "fr",
+      "printedName": "Académie Tolarienne",
+      "scryfallId": "da67150a-53fd-4c1e-a136-6c25de7c92bb"
+    },
+    {
+      "name": "Torrential Gearhulk",
+      "oracleId": "a6395447-677d-4c39-8eda-2d57e527c94e",
+      "lang": "fr",
+      "printedName": "Carcasse mécanique torrentielle",
+      "scryfallId": "2f884965-ede1-4354-9d39-ecf45b10f760"
+    },
+    {
+      "name": "Torsten, Founder of Benalia",
+      "oracleId": "3b1c6c1e-e298-4f45-8ab7-e0bb5358e11f",
+      "lang": "fr",
+      "printedName": "Torsten, fondateur de Bénalia",
+      "scryfallId": "2e16403a-c200-41fa-a2b0-1c46ae9d25d7"
+    },
+    {
+      "name": "Toski, Bearer of Secrets",
+      "oracleId": "a8e707ec-ce77-4bc5-8c76-5ea3e81e8c7f",
+      "lang": "fr",
+      "printedName": "Toski, porteur de secrets",
+      "scryfallId": "0d707503-e77e-45f3-bbb3-8a8e43654092"
+    },
+    {
+      "name": "Touch the Spirit Realm",
+      "oracleId": "52f0dcbd-ccf3-4525-8e55-2d38b4991834",
+      "lang": "fr",
+      "printedName": "Toucher le royaume des esprits",
+      "scryfallId": "6b1bbe66-3952-4a7e-bd7c-8628ce1308b8"
+    },
+    {
+      "name": "Tough Cookie",
+      "oracleId": "8a1a5862-c027-4c15-99a7-1795d0da96da",
+      "lang": "fr",
+      "printedName": "Biscuit dur à cuire",
+      "scryfallId": "ab87abef-8635-498e-9c77-4977b0bb54ae"
+    },
+    {
+      "name": "Tourach, Dread Cantor",
+      "oracleId": "0c952586-e522-4982-bebd-96f1db73053d",
+      "lang": "fr",
+      "printedName": "Tourach, chantreffroi",
+      "scryfallId": "0b985af3-6025-40de-bf92-504314e691cd"
+    },
+    {
+      "name": "Toxic Deluge",
+      "oracleId": "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+      "lang": "fr",
+      "printedName": "Déluge toxique",
+      "scryfallId": "231f8b2d-52c0-4571-bc94-45ffbce0302b"
+    },
+    {
+      "name": "Treachery",
+      "oracleId": "8ed57194-7508-4aef-9373-64f7e80612d8",
+      "lang": "fr",
+      "printedName": "Traîtrise",
+      "scryfallId": "662aa776-0c43-423d-853e-f4dcce41b83f"
+    },
+    {
+      "name": "Treasure Cruise",
+      "oracleId": "5b6bdf5a-2742-4851-92cd-a857a3852836",
+      "lang": "fr",
+      "printedName": "Fortune des mers",
+      "scryfallId": "0ea98c13-1e5d-44a0-926d-7b4e70f25817"
+    },
+    {
+      "name": "Trinket Mage",
+      "oracleId": "ffc95093-24a2-4616-a44a-24788e8df9c8",
+      "lang": "fr",
+      "printedName": "Mage aux breloques",
+      "scryfallId": "1eb382cd-7ced-4533-87a5-843423b9eed5"
+    },
+    {
+      "name": "Troll of Khazad-dûm",
+      "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
+      "lang": "fr",
+      "printedName": "Troll de Khazad-dûm",
+      "scryfallId": "708fd435-707b-4119-9df9-3825d27774cc"
+    },
+    {
+      "name": "Tropical Island",
+      "oracleId": "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
+      "lang": "fr",
+      "printedName": "Ile tropicale",
+      "scryfallId": "c409f51e-eea5-478b-8679-27309bd73936"
+    },
+    {
+      "name": "Trumpeting Carnosaur",
+      "oracleId": "f2ef8bda-373d-4387-900d-0f1b6ccf72e9",
+      "lang": "fr",
+      "printedName": "Carnosaure barrissant",
+      "scryfallId": "6b53065e-6891-4127-8d60-bab56e0ad4b4"
+    },
+    {
+      "name": "Tundra",
+      "oracleId": "02418479-9455-417f-a6a1-004356faff37",
+      "lang": "fr",
+      "printedName": "Toundra",
+      "scryfallId": "16cbac60-fd88-4369-942e-e8a1d16f7300"
+    },
+    {
+      "name": "Turnabout",
+      "oracleId": "715d0777-4d36-463b-9102-6bb6bb00b7e9",
+      "lang": "fr",
+      "printedName": "Revirement",
+      "scryfallId": "0e23d1d9-8eec-4f36-81df-0bd178d6b3fc"
+    },
+    {
+      "name": "Turntimber Symbiosis",
+      "oracleId": "403b59f3-7ade-4bc2-a3e6-de0c3c700f18",
+      "lang": "fr",
+      "printedName": "Symbiose de Tournebois",
+      "scryfallId": "94e1f9e6-7518-4555-9331-14b333b0f445"
+    },
+    {
+      "name": "Turntimber Symbiosis",
+      "oracleId": "403b59f3-7ade-4bc2-a3e6-de0c3c700f18",
+      "lang": "fr",
+      "printedName": "Tournebois, le bois sinueux",
+      "scryfallId": "94e1f9e6-7518-4555-9331-14b333b0f445"
+    },
+    {
+      "name": "Twinshot Sniper",
+      "oracleId": "b72fd535-0051-4f59-9d99-75895f751006",
+      "lang": "fr",
+      "printedName": "Franc-tireur double-tir",
+      "scryfallId": "2ab5b8a2-fb32-40bf-aaa9-d11e8832d8d3"
+    },
+    {
+      "name": "Twitching Doll",
+      "oracleId": "fd6e1967-237a-41f6-bbf4-2c869f9447c8",
+      "lang": "fr",
+      "printedName": "Poupée tressaillante",
+      "scryfallId": "15434934-baef-4e52-943e-285404b0f543"
+    },
+    {
+      "name": "Ugin, the Ineffable",
+      "oracleId": "18bdc181-9592-4147-81fb-7f83ce137f70",
+      "lang": "fr",
+      "printedName": "Ugin, l'ineffable",
+      "scryfallId": "7f7abd86-142d-4130-aec1-60b832d40225"
+    },
+    {
+      "name": "Ugin, the Spirit Dragon",
+      "oracleId": "eecb3047-a563-441a-9175-200421981ac3",
+      "lang": "fr",
+      "printedName": "Ugin, le dragon-esprit",
+      "scryfallId": "169d69df-bede-4e10-aff0-4689c6d1dcf4"
+    },
+    {
+      "name": "Ulamog, the Ceaseless Hunger",
+      "oracleId": "0bfa4512-e35a-4c93-b324-80ec659f5a97",
+      "lang": "fr",
+      "printedName": "Ulamog, la Voracité insatiable",
+      "scryfallId": "128d6d72-b12a-466b-b8d2-2a02515aae75"
+    },
+    {
+      "name": "Ulvenwald Oddity",
+      "oracleId": "90379825-1894-4b79-bf72-445175e97ffb",
+      "lang": "fr",
+      "printedName": "Béhémoth de l'Ulvenwald",
+      "scryfallId": "a2daf7d1-9567-4e67-9767-531dd571a484"
+    },
+    {
+      "name": "Ulvenwald Oddity",
+      "oracleId": "90379825-1894-4b79-bf72-445175e97ffb",
+      "lang": "fr",
+      "printedName": "Bizarrerie de l'Ulvenwald",
+      "scryfallId": "a2daf7d1-9567-4e67-9767-531dd571a484"
+    },
+    {
+      "name": "Umezawa's Jitte",
+      "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
+      "lang": "fr",
+      "printedName": "Jitte d'Umezawa",
+      "scryfallId": "126da169-1103-4e70-995e-660bae12af47"
+    },
+    {
+      "name": "Undercity Sewers",
+      "oracleId": "08d80efc-9542-4ba2-824c-c8615d8d07f2",
+      "lang": "fr",
+      "printedName": "Égouts de la Citerraine",
+      "scryfallId": "22f467a2-58a2-411b-9e76-4b8e28f1a344"
+    },
+    {
+      "name": "Underground Mortuary",
+      "oracleId": "840119bf-e60f-4ff7-9c9b-d420d09df545",
+      "lang": "fr",
+      "printedName": "Morgue souterraine",
+      "scryfallId": "a3fbbb14-2459-458a-b6c2-5c192be236d0"
+    },
+    {
+      "name": "Underground Sea",
+      "oracleId": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
+      "lang": "fr",
+      "printedName": "Mer souterraine",
+      "scryfallId": "36125b2b-7418-44c4-a703-f4bc98916b3e"
+    },
+    {
+      "name": "Undermountain Adventurer",
+      "oracleId": "2e5e0abd-38a6-46ca-b922-556db52f1332",
+      "lang": "fr",
+      "printedName": "Aventurier de Montprofond",
+      "scryfallId": "31f2e59a-280f-4f7a-ad6e-eb7fdf5df931"
+    },
+    {
+      "name": "Underworld Breach",
+      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+      "lang": "fr",
+      "printedName": "Brèche du Monde souterrain",
+      "scryfallId": "1940169e-b013-4863-b7a6-0dd872280250"
+    },
+    {
+      "name": "Unexpectedly Absent",
+      "oracleId": "e8d78a83-c932-4b55-8f75-7094c672c3a9",
+      "lang": "fr",
+      "printedName": "Absence imprévue",
+      "scryfallId": "649a196d-6368-4fcf-9eed-ac4e291271d1"
+    },
+    {
+      "name": "Unholy Heat",
+      "oracleId": "b23cba46-6ed2-442d-bc39-7c4933f6b083",
+      "lang": "fr",
+      "printedName": "Chaleur impie",
+      "scryfallId": "0b25edd8-06c4-4887-9c39-8ca3963d661c"
+    },
+    {
+      "name": "Upheaval",
+      "oracleId": "7cafc972-a6f5-4cac-a3d3-8a3ae36ffb1e",
+      "lang": "fr",
+      "printedName": "Bouleversement",
+      "scryfallId": "30faf237-d9f5-4adb-92a5-c6e26f4a8d1e"
+    },
+    {
+      "name": "Uro, Titan of Nature's Wrath",
+      "oracleId": "ee302659-59ed-4eef-babe-451b9ccf7f14",
+      "lang": "fr",
+      "printedName": "Ouro, titan de la Rage de la nature",
+      "scryfallId": "4dc08a0a-6479-41c3-96d0-1d1dd1319b90"
+    },
+    {
+      "name": "Urza, Lord High Artificer",
+      "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
+      "lang": "fr",
+      "printedName": "Urza, seigneur grand-artificier",
+      "scryfallId": "09eae855-1dec-4e09-8c2a-6bc3bbdb3154"
+    },
+    {
+      "name": "Urza's Bauble",
+      "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
+      "lang": "fr",
+      "printedName": "Babiole d'Urza",
+      "scryfallId": "129b32c2-1951-4e52-8c95-576eba0eb4ce"
+    },
+    {
+      "name": "Urza's Saga",
+      "oracleId": "4c6a0c30-b547-4eff-8ff4-0ca25803c076",
+      "lang": "fr",
+      "printedName": "Épopée d'Urza",
+      "scryfallId": "204527d7-1a35-4002-ba90-60f69bddca91"
+    },
+    {
+      "name": "Valki, God of Lies",
+      "oracleId": "907ae517-22d5-4ac7-bc3a-3f4d5eaeeb57",
+      "lang": "fr",
+      "printedName": "Tibalt, imposteur cosmique",
+      "scryfallId": "fd75eca9-6915-46ba-b83d-bf338dd8d1e9"
+    },
+    {
+      "name": "Valki, God of Lies",
+      "oracleId": "907ae517-22d5-4ac7-bc3a-3f4d5eaeeb57",
+      "lang": "fr",
+      "printedName": "Valki, dieu des Mensonges",
+      "scryfallId": "fd75eca9-6915-46ba-b83d-bf338dd8d1e9"
+    },
+    {
+      "name": "Vampire Hexmage",
+      "oracleId": "fcb2a95b-cef0-4b29-8b2b-538f380aff2b",
+      "lang": "fr",
+      "printedName": "Sortimage vampire",
+      "scryfallId": "224e6c32-0b21-4dfe-8fba-4bd03b7a2959"
+    },
+    {
+      "name": "Vampiric Tutor",
+      "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
+      "lang": "fr",
+      "printedName": "Précepteur vampirique",
+      "scryfallId": "1ae5c670-f87e-4e24-8a2a-cfcb8e2d1cd2"
+    },
+    {
+      "name": "Vaultborn Tyrant",
+      "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
+      "lang": "fr",
+      "printedName": "Tyran né du coffre-fort",
+      "scryfallId": "4e8f86aa-15a6-4103-9269-bbad9d7b73cf"
+    },
+    {
+      "name": "Vendilion Clique",
+      "oracleId": "244d4807-0802-41bc-9460-55ac38a28a72",
+      "lang": "fr",
+      "printedName": "Clique Vendilion",
+      "scryfallId": "1d875989-6dd2-43f3-af71-7b47c3b7836e"
+    },
+    {
+      "name": "Venser, Shaper Savant",
+      "oracleId": "0f41cefc-d6ff-4db7-ba35-502b7e081de1",
+      "lang": "fr",
+      "printedName": "Venser, forgeur savant",
+      "scryfallId": "6d183e9d-7713-4005-af96-3374383d92eb"
+    },
+    {
+      "name": "Verdant Catacombs",
+      "oracleId": "67d60b24-d429-4ded-90d9-06e49f28c396",
+      "lang": "fr",
+      "printedName": "Catacombes verdoyantes",
+      "scryfallId": "14fefc77-ce83-4766-994d-0cebef9df2e6"
+    },
+    {
+      "name": "Verdurous Gearhulk",
+      "oracleId": "3765e8bb-e70d-4503-b8dc-1e684e434c18",
+      "lang": "fr",
+      "printedName": "Carcasse mécanique de verdure",
+      "scryfallId": "67fc31e5-c016-4c29-bd1d-0bc5ffd5ec28"
+    },
+    {
+      "name": "Vindicate",
+      "oracleId": "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
+      "lang": "fr",
+      "printedName": "Justification",
+      "scryfallId": "2a6d1071-462d-4362-822f-abb7b5987031"
+    },
+    {
+      "name": "Virtue of Loyalty",
+      "oracleId": "f61f4307-4eec-476a-97e5-d4d3da2b54c3",
+      "lang": "fr",
+      "printedName": "Allégeance d'Ardenval",
+      "scryfallId": "f2c9eb5f-960b-48e7-8152-4c69680a0a44"
+    },
+    {
+      "name": "Virtue of Loyalty",
+      "oracleId": "f61f4307-4eec-476a-97e5-d4d3da2b54c3",
+      "lang": "fr",
+      "printedName": "Vertu de loyauté",
+      "scryfallId": "f2c9eb5f-960b-48e7-8152-4c69680a0a44"
+    },
+    {
+      "name": "Virtue of Persistence",
+      "oracleId": "fae36da0-bf9c-484f-b2fe-dd8ab2effc5c",
+      "lang": "fr",
+      "printedName": "Mépris selon Locthwain",
+      "scryfallId": "1e29332a-1676-4470-a5e3-98641522d387"
+    },
+    {
+      "name": "Virtue of Persistence",
+      "oracleId": "fae36da0-bf9c-484f-b2fe-dd8ab2effc5c",
+      "lang": "fr",
+      "printedName": "Vertu de persistance",
+      "scryfallId": "1e29332a-1676-4470-a5e3-98641522d387"
+    },
+    {
+      "name": "Vizier of Remedies",
+      "oracleId": "79770e65-740a-44c7-bea2-a24e6a722c22",
+      "lang": "fr",
+      "printedName": "Vizir des remèdes",
+      "scryfallId": "cc85c464-45f5-4e54-85b3-a6626b2e2b6e"
+    },
+    {
+      "name": "Volcanic Island",
+      "oracleId": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
+      "lang": "fr",
+      "printedName": "Ile volcanique",
+      "scryfallId": "6f609594-ed25-4c7f-8829-ea9f735ddcab"
+    },
+    {
+      "name": "Vraska, Golgari Queen",
+      "oracleId": "131096a3-2d53-4ec2-96d3-fcb58e698a13",
+      "lang": "fr",
+      "printedName": "Vraska, reine des Golgari",
+      "scryfallId": "bc1744ee-2097-4b99-8efd-fe9e364bdbc6"
+    },
+    {
+      "name": "Walking Ballista",
+      "oracleId": "4b515bb0-f275-4400-8032-3173b799ab40",
+      "lang": "fr",
+      "printedName": "Baliste ambulante",
+      "scryfallId": "00dacbb7-ae0a-46b5-b85d-45ce18493c18"
+    },
+    {
+      "name": "Wasteland",
+      "oracleId": "09a70ae8-3859-4a09-901d-dce063fa3b5f",
+      "lang": "fr",
+      "printedName": "Terres dévastées",
+      "scryfallId": "5e4b87eb-28f3-4391-acee-b59ec97e905d"
+    },
+    {
+      "name": "Waterlogged Grove",
+      "oracleId": "70fa2eba-565e-4fed-adc9-7f5d9fcbf1fa",
+      "lang": "fr",
+      "printedName": "Bosquet gorgé d'eau",
+      "scryfallId": "837626ce-ad09-47e6-8fe6-15585bb03498"
+    },
+    {
+      "name": "Watery Grave",
+      "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
+      "lang": "fr",
+      "printedName": "Tombe aquatique",
+      "scryfallId": "0d09b60e-ba6b-4e3d-afb1-a49364e88bee"
+    },
+    {
+      "name": "Wheel of Fortune",
+      "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
+      "lang": "fr",
+      "printedName": "Roue de la fortune",
+      "scryfallId": "a9d85099-7970-4902-9351-09cbc04c36bc"
+    },
+    {
+      "name": "White Plume Adventurer",
+      "oracleId": "51f091a7-9b0b-4362-8e9c-c174752f369b",
+      "lang": "fr",
+      "printedName": "Aventurière du Plumet blanc",
+      "scryfallId": "700bdffd-144c-45ec-9304-5bed37841057"
+    },
+    {
+      "name": "White Sun's Twilight",
+      "oracleId": "a38828be-781e-4340-9c6f-f40b1d34773f",
+      "lang": "fr",
+      "printedName": "Crépuscule de Blancsoleil",
+      "scryfallId": "74f879d4-bd64-417a-acd2-5da6a811f67d"
+    },
+    {
+      "name": "Wight of the Reliquary",
+      "oracleId": "4507df69-6bf7-43d6-a609-c032b61835d5",
+      "lang": "fr",
+      "printedName": "Nécrophage du Reliquaire",
+      "scryfallId": "21d1a41f-ec82-4375-9a0b-aa60f221c3cc"
+    },
+    {
+      "name": "Winds of Abandon",
+      "oracleId": "499a4715-6776-461b-bee4-22ed172d455e",
+      "lang": "fr",
+      "printedName": "Vents d'abandon",
+      "scryfallId": "106eb0de-4fcb-4d49-8f02-9afaaca90cdf"
+    },
+    {
+      "name": "Windswept Heath",
+      "oracleId": "29737a60-3ebd-40d9-b935-c4f54b90d45d",
+      "lang": "fr",
+      "printedName": "Lande venteuse",
+      "scryfallId": "21ddabee-3ffc-4573-9fb9-e4729ba5bb61"
+    },
+    {
+      "name": "Wishclaw Talisman",
+      "oracleId": "81c70ae7-3c18-4c9b-8505-e4db9e0e6518",
+      "lang": "fr",
+      "printedName": "Talisman griffe de souhait",
+      "scryfallId": "a9887095-d8b0-4929-a7ec-b26c2be3a01e"
+    },
+    {
+      "name": "Witch Enchanter",
+      "oracleId": "0355249a-8e4e-41db-9cea-1b901faffbe6",
+      "lang": "fr",
+      "printedName": "Enchanteresse envoûteuse",
+      "scryfallId": "66c9ea9d-9bb2-4978-9315-4a7253b0f377"
+    },
+    {
+      "name": "Witch Enchanter",
+      "oracleId": "0355249a-8e4e-41db-9cea-1b901faffbe6",
+      "lang": "fr",
+      "printedName": "Prairie bénie par les envoûteuses",
+      "scryfallId": "66c9ea9d-9bb2-4978-9315-4a7253b0f377"
+    },
+    {
+      "name": "Witherbloom Command",
+      "oracleId": "7cc81fb3-495c-47cd-8c56-96197d87e9e0",
+      "lang": "fr",
+      "printedName": "Commandement de Flestrefleur",
+      "scryfallId": "2dfcf90c-1a16-47d0-8016-a32b6a93dc41"
+    },
+    {
+      "name": "Woe Strider",
+      "oracleId": "3adbd963-e85d-4569-963a-4472594f06f9",
+      "lang": "fr",
+      "printedName": "Enjambeur du malheur",
+      "scryfallId": "3a21b65b-4f70-4bf8-86cf-e9e96de869ee"
+    },
+    {
+      "name": "Wooded Foothills",
+      "oracleId": "6587a463-a108-4854-b6d1-944e89b8c8a4",
+      "lang": "fr",
+      "printedName": "Contreforts boisés",
+      "scryfallId": "2f4fb695-edcd-46f7-8bb4-e1529921ae4f"
+    },
+    {
+      "name": "Woodfall Primus",
+      "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+      "lang": "fr",
+      "printedName": "Primus chutebois",
+      "scryfallId": "8eead7d4-577c-4087-a09d-5efc5939d2f9"
+    },
+    {
+      "name": "Worn Powerstone",
+      "oracleId": "b166b670-febc-4821-855e-f8d465644c03",
+      "lang": "fr",
+      "printedName": "Lithoforce usée",
+      "scryfallId": "158a4c8f-3057-45ad-b1eb-5d56958993e3"
+    },
+    {
+      "name": "Wrath of God",
+      "oracleId": "34515b16-c9a4-4f98-8c77-416a7a523407",
+      "lang": "fr",
+      "printedName": "Colère de Dieu",
+      "scryfallId": "274b3a25-b2ab-419e-b5a2-1993a8ff325f"
+    },
+    {
+      "name": "Wrenn and Six",
+      "oracleId": "108ae90a-50fa-4cfd-b751-d630e41425fe",
+      "lang": "fr",
+      "printedName": "Wrenn et Six",
+      "scryfallId": "3da266aa-1be0-4150-9f3f-14c3b87df2f3"
+    },
+    {
+      "name": "Wurmcoil Engine",
+      "oracleId": "d1a60f44-7696-49ee-91fb-cab5b3102962",
+      "lang": "fr",
+      "printedName": "Machine guivrétreinte",
+      "scryfallId": "117190c1-172e-46da-bb1e-21dde8b4e37b"
+    },
+    {
+      "name": "Xander's Lounge",
+      "oracleId": "8291543f-d086-48aa-b2b7-5481ca8c9198",
+      "lang": "fr",
+      "printedName": "Bar de Xander",
+      "scryfallId": "4d87f1c6-b353-4a40-8445-e9ba850a221c"
+    },
+    {
+      "name": "Yasharn, Implacable Earth",
+      "oracleId": "6dc23410-4d8f-4c8a-92b4-a8b3fae1af4e",
+      "lang": "fr",
+      "printedName": "Yasharn, terre implacable",
+      "scryfallId": "3c02a7b9-8479-4675-84ef-adecc94645a3"
+    },
+    {
+      "name": "Yawgmoth, Thran Physician",
+      "oracleId": "a1e232c0-dc38-47be-a5a0-f68bc1d86a29",
+      "lang": "fr",
+      "printedName": "Yaugzebul, médecin thran",
+      "scryfallId": "5a7d8a54-4b38-40d7-9fe0-b408aa70f400"
+    },
+    {
+      "name": "Yawgmoth's Bargain",
+      "oracleId": "f7f76f39-a0de-4bda-86b6-0f291892fcec",
+      "lang": "fr",
+      "printedName": "Marché selon Yaugzebul",
+      "scryfallId": "b4569ea0-02c0-4673-a5b2-af450f6ecbac"
+    },
+    {
+      "name": "Yawgmoth's Will",
+      "oracleId": "322f0459-f394-44f0-977b-55fd0cbe0712",
+      "lang": "fr",
+      "printedName": "Volonté de Yaugzebul",
+      "scryfallId": "910db3b2-9406-44bd-9178-e0a6d15cc836"
+    },
+    {
+      "name": "Young Pyromancer",
+      "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
+      "lang": "fr",
+      "printedName": "Jeune pyromancien",
+      "scryfallId": "4c294b73-8c11-4c63-a720-f4cb47d5e9da"
+    },
+    {
+      "name": "Zagoth Triome",
+      "oracleId": "fdd46004-eaba-4024-8687-39b23dc6a58c",
+      "lang": "fr",
+      "printedName": "Triome de Zagoth",
+      "scryfallId": "5f8767fb-138b-47aa-b238-53dfdc690b96"
+    },
+    {
+      "name": "Zealous Conscripts",
+      "oracleId": "1dae6f39-2cbd-485c-b190-017a26401fd4",
+      "lang": "fr",
+      "printedName": "Conscrits zélés",
+      "scryfallId": "30a4a5b1-8b22-403b-9822-100947acc6ac"
+    },
+    {
+      "name": "Ziatora's Proving Ground",
+      "oracleId": "f7e7b78c-c769-4720-8585-1874773eb342",
+      "lang": "fr",
+      "printedName": "Salle de recrutement de Ziatora",
+      "scryfallId": "ba58ca11-a517-4d64-92f9-667aaa4ed610"
+    },
+    {
+      "name": "Zirda, the Dawnwaker",
+      "oracleId": "7b515c56-7b1e-42a8-82b0-1b30201fb162",
+      "lang": "fr",
+      "printedName": "Zirda, éveilleur de l'aube",
+      "scryfallId": "1d8565f4-9bbe-4cea-a6b3-bd6396e04c34"
+    },
+    {
+      "name": "Zuran Orb",
+      "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
+      "lang": "fr",
+      "printedName": "Orbe zuranienne",
+      "scryfallId": "c3182495-ef49-4e20-968b-32a01ea82309"
+    }
+  ]
+}

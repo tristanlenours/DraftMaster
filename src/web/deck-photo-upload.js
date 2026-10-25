@@ -42,7 +42,8 @@ export async function prepareDeckPhotoRegions(file) {
   }
   const columns = image.width >= image.height ? 3 : 2;
   const rows = image.width >= image.height ? 2 : 3;
-  const overlap = 0.12;
+  // Keep a complete title ribbon across boundaries, including sideways card photos.
+  const overlap = 0.35;
   const tileWidth = image.width / (columns - overlap * (columns - 1));
   const tileHeight = image.height / (rows - overlap * (rows - 1));
   const regions = [];

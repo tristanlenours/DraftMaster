@@ -1,4 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 import {
   GeminiDeckPhotoRecognizer,
@@ -6,6 +9,128 @@ import {
 } from "../../../src/tournaments/deck-photo-recognition.ts";
 
 describe("Deck photo recognition and card indexing", () => {
+  it("resolves a complete official title containing dots while rejecting unmatched truncated readings", () => {
+    const index = new MasterCardsIndex(process.cwd());
+    expect(index.findExactCard("Il était une fois...")?.name).toBe("Once Upon a Time");
+    expect(index.findExactCard("Il était…")).toBeUndefined();
+    expect(index.findExactCard("Réanimation...")).toBeUndefined();
+    expect(index.findPhotoCard("Malcolm, navigateur attirant")?.name).toBe(
+      "Malcolm, Alluring Scoundrel",
+    );
+    expect(index.findPhotoCard("Malcolm, séducteur attirant")?.name).toBe(
+      "Malcolm, Alluring Scoundrel",
+    );
+    expect(index.findPhotoCard("Égouts de la Citerne")?.name).toBe("Undercity Sewers");
+    expect(index.findPhotoCard("Persistence")?.name).toBe("Persist");
+    expect(index.findPhotoCard("Malcolm, …")).toBeUndefined();
+  });
+  it("loads only French aliases and rejects ambiguous, empty, truncated or mismatched aliases", () => {
+    const root = mkdtempSync(join(tmpdir(), "draftmaster-aliases-"));
+    try {
+      const directory = join(root, "data", "cards");
+      mkdirSync(directory, { recursive: true });
+      const cards = {
+        one: { name: "Brainstorm", oracleId: "one", frenchName: "Remue-méninges", cmc: 1 },
+        two: { name: "Omniscience", oracleId: "two", cmc: 10 },
+      };
+      writeFileSync(join(directory, "master-cards.json"), JSON.stringify({ cards }));
+      const aliases = [
+        {
+          name: "Brainstorm",
+          oracleId: "one",
+          printedName: "Pensées tourbillonnantes",
+          lang: "fr",
+          scryfallId: "print-one",
+        },
+        {
+          name: "Omniscience",
+          oracleId: "two",
+          printedName: "Science absolue",
+          lang: "fr",
+          scryfallId: "print-two",
+        },
+        {
+          name: "Brainstorm",
+          oracleId: "one",
+          printedName: "渦まく知識",
+          lang: "zhs",
+          scryfallId: "print-three",
+        },
+        {
+          name: "Brainstorm",
+          oracleId: "one",
+          printedName: "Titre partagé",
+          lang: "fr",
+          scryfallId: "print-four",
+        },
+        {
+          name: "Omniscience",
+          oracleId: "two",
+          printedName: "Titre partagé",
+          lang: "fr",
+          scryfallId: "print-five",
+        },
+        {
+          name: "Brainstorm",
+          oracleId: "wrong",
+          printedName: "Invalid identity",
+          lang: "fr",
+          scryfallId: "bad-print",
+        },
+        {
+          name: "Not in catalog",
+          oracleId: "one",
+          printedName: "Unknown card",
+          lang: "fr",
+          scryfallId: "bad-print",
+        },
+      ];
+      writeFileSync(
+        join(directory, "printed-names.json"),
+        JSON.stringify({ schemaVersion: 1, aliases }),
+      );
+      const index = new MasterCardsIndex(root);
+      expect(index.findExactCard("Pensées tourbillonnantes")?.name).toBe("Brainstorm");
+      expect(index.findExactCard("Science absolue")?.name).toBe("Omniscience");
+      expect(index.findExactCard("渦まく知識")).toBeUndefined();
+      expect(index.findExactCard("REMUE–MÉNINGES")?.name).toBe("Brainstorm");
+      for (const title of [
+        "Titre partagé",
+        "別のカード",
+        "???",
+        "",
+        "Remue-méninges…",
+        "Île…",
+        "Invalid identity",
+        "Unknown card",
+      ]) {
+        expect(index.findExactCard(title), title).toBeUndefined();
+      }
+      expect(index.findExactCard("Île")?.name).toBe("Island");
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it("uses literal names but refuses a normalized collision between distinct cards", () => {
+    const root = mkdtempSync(join(tmpdir(), "draftmaster-collisions-"));
+    try {
+      const directory = join(root, "data", "cards");
+      mkdirSync(directory, { recursive: true });
+      writeFileSync(
+        join(directory, "master-cards.json"),
+        JSON.stringify({
+          cards: { one: { name: "A-B", oracleId: "one" }, two: { name: "AB", oracleId: "two" } },
+        }),
+      );
+      const index = new MasterCardsIndex(root);
+      expect(index.findExactCard("A-B")?.oracleId).toBe("one");
+      expect(index.findExactCard("AB")?.oracleId).toBe("two");
+      expect(index.findExactCard("A B")).toBeUndefined();
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
   it("resolves cards accurately from the master cards catalog", () => {
     const index = MasterCardsIndex.getInstance(process.cwd());
 
