@@ -10,6 +10,10 @@ import {
   createInMemorySoloDraftStore,
   type SoloDraftStore,
 } from "../../src/solo-draft/solo-draft-store.ts";
+import {
+  createFileSoloResultOutputs,
+  type SoloResultOutputs,
+} from "../../src/solo-draft/solo-result-outputs.ts";
 
 interface SessionDto {
   readonly sessionId: string;
@@ -44,9 +48,10 @@ afterAll(async () => {
 });
 
 /** Each call is a fresh "process": a new handler with no in-memory sessions. */
-async function startApi(store: SoloDraftStore) {
+async function startApi(store: SoloDraftStore, resultOutputs?: SoloResultOutputs) {
   const handler = createSoloDraftHttpHandler({
     store,
+    resultOutputs,
     finalDeckCoach: createFinalDeckCoach(),
     reportsDirectory: join(storageDir, "reports"),
     reportsUrlPrefix: "/reports",
@@ -201,9 +206,7 @@ describe("Solo draft HTTP handler", () => {
     expect((await api.getSession(session.sessionId)).status).toBe(404);
   });
 
-  it("forgets a finalized session so it cannot be finalized twice", async () => {
-    const store = createInMemorySoloDraftStore();
-    const api = await startApi(store);
+  async function draftToDeck(api: Awaited<ReturnType<typeof startApi>>) {
     let session = await startDraft(api);
     for (let round = 0; round < 45; round++) {
       const pick = await api.post("/api/draft/pick", {
@@ -216,18 +219,70 @@ describe("Solo draft HTTP handler", () => {
     const reco = await api.post("/api/draft/recommend-deck", { sessionId: session.sessionId });
     const maindeck = (reco.data.recommendation as { maindeckCardInstanceIds: string[] })
       .maindeckCardInstanceIds;
+    return { sessionId: session.sessionId, maindeck };
+  }
+
+  it("keeps a training result so it can be published later, then forgets it", async () => {
+    const store = createInMemorySoloDraftStore();
+    const api = await startApi(store);
+    const { sessionId, maindeck } = await draftToDeck(api);
 
     const finalize = await api.post("/api/draft/deck", {
-      sessionId: session.sessionId,
+      sessionId,
       maindeckCardInstanceIds: maindeck,
     });
     expect(finalize.status).toBe(200);
-    expect(await store.load(session.sessionId)).toEqual({ ok: false, code: "NOT_FOUND" });
-    expect((await api.getSession(session.sessionId)).status).toBe(404);
-    const again = await api.post("/api/draft/deck", {
-      sessionId: session.sessionId,
-      maindeckCardInstanceIds: maindeck,
+    const stored = await store.load(sessionId);
+    expect(stored.ok && stored.value.lockedResult?.result.isPublished).toBe(false);
+
+    // Finalizing again returns the same locked result instead of re-evaluating it.
+    const again = await api.post("/api/draft/deck", { sessionId, maindeckCardInstanceIds: [] });
+    expect(again.status).toBe(200);
+    expect(again.data.result).toEqual(finalize.data.result);
+
+    // A restart in between must not lose the result (regression: publish answered 404).
+    const restarted = await startApi(store);
+    const publish = await restarted.post("/api/draft/publish", { sessionId });
+    expect(publish.data.error).toBeUndefined();
+    expect(publish.status).toBe(200);
+    expect((publish.data.result as { entry: { id: string } }).entry.id).toBe(`rec-${sessionId}`);
+
+    expect(await store.load(sessionId)).toEqual({ ok: false, code: "NOT_FOUND" });
+    expect((await restarted.post("/api/draft/publish", { sessionId })).status).toBe(404);
+  }, 60_000);
+
+  it("answers 503 while a locked result's outputs are pending, and completes on retry", async () => {
+    const store = createInMemorySoloDraftStore();
+    const files = createFileSoloResultOutputs({
+      reportsDirectory: join(storageDir, "reports"),
+      reportsUrlPrefix: "/reports",
+      adminDraftsPath: join(storageDir, "admin-drafts.json"),
+      leaderboardPath: join(storageDir, "leaderboard.json"),
     });
-    expect(again.status).toBe(404);
+    let adminFailures = 1;
+    const flaky: SoloResultOutputs = {
+      ...files,
+      recordAdminDraft: (entry) => {
+        if (adminFailures > 0) {
+          adminFailures--;
+          return Promise.reject(new Error("archive volume unavailable"));
+        }
+        return files.recordAdminDraft(entry);
+      },
+    };
+    const api = await startApi(store, flaky);
+    const { sessionId, maindeck } = await draftToDeck(api);
+
+    const body = { sessionId, maindeckCardInstanceIds: maindeck, publishToLeaderboard: true };
+    const failed = await api.post("/api/draft/deck", body);
+    expect(failed.status).toBe(503);
+    expect(failed.data).toMatchObject({ ok: false, code: "RESULT_OUTPUT_PENDING" });
+    const pending = await store.load(sessionId);
+    expect(pending.ok && pending.value.lockedResult?.publication.adminRecorded).toBe(false);
+
+    const retried = await api.post("/api/draft/deck", body);
+    expect(retried.status).toBe(200);
+    expect((retried.data.result as { isPublished: boolean }).isPublished).toBe(true);
+    expect(await store.load(sessionId)).toEqual({ ok: false, code: "NOT_FOUND" });
   }, 60_000);
 });

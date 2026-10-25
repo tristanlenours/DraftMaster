@@ -73,6 +73,32 @@ export interface SoloDraftPersistenceSnapshot {
   readonly humanPicks: readonly string[];
   readonly isHomologated?: boolean | undefined;
   readonly startedAtTimestamp?: number | undefined;
+  readonly draftDurationSeconds?: number | undefined;
+  readonly totalDurationSeconds?: number | undefined;
+  /** The table as dealt (seat 0 is the human): replaying picks needs the same bots. */
+  readonly seatAssignments?: readonly (FriendProfile | null)[] | undefined;
+  /** Present once the deck is finalized: the result is never recomputed after that. */
+  readonly lockedResult?: SoloLockedResult | undefined;
+}
+
+/** Wall of Records payload, identified by its session so publication is idempotent. */
+export type SoloLeaderboardPayload = Omit<LeaderboardEntry, "id" | "rank"> & {
+  readonly sessionId: string;
+};
+
+/**
+ * Résultat verrouillé: the immutable outcome of a finalized deck plus the state of
+ * the outputs derived from it, so a retry finishes them without recomputing.
+ */
+export interface SoloLockedResult {
+  readonly result: SoloDraftFinalResult;
+  readonly leaderboardEntryId: string;
+  readonly leaderboardPayload: SoloLeaderboardPayload;
+  readonly adminEntry: AdminDraftEntry;
+  readonly publication: {
+    readonly adminRecorded: boolean;
+    readonly leaderboardPublished: boolean;
+  };
 }
 
 export interface SoloDraftPickInput {

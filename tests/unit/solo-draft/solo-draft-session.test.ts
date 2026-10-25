@@ -250,7 +250,7 @@ describe("SoloDraftSession", () => {
     expect(result.leaderboardEntry).toBeUndefined();
 
     // Can publish later on demand
-    const published = await session.publishToLeaderboard(TEST_LEADERBOARD_PATH);
+    const published = await session.publishToLeaderboard();
     expect(published.entry.playerName).toBe("Training Hero");
     expect(published.entry.rank).toBeDefined();
   }, 15000);

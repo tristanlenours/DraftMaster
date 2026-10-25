@@ -5,6 +5,7 @@ import type { FriendProfile } from "../bots/friends/profiles.ts";
 import type { FinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
 import { SoloDraftSession } from "./solo-draft-session.ts";
 import { isValidSoloSessionId, type SoloDraftStore } from "./solo-draft-store.ts";
+import { createFileSoloResultOutputs, type SoloResultOutputs } from "./solo-result-outputs.ts";
 
 export interface SoloDraftHttpDependencies {
   readonly store: SoloDraftStore;
@@ -15,6 +16,8 @@ export interface SoloDraftHttpDependencies {
   readonly reportsUrlPrefix: string;
   readonly adminDraftsPath?: string | undefined;
   readonly leaderboardPath?: string | undefined;
+  /** Reports, admin archive and Wall of Records; defaults to files from the paths above. */
+  readonly resultOutputs?: SoloResultOutputs | undefined;
   readonly log?: ((message: string) => void) | undefined;
 }
 
@@ -84,6 +87,14 @@ export function createSoloDraftHttpHandler(dependencies: Readonly<SoloDraftHttpD
     dependencies.log ??
     ((message: string) => {
       console.log(message);
+    });
+  const resultOutputs =
+    dependencies.resultOutputs ??
+    createFileSoloResultOutputs({
+      reportsDirectory: dependencies.reportsDirectory,
+      reportsUrlPrefix: dependencies.reportsUrlPrefix,
+      adminDraftsPath: dependencies.adminDraftsPath,
+      leaderboardPath: dependencies.leaderboardPath,
     });
   const activeSessions = new Map<string, SoloDraftSession>();
   const restoring = new Map<string, Promise<SoloDraftSession | null>>();
@@ -260,27 +271,40 @@ export function createSoloDraftHttpHandler(dependencies: Readonly<SoloDraftHttpD
           );
         }
         const session = await findSession(body.sessionId);
-        const result = await session.buildDeckAndFinalize(
-          {
-            sessionId: body.sessionId,
-            maindeckCardInstanceIds: maindeck.filter((id): id is string => typeof id === "string"),
-            basicLands:
-              body.basicLands && typeof body.basicLands === "object" ? body.basicLands : undefined,
-            landCountRationale: optionalString(body.landCountRationale),
-            publishToLeaderboard: Boolean(body.publishToLeaderboard),
-          },
-          {
-            customReportsDir: dependencies.reportsDirectory,
-            reportsUrlPrefix: dependencies.reportsUrlPrefix,
-            ...(dependencies.adminDraftsPath
-              ? { customAdminDraftsPath: dependencies.adminDraftsPath }
-              : {}),
-            ...(dependencies.leaderboardPath
-              ? { customLeaderboardPath: dependencies.leaderboardPath }
-              : {}),
-          },
-        );
-        await forget(body.sessionId);
+        let result;
+        try {
+          result = await session.buildDeckAndFinalize(
+            {
+              sessionId: body.sessionId,
+              maindeckCardInstanceIds: maindeck.filter(
+                (id): id is string => typeof id === "string",
+              ),
+              basicLands:
+                body.basicLands && typeof body.basicLands === "object"
+                  ? body.basicLands
+                  : undefined,
+              landCountRationale: optionalString(body.landCountRationale),
+              publishToLeaderboard: Boolean(body.publishToLeaderboard),
+            },
+            { outputs: resultOutputs },
+          );
+        } catch (error: unknown) {
+          // The result is locked but an output failed: keep it so a retry finishes the job.
+          if (session.status !== "completed") throw error;
+          await persist(session);
+          log(`[Résultat] Sorties en attente pour ${body.sessionId} : ${errorMessage(error)}`);
+          throw new SoloRequestError(
+            503,
+            "Le deck est validé, mais son enregistrement n'est pas terminé. Réessaie dans un instant.",
+            "RESULT_OUTPUT_PENDING",
+          );
+        }
+        // A training result stays available for a later publication to the Wall of Records.
+        if (result.isPublished) {
+          await forget(body.sessionId);
+        } else {
+          await persist(session);
+        }
         return { ok: true, result };
       },
     },
@@ -294,7 +318,7 @@ export function createSoloDraftHttpHandler(dependencies: Readonly<SoloDraftHttpD
           throw new SoloRequestError(400, "Paramètre 'sessionId' manquant.");
         }
         const session = await findSession(body.sessionId);
-        const result = await session.publishToLeaderboard(dependencies.leaderboardPath);
+        const result = await session.publishToLeaderboard(resultOutputs);
         await forget(body.sessionId);
         return { ok: true, result };
       },
