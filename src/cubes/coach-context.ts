@@ -125,7 +125,7 @@ export async function loadCoachContext(
     const [snapshotResult, catalogResult, cubeMetaResult, rawText, rankingText] = await Promise.all(
       [
         loadActiveCubeSnapshot(projectRoot, cubeKey),
-        CardCatalog.fromFile(resolve(projectRoot, "data", "cards", "master-cards.json")),
+        CardCatalog.fromFileCached(resolve(projectRoot, "data", "cards", "master-cards.json")),
         CubeMetaRegistry.fromFile(resolve(projectRoot, "data", "cubes", cubeKey, "cube-meta.json")),
         readFile(resolve(projectRoot, "data", "cubes", cubeKey, "cubecobra-raw.json"), "utf8"),
         readFile(resolve(projectRoot, "data", "power-rankings", "power-ranking-v1.json"), "utf8"),

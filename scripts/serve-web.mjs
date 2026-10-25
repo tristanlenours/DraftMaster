@@ -1,6 +1,12 @@
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
 import { join, extname, resolve, relative, isAbsolute } from "node:path";
+import { promisify } from "node:util";
+import {
+  brotliCompress as brotliCompressCallback,
+  gzip as gzipCallback,
+  constants as zlibConstants,
+} from "node:zlib";
 import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
 import { getLeaderboard } from "../src/solo-draft/leaderboard.ts";
@@ -55,6 +61,8 @@ const reportsDir = resolve(rootDir, "reports");
 const draftSessionsDir = resolve(rootDir, "data", "draft-sessions");
 const multiplayerDraftPath = resolve(rootDir, "data", "multiplayer-draft", "global.json");
 const fallbackMultiplayerResumeSecret = randomBytes(32);
+const brotliCompress = promisify(brotliCompressCallback);
+const gzip = promisify(gzipCallback);
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -154,6 +162,33 @@ function resolveStaticFile(pathname, roots) {
 
   const filePath = resolve(root, relativePath);
   return isInside(root, filePath) ? filePath : null;
+}
+
+const COMPRESSIBLE_EXTENSIONS = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg"]);
+const compressedAssetCache = new Map();
+
+function pickEncoding(acceptEncoding) {
+  const accepted = String(acceptEncoding ?? "");
+  if (/\bbr\b/.test(accepted)) return "br";
+  if (/\bgzip\b/.test(accepted)) return "gzip";
+  return null;
+}
+
+/** Compresses once per file version; the 7 MB catalog drops to ~430 KB in brotli. */
+async function getEncodedAsset(filePath, fileStat, encoding, content) {
+  const key = `${filePath}:${encoding}`;
+  const cached = compressedAssetCache.get(key);
+  if (cached && cached.mtimeMs === fileStat.mtimeMs && cached.size === fileStat.size) {
+    return cached.body;
+  }
+  const body =
+    encoding === "br"
+      ? await brotliCompress(content, {
+          params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 9 },
+        })
+      : await gzip(content, { level: 9 });
+  compressedAssetCache.set(key, { mtimeMs: fileStat.mtimeMs, size: fileStat.size, body });
+  return body;
 }
 
 function parseAllowedOrigins(value) {
@@ -466,7 +501,7 @@ export function createRequestHandler(options = {}) {
     fallbackMultiplayerResumeSecret;
   let multiplayerCatalogPromise;
   const loadMultiplayerCatalog = async () => {
-    multiplayerCatalogPromise ??= CardCatalog.fromFile(
+    multiplayerCatalogPromise ??= CardCatalog.fromFileCached(
       resolve(rootDir, "data", "cards", "master-cards.json"),
     );
     const result = await multiplayerCatalogPromise;
@@ -1174,24 +1209,43 @@ export function createRequestHandler(options = {}) {
     }
 
     try {
-      const fileStat = await stat(filePath);
+      let fileStat = await stat(filePath);
       if (fileStat.isDirectory()) {
         filePath = join(filePath, "index.html");
+        fileStat = await stat(filePath);
       }
 
-      const content = await readFile(filePath);
       const fileExt = extname(filePath).toLowerCase();
       const contentType = MIME_TYPES[fileExt] || "application/octet-stream";
       const isDynamicAsset = fileExt === ".html" || fileExt === ".js" || fileExt === ".css";
-      const cacheControl = isDynamicAsset
-        ? "no-cache, no-store, must-revalidate"
-        : "public, max-age=3600";
-
-      res.writeHead(200, {
+      // Revalidate app code on each load (cheap 304 via ETag) instead of re-downloading it.
+      const cacheControl = isDynamicAsset ? "no-cache" : "public, max-age=3600";
+      const isCompressible = COMPRESSIBLE_EXTENSIONS.has(fileExt);
+      const encoding = isCompressible ? pickEncoding(req.headers["accept-encoding"]) : null;
+      const etag = `W/"${fileStat.size.toString(16)}-${Math.trunc(fileStat.mtimeMs).toString(16)}${encoding ? `-${encoding}` : ""}"`;
+      const headers = {
         "Content-Type": contentType,
         "Cache-Control": cacheControl,
+        ETag: etag,
+        ...(isCompressible ? { Vary: "Accept-Encoding" } : {}),
+      };
+
+      if (req.headers["if-none-match"] === etag) {
+        res.writeHead(304, headers);
+        res.end();
+        return;
+      }
+
+      const content = await readFile(filePath);
+      const body = encoding
+        ? await getEncodedAsset(filePath, fileStat, encoding, content)
+        : content;
+      res.writeHead(200, {
+        ...headers,
+        ...(encoding ? { "Content-Encoding": encoding } : {}),
+        "Content-Length": body.length,
       });
-      res.end(content);
+      res.end(req.method === "HEAD" ? undefined : body);
     } catch {
       res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
       res.end("404 Not Found");
