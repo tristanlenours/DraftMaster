@@ -3,7 +3,7 @@ import {
   getLeaderboard,
   addLeaderboardEntry,
   rankLeaderboardEntries,
-} from "../solo-draft/leaderboard.ts";
+} from "./local-leaderboard.ts";
 import type {
   BasicLandCounts,
   LeaderboardDeckCard,

@@ -4,7 +4,7 @@ import { loadSnapshot } from "../cubes/load-snapshot.ts";
 import { buildDraftReport } from "../draft/index.ts";
 import { simulateDraft } from "../simulation/simulate-draft.ts";
 import { CLI_EXIT_CODES, reportCliFailure, type CliExitCode } from "./errors.ts";
-import { createSessionIdentityGenerator } from "./session-identity.ts";
+import { createSessionIdentityGenerator } from "../random/session-identity.ts";
 
 const DEFAULT_CUBE_PATH = "data/cubes/titou_tribal/2026-02-24.1.json";
 
