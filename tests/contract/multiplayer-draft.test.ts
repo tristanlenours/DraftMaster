@@ -5,12 +5,14 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
-  createLocalFileMultiplayerDraftStore,
   createMultiplayerDraftCoordinator,
-  createSupabaseMultiplayerDraftStore,
   type MultiplayerDraftStore,
   type PersistedMultiplayerState,
 } from "../../src/multiplayer-draft/index.ts";
+import {
+  createLocalFileMultiplayerDraftStore,
+  createSupabaseMultiplayerDraftStore,
+} from "../../src/multiplayer-draft/adapters.ts";
 import {
   createSequenceFactory,
   createTestClock,

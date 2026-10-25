@@ -4,11 +4,11 @@ import { performance } from "node:perf_hooks";
 import { describe, expect, it } from "vitest";
 
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
   type TournamentCoordinator,
   type TournamentCubeCatalog,
 } from "../../src/tournaments/index.ts";
+import { createInMemoryTournamentStore } from "../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   createTournamentSequence,

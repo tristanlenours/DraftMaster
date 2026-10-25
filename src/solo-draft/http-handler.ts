@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 
 import type { CoachLanguageModel } from "../coach-advice/coach-language-model.ts";
 import type { FriendProfile } from "../bots/friends/profiles.ts";
-import type { FinalDeckCoach } from "../multiplayer-draft/final-deck-coach.ts";
+import type { FinalDeckCoach } from "../coach-advice/final-deck-coach.ts";
 import { SoloDraftSession } from "./solo-draft-session.ts";
 import { isValidSoloSessionId, type SoloDraftStore } from "./solo-draft-store.ts";
 import { createFileSoloResultOutputs, type SoloResultOutputs } from "./solo-result-outputs.ts";

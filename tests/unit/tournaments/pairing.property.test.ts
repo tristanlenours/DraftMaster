@@ -2,7 +2,6 @@ import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
   type TournamentCoordinator,
   type TournamentCubeCatalog,
@@ -11,6 +10,7 @@ import {
   type TournamentStanding,
   type TournamentStore,
 } from "../../../src/tournaments/index.ts";
+import { createInMemoryTournamentStore } from "../../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   buildTournamentParticipant,

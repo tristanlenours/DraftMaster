@@ -22,7 +22,7 @@ import {
   type CardEvaluationInput,
   type MtGColor,
 } from "../domain/coaching/index.ts";
-import { createFinalDeckCoach } from "./final-deck-coach.ts";
+import { createFinalDeckCoach } from "../coach-advice/final-deck-coach.ts";
 import { generateMtgaExport } from "./mtga-export.ts";
 import type {
   AbandonMultiplayerSessionCommand,

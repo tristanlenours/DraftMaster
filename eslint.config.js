@@ -28,9 +28,10 @@ export default tseslint.config(
     },
   },
   {
-    // Modules talk to the draft engine through src/draft/index.ts only.
+    // Modules talk to the draft engine through src/draft/index.ts only, and adapters
+    // (HTTP, storage, providers) are wired by composition roots, not by other modules.
     files: ["src/**/*.ts"],
-    ignores: ["src/draft/**"],
+    ignores: ["src/draft/**", "src/companion/server.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -39,6 +40,10 @@ export default tseslint.config(
             {
               group: ["**/draft/internal/*"],
               message: "Import from src/draft/index.ts instead of draft internals.",
+            },
+            {
+              group: ["**/adapters.ts"],
+              message: "Adapters are wired by composition roots (scripts/, Companion server).",
             },
           ],
         },

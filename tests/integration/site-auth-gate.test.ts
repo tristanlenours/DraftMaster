@@ -3,10 +3,10 @@ import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
   type TournamentCubeCatalog,
 } from "../../src/tournaments/index.ts";
+import { createInMemoryTournamentStore } from "../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   createTournamentSequence,

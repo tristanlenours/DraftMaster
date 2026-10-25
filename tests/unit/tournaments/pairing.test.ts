@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  createInMemoryTournamentStore,
   createTournamentCoordinator,
   type TournamentCoordinator,
   type TournamentCubeCatalog,
@@ -11,6 +10,7 @@ import {
   type TournamentStore,
   type TournamentStoreCommitAttempt,
 } from "../../../src/tournaments/index.ts";
+import { createInMemoryTournamentStore } from "../../../src/tournaments/adapters.ts";
 import {
   buildTournamentCubeSnapshot,
   buildTournamentParticipant,
