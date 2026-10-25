@@ -1,0 +1,6531 @@
+{
+  "date": "2026-09-28",
+  "method": "TypeScript AST static local imports and exports; type-only edges excluded from runtime graph; computed imports and readFile source assertions are not import edges; file counts exclude declarations, JSON, HTML, CSS and fixtures without test/spec suffix from test counts; direct test import is not proof of behavioral coverage.",
+  "modules": [
+    {
+      "name": "bots",
+      "files": 9,
+      "lines": 1760,
+      "imports": ["coaching", "companion", "random"],
+      "directTestFiles": [
+        "tests/integration/coaching/determinism.test.ts",
+        "tests/integration/report-audit.test.ts",
+        "tests/integration/simulate-draft.test.ts",
+        "tests/unit/bots/coached-bot-policy.test.ts",
+        "tests/unit/bots/friend-bot-policy.test.ts",
+        "tests/unit/bots/friend-bot-profiles.test.ts",
+        "tests/unit/bots/jev-bot-decision.test.ts",
+        "tests/unit/bots/pick-policy.test.ts",
+        "tests/unit/coaching/draft-coach-service.test.ts"
+      ]
+    },
+    {
+      "name": "cards",
+      "files": 7,
+      "lines": 2682,
+      "imports": [],
+      "directTestFiles": [
+        "tests/unit/cards/card-catalog-directory.test.ts",
+        "tests/unit/cards/card-schema-validation.test.ts",
+        "tests/unit/cards/contextual-cube-analysis.test.ts",
+        "tests/unit/cards/cube-upgrade-advisor.test.ts",
+        "tests/unit/cards/power-calibration.test.ts",
+        "tests/unit/cards/power-ranking-reference.test.ts",
+        "tests/unit/cards/referential-and-harmonization.test.ts",
+        "tests/unit/cards/relative-tier-engine.test.ts",
+        "tests/unit/cards/tier-score-consistency.test.ts",
+        "tests/unit/cards/untapped-static-score-fidelity.test.ts",
+        "tests/unit/cards/untapped-static-scores.test.ts",
+        "tests/unit/cards/vintage-grades-audit.test.ts",
+        "tests/unit/deck-lab/analyze-deck.test.ts"
+      ]
+    },
+    {
+      "name": "cli",
+      "files": 4,
+      "lines": 526,
+      "imports": ["cubes", "draft", "simulation"],
+      "directTestFiles": [
+        "tests/e2e/offline-and-errors.test.ts",
+        "tests/e2e/simulate-cli.test.ts",
+        "tests/integration/import-cube.test.ts",
+        "tests/unit/cli/session-identity.test.ts"
+      ]
+    },
+    {
+      "name": "coaching",
+      "files": 13,
+      "lines": 4737,
+      "imports": ["bots", "cards", "companion"],
+      "directTestFiles": [
+        "tests/integration/coach-first-round-regression.test.ts",
+        "tests/integration/coaching/coach-context.test.ts",
+        "tests/integration/coaching/cube-archetype-synergy-witness.test.ts",
+        "tests/integration/coaching/deck-evaluation-witness.test.ts",
+        "tests/integration/coaching/league-deck-calibration.test.ts",
+        "tests/integration/coaching/untapped-benchmark.test.ts",
+        "tests/unit/cards/referential-and-harmonization.test.ts",
+        "tests/unit/coaching/deck-evaluation.test.ts",
+        "tests/unit/coaching/deck-recommender-tribal.test.ts",
+        "tests/unit/coaching/deck-recommender.test.ts",
+        "tests/unit/coaching/draft-coach-jev-fallback.test.ts",
+        "tests/unit/coaching/draft-coach-service.test.ts",
+        "tests/unit/coaching/dynamic-score.test.ts",
+        "tests/unit/coaching/league-calibration.test.ts",
+        "tests/unit/coaching/tribal-compatibility.test.ts",
+        "tests/unit/coaching/wheel-signals.test.ts",
+        "tests/unit/coaching/witness-corpus.test.ts",
+        "tests/unit/companion/coach-api-contracts.test.ts"
+      ]
+    },
+    {
+      "name": "companion",
+      "files": 7,
+      "lines": 3997,
+      "imports": ["coaching", "cubes", "multiplayer-draft"],
+      "directTestFiles": [
+        "tests/unit/bots/jev-bot-decision.test.ts",
+        "tests/unit/coaching/draft-coach-jev-fallback.test.ts",
+        "tests/unit/coaching/tribal-compatibility.test.ts",
+        "tests/unit/companion/coach-api-contracts.test.ts",
+        "tests/unit/companion/companion-advice-quality.test.ts",
+        "tests/unit/companion/companion.test.ts",
+        "tests/unit/companion/final-deck-prompt.test.ts",
+        "tests/unit/companion/llm-router.test.ts",
+        "tests/unit/solo-draft/solo-draft-session.test.ts"
+      ]
+    },
+    {
+      "name": "cubes",
+      "files": 11,
+      "lines": 1567,
+      "imports": ["cards"],
+      "directTestFiles": [
+        "tests/contract/cube-snapshot.test.ts",
+        "tests/contract/draft-engine.test.ts",
+        "tests/contract/draft-report.test.ts",
+        "tests/contract/replay-draft.test.ts",
+        "tests/integration/coaching/coach-context.test.ts",
+        "tests/integration/coaching/cube-archetype-synergy-witness.test.ts",
+        "tests/integration/coaching/determinism.test.ts",
+        "tests/integration/deck-photo-ocr.test.ts",
+        "tests/integration/determinism.test.ts",
+        "tests/integration/import-cube.test.ts",
+        "tests/integration/load-active-cube-snapshot.test.ts",
+        "tests/integration/performance.test.ts",
+        "tests/integration/reference-draft.test.ts",
+        "tests/integration/replay-equivalence.test.ts",
+        "tests/integration/replay-properties.test.ts",
+        "tests/integration/report-audit.test.ts",
+        "tests/integration/simulate-draft.test.ts",
+        "tests/unit/cards/referential-and-harmonization.test.ts",
+        "tests/unit/cubes/archetype-synergy-profile.test.ts",
+        "tests/unit/cubes/cube-schema-validation.test.ts",
+        "tests/unit/cubes/fundamental-turn.test.ts",
+        "tests/unit/cubes/normalize-snapshot.test.ts",
+        "tests/unit/draft/conservation.test.ts",
+        "tests/unit/draft/functional-projection.test.ts",
+        "tests/unit/draft/report-integrity.test.ts",
+        "tests/unit/draft/rotation.test.ts",
+        "tests/unit/draft/submit-pick-round.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-deck.test.ts"
+      ]
+    },
+    {
+      "name": "deck-lab",
+      "files": 2,
+      "lines": 530,
+      "imports": ["coaching", "tournaments", "web"],
+      "directTestFiles": ["tests/unit/deck-lab/analyze-deck.test.ts"]
+    },
+    {
+      "name": "draft",
+      "files": 12,
+      "lines": 1516,
+      "imports": ["cubes", "random"],
+      "directTestFiles": [
+        "tests/contract/draft-engine.test.ts",
+        "tests/contract/draft-report.test.ts",
+        "tests/contract/replay-draft.test.ts",
+        "tests/e2e/offline-and-errors.test.ts",
+        "tests/integration/coaching/determinism.test.ts",
+        "tests/integration/determinism.test.ts",
+        "tests/integration/multiplayer-draft-flow.test.ts",
+        "tests/integration/performance.test.ts",
+        "tests/integration/reference-draft.test.ts",
+        "tests/integration/replay-equivalence.test.ts",
+        "tests/integration/replay-properties.test.ts",
+        "tests/integration/report-audit.test.ts",
+        "tests/integration/simulate-draft.test.ts",
+        "tests/unit/draft/conservation.test.ts",
+        "tests/unit/draft/domain-contract.test.ts",
+        "tests/unit/draft/functional-projection.test.ts",
+        "tests/unit/draft/report-integrity.test.ts",
+        "tests/unit/draft/rotation.test.ts",
+        "tests/unit/draft/submit-pick-round.test.ts"
+      ]
+    },
+    {
+      "name": "index.ts",
+      "files": 1,
+      "lines": 1,
+      "imports": [],
+      "directTestFiles": []
+    },
+    {
+      "name": "multiplayer-draft",
+      "files": 9,
+      "lines": 3636,
+      "imports": ["bots", "coaching", "companion", "draft", "random"],
+      "directTestFiles": [
+        "tests/contract/multiplayer-draft.test.ts",
+        "tests/integration/multiplayer-draft-flow.test.ts",
+        "tests/integration/multiplayer-draft-http.test.ts",
+        "tests/integration/multiplayer-draft-non-homologated.test.ts",
+        "tests/integration/multiplayer-draft-restart.test.ts",
+        "tests/integration/multiplayer-draft-security.test.ts",
+        "tests/integration/solo-draft-flow.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-deck.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-lobby.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-pick.property.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-pick.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-ready.test.ts",
+        "tests/unit/multiplayer-draft/coordinator-resume.test.ts",
+        "tests/unit/multiplayer-draft/final-deck-coach.test.ts",
+        "tests/unit/multiplayer-draft/mtga-export.test.ts",
+        "tests/unit/solo-draft/solo-draft-session.test.ts"
+      ]
+    },
+    {
+      "name": "random",
+      "files": 1,
+      "lines": 81,
+      "imports": [],
+      "directTestFiles": [
+        "tests/contract/draft-engine.test.ts",
+        "tests/contract/draft-report.test.ts",
+        "tests/integration/report-audit.test.ts",
+        "tests/unit/bots/coached-bot-policy.test.ts",
+        "tests/unit/bots/friend-bot-policy.test.ts",
+        "tests/unit/bots/pick-policy.test.ts",
+        "tests/unit/draft/conservation.test.ts",
+        "tests/unit/draft/rotation.test.ts",
+        "tests/unit/draft/submit-pick-round.test.ts",
+        "tests/unit/random/seeded-random.test.ts"
+      ]
+    },
+    {
+      "name": "scripts",
+      "files": 37,
+      "lines": 11958,
+      "imports": [
+        "bots",
+        "cards",
+        "coaching",
+        "companion",
+        "cubes",
+        "deck-lab",
+        "multiplayer-draft",
+        "random",
+        "simulation",
+        "solo-draft",
+        "storage",
+        "tournaments"
+      ],
+      "directTestFiles": [
+        "tests/integration/coach-first-round-regression.test.ts",
+        "tests/integration/coaching/coach-data-integrity.test.ts",
+        "tests/integration/multiplayer-draft-http.test.ts",
+        "tests/integration/site-auth-gate.test.ts",
+        "tests/integration/solo-draft-flow.test.ts",
+        "tests/integration/tournament-management-http.test.ts",
+        "tests/integration/web-navigation-mobile-qa.test.ts",
+        "tests/integration/web-upgrade-advisor.test.ts"
+      ]
+    },
+    {
+      "name": "simulation",
+      "files": 4,
+      "lines": 4116,
+      "imports": ["bots", "cards", "cli", "coaching", "cubes", "draft", "random"],
+      "directTestFiles": [
+        "tests/contract/draft-report.test.ts",
+        "tests/contract/replay-draft.test.ts",
+        "tests/e2e/offline-and-errors.test.ts",
+        "tests/integration/coaching/determinism.test.ts",
+        "tests/integration/determinism.test.ts",
+        "tests/integration/performance.test.ts",
+        "tests/integration/reference-draft.test.ts",
+        "tests/integration/replay-equivalence.test.ts",
+        "tests/integration/replay-properties.test.ts",
+        "tests/integration/report-audit.test.ts",
+        "tests/integration/simulate-draft.test.ts",
+        "tests/unit/draft/functional-projection.test.ts",
+        "tests/unit/draft/report-integrity.test.ts",
+        "tests/unit/simulation/booster-distribution-html.test.ts",
+        "tests/unit/simulation/detailed-simulation.test.ts",
+        "tests/unit/simulation/html-report-generator.test.ts"
+      ]
+    },
+    {
+      "name": "solo-draft",
+      "files": 4,
+      "lines": 2275,
+      "imports": [
+        "bots",
+        "cli",
+        "coaching",
+        "companion",
+        "cubes",
+        "draft",
+        "multiplayer-draft",
+        "random",
+        "simulation",
+        "storage"
+      ],
+      "directTestFiles": [
+        "tests/integration/coach-first-round-regression.test.ts",
+        "tests/unit/solo-draft/admin-drafts.test.ts",
+        "tests/unit/solo-draft/leaderboard.test.ts",
+        "tests/unit/solo-draft/solo-draft-session.test.ts"
+      ]
+    },
+    {
+      "name": "storage",
+      "files": 2,
+      "lines": 594,
+      "imports": ["solo-draft"],
+      "directTestFiles": ["tests/unit/storage/cloud-leaderboard.test.ts"]
+    },
+    {
+      "name": "tournaments",
+      "files": 16,
+      "lines": 4567,
+      "imports": ["cubes", "web"],
+      "directTestFiles": [
+        "tests/contract/tournament-management.test.ts",
+        "tests/integration/deck-photo-ocr.test.ts",
+        "tests/integration/site-auth-gate.test.ts",
+        "tests/integration/tournament-management-http.test.ts",
+        "tests/integration/tournament-management-performance.test.ts",
+        "tests/integration/tournament-management-postgres.test.ts",
+        "tests/unit/tournaments/coordinator.test.ts",
+        "tests/unit/tournaments/deck-photo-recognition.test.ts",
+        "tests/unit/tournaments/deck-photo-service-fallback.test.ts",
+        "tests/unit/tournaments/observability.test.ts",
+        "tests/unit/tournaments/pairing.property.test.ts",
+        "tests/unit/tournaments/pairing.test.ts",
+        "tests/unit/tournaments/standings.test.ts"
+      ]
+    },
+    {
+      "name": "web",
+      "files": 13,
+      "lines": 11245,
+      "imports": [],
+      "directTestFiles": [
+        "tests/unit/cards/tier-score-consistency.test.ts",
+        "tests/unit/cards/web-power-ranking.test.ts",
+        "tests/unit/tournaments/mtga-deck-text.test.ts",
+        "tests/unit/web/card-image.test.ts",
+        "tests/unit/web/card-language.test.ts"
+      ]
+    }
+  ],
+  "runtimeCycles": [
+    ["src/domain/coaching/coaching-explainer.ts", "src/domain/coaching/dynamic-score.ts"]
+  ],
+  "topImporters": [
+    {
+      "file": "src/domain/coaching/dynamic-score.ts",
+      "runtimeImporters": [
+        "src/bots/coached-bot-policy.ts",
+        "src/bots/friends/friend-bot-policy.ts",
+        "src/bots/jev/jev-bot-decision.ts",
+        "src/domain/coaching/coaching-explainer.ts",
+        "src/domain/coaching/deck-archetypes.ts",
+        "src/domain/coaching/deck-evaluation.ts",
+        "src/domain/coaching/deck-recommender.ts",
+        "src/domain/coaching/draft-coach-service.ts",
+        "src/domain/coaching/index.ts",
+        "src/simulation/detailed-simulation.ts",
+        "src/solo-draft/solo-draft-session.ts",
+        "scripts/simulate-witness-picks.ts"
+      ]
+    },
+    {
+      "file": "src/companion/llm-router.ts",
+      "runtimeImporters": [
+        "src/bots/jev/jev-bot-decision.ts",
+        "src/companion/server.ts",
+        "src/domain/coaching/draft-coach-service.ts",
+        "src/solo-draft/solo-draft-session.ts",
+        "scripts/serve-web.mjs",
+        "scripts/simulate-witness-picks.ts",
+        "scripts/test-jev-bot-draft.ts",
+        "scripts/test-jev-decision.ts",
+        "scripts/test-live-coach.ts"
+      ]
+    },
+    {
+      "file": "src/random/seeded-random.ts",
+      "runtimeImporters": [
+        "src/bots/seeded-random-policy.ts",
+        "src/draft/internal/start-draft.ts",
+        "src/multiplayer-draft/coordinator.ts",
+        "src/simulation/detailed-simulation.ts",
+        "src/simulation/simulate-draft.ts",
+        "src/solo-draft/solo-draft-session.ts",
+        "scripts/demo-friends-draft.ts"
+      ]
+    },
+    {
+      "file": "src/cubes/coach-context.ts",
+      "runtimeImporters": [
+        "src/companion/server.ts",
+        "src/simulation/detailed-simulation.ts",
+        "src/solo-draft/solo-draft-session.ts",
+        "scripts/serve-web.mjs",
+        "scripts/test-live-coach.ts",
+        "scripts/verify-coach-data.ts"
+      ]
+    },
+    {
+      "file": "src/draft/internal/errors.ts",
+      "runtimeImporters": [
+        "src/draft/internal/build-draft-report.ts",
+        "src/draft/internal/replay-draft.ts",
+        "src/draft/internal/start-draft.ts",
+        "src/draft/internal/submit-pick-round.ts",
+        "src/simulation/detailed-simulation.ts",
+        "src/simulation/simulate-draft.ts"
+      ]
+    },
+    {
+      "file": "src/web/card-language.js",
+      "runtimeImporters": [
+        "src/web/app.js",
+        "src/web/deck-lab.js",
+        "src/web/deck-viewer-17lands.js",
+        "src/web/multiplayer-draft.js",
+        "src/web/solo-draft.js",
+        "src/web/tournaments.js"
+      ]
+    },
+    {
+      "file": "src/bots/friends/friend-bot-policy.ts",
+      "runtimeImporters": [
+        "src/bots/coached-bot-policy.ts",
+        "src/bots/friends/index.ts",
+        "src/bots/friends/table-setup.ts",
+        "src/bots/jev/jev-bot-decision.ts",
+        "src/multiplayer-draft/coordinator.ts"
+      ]
+    },
+    {
+      "file": "src/cards/power-harmonizer.ts",
+      "runtimeImporters": [
+        "src/cards/power-calibration.ts",
+        "src/domain/coaching/deck-evaluation.ts",
+        "src/domain/coaching/dynamic-score.ts",
+        "src/simulation/booster-distribution-html.ts",
+        "src/simulation/detailed-simulation.ts"
+      ]
+    },
+    {
+      "file": "src/cubes/validate-snapshot.ts",
+      "runtimeImporters": [
+        "src/cubes/load-active-snapshot.ts",
+        "src/cubes/load-snapshot.ts",
+        "src/cubes/normalize-snapshot.ts",
+        "src/draft/internal/replay-draft.ts",
+        "src/draft/internal/start-draft.ts"
+      ]
+    },
+    {
+      "file": "src/domain/coaching/index.ts",
+      "runtimeImporters": [
+        "src/deck-lab/analyze-deck.ts",
+        "src/multiplayer-draft/coordinator.ts",
+        "src/multiplayer-draft/final-deck-coach.ts",
+        "scripts/demo-coaching-pack.ts",
+        "scripts/demo-deck-evaluation.ts"
+      ]
+    },
+    {
+      "file": "src/domain/coaching/tribal-compatibility.ts",
+      "runtimeImporters": [
+        "src/companion/coach-prompts.ts",
+        "src/domain/coaching/deck-recommender.ts",
+        "src/domain/coaching/draft-coach-service.ts",
+        "src/domain/coaching/dynamic-score.ts",
+        "src/domain/coaching/index.ts"
+      ]
+    },
+    {
+      "file": "src/draft/index.ts",
+      "runtimeImporters": [
+        "src/cli/simulate-draft.ts",
+        "src/multiplayer-draft/coordinator.ts",
+        "src/simulation/detailed-simulation.ts",
+        "src/simulation/simulate-draft.ts",
+        "src/solo-draft/solo-draft-session.ts"
+      ]
+    },
+    {
+      "file": "src/draft/internal/immutable.ts",
+      "runtimeImporters": [
+        "src/draft/internal/build-draft-report.ts",
+        "src/draft/internal/draft-view.ts",
+        "src/draft/internal/replay-draft.ts",
+        "src/draft/internal/start-draft.ts",
+        "src/draft/internal/submit-pick-round.ts"
+      ]
+    },
+    {
+      "file": "src/tournaments/deck-photo-recognition.ts",
+      "runtimeImporters": [
+        "src/deck-lab/http-handler.ts",
+        "src/tournaments/http-handler.ts",
+        "src/tournaments/index.ts",
+        "src/tournaments/mtga-deck-import.ts",
+        "scripts/test-deck-ocr.mjs"
+      ]
+    },
+    {
+      "file": "src/web/mtga-deck-text.js",
+      "runtimeImporters": [
+        "src/deck-lab/analyze-deck.ts",
+        "src/deck-lab/http-handler.ts",
+        "src/tournaments/mtga-deck-import.ts",
+        "src/web/deck-lab.js",
+        "src/web/tournaments.js"
+      ]
+    }
+  ],
+  "largestFiles": [
+    {
+      "file": "src/web/app.js",
+      "lines": 3767
+    },
+    {
+      "file": "src/web/solo-draft.js",
+      "lines": 2365
+    },
+    {
+      "file": "src/web/tournaments.js",
+      "lines": 2101
+    },
+    {
+      "file": "src/simulation/html-report-generator.ts",
+      "lines": 2013
+    },
+    {
+      "file": "src/solo-draft/solo-draft-session.ts",
+      "lines": 1947
+    },
+    {
+      "file": "src/multiplayer-draft/coordinator.ts",
+      "lines": 1842
+    },
+    {
+      "file": "src/cards/cube-upgrade-advisor.ts",
+      "lines": 1261
+    },
+    {
+      "file": "scripts/serve-web.mjs",
+      "lines": 1173
+    },
+    {
+      "file": "src/simulation/detailed-simulation.ts",
+      "lines": 1091
+    },
+    {
+      "file": "src/companion/llm-router.ts",
+      "lines": 1031
+    },
+    {
+      "file": "src/tournaments/coordinator.ts",
+      "lines": 908
+    },
+    {
+      "file": "src/web/multiplayer-draft.js",
+      "lines": 896
+    },
+    {
+      "file": "src/domain/coaching/deck-evaluation.ts",
+      "lines": 895
+    },
+    {
+      "file": "src/companion/coach-prompts.ts",
+      "lines": 872
+    },
+    {
+      "file": "src/simulation/booster-distribution-html.ts",
+      "lines": 842
+    }
+  ],
+  "testFiles": 116,
+  "browserTests": [
+    {
+      "file": "tests/browser/critical-journeys.spec.ts",
+      "scenarios": 12,
+      "mockedRouteCalls": 4
+    },
+    {
+      "file": "tests/browser/deck-lab.spec.ts",
+      "scenarios": 7,
+      "mockedRouteCalls": 3
+    },
+    {
+      "file": "tests/browser/multiplayer-draft.spec.ts",
+      "scenarios": 2,
+      "mockedRouteCalls": 0
+    },
+    {
+      "file": "tests/browser/tournament-management.spec.ts",
+      "scenarios": 11,
+      "mockedRouteCalls": 11
+    },
+    {
+      "file": "tests/browser/upgrade-switcher.spec.ts",
+      "scenarios": 5,
+      "mockedRouteCalls": 3
+    }
+  ],
+  "files": [
+    {
+      "file": "src/bots/coached-bot-policy.ts",
+      "module": "bots",
+      "lines": 225,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/friends/friend-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "src/bots/friends/friend-bot-policy.ts",
+      "module": "bots",
+      "lines": 405,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 15
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "src/bots/friends/index.ts",
+      "module": "bots",
+      "lines": 3,
+      "dependencies": [
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 1
+        },
+        {
+          "target": "src/bots/friends/friend-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 2
+        },
+        {
+          "target": "src/bots/friends/table-setup.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/bots/friends/profiles.ts",
+      "module": "bots",
+      "lines": 163,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/bots/friends/table-setup.ts",
+      "module": "bots",
+      "lines": 153,
+      "dependencies": [
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/friends/friend-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/bots/jev/jev-bot-decision.ts",
+      "module": "bots",
+      "lines": 584,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/bots/friends/friend-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "src/bots/pick-policy.ts",
+      "module": "bots",
+      "lines": 59,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "src/bots/scripted-policy.ts",
+      "module": "bots",
+      "lines": 76,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/bots/seeded-random-policy.ts",
+      "module": "bots",
+      "lines": 92,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "src/cards/audit-vintage-grades.ts",
+      "module": "cards",
+      "lines": 475,
+      "dependencies": []
+    },
+    {
+      "file": "src/cards/card-catalog.ts",
+      "module": "cards",
+      "lines": 258,
+      "dependencies": [
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "src/cards/cube-upgrade-advisor.ts",
+      "module": "cards",
+      "lines": 1261,
+      "dependencies": [
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cards/relative-tier-engine.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/cards/power-calibration.ts",
+      "module": "cards",
+      "lines": 273,
+      "dependencies": [
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cards/power-harmonizer.ts",
+      "module": "cards",
+      "lines": 80,
+      "dependencies": [
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cards/relative-tier-engine.ts",
+      "module": "cards",
+      "lines": 171,
+      "dependencies": [
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cards/types.ts",
+      "module": "cards",
+      "lines": 164,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cli/errors.ts",
+      "module": "cli",
+      "lines": 26,
+      "dependencies": []
+    },
+    {
+      "file": "src/cli/import-cube.ts",
+      "module": "cli",
+      "lines": 317,
+      "dependencies": [
+        {
+          "target": "src/cubes/load-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/cubes/normalize-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/cli/session-identity.ts",
+      "module": "cli",
+      "lines": 59,
+      "dependencies": []
+    },
+    {
+      "file": "src/cli/simulate-draft.ts",
+      "module": "cli",
+      "lines": 124,
+      "dependencies": [
+        {
+          "target": "src/cubes/load-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/cli/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/cli/session-identity.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/companion/card-resolver.ts",
+      "module": "companion",
+      "lines": 352,
+      "dependencies": []
+    },
+    {
+      "file": "src/companion/coach-prompts.ts",
+      "module": "companion",
+      "lines": 872,
+      "dependencies": [
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/companion/companion-state.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "src/companion/companion-state.ts",
+      "module": "companion",
+      "lines": 160,
+      "dependencies": [
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/companion/llm-router.ts",
+      "module": "companion",
+      "lines": 1031,
+      "dependencies": []
+    },
+    {
+      "file": "src/companion/log-watcher.ts",
+      "module": "companion",
+      "lines": 390,
+      "dependencies": []
+    },
+    {
+      "file": "src/companion/server.ts",
+      "module": "companion",
+      "lines": 739,
+      "dependencies": [
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/companion/companion-state.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/companion/log-watcher.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 16
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 17
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 18
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "file": "src/companion/web/public/app.js",
+      "module": "companion",
+      "lines": 453,
+      "dependencies": []
+    },
+    {
+      "file": "src/cubes/archetype-synergy-profile-types.ts",
+      "module": "cubes",
+      "lines": 65,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/archetype-synergy-profile.ts",
+      "module": "cubes",
+      "lines": 178,
+      "dependencies": [
+        {
+          "target": "src/cubes/archetype-synergy-profile-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/canonical-snapshot.ts",
+      "module": "cubes",
+      "lines": 50,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/coach-context.ts",
+      "module": "cubes",
+      "lines": 294,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/cubes/archetype-synergy-profile.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/cube-meta-types.ts",
+      "module": "cubes",
+      "lines": 88,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/cube-meta.ts",
+      "module": "cubes",
+      "lines": 114,
+      "dependencies": [
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/cube-registry.ts",
+      "module": "cubes",
+      "lines": 129,
+      "dependencies": [
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/load-active-snapshot.ts",
+      "module": "cubes",
+      "lines": 168,
+      "dependencies": [
+        {
+          "target": "src/cubes/canonical-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/cubes/load-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/load-snapshot.ts",
+      "module": "cubes",
+      "lines": 25,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/normalize-snapshot.ts",
+      "module": "cubes",
+      "lines": 225,
+      "dependencies": [
+        {
+          "target": "src/cubes/canonical-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/cubes/validate-snapshot.ts",
+      "module": "cubes",
+      "lines": 231,
+      "dependencies": [
+        {
+          "target": "src/cubes/canonical-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/deck-lab/analyze-deck.ts",
+      "module": "deck-lab",
+      "lines": 375,
+      "dependencies": [
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "src/deck-lab/http-handler.ts",
+      "module": "deck-lab",
+      "lines": 155,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/deck-lab/analyze-deck.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/archetype-pick-analysis.ts",
+      "module": "coaching",
+      "lines": 98,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/coaching-explainer.ts",
+      "module": "coaching",
+      "lines": 198,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/deck-archetypes.ts",
+      "module": "coaching",
+      "lines": 216,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/deck-evaluation.ts",
+      "module": "coaching",
+      "lines": 895,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/domain/coaching/deck-archetypes.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 21
+        },
+        {
+          "target": "src/domain/coaching/league-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/deck-recommender.ts",
+      "module": "coaching",
+      "lines": 576,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/domain/coaching/deck-evaluation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/draft-coach-service.ts",
+      "module": "coaching",
+      "lines": 734,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/deck-archetypes.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "src/bots/jev/jev-bot-decision.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/dynamic-score.ts",
+      "module": "coaching",
+      "lines": 682,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/domain/coaching/coaching-explainer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "src/domain/coaching/archetype-pick-analysis.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/index.ts",
+      "module": "coaching",
+      "lines": 10,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/coaching-explainer.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/deck-archetypes.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 4
+        },
+        {
+          "target": "src/domain/coaching/deck-evaluation.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 5
+        },
+        {
+          "target": "src/domain/coaching/deck-recommender.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 6
+        },
+        {
+          "target": "src/domain/coaching/league-calibration.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 7
+        },
+        {
+          "target": "src/domain/coaching/witness-corpus.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 9
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/league-calibration.ts",
+      "module": "coaching",
+      "lines": 138,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/tribal-compatibility.ts",
+      "module": "coaching",
+      "lines": 294,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/types.ts",
+      "module": "coaching",
+      "lines": 517,
+      "dependencies": []
+    },
+    {
+      "file": "src/domain/coaching/wheel-signals.ts",
+      "module": "coaching",
+      "lines": 130,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/domain/coaching/witness-corpus.ts",
+      "module": "coaching",
+      "lines": 249,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/league-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/draft/index.ts",
+      "module": "draft",
+      "lines": 102,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/build-draft-report.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/draft-view.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/functional-projection.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/replay-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/internal/start-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/draft/internal/submit-pick-round.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 78
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 80
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 102
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/build-draft-report.ts",
+      "module": "draft",
+      "lines": 93,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/immutable.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/internal/check-invariants.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/functional-projection.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/replay-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/check-invariants.ts",
+      "module": "draft",
+      "lines": 65,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/draft-view.ts",
+      "module": "draft",
+      "lines": 25,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/immutable.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/errors.ts",
+      "module": "draft",
+      "lines": 47,
+      "dependencies": []
+    },
+    {
+      "file": "src/draft/internal/functional-projection.ts",
+      "module": "draft",
+      "lines": 83,
+      "dependencies": [
+        {
+          "target": "src/cubes/canonical-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/immutable.ts",
+      "module": "draft",
+      "lines": 9,
+      "dependencies": []
+    },
+    {
+      "file": "src/draft/internal/replay-draft.ts",
+      "module": "draft",
+      "lines": 344,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/internal/immutable.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/rotation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/rotation.ts",
+      "module": "draft",
+      "lines": 77,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/start-draft.ts",
+      "module": "draft",
+      "lines": 202,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/immutable.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/submit-pick-round.ts",
+      "module": "draft",
+      "lines": 251,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/draft/internal/immutable.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/internal/rotation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "src/draft/internal/types.ts",
+      "module": "draft",
+      "lines": 218,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/index.ts",
+      "module": "index.ts",
+      "lines": 1,
+      "dependencies": []
+    },
+    {
+      "file": "src/multiplayer-draft/coordinator.ts",
+      "module": "multiplayer-draft",
+      "lines": 1842,
+      "dependencies": [
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/friends/friend-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 25
+        },
+        {
+          "target": "src/multiplayer-draft/mtga-export.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 26
+        },
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 27
+        },
+        {
+          "target": "src/multiplayer-draft/state-reducer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/final-deck-coach.ts",
+      "module": "multiplayer-draft",
+      "lines": 363,
+      "dependencies": [
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/http-handler.ts",
+      "module": "multiplayer-draft",
+      "lines": 441,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/index.ts",
+      "module": "multiplayer-draft",
+      "lines": 63,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/coordinator.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 1
+        },
+        {
+          "target": "src/multiplayer-draft/http-handler.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 2
+        },
+        {
+          "target": "src/multiplayer-draft/local-file-store.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 3
+        },
+        {
+          "target": "src/multiplayer-draft/supabase-store.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 4
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 5
+        },
+        {
+          "target": "src/multiplayer-draft/mtga-export.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 6
+        },
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 7
+        },
+        {
+          "target": "src/multiplayer-draft/http-handler.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 38
+        },
+        {
+          "target": "src/multiplayer-draft/supabase-store.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 42
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 48
+        },
+        {
+          "target": "src/multiplayer-draft/mtga-export.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/local-file-store.ts",
+      "module": "multiplayer-draft",
+      "lines": 103,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/mtga-export.ts",
+      "module": "multiplayer-draft",
+      "lines": 196,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/state-reducer.ts",
+      "module": "multiplayer-draft",
+      "lines": 138,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/supabase-store.ts",
+      "module": "multiplayer-draft",
+      "lines": 113,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/multiplayer-draft/types.ts",
+      "module": "multiplayer-draft",
+      "lines": 377,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/multiplayer-draft/mtga-export.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "src/random/seeded-random.ts",
+      "module": "random",
+      "lines": 81,
+      "dependencies": []
+    },
+    {
+      "file": "src/simulation/booster-distribution-html.ts",
+      "module": "simulation",
+      "lines": 842,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "src/simulation/detailed-simulation.ts",
+      "module": "simulation",
+      "lines": 1091,
+      "dependencies": [
+        {
+          "target": "src/cubes/load-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/cubes/archetype-synergy-profile.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 29
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 30
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 35
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 41
+        },
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 42
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 49
+        },
+        {
+          "target": "src/domain/coaching/coaching-explainer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 50
+        },
+        {
+          "target": "src/domain/coaching/deck-recommender.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 51
+        },
+        {
+          "target": "src/domain/coaching/deck-evaluation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 52
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 53
+        },
+        {
+          "target": "src/cli/session-identity.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "file": "src/simulation/html-report-generator.ts",
+      "module": "simulation",
+      "lines": 2013,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/simulation/simulate-draft.ts",
+      "module": "simulation",
+      "lines": 170,
+      "dependencies": [
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/bots/seeded-random-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "file": "src/solo-draft/admin-drafts.ts",
+      "module": "solo-draft",
+      "lines": 45,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/solo-draft/leaderboard.ts",
+      "module": "solo-draft",
+      "lines": 83,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/solo-draft/solo-draft-session.ts",
+      "module": "solo-draft",
+      "lines": 1947,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 25
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 31
+        },
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 32
+        },
+        {
+          "target": "src/bots/jev/jev-bot-decision.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 39
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 40
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 41
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 42
+        },
+        {
+          "target": "src/domain/coaching/coaching-explainer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 43
+        },
+        {
+          "target": "src/domain/coaching/deck-recommender.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 44
+        },
+        {
+          "target": "src/domain/coaching/deck-evaluation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 45
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 46
+        },
+        {
+          "target": "src/cli/session-identity.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 55
+        },
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 56
+        },
+        {
+          "target": "src/simulation/html-report-generator.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 69
+        },
+        {
+          "target": "src/simulation/booster-distribution-html.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 70
+        },
+        {
+          "target": "src/storage/cloud-leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 71
+        },
+        {
+          "target": "src/solo-draft/admin-drafts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 72
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 73
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 78
+        },
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "file": "src/solo-draft/solo-draft-types.ts",
+      "module": "solo-draft",
+      "lines": 200,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "file": "src/storage/cloud-leaderboard.ts",
+      "module": "storage",
+      "lines": 469,
+      "dependencies": [
+        {
+          "target": "src/storage/supabase-client.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/solo-draft/leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "src/storage/supabase-client.ts",
+      "module": "storage",
+      "lines": 125,
+      "dependencies": []
+    },
+    {
+      "file": "src/tournaments/coordinator.ts",
+      "module": "tournaments",
+      "lines": 908,
+      "dependencies": [
+        {
+          "target": "src/tournaments/internal/pairing.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/internal/state-reducer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/cube-catalog.ts",
+      "module": "tournaments",
+      "lines": 73,
+      "dependencies": [
+        {
+          "target": "src/cubes/cube-registry.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/deck-photo-recognition.ts",
+      "module": "tournaments",
+      "lines": 677,
+      "dependencies": [
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/http-handler.ts",
+      "module": "tournaments",
+      "lines": 583,
+      "dependencies": [
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/mtga-deck-import.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/observability.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/tournaments/observability.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/in-memory-store.ts",
+      "module": "tournaments",
+      "lines": 147,
+      "dependencies": [
+        {
+          "target": "src/tournaments/internal/tournament-summary.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/index.ts",
+      "module": "tournaments",
+      "lines": 87,
+      "dependencies": [
+        {
+          "target": "src/tournaments/cube-catalog.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/coordinator.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 2
+        },
+        {
+          "target": "src/tournaments/http-handler.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/in-memory-store.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 9
+        },
+        {
+          "target": "src/tournaments/observability.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 10
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 11
+        },
+        {
+          "target": "src/tournaments/supabase-store.ts",
+          "typeOnly": false,
+          "kind": "export",
+          "line": 12
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 17
+        },
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 60
+        },
+        {
+          "target": "src/tournaments/cube-catalog.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 66
+        },
+        {
+          "target": "src/tournaments/observability.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 67
+        },
+        {
+          "target": "src/tournaments/http-handler.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 72
+        },
+        {
+          "target": "src/tournaments/supabase-store.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 73
+        },
+        {
+          "target": "src/tournaments/internal/types.ts",
+          "typeOnly": true,
+          "kind": "export",
+          "line": 80
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/internal/pairing.ts",
+      "module": "tournaments",
+      "lines": 614,
+      "dependencies": [
+        {
+          "target": "src/tournaments/internal/seeded-order.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/internal/standings.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/internal/seeded-order.ts",
+      "module": "tournaments",
+      "lines": 22,
+      "dependencies": []
+    },
+    {
+      "file": "src/tournaments/internal/standings.ts",
+      "module": "tournaments",
+      "lines": 226,
+      "dependencies": [
+        {
+          "target": "src/tournaments/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/internal/seeded-order.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/internal/state-reducer.ts",
+      "module": "tournaments",
+      "lines": 217,
+      "dependencies": [
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/internal/standings.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/internal/tournament-summary.ts",
+      "module": "tournaments",
+      "lines": 32,
+      "dependencies": [
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/internal/types.ts",
+      "module": "tournaments",
+      "lines": 50,
+      "dependencies": []
+    },
+    {
+      "file": "src/tournaments/mtga-deck-import.ts",
+      "module": "tournaments",
+      "lines": 67,
+      "dependencies": [
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/observability.ts",
+      "module": "tournaments",
+      "lines": 100,
+      "dependencies": [
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/supabase-store.ts",
+      "module": "tournaments",
+      "lines": 377,
+      "dependencies": [
+        {
+          "target": "src/tournaments/internal/tournament-summary.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "src/tournaments/types.ts",
+      "module": "tournaments",
+      "lines": 387,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/web/admin.js",
+      "module": "web",
+      "lines": 518,
+      "dependencies": [
+        {
+          "target": "src/web/deck-viewer-17lands.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/web/tournaments.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "src/web/app.js",
+      "module": "web",
+      "lines": 3767,
+      "dependencies": [
+        {
+          "target": "src/web/power-ranking.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/web/solo-draft.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/web/deck-viewer-17lands.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/web/leaderboard.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/web/admin.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 17
+        },
+        {
+          "target": "src/web/multiplayer-draft.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 18
+        },
+        {
+          "target": "src/web/tournaments.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/web/deck-lab.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        },
+        {
+          "target": "src/web/card-image.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 21
+        },
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "file": "src/web/card-image.js",
+      "module": "web",
+      "lines": 75,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/card-language.js",
+      "module": "web",
+      "lines": 62,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/deck-lab.js",
+      "module": "web",
+      "lines": 442,
+      "dependencies": [
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/web/deck-photo-upload.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "src/web/deck-photo-upload.js",
+      "module": "web",
+      "lines": 74,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/deck-viewer-17lands.js",
+      "module": "web",
+      "lines": 321,
+      "dependencies": [
+        {
+          "target": "src/web/card-image.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "src/web/leaderboard.js",
+      "module": "web",
+      "lines": 363,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/mtga-deck-text.js",
+      "module": "web",
+      "lines": 164,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/multiplayer-draft.js",
+      "module": "web",
+      "lines": 896,
+      "dependencies": [
+        {
+          "target": "src/web/card-image.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "src/web/power-ranking.js",
+      "module": "web",
+      "lines": 97,
+      "dependencies": []
+    },
+    {
+      "file": "src/web/solo-draft.js",
+      "module": "web",
+      "lines": 2365,
+      "dependencies": [
+        {
+          "target": "src/web/leaderboard.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/web/card-image.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/web/deck-viewer-17lands.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "src/web/tournaments.js",
+      "module": "web",
+      "lines": 2101,
+      "dependencies": [
+        {
+          "target": "src/web/deck-viewer-17lands.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/web/deck-photo-upload.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "scripts/analyze-draft-42.ts",
+      "module": "scripts",
+      "lines": 102,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "scripts/build-archetype-synergy-profiles.mjs",
+      "module": "scripts",
+      "lines": 601,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/build-untapped-reference-v2.mjs",
+      "module": "scripts",
+      "lines": 133,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/clean-elo-artifacts.mjs",
+      "module": "scripts",
+      "lines": 106,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/demo-coaching-pack.ts",
+      "module": "scripts",
+      "lines": 48,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "scripts/demo-deck-evaluation.ts",
+      "module": "scripts",
+      "lines": 235,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "scripts/demo-friends-draft.ts",
+      "module": "scripts",
+      "lines": 88,
+      "dependencies": [
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "scripts/download-card-images.mjs",
+      "module": "scripts",
+      "lines": 276,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/download-french-card-images.mjs",
+      "module": "scripts",
+      "lines": 359,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/fetch-cubecobra-benchmarks.mjs",
+      "module": "scripts",
+      "lines": 136,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/fetch-french-cards.mjs",
+      "module": "scripts",
+      "lines": 166,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/generate-referential.mjs",
+      "module": "scripts",
+      "lines": 512,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-arena-witness.mjs",
+      "module": "scripts",
+      "lines": 449,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-cedric-cube.mjs",
+      "module": "scripts",
+      "lines": 611,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-historical-titou-snapshot.mjs",
+      "module": "scripts",
+      "lines": 150,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-hugues-pauper.mjs",
+      "module": "scripts",
+      "lines": 502,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-nico-candyshop.mjs",
+      "module": "scripts",
+      "lines": 357,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/import-titou-arena-peasant.mjs",
+      "module": "scripts",
+      "lines": 645,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/rebuild-power-ranking.ts",
+      "module": "scripts",
+      "lines": 506,
+      "dependencies": [
+        {
+          "target": "src/cards/power-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "scripts/regrade-titou-tribal.mjs",
+      "module": "scripts",
+      "lines": 190,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/repair-card-facts-from-cubes.mjs",
+      "module": "scripts",
+      "lines": 85,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/repair-corrupted-cards.mjs",
+      "module": "scripts",
+      "lines": 189,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/research/audit-card-data.mjs",
+      "module": "scripts",
+      "lines": 122,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/research/evaluate-power-models.ts",
+      "module": "scripts",
+      "lines": 357,
+      "dependencies": [
+        {
+          "target": "src/cards/power-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "scripts/research/untapped-advanced-mana-benchmark.mjs",
+      "module": "scripts",
+      "lines": 705,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/research/untapped-axis-benchmark.mjs",
+      "module": "scripts",
+      "lines": 627,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/research/untapped-pair-affinity-benchmark.mjs",
+      "module": "scripts",
+      "lines": 707,
+      "dependencies": []
+    },
+    {
+      "file": "scripts/serve-web.mjs",
+      "module": "scripts",
+      "lines": 1173,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/solo-draft-session.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/solo-draft/leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/storage/cloud-leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/storage/supabase-client.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/solo-draft/admin-drafts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 21
+        },
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 22
+        },
+        {
+          "target": "src/deck-lab/http-handler.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 23
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 24
+        },
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 25
+        },
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "file": "scripts/simulate-html-report.ts",
+      "module": "scripts",
+      "lines": 111,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/simulation/html-report-generator.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/simulation/booster-distribution-html.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "scripts/simulate-witness-picks.ts",
+      "module": "scripts",
+      "lines": 284,
+      "dependencies": [
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "scripts/sync-data-models.mjs",
+      "module": "scripts",
+      "lines": 387,
+      "dependencies": [
+        {
+          "target": "src/cards/cube-upgrade-advisor.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cards/relative-tier-engine.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "scripts/test-deck-ocr.mjs",
+      "module": "scripts",
+      "lines": 126,
+      "dependencies": [
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "scripts/test-jev-bot-draft.ts",
+      "module": "scripts",
+      "lines": 282,
+      "dependencies": [
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/jev/jev-bot-decision.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "file": "scripts/test-jev-decision.ts",
+      "module": "scripts",
+      "lines": 170,
+      "dependencies": [
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "scripts/test-live-coach.ts",
+      "module": "scripts",
+      "lines": 146,
+      "dependencies": [
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "scripts/verify-coach-data.ts",
+      "module": "scripts",
+      "lines": 204,
+      "dependencies": [
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "scripts/verify-html-reports.ts",
+      "module": "scripts",
+      "lines": 111,
+      "dependencies": []
+    },
+    {
+      "file": "tests/browser/critical-journeys.spec.ts",
+      "module": "tests/browser",
+      "lines": 509,
+      "dependencies": []
+    },
+    {
+      "file": "tests/browser/deck-lab.spec.ts",
+      "module": "tests/browser",
+      "lines": 239,
+      "dependencies": [
+        {
+          "target": "tests/fixtures/deck-lab-red-cards.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/browser/multiplayer-draft.spec.ts",
+      "module": "tests/browser",
+      "lines": 426,
+      "dependencies": []
+    },
+    {
+      "file": "tests/browser/tournament-management.spec.ts",
+      "module": "tests/browser",
+      "lines": 1538,
+      "dependencies": []
+    },
+    {
+      "file": "tests/browser/upgrade-switcher.spec.ts",
+      "module": "tests/browser",
+      "lines": 298,
+      "dependencies": []
+    },
+    {
+      "file": "tests/contract/cube-snapshot.test.ts",
+      "module": "tests/contract",
+      "lines": 145,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/contract/draft-engine.test.ts",
+      "module": "tests/contract",
+      "lines": 232,
+      "dependencies": [
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "tests/contract/draft-report.test.ts",
+      "module": "tests/contract",
+      "lines": 296,
+      "dependencies": [
+        {
+          "target": "src/cubes/canonical-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 16
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "file": "tests/contract/multiplayer-draft.test.ts",
+      "module": "tests/contract",
+      "lines": 503,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "tests/contract/replay-draft.test.ts",
+      "module": "tests/contract",
+      "lines": 398,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "tests/contract/tournament-management.test.ts",
+      "module": "tests/contract",
+      "lines": 78,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/offline-and-errors.test.ts",
+      "module": "tests/e2e",
+      "lines": 234,
+      "dependencies": [
+        {
+          "target": "src/cli/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/cli/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/simulate-cli.test.ts",
+      "module": "tests/e2e",
+      "lines": 147,
+      "dependencies": [
+        {
+          "target": "src/cli/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cli/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "tests/fixtures/cube-fixtures.ts",
+      "module": "tests/fixtures",
+      "lines": 189,
+      "dependencies": []
+    },
+    {
+      "file": "tests/fixtures/deck-lab-red-cards.ts",
+      "module": "tests/fixtures",
+      "lines": 28,
+      "dependencies": []
+    },
+    {
+      "file": "tests/helpers/multiplayer-draft-fixtures.ts",
+      "module": "tests/helpers",
+      "lines": 60,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/helpers/tournament-fixtures.ts",
+      "module": "tests/helpers",
+      "lines": 89,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 1
+        },
+        {
+          "target": "src/tournaments/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coach-first-round-regression.test.ts",
+      "module": "tests/integration",
+      "lines": 266,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/solo-draft-session.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/coach-context.test.ts",
+      "module": "tests/integration",
+      "lines": 200,
+      "dependencies": [
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/coach-data-integrity.test.ts",
+      "module": "tests/integration",
+      "lines": 25,
+      "dependencies": [
+        {
+          "target": "scripts/verify-coach-data.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/cube-archetype-synergy-witness.test.ts",
+      "module": "tests/integration",
+      "lines": 179,
+      "dependencies": [
+        {
+          "target": "src/cubes/archetype-synergy-profile.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/domain/coaching/deck-evaluation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/deck-evaluation-witness.test.ts",
+      "module": "tests/integration",
+      "lines": 151,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/determinism.test.ts",
+      "module": "tests/integration",
+      "lines": 102,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/league-deck-calibration.test.ts",
+      "module": "tests/integration",
+      "lines": 224,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/coaching/untapped-benchmark.test.ts",
+      "module": "tests/integration",
+      "lines": 72,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/deck-photo-ocr.test.ts",
+      "module": "tests/integration",
+      "lines": 131,
+      "dependencies": [
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/determinism.test.ts",
+      "module": "tests/integration",
+      "lines": 264,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/import-cube.test.ts",
+      "module": "tests/integration",
+      "lines": 228,
+      "dependencies": [
+        {
+          "target": "src/cli/import-cube.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/cubes/load-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/cubes/normalize-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/load-active-cube-snapshot.test.ts",
+      "module": "tests/integration",
+      "lines": 28,
+      "dependencies": [
+        {
+          "target": "src/cubes/load-active-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/multiplayer-draft-flow.test.ts",
+      "module": "tests/integration",
+      "lines": 108,
+      "dependencies": [
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/multiplayer-draft-http.test.ts",
+      "module": "tests/integration",
+      "lines": 563,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/multiplayer-draft-non-homologated.test.ts",
+      "module": "tests/integration",
+      "lines": 85,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/multiplayer-draft-restart.test.ts",
+      "module": "tests/integration",
+      "lines": 301,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/multiplayer-draft-security.test.ts",
+      "module": "tests/integration",
+      "lines": 124,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/performance.test.ts",
+      "module": "tests/integration",
+      "lines": 115,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/reference-draft.test.ts",
+      "module": "tests/integration",
+      "lines": 102,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/replay-equivalence.test.ts",
+      "module": "tests/integration",
+      "lines": 210,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/replay-properties.test.ts",
+      "module": "tests/integration",
+      "lines": 129,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/report-audit.test.ts",
+      "module": "tests/integration",
+      "lines": 437,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/seeded-random-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 16
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 17
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 18
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/simulate-draft.test.ts",
+      "module": "tests/integration",
+      "lines": 244,
+      "dependencies": [
+        {
+          "target": "src/bots/scripted-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/seeded-random-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/site-auth-gate.test.ts",
+      "module": "tests/integration",
+      "lines": 258,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/solo-draft-flow.test.ts",
+      "module": "tests/integration",
+      "lines": 280,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/tournament-management-http.test.ts",
+      "module": "tests/integration",
+      "lines": 918,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/tournament-management-performance.test.ts",
+      "module": "tests/integration",
+      "lines": 177,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/tournament-management-postgres.test.ts",
+      "module": "tests/integration",
+      "lines": 356,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/web-navigation-mobile-qa.test.ts",
+      "module": "tests/integration",
+      "lines": 313,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/integration/web-upgrade-advisor.test.ts",
+      "module": "tests/integration",
+      "lines": 414,
+      "dependencies": [
+        {
+          "target": "scripts/serve-web.mjs",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        },
+        {
+          "target": "src/cards/cube-upgrade-advisor.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "tests/setup/fast-check.ts",
+      "module": "tests/setup",
+      "lines": 7,
+      "dependencies": []
+    },
+    {
+      "file": "tests/unit/bots/coached-bot-policy.test.ts",
+      "module": "tests/unit",
+      "lines": 128,
+      "dependencies": [
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/bots/coached-bot-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/bots/friend-bot-policy.test.ts",
+      "module": "tests/unit",
+      "lines": 385,
+      "dependencies": [
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/bots/friend-bot-profiles.test.ts",
+      "module": "tests/unit",
+      "lines": 93,
+      "dependencies": [
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/bots/jev-bot-decision.test.ts",
+      "module": "tests/unit",
+      "lines": 225,
+      "dependencies": [
+        {
+          "target": "src/bots/friends/profiles.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/bots/jev/jev-bot-decision.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/bots/pick-policy.test.ts",
+      "module": "tests/unit",
+      "lines": 117,
+      "dependencies": [
+        {
+          "target": "src/bots/pick-policy.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/bots/scripted-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/bots/seeded-random-policy.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/card-catalog-directory.test.ts",
+      "module": "tests/unit",
+      "lines": 93,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/card-schema-validation.test.ts",
+      "module": "tests/unit",
+      "lines": 130,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/contextual-cube-analysis.test.ts",
+      "module": "tests/unit",
+      "lines": 69,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/cube-upgrade-advisor.test.ts",
+      "module": "tests/unit",
+      "lines": 1432,
+      "dependencies": [
+        {
+          "target": "src/cards/cube-upgrade-advisor.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/power-calibration.test.ts",
+      "module": "tests/unit",
+      "lines": 47,
+      "dependencies": [
+        {
+          "target": "src/cards/power-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/power-ranking-reference.test.ts",
+      "module": "tests/unit",
+      "lines": 56,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/referential-and-harmonization.test.ts",
+      "module": "tests/unit",
+      "lines": 348,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/cards/power-harmonizer.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 12
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/relative-tier-engine.test.ts",
+      "module": "tests/unit",
+      "lines": 130,
+      "dependencies": [
+        {
+          "target": "src/cards/relative-tier-engine.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/cards/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/tier-score-consistency.test.ts",
+      "module": "tests/unit",
+      "lines": 329,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/web/power-ranking.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/untapped-static-score-fidelity.test.ts",
+      "module": "tests/unit",
+      "lines": 119,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cards/power-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/untapped-static-scores.test.ts",
+      "module": "tests/unit",
+      "lines": 114,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cards/power-calibration.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/vintage-grades-audit.test.ts",
+      "module": "tests/unit",
+      "lines": 110,
+      "dependencies": [
+        {
+          "target": "src/cards/audit-vintage-grades.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cards/web-power-ranking.test.ts",
+      "module": "tests/unit",
+      "lines": 55,
+      "dependencies": [
+        {
+          "target": "src/web/power-ranking.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cli/session-identity.test.ts",
+      "module": "tests/unit",
+      "lines": 90,
+      "dependencies": [
+        {
+          "target": "src/cli/session-identity.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/deck-evaluation.test.ts",
+      "module": "tests/unit",
+      "lines": 1437,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/deck-recommender-tribal.test.ts",
+      "module": "tests/unit",
+      "lines": 149,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/deck-recommender.test.ts",
+      "module": "tests/unit",
+      "lines": 234,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/draft-coach-jev-fallback.test.ts",
+      "module": "tests/unit",
+      "lines": 141,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/draft-coach-service.test.ts",
+      "module": "tests/unit",
+      "lines": 487,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/bots/friends/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/dynamic-score.test.ts",
+      "module": "tests/unit",
+      "lines": 979,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "dynamic-import",
+          "line": 665
+        },
+        {
+          "target": "src/domain/coaching/dynamic-score.ts",
+          "typeOnly": false,
+          "kind": "dynamic-import",
+          "line": 715
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/league-calibration.test.ts",
+      "module": "tests/unit",
+      "lines": 242,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/powered-cube-calibration-fixtures.test.ts",
+      "module": "tests/unit",
+      "lines": 52,
+      "dependencies": []
+    },
+    {
+      "file": "tests/unit/coaching/tribal-compatibility.test.ts",
+      "module": "tests/unit",
+      "lines": 265,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/tribal-compatibility.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 8
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/wheel-signals.test.ts",
+      "module": "tests/unit",
+      "lines": 146,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/wheel-signals.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/coaching/witness-corpus.test.ts",
+      "module": "tests/unit",
+      "lines": 444,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/companion/coach-api-contracts.test.ts",
+      "module": "tests/unit",
+      "lines": 456,
+      "dependencies": [
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/domain/coaching/draft-coach-service.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/domain/coaching/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/cubes/cube-meta-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/companion/companion-advice-quality.test.ts",
+      "module": "tests/unit",
+      "lines": 341,
+      "dependencies": [
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/companion/companion.test.ts",
+      "module": "tests/unit",
+      "lines": 104,
+      "dependencies": [
+        {
+          "target": "src/companion/card-resolver.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/companion/companion-state.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/companion/final-deck-prompt.test.ts",
+      "module": "tests/unit",
+      "lines": 34,
+      "dependencies": [
+        {
+          "target": "src/companion/coach-prompts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/companion/llm-router.test.ts",
+      "module": "tests/unit",
+      "lines": 99,
+      "dependencies": [
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cubes/archetype-synergy-profile.test.ts",
+      "module": "tests/unit",
+      "lines": 105,
+      "dependencies": [
+        {
+          "target": "src/cubes/archetype-synergy-profile.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cubes/cube-schema-validation.test.ts",
+      "module": "tests/unit",
+      "lines": 92,
+      "dependencies": [
+        {
+          "target": "src/cubes/cube-registry.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cubes/fundamental-turn.test.ts",
+      "module": "tests/unit",
+      "lines": 78,
+      "dependencies": [
+        {
+          "target": "src/cubes/cube-meta.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/cubes/normalize-snapshot.test.ts",
+      "module": "tests/unit",
+      "lines": 130,
+      "dependencies": [
+        {
+          "target": "src/cubes/normalize-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/deck-lab/analyze-deck.test.ts",
+      "module": "tests/unit",
+      "lines": 205,
+      "dependencies": [
+        {
+          "target": "src/cards/card-catalog.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/deck-lab/analyze-deck.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        },
+        {
+          "target": "tests/fixtures/deck-lab-red-cards.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/conservation.test.ts",
+      "module": "tests/unit",
+      "lines": 214,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/domain-contract.test.ts",
+      "module": "tests/unit",
+      "lines": 59,
+      "dependencies": [
+        {
+          "target": "src/draft/internal/errors.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/functional-projection.test.ts",
+      "module": "tests/unit",
+      "lines": 230,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/report-integrity.test.ts",
+      "module": "tests/unit",
+      "lines": 457,
+      "dependencies": [
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/draft/internal/check-invariants.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        },
+        {
+          "target": "src/draft/internal/types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 19
+        },
+        {
+          "target": "src/simulation/simulate-draft.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 20
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/rotation.test.ts",
+      "module": "tests/unit",
+      "lines": 195,
+      "dependencies": [
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/draft/submit-pick-round.test.ts",
+      "module": "tests/unit",
+      "lines": 335,
+      "dependencies": [
+        {
+          "target": "src/draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        },
+        {
+          "target": "src/cubes/validate-snapshot.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        },
+        {
+          "target": "tests/fixtures/cube-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/foundation.test.ts",
+      "module": "tests/unit",
+      "lines": 16,
+      "dependencies": []
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-deck.test.ts",
+      "module": "tests/unit",
+      "lines": 160,
+      "dependencies": [
+        {
+          "target": "src/cubes/coach-context.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-lobby.test.ts",
+      "module": "tests/unit",
+      "lines": 207,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-pick.property.test.ts",
+      "module": "tests/unit",
+      "lines": 108,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-pick.test.ts",
+      "module": "tests/unit",
+      "lines": 186,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-ready.test.ts",
+      "module": "tests/unit",
+      "lines": 181,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/coordinator-resume.test.ts",
+      "module": "tests/unit",
+      "lines": 104,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/multiplayer-draft-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/final-deck-coach.test.ts",
+      "module": "tests/unit",
+      "lines": 112,
+      "dependencies": [
+        {
+          "target": "src/domain/coaching/index.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/multiplayer-draft/mtga-export.test.ts",
+      "module": "tests/unit",
+      "lines": 99,
+      "dependencies": [
+        {
+          "target": "src/multiplayer-draft/mtga-export.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/random/seeded-random.test.ts",
+      "module": "tests/unit",
+      "lines": 88,
+      "dependencies": [
+        {
+          "target": "src/random/seeded-random.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/simulation/booster-distribution-html.test.ts",
+      "module": "tests/unit",
+      "lines": 60,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/simulation/booster-distribution-html.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/simulation/detailed-simulation.test.ts",
+      "module": "tests/unit",
+      "lines": 203,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/simulation/html-report-generator.test.ts",
+      "module": "tests/unit",
+      "lines": 77,
+      "dependencies": [
+        {
+          "target": "src/simulation/detailed-simulation.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        },
+        {
+          "target": "src/simulation/html-report-generator.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/solo-draft/admin-drafts.test.ts",
+      "module": "tests/unit",
+      "lines": 108,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/admin-drafts.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/solo-draft/leaderboard.test.ts",
+      "module": "tests/unit",
+      "lines": 156,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/solo-draft/solo-draft-session.test.ts",
+      "module": "tests/unit",
+      "lines": 544,
+      "dependencies": [
+        {
+          "target": "src/solo-draft/solo-draft-session.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/multiplayer-draft/final-deck-coach.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 5
+        },
+        {
+          "target": "src/companion/llm-router.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/storage/cloud-leaderboard.test.ts",
+      "module": "tests/unit",
+      "lines": 103,
+      "dependencies": [
+        {
+          "target": "src/storage/cloud-leaderboard.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "src/storage/supabase-client.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 10
+        },
+        {
+          "target": "src/solo-draft/solo-draft-types.ts",
+          "typeOnly": true,
+          "kind": "import",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/coordinator.test.ts",
+      "module": "tests/unit",
+      "lines": 1025,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/deck-photo-recognition.test.ts",
+      "module": "tests/unit",
+      "lines": 79,
+      "dependencies": [
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/deck-photo-service-fallback.test.ts",
+      "module": "tests/unit",
+      "lines": 204,
+      "dependencies": [
+        {
+          "target": "src/tournaments/deck-photo-recognition.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/mtga-deck-text.test.ts",
+      "module": "tests/unit",
+      "lines": 66,
+      "dependencies": [
+        {
+          "target": "src/web/mtga-deck-text.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/observability.test.ts",
+      "module": "tests/unit",
+      "lines": 79,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/pairing.property.test.ts",
+      "module": "tests/unit",
+      "lines": 305,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 4
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/pairing.test.ts",
+      "module": "tests/unit",
+      "lines": 525,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/tournaments/standings.test.ts",
+      "module": "tests/unit",
+      "lines": 346,
+      "dependencies": [
+        {
+          "target": "src/tournaments/index.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 3
+        },
+        {
+          "target": "tests/helpers/tournament-fixtures.ts",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/web/card-image.test.ts",
+      "module": "tests/unit",
+      "lines": 133,
+      "dependencies": [
+        {
+          "target": "src/web/card-image.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/unit/web/card-language.test.ts",
+      "module": "tests/unit",
+      "lines": 56,
+      "dependencies": [
+        {
+          "target": "src/web/card-language.js",
+          "typeOnly": false,
+          "kind": "import",
+          "line": 2
+        }
+      ]
+    }
+  ]
+}

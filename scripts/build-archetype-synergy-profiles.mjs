@@ -25,10 +25,18 @@ function normalizeRawEntry(entry) {
   };
 }
 
-function createCardResolver(rawCube, cubeKey) {
+function createCardResolver(rawCube, cubeKey, masterCardsByOracleId = {}) {
   const cards = rawCube.cards.mainboard.map(normalizeRawEntry);
-  const byName = new Map(cards.map((entry) => [entry.details.name, entry]));
-  const byOracleId = new Map(cards.map((entry) => [entry.details.oracle_id, entry]));
+  const byName = new Map();
+  const byOracleId = new Map();
+  for (const entry of cards) {
+    byName.set(entry.details.name, entry);
+    byOracleId.set(entry.details.oracle_id, entry);
+    const canonicalName = masterCardsByOracleId[entry.details.oracle_id]?.name;
+    if (canonicalName && !byName.has(canonicalName)) {
+      byName.set(canonicalName, entry);
+    }
+  }
 
   return {
     all: cards,
@@ -87,12 +95,12 @@ function makeDocument(cubeKey, cubeSnapshotId, sourceRawSha256, archetypes) {
   };
 }
 
-async function buildTitouProfile() {
+async function buildTitouProfile(masterCards) {
   const cubeKey = "titou_tribal";
   const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
   const raw = rawSource.value;
   const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
-  const resolver = createCardResolver(raw, cubeKey);
+  const resolver = createCardResolver(raw, cubeKey, masterCards);
   const glue = meta.archetypes.find((archetype) => archetype.id === "titou:tribal_glue");
   const bridgeEntries = [...glue.keyCards, ...glue.supportCards]
     .map((oracleId) => resolver.byOracleId.get(oracleId))
@@ -104,17 +112,56 @@ async function buildTitouProfile() {
     "titou:tribal_werewolves": { types: ["Werewolf", "Wolf"], densityMinimum: 6 },
     "titou:tribal_angels": { types: ["Angel", "Cleric"], densityMinimum: 6 },
     "titou:tribal_dragons": { types: ["Dragon"], densityMinimum: 6 },
-    "titou:tribal_humans": { types: ["Human"], densityMinimum: 8 },
-    "titou:tribal_wizards": { types: ["Wizard"], densityMinimum: 6 },
+    "titou:tribal_humans": {
+      types: ["Human"],
+      densityMinimum: 8,
+      excludedNames: new Set([
+        "Tovolar, Dire Overlord",
+        "Tovolar's Huntmaster",
+        "Huntmaster of the Fells",
+        "Mayor of Avabruck",
+        "Avabruck Caretaker",
+        "Kessig Naturalist",
+        "Reckless Stormseeker",
+        "Duskwatch Recruiter",
+        "Werewolf Pack Leader",
+        "Master of the Wild Hunt",
+        "Kessig Cagebreakers",
+        "Nekrataal",
+        "Ophiomancer",
+        "Jadar, Ghoulcaller of Nephalia",
+        "Hostage Taker",
+        "Cabal Slaver",
+        "Chevill, Bane of Monsters",
+        "Kaalia of the Vast",
+        "Dragonmaster Outcast",
+        "Goro-Goro and Satoru",
+        "Grim Lavamancer",
+        "Mai, Scornful Striker",
+      ]),
+    },
+    "titou:tribal_wizards": {
+      types: ["Wizard"],
+      densityMinimum: 6,
+      excludedNames: new Set([
+        "Voldaren Bloodcaster",
+        "Jadar, Ghoulcaller of Nephalia",
+        "Jodah, the Unifier",
+      ]),
+    },
   };
 
-  const archetypes = meta.archetypes
-    .filter((archetype) => archetype.id !== "titou:tribal_glue")
+  const tribalArchetypes = meta.archetypes
+    .filter(
+      (archetype) =>
+        archetype.id !== "titou:tribal_glue" && archetype.id !== "titou:chromatic_legends",
+    )
     .map((archetype) => {
       const definition = tribeDefinitions[archetype.id];
       if (!definition) throw new Error(`Missing Titou tribe definition for ${archetype.id}`);
       const cards = new Map();
       const typePattern = new RegExp(`\\b(?:${definition.types.join("|")})s?\\b`, "i");
+      const excluded = definition.excludedNames ?? new Set();
 
       for (const oracleId of archetype.keyCards) {
         const entry = resolver.byOracleId.get(oracleId);
@@ -148,7 +195,10 @@ async function buildTitouProfile() {
         });
       }
 
-      for (const entry of resolver.all.filter((candidate) => typePattern.test(candidate.typeLine))) {
+      for (const entry of resolver.all.filter(
+        (candidate) =>
+          typePattern.test(candidate.typeLine) && !excluded.has(candidate.details.name),
+      )) {
         mergeCard(cards, entry, {
           strength: "support",
           roles: ["body"],
@@ -164,9 +214,8 @@ async function buildTitouProfile() {
       for (const entry of resolver.all.filter(
         (candidate) =>
           !typePattern.test(candidate.typeLine) &&
-          candidate.tags.some((tag) =>
-            definition.types.some((type) => tag === type.toLowerCase()),
-          ),
+          !excluded.has(candidate.details.name) &&
+          candidate.tags.some((tag) => definition.types.some((type) => tag === type.toLowerCase())),
       )) {
         mergeCard(cards, entry, {
           strength: "support",
@@ -181,7 +230,10 @@ async function buildTitouProfile() {
       }
 
       for (const entry of bridgeEntries) {
-        const isUniversalBody = /\bchangeling\b/iu.test(entry.oracleText);
+        const isUniversalBody =
+          /\bchangeling\b/iu.test(entry.oracleText) ||
+          /\bcreature\b/iu.test(entry.typeLine) ||
+          /\bbecomes? a .*creature\b/iu.test(entry.oracleText);
         mergeCard(cards, entry, {
           strength: "support",
           roles: ["bridge"],
@@ -206,6 +258,66 @@ async function buildTitouProfile() {
         cards: [...cards.values()].sort((a, b) => a.name.localeCompare(b.name)),
       };
     });
+
+  const chromaticMeta = meta.archetypes.find(
+    (archetype) => archetype.id === "titou:chromatic_legends",
+  );
+  const archetypes = [...tribalArchetypes];
+  if (chromaticMeta) {
+    const chromaticCards = new Map();
+    for (const oracleId of chromaticMeta.keyCards) {
+      const entry = resolver.byOracleId.get(oracleId);
+      if (!entry) throw new Error(`${cubeKey}: unresolved chromatic key card ${oracleId}`);
+      mergeCard(chromaticCards, entry, {
+        strength: "key",
+        roles: ["payoff"],
+        families: ["payoff"],
+        evidence: {
+          source: "owner_description",
+          detail: `Payoff chromatique ou légende pentacolore pour ${chromaticMeta.name}.`,
+        },
+        confidence: "A",
+      });
+    }
+    for (const oracleId of chromaticMeta.supportCards) {
+      const entry = resolver.byOracleId.get(oracleId);
+      if (!entry) throw new Error(`${cubeKey}: unresolved chromatic support card ${oracleId}`);
+      mergeCard(chromaticCards, entry, {
+        strength: "support",
+        roles: ["fixer", "mana"],
+        families: ["fixing"],
+        evidence: {
+          source: "owner_description",
+          detail: `Fixeur ou support multicolore pour ${chromaticMeta.name}.`,
+        },
+        confidence: "A",
+      });
+    }
+    for (const entry of resolver.all.filter((candidate) =>
+      candidate.tags.includes("colourenabler"),
+    )) {
+      mergeCard(chromaticCards, entry, {
+        strength: "support",
+        roles: ["fixer"],
+        families: ["fixing"],
+        evidence: {
+          source: "owner_tag",
+          detail: "Tag propriétaire colourEnabler facilitant le plan 5-Couleurs.",
+        },
+        confidence: "B",
+      });
+    }
+    archetypes.push({
+      id: chromaticMeta.id,
+      name: chromaticMeta.name,
+      targetPoints: 15,
+      requiredFamilies: [
+        { id: "payoff", name: "Légende multicolore ou payoff chromatique", minimum: 2 },
+        { id: "fixing", name: "Fixeur chromatique ou accélérateur multicolore", minimum: 3 },
+      ],
+      cards: [...chromaticCards.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    });
+  }
 
   return makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, archetypes);
 }
@@ -233,12 +345,12 @@ function createNicoArchetype(resolver, definition) {
   };
 }
 
-async function buildNicoProfile() {
+async function buildNicoProfile(masterCards) {
   const cubeKey = "nico_candyshop";
   const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
   const raw = rawSource.value;
   const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
-  const resolver = createCardResolver(raw, cubeKey);
+  const resolver = createCardResolver(raw, cubeKey, masterCards);
   const definitions = [
     {
       id: "nico:storm_combo",
@@ -260,6 +372,7 @@ async function buildNicoProfile() {
             "Seething Song",
             "Manamorphose",
             "Lion's Eye Diamond",
+            "Lotus Bloom",
           ],
           strength: "support",
           roles: ["mana"],
@@ -275,14 +388,22 @@ async function buildNicoProfile() {
             "Turnabout",
             "Time Spiral",
             "Underworld Breach",
+            "Brainstorm",
+            "Ponder",
+            "Preordain",
+            "Gitaxian Probe",
+            "Demonic Tutor",
+            "Vampiric Tutor",
+            "Mystical Tutor",
+            "Imperial Seal",
           ],
           strength: "support",
           roles: ["velocity"],
           families: ["velocity"],
-          evidence: "Prolonge la chaîne de sorts ou rejoue le cimetière.",
+          evidence: "Prolonge la chaîne de sorts, sélectionne les pièces ou rejoue le cimetière.",
         },
         {
-          names: ["Brain Freeze", "Tendrils of Agony", "Underworld Breach"],
+          names: ["Brain Freeze", "Tendrils of Agony", "Underworld Breach", "Mind's Desire"],
           strength: "key",
           roles: ["payoff", "combo_piece"],
           families: ["payoff"],
@@ -305,6 +426,8 @@ async function buildNicoProfile() {
           names: [
             "Sol Ring",
             "Mana Vault",
+            "Mana Crypt",
+            "Grim Monolith",
             "Black Lotus",
             "Mox Pearl",
             "Mox Sapphire",
@@ -312,6 +435,7 @@ async function buildNicoProfile() {
             "Mox Ruby",
             "Mox Emerald",
             "Mishra's Workshop",
+            "Ancient Tomb",
             "Metalworker",
           ],
           strength: "support",
@@ -320,7 +444,14 @@ async function buildNicoProfile() {
           evidence: "Accélère le plan artefact ou fournit une ressource à convertir.",
         },
         {
-          names: ["Tinker", "Goblin Welder", "Goblin Engineer", "Kuldotha Forgemaster"],
+          names: [
+            "Tinker",
+            "Goblin Welder",
+            "Goblin Engineer",
+            "Kuldotha Forgemaster",
+            "Emry, Lurker of the Loch",
+            "Tezzeret the Seeker",
+          ],
           strength: "key",
           roles: ["enabler"],
           families: ["enabler"],
@@ -331,15 +462,31 @@ async function buildNicoProfile() {
           names: [
             "Urza, Lord High Artificer",
             "Tolarian Academy",
+            "Urza's Saga",
             "Blightsteel Colossus",
             "Bolas's Citadel",
             "Kappa Cannoneer",
+            "Simulacrum Synthesizer",
           ],
           strength: "key",
           roles: ["payoff"],
           families: ["payoff"],
           evidence: "Récompense directement une forte densité d'artefacts.",
           confidence: "A",
+        },
+        {
+          names: [
+            "Karn, Scion of Urza",
+            "Wurmcoil Engine",
+            "Myr Battlesphere",
+            "Sundering Titan",
+            "Cityscape Leveler",
+            "Thought Monitor",
+          ],
+          strength: "support",
+          roles: ["payoff", "target"],
+          families: ["payoff"],
+          evidence: "Menace ou moteur artefact stabilisant le plan ramp/Tinker.",
         },
       ],
     },
@@ -354,14 +501,37 @@ async function buildNicoProfile() {
       ],
       groups: [
         {
-          names: ["Entomb", "Faithless Looting", "Collective Brutality", "Frantic Search"],
+          names: [
+            "Entomb",
+            "Faithless Looting",
+            "Collective Brutality",
+            "Frantic Search",
+            "Bone Shards",
+            "Bitter Triumph",
+            "Chart a Course",
+            "Jace, Vryn's Prodigy",
+            "Ledger Shredder",
+            "Liliana of the Veil",
+            "Malcolm, Alluring Scoundrel",
+            "Psychic Frog",
+            "Smuggler's Copter",
+          ],
           strength: "support",
           roles: ["outlet"],
           families: ["outlet"],
           evidence: "Place volontairement une cible au cimetière.",
         },
         {
-          names: ["Reanimate", "Animate Dead", "Exhume", "Necromancy"],
+          names: [
+            "Reanimate",
+            "Animate Dead",
+            "Exhume",
+            "Necromancy",
+            "Persist",
+            "Recurring Nightmare",
+            "Corpse Dance",
+            "Life // Death",
+          ],
           strength: "key",
           roles: ["enabler", "recursion"],
           families: ["reanimation"],
@@ -369,12 +539,45 @@ async function buildNicoProfile() {
           confidence: "A",
         },
         {
-          names: ["Griselbrand", "Archon of Cruelty", "Atraxa, Grand Unifier"],
+          names: [
+            "Griselbrand",
+            "Archon of Cruelty",
+            "Atraxa, Grand Unifier",
+            "Ashen Rider",
+            "Serra's Emissary",
+            "Sundering Titan",
+            "Woodfall Primus",
+            "Terastodon",
+            "Vaultborn Tyrant",
+            "Titan of Industry",
+            "Etali, Primal Conqueror",
+            "Torsten, Founder of Benalia",
+            "Craterhoof Behemoth",
+          ],
           strength: "key",
           roles: ["target", "payoff"],
           families: ["target"],
           evidence: "Cible à très fort impact pour contourner son coût de mana.",
           confidence: "A",
+        },
+        {
+          names: [
+            "Crabomination",
+            "Noxious Gearhulk",
+            "Grave Titan",
+            "Myr Battlesphere",
+            "Cityscape Leveler",
+            "Wurmcoil Engine",
+            "Inferno Titan",
+            "Sun Titan",
+            "Torrential Gearhulk",
+            "Trumpeting Carnosaur",
+            "Troll of Khazad-dûm",
+          ],
+          strength: "support",
+          roles: ["target", "payoff"],
+          families: ["target"],
+          evidence: "Menace de haut de courbe valorisée par une réanimation précoce.",
         },
       ],
     },
@@ -394,6 +597,7 @@ async function buildNicoProfile() {
             "Through the Breach",
             "Monster Manual",
             "Oath of Druids",
+            "Channel",
           ],
           strength: "key",
           roles: ["enabler"],
@@ -408,6 +612,15 @@ async function buildNicoProfile() {
             "Griselbrand",
             "Archon of Cruelty",
             "Blightsteel Colossus",
+            "Etali, Primal Conqueror",
+            "Sundering Titan",
+            "Woodfall Primus",
+            "Terastodon",
+            "Vaultborn Tyrant",
+            "Serra's Emissary",
+            "Ashen Rider",
+            "Torsten, Founder of Benalia",
+            "Kozilek, Butcher of Truth",
           ],
           strength: "support",
           roles: ["target", "payoff"],
@@ -442,11 +655,20 @@ async function buildNicoProfile() {
           confidence: "A",
         },
         {
-          names: ["Imperial Recruiter"],
+          names: [
+            "Imperial Recruiter",
+            "Recruiter of the Guard",
+            "Fable of the Mirror-Breaker",
+            "Teferi, Time Raveler",
+            "Remand",
+            "Memory Lapse",
+            "Counterspell",
+            "Snapcaster Mage",
+          ],
           strength: "support",
-          roles: ["velocity"],
+          roles: ["velocity", "interaction"],
           families: [],
-          evidence: "Trouve l'une des créatures nécessaires sans remplacer une pièce de combo.",
+          evidence: "Trouve ou protège les pièces de combo sans remplacer une brique obligatoire.",
         },
       ],
     },
@@ -483,6 +705,16 @@ async function buildNicoProfile() {
             "Flickerwisp",
             "Restoration Angel",
             "Charming Prince",
+            "White Plume Adventurer",
+            "Seasoned Dungeoneer",
+            "Skyclave Apparition",
+            "Elite Spellbinder",
+            "Phlage, Titan of Fire's Fury",
+            "Snapcaster Mage",
+            "Baleful Strix",
+            "Thraben Inspector",
+            "Blade Splicer",
+            "Teferi, Time Raveler",
           ],
           strength: "support",
           roles: ["target"],
@@ -502,14 +734,29 @@ async function buildNicoProfile() {
       ],
       groups: [
         {
-          names: ["Fastbond", "Zuran Orb", "Strip Mine", "Wrenn and Six"],
+          names: [
+            "Fastbond",
+            "Zuran Orb",
+            "Strip Mine",
+            "Wasteland",
+            "Boseiju, Who Endures",
+            "Urza's Saga",
+            "Wrenn and Six",
+            "Knight of the Reliquary",
+            "Elvish Reclaimer",
+            "Oracle of Mul Daya",
+            "Courser of Kruphix",
+            "Dryad of the Ilysian Grove",
+            "Expedition Map",
+            "Explore",
+          ],
           strength: "support",
           roles: ["enabler"],
           families: ["enabler"],
-          evidence: "Accélère, sacrifie ou exploite les terrains comme ressource.",
+          evidence: "Accélère, tutorise, sacrifie ou exploite les terrains comme ressource.",
         },
         {
-          names: ["Crucible of Worlds", "Ramunap Excavator", "Wrenn and Six"],
+          names: ["Crucible of Worlds", "Ramunap Excavator", "Wrenn and Six", "Six"],
           strength: "key",
           roles: ["recursion"],
           families: ["recursion"],
@@ -517,7 +764,15 @@ async function buildNicoProfile() {
           confidence: "A",
         },
         {
-          names: ["Dark Depths", "Thespian's Stage", "Titania, Protector of Argoth"],
+          names: [
+            "Dark Depths",
+            "Thespian's Stage",
+            "Titania, Protector of Argoth",
+            "Springheart Nantuko",
+            "Omnath, Locus of Creation",
+            "Tatyova, Benthic Druid",
+            "Lotus Cobra",
+          ],
           strength: "key",
           roles: ["payoff", "combo_piece"],
           families: ["payoff"],
@@ -541,18 +796,26 @@ async function buildNicoProfile() {
             "Gaea's Cradle",
             "Llanowar Elves",
             "Elvish Mystic",
+            "Fyndhorn Elves",
             "Birds of Paradise",
             "Rofellos, Llanowar Emissary",
             "Noble Hierarch",
+            "Ignoble Hierarch",
+            "Delighted Halfling",
             "Arbor Elf",
+            "Joraga Treespeaker",
+            "Fanatic of Rhonas",
+            "Nissa, Who Shakes the World",
+            "Sylvan Library",
+            "The Great Henge",
           ],
           strength: "support",
           roles: ["mana"],
           families: ["mana"],
-          evidence: "Accélère la production de mana du plan vert.",
+          evidence: "Accélère la production de mana et la vélocité du plan vert.",
         },
         {
-          names: ["Natural Order", "Channel"],
+          names: ["Natural Order", "Channel", "Green Sun's Zenith"],
           strength: "key",
           roles: ["enabler"],
           families: ["enabler"],
@@ -560,12 +823,150 @@ async function buildNicoProfile() {
           confidence: "A",
         },
         {
-          names: ["Craterhoof Behemoth", "Primeval Titan", "Woodfall Primus", "Terastodon"],
+          names: [
+            "Craterhoof Behemoth",
+            "Primeval Titan",
+            "Woodfall Primus",
+            "Terastodon",
+            "Vaultborn Tyrant",
+            "Titan of Industry",
+            "Ugin, the Spirit Dragon",
+          ],
           strength: "key",
           roles: ["target", "payoff"],
           families: ["target"],
           evidence: "Menace qui récompense l'accélération ou la mise en jeu contournée.",
           confidence: "A",
+        },
+      ],
+    },
+    {
+      id: "nico:boros_aggro",
+      name: "Boros / Red Aggro & Initiative",
+      targetPoints: 14,
+      requiredFamilies: [
+        { id: "threat", name: "Menace agressive précoce", minimum: 3 },
+        { id: "payoff", name: "Payoff Initiative ou finisher explosif", minimum: 1 },
+        { id: "interaction", name: "Interaction ou disruption de tempo", minimum: 1 },
+      ],
+      groups: [
+        {
+          names: [
+            "Ragavan, Nimble Pilferer",
+            "Ocelot Pride",
+            "Ajani, Nacatl Pariah",
+            "Broadside Bombardiers",
+            "White Plume Adventurer",
+            "Caves of Chaos Adventurer",
+            "Seasoned Dungeoneer",
+            "Forth Eorlingas!",
+            "Phlage, Titan of Fire's Fury",
+          ],
+          strength: "key",
+          roles: ["payoff", "body"],
+          families: ["payoff", "threat"],
+          evidence: "Menace ou moteur d'Initiative définissant l'horloge Boros/Red Aggro.",
+          confidence: "A",
+        },
+        {
+          names: [
+            "Mother of Runes",
+            "Esper Sentinel",
+            "Phelia, Exuberant Shepherd",
+            "Adeline, Resplendent Cathar",
+            "Thalia, Guardian of Thraben",
+            "Goblin Rabblemaster",
+            "Laelia, the Blade Reforged",
+            "Inti, Seneschal of the Sun",
+            "Fable of the Mirror-Breaker",
+            "Skullclamp",
+            "Smuggler's Copter",
+            "Umezawa's Jitte",
+          ],
+          strength: "support",
+          roles: ["body", "enabler"],
+          families: ["threat"],
+          evidence: "Maintient la pression sur le champ de bataille et amplifie les attaques.",
+        },
+        {
+          names: [
+            "Fury",
+            "Solitude",
+            "Lightning Bolt",
+            "Swords to Plowshares",
+            "Chain Lightning",
+            "Karakas",
+            "Strip Mine",
+            "Wasteland",
+          ],
+          strength: "support",
+          roles: ["interaction"],
+          families: ["interaction"],
+          evidence: "Élimine les bloqueurs ou étrangle le mana adverse.",
+        },
+      ],
+    },
+    {
+      id: "nico:dimir_tempo",
+      name: "Dimir / Grixis Tempo & Disruption",
+      targetPoints: 14,
+      requiredFamilies: [
+        { id: "threat", name: "Menace tempo ou générateur d'avantage", minimum: 2 },
+        { id: "disruption", name: "Défausse, contre ou removal économique", minimum: 3 },
+      ],
+      groups: [
+        {
+          names: [
+            "Psychic Frog",
+            "Orcish Bowmasters",
+            "Sheoldred, the Apocalypse",
+            "Dauthi Voidwalker",
+            "Thoughtseize",
+            "Grief",
+            "Force of Will",
+            "Mana Drain",
+          ],
+          strength: "key",
+          roles: ["payoff", "interaction"],
+          families: ["threat", "disruption"],
+          evidence: "Pilier du plan Dimir/Grixis Tempo combinant pression et perturbation.",
+          confidence: "A",
+        },
+        {
+          names: [
+            "Baleful Strix",
+            "Snapcaster Mage",
+            "Subtlety",
+            "Brazen Borrower",
+            "Ledger Shredder",
+            "Malcolm, Alluring Scoundrel",
+            "Fallen Shinobi",
+            "Jace, the Mind Sculptor",
+            "Liliana of the Veil",
+          ],
+          strength: "support",
+          roles: ["body", "velocity"],
+          families: ["threat"],
+          evidence: "Menace évasive ou moteur de valeur soutenant le jeu de tempo.",
+        },
+        {
+          names: [
+            "Force of Negation",
+            "Daze",
+            "Counterspell",
+            "Spell Pierce",
+            "Memory Lapse",
+            "Remand",
+            "Inquisition of Kozilek",
+            "Duress",
+            "Hymn to Tourach",
+            "Bitter Triumph",
+            "Snuff Out",
+          ],
+          strength: "support",
+          roles: ["interaction"],
+          families: ["disruption"],
+          evidence: "Interaction à bas coût protégeant l'avance de tempo.",
         },
       ],
     },
@@ -579,10 +980,75 @@ async function buildNicoProfile() {
   );
 }
 
+async function buildMetaDrivenProfile(cubeKey, masterCards) {
+  const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
+  const raw = rawSource.value;
+  const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
+  const resolver = createCardResolver(raw, cubeKey, masterCards);
+
+  const archetypes = meta.archetypes
+    .filter((archetype) => !archetype.id.includes("staple") && !archetype.id.includes("glue"))
+    .map((archetype) => {
+      const cards = new Map();
+      for (const oracleId of archetype.keyCards) {
+        const entry = resolver.byOracleId.get(oracleId);
+        if (!entry)
+          throw new Error(`${cubeKey}: unresolved key card ${oracleId} in ${archetype.id}`);
+        mergeCard(cards, entry, {
+          strength: "key",
+          roles: ["payoff"],
+          families: ["payoff"],
+          evidence: {
+            source: "owner_description",
+            detail: `Carte clé déclarée pour ${archetype.name}.`,
+          },
+          confidence: "A",
+        });
+      }
+      for (const oracleId of archetype.supportCards) {
+        const entry = resolver.byOracleId.get(oracleId);
+        if (!entry)
+          throw new Error(`${cubeKey}: unresolved support card ${oracleId} in ${archetype.id}`);
+        mergeCard(cards, entry, {
+          strength: "support",
+          roles: ["enabler"],
+          families: ["support"],
+          evidence: {
+            source: "owner_description",
+            detail: `Carte support déclarée pour ${archetype.name}.`,
+          },
+          confidence: "B",
+        });
+      }
+
+      return {
+        id: archetype.id,
+        name: archetype.name,
+        targetPoints: 14,
+        requiredFamilies: [
+          { id: "payoff", name: "Carte clé ou moteur du plan", minimum: 1 },
+          { id: "support", name: "Support ou synergie du plan", minimum: 2 },
+        ],
+        cards: [...cards.values()].sort((a, b) => a.name.localeCompare(b.name)),
+      };
+    });
+
+  return makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, archetypes);
+}
+
+const masterData = await readJson("data/cards/master-cards.json");
+const masterCards = masterData.cards || {};
+
 let hasDrift = false;
 for (const [cubeKey, document] of [
-  ["titou_tribal", await buildTitouProfile()],
-  ["nico_candyshop", await buildNicoProfile()],
+  ["titou_tribal", await buildTitouProfile(masterCards)],
+  ["nico_candyshop", await buildNicoProfile(masterCards)],
+  ["cedric_cube", await buildMetaDrivenProfile("cedric_cube", masterCards)],
+  ["hugues_pauper", await buildMetaDrivenProfile("hugues_pauper", masterCards)],
+  [
+    "titou_arena_peasant_plus",
+    await buildMetaDrivenProfile("titou_arena_peasant_plus", masterCards),
+  ],
 ]) {
   const outputPath = resolve(rootDir, `data/cubes/${cubeKey}/archetype-synergy-v1.json`);
   const serialized = `${JSON.stringify(document, null, 2)}\n`;

@@ -224,4 +224,69 @@ describe("deck lab", () => {
       ),
     ).toThrow(/22 cartes hors terrain/iu);
   });
+
+  it("evaluates an off-color Mox, MDFC spell-land, and looter-based Reanimator deck without adding an off-color basic land", async () => {
+    const { loadCoachContext } = await import("../../../src/cubes/coach-context.ts");
+    const ctxRes = await loadCoachContext(resolve("."), "nico_candyshop");
+    if (!ctxRes.ok) throw new Error(ctxRes.error.message);
+    const ctx = ctxRes.value;
+    const cubeOracleIds = new Set(ctx.snapshot.cards.map((card) => card.oracleId));
+    const dimirDeck = [
+      "Library of Alexandria",
+      "Polluted Delta",
+      "Verdant Catacombs",
+      "Raffine's Tower",
+      "Undercity Sewers",
+      "Mana Crypt",
+      "Mox Emerald",
+      "Bone Shards",
+      "Ancestral Recall",
+      "Serum Visions",
+      "Ancestral Vision",
+      "Vampiric Tutor",
+      "Mind Twist",
+      "Dismember",
+      "Three Steps Ahead",
+      "Reanimate",
+      "Jace, Vryn's Prodigy",
+      "Malcolm, Alluring Scoundrel",
+      "Miscalculation",
+      "Hymn to Tourach",
+      "Smuggler's Copter",
+      "Persist",
+      "Hullbreacher",
+      "Liliana of the Veil",
+      "Hostage Taker",
+      "Fell the Profane",
+      "Treachery",
+      "Noxious Gearhulk",
+      "Crabomination",
+      "Archon of Cruelty",
+    ];
+    const text = `Deck\n${dimirDeck.map((name) => `1 ${name}`).join("\n")}\n5 Island\n5 Swamp\nSideboard\n1 Lutri, the Spellchaser`;
+    const rateResult = analyzeDeckText(
+      text,
+      "rate",
+      catalog,
+      ctx.deckEvaluationOptions,
+      cubeOracleIds,
+    );
+    expect(rateResult.rating.audit.mana.usedColors).toEqual(["U", "B"]);
+    expect(rateResult.rating.audit.mana.landEquivalentCards).toEqual(["Fell the Profane"]);
+    expect(rateResult.rating.axes.synergy).toBe(100);
+    expect(rateResult.rating.axes.mana).toBe(100);
+    expect(rateResult.rating.score).toBe(89);
+
+    const pimpResult = analyzeDeckText(
+      text,
+      "pimp",
+      catalog,
+      ctx.deckEvaluationOptions,
+      cubeOracleIds,
+    );
+    if (!("build" in pimpResult)) throw new Error("Pimp result is missing its build");
+    expect(pimpResult.build.basicLands.Forest).toBe(0);
+    expect(pimpResult.build.remove).toEqual([]);
+    expect(pimpResult.build.final.some((card) => card.name === "Smuggler's Copter")).toBe(true);
+  });
 });

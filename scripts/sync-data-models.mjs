@@ -1,42 +1,42 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
-import { resolve, join } from 'node:path';
-import { createHash } from 'node:crypto';
-import { generateCubeSuggestionsReport } from '../src/cards/cube-upgrade-advisor.ts';
-import { assignRelativeTiers } from '../src/cards/relative-tier-engine.ts';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from "node:fs";
+import { resolve, join } from "node:path";
+import { createHash } from "node:crypto";
+import { generateCubeSuggestionsReport } from "../src/cards/cube-upgrade-advisor.ts";
+import { assignRelativeTiers } from "../src/cards/relative-tier-engine.ts";
 
 const rootDir = process.cwd();
 
 function sha256(value) {
-  return createHash('sha256').update(value, 'utf8').digest('hex');
+  return createHash("sha256").update(value, "utf8").digest("hex");
 }
 
 // Helper to convert card name to kebab-case slug
 export function cardNameToSlug(name) {
   return name
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
-console.log('🔄 Starting Data Model Synchronization...');
+console.log("🔄 Starting Data Model Synchronization...");
 
 // 1. Ensure target directories exist
-const itemsDir = resolve(rootDir, 'data/cards/items');
+const itemsDir = resolve(rootDir, "data/cards/items");
 mkdirSync(itemsDir, { recursive: true });
 
 // 2. Load master catalog base
-const masterPath = resolve(rootDir, 'data/cards/master-cards.json');
-const masterRaw = readFileSync(masterPath, 'utf8');
+const masterPath = resolve(rootDir, "data/cards/master-cards.json");
+const masterRaw = readFileSync(masterPath, "utf8");
 const masterData = JSON.parse(masterRaw);
 const previousCatalogFingerprint = sha256(
   JSON.stringify({ cardCount: masterData.cardCount, cards: masterData.cards }),
 );
 
 // 2b. Load Untapped reference v2 (integer scores 0-55, latest observed)
-const refV2Path = resolve(rootDir, 'data/power-rankings/untapped-reference-v2.json');
-const refV2 = existsSync(refV2Path) ? JSON.parse(readFileSync(refV2Path, 'utf8')) : null;
+const refV2Path = resolve(rootDir, "data/power-rankings/untapped-reference-v2.json");
+const refV2 = existsSync(refV2Path) ? JSON.parse(readFileSync(refV2Path, "utf8")) : null;
 const refV2ScoresNormalized = new Map();
 const refV2CardsNormalized = new Map();
 if (refV2) {
@@ -49,13 +49,13 @@ if (refV2) {
 }
 
 // 2c. Load CubeCobra Benchmarks and Card Release Metadata
-const benchmarksPath = resolve(rootDir, 'data/benchmarks/cubecobra-benchmarks.json');
-const releaseMetaPath = resolve(rootDir, 'data/benchmarks/card-release-metadata.json');
+const benchmarksPath = resolve(rootDir, "data/benchmarks/cubecobra-benchmarks.json");
+const releaseMetaPath = resolve(rootDir, "data/benchmarks/card-release-metadata.json");
 
-const benchmarksRaw = existsSync(benchmarksPath) ? readFileSync(benchmarksPath, 'utf8') : '{}';
+const benchmarksRaw = existsSync(benchmarksPath) ? readFileSync(benchmarksPath, "utf8") : "{}";
 const releaseMetadataSourceRaw = existsSync(releaseMetaPath)
-  ? readFileSync(releaseMetaPath, 'utf8')
-  : '{}';
+  ? readFileSync(releaseMetaPath, "utf8")
+  : "{}";
 const benchmarksData = JSON.parse(benchmarksRaw);
 const releaseMetadataRaw = JSON.parse(releaseMetadataSourceRaw);
 
@@ -69,10 +69,12 @@ for (const [key, val] of Object.entries(releaseMetadataRaw)) {
     rarity: val.rarity,
   });
 }
-console.log(`📡 Loaded ${Object.keys(benchmarksData).length} benchmark cubes & release metadata for ${releaseMetadataMap.size} cards.`);
+console.log(
+  `📡 Loaded ${Object.keys(benchmarksData).length} benchmark cubes & release metadata for ${releaseMetadataMap.size} cards.`,
+);
 
 // 3. Load all individual JSON files in itemsDir
-const itemFiles = readdirSync(itemsDir).filter((f) => f.endsWith('.json'));
+const itemFiles = readdirSync(itemsDir).filter((f) => f.endsWith(".json"));
 console.log(`📦 Found ${itemFiles.length} card documents in data/cards/items/`);
 
 let cardCount = 0;
@@ -80,7 +82,7 @@ const cardsByOracleId = {};
 
 for (const file of itemFiles) {
   const singleCardPath = join(itemsDir, file);
-  const cardDoc = JSON.parse(readFileSync(singleCardPath, 'utf8'));
+  const cardDoc = JSON.parse(readFileSync(singleCardPath, "utf8"));
 
   // Apply latest Untapped static score if available
   const normName = cardDoc.name.toLowerCase().trim();
@@ -91,10 +93,11 @@ for (const file of itemFiles) {
       ...cardDoc.powerScore,
       score: v2Score,
       rawSourceScore: v2Score,
-      source: 'untapped',
-      harmonizationDegree: 'native',
+      source: "untapped",
+      harmonizationDegree: "native",
       confidence: 1.0,
-      updatedAt: cardHistory?.latestObservedAt || cardDoc.powerScore?.updatedAt || new Date().toISOString(),
+      updatedAt:
+        cardHistory?.latestObservedAt || cardDoc.powerScore?.updatedAt || new Date().toISOString(),
     };
   }
 
@@ -107,7 +110,9 @@ for (const file of itemFiles) {
   cardCount += 1;
 }
 
-console.log(`✅ Successfully indexed ${cardCount} individual card JSON files from data/cards/items/`);
+console.log(
+  `✅ Successfully indexed ${cardCount} individual card JSON files from data/cards/items/`,
+);
 
 // 4. Update master-cards.json bundle for sync
 masterData.cardCount = cardCount;
@@ -118,15 +123,15 @@ const nextCatalogFingerprint = sha256(
 if (nextCatalogFingerprint !== previousCatalogFingerprint) {
   masterData.generatedAt = new Date().toISOString();
 }
-const masterSerialized = JSON.stringify(masterData, null, 2) + '\n';
-writeFileSync(masterPath, masterSerialized, 'utf8');
+const masterSerialized = JSON.stringify(masterData, null, 2) + "\n";
+writeFileSync(masterPath, masterSerialized, "utf8");
 console.log(`✅ Synchronized data/cards/master-cards.json bundle`);
 
 // 5. Build Unified cube.json for each of the 3 community cubes
 const cubeConfigs = [
   {
-    key: 'nico_candyshop',
-    dir: 'data/cubes/nico_candyshop',
+    key: "nico_candyshop",
+    dir: "data/cubes/nico_candyshop",
     description:
       "L'un des environnements les plus rapides et brutaux de Magic papier. Fast mana, combos en un tour et interactions à 0 mana imposent un rythme impitoyable où chaque tour compte double.",
     philosophy:
@@ -135,8 +140,8 @@ const cubeConfigs = [
       "Chaque deck doit être proactif dès le Tour 1 ou armé d'interactions gratuites (Force of Will, Daze, Mindbreak Trap) sous peine d'écrasement immédiat.",
   },
   {
-    key: 'hugues_pauper',
-    dir: 'data/cubes/hugues_pauper',
+    key: "hugues_pauper",
+    dir: "data/cubes/hugues_pauper",
     description:
       "Un environnement 100% cartes communes célébrant les purs fondamentaux de Magic : combats sur le champ de bataille, avantage de cartes à l'usure et arbitrages tactiques permanents.",
     philosophy:
@@ -145,8 +150,8 @@ const cubeConfigs = [
       "et la rentabilisation des synergies d'artefacts et de cimetière. Le tour pivot (T4/T5) consacre le joueur ayant le mieux géré ses ressources et son tempo.",
   },
   {
-    key: 'titou_tribal',
-    dir: 'data/cubes/titou_tribal',
+    key: "titou_tribal",
+    dir: "data/cubes/titou_tribal",
     description:
       "Un format centré sur les synergies de types de créatures, les seigneurs et l'assemblage d'armées tribales dans un environnement de draft convivial et riche en couleurs.",
     philosophy:
@@ -155,8 +160,8 @@ const cubeConfigs = [
       "Le tour pivot (T4) marque le moment où la masse critique tribale permet de submerger la défense adverse ou de verrouiller le contrôle aérien.",
   },
   {
-    key: 'cedric_cube',
-    dir: 'data/cubes/cedric_cube',
+    key: "cedric_cube",
+    dir: "data/cubes/cedric_cube",
     description:
       "Un environnement Vintage Non-Powered de 720 cartes célébrant le jeu interactif de haut niveau : réanimation, monstres sneak/show, planeswalkers et synergies de guilde sans la brutalité non interactive du Power 9.",
     philosophy:
@@ -165,8 +170,8 @@ const cubeConfigs = [
       "il permet des affrontements spectaculaires où le Tour Pivot (T3.5 - T4) récompense l'anticipation, les échanges 2-pour-1 et les synergies construites.",
   },
   {
-    key: 'titou_arena_peasant_plus',
-    dir: 'data/cubes/titou_arena_peasant_plus',
+    key: "titou_arena_peasant_plus",
+    dir: "data/cubes/titou_arena_peasant_plus",
     description:
       "Un cube Peasant Plus de 360 cartes MTG Arena combinant les meilleures communes et uncos du jeu avec les 10 Shocklands et fixers rares pour des affrontements fluides, interactifs et profondément synergiques.",
     philosophy:
@@ -177,26 +182,59 @@ const cubeConfigs = [
 ];
 
 const tierOrder = {
-  "A+": 0, "A": 1, "A-": 2,
-  "B+": 3, "B": 4, "B-": 5,
-  "C+": 6, "C": 7, "C-": 8,
-  "D+": 9, "D": 10, "D-": 11,
-  "F": 12, "S": -1, "B": 4, "C": 7, "D": 10,
+  "A+": 0,
+  A: 1,
+  "A-": 2,
+  "B+": 3,
+  B: 4,
+  "B-": 5,
+  "C+": 6,
+  C: 7,
+  "C-": 8,
+  "D+": 9,
+  D: 10,
+  "D-": 11,
+  F: 12,
+  S: -1,
+  B: 4,
+  C: 7,
+  D: 10,
 };
 
 for (const cfg of cubeConfigs) {
-  const metaPath = resolve(rootDir, cfg.dir, 'cube-meta.json');
+  const metaPath = resolve(rootDir, cfg.dir, "cube-meta.json");
   if (!existsSync(metaPath)) {
     console.warn(`⚠️ Warning: ${metaPath} not found, skipping.`);
     continue;
   }
 
-  const meta = JSON.parse(readFileSync(metaPath, 'utf8'));
+  const meta = JSON.parse(readFileSync(metaPath, "utf8"));
 
   // Collect cards for this cube
   const cubeCards = Object.values(cardsByOracleId).filter(
     (c) => c.presentInCubes && c.presentInCubes.includes(cfg.key),
   );
+
+  // Collect archetype memberships from cube-meta.json and archetype-synergy-v1.json
+  const archetypesByOracleId = new Map();
+  const addCardArchetype = (oracleId, archetypeId) => {
+    const set = archetypesByOracleId.get(oracleId) || new Set();
+    set.add(archetypeId);
+    archetypesByOracleId.set(oracleId, set);
+  };
+  for (const arch of meta.archetypes || []) {
+    for (const id of arch.keyCards || []) addCardArchetype(id, arch.id);
+    for (const id of arch.supportCards || []) addCardArchetype(id, arch.id);
+  }
+  const synergyPath = resolve(rootDir, cfg.dir, "archetype-synergy-v1.json");
+  if (existsSync(synergyPath)) {
+    const synergyDoc = JSON.parse(readFileSync(synergyPath, "utf8"));
+    for (const arch of synergyDoc.archetypes || []) {
+      for (const cardEntry of arch.cards || []) {
+        addCardArchetype(cardEntry.oracleId, arch.id);
+      }
+    }
+  }
 
   const cardIndex = [];
   const tierAssignments = assignRelativeTiers(cubeCards, meta);
@@ -208,13 +246,17 @@ for (const cfg of cubeConfigs) {
       ana.metaBonus = metaBonus;
       ana.metaRole = metaRole;
       ana.scoreModifier = metaBonus;
+      const syncedArchetypes = archetypesByOracleId.get(card.oracleId);
+      if (syncedArchetypes) {
+        ana.archetypes = [...new Set([...(ana.archetypes || []), ...syncedArchetypes])];
+      }
     }
   });
 
   // Generate Upgrade Proposals and Maybeboard for this cube
   const cubeCobraStatsMap = new Map();
-  const rawPath = resolve(rootDir, cfg.dir, 'cubecobra-raw.json');
-  const cubeCobraRaw = existsSync(rawPath) ? readFileSync(rawPath, 'utf8') : '{}';
+  const rawPath = resolve(rootDir, cfg.dir, "cubecobra-raw.json");
+  const cubeCobraRaw = existsSync(rawPath) ? readFileSync(rawPath, "utf8") : "{}";
   if (existsSync(rawPath)) {
     try {
       const raw = JSON.parse(cubeCobraRaw);
@@ -256,37 +298,37 @@ for (const cfg of cubeConfigs) {
     {
       generatedAt: masterData.generatedAt,
       catalog: {
-        id: 'data/cards/master-cards.json',
+        id: "data/cards/master-cards.json",
         version: `master-catalog@${String(masterData.schemaVersion)}`,
         sha256: sha256(masterSerialized),
-        license: 'Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md',
-        method: 'Deterministic merge of versioned local card items and power scores',
+        license: "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
+        method: "Deterministic merge of versioned local card items and power scores",
       },
       releaseMetadata: {
-        id: 'data/benchmarks/card-release-metadata.json',
-        version: 'card-release-metadata@1',
+        id: "data/benchmarks/card-release-metadata.json",
+        version: "card-release-metadata@1",
         sha256: sha256(releaseMetadataSourceRaw),
-        license: 'Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast',
-        method: 'Versioned local extraction of first-print and rarity metadata',
+        license: "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
+        method: "Versioned local extraction of first-print and rarity metadata",
       },
       benchmarks: {
-        id: 'data/benchmarks/cubecobra-benchmarks.json',
-        version: 'cubecobra-benchmarks@1',
+        id: "data/benchmarks/cubecobra-benchmarks.json",
+        version: "cubecobra-benchmarks@1",
         sha256: sha256(benchmarksRaw),
-        license: 'CubeCobra source data; upstream terms apply',
-        method: 'Versioned local benchmark cube lists filtered by target cube',
+        license: "CubeCobra source data; upstream terms apply",
+        method: "Versioned local benchmark cube lists filtered by target cube",
       },
       cubeCobra: {
         id: `${cfg.dir}/cubecobra-raw.json`,
-        version: 'cubecobra-raw@1',
+        version: "cubecobra-raw@1",
         sha256: sha256(cubeCobraRaw),
-        license: 'CubeCobra source data; upstream terms apply',
-        method: 'Local archive; card Elo, popularity and cube count indexed by normalized name',
+        license: "CubeCobra source data; upstream terms apply",
+        method: "Local archive; card Elo, popularity and cube count indexed by normalized name",
       },
     },
   );
-  const suggestionsPath = resolve(rootDir, cfg.dir, 'cube-suggestions.json');
-  writeFileSync(suggestionsPath, JSON.stringify(suggestionsReport, null, 2) + '\n', 'utf8');
+  const suggestionsPath = resolve(rootDir, cfg.dir, "cube-suggestions.json");
+  writeFileSync(suggestionsPath, JSON.stringify(suggestionsReport, null, 2) + "\n", "utf8");
   console.log(
     `✅ Generated suggestions ${suggestionsPath} (${suggestionsReport.stats.totalUpgrades} upgrades [${suggestionsReport.stats.recentUpgradesCount} récents <3 ans, ${suggestionsReport.stats.benchmarkMatchesCount} benchmark matches], ${suggestionsReport.stats.totalMaybeboard} maybeboard)`,
   );
@@ -294,8 +336,8 @@ for (const cfg of cubeConfigs) {
   // Populate cardIndex conforming strictly to cube.schema.json
   cubeCards.forEach((card) => {
     const ana = card.cubeAnalyses[cfg.key];
-    const relTier = ana?.relativeTier || 'C';
-    const metaRole = ana?.metaRole || 'neutral';
+    const relTier = ana?.relativeTier || "C";
+    const metaRole = ana?.metaRole || "neutral";
     const metaBonus = ana?.metaBonus || 0;
 
     if (ana) {
@@ -308,7 +350,7 @@ for (const cfg of cubeConfigs) {
       name: card.name,
       oracleId: card.oracleId,
       tier: relTier,
-      fit: metaRole === 'key' ? 'staple' : metaRole === 'trap' ? 'trap' : (ana?.fit || 'support'),
+      fit: metaRole === "key" ? "staple" : metaRole === "trap" ? "trap" : ana?.fit || "support",
       scoreModifier: metaBonus,
       metaBonus,
       metaRole,
@@ -345,8 +387,8 @@ for (const cfg of cubeConfigs) {
     cardIndex,
   };
 
-  const cubeJsonPath = resolve(rootDir, cfg.dir, 'cube.json');
-  writeFileSync(cubeJsonPath, JSON.stringify(cubeDoc, null, 2) + '\n', 'utf8');
+  const cubeJsonPath = resolve(rootDir, cfg.dir, "cube.json");
+  writeFileSync(cubeJsonPath, JSON.stringify(cubeDoc, null, 2) + "\n", "utf8");
   console.log(`✅ Generated unified ${cubeJsonPath} (${cardIndex.length} cards indexed)`);
 }
 
@@ -354,19 +396,21 @@ for (const cfg of cubeConfigs) {
 for (const card of Object.values(cardsByOracleId)) {
   const singleCardPath = join(itemsDir, `${card.slug}.json`);
   if (existsSync(singleCardPath)) {
-    writeFileSync(singleCardPath, JSON.stringify(card, null, 2) + '\n', 'utf8');
+    writeFileSync(singleCardPath, JSON.stringify(card, null, 2) + "\n", "utf8");
   }
 }
-writeFileSync(masterPath, JSON.stringify(masterData, null, 2) + '\n', 'utf8');
-console.log(`✅ Updated individual items and master-cards.json with relative tiers and meta bonuses.`);
+writeFileSync(masterPath, JSON.stringify(masterData, null, 2) + "\n", "utf8");
+console.log(
+  `✅ Updated individual items and master-cards.json with relative tiers and meta bonuses.`,
+);
 
 // 7. Synchronize power-ranking-v1.json with updated card scores to prevent drift
-const powerRankingPath = resolve(rootDir, 'data/power-rankings/power-ranking-v1.json');
+const powerRankingPath = resolve(rootDir, "data/power-rankings/power-ranking-v1.json");
 if (existsSync(powerRankingPath)) {
-  const powerRankingData = JSON.parse(readFileSync(powerRankingPath, 'utf8'));
+  const powerRankingData = JSON.parse(readFileSync(powerRankingPath, "utf8"));
   for (const entry of powerRankingData.ranking || []) {
     const card = cardsByOracleId[entry.oracleId];
-    if (card && typeof card.powerScore?.score === 'number') {
+    if (card && typeof card.powerScore?.score === "number") {
       entry.score = card.powerScore.score;
       entry.rawSourceScore = card.powerScore.score;
       if (card.powerScore.source) {
@@ -380,8 +424,10 @@ if (existsSync(powerRankingPath)) {
     return a.name.localeCompare(b.name);
   });
   powerRankingData.generatedAt = new Date().toISOString();
-  writeFileSync(powerRankingPath, JSON.stringify(powerRankingData, null, 2) + '\n', 'utf8');
-  console.log(`✅ Synchronized data/power-rankings/power-ranking-v1.json (${powerRankingData.ranking.length} entries)`);
+  writeFileSync(powerRankingPath, JSON.stringify(powerRankingData, null, 2) + "\n", "utf8");
+  console.log(
+    `✅ Synchronized data/power-rankings/power-ranking-v1.json (${powerRankingData.ranking.length} entries)`,
+  );
 }
 
-console.log('🎉 Data Model Synchronization complete!');
+console.log("🎉 Data Model Synchronization complete!");

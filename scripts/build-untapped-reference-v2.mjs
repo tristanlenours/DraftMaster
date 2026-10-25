@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { selectRepresentativeScore } from "../src/cards/power-calibration.ts";
 
 const rootDir = process.cwd();
 
@@ -13,16 +14,20 @@ const appDataUntappedPath = process.env.APPDATA
   : null;
 
 // Load backup drafts
-const backupDrafts = existsSync(backupPath)
-  ? JSON.parse(readFileSync(backupPath, "utf8"))
-  : {};
+const backupDrafts = existsSync(backupPath) ? JSON.parse(readFileSync(backupPath, "utf8")) : {};
 
-// Load live drafts from untapped-companion if available
+// Load live drafts from untapped-companion only when explicitly requested via --sync-appdata
 let liveDrafts = {};
-if (appDataUntappedPath && existsSync(appDataUntappedPath)) {
+if (
+  process.argv.includes("--sync-appdata") &&
+  appDataUntappedPath &&
+  existsSync(appDataUntappedPath)
+) {
   try {
     liveDrafts = JSON.parse(readFileSync(appDataUntappedPath, "utf8"));
-    console.log(`[Untapped v2] Charge ${Object.keys(liveDrafts).length} drafts depuis ${appDataUntappedPath}`);
+    console.log(
+      `[Untapped v2] Charge ${Object.keys(liveDrafts).length} drafts depuis ${appDataUntappedPath}`,
+    );
   } catch (err) {
     console.warn(`[Untapped v2] Impossible de lire ${appDataUntappedPath}:`, err.message);
   }
@@ -31,16 +36,16 @@ if (appDataUntappedPath && existsSync(appDataUntappedPath)) {
 // Merge drafts, preferring live drafts if collision (more up-to-date)
 const mergedDrafts = { ...backupDrafts, ...liveDrafts };
 const totalDrafts = Object.keys(mergedDrafts).length;
-console.log(`[Untapped v2] Total de drafts consolides : ${totalDrafts} (backup: ${Object.keys(backupDrafts).length}, nouveaux ajoutes: ${totalDrafts - Object.keys(backupDrafts).length})`);
+console.log(
+  `[Untapped v2] Total de drafts consolides : ${totalDrafts} (backup: ${Object.keys(backupDrafts).length}, nouveaux ajoutes: ${totalDrafts - Object.keys(backupDrafts).length})`,
+);
 
 // Also save back the merged drafts to drafts_backup.json so it is permanently preserved in the repo
 writeFileSync(backupPath, JSON.stringify(mergedDrafts, null, 2), "utf8");
 console.log(`[Untapped v2] drafts_backup.json mis a jour avec succes.`);
 
 // Load metadata
-const metadata = existsSync(metaPath)
-  ? JSON.parse(readFileSync(metaPath, "utf8"))
-  : {};
+const metadata = existsSync(metaPath) ? JSON.parse(readFileSync(metaPath, "utf8")) : {};
 
 // Aggregate observations by normalized card name
 const observationsByName = new Map();
@@ -89,17 +94,20 @@ for (const key of sortedKeys) {
 
   const canonicalName = obs[obs.length - 1].name;
   const latest = obs[obs.length - 1];
+  const representativeScore =
+    selectRepresentativeScore(obs.map((o) => ({ score: o.rawScore, observedAt: o.startTime }))) ??
+    latest.roundedScore;
 
   const uniqueScores = new Set(obs.map((o) => o.roundedScore));
   const minRaw = Math.min(...obs.map((o) => o.rawScore));
   const maxRaw = Math.max(...obs.map((o) => o.rawScore));
 
-  scoresMap[canonicalName] = latest.roundedScore;
+  scoresMap[canonicalName] = representativeScore;
 
   cardDetails.push({
     name: canonicalName,
-    score: latest.roundedScore,
-    rawScore: latest.rawScore,
+    score: representativeScore,
+    rawScore: representativeScore,
     latestObservedAt: latest.observedAt,
     evidenceCount: obs.length,
     minScore: Math.max(0, Math.min(55, Math.round(minRaw))),
