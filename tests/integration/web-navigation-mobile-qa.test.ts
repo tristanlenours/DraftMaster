@@ -4,12 +4,12 @@ import { resolve } from "node:path";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
+import { readWebShellSource } from "../helpers/web-shell-source.ts";
 
 describe("Web Navigation & Mobile Target QA", () => {
   const rootDir = process.cwd();
   const htmlPath = resolve(rootDir, "src", "web", "index.html");
   const cssPath = resolve(rootDir, "src", "web", "styles.css");
-  const jsPath = resolve(rootDir, "src", "web", "app.js");
 
   let htmlContent: string;
   let cssContent: string;
@@ -22,7 +22,7 @@ describe("Web Navigation & Mobile Target QA", () => {
     [htmlContent, cssContent, jsContent] = await Promise.all([
       readFile(htmlPath, "utf-8"),
       readFile(cssPath, "utf-8"),
-      readFile(jsPath, "utf-8"),
+      readWebShellSource(rootDir),
     ]);
 
     const handler = createRequestHandler();
@@ -307,7 +307,11 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(res.headers.get("content-type")).toContain("application/javascript");
       const text = await res.text();
       expect(text).toContain("toggleMobileNav");
-      expect(text).toContain("createLimitedGradesMobileTierSection");
+
+      // The card explorer module it imports is served alongside it.
+      const explorer = await fetch(`${baseUrl}/card-explorer.js`);
+      expect(explorer.status).toBe(200);
+      expect(await explorer.text()).toContain("createLimitedGradesMobileTierSection");
     });
   });
 });
