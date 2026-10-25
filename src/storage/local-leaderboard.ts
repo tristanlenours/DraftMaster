@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import type { LeaderboardEntry } from "./solo-draft-types.ts";
+import type { LeaderboardEntry } from "../solo-draft/solo-draft-types.ts";
 
 const DEFAULT_LEADERBOARD_PATH = "data/leaderboard.json";
 
@@ -53,16 +53,22 @@ export async function saveLeaderboard(
   await writeFile(fullPath, JSON.stringify(entries, null, 2), "utf8");
 }
 
+/**
+ * Adds an entry, or replaces the one with the same `entryId`: publishing the same
+ * Résultat verrouillé twice never duplicates it on the Wall of Records.
+ */
 export async function addLeaderboardEntry(
   entryData: Omit<LeaderboardEntry, "id" | "rank">,
   customPath: string = DEFAULT_LEADERBOARD_PATH,
+  entryId?: string,
 ): Promise<{
   entry: LeaderboardEntry;
   isNewHighScore: boolean;
   allEntries: LeaderboardEntry[];
 }> {
-  const existing = await getLeaderboard(customPath);
-  const newId = `rec-${String(Date.now())}-${Math.random().toString(36).substring(2, 7)}`;
+  const newId =
+    entryId ?? `rec-${String(Date.now())}-${Math.random().toString(36).substring(2, 7)}`;
+  const existing = (await getLeaderboard(customPath)).filter((entry) => entry.id !== newId);
   const newEntry: LeaderboardEntry = {
     ...entryData,
     id: newId,

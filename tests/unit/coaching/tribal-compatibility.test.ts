@@ -5,8 +5,8 @@ import {
   isCardTriballyIncompatible,
   COMPATIBLE_TRIBE_MAP,
 } from "../../../src/domain/coaching/tribal-compatibility.ts";
-import { buildDraftAdvicePrompt } from "../../../src/companion/coach-prompts.ts";
-import { getUnifiedDraftAdvice } from "../../../src/domain/coaching/draft-coach-service.ts";
+import { buildDraftAdvicePrompt } from "../../../src/coach-advice/draft-advice-prompt.ts";
+import { getUnifiedDraftAdvice } from "../../../src/coach-advice/draft-coach-service.ts";
 import type { CardEvaluationInput } from "../../../src/domain/coaching/types.ts";
 import type { CompanionCard } from "../../../src/companion/card-resolver.ts";
 

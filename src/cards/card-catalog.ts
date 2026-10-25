@@ -1,5 +1,5 @@
-import { readFile, readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { join, resolve } from "node:path";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import { fullFormats } from "ajv-formats/dist/formats.js";
 
@@ -104,6 +104,11 @@ export function validateCardDocumentJson(rawJson: string): CatalogResult<CardDoc
   return { ok: true, value: deepFreeze(parsed) };
 }
 
+const catalogFileCache = new Map<
+  string,
+  { readonly signature: string; readonly result: Promise<CatalogResult<CardCatalog>> }
+>();
+
 export class CardCatalog {
   readonly catalog: MasterCardCatalog;
   private readonly byOracleId: Map<string, MasterCatalogCard>;
@@ -151,6 +156,33 @@ export class CardCatalog {
         },
       };
     }
+  }
+
+  /**
+   * Same as `fromFile`, but shares one parsed catalog per file while its size and
+   * mtime are unchanged. The catalog is read-only after construction, so every
+   * session and cube can safely reuse it instead of re-parsing ~7 MB of JSON.
+   */
+  static async fromFileCached(filePath: string): Promise<CatalogResult<CardCatalog>> {
+    const resolvedPath = resolve(filePath);
+    let signature: string;
+    try {
+      const fileStat = await stat(resolvedPath);
+      signature = `${String(fileStat.size)}:${String(fileStat.mtimeMs)}`;
+    } catch {
+      return CardCatalog.fromFile(resolvedPath);
+    }
+
+    const cached = catalogFileCache.get(resolvedPath);
+    if (cached?.signature === signature) return cached.result;
+
+    const result = CardCatalog.fromFile(resolvedPath);
+    catalogFileCache.set(resolvedPath, { signature, result });
+    const settled = await result;
+    if (!settled.ok && catalogFileCache.get(resolvedPath)?.result === result) {
+      catalogFileCache.delete(resolvedPath);
+    }
+    return settled;
   }
 
   static async fromDirectory(dirPath: string): Promise<CatalogResult<CardCatalog>> {

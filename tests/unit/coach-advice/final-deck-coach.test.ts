@@ -4,7 +4,7 @@ import type { CardEvaluationInput } from "../../../src/domain/coaching/index.ts"
 import {
   createFinalDeckCoach,
   type ExternalFinalDeckProposal,
-} from "../../../src/multiplayer-draft/final-deck-coach.ts";
+} from "../../../src/coach-advice/final-deck-coach.ts";
 
 function makePool(): CardEvaluationInput[] {
   return [

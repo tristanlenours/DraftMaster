@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { CardResolver } from "../../../src/companion/card-resolver.ts";
+import { buildDraftAdvicePrompt } from "../../../src/coach-advice/draft-advice-prompt.ts";
 import {
-  buildDraftAdvicePrompt,
   buildOpeningHandPrompt,
   buildTurnCommentaryPrompt,
 } from "../../../src/companion/coach-prompts.ts";

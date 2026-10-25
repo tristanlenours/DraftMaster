@@ -28,6 +28,59 @@ export default tseslint.config(
     },
   },
   {
+    // Modules talk to the draft engine through src/draft/index.ts only, and adapters
+    // (HTTP, storage, providers) are wired by composition roots, not by other modules.
+    files: ["src/**/*.ts"],
+    ignores: ["src/draft/**", "src/companion/server.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/draft/internal/*"],
+              message: "Import from src/draft/index.ts instead of draft internals.",
+            },
+            {
+              group: ["**/adapters.ts"],
+              message: "Adapters are wired by composition roots (scripts/, Companion server).",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    // The deterministic domain never reaches up into orchestration, adapters or products.
+    files: ["src/domain/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "**/coach-advice/*",
+                "**/companion/*",
+                "**/bots/*",
+                "**/bots/**",
+                "**/solo-draft/*",
+                "**/multiplayer-draft/*",
+                "**/tournaments/*",
+                "**/deck-lab/*",
+                "**/storage/*",
+                "**/web/*",
+                "**/draft/internal/*",
+              ],
+              allowTypeImports: true,
+              message: "Domain code must stay free of orchestration and adapter dependencies.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ["src/companion/**/*.ts"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
@@ -48,7 +101,9 @@ export default tseslint.config(
     },
   },
   {
-    files: ["*.config.js", "scripts/**/*.mjs"],
+    // Browser views and server/data scripts: syntax-aware rules without type information.
+    files: ["*.config.js", "scripts/**/*.mjs", "src/web/**/*.js", "src/companion/web/**/*.js"],
+    extends: [...tseslint.configs.recommended],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -56,6 +111,10 @@ export default tseslint.config(
     rules: {
       "no-var": "error",
       "prefer-const": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
     },
   },
 );

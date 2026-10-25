@@ -4,7 +4,7 @@ import {
   rankLeaderboardEntries,
   getLeaderboard,
   addLeaderboardEntry,
-} from "../../../src/solo-draft/leaderboard.ts";
+} from "../../../src/storage/local-leaderboard.ts";
 import type { LeaderboardEntry } from "../../../src/solo-draft/solo-draft-types.ts";
 
 const TEST_LEADERBOARD_FILE = "data/test-leaderboard.json";
@@ -152,5 +152,38 @@ describe("Mur des Records / Leaderboard", () => {
     // Persisted properly
     const reloaded = await getLeaderboard(TEST_LEADERBOARD_FILE);
     expect(reloaded[0]?.playerName).toBe("Super Grand Master");
+  });
+
+  it("upserts an entry published twice under the same id instead of duplicating it", async () => {
+    const payload = {
+      playerName: "Idempotent Drafter",
+      overallScore: 77,
+      macroAxes: { power: 77, synergy: 77, consistency: 77 },
+      radar: { power: 77, synergy: 77, curve: 77, mana: 77, interaction: 77 },
+      archetype: {
+        category: "midrange" as const,
+        primaryColors: ["G" as const],
+        splashColors: [],
+        label: "Mono-Green",
+        description: "",
+      },
+      draftDurationSeconds: 300,
+      totalDurationSeconds: 600,
+      seed: 7,
+      cubeKey: "titou_tribal",
+      occurredAt: "2026-10-25T10:00:00.000Z",
+      isHomologated: true,
+      reports: { walkthroughUrl: "/reports/a.html", boostersUrl: "/reports/a-boosters.html" },
+      maindeckCards: [],
+      basicLands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 17 },
+    };
+
+    const first = await addLeaderboardEntry(payload, TEST_LEADERBOARD_FILE, "rec-session-1");
+    const second = await addLeaderboardEntry(payload, TEST_LEADERBOARD_FILE, "rec-session-1");
+
+    expect(first.entry.id).toBe("rec-session-1");
+    expect(second.entry.id).toBe("rec-session-1");
+    const reloaded = await getLeaderboard(TEST_LEADERBOARD_FILE);
+    expect(reloaded.filter((entry) => entry.id === "rec-session-1")).toHaveLength(1);
   });
 });

@@ -163,7 +163,6 @@ async function processCard(card, index, total) {
   }
 
   let downloadedCard = false;
-  let downloadedArt = false;
 
   // Download full card image
   if (isForce || !hasCard) {
@@ -201,13 +200,11 @@ async function processCard(card, index, total) {
     if (artRes.ok) {
       const buffer = Buffer.from(await artRes.arrayBuffer());
       writeFileSync(artPath, buffer);
-      downloadedArt = true;
     } else if (downloadedCard || hasCard) {
       // If art crop specifically fails, copy card image as fallback so UI never breaks
       const srcBuf = existsSync(cardPath) ? readFileSync(cardPath) : null;
       if (srcBuf) {
         writeFileSync(artPath, srcBuf);
-        downloadedArt = true;
       }
     }
   }

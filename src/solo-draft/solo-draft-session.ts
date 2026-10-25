@@ -1,5 +1,3 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
 import type { CardCatalog } from "../cards/card-catalog.ts";
 import { toCardEvaluationInput } from "../cards/evaluation-input.ts";
 import { loadCoachContext, type CoachContext } from "../cubes/coach-context.ts";
@@ -38,7 +36,7 @@ import {
   type FriendProfile,
 } from "../bots/friends/index.ts";
 import { chooseWithJevBot } from "../bots/jev/jev-bot-decision.ts";
-import { getUnifiedDraftAdvice } from "../domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../coach-advice/draft-coach-service.ts";
 import { computeWheelSignals, type WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
@@ -52,7 +50,7 @@ import type {
   MtGColor,
   PackEvaluationContext,
 } from "../domain/coaching/types.ts";
-import { createSessionIdentityGenerator } from "../cli/session-identity.ts";
+import { createSessionIdentityGenerator } from "../random/session-identity.ts";
 import {
   classifyCubeBombs,
   BASIC_LAND_ENRICHED,
@@ -66,21 +64,21 @@ import {
   type PickWalkthroughStep,
   type SeatDraftSummary,
 } from "../simulation/detailed-simulation.ts";
-import { generateDetailedDraftHtml } from "../simulation/html-report-generator.ts";
-import { generateBoosterDistributionHtml } from "../simulation/booster-distribution-html.ts";
-import { saveUnifiedLeaderboardEntry } from "../storage/cloud-leaderboard.ts";
-import { saveAdminDraft } from "./admin-drafts.ts";
+import {
+  createFileSoloResultOutputs,
+  type SoloLeaderboardPublication,
+  type SoloResultOutputs,
+} from "./solo-result-outputs.ts";
 import {
   createFinalDeckCoach,
   type FinalDeckCoach,
   type FinalDeckRecommendation,
-} from "../multiplayer-draft/final-deck-coach.ts";
-import { LlmRouter } from "../companion/llm-router.ts";
+} from "../coach-advice/final-deck-coach.ts";
+import type { CoachLanguageModel } from "../coach-advice/coach-language-model.ts";
 import type {
   AdminDraftEntry,
   AdminDraftSeatSummary,
   BasicLandCounts,
-  LeaderboardEntry,
   SoloDeckBuildInput,
   SoloDraftDeckRecommendation,
   SoloDraftFinalResult,
@@ -89,6 +87,9 @@ import type {
   SoloDraftStartInput,
   SoloDraftStateDto,
   SoloDraftStatus,
+  SoloDraftPersistenceSnapshot,
+  SoloLeaderboardPayload,
+  SoloLockedResult,
 } from "./solo-draft-types.ts";
 
 function getBotAvatar(profileId?: string): string {
@@ -140,8 +141,8 @@ export class SoloDraftSession {
   public readonly cubeName: string;
   public readonly playerName: string;
   public readonly magicienSlug?: string | undefined;
-  public status: SoloDraftStatus = "drafting";
-  public isHomologated = true;
+  private lifecycleStatus: SoloDraftStatus = "drafting";
+  private homologated = true;
 
   private currentDraft: Draft;
   private readonly snapshot: CubeSnapshot;
@@ -153,12 +154,13 @@ export class SoloDraftSession {
   private readonly instanceToEnrichedMap = new Map<string, EnrichedCard>();
   private readonly policies: PickPolicy[];
   private readonly seatProfiles: readonly FriendProfile[];
+  private readonly seatAssignments: readonly (FriendProfile | null)[];
   private readonly initialBoosters: InitialDealtBooster[] = [];
   private readonly seatStepsMap = new Map<SeatId, PickWalkthroughStep[]>();
-  private lastLeaderboardPayload: Omit<LeaderboardEntry, "id" | "rank"> | null = null;
-  private lastCustomLeaderboardPath?: string | undefined;
+  private lockedResult: SoloLockedResult | null = null;
+  private resultOutputs: SoloResultOutputs | null = null;
 
-  public readonly humanPicks: string[] = [];
+  private readonly recordedPicks: string[] = [];
   private readonly humanSeenBoosters = new Map<
     string,
     {
@@ -169,11 +171,12 @@ export class SoloDraftSession {
   >();
   private cachedAdvicePromise: Promise<SoloDraftPickAdvice> | null = null;
   private readonly finalDeckCoach: FinalDeckCoach;
+  private readonly languageModel: CoachLanguageModel | undefined;
   private botDecksPromise: Promise<Map<SeatId, FinalDeckSummary>> | null = null;
-  public roundIndex = 0;
-  public readonly startedAtTimestamp: number;
-  public draftDurationSeconds = 0;
-  public totalDurationSeconds = 0;
+  private completedRounds = 0;
+  private readonly startedAt: number;
+  private draftSeconds = 0;
+  private totalSeconds = 0;
 
   private constructor(params: {
     sessionId: string;
@@ -188,8 +191,11 @@ export class SoloDraftSession {
     instanceToEnrichedMap: Map<string, EnrichedCard>;
     policies: PickPolicy[];
     seatProfiles: readonly FriendProfile[];
+    seatAssignments: readonly (FriendProfile | null)[];
     initialBoosters: InitialDealtBooster[];
     finalDeckCoach?: FinalDeckCoach | undefined;
+    languageModel?: CoachLanguageModel | undefined;
+    startedAtTimestamp?: number | undefined;
   }) {
     this.sessionId = params.sessionId;
     this.seed = params.seed;
@@ -205,29 +211,62 @@ export class SoloDraftSession {
     this.instanceToEnrichedMap = params.instanceToEnrichedMap;
     this.policies = params.policies;
     this.seatProfiles = params.seatProfiles;
+    this.seatAssignments = params.seatAssignments;
     this.initialBoosters = params.initialBoosters;
     this.cubeKey = params.coachContext.cubeKey;
     this.cubeName = params.coachContext.cubeMeta.meta.name;
-    this.startedAtTimestamp = Date.now();
+    this.startedAt = params.startedAtTimestamp ?? Date.now();
 
-    const isTestEnv = Boolean(process.env.VITEST ?? process.env.NODE_ENV === "test");
+    this.languageModel = params.languageModel;
+    const languageModel = params.languageModel;
     this.finalDeckCoach =
       params.finalDeckCoach ??
-      (isTestEnv
-        ? createFinalDeckCoach()
-        : createFinalDeckCoach({
-            generateJson: async (systemPrompt, userPrompt, options) => {
-              const router = new LlmRouter();
-              return router.generateJson(systemPrompt, userPrompt, options);
-            },
-          }));
+      (languageModel
+        ? createFinalDeckCoach({
+            generateJson: (systemPrompt, userPrompt, options) =>
+              languageModel.generateJson(systemPrompt, userPrompt, options),
+          })
+        : createFinalDeckCoach());
 
     for (let s = 0; s < 8; s++) {
       this.seatStepsMap.set(s as SeatId, []);
     }
   }
 
-  public static async create(input: SoloDraftStartInput): Promise<SoloDraftSession> {
+  /** Lifecycle owned by the session: drafting → deckbuilding → completed. */
+  public get status(): SoloDraftStatus {
+    return this.lifecycleStatus;
+  }
+
+  /** Lost irreversibly as soon as Coaching is used. */
+  public get isHomologated(): boolean {
+    return this.homologated;
+  }
+
+  public get roundIndex(): number {
+    return this.completedRounds;
+  }
+
+  public get humanPicks(): readonly string[] {
+    return Object.freeze([...this.recordedPicks]);
+  }
+
+  public get startedAtTimestamp(): number {
+    return this.startedAt;
+  }
+
+  public get draftDurationSeconds(): number {
+    return this.draftSeconds;
+  }
+
+  public get totalDurationSeconds(): number {
+    return this.totalSeconds;
+  }
+
+  public static async create(
+    input: SoloDraftStartInput,
+    restoring: { readonly startedAtTimestamp?: number | undefined } = {},
+  ): Promise<SoloDraftSession> {
     const playerName = input.playerName.trim() || "Joueur";
     const seed =
       input.seed !== undefined && Number.isInteger(input.seed)
@@ -441,7 +480,10 @@ export class SoloDraftSession {
       instanceToEnrichedMap,
       policies,
       seatProfiles,
+      seatAssignments,
       initialBoosters,
+      languageModel: input.languageModel,
+      startedAtTimestamp: restoring.startedAtTimestamp,
     });
     session.prefetchPickAdvice();
     return session;
@@ -462,9 +504,9 @@ export class SoloDraftSession {
     const nextBoosterFromBotName =
       incomingProfile?.botName ?? incomingProfile?.name ?? `Bot ${String(incomingSeatId)}`;
     const elapsedSeconds =
-      this.status === "completed"
-        ? this.totalDurationSeconds
-        : Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+      this.lifecycleStatus === "completed"
+        ? this.totalSeconds
+        : Math.round((Date.now() - this.startedAt) / 1000);
     const seats: readonly SoloDraftSeatDto[] = this.seatProfiles.map((p, idx) => ({
       seatNumber: idx,
       id: p.id,
@@ -490,8 +532,8 @@ export class SoloDraftSession {
       },
       playerName: this.playerName,
       magicienSlug: this.magicienSlug,
-      status: this.status,
-      roundIndex: this.roundIndex,
+      status: this.lifecycleStatus,
+      roundIndex: this.completedRounds,
       packNumber: view.packNumber,
       pickNumber: view.pickNumber,
       totalRounds: 45,
@@ -500,9 +542,10 @@ export class SoloDraftSession {
       currentBooster,
       playerPool,
       elapsedSeconds,
-      isHomologated: this.isHomologated,
+      isHomologated: this.homologated,
       lastPickedCard,
-      deckRecommendation: this.status === "deckbuilding" ? this.getDeckRecommendation() : undefined,
+      deckRecommendation:
+        this.lifecycleStatus === "deckbuilding" ? this.getDeckRecommendation() : undefined,
       seats,
     };
   }
@@ -515,14 +558,14 @@ export class SoloDraftSession {
     cardInstanceId: string,
     options: { prefetchAdvice?: boolean } = {},
   ): SoloDraftStateDto {
-    if (this.status !== "drafting") {
-      throw new Error(`Cannot make pick: draft status is '${this.status}'`);
+    if (this.lifecycleStatus !== "drafting") {
+      throw new Error(`Cannot make pick: draft status is '${this.lifecycleStatus}'`);
     }
 
     const view = getDraftView(this.currentDraft);
-    if (view.status === "completed" || this.roundIndex >= 45) {
-      this.status = "deckbuilding";
-      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    if (view.status === "completed" || this.completedRounds >= 45) {
+      this.lifecycleStatus = "deckbuilding";
+      this.draftSeconds = Math.round((Date.now() - this.startedAt) / 1000);
       return this.getStateDto();
     }
 
@@ -536,10 +579,10 @@ export class SoloDraftSession {
       throw new Error(`Card instance '${cardInstanceId}' is not in current booster`);
     }
 
-    const round = this.roundIndex;
+    const round = this.completedRounds;
     const packNumber = view.packNumber;
     const pickNumber = view.pickNumber;
-    const occurredAt = new Date(this.startedAtTimestamp + (round + 1) * 1000).toISOString();
+    const occurredAt = new Date(this.startedAt + (round + 1) * 1000).toISOString();
     const evaluationContext = {
       cubeKey: this.snapshot.cubeKey,
       catalog: this.catalog,
@@ -551,7 +594,7 @@ export class SoloDraftSession {
     const roundSteps = new Map<SeatId, Omit<PickWalkthroughStep, "eventSequence">>();
 
     // 1. Human Decision (Seat 0)
-    this.humanPicks.push(cardInstanceId);
+    this.recordedPicks.push(cardInstanceId);
     if (pickNumber <= 7) {
       const passedCardIds = booster0.remainingCardInstanceIds.filter((id) => id !== cardInstanceId);
       this.humanSeenBoosters.set(booster0.boosterId, {
@@ -827,12 +870,12 @@ export class SoloDraftSession {
     }
 
     this.currentDraft = roundResult.value.draft;
-    this.roundIndex++;
+    this.completedRounds++;
     this.cachedAdvicePromise = null;
 
-    if (this.roundIndex >= 45) {
-      this.status = "deckbuilding";
-      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    if (this.completedRounds >= 45) {
+      this.lifecycleStatus = "deckbuilding";
+      this.draftSeconds = Math.round((Date.now() - this.startedAt) / 1000);
       this.startBotDeckbuilding();
     } else if (options.prefetchAdvice !== false) {
       this.prefetchPickAdvice();
@@ -846,19 +889,19 @@ export class SoloDraftSession {
     options: { prefetchAdvice?: boolean; botEngine?: "deterministic" | "jev" } = {},
   ): Promise<SoloDraftStateDto> {
     const botEngine = options.botEngine ?? "deterministic";
-    const router = new LlmRouter();
-    if (botEngine !== "jev" || !router.hasJevKey()) {
+    const router = this.languageModel;
+    if (botEngine !== "jev" || !router?.hasJevKey()) {
       return this.makePick(cardInstanceId, options);
     }
 
-    if (this.status !== "drafting") {
-      throw new Error(`Cannot make pick: draft status is '${this.status}'`);
+    if (this.lifecycleStatus !== "drafting") {
+      throw new Error(`Cannot make pick: draft status is '${this.lifecycleStatus}'`);
     }
 
     const view = getDraftView(this.currentDraft);
-    if (view.status === "completed" || this.roundIndex >= 45) {
-      this.status = "deckbuilding";
-      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    if (view.status === "completed" || this.completedRounds >= 45) {
+      this.lifecycleStatus = "deckbuilding";
+      this.draftSeconds = Math.round((Date.now() - this.startedAt) / 1000);
       return this.getStateDto();
     }
 
@@ -872,10 +915,10 @@ export class SoloDraftSession {
       throw new Error(`Card instance '${cardInstanceId}' is not in current booster`);
     }
 
-    const round = this.roundIndex;
+    const round = this.completedRounds;
     const packNumber = view.packNumber;
     const pickNumber = view.pickNumber;
-    const occurredAt = new Date(this.startedAtTimestamp + (round + 1) * 1000).toISOString();
+    const occurredAt = new Date(this.startedAt + (round + 1) * 1000).toISOString();
     const evaluationContext = {
       cubeKey: this.snapshot.cubeKey,
       catalog: this.catalog,
@@ -887,7 +930,7 @@ export class SoloDraftSession {
     const roundSteps = new Map<SeatId, Omit<PickWalkthroughStep, "eventSequence">>();
 
     // 1. Human Decision (Seat 0)
-    this.humanPicks.push(cardInstanceId);
+    this.recordedPicks.push(cardInstanceId);
     if (pickNumber <= 7) {
       const passedCardIds = booster0.remainingCardInstanceIds.filter((id) => id !== cardInstanceId);
       this.humanSeenBoosters.set(booster0.boosterId, {
@@ -1162,12 +1205,12 @@ export class SoloDraftSession {
     }
 
     this.currentDraft = roundResult.value.draft;
-    this.roundIndex++;
+    this.completedRounds++;
     this.cachedAdvicePromise = null;
 
-    if (this.roundIndex >= 45) {
-      this.status = "deckbuilding";
-      this.draftDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    if (this.completedRounds >= 45) {
+      this.lifecycleStatus = "deckbuilding";
+      this.draftSeconds = Math.round((Date.now() - this.startedAt) / 1000);
       this.startBotDeckbuilding();
     } else if (options.prefetchAdvice !== false) {
       this.prefetchPickAdvice();
@@ -1243,14 +1286,31 @@ export class SoloDraftSession {
   public async buildDeckAndFinalize(
     input: SoloDeckBuildInput,
     options: {
+      /** Where derived outputs go; defaults to files built from the paths below. */
+      outputs?: SoloResultOutputs;
       customReportsDir?: string;
       reportsUrlPrefix?: string;
       customLeaderboardPath?: string;
       customAdminDraftsPath?: string;
     } = {},
   ): Promise<SoloDraftFinalResult> {
-    if (this.status !== "deckbuilding") {
-      throw new Error(`Cannot finalize deck: status is '${this.status}'`);
+    const outputs =
+      options.outputs ??
+      createFileSoloResultOutputs({
+        reportsDirectory: options.customReportsDir,
+        reportsUrlPrefix: options.reportsUrlPrefix,
+        adminDraftsPath: options.customAdminDraftsPath,
+        leaderboardPath: options.customLeaderboardPath,
+      });
+    this.resultOutputs = outputs;
+
+    // A locked result is final: a retry only finishes the outputs that failed.
+    if (this.lockedResult) {
+      return this.completeOutputs(this.lockedResult, outputs);
+    }
+
+    if (this.lifecycleStatus !== "deckbuilding") {
+      throw new Error(`Cannot finalize deck: status is '${this.lifecycleStatus}'`);
     }
 
     const finalDraftView = getDraftView(this.currentDraft);
@@ -1262,7 +1322,7 @@ export class SoloDraftSession {
       }
     }
 
-    this.totalDurationSeconds = Math.round((Date.now() - this.startedAtTimestamp) / 1000);
+    this.totalSeconds = Math.round((Date.now() - this.startedAt) / 1000);
 
     // 1. Basic Lands
     const targetBasicLands = 40 - input.maindeckCardInstanceIds.length;
@@ -1447,7 +1507,7 @@ export class SoloDraftSession {
         powerRankingId: this.coachContext.provenance.powerRankingId,
       },
       seed: this.seed,
-      startedAt: new Date(this.startedAtTimestamp).toISOString(),
+      startedAt: new Date(this.startedAt).toISOString(),
       completedAt,
       bombDefinition: this.bombDefinition,
       draftReport: draftReportResult.value,
@@ -1455,45 +1515,28 @@ export class SoloDraftSession {
       initialBoosters: this.initialBoosters,
     };
 
-    // 5. Save HTML Reports
+    // 5. Reports first: they are idempotent and the result is locked only once they exist.
     const safePlayerName = this.playerName.replace(/[^a-zA-Z0-9_-]/g, "_");
-    const reportsDir = options.customReportsDir ?? "reports";
-    const walkthroughFilename = `draft-${String(this.seed)}-${safePlayerName}.html`;
-    const boostersFilename = `draft-${String(this.seed)}-${safePlayerName}-boosters.html`;
+    const reports = await outputs.writeReports(
+      fullReport,
+      `draft-${String(this.seed)}-${safePlayerName}`,
+    );
 
-    const fullWalkthroughPath = resolve(process.cwd(), reportsDir, walkthroughFilename);
-    const fullBoostersPath = resolve(process.cwd(), reportsDir, boostersFilename);
-
-    await mkdir(dirname(fullWalkthroughPath), { recursive: true });
-
-    const walkthroughHtml = generateDetailedDraftHtml(fullReport);
-    const boostersHtml = generateBoosterDistributionHtml(fullReport);
-
-    await writeFile(fullWalkthroughPath, walkthroughHtml, "utf8");
-    await writeFile(fullBoostersPath, boostersHtml, "utf8");
-
-    const reportsUrlPrefix = options.reportsUrlPrefix ?? `/${reportsDir}`;
-    const walkthroughUrl = `${reportsUrlPrefix}/${walkthroughFilename}`;
-    const boostersUrl = `${reportsUrlPrefix}/${boostersFilename}`;
-
-    // 6. Add to Leaderboard (Cloud Supabase + Local JSON Sync) ONLY if publishToLeaderboard is true
-    const payload: Omit<LeaderboardEntry, "id" | "rank"> = {
+    const leaderboardPayload: SoloLeaderboardPayload = {
+      sessionId: this.sessionId,
       playerName: this.playerName,
       magicienSlug: this.magicienSlug,
       overallScore: humanDeckSummary.overallScore,
       macroAxes: humanDeckSummary.macroAxes,
       radar: humanDeckSummary.radar,
       archetype: humanDeckSummary.archetype,
-      draftDurationSeconds: this.draftDurationSeconds,
-      totalDurationSeconds: this.totalDurationSeconds,
+      draftDurationSeconds: this.draftSeconds,
+      totalDurationSeconds: this.totalSeconds,
       seed: this.seed,
       cubeKey: this.cubeKey,
       occurredAt: completedAt,
-      isHomologated: this.isHomologated,
-      reports: {
-        walkthroughUrl,
-        boostersUrl,
-      },
+      isHomologated: this.homologated,
+      reports: { walkthroughUrl: reports.walkthroughUrl, boostersUrl: reports.boostersUrl },
       maindeckCards: maindeckSpells.map((c) => ({
         instanceId: c.instanceId,
         name: c.name,
@@ -1506,73 +1549,93 @@ export class SoloDraftSession {
       basicLands,
     };
 
-    this.lastLeaderboardPayload = payload;
-    this.lastCustomLeaderboardPath = options.customLeaderboardPath;
-
-    const shouldPublish = Boolean(input.publishToLeaderboard);
-    let leaderboardEntry: LeaderboardEntry | undefined;
-    let isNewHighScore = false;
-
-    if (shouldPublish) {
-      const leaderboardResult = await saveUnifiedLeaderboardEntry(
-        payload,
-        options.customLeaderboardPath,
-      );
-      leaderboardEntry = leaderboardResult.entry;
-      isNewHighScore = leaderboardResult.isNewHighScore;
-    }
-
-    // 7. Save Admin Draft with all 8 seats (human + 7 bots)
-    const adminSeats: AdminDraftSeatSummary[] = seatsSummary.map((s) => ({
-      seatId: s.seatId,
-      isBot: s.seatId !== 0,
-      botId: s.botId,
-      botName: s.botName,
-      title: s.title,
-      quote: s.quote,
-      level: s.level,
-      preferredColors: s.preferredColors ?? [],
-      deck: s.finalDeck,
+    const adminSeats: AdminDraftSeatSummary[] = seatsSummary.map((seat) => ({
+      seatId: seat.seatId,
+      isBot: seat.seatId !== 0,
+      botId: seat.botId,
+      botName: seat.botName,
+      title: seat.title,
+      quote: seat.quote,
+      level: seat.level,
+      preferredColors: seat.preferredColors ?? [],
+      deck: seat.finalDeck,
     }));
 
     const adminEntry: AdminDraftEntry = {
-      id: `draft-${String(this.seed)}-${safePlayerName}-${String(Date.now())}`,
+      id: `draft-${String(this.seed)}-${safePlayerName}-${this.sessionId}`,
       sessionId: this.sessionId,
       seed: this.seed,
       cubeKey: this.cubeKey,
       cubeName: this.cubeName,
       playerName: this.playerName,
-      startedAt: new Date(this.startedAtTimestamp).toISOString(),
+      startedAt: new Date(this.startedAt).toISOString(),
       completedAt,
-      draftDurationSeconds: this.draftDurationSeconds,
-      totalDurationSeconds: this.totalDurationSeconds,
-      reports: {
-        walkthroughUrl,
-        boostersUrl,
-      },
+      draftDurationSeconds: this.draftSeconds,
+      totalDurationSeconds: this.totalSeconds,
+      reports: { walkthroughUrl: reports.walkthroughUrl, boostersUrl: reports.boostersUrl },
       seats: adminSeats,
     };
 
-    await saveAdminDraft(adminEntry, options.customAdminDraftsPath);
-
-    this.status = "completed";
-
-    return {
-      sessionId: this.sessionId,
-      playerName: this.playerName,
-      seed: this.seed,
-      evaluation: humanDeckSummary,
-      leaderboardEntry,
-      isPublished: shouldPublish,
-      isNewHighScore,
-      reports: {
-        walkthroughPath: fullWalkthroughPath,
-        boostersPath: fullBoostersPath,
-        walkthroughUrl,
-        boostersUrl,
+    // 6. Lock the result: from here on it is never recomputed.
+    this.lockedResult = {
+      result: {
+        sessionId: this.sessionId,
+        playerName: this.playerName,
+        seed: this.seed,
+        evaluation: humanDeckSummary,
+        isPublished: Boolean(input.publishToLeaderboard),
+        isNewHighScore: false,
+        reports,
+        seats: adminSeats,
       },
-      seats: adminSeats,
+      leaderboardEntryId: `rec-${this.sessionId}`,
+      leaderboardPayload,
+      adminEntry,
+      publication: { adminRecorded: false, leaderboardPublished: false },
     };
+    this.lifecycleStatus = "completed";
+
+    return this.completeOutputs(this.lockedResult, outputs);
+  }
+
+  /** Runs the outputs still pending for a locked result, recording each success. */
+  private async completeOutputs(
+    locked: SoloLockedResult,
+    outputs: SoloResultOutputs,
+  ): Promise<SoloDraftFinalResult> {
+    if (!locked.publication.adminRecorded) {
+      await outputs.recordAdminDraft(locked.adminEntry);
+      this.lockedResult = {
+        ...locked,
+        publication: { ...locked.publication, adminRecorded: true },
+      };
+    }
+    const current = this.lockedResult ?? locked;
+    if (current.result.isPublished && !current.publication.leaderboardPublished) {
+      await this.publishLocked(current, outputs);
+    }
+    return (this.lockedResult ?? current).result;
+  }
+
+  private async publishLocked(
+    locked: SoloLockedResult,
+    outputs: SoloResultOutputs,
+  ): Promise<SoloLeaderboardPublication> {
+    const publication = await outputs.publishLeaderboard(
+      locked.leaderboardEntryId,
+      locked.leaderboardPayload,
+    );
+    this.lockedResult = {
+      ...locked,
+      result: {
+        ...locked.result,
+        isPublished: true,
+        leaderboardEntry: publication.entry,
+        isNewHighScore: publication.isNewHighScore,
+      },
+      publication: { ...locked.publication, leaderboardPublished: true },
+    };
+    return publication;
   }
 
   public startBotDeckbuilding(): void {
@@ -1633,7 +1696,7 @@ export class SoloDraftSession {
   }
 
   public prefetchPickAdvice(): void {
-    if (this.status !== "drafting") return;
+    if (this.lifecycleStatus !== "drafting") return;
     const view = getDraftView(this.currentDraft);
     const seat0 = view.seats[0];
     const booster0 = seat0?.currentBooster;
@@ -1689,6 +1752,7 @@ export class SoloDraftSession {
         synergyProfile: this.coachContext.synergyProfile,
       },
       skipLlm: options.skipLlm,
+      llmRouter: this.languageModel,
       wheelSignals,
       isPrefetch: options.isPrefetch,
     });
@@ -1709,11 +1773,11 @@ export class SoloDraftSession {
   }
 
   public async getPickAdvice(options: { skipLlm?: boolean } = {}): Promise<SoloDraftPickAdvice> {
-    if (this.status !== "drafting") {
-      throw new Error(`Cannot get pick advice: draft status is '${this.status}'`);
+    if (this.lifecycleStatus !== "drafting") {
+      throw new Error(`Cannot get pick advice: draft status is '${this.lifecycleStatus}'`);
     }
 
-    this.isHomologated = false;
+    this.homologated = false;
 
     // If advice was pre-calculated in the background, return it immediately (0ms wait)
     if (this.cachedAdvicePromise && !options.skipLlm) {
@@ -1738,13 +1802,8 @@ export class SoloDraftSession {
     return this.computePickAdvice(options);
   }
 
-  public getPersistenceSnapshot(): {
-    readonly sessionId: string;
-    readonly seed: number;
-    readonly playerName: string;
-    readonly magicienSlug?: string | undefined;
+  public getPersistenceSnapshot(): SoloDraftPersistenceSnapshot & {
     readonly cubeKey: string;
-    readonly humanPicks: readonly string[];
     readonly isHomologated: boolean;
     readonly startedAtTimestamp: number;
   } {
@@ -1754,28 +1813,32 @@ export class SoloDraftSession {
       playerName: this.playerName,
       magicienSlug: this.magicienSlug,
       cubeKey: this.snapshot.cubeKey,
-      humanPicks: [...this.humanPicks],
-      isHomologated: this.isHomologated,
-      startedAtTimestamp: this.startedAtTimestamp,
+      humanPicks: [...this.recordedPicks],
+      isHomologated: this.homologated,
+      startedAtTimestamp: this.startedAt,
+      draftDurationSeconds: this.draftSeconds,
+      totalDurationSeconds: this.totalSeconds,
+      seatAssignments: this.seatAssignments,
+      ...(this.lockedResult ? { lockedResult: this.lockedResult } : {}),
     };
   }
 
-  public static async restore(saved: {
-    readonly sessionId: string;
-    readonly seed: number;
-    readonly playerName: string;
-    readonly magicienSlug?: string | undefined;
-    readonly cubeKey?: string | undefined;
-    readonly humanPicks: readonly string[];
-    readonly isHomologated?: boolean | undefined;
-  }): Promise<SoloDraftSession> {
-    const session = await SoloDraftSession.create({
-      playerName: saved.playerName,
-      magicienSlug: saved.magicienSlug,
-      cubeKey: saved.cubeKey ?? "titou_tribal",
-      seed: saved.seed,
-      explicitSessionId: saved.sessionId,
-    });
+  public static async restore(
+    saved: SoloDraftPersistenceSnapshot,
+    dependencies: { readonly languageModel?: CoachLanguageModel | undefined } = {},
+  ): Promise<SoloDraftSession> {
+    const session = await SoloDraftSession.create(
+      {
+        languageModel: dependencies.languageModel,
+        playerName: saved.playerName,
+        magicienSlug: saved.magicienSlug,
+        cubeKey: saved.cubeKey ?? "titou_tribal",
+        seed: saved.seed,
+        explicitSessionId: saved.sessionId,
+        seatAssignments: saved.seatAssignments,
+      },
+      { startedAtTimestamp: saved.startedAtTimestamp },
+    );
 
     for (const pickId of saved.humanPicks) {
       if (session.status === "drafting") {
@@ -1783,14 +1846,18 @@ export class SoloDraftSession {
       }
     }
 
-    if (session.status === "drafting") {
+    // Replayed picks recompute durations from "now"; the saved ones are authoritative.
+    if (saved.draftDurationSeconds !== undefined) session.draftSeconds = saved.draftDurationSeconds;
+    if (saved.totalDurationSeconds !== undefined) session.totalSeconds = saved.totalDurationSeconds;
+    if (saved.isHomologated !== undefined) session.homologated = saved.isHomologated;
+
+    if (saved.lockedResult) {
+      session.lockedResult = saved.lockedResult;
+      session.lifecycleStatus = "completed";
+    } else if (session.status === "drafting") {
       session.prefetchPickAdvice();
     } else if (session.status === "deckbuilding") {
       session.startBotDeckbuilding();
-    }
-
-    if (saved.isHomologated !== undefined) {
-      session.isHomologated = saved.isHomologated;
     }
 
     return session;
@@ -1836,12 +1903,12 @@ export class SoloDraftSession {
   public async getAssistedDeckRecommendation(
     coach: FinalDeckCoach,
   ): Promise<SoloDraftDeckRecommendation> {
-    if (this.status !== "deckbuilding") {
-      throw new Error(`Cannot recommend deck: status is '${this.status}'`);
+    if (this.lifecycleStatus !== "deckbuilding") {
+      throw new Error(`Cannot recommend deck: status is '${this.lifecycleStatus}'`);
     }
 
     // The homologation is removed before any external request or fallback can resolve.
-    this.isHomologated = false;
+    this.homologated = false;
     const view = getDraftView(this.currentDraft);
     const pool = (view.seats[0]?.priorPool ?? []).map(
       (id) => this.instanceToInputMap.get(id) ?? { id, name: id, staticScore: 25, colors: [] },
@@ -1869,18 +1936,19 @@ export class SoloDraftSession {
     };
   }
 
-  public async publishToLeaderboard(customPath?: string): Promise<{
-    readonly entry: LeaderboardEntry;
-    readonly isNewHighScore: boolean;
-  }> {
-    if (!this.lastLeaderboardPayload) {
+  /** Publishes a locked training result to the Wall of Records; repeated calls are no-ops. */
+  public async publishToLeaderboard(
+    outputs: SoloResultOutputs | undefined = this.resultOutputs ?? undefined,
+  ): Promise<SoloLeaderboardPublication> {
+    const locked = this.lockedResult;
+    if (!locked) {
       throw new Error("Aucun résultat de draft disponible pour publication.");
     }
-    const result = await saveUnifiedLeaderboardEntry(
-      this.lastLeaderboardPayload,
-      customPath ?? this.lastCustomLeaderboardPath,
-    );
-    return result;
+    const already = locked.result.leaderboardEntry;
+    if (locked.publication.leaderboardPublished && already) {
+      return { entry: already, isNewHighScore: locked.result.isNewHighScore };
+    }
+    return this.publishLocked(locked, outputs ?? createFileSoloResultOutputs());
   }
 
   private getEnrichedCard(instanceId: string): EnrichedCard {

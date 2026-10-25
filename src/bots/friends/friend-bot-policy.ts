@@ -1,7 +1,7 @@
 import { uniformInt } from "pure-rand/distribution/uniformInt";
 import { xoroshiro128plus } from "pure-rand/generator/xoroshiro128plus";
 
-import type { Result } from "../../draft/internal/errors.ts";
+import type { Result } from "../../draft/index.ts";
 import type { CardEvaluationInput, PackEvaluationContext } from "../../domain/coaching/types.ts";
 import { evaluatePack, getEffectiveProducingColors } from "../../domain/coaching/dynamic-score.ts";
 import type {

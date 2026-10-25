@@ -2,11 +2,11 @@ import { createHash } from "node:crypto";
 
 import { describe, expect, it } from "vitest";
 
+import { createMultiplayerDraftCoordinator } from "../../src/multiplayer-draft/index.ts";
 import {
   createFinalDeckCoach,
-  createMultiplayerDraftCoordinator,
   type FinalDeckCoachRequest,
-} from "../../src/multiplayer-draft/index.ts";
+} from "../../src/coach-advice/final-deck-coach.ts";
 import {
   buildMultiplayerSnapshot,
   createMemoryMultiplayerDraftStore,

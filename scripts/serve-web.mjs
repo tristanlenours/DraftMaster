@@ -1,9 +1,16 @@
 import { createServer } from "node:http";
-import { readFile, writeFile, mkdir, unlink, readdir, stat } from "node:fs/promises";
-import { join, extname, resolve } from "node:path";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { join, extname, resolve, relative, isAbsolute } from "node:path";
+import { promisify } from "node:util";
+import {
+  brotliCompress as brotliCompressCallback,
+  gzip as gzipCallback,
+  constants as zlibConstants,
+} from "node:zlib";
 import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
-import { SoloDraftSession } from "../src/solo-draft/solo-draft-session.ts";
-import { getLeaderboard } from "../src/solo-draft/leaderboard.ts";
+import { loadLocalEnvFiles } from "../src/config/env-files.ts";
+import { createSoloDraftHttpHandler } from "../src/solo-draft/http-handler.ts";
+import { createFileSoloDraftStore } from "../src/solo-draft/solo-draft-store.ts";
 import {
   getUnifiedLeaderboard,
   getMagiciensProfilesWithStats,
@@ -23,31 +30,22 @@ import { CardCatalog } from "../src/cards/card-catalog.ts";
 import { toCardEvaluationInput } from "../src/cards/evaluation-input.ts";
 import { createDeckLabHttpHandler } from "../src/deck-lab/http-handler.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
+import { createMultiplayerDraftCoordinator } from "../src/multiplayer-draft/index.ts";
 import {
-  createFinalDeckCoach,
   createLocalFileMultiplayerDraftStore,
-  createMultiplayerDraftCoordinator,
   createMultiplayerDraftHttpHandler,
-} from "../src/multiplayer-draft/index.ts";
+} from "../src/multiplayer-draft/adapters.ts";
+import { createFinalDeckCoach } from "../src/coach-advice/final-deck-coach.ts";
+import { createTournamentCoordinator } from "../src/tournaments/index.ts";
 import {
   createJsonLineTournamentObservability,
   createSupabaseTournamentStore,
-  createTournamentCoordinator,
   createTournamentCubeCatalog,
   createTournamentHttpHandler,
   createTournamentSupabaseGateway,
-} from "../src/tournaments/index.ts";
+} from "../src/tournaments/adapters.ts";
 
-try {
-  process.loadEnvFile?.();
-} catch {
-  // .env is optional
-}
-try {
-  process.loadEnvFile?.(".env.local");
-} catch {
-  // .env.local is optional
-}
+loadLocalEnvFiles();
 
 const rootDir = process.cwd();
 const webDir = resolve(rootDir, "src", "web");
@@ -55,6 +53,8 @@ const reportsDir = resolve(rootDir, "reports");
 const draftSessionsDir = resolve(rootDir, "data", "draft-sessions");
 const multiplayerDraftPath = resolve(rootDir, "data", "multiplayer-draft", "global.json");
 const fallbackMultiplayerResumeSecret = randomBytes(32);
+const brotliCompress = promisify(brotliCompressCallback);
+const gzip = promisify(gzipCallback);
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -68,45 +68,74 @@ const MIME_TYPES = {
   ".svg": "image/svg+xml",
 };
 
-// In-memory active draft sessions
-const activeSessions = new Map();
+// Only these subtrees of data/ are public; sessions, records and archives stay private.
+const PUBLIC_DATA_PREFIXES = ["cubes/", "cards/master-cards.json", "cards/images/"];
 
-async function saveSessionToDisk(session) {
-  try {
-    await mkdir(draftSessionsDir, { recursive: true });
-    const snapshot = session.getPersistenceSnapshot();
-    const filePath = join(draftSessionsDir, `${snapshot.sessionId}.json`);
-    await writeFile(filePath, JSON.stringify(snapshot, null, 2), "utf-8");
-  } catch (err) {
-    console.error("[Persistence] Erreur sauvegarde session:", err?.message || err);
-  }
+const COMPRESSIBLE_EXTENSIONS = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg"]);
+const compressedAssetCache = new Map();
+
+function isInside(root, candidate) {
+  const rel = relative(root, candidate);
+  return rel !== "" && !rel.startsWith("..") && !isAbsolute(rel);
 }
 
-async function getOrRestoreSession(sessionId) {
-  if (!sessionId) return null;
-  let session = activeSessions.get(sessionId);
-  if (session) return session;
+/**
+ * Maps a decoded URL pathname to a file under an allowed root, or null.
+ * Rejects any traversal segment after decoding (%2F, %5C, ..).
+ */
+function resolveStaticFile(pathname, roots) {
+  if (pathname.includes("\0")) return null;
+  const segments = pathname.split(/[/\\]+/);
+  if (segments.some((segment) => segment === "..")) return null;
 
-  try {
-    const filePath = join(draftSessionsDir, `${sessionId}.json`);
-    const content = await readFile(filePath, "utf-8");
-    const snapshot = JSON.parse(content);
-    session = await SoloDraftSession.restore(snapshot);
-    activeSessions.set(session.sessionId, session);
-    console.log(
-      `[Persistence] Session ${sessionId} restaurée depuis le disque (${snapshot.humanPicks?.length ?? 0} picks)`,
-    );
-    return session;
-  } catch {
-    return null;
+  let root;
+  let relativePath;
+  if (pathname.startsWith("/data/")) {
+    relativePath = pathname.slice("/data/".length);
+    if (!PUBLIC_DATA_PREFIXES.some((prefix) => relativePath.startsWith(prefix))) return null;
+    root = roots.dataDir;
+  } else if (pathname.startsWith("/reports/")) {
+    relativePath = pathname.slice("/reports/".length);
+    root = roots.reportsDir;
+  } else {
+    relativePath = pathname.slice(1);
+    root = roots.webDir;
   }
+
+  const filePath = resolve(root, relativePath);
+  return isInside(root, filePath) ? filePath : null;
 }
 
-async function removeSessionFromDisk(sessionId) {
-  try {
-    const filePath = join(draftSessionsDir, `${sessionId}.json`);
-    await unlink(filePath).catch(() => {});
-  } catch {}
+function pickEncoding(acceptEncoding) {
+  const accepted = String(acceptEncoding ?? "");
+  if (/\bbr\b/.test(accepted)) return "br";
+  if (/\bgzip\b/.test(accepted)) return "gzip";
+  return null;
+}
+
+async function getEncodedAsset(filePath, fileStat, encoding, content) {
+  const key = `${filePath}:${encoding}`;
+  const cached = compressedAssetCache.get(key);
+  if (cached && cached.mtimeMs === fileStat.mtimeMs && cached.size === fileStat.size) {
+    return cached.body;
+  }
+  const body =
+    encoding === "br"
+      ? await brotliCompress(content, {
+          params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 9 },
+        })
+      : await gzip(content, { level: 9 });
+  compressedAssetCache.set(key, { mtimeMs: fileStat.mtimeMs, size: fileStat.size, body });
+  return body;
+}
+
+function parseAllowedOrigins(value) {
+  return new Set(
+    String(value ?? "")
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+  );
 }
 
 function computeAuthToken(password) {
@@ -363,9 +392,6 @@ async function readJsonBody(req) {
 function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
   });
   res.end(JSON.stringify(data));
 }
@@ -401,6 +427,10 @@ export function createRequestHandler(options = {}) {
       ? Boolean(options.authEnabled && sitePassword)
       : Boolean(sitePassword && !isTestEnv);
   const handlerReportsDir = resolve(options.reportsDirectory ?? reportsDir);
+  const staticRoots = { dataDir: resolve(rootDir, "data"), reportsDir: handlerReportsDir, webDir };
+  const allowedOrigins = parseAllowedOrigins(
+    options.corsAllowedOrigins ?? process.env.CORS_ALLOWED_ORIGINS,
+  );
   const adminDraftsPath = options.adminDraftsPath;
   const leaderboardPath = options.leaderboardPath;
   const multiplayerResumeSecret =
@@ -409,7 +439,7 @@ export function createRequestHandler(options = {}) {
     fallbackMultiplayerResumeSecret;
   let multiplayerCatalogPromise;
   const loadMultiplayerCatalog = async () => {
-    multiplayerCatalogPromise ??= CardCatalog.fromFile(
+    multiplayerCatalogPromise ??= CardCatalog.fromFileCached(
       resolve(rootDir, "data", "cards", "master-cards.json"),
     );
     const result = await multiplayerCatalogPromise;
@@ -459,6 +489,25 @@ export function createRequestHandler(options = {}) {
       generateJson: (systemPrompt, userPrompt, profile) =>
         multiplayerLlm.generateJson(systemPrompt, userPrompt, profile),
     });
+  // Solo advice provider is chosen here, at the composition root. Tests get the
+  // deterministic engine unless they inject one explicitly.
+  const soloLanguageModel =
+    options.soloLanguageModel !== undefined
+      ? (options.soloLanguageModel ?? undefined)
+      : isTestEnv
+        ? undefined
+        : multiplayerLlm;
+  const soloDraftHandler = createSoloDraftHttpHandler({
+    store:
+      options.soloDraftStore ??
+      createFileSoloDraftStore(options.soloSessionsDirectory ?? draftSessionsDir),
+    finalDeckCoach,
+    languageModel: soloLanguageModel,
+    reportsDirectory: handlerReportsDir,
+    reportsUrlPrefix: "/reports",
+    adminDraftsPath,
+    leaderboardPath,
+  });
   const multiplayerCoordinator =
     options.multiplayerCoordinator ??
     createMultiplayerDraftCoordinator({
@@ -599,12 +648,23 @@ export function createRequestHandler(options = {}) {
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-    const pathname = decodeURIComponent(url.pathname);
+    let pathname;
+    try {
+      pathname = decodeURIComponent(url.pathname);
+    } catch {
+      res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("400 Bad Request");
+      return;
+    }
 
-    // Permissive CORS
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key");
+    // CORS only for explicitly allowed origins; the web app itself is same-origin.
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.has(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Vary", "Origin");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key");
+    }
 
     if (req.method === "OPTIONS") {
       res.writeHead(204);
@@ -690,7 +750,6 @@ export function createRequestHandler(options = {}) {
           res.writeHead(200, {
             "Content-Type": "application/json; charset=utf-8",
             "Set-Cookie": cookieHeader,
-            "Access-Control-Allow-Origin": "*",
           });
           res.end(JSON.stringify({ ok: true, message: "Accès déverrouillé avec succès." }));
           return;
@@ -718,7 +777,6 @@ export function createRequestHandler(options = {}) {
       res.writeHead(200, {
         "Content-Type": "application/json; charset=utf-8",
         "Set-Cookie": clearCookie,
-        "Access-Control-Allow-Origin": "*",
       });
       res.end(JSON.stringify({ ok: true, message: "Déconnexion effectuée." }));
       return;
@@ -867,273 +925,70 @@ export function createRequestHandler(options = {}) {
       return;
     }
 
-    // 3. Draft Start
-    if (pathname === "/api/draft/start" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        const playerName = (body.playerName || "").trim();
-        if (!playerName) {
-          sendJson(res, 400, { ok: false, error: "Le nom du joueur est obligatoire." });
-          return;
-        }
-
-        const session = await SoloDraftSession.create({
-          playerName,
-          magicienSlug: body.magicienSlug,
-          cubeKey: body.cubeKey || "titou_tribal",
-          seed: body.seed,
-          randomizeSeats: body.randomizeSeats ?? true,
-          seatAssignments: body.seatAssignments,
-          botIds: body.botIds,
-        });
-
-        activeSessions.set(session.sessionId, session);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, session: session.getStateDto() });
-      } catch (err) {
-        sendJson(res, 500, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 3b. Draft Session State Check / Resume
-    if (pathname === "/api/draft/session" && req.method === "GET") {
-      try {
-        const sessionId = url.searchParams.get("sessionId");
-        if (!sessionId) {
-          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
-          return;
-        }
-
-        const session = await getOrRestoreSession(sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        sendJson(res, 200, { ok: true, session: session.getStateDto() });
-      } catch (err) {
-        sendJson(res, 500, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4. Draft Pick
-    if (pathname === "/api/draft/pick" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId || !body.cardInstanceId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Les paramètres 'sessionId' et 'cardInstanceId' sont obligatoires.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const nextState = session.makePick(body.cardInstanceId);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, session: nextState });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4b. Draft Pick Advice (Coaching IA)
-    if (pathname === "/api/draft/advice" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Le paramètre 'sessionId' est obligatoire.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const advice = await session.getPickAdvice();
-        await saveSessionToDisk(session);
-        sendJson(res, 200, { ok: true, advice });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 4c. Draft Deck Recommendation (Pré-construction IA)
-    if (pathname === "/api/draft/recommend-deck" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Le paramètre 'sessionId' est obligatoire.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const recommendation = await session.getAssistedDeckRecommendation(finalDeckCoach);
-        await saveSessionToDisk(session);
-        sendJson(res, 200, {
-          ok: true,
-          recommendation,
-          isHomologated: session.isHomologated,
-        });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 5. Draft Deck Validation & Finalize
-    if (pathname === "/api/draft/deck" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-
-        if (!body.sessionId || !Array.isArray(body.maindeckCardInstanceIds)) {
-          sendJson(res, 400, {
-            ok: false,
-            error: "Paramètres 'sessionId' et 'maindeckCardInstanceIds' invalides.",
-          });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const finalResult = await session.buildDeckAndFinalize(
-          {
-            sessionId: body.sessionId,
-            maindeckCardInstanceIds: body.maindeckCardInstanceIds,
-            basicLands: body.basicLands,
-            landCountRationale: body.landCountRationale,
-            publishToLeaderboard: Boolean(body.publishToLeaderboard),
-          },
-          {
-            customReportsDir: handlerReportsDir,
-            reportsUrlPrefix: "/reports",
-            customAdminDraftsPath: adminDraftsPath,
-            customLeaderboardPath: leaderboardPath,
-          },
-        );
-
-        await removeSessionFromDisk(body.sessionId);
-        sendJson(res, 200, { ok: true, result: finalResult });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 5b. Draft Publish (pour inscrire un draft d'entraînement après consultation)
-    if (pathname === "/api/draft/publish" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (!body.sessionId) {
-          sendJson(res, 400, { ok: false, error: "Paramètre 'sessionId' manquant." });
-          return;
-        }
-
-        const session = await getOrRestoreSession(body.sessionId);
-        if (!session) {
-          sendJson(res, 404, { ok: false, error: "Session de draft introuvable ou expirée." });
-          return;
-        }
-
-        const publishResult = await session.publishToLeaderboard(leaderboardPath);
-        await removeSessionFromDisk(body.sessionId);
-        sendJson(res, 200, { ok: true, result: publishResult });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
-      return;
-    }
-
-    // 6. Draft Abandon (Quitter et réinitialiser complètement)
-    if (pathname === "/api/draft/abandon" && req.method === "POST") {
-      try {
-        const body = await readJsonBody(req);
-        if (body.sessionId) {
-          activeSessions.delete(body.sessionId);
-          await removeSessionFromDisk(body.sessionId);
-        }
-        sendJson(res, 200, { ok: true, message: "Draft abandonné avec succès." });
-      } catch (err) {
-        sendJson(res, 400, { ok: false, error: err.message });
-      }
+    if (await soloDraftHandler(req, res)) {
       return;
     }
 
     // ==========================================
     // STATIC FILE SERVING
     // ==========================================
-    let filePath;
     const ext = extname(pathname).toLowerCase();
+    const isAppRoute = !pathname.startsWith("/data/") && !pathname.startsWith("/reports/") && !ext;
+    let filePath =
+      isAppRoute || pathname === "/index.html"
+        ? join(webDir, "index.html")
+        : resolveStaticFile(pathname, staticRoots);
 
-    if (pathname.startsWith("/data/")) {
-      filePath = join(rootDir, pathname);
-    } else if (pathname.startsWith("/reports/")) {
-      filePath = join(handlerReportsDir, pathname.slice("/reports/".length));
-    } else if (
-      pathname === "/" ||
-      pathname === "/index.html" ||
-      pathname === "/cards" ||
-      pathname === "/cubes" ||
-      pathname === "/bots" ||
-      pathname === "/home" ||
-      pathname === "/draft" ||
-      pathname === "/records" ||
-      pathname === "/admin" ||
-      !ext
-    ) {
-      filePath = join(webDir, "index.html");
-    } else {
-      filePath = join(webDir, pathname);
+    const sendNotFound = () => {
+      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end("404 Not Found");
+    };
+    if (!filePath) {
+      sendNotFound();
+      return;
     }
 
     try {
-      const fileStat = await stat(filePath);
+      let fileStat = await stat(filePath);
       if (fileStat.isDirectory()) {
         filePath = join(filePath, "index.html");
+        fileStat = await stat(filePath);
       }
 
-      const content = await readFile(filePath);
       const fileExt = extname(filePath).toLowerCase();
       const contentType = MIME_TYPES[fileExt] || "application/octet-stream";
       const isDynamicAsset = fileExt === ".html" || fileExt === ".js" || fileExt === ".css";
-      const cacheControl = isDynamicAsset
-        ? "no-cache, no-store, must-revalidate"
-        : "public, max-age=3600";
-
-      res.writeHead(200, {
+      // Revalidate app code on each load (cheap 304 via ETag) instead of re-downloading it.
+      const cacheControl = isDynamicAsset ? "no-cache" : "public, max-age=3600";
+      const encoding = COMPRESSIBLE_EXTENSIONS.has(fileExt)
+        ? pickEncoding(req.headers["accept-encoding"])
+        : null;
+      const etag = `W/"${fileStat.size.toString(16)}-${Math.trunc(fileStat.mtimeMs).toString(16)}${encoding ? `-${encoding}` : ""}"`;
+      const headers = {
         "Content-Type": contentType,
         "Cache-Control": cacheControl,
+        ETag: etag,
+        ...(COMPRESSIBLE_EXTENSIONS.has(fileExt) ? { Vary: "Accept-Encoding" } : {}),
+      };
+
+      if (req.headers["if-none-match"] === etag) {
+        res.writeHead(304, headers);
+        res.end();
+        return;
+      }
+
+      const content = await readFile(filePath);
+      const body = encoding
+        ? await getEncodedAsset(filePath, fileStat, encoding, content)
+        : content;
+      res.writeHead(200, {
+        ...headers,
+        ...(encoding ? { "Content-Encoding": encoding } : {}),
+        "Content-Length": body.length,
       });
-      res.end(content);
+      res.end(req.method === "HEAD" ? undefined : body);
     } catch {
-      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("404 Not Found");
+      sendNotFound();
     }
   };
 }

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   type SecureRandomBytes,
   createSessionIdentityGenerator,
-} from "../../../src/cli/session-identity.ts";
+} from "../../../src/random/session-identity.ts";
 
 function queuedEntropy(chunks: readonly Uint8Array[]): {
   readonly randomBytes: SecureRandomBytes;

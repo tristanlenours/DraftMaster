@@ -3,13 +3,13 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   evaluateDeck,
-  loadLeagueWitnessCorpus,
   validateLeagueCalibration,
   type CardEvaluationInput,
   type CubeEvaluationContext,
   type DeckSynergyProfile,
   type LeagueCalibration,
 } from "../../../src/domain/coaching/index.ts";
+import { loadLeagueWitnessCorpus } from "../../../src/domain/coaching/witness-corpus.ts";
 
 describe("League Deck Calibration Integration (US1 - FR-002, FR-005, SC-005, SC-006)", () => {
   const leaguePath = path.resolve("tests/fixtures/golden-datasets/powered-vintage/league.json");

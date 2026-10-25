@@ -4,16 +4,19 @@ import type {
   MidDraftReview,
   MtGColor,
   PackEvaluationContext,
-} from "./types.ts";
-import { evaluatePack, getEffectiveProducingColors } from "./dynamic-score.ts";
-import { detectArchetype } from "./deck-archetypes.ts";
-import { LlmRouter } from "../../companion/llm-router.ts";
-import { buildDraftAdvicePrompt } from "../../companion/coach-prompts.ts";
-import type { CompanionCard } from "../../companion/card-resolver.ts";
-import type { CubeMetaDefinition } from "../../cubes/cube-meta-types.ts";
-import { detectDraftedTribalContext, isCardTriballyIncompatible } from "./tribal-compatibility.ts";
-import { chooseWithJevBot } from "../../bots/jev/jev-bot-decision.ts";
-import type { WheelSignalAnalysis } from "./wheel-signals.ts";
+} from "../domain/coaching/types.ts";
+import { evaluatePack, getEffectiveProducingColors } from "../domain/coaching/dynamic-score.ts";
+import { detectArchetype } from "../domain/coaching/deck-archetypes.ts";
+import type { CoachLanguageModel } from "./coach-language-model.ts";
+import { buildDraftAdvicePrompt } from "./draft-advice-prompt.ts";
+import type { CompanionCard } from "../companion/card-resolver.ts";
+import type { CubeMetaDefinition } from "../cubes/cube-meta-types.ts";
+import {
+  detectDraftedTribalContext,
+  isCardTriballyIncompatible,
+} from "../domain/coaching/tribal-compatibility.ts";
+import { chooseWithJevBot } from "../bots/jev/jev-bot-decision.ts";
+import type { WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 
 export interface DraftCoachAlternative {
   readonly id: string;
@@ -40,7 +43,7 @@ export interface DraftCoachOptions {
     PackEvaluationContext,
     "cubeKey" | "catalog" | "cubeMeta" | "synergyProfile"
   >;
-  readonly llmRouter?: LlmRouter | undefined;
+  readonly llmRouter?: CoachLanguageModel | undefined;
   readonly skipLlm?: boolean | undefined;
   readonly wheelSignals?: WheelSignalAnalysis | undefined;
   readonly isPrefetch?: boolean | undefined;
@@ -96,12 +99,6 @@ function toCompanionCard(
     tier: c.tier,
     roles: c.roles,
   };
-}
-
-let sharedLlmRouter: LlmRouter | null = null;
-function getSharedLlmRouter(): LlmRouter {
-  sharedLlmRouter ??= new LlmRouter();
-  return sharedLlmRouter;
 }
 
 /**
@@ -353,14 +350,13 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
     wheelSignals: options.wheelSignals,
   };
 
-  const isTestEnv = Boolean(process.env.VITEST ?? process.env.NODE_ENV === "test");
-  if (skipLlm || (isTestEnv && !options.llmRouter)) {
+  const router = options.llmRouter;
+  if (skipLlm || !router) {
     return deterministicAdvice;
   }
 
   // 2. Invoke LLM Coach if configured
   try {
-    const router = options.llmRouter ?? getSharedLlmRouter();
     if (!router.hasConfiguredKeys()) {
       return deterministicAdvice;
     }
@@ -394,8 +390,8 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
       },
     );
 
-    const defaultLiveTimeout = isTestEnv ? 2000 : 3500;
-    const coachTimeoutMs = options.timeoutMs ?? (options.isPrefetch ? 12000 : defaultLiveTimeout);
+    // Live picks give the LLM 3 500 ms before falling back to the engine (coach-first-round-regression).
+    const coachTimeoutMs = options.timeoutMs ?? (options.isPrefetch ? 12000 : 3500);
 
     let timeoutId: NodeJS.Timeout | undefined;
     const llmTimeoutPromise = new Promise<never>((_, reject) => {
@@ -533,7 +529,6 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.warn("[DraftCoachService] LLM coach query failed, attempting JEV fallback:", message);
-    const router = options.llmRouter ?? getSharedLlmRouter();
     const jevAdvice = await tryJevAdvice(
       router,
       options,
@@ -552,7 +547,7 @@ export async function getUnifiedDraftAdvice(options: DraftCoachOptions): Promise
 }
 
 async function tryJevAdvice(
-  router: LlmRouter,
+  router: CoachLanguageModel,
   options: DraftCoachOptions,
   cubeKey?: string,
   cubeMeta?: CubeMetaDefinition,
@@ -560,7 +555,7 @@ async function tryJevAdvice(
   rankedForAdvice: readonly CardEvaluation[] = [],
   tribalContext?: ReturnType<typeof detectDraftedTribalContext>,
 ): Promise<DraftCoachAdvice | null> {
-  if (typeof router.hasJevKey !== "function" || !router.hasJevKey()) {
+  if (!router.hasJevKey()) {
     return null;
   }
 

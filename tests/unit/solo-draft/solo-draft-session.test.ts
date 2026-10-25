@@ -2,8 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { rm, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { SoloDraftSession } from "../../../src/solo-draft/solo-draft-session.ts";
-import { createFinalDeckCoach } from "../../../src/multiplayer-draft/final-deck-coach.ts";
-import { LlmRouter } from "../../../src/companion/llm-router.ts";
+import { createFinalDeckCoach } from "../../../src/coach-advice/final-deck-coach.ts";
+import type { CoachLanguageModel } from "../../../src/coach-advice/coach-language-model.ts";
 
 const TEST_REPORTS_DIR = ".scratch/test-reports";
 const TEST_LEADERBOARD_PATH = ".scratch/test-leaderboard.json";
@@ -250,7 +250,7 @@ describe("SoloDraftSession", () => {
     expect(result.leaderboardEntry).toBeUndefined();
 
     // Can publish later on demand
-    const published = await session.publishToLeaderboard(TEST_LEADERBOARD_PATH);
+    const published = await session.publishToLeaderboard();
     expect(published.entry.playerName).toBe("Training Hero");
     expect(published.entry.rank).toBeDefined();
   }, 15000);
@@ -489,42 +489,43 @@ describe("SoloDraftSession", () => {
   });
 
   it("tags bot picks with [JEV] and decisionEngine 'jev' when makePickAsync uses JEV", async () => {
+    const callJevDecision = vi.fn<CoachLanguageModel["callJevDecision"]>((_state, questions) => {
+      const cardNames = Object.keys(questions.bot_pick?.criteria ?? {});
+      const choice = cardNames[0] ?? "Card";
+      return Promise.resolve({
+        success: true,
+        content: {
+          id: "mock-jev-bot",
+          provider: "TypeSafe (Jev)",
+          model: "~typesafe/jev-latest",
+          usage: { input_tokens: 100, output_tokens: 20, cost: 0.001 },
+          answers: {
+            bot_pick: {
+              type: "choice" as const,
+              choice,
+              confidence: 0.95,
+              probabilities: { [choice]: 0.95 },
+            },
+          },
+        },
+        provider: "TypeSafe (Jev)",
+        model: "~typesafe/jev-latest",
+      });
+    });
+    const languageModel: CoachLanguageModel = {
+      hasConfiguredKeys: () => false,
+      hasJevKey: () => true,
+      generateJson: () => Promise.resolve({ success: false, content: null, provider: "None" }),
+      callJevDecision,
+    };
     const session = await SoloDraftSession.create({
       playerName: "JevEngineTester",
       seed: 42,
+      languageModel,
     });
 
     const card = session.getStateDto().currentBooster[0];
     if (!card) throw new Error("Missing booster card");
-
-    // Mock LlmRouter hasJevKey and callJevDecision
-    const mockRouterProto = LlmRouter.prototype;
-    const hasJevSpy = vi.spyOn(mockRouterProto, "hasJevKey").mockReturnValue(true);
-    const callJevSpy = vi
-      .spyOn(mockRouterProto, "callJevDecision")
-      .mockImplementation((_state, questions) => {
-        const cardNames = Object.keys(questions.bot_pick?.criteria ?? {});
-        const choice = cardNames[0] ?? "Card";
-        return Promise.resolve({
-          success: true,
-          content: {
-            id: "mock-jev-bot",
-            provider: "TypeSafe (Jev)",
-            model: "~typesafe/jev-latest",
-            usage: { input_tokens: 100, output_tokens: 20, cost: 0.001 },
-            answers: {
-              bot_pick: {
-                type: "choice" as const,
-                choice,
-                confidence: 0.95,
-                probabilities: { [choice]: 0.95 },
-              },
-            },
-          },
-          provider: "TypeSafe (Jev)",
-          model: "~typesafe/jev-latest",
-        });
-      });
 
     try {
       await session.makePickAsync(card.instanceId, { botEngine: "jev" });
@@ -536,9 +537,9 @@ describe("SoloDraftSession", () => {
       expect(firstBotStep?.decisionEngine).toBe("jev");
       expect(firstBotStep?.decisionTrace.decisionEngine).toBe("jev");
       expect(firstBotStep?.justification).toContain("[JEV]");
+      expect(callJevDecision).toHaveBeenCalled();
     } finally {
-      hasJevSpy.mockRestore();
-      callJevSpy.mockRestore();
+      vi.restoreAllMocks();
     }
   });
 });

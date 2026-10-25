@@ -6,7 +6,7 @@ import type {
   FinalDeckBasicLands,
   FinalDeckCoach,
   FinalDeckRecommendation,
-} from "./final-deck-coach.ts";
+} from "../coach-advice/final-deck-coach.ts";
 import type { MtgaExportCard, MtgaExportResult } from "./mtga-export.ts";
 
 export type MultiplayerResult<T> =

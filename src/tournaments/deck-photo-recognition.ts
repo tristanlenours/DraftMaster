@@ -282,29 +282,6 @@ export class GeminiDeckPhotoRecognizer implements DeckPhotoRecognizer {
         }
       }
 
-      // If still empty, check .env.local and .env
-      if (splitKeys.length === 0) {
-        for (const envFile of [".env.local", ".env"]) {
-          const envPath = path.resolve(this.projectRoot, envFile);
-          if (fs.existsSync(envPath)) {
-            const content = fs.readFileSync(envPath, "utf8");
-            for (const line of content.split("\n")) {
-              const trimmed = line.trim();
-              if (trimmed.startsWith("GEMINI_API_KEY")) {
-                const eq = trimmed.indexOf("=");
-                if (eq > 0) {
-                  const val = trimmed.slice(eq + 1).trim();
-                  for (const k of val.split(/[,\s]+/)) {
-                    const clean = k.trim();
-                    if (clean && !splitKeys.includes(clean)) splitKeys.push(clean);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
       this.geminiKeys = splitKeys;
     }
   }

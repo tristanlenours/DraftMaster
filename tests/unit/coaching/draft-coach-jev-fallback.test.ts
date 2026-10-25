@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { getUnifiedDraftAdvice } from "../../../src/domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../../../src/coach-advice/draft-coach-service.ts";
 import type { CardEvaluationInput } from "../../../src/domain/coaching/types.ts";
 import { LlmRouter } from "../../../src/companion/llm-router.ts";
 

@@ -3,7 +3,7 @@ import {
   getLeaderboard,
   addLeaderboardEntry,
   rankLeaderboardEntries,
-} from "../solo-draft/leaderboard.ts";
+} from "./local-leaderboard.ts";
 import type {
   BasicLandCounts,
   LeaderboardDeckCard,
@@ -279,12 +279,13 @@ export async function saveUnifiedLeaderboardEntry(
     readonly sessionId?: string | undefined;
   },
   customLeaderboardPath?: string,
+  entryId?: string,
 ): Promise<{
   readonly entry: LeaderboardEntry;
   readonly isNewHighScore: boolean;
 }> {
   // 1. Toujours enregistrer en local pour garantir la résilience offline
-  const localResult = await addLeaderboardEntry(entryData, customLeaderboardPath);
+  const localResult = await addLeaderboardEntry(entryData, customLeaderboardPath, entryId);
 
   // 2. Si Supabase est actif, sauvegarder dans le cloud PostgreSQL
   const supabase = getSupabaseClient();
@@ -322,9 +323,17 @@ export async function saveUnifiedLeaderboardEntry(
         created_at: entryData.occurredAt,
       };
 
-      const { error: insertError } = await supabase.from("draft_records").insert(dbRecord);
+      // A record already stored under this id (a retried publication) is left as is,
+      // and the profile counters below are not incremented a second time.
+      const { data: inserted, error: insertError } = await supabase
+        .from("draft_records")
+        .upsert(dbRecord, { onConflict: "id", ignoreDuplicates: true })
+        .select("id");
+      const isNewRecord = !insertError && Array.isArray(inserted) && inserted.length > 0;
       if (insertError) {
         console.warn("⚠️ [Storage] Erreur insertion Supabase draft_records :", insertError);
+      } else if (!isNewRecord) {
+        console.log(`☁️ [Storage] Draft record ${dbRecord.id} déjà publié, conservé tel quel.`);
       } else {
         console.log(
           `☁️ [Storage] Draft record sauvé sur Supabase (Score: ${String(entryData.overallScore)})`,
@@ -332,7 +341,7 @@ export async function saveUnifiedLeaderboardEntry(
       }
 
       // 3. Mettre à jour les stats du profil du Magicien s'il est lié
-      if (entryData.magicienSlug) {
+      if (entryData.magicienSlug && isNewRecord) {
         const profileResponse = await supabase
           .from("magiciens_profiles")
           .select("total_drafts, best_score, trophies_count")

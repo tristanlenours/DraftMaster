@@ -4,7 +4,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { SoloDraftSession } from "../../src/solo-draft/solo-draft-session.ts";
-import { getUnifiedDraftAdvice } from "../../src/domain/coaching/draft-coach-service.ts";
+import { getUnifiedDraftAdvice } from "../../src/coach-advice/draft-coach-service.ts";
 import type { LlmRouter } from "../../src/companion/llm-router.ts";
 import type { CardEvaluationInput } from "../../src/domain/coaching/types.ts";
 import { createRequestHandler } from "../../scripts/serve-web.mjs";
@@ -104,10 +104,11 @@ describe("Coach IA - Test de Non-Régression Obligatoire Tour 1 (Pertinence & Du
     expect(avgLatency).toBeLessThan(100);
   });
 
-  it("garantit le SLA de durée (< 2 000 ms) et la pertinence du conseil en cas de panne ou latence extrême du LLM (circuit breaker)", async () => {
+  it("garantit le SLA de durée (< 3 500 ms) et la pertinence du conseil en cas de panne ou latence extrême du LLM (circuit breaker)", async () => {
     // Création d'un mock router qui simule une requête pendante de 10 secondes (ou un 503)
     const slowRouter = {
       hasConfiguredKeys: () => true,
+      hasJevKey: () => false,
       generateJson: async () => {
         await new Promise((resolve) => setTimeout(resolve, 10_000));
         return { success: false, content: null, provider: "None" };
@@ -154,8 +155,9 @@ describe("Coach IA - Test de Non-Régression Obligatoire Tour 1 (Pertinence & Du
     });
     const duration = performance.now() - start;
 
-    // Le circuit breaker / timeout global DOIT couper sous les 2 000 ms (+ petite marge d'ordonnancement)
-    expect(duration).toBeLessThan(2300);
+    // Le circuit breaker / timeout global DOIT couper sous les 3 500 ms (+ petite marge d'ordonnancement)
+    expect(duration).toBeGreaterThanOrEqual(3400);
+    expect(duration).toBeLessThan(3800);
 
     // Bascule automatique sur l'engine déterministe
     expect(advice.provider).toBe("engine");
@@ -165,10 +167,45 @@ describe("Coach IA - Test de Non-Régression Obligatoire Tour 1 (Pertinence & Du
     expect(sampleCards.map((c) => c.id)).toContain(advice.topPickId);
   });
 
+  it("retient une réponse du LLM arrivée dans le budget live de 3 500 ms", async () => {
+    const answer = { topPick: "Sol Ring", reason: "Accélération incolore jouable dans tout deck." };
+    const lateButInBudget = {
+      hasConfiguredKeys: () => true,
+      hasJevKey: () => false,
+      generateJson: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 2_500));
+        return { success: true, content: answer, provider: "Gemini Flash" };
+      },
+    } as unknown as LlmRouter;
+
+    const advice = await getUnifiedDraftAdvice({
+      packCards: [
+        {
+          id: "c1",
+          name: "Lightning Bolt",
+          colors: ["R"],
+          staticScore: 45,
+          cmc: 1,
+          types: ["Instant"],
+        },
+        { id: "c2", name: "Sol Ring", colors: [], staticScore: 50, cmc: 1, types: ["Artifact"] },
+      ],
+      priorPool: [],
+      packNumber: 1,
+      pickNumber: 1,
+      llmRouter: lateButInBudget,
+    });
+
+    expect(advice.provider).toBe("Gemini Flash");
+    expect(advice.topPickId).toBe("c2");
+    expect(advice.reason).toBe(answer.reason);
+  });
+
   it("valide le parcours HTTP API /api/draft/advice sur l'intégralité du Pack 1 (SLA et pertinence en conditions web)", async () => {
     const testDir = await mkdtemp(join(tmpdir(), "draftmaster-coach-http-"));
     const handler = createRequestHandler({
       reportsDirectory: join(testDir, "reports"),
+      soloSessionsDirectory: join(testDir, "sessions"),
       adminDraftsPath: join(testDir, "admin-drafts.json"),
       leaderboardPath: join(testDir, "leaderboard.json"),
     });
