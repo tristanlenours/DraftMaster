@@ -63,7 +63,7 @@ vi.mock("node:https", () => ({
   ),
 }));
 
-import { GeminiDeckPhotoRecognizer } from "../../../src/tournaments/deck-photo-recognition.ts";
+import { GeminiDeckPhotoRecognizer } from "../../../src/deck-photos/deck-photo-recognition.ts";
 import {
   nicoPhotoCorpus,
   readableNicoTitles,

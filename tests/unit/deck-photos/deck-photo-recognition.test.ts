@@ -3,10 +3,8 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import {
-  GeminiDeckPhotoRecognizer,
-  MasterCardsIndex,
-} from "../../../src/tournaments/deck-photo-recognition.ts";
+import { MasterCardsIndex } from "../../../src/cards/master-cards-index.ts";
+import { GeminiDeckPhotoRecognizer } from "../../../src/deck-photos/deck-photo-recognition.ts";
 
 describe("Deck photo recognition and card indexing", () => {
   it("resolves a complete official title containing dots while rejecting unmatched truncated readings", () => {

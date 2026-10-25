@@ -68,6 +68,7 @@ export default tseslint.config(
                 "**/multiplayer-draft/*",
                 "**/tournaments/*",
                 "**/deck-lab/*",
+                "**/deck-photos/*",
                 "**/storage/*",
                 "**/web/*",
                 "**/draft/internal/*",

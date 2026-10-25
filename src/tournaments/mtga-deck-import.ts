@@ -1,5 +1,5 @@
 import { MtgaDeckTextError, parseMtgaDeckText } from "../web/mtga-deck-text.js";
-import { MasterCardsIndex } from "./deck-photo-recognition.ts";
+import { MasterCardsIndex } from "../cards/master-cards-index.ts";
 import type { DeclaredDeckCard, TournamentResult } from "./types.ts";
 
 export interface PreviewedTournamentMtgaDeck {

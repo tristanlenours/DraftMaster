@@ -1,6 +1,9 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import { createDeckPhotoRecognizer, type DeckPhotoRecognizer } from "./deck-photo-recognition.ts";
+import {
+  createDeckPhotoRecognizer,
+  type DeckPhotoRecognizer,
+} from "../deck-photos/deck-photo-recognition.ts";
 import { previewTournamentMtgaDeck } from "./mtga-deck-import.ts";
 import { observeTournamentResult } from "./observability.ts";
 import type { TournamentObservability } from "./observability.ts";

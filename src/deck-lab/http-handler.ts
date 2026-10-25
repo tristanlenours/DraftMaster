@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 
 import type { CardCatalog } from "../cards/card-catalog.ts";
 import type { DeckEvaluationOptions, DeckSynergyProfile } from "../domain/coaching/types.ts";
-import { MasterCardsIndex } from "../tournaments/deck-photo-recognition.ts";
+import { MasterCardsIndex } from "../cards/master-cards-index.ts";
 import { parseMtgaDeckText } from "../web/mtga-deck-text.js";
 import { analyzeDeckText, DeckLabInputError, type DeckLabMode } from "./analyze-deck.ts";
 
