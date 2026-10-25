@@ -1,5 +1,39 @@
 # QA evidence — 2026-10-11
 
+## Follow-up: model and API-key diagnosis
+
+The web server loads .env.local, which configures GEMINI_MODEL=gemini-3.6-flash. The earlier standalone Vitest process did not load that model setting: its recognizer started with the default gemini-3.5-flash, although it separately read API keys from local files. The previously archived count observations contain no actual successful-model metadata, so their responses cannot be attributed to a particular model.
+
+A subsequent test of photo 2 with GEMINI_MODEL=gemini-3.6-flash returned 27 main-deck entries in 10.62 seconds and failed the readable-title check (25/28 matches). That test alone likewise did not establish which fallback answered.
+
+A temporary standalone harness then used the same actual six crops and traced only model names and HTTP status, never request query strings or keys. Two sequential attempts produced:
+
+| Requested model | First HTTP status | Successful fallback | Fallback HTTP status | Returned main-deck count |
+| --- | ---: | --- | ---: | ---: |
+| gemini-3.5-flash | 503 | gemini-3.5-flash-lite | 200 | 31 |
+| gemini-3.6-flash | 503 | gemini-3.5-flash-lite | 200 | 25 |
+
+These traces establish successful authentication and an actual downgrade after provider unavailability, not an authentication failure. They do not demonstrate comparative OCR accuracy between 3.5 and 3.6: neither requested model answered successfully in those attempts. A contribution from fallback-model capability is plausible but not isolated experimentally. Changing the key alone is not shown to improve recognition.
+
+There is also a model-independent count limitation: enrichTiledResult retains the maximum visible basic count from a single region, rather than summing across overlapping regions. That conservative rule can undercount a physical pile. The printed-title requirement and glare further limit the information available. Model availability, OCR/title accuracy and quantity reconciliation must therefore be distinguished; no exclusive model-cause claim is justified. Temporary tracing/harness code was removed after the observation.
+
+## Follow-up: actual 40-card audit (Lutri excluded)
+
+The user subsequently requested verification of all 40 cards, then confirmed Lutri is the companion outside the main deck. The reported 5 Islands and 4 Swamps remain tentative (the user said "je crois"). This stronger whole-deck criterion is not satisfied by the earlier four-anchor checks or deterministic title replay.
+
+Actual production preparation sends six JPEG crops per original fixture to the live recognizer. Three successive provider runs were observed; none returned 40 main-deck cards. The first returned 29/30 after subtracting Lutri, the second 27/30, and the final companion-aware audit returned the following. Results vary across provider calls; these are observations, not fixed accuracy guarantees.
+
+| Photo | Returned main-deck count | Companion | Islands | Swamps | Listed readable titles matched |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1000019031.jpg | 32/40 | 1 Lutri | 2 | 2 | 27/27 |
+| 1000019032.jpg | 31/40 | 1 Lutri | 2 | 3 | 26/28 |
+
+Sanitized final observations, with image hashes, full returned identities/quantities and unresolved titles: [photo 1](evidence/nico-live-1000019031.jpg.json), [photo 2](evidence/nico-live-1000019032.jpg.json). Photo 2 misses Persist and Undercity Sewers (transcriptions "Persistence" and "Égouts de la Citerne"). Malcolm is unresolved on both photos; successive invented subtitles are rejected rather than silently mapped. Raffine's Tower was independently confirmed by inspection and appears as an additional name outside the earlier subset. Photo 1 also returns Archon of Cruelty, whose clipped title is deliberately outside its visual reference; that additional output is not an independently verified identity claim.
+
+The live test now requires every independently listed readable title, rather than only four anchors. With TEST_NICO_REQUIRE_40=true it additionally persists observations, requires one companion and compares the count excluding that companion against 40. Reproduce on Node 24: `TEST_LIVE_NICO_OCR=true TEST_NICO_REQUIRE_40=true VITEST_MAX_WORKERS=1 npx vitest run tests/integration/nico-photo-live-ocr.test.ts --reporter=verbose` (set environment variables using the host shell). Final execution: both cases fail in 39.51 seconds, correctly rejecting a 40/40 claim. A 40 total alone would still be insufficient to prove all identities: a full independent deck list, including glare-obscured cards and confirmed basic quantities, is not available.
+
+No production recognition rule was changed during this verification. The 40-card acceptance gap remains open; neither basic lands nor hidden titles are filled in to manufacture a passing total. This finding supersedes the earlier convergence claim for the user's newly requested whole-deck criterion. Focused offline regressions: 14/14 pass. Formatting, targeted lint, type checking and git diff --check pass; the live count audit intentionally remains red.
+
 ## Current English/French scope
 
 The user clarified that only English and French are needed. The canonical English master catalog is retained; the alias cache is a French-only projection of the earlier source import, with its original printing provenance and explicit selection timestamp/method. Current cache: 771 aliases, 177,764 bytes, languages=[fr]. All 771/771 resolve to their recorded oracle identity. Importer refreshes query lang:fr and reject other-language source records; the runtime loader ignores other-language aliases. Both recognition prompts now specify English/French. Photos and crop behavior are unchanged.

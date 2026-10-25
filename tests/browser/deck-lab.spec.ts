@@ -85,16 +85,12 @@ for (const photo of nicoPhotoCorpus.photos) {
         new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"),
       );
     await expect(page.locator("#deck-lab-unverified")).toContainText("Malcolm, …");
-    await expect(page.locator("#deck-lab-rate")).toBeDisabled();
-    await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+    await expect(page.locator("#deck-lab-rate")).toBeEnabled();
+    await expect(page.locator("#deck-lab-pimp")).toBeEnabled();
     await page.screenshot({ path: testInfo.outputPath("nico-review-mobile.png"), fullPage: true });
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth),
     ).toBe(false);
-    await page.locator("#deck-lab-photo-confirm").focus();
-    await page.keyboard.press("Space");
-    await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
-    await expect(page.locator("#deck-lab-rate")).toBeEnabled();
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.screenshot({ path: testInfo.outputPath("nico-review-desktop.png"), fullPage: true });
     expect(
@@ -102,7 +98,6 @@ for (const photo of nicoPhotoCorpus.photos) {
     ).toBe(false);
     await page.locator("#deck-lab-text").fill("Deck\n1 Brainstorm\n");
     await expect(page.locator("#deck-lab-text")).toHaveValue("Deck\n1 Brainstorm\n");
-    await expect(page.locator("#deck-lab-photo-confirm")).not.toBeChecked();
   });
 }
 
@@ -262,8 +257,8 @@ test("a photo populates editable MTGA text before rating", async ({ page }, test
   expect(new Set(uploadedImages).size).toBe(6);
   expect(uploadedImages.every((image) => image.startsWith("data:image/jpeg;base64,"))).toBe(true);
   await expect(page.locator("#deck-lab-unverified")).toContainText("Titre partiel");
-  await expect(page.locator("#deck-lab-rate")).toBeDisabled();
-  await expect(page.locator("#deck-lab-pimp")).toBeDisabled();
+  await expect(page.locator("#deck-lab-rate")).toBeEnabled();
+  await expect(page.locator("#deck-lab-pimp")).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath("photo-review-mobile.png"), fullPage: true });
   await page.setViewportSize({ width: 1280, height: 800 });
   await expect(page.locator("#deck-lab-photo-review")).toBeVisible();
@@ -278,9 +273,6 @@ test("a photo populates editable MTGA text before rating", async ({ page }, test
     () => document.documentElement.scrollWidth > window.innerWidth,
   );
   expect(overflow).toBe(false);
-  await page.locator("#deck-lab-photo-confirm").focus();
-  await page.keyboard.press("Space");
-  await expect(page.locator("#deck-lab-photo-confirm")).toBeChecked();
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-warnings")).toContainText("virtuel");

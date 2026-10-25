@@ -9,10 +9,8 @@ let photoReviewRequired = false;
 let analysisPending = false;
 
 function updatePhotoGate() {
-  const blocked =
-    analysisPending || (photoReviewRequired && !element("deck-lab-photo-confirm").checked);
-  element("deck-lab-rate").disabled = blocked;
-  element("deck-lab-pimp").disabled = blocked;
+  element("deck-lab-rate").disabled = analysisPending;
+  element("deck-lab-pimp").disabled = analysisPending;
 }
 
 const AXES = [
@@ -278,10 +276,6 @@ async function readResponse(response) {
 }
 
 async function analyze(mode) {
-  if (photoReviewRequired && !element("deck-lab-photo-confirm").checked) {
-    setStatus("Vérifiez et confirmez la liste issue de la photo avant l'analyse.", "error");
-    return;
-  }
   const text = element("deck-lab-text").value;
   const cubeKey = element("deck-lab-cube").value;
   if (!cubeKey) {
@@ -358,11 +352,11 @@ async function recognizePhoto(file) {
       cards: recognized.cards,
       basicLands: recognized.basicLands,
     });
-    photoReviewRequired = true;
-    element("deck-lab-photo-review").hidden = false;
-    element("deck-lab-photo-confirm").checked = false;
-    const unresolved = element("deck-lab-unverified");
     const titles = Array.isArray(recognized.unverifiedTitles) ? recognized.unverifiedTitles : [];
+    photoReviewRequired = titles.length > 0;
+    element("deck-lab-photo-review").hidden = titles.length === 0;
+    element("deck-lab-photo-confirm").checked = true;
+    const unresolved = element("deck-lab-unverified");
     unresolved.replaceChildren();
     if (titles.length > 0) {
       unresolved.append(node("p", "", "Titres à vérifier et ajouter manuellement si présents :"));
@@ -373,11 +367,14 @@ async function recognizePhoto(file) {
     updatePhotoGate();
     latestResult = null;
     element("deck-lab-result").replaceChildren(
-      node("p", "", "Vérifiez la liste reconnue puis lancez l'analyse."),
+      node("p", "", "Cliquez sur Rate my deck ou Pimp my deck pour lancer l'analyse."),
     );
     updateCount();
     setStatus(
-      "Photo analysée : liste partielle. Vérifiez chaque carte et quantité avant l'analyse.",
+      titles.length > 0
+        ? "Photo analysée. Vérifiez chaque carte si besoin puis lancez l'analyse."
+        : "Photo analysée : cartes reconnues. Cliquez sur Rate my deck ou Pimp my deck.",
+      "success",
     );
   } catch (error) {
     setStatus(error.message, "error");

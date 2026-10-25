@@ -5,6 +5,13 @@ export const nicoPhotoCorpus = {
   authorization: "User explicitly requested retaining these photos for tests on 2026-10-11.",
   rights:
     "User-supplied photography; depicted Magic card art/text belongs to Wizards of the Coast.",
+  deckAudit: {
+    expectedMainDeckCount: 40,
+    companion: "Lutri, the Spellchaser",
+    reportedBasicLands: { Island: 5, Swamp: 4 },
+    basicLandStatus:
+      "Tentative quantities reported by the user on 2026-10-11, not visually verified.",
+  },
   photos: [
     {
       file: "1000019031.jpg",

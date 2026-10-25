@@ -14,6 +14,15 @@ describe("Deck photo recognition and card indexing", () => {
     expect(index.findExactCard("Il était une fois...")?.name).toBe("Once Upon a Time");
     expect(index.findExactCard("Il était…")).toBeUndefined();
     expect(index.findExactCard("Réanimation...")).toBeUndefined();
+    expect(index.findPhotoCard("Malcolm, navigateur attirant")?.name).toBe(
+      "Malcolm, Alluring Scoundrel",
+    );
+    expect(index.findPhotoCard("Malcolm, séducteur attirant")?.name).toBe(
+      "Malcolm, Alluring Scoundrel",
+    );
+    expect(index.findPhotoCard("Égouts de la Citerne")?.name).toBe("Undercity Sewers");
+    expect(index.findPhotoCard("Persistence")?.name).toBe("Persist");
+    expect(index.findPhotoCard("Malcolm, …")).toBeUndefined();
   });
   it("loads only French aliases and rejects ambiguous, empty, truncated or mismatched aliases", () => {
     const root = mkdtempSync(join(tmpdir(), "draftmaster-aliases-"));

@@ -37,3 +37,7 @@ T001 -> T002/T003 -> T004 -> T005/T006 -> T007/T008 -> T009/T010. Independent fi
 ## Phase 7: English/French scope correction
 
 - [x] T013 Restrict source requests, cache, loader and prompts to English/French per user clarification; preserve photo corpus, verify scoped regressions and record updated reviews/convergence/quality evidence. [FR-001, FR-005, FR-006]
+
+## Phase 8: User-requested whole-deck verification
+
+- [x] T014 Run actual vision on both retained photos; record returned identities/counts, exclude confirmed companion Lutri, retain tentative 5 Island/4 Swamp report and strengthen the live test beyond four anchors. Record the failed 40-card audit in qa-evidence.md with sanitized observations. Verification is complete; complete 40-card recognition remains an unresolved acceptance gap.
