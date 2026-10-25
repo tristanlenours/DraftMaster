@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -100,5 +100,44 @@ describe("file store specifics", () => {
     const blocker = join(dir, "not-a-directory");
     await writeFile(blocker, "", "utf8");
     await expect(createFileSoloDraftStore(blocker).save(snapshot)).rejects.toThrow();
+  });
+});
+
+describe("expiry of abandoned sessions", () => {
+  const day = 24 * 60 * 60 * 1000;
+
+  it("file store removes snapshots and stray temp files last written before the cutoff", async () => {
+    const dir = await makeTempDir();
+    const store = createFileSoloDraftStore(dir);
+    await store.save(snapshot);
+    await store.save({ ...snapshot, sessionId: "freshsession1" });
+    await writeFile(join(dir, "abc123def456.json.42.tmp"), "{", "utf8");
+
+    const old = new Date(Date.now() - 10 * day);
+    await utimes(join(dir, "abc123def456.json"), old, old);
+    await utimes(join(dir, "abc123def456.json.42.tmp"), old, old);
+
+    const removed = await store.removeExpired(new Date(Date.now() - 7 * day));
+
+    expect(removed).toBe(2);
+    expect(await readdir(dir)).toEqual(["freshsession1.json"]);
+    expect(await store.load("abc123def456")).toEqual({ ok: false, code: "NOT_FOUND" });
+  });
+
+  it("file store treats a missing directory as nothing to expire", async () => {
+    const store = createFileSoloDraftStore(join(await makeTempDir(), "never-created"));
+    expect(await store.removeExpired(new Date())).toBe(0);
+  });
+
+  it("in-memory store expires by last save time on its clock", async () => {
+    let now = Date.parse("2026-10-01T00:00:00Z");
+    const store = createInMemorySoloDraftStore({ now: () => now });
+    await store.save(snapshot);
+    now += 10 * day;
+    await store.save({ ...snapshot, sessionId: "freshsession1" });
+
+    expect(await store.removeExpired(new Date(now - 7 * day))).toBe(1);
+    expect(await store.load("abc123def456")).toEqual({ ok: false, code: "NOT_FOUND" });
+    expect((await store.load("freshsession1")).ok).toBe(true);
   });
 });

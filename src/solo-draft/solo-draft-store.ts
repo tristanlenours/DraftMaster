@@ -1,4 +1,4 @@
-import { mkdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rename, stat, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { SoloDraftPersistenceSnapshot } from "./solo-draft-types.ts";
 
@@ -22,6 +22,11 @@ export interface SoloDraftStore {
   load(sessionId: string): Promise<SoloDraftLoadResult>;
   save(snapshot: Readonly<SoloDraftPersistenceSnapshot>): Promise<void>;
   remove(sessionId: string): Promise<void>;
+  /**
+   * Deletes sessions whose last save happened before `cutoff` (abandoned drafts and
+   * training results never published); returns how many entries were removed.
+   */
+  removeExpired(cutoff: Date): Promise<number>;
 }
 
 function assertValidId(sessionId: string): void {
@@ -92,11 +97,39 @@ export function createFileSoloDraftStore(directory: string): SoloDraftStore {
         if (!isMissingFile(error)) throw error;
       }
     },
+
+    async removeExpired(cutoff) {
+      let names: string[];
+      try {
+        names = await readdir(directory);
+      } catch (error: unknown) {
+        if (isMissingFile(error)) return 0;
+        throw error;
+      }
+      let removed = 0;
+      for (const name of names) {
+        // Snapshots and temp files left by an interrupted save; nothing else is touched.
+        if (!name.endsWith(".json") && !name.endsWith(".tmp")) continue;
+        const path = join(directory, name);
+        try {
+          if ((await stat(path)).mtimeMs >= cutoff.getTime()) continue;
+          await unlink(path);
+          removed++;
+        } catch (error: unknown) {
+          if (!isMissingFile(error)) throw error;
+        }
+      }
+      return removed;
+    },
   };
 }
 
-export function createInMemorySoloDraftStore(): SoloDraftStore {
+export function createInMemorySoloDraftStore(
+  options: { readonly now?: () => number } = {},
+): SoloDraftStore {
+  const now = options.now ?? Date.now;
   const documents = new Map<string, string>();
+  const savedAt = new Map<string, number>();
   return {
     load(sessionId) {
       if (!isValidSoloSessionId(sessionId))
@@ -115,6 +148,7 @@ export function createInMemorySoloDraftStore(): SoloDraftStore {
         return Promise.reject(error instanceof Error ? error : new Error(String(error)));
       }
       documents.set(snapshot.sessionId, JSON.stringify(snapshot));
+      savedAt.set(snapshot.sessionId, now());
       return Promise.resolve();
     },
     remove(sessionId) {
@@ -124,7 +158,18 @@ export function createInMemorySoloDraftStore(): SoloDraftStore {
         return Promise.reject(error instanceof Error ? error : new Error(String(error)));
       }
       documents.delete(sessionId);
+      savedAt.delete(sessionId);
       return Promise.resolve();
+    },
+    removeExpired(cutoff) {
+      let removed = 0;
+      for (const [sessionId, time] of savedAt) {
+        if (time >= cutoff.getTime()) continue;
+        documents.delete(sessionId);
+        savedAt.delete(sessionId);
+        removed++;
+      }
+      return Promise.resolve(removed);
     },
   };
 }
