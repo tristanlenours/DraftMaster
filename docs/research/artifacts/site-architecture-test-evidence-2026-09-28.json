@@ -1,0 +1,451 @@
+{
+  "date": "2026-09-28",
+  "head": "828bcf9b7479c88cedd95620e211ee3338bc48de",
+  "branch": "codex/011-photo-ocr-grounding",
+  "runtime": {
+    "executedNode": "v24.19.0",
+    "defaultNode": "22.16.0",
+    "defaultNpm": "10.9.2",
+    "pinnedNode": "24.20.0",
+    "packageManager": "npm@11.19.0"
+  },
+  "vitest": {
+    "files": 109,
+    "passed": 708,
+    "skipped": 1,
+    "failed": 0,
+    "command": "node node_modules/vitest/vitest.mjs run --coverage --maxWorkers=2",
+    "initialRun": {
+      "passed": 707,
+      "failed": 1,
+      "skipped": 1,
+      "cause": "5000 ms timeout in tier-score-consistency catalogue I/O test; subsequent complete run with 2 workers passed."
+    }
+  },
+  "skippedTests": [
+    {
+      "file": "tests/integration/deck-photo-ocr.test.ts",
+      "name": "Test OCR Gemini - Reconnaissance deck physique d'exemple reconnaît avec précision les cartes du deck Azorius dans data/deck/1000018826.jpg"
+    }
+  ],
+  "playwright": {
+    "passed": 45,
+    "failed": 0,
+    "command": "node node_modules/@playwright/test/cli.js test --workers=1",
+    "browser": "Chromium default, no Firefox or WebKit project configured"
+  },
+  "performance": {
+    "files": 2,
+    "passed": 4,
+    "failed": 0,
+    "command": "node node_modules/vitest/vitest.mjs run --config vitest.performance.config.ts"
+  },
+  "checks": {
+    "format:check": {
+      "exitCode": 0,
+      "command": "npm run format:check"
+    },
+    "lint": {
+      "exitCode": 0,
+      "command": "npm run lint"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "command": "npm run typecheck"
+    },
+    "cards:facts:verify": {
+      "exitCode": 0,
+      "command": "npm run cards:facts:verify"
+    },
+    "synergy:profiles:verify": {
+      "exitCode": 0,
+      "command": "npm run synergy:profiles:verify"
+    },
+    "coach:data:verify": {
+      "exitCode": 0,
+      "command": "npm run coach:data:verify"
+    },
+    "reports:verify": {
+      "exitCode": 0,
+      "command": "npm run reports:verify"
+    }
+  },
+  "testFileCounts": {
+    "unit": 73,
+    "contract": 6,
+    "integration": 30,
+    "e2e": 2,
+    "browser": 5
+  },
+  "coverage": {
+    "total": {
+      "lines": {
+        "total": 7266,
+        "covered": 6233,
+        "skipped": 0,
+        "pct": 85.78
+      },
+      "statements": {
+        "total": 7984,
+        "covered": 6741,
+        "skipped": 0,
+        "pct": 84.43
+      },
+      "functions": {
+        "total": 1364,
+        "covered": 1244,
+        "skipped": 0,
+        "pct": 91.2
+      },
+      "branches": {
+        "total": 6772,
+        "covered": 4908,
+        "skipped": 0,
+        "pct": 72.47
+      },
+      "branchesTrue": {
+        "total": 0,
+        "covered": 0,
+        "skipped": 0,
+        "pct": 100
+      }
+    },
+    "moduleTotals": {
+      "index.ts": {
+        "files": 1,
+        "lines": {
+          "total": 0,
+          "covered": 0,
+          "pct": null
+        },
+        "statements": {
+          "total": 0,
+          "covered": 0,
+          "pct": null
+        },
+        "functions": {
+          "total": 0,
+          "covered": 0,
+          "pct": null
+        },
+        "branches": {
+          "total": 0,
+          "covered": 0,
+          "pct": null
+        }
+      },
+      "bots": {
+        "files": 9,
+        "lines": {
+          "total": 454,
+          "covered": 405,
+          "pct": 89.21
+        },
+        "statements": {
+          "total": 482,
+          "covered": 428,
+          "pct": 88.8
+        },
+        "functions": {
+          "total": 73,
+          "covered": 66,
+          "pct": 90.41
+        },
+        "branches": {
+          "total": 452,
+          "covered": 336,
+          "pct": 74.34
+        }
+      },
+      "cards": {
+        "files": 7,
+        "lines": {
+          "total": 845,
+          "covered": 646,
+          "pct": 76.45
+        },
+        "statements": {
+          "total": 986,
+          "covered": 710,
+          "pct": 72.01
+        },
+        "functions": {
+          "total": 136,
+          "covered": 116,
+          "pct": 85.29
+        },
+        "branches": {
+          "total": 841,
+          "covered": 528,
+          "pct": 62.78
+        }
+      },
+      "cli": {
+        "files": 4,
+        "lines": {
+          "total": 173,
+          "covered": 130,
+          "pct": 75.14
+        },
+        "statements": {
+          "total": 176,
+          "covered": 133,
+          "pct": 75.57
+        },
+        "functions": {
+          "total": 27,
+          "covered": 21,
+          "pct": 77.78
+        },
+        "branches": {
+          "total": 131,
+          "covered": 96,
+          "pct": 73.28
+        }
+      },
+      "cubes": {
+        "files": 11,
+        "lines": {
+          "total": 371,
+          "covered": 317,
+          "pct": 85.44
+        },
+        "statements": {
+          "total": 387,
+          "covered": 326,
+          "pct": 84.24
+        },
+        "functions": {
+          "total": 98,
+          "covered": 86,
+          "pct": 87.76
+        },
+        "branches": {
+          "total": 301,
+          "covered": 214,
+          "pct": 71.1
+        }
+      },
+      "deck-lab": {
+        "files": 2,
+        "lines": {
+          "total": 154,
+          "covered": 116,
+          "pct": 75.32
+        },
+        "statements": {
+          "total": 182,
+          "covered": 139,
+          "pct": 76.37
+        },
+        "functions": {
+          "total": 60,
+          "covered": 52,
+          "pct": 86.67
+        },
+        "branches": {
+          "total": 153,
+          "covered": 95,
+          "pct": 62.09
+        }
+      },
+      "coaching": {
+        "files": 13,
+        "lines": {
+          "total": 1541,
+          "covered": 1465,
+          "pct": 95.07
+        },
+        "statements": {
+          "total": 1740,
+          "covered": 1642,
+          "pct": 94.37
+        },
+        "functions": {
+          "total": 294,
+          "covered": 278,
+          "pct": 94.56
+        },
+        "branches": {
+          "total": 1578,
+          "covered": 1335,
+          "pct": 84.6
+        }
+      },
+      "draft": {
+        "files": 12,
+        "lines": {
+          "total": 429,
+          "covered": 388,
+          "pct": 90.44
+        },
+        "statements": {
+          "total": 451,
+          "covered": 409,
+          "pct": 90.69
+        },
+        "functions": {
+          "total": 72,
+          "covered": 72,
+          "pct": 100
+        },
+        "branches": {
+          "total": 305,
+          "covered": 258,
+          "pct": 84.59
+        }
+      },
+      "multiplayer-draft": {
+        "files": 9,
+        "lines": {
+          "total": 910,
+          "covered": 780,
+          "pct": 85.71
+        },
+        "statements": {
+          "total": 983,
+          "covered": 829,
+          "pct": 84.33
+        },
+        "functions": {
+          "total": 179,
+          "covered": 173,
+          "pct": 96.65
+        },
+        "branches": {
+          "total": 864,
+          "covered": 677,
+          "pct": 78.36
+        }
+      },
+      "random": {
+        "files": 1,
+        "lines": {
+          "total": 24,
+          "covered": 23,
+          "pct": 95.83
+        },
+        "statements": {
+          "total": 25,
+          "covered": 24,
+          "pct": 96
+        },
+        "functions": {
+          "total": 7,
+          "covered": 7,
+          "pct": 100
+        },
+        "branches": {
+          "total": 14,
+          "covered": 13,
+          "pct": 92.86
+        }
+      },
+      "simulation": {
+        "files": 4,
+        "lines": {
+          "total": 310,
+          "covered": 270,
+          "pct": 87.1
+        },
+        "statements": {
+          "total": 335,
+          "covered": 290,
+          "pct": 86.57
+        },
+        "functions": {
+          "total": 51,
+          "covered": 45,
+          "pct": 88.24
+        },
+        "branches": {
+          "total": 274,
+          "covered": 157,
+          "pct": 57.3
+        }
+      },
+      "solo-draft": {
+        "files": 4,
+        "lines": {
+          "total": 624,
+          "covered": 570,
+          "pct": 91.35
+        },
+        "statements": {
+          "total": 663,
+          "covered": 602,
+          "pct": 90.8
+        },
+        "functions": {
+          "total": 104,
+          "covered": 97,
+          "pct": 93.27
+        },
+        "branches": {
+          "total": 460,
+          "covered": 278,
+          "pct": 60.43
+        }
+      },
+      "storage": {
+        "files": 2,
+        "lines": {
+          "total": 120,
+          "covered": 56,
+          "pct": 46.67
+        },
+        "statements": {
+          "total": 127,
+          "covered": 60,
+          "pct": 47.24
+        },
+        "functions": {
+          "total": 19,
+          "covered": 17,
+          "pct": 89.47
+        },
+        "branches": {
+          "total": 133,
+          "covered": 33,
+          "pct": 24.81
+        }
+      },
+      "tournaments": {
+        "files": 16,
+        "lines": {
+          "total": 1311,
+          "covered": 1067,
+          "pct": 81.39
+        },
+        "statements": {
+          "total": 1447,
+          "covered": 1149,
+          "pct": 79.41
+        },
+        "functions": {
+          "total": 244,
+          "covered": 214,
+          "pct": 87.7
+        },
+        "branches": {
+          "total": 1266,
+          "covered": 888,
+          "pct": 70.14
+        }
+      }
+    },
+    "excludedFromMeasurement": [
+      "src/web/**/*.js",
+      "scripts/serve-web.mjs",
+      "src/companion/**",
+      "scripts/**/*.ts"
+    ],
+    "note": "V8 coverage totals for configured TypeScript files only; Playwright executions are not merged into these metrics; type-only files may show 0/0."
+  },
+  "limitations": [
+    "Local audit only; no remote CI inspection or deployed environment probe.",
+    "No real PostgreSQL/Supabase test database or real Gemini photo evaluation.",
+    "Full npm run check not invoked as one command; constituent checks, coverage, Chromium, and isolated performance run individually.",
+    "No Lighthouse, axe, or human usability session executed."
+  ]
+}

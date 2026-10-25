@@ -34,3 +34,9 @@ Thumbs.db
 
 # Card images (downloaded binaries, fetched via CDN or cards:download-images)
 data/cards/images/
+
+# Personal deck photos (keep the tracked OCR fixture) and Codex session attachments
+data/deck/*
+!data/deck/1000018826.jpg
+!data/deck/1000018826.mtga.txt
+.codex-remote-attachments/
