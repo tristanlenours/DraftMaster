@@ -919,11 +919,11 @@
       "metaRole": "neutral"
     },
     {
-      "slug": "dismal-backwater",
-      "name": "Dismal Backwater",
-      "oracleId": "865a2194-fca0-446e-aae3-ca475cd66e00",
+      "slug": "faithless-looting",
+      "name": "Faithless Looting",
+      "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
       "tier": "A",
-      "fit": "support",
+      "fit": "filler",
       "scoreModifier": 0,
       "metaBonus": 0,
       "metaRole": "neutral"
@@ -1229,6 +1229,16 @@
       "metaRole": "neutral"
     },
     {
+      "slug": "dismal-backwater",
+      "name": "Dismal Backwater",
+      "oracleId": "865a2194-fca0-446e-aae3-ca475cd66e00",
+      "tier": "A-",
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
+    },
+    {
       "slug": "elephant-guide",
       "name": "Elephant Guide",
       "oracleId": "c138bd7f-8751-4e96-b54a-d5082e1a491f",
@@ -1402,16 +1412,6 @@
       "slug": "sunlance",
       "name": "Sunlance",
       "oracleId": "3c8cc7e2-7bff-46e0-bb5b-1e721a56a3ef",
-      "tier": "A-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
-      "slug": "thornglint-bridge",
-      "name": "Thornglint Bridge",
-      "oracleId": "99720c65-be96-4220-8ed4-720660bf6928",
       "tier": "A-",
       "fit": "support",
       "scoreModifier": 0,
@@ -1619,16 +1619,6 @@
       "metaRole": "support"
     },
     {
-      "slug": "quirion-ranger",
-      "name": "Quirion Ranger",
-      "oracleId": "3ecaefc8-ead2-47a3-a7ea-b030faab65a7",
-      "tier": "B+",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
-    },
-    {
       "slug": "repulse",
       "name": "Repulse",
       "oracleId": "6f7ef1d1-c441-41ba-b7d6-6b7727ffcf04",
@@ -1667,6 +1657,16 @@
       "scoreModifier": 4,
       "metaBonus": 4,
       "metaRole": "support"
+    },
+    {
+      "slug": "thornglint-bridge",
+      "name": "Thornglint Bridge",
+      "oracleId": "99720c65-be96-4220-8ed4-720660bf6928",
+      "tier": "B+",
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "tranquil-cove",
@@ -1789,16 +1789,6 @@
       "metaRole": "support"
     },
     {
-      "slug": "ethereal-armor",
-      "name": "Ethereal Armor",
-      "oracleId": "dbba75f5-2404-4bd5-982b-f6c4effa5316",
-      "tier": "B",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
-    },
-    {
       "slug": "force-spike",
       "name": "Force Spike",
       "oracleId": "896ea218-3019-47e4-b0a0-2487335872bb",
@@ -1872,6 +1862,16 @@
       "slug": "qasali-pridemage",
       "name": "Qasali Pridemage",
       "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
+      "tier": "B",
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
+    },
+    {
+      "slug": "quirion-ranger",
+      "name": "Quirion Ranger",
+      "oracleId": "3ecaefc8-ead2-47a3-a7ea-b030faab65a7",
       "tier": "B",
       "fit": "support",
       "scoreModifier": 4,
@@ -2089,6 +2089,16 @@
       "metaRole": "support"
     },
     {
+      "slug": "ethereal-armor",
+      "name": "Ethereal Armor",
+      "oracleId": "dbba75f5-2404-4bd5-982b-f6c4effa5316",
+      "tier": "B-",
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
+    },
+    {
       "slug": "fireslinger",
       "name": "Fireslinger",
       "oracleId": "0e5a5cee-d068-42cf-bf58-8e1360720be0",
@@ -2179,16 +2189,6 @@
       "metaRole": "neutral"
     },
     {
-      "slug": "serrated-arrows",
-      "name": "Serrated Arrows",
-      "oracleId": "5fa4607a-6731-4599-80f3-19d6097b4b28",
-      "tier": "B-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
       "slug": "soltari-trooper",
       "name": "Soltari Trooper",
       "oracleId": "501109bb-3406-41d8-9433-a100e494f938",
@@ -2242,16 +2242,6 @@
       "slug": "armillary-sphere",
       "name": "Armillary Sphere",
       "oracleId": "3963140c-da67-43e6-9514-fe9dc0a43c4d",
-      "tier": "C+",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
-      "slug": "bannerhide-krushok",
-      "name": "Bannerhide Krushok",
-      "oracleId": "e3191093-1aaa-4002-a603-7c8d132b6a31",
       "tier": "C+",
       "fit": "support",
       "scoreModifier": 0,
@@ -2409,6 +2399,16 @@
       "metaRole": "key"
     },
     {
+      "slug": "serrated-arrows",
+      "name": "Serrated Arrows",
+      "oracleId": "5fa4607a-6731-4599-80f3-19d6097b4b28",
+      "tier": "C+",
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
+    },
+    {
       "slug": "shimmerdrift-vale",
       "name": "Shimmerdrift Vale",
       "oracleId": "2ac34f3e-822d-4fde-99ca-a31c4d9503fd",
@@ -2507,6 +2507,16 @@
       "scoreModifier": 8,
       "metaBonus": 8,
       "metaRole": "key"
+    },
+    {
+      "slug": "bannerhide-krushok",
+      "name": "Bannerhide Krushok",
+      "oracleId": "e3191093-1aaa-4002-a603-7c8d132b6a31",
+      "tier": "C",
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "basilica-screecher",
@@ -2779,16 +2789,6 @@
       "metaRole": "support"
     },
     {
-      "slug": "mistvault-bridge",
-      "name": "Mistvault Bridge",
-      "oracleId": "33ee23bc-6327-4a54-a704-dfd83be36bb5",
-      "tier": "C",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
       "slug": "leonin-skyhunter",
       "name": "Leonin Skyhunter",
       "oracleId": "517c7295-8ba2-47a6-a1c6-aee722f8ca88",
@@ -2797,6 +2797,16 @@
       "scoreModifier": 4,
       "metaBonus": 4,
       "metaRole": "support"
+    },
+    {
+      "slug": "mistvault-bridge",
+      "name": "Mistvault Bridge",
+      "oracleId": "33ee23bc-6327-4a54-a704-dfd83be36bb5",
+      "tier": "C-",
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "moan-of-the-unhallowed",
@@ -2957,16 +2967,6 @@
       "scoreModifier": 0,
       "metaBonus": 0,
       "metaRole": "neutral"
-    },
-    {
-      "slug": "squall-drifter",
-      "name": "Squall Drifter",
-      "oracleId": "63ec5617-0da6-4534-b502-34304b1ea02b",
-      "tier": "C-",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
     },
     {
       "slug": "stab-wound",
@@ -3289,6 +3289,16 @@
       "metaRole": "neutral"
     },
     {
+      "slug": "squall-drifter",
+      "name": "Squall Drifter",
+      "oracleId": "63ec5617-0da6-4534-b502-34304b1ea02b",
+      "tier": "D+",
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
+    },
+    {
       "slug": "temple-acolyte",
       "name": "Temple Acolyte",
       "oracleId": "17e4085e-af44-4ba8-af05-ccfe4b35f96a",
@@ -3307,16 +3317,6 @@
       "scoreModifier": 0,
       "metaBonus": 0,
       "metaRole": "neutral"
-    },
-    {
-      "slug": "totem-guide-hartebeest",
-      "name": "Totem-Guide Hartebeest",
-      "oracleId": "c3a1bb65-556a-4016-a06a-3894710cb190",
-      "tier": "D+",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
     },
     {
       "slug": "ulamog-s-crusher",
@@ -3392,16 +3392,6 @@
       "slug": "ballynock-cohort",
       "name": "Ballynock Cohort",
       "oracleId": "7c415180-c179-474b-8c58-e7096bd2c763",
-      "tier": "D",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
-      "slug": "bitterbow-sharpshooters",
-      "name": "Bitterbow Sharpshooters",
-      "oracleId": "76f22670-6806-4124-8bbb-822ed33d2bda",
       "tier": "D",
       "fit": "filler",
       "scoreModifier": 0,
@@ -3589,6 +3579,16 @@
       "metaRole": "neutral"
     },
     {
+      "slug": "totem-guide-hartebeest",
+      "name": "Totem-Guide Hartebeest",
+      "oracleId": "c3a1bb65-556a-4016-a06a-3894710cb190",
+      "tier": "D",
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
+    },
+    {
       "slug": "wingcrafter",
       "name": "Wingcrafter",
       "oracleId": "55d1f44f-8554-49e7-b36f-92682926e6d0",
@@ -3603,6 +3603,16 @@
       "name": "Wojek Halberdiers",
       "oracleId": "96d6a400-f1bc-40f8-91ef-1d3cb96926f1",
       "tier": "D",
+      "fit": "filler",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
+    },
+    {
+      "slug": "bitterbow-sharpshooters",
+      "name": "Bitterbow Sharpshooters",
+      "oracleId": "76f22670-6806-4124-8bbb-822ed33d2bda",
+      "tier": "D-",
       "fit": "filler",
       "scoreModifier": 0,
       "metaBonus": 0,
@@ -3872,16 +3882,6 @@
       "slug": "prowling-felidar",
       "name": "Prowling Felidar",
       "oracleId": "ed26f6bf-fcd6-4cf4-9b65-a492cb79f2df",
-      "tier": "D-",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
-    },
-    {
-      "slug": "faithless-looting",
-      "name": "Faithless Looting",
-      "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
       "tier": "F",
       "fit": "filler",
       "scoreModifier": 0,

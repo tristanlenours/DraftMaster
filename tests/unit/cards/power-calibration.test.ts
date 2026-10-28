@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  detectUntappedEloContradiction,
   fitIsotonicCalibration,
   predictIsotonicScore,
   roundPowerScore,
@@ -75,5 +76,77 @@ describe("power score calibration", () => {
     expect(roundPowerScore(-10)).toBe(1);
     expect(roundPowerScore(31.04)).toBe(31);
     expect(roundPowerScore(80)).toBe(55);
+  });
+
+  describe("untapped Elo contradiction rule", () => {
+    // Linear Elo -> score map: 1300 -> 20, 1500 -> 30, 1700 -> 40.
+    const blocks = fitIsotonicCalibration([
+      { input: 1300, target: 20 },
+      { input: 1500, target: 30 },
+      { input: 1700, target: 40 },
+    ]);
+    const wellSampled = (elo: number) => ({ elo, pickCount: 50_000 });
+
+    it("replaces a near-zero native score contradicted by a well-sampled Elo", () => {
+      expect(detectUntappedEloContradiction(11, wellSampled(1500), blocks)).toBe(30);
+      expect(detectUntappedEloContradiction(5, wellSampled(1400), blocks)).toBe(25);
+    });
+
+    it("trusts the native score when the gap is under 12 points", () => {
+      // Elo 1340 -> 22: native 11 is half the estimate but only 11 points below it.
+      expect(detectUntappedEloContradiction(11, wellSampled(1340), blocks)).toBe(undefined);
+      expect(detectUntappedEloContradiction(10, wellSampled(1340), blocks)).toBe(22);
+    });
+
+    it("trusts mid-band native scores when the estimate is less than double", () => {
+      // Gap 16 but 33 < 2 * 17: a Fabled Passage-like disagreement stays native.
+      expect(detectUntappedEloContradiction(17, wellSampled(1560), blocks)).toBe(undefined);
+      expect(detectUntappedEloContradiction(16, wellSampled(1540), blocks)).toBe(32);
+    });
+
+    it("ignores Elo below 1300 or backed by fewer than 10 000 picks", () => {
+      expect(detectUntappedEloContradiction(1, wellSampled(1299), blocks)).toBe(undefined);
+      expect(detectUntappedEloContradiction(1, wellSampled(1300), blocks)).toBe(20);
+      expect(detectUntappedEloContradiction(5, { elo: 1600, pickCount: 9_999 }, blocks)).toBe(
+        undefined,
+      );
+      expect(detectUntappedEloContradiction(5, { elo: 1600 }, blocks)).toBe(undefined);
+      expect(detectUntappedEloContradiction(5, undefined, blocks)).toBe(undefined);
+    });
+
+    it("keeps a low native score that 17lands corroborates as a draft trap", () => {
+      expect(
+        detectUntappedEloContradiction(5, wellSampled(1500), blocks, {
+          grade: "F",
+          gameCount: 2_000,
+        }),
+      ).toBe(undefined);
+      expect(
+        detectUntappedEloContradiction(5, wellSampled(1500), blocks, {
+          grade: "D-",
+          gameCount: 4_000,
+        }),
+      ).toBe(undefined);
+    });
+
+    it("still lifts the score when the 17lands grade is better or thinly sampled", () => {
+      expect(
+        detectUntappedEloContradiction(5, wellSampled(1500), blocks, {
+          grade: "D",
+          gameCount: 4_000,
+        }),
+      ).toBe(30);
+      expect(
+        detectUntappedEloContradiction(5, wellSampled(1500), blocks, {
+          grade: "F",
+          gameCount: 1_999,
+        }),
+      ).toBe(30);
+      expect(detectUntappedEloContradiction(5, wellSampled(1500), blocks, { grade: "F" })).toBe(30);
+    });
+
+    it("never lowers a native score that exceeds the Elo estimate", () => {
+      expect(detectUntappedEloContradiction(51, wellSampled(1300), blocks)).toBe(undefined);
+    });
   });
 });

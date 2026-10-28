@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { CardCatalog } from "../../../src/cards/card-catalog.ts";
 import { selectRepresentativeScore } from "../../../src/cards/power-calibration.ts";
+import { loadUntappedEloContradiction } from "../../helpers/untapped-elo-contradiction.ts";
 
 interface DraftRecord {
   readonly startTime: number;
@@ -19,7 +20,7 @@ const rootDir = process.cwd();
 const normalizeName = (name: string): string => name.trim().toLowerCase();
 
 describe("Untapped Static Score Fidelity Contract", () => {
-  it("guarantees that 100% of cards known in Untapped drafts with a static score take that exact score in the catalog", async () => {
+  it("guarantees that 100% of cards known in Untapped drafts with a static score take that exact score unless CubeCobra Elo contradicts it", async () => {
     // 1. Load compiled master catalog
     const catalogResult = await CardCatalog.fromFile(
       resolve(rootDir, "data/cards/master-cards.json"),
@@ -66,6 +67,9 @@ describe("Untapped Static Score Fidelity Contract", () => {
 
     expect(expectedScoresByName.size).toBeGreaterThanOrEqual(400);
 
+    // 4b. The contradiction rule replaces native scores that CubeCobra Elo contradicts
+    const contradictionEstimate = loadUntappedEloContradiction();
+
     // 5. Verify that every card in the master catalog matching an Untapped card takes that exact score
     const discrepancies: {
       name: string;
@@ -75,15 +79,20 @@ describe("Untapped Static Score Fidelity Contract", () => {
     }[] = [];
 
     let verifiedCount = 0;
+    let eloOverrideCount = 0;
     for (const card of Object.values(catalog.catalog.cards)) {
       const key = normalizeName(card.name);
-      const expectedScore = expectedScoresByName.get(key);
-      if (expectedScore !== undefined) {
+      const untappedScore = expectedScoresByName.get(key);
+      if (untappedScore !== undefined) {
         verifiedCount++;
+        const eloEstimate = contradictionEstimate(card, untappedScore);
+        if (eloEstimate !== undefined) eloOverrideCount++;
+        const expectedScore = eloEstimate ?? untappedScore;
+        const expectedSource = eloEstimate === undefined ? "untapped" : "expert_heuristic";
         const catalogScore = card.powerScore.score;
         if (
           Math.abs(catalogScore - expectedScore) > 0.05 ||
-          card.powerScore.source !== "untapped"
+          card.powerScore.source !== expectedSource
         ) {
           discrepancies.push({
             name: card.name,
@@ -96,6 +105,8 @@ describe("Untapped Static Score Fidelity Contract", () => {
     }
 
     expect(verifiedCount).toBeGreaterThanOrEqual(400);
+    expect(eloOverrideCount).toBeGreaterThan(0);
+    expect(eloOverrideCount).toBeLessThan(verifiedCount / 5);
     expect(
       discrepancies,
       `Found ${String(discrepancies.length)} cards diverging from empirical Untapped static scores: ${JSON.stringify(discrepancies, null, 2)}`,

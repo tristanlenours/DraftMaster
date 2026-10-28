@@ -4,6 +4,10 @@ import { createHash } from "node:crypto";
 import { generateCubeSuggestionsReport } from "../src/cards/cube-upgrade-advisor.ts";
 import { assignRelativeTiers } from "../src/cards/relative-tier-engine.ts";
 import { writeMasterCatalog } from "../src/cards/master-catalog-build.ts";
+import {
+  UNTAPPED_ELO_CONTRADICTION_RULE,
+  detectUntappedEloContradiction,
+} from "../src/cards/power-calibration.ts";
 
 const rootDir = process.cwd();
 
@@ -55,6 +59,41 @@ if (refV2) {
   }
 }
 
+// 2b'. Load CubeCobra Elo evidence, the versioned Elo -> Untapped isotonic calibration and the
+// 17lands Arena grades, used to distrust native Untapped scores that Elo contradicts unless
+// 17lands corroborates them as draft traps.
+const calibrationPath = resolve(rootDir, "data/power-rankings/cubecobra-calibration-v1.json");
+const calibrationBlocks = JSON.parse(readFileSync(calibrationPath, "utf8")).blocks;
+const cubeCobraEvidenceByOracleId = new Map();
+const cubeCobraEvidenceByName = new Map();
+const cubesDir = resolve(rootDir, "data/cubes");
+for (const cubeDirName of readdirSync(cubesDir).sort()) {
+  const rawPath = join(cubesDir, cubeDirName, "cubecobra-raw.json");
+  if (!existsSync(rawPath)) continue;
+  for (const item of JSON.parse(readFileSync(rawPath, "utf8")).cards?.mainboard ?? []) {
+    const d = item.details;
+    if (!d?.name || !Number.isFinite(d.elo)) continue;
+    const evidence = { elo: d.elo, pickCount: d.pickCount };
+    if (d.oracle_id && !cubeCobraEvidenceByOracleId.has(d.oracle_id)) {
+      cubeCobraEvidenceByOracleId.set(d.oracle_id, evidence);
+    }
+    const nameKey = d.name.toLowerCase().trim();
+    if (!cubeCobraEvidenceByName.has(nameKey)) cubeCobraEvidenceByName.set(nameKey, evidence);
+  }
+}
+const arenaGradesPath = resolve(rootDir, "data/power-rankings/limitedgrades-powered-cache.json");
+// Versioned local snapshot (never fetched here): without it every corroborated trap would be lifted.
+const arenaGrades = JSON.parse(readFileSync(arenaGradesPath, "utf8"));
+const arenaGradesByName = new Map();
+for (const c of arenaGrades.cards) {
+  arenaGradesByName.set(c.name.toLowerCase().trim(), { grade: c.grade, gameCount: c.gameCount });
+}
+console.log(
+  `📊 Loaded ${arenaGradesByName.size} 17lands Arena grades (${arenaGrades.sourceUrl}, captured ${arenaGrades.capturedAt}).`,
+);
+const eloOverriddenCards = [];
+const rejectedUntappedScores = new Map();
+
 // 2c. Load CubeCobra Benchmarks and Card Release Metadata
 const benchmarksPath = resolve(rootDir, "data/benchmarks/cubecobra-benchmarks.json");
 const releaseMetaPath = resolve(rootDir, "data/benchmarks/card-release-metadata.json");
@@ -96,16 +135,40 @@ for (const file of itemFiles) {
   if (refV2ScoresNormalized.has(normName)) {
     const v2Score = refV2ScoresNormalized.get(normName);
     const cardHistory = refV2CardsNormalized.get(normName);
-    cardDoc.powerScore = {
-      ...cardDoc.powerScore,
-      score: v2Score,
-      rawSourceScore: v2Score,
-      source: "untapped",
-      harmonizationDegree: "native",
-      confidence: 1.0,
-      updatedAt:
-        cardHistory?.latestObservedAt || cardDoc.powerScore?.updatedAt || new Date().toISOString(),
-    };
+    const updatedAt =
+      cardHistory?.latestObservedAt || cardDoc.powerScore?.updatedAt || new Date().toISOString();
+    const evidence =
+      cubeCobraEvidenceByOracleId.get(cardDoc.oracleId) ?? cubeCobraEvidenceByName.get(normName);
+    const eloEstimate = detectUntappedEloContradiction(
+      v2Score,
+      evidence,
+      calibrationBlocks,
+      arenaGradesByName.get(normName),
+    );
+    if (eloEstimate !== undefined) {
+      eloOverriddenCards.push(cardDoc.oracleId);
+      rejectedUntappedScores.set(cardDoc.oracleId, v2Score);
+      // Same provenance as the other CubeCobra feature-calibrated scores: the catalog never
+      // carries raw Elo (tier-score-consistency invariant), only the calibrated estimate.
+      cardDoc.powerScore = {
+        score: eloEstimate,
+        source: "expert_heuristic",
+        rawSourceScore: eloEstimate,
+        harmonizationDegree: "calibrated_medium",
+        confidence: 0.6,
+        updatedAt,
+      };
+    } else {
+      cardDoc.powerScore = {
+        ...cardDoc.powerScore,
+        score: v2Score,
+        rawSourceScore: v2Score,
+        source: "untapped",
+        harmonizationDegree: "native",
+        confidence: 1.0,
+        updatedAt,
+      };
+    }
   }
 
   if (cardsByOracleId[cardDoc.oracleId]) {
@@ -117,6 +180,9 @@ for (const file of itemFiles) {
   cardCount += 1;
 }
 
+console.log(
+  `⚖️ ${UNTAPPED_ELO_CONTRADICTION_RULE.id}: ${eloOverriddenCards.length} native Untapped scores contradicted by CubeCobra Elo replaced by the calibrated estimate`,
+);
 console.log(
   `✅ Successfully indexed ${cardCount} individual card JSON files from data/cards/items/`,
 );
@@ -427,6 +493,13 @@ if (existsSync(powerRankingPath)) {
       entry.rawSourceScore = card.powerScore.score;
       if (card.powerScore.source) {
         entry.source = card.powerScore.source;
+      }
+      if (rejectedUntappedScores.has(entry.oracleId)) {
+        entry.method = UNTAPPED_ELO_CONTRADICTION_RULE.id;
+        entry.rejectedUntappedScore = rejectedUntappedScores.get(entry.oracleId);
+      } else if (entry.method === UNTAPPED_ELO_CONTRADICTION_RULE.id) {
+        entry.method = "historical_mode";
+        delete entry.rejectedUntappedScore;
       }
     }
   }
