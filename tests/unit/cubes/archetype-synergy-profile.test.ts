@@ -13,8 +13,8 @@ describe("Archetype Synergy Profile", () => {
   it.each([
     ["titou_tribal", 9],
     ["nico_candyshop", 10],
-    ["cedric_cube", 10],
-    ["hugues_pauper", 10],
+    ["cedric_cube", 14],
+    ["hugues_pauper", 11],
     ["titou_arena_peasant_plus", 10],
   ] as const)(
     "loads the versioned %s profile and resolves every card to its archive",

@@ -4,8 +4,8 @@
   "name": "Cédric's High-Power Cube (Strobinellus)",
   "owner": "cedric",
   "coachReadiness": {
-    "status": "partial",
-    "reason": "Catalogue et méta disponibles, mais aucun profil d'affinités d'archétypes versionné."
+    "status": "ready",
+    "reason": "Catalogue, méta et profil d'affinités fonctionnelles versionnés : 14 archétypes avec briques obligatoires."
   },
   "coverImage": "data/cubes/cedric_cube/cedricCube.jpg",
   "activeSnapshotId": "cedric_cube@2026-03-01.1",
@@ -29,145 +29,210 @@
   "philosophy": "Le Cube de Cédric (Strobinellus) privilégie la profondeur stratégique et l'équilibre interactif. En écartant le Power 9 au profit d'accélérateurs sélectifs (Mana Vault, Mox Diamond, Grim Monolith) et de bilands parfaits, il permet des affrontements spectaculaires où le Tour Pivot (T3.5 - T4) récompense l'anticipation, les échanges 2-pour-1 et les synergies construites.",
   "dominantMechanics": [
     "Reanimator",
-    "Sneak and Show",
+    "Sneak Attack / Show and Tell",
     "Tinker and Artifact Ramp",
-    "Planeswalkers and Superfriends",
-    "Midrange Value and Attrition",
-    "Equipment and Swords",
-    "Man-Lands"
+    "Blink and ETB Value",
+    "Sacrifice and Recursive Threats",
+    "Green Ramp and Natural Order",
+    "Equipment Aggro",
+    "Planeswalkers and Midrange Attrition"
   ],
   "fixingDensityPercentage": 9.7,
   "archetypes": [
     {
-      "id": "cedric:azorius_control_blink",
-      "name": "Azorius Control and Blink",
+      "id": "cedric:azorius_control",
+      "name": "Azorius Control",
       "primaryColors": [
         "W",
         "U"
       ],
       "category": "control",
-      "description": "Verrouillage de table par contre-sorts et sweepers, rentabilisé par le clignement de créatures à haute valeur ajoutée.",
-      "gameplan": "Contrôler le tempo tôt avec Counterspell et Mana Drain, nettoyer avec Supreme Verdict, puis clore via Teferi, Restoration Angel ou Consecrated Sphinx.",
+      "description": "Contrôle classique : contre-sorts efficaces, sweepers et planeswalkers qui transforment chaque échange en avantage.",
+      "gameplan": "Survivre aux premiers tours avec Swords to Plowshares et Counterspell, nettoyer avec Supreme Verdict, puis verrouiller via Teferi, Jace ou Consecrated Sphinx protégés par Mana Drain.",
       "keyCards": [
-        "ae7604bb-4818-45a3-960c-cf3d83f15964",
+        "74d3277a-38e5-4732-afed-084a56148f20",
+        "956381ba-6d37-4a8a-846c-bad79222dbee",
         "0230de18-8d15-4cfa-9d42-7ccddd9f9570",
-        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
         "f2f165b6-ef0a-42ad-9352-ba68be8248b0",
-        "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
-        "180eda7c-fca2-403b-85cd-8ffebaf9f408",
-        "74d3277a-38e5-4732-afed-084a56148f20"
+        "7f77a84e-5a4b-4834-aefa-3cecc175ae8e",
+        "311a449d-dc74-46e6-9a47-6a597931f736",
+        "0c7f18d5-36cb-4bc6-a358-443b97666215"
       ],
       "supportCards": [
-        "3979067a-9c68-443d-a85f-d9f07be880b9",
-        "b1544f21-7e98-461b-aed5-e748b0168c52",
         "cc187110-1148-4090-bbb8-e205694a39f5",
-        "956381ba-6d37-4a8a-846c-bad79222dbee",
-        "ac2173f9-f223-440a-9231-fd98762bdc6f",
         "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
         "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
-        "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
-        "0c7f18d5-36cb-4bc6-a358-443b97666215",
-        "d90af00a-d322-4265-9954-7b1e80702e18",
-        "24d0f5e7-0d9e-4b76-900e-a7274e80312d",
-        "876ac6f6-74de-4666-84c6-83d81f054723",
+        "c61fe162-2202-4e56-9ba0-393547f9875f",
+        "ac2173f9-f223-440a-9231-fd98762bdc6f",
+        "a3e51a35-09df-4189-b131-08a21e6a557d",
+        "a8c9f91a-b1e7-451d-b6db-ae865e2b853c",
+        "b1544f21-7e98-461b-aed5-e748b0168c52",
+        "34515b16-c9a4-4f98-8c77-416a7a523407",
+        "d057289d-5e28-43d5-8ff3-4a1bc723477d",
+        "3dd196b6-a85a-4e3e-bb57-ec34241f8117",
+        "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
+        "acf4d685-a718-42f7-9a7a-dee069ae8db2",
         "0a0b376d-7824-4ba5-8bc9-bc0be12800c5",
         "71d83fca-e40e-4d0e-956d-d0d6da9cc472",
-        "02418479-9455-417f-a6a1-004356faff37",
-        "f1750962-a87c-49f6-b731-02ae971ac6ea"
+        "437b2dab-15e0-4b9a-a204-58622d37a3b3",
+        "f8b17b89-26ce-4208-874a-9e1d66514640",
+        "ae7604bb-4818-45a3-960c-cf3d83f15964",
+        "654ff673-4630-4068-9bcf-e88a7877eb58",
+        "876ac6f6-74de-4666-84c6-83d81f054723",
+        "8c0520fa-276b-4d21-b4a9-dce1fce59f6b"
       ],
       "recommendedCreatureCount": [
-        8,
-        14
-      ],
-      "recommendedRemovalCount": [
-        6,
-        10
-      ]
-    },
-    {
-      "id": "cedric:dimir_reanimator",
-      "name": "Dimir Reanimator and Tempo",
-      "primaryColors": [
-        "U",
-        "B"
-      ],
-      "category": "combo",
-      "description": "Mise rapide de monstres terrifiants au cimetière et réanimation économique dès les premiers tours.",
-      "gameplan": "Défausser ou meuler Griselbrand ou Archon of Cruelty avec Entomb ou Thoughtseize, puis réanimer avec Reanimate ou Shallow Grave.",
-      "keyCards": [
-        "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
-        "c0d8fef4-65f4-4769-982d-b397d2b7e977",
-        "f759d112-76db-4091-a22b-b9f19ab6fa5f",
-        "aa1a6646-c1e6-4bff-9092-43ee3e137914",
-        "299fc083-0834-4064-8344-f895aff68867",
-        "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
-        "ea5103f5-27e0-4eb1-902c-7f34652d6bf3"
-      ],
-      "supportCards": [
-        "cc187110-1148-4090-bbb8-e205694a39f5",
-        "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
-        "9843d8a6-bcbf-40c2-8c41-316e97db9c62",
-        "15d5b198-edbe-40f3-87e2-d72f7f0c58ab",
-        "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
-        "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
-        "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8",
-        "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
-        "594f6881-c059-46f8-aa4e-7151d502de73",
-        "37688720-03de-4eca-a82d-a0afe8d58adc",
-        "70486bee-6ee7-41ea-b834-8caf4699302b",
-        "82004860-e589-4e38-8d61-8c0210e4ea39",
-        "ededbdae-d9dc-4206-9335-d7158f2d7700",
-        "16cd0b90-f70c-4efa-b252-8de8784ef9a3",
-        "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
-        "fc9ec820-4245-4a96-b009-5308a818ca58"
-      ],
-      "recommendedCreatureCount": [
-        10,
-        15
-      ],
-      "recommendedRemovalCount": [
         5,
-        8
+        10
+      ],
+      "recommendedRemovalCount": [
+        7,
+        11
       ]
     },
     {
-      "id": "cedric:rakdos_aristocrats",
-      "name": "Rakdos Aristocrats and Attrition",
+      "id": "cedric:azorius_blink",
+      "name": "Azorius Blink & ETB Value",
       "primaryColors": [
-        "B",
-        "R"
+        "W",
+        "U"
       ],
       "category": "midrange",
-      "description": "Sacrifices récursifs, défausse agressive et finisseurs directs pour épuiser l'adversaire.",
-      "gameplan": "Poser Bloodghast et Gobelins, perturber la main adverse avec Thoughtseize et Blightning, et convertir le plateau avec Daretti.",
+      "description": "Créatures à effet d'arrivée rentabilisées plusieurs fois par Ephemerate, Flickerwisp et Restoration Angel.",
+      "gameplan": "Accumuler des créatures à ETB (Solitude, Palace Jailer, Skyclave Apparition, Mulldrifter) puis les faire clignoter pour enchaîner les 2-pour-1 et garder la monarchie.",
       "keyCards": [
-        "add0f7e7-8990-4fd1-8ac7-8115f7802912",
-        "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
-        "e97f9c2b-b41e-4f36-9245-77c0ac125647",
-        "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
-        "45f1e957-09f0-4d46-8e32-238f26060a87",
-        "c0957e5e-c71b-439c-931c-9f55d2f76ace",
-        "34f34409-326d-4994-a0ea-1a69aa278f03"
+        "0fd57894-b917-41c8-a394-360d1d31b236",
+        "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
+        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+        "dcb9c2a7-ae54-4ddc-a567-640bf4bf4366",
+        "180eda7c-fca2-403b-85cd-8ffebaf9f408"
       ],
       "supportCards": [
-        "4457ed35-7c10-48c8-9776-456485fdf070",
-        "6257c2fd-005f-41e3-8a72-af76df1eb134",
-        "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
-        "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
-        "65986c1b-8e51-4604-b685-d82fa7d1263a",
-        "fb868840-09fa-49b1-85cb-b08ad065e972",
-        "a498bc70-36e7-4454-bc44-906893df38b8",
-        "cd2a87c4-d1c3-4a9e-b2df-e6fe251421c4",
-        "24661b81-6bee-4ad8-b3ab-53cb65005c51",
-        "02238355-9c84-4ae0-b850-269f460144a8",
-        "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
-        "fd74f8eb-0253-42dd-8277-186d4934da38",
-        "13ff3222-91cb-4796-a34e-899ed817694c",
-        "43985bbc-a0f6-4812-984e-392bc8562633"
+        "c48d844c-3976-4fa5-8e0d-3f0e535e7619",
+        "0f41cefc-d6ff-4db7-ba35-502b7e081de1",
+        "8c31fec9-e4b3-4761-990e-7be38eb05604",
+        "d90af00a-d322-4265-9954-7b1e80702e18",
+        "cb9d557a-fc06-428c-8be6-7d28add33028",
+        "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
+        "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+        "194166ad-0179-42a3-86b9-ba7f322ec576",
+        "24d0f5e7-0d9e-4b76-900e-a7274e80312d",
+        "b333c194-d285-4dfb-984c-57b7e88393af",
+        "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+        "47a785ed-8095-4685-8daa-02c4e2b0ffcd",
+        "358789f9-7d87-411d-919e-d597da665cbd",
+        "277aafa6-4270-4d24-a888-cf9e8e635d4b",
+        "08e2fead-53e9-445b-8fd1-c108bb09d81c",
+        "b2e950fb-cb7e-40a0-a311-5bbdd0477b29",
+        "28c7f2b6-ba67-4ccf-9e1b-99c89a9d1f72",
+        "7060f2c8-fca0-4b7a-bddf-37682f434596"
       ],
       "recommendedCreatureCount": [
         14,
         18
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "cedric:dimir_reanimator",
+      "name": "Dimir Reanimator",
+      "primaryColors": [
+        "B",
+        "U"
+      ],
+      "splashColors": [
+        "R"
+      ],
+      "category": "combo",
+      "description": "Mise au cimetière d'un monstre surdimensionné puis réanimation dès le tour 1-2 pour gagner avant que l'adversaire ne se développe.",
+      "gameplan": "Entomb ou Faithless Looting pour placer Griselbrand ou Archon of Cruelty au cimetière, puis Reanimate, Animate Dead ou Exhume. Garder deux sorts de réanimation et au moins deux cibles.",
+      "keyCards": [
+        "299fc083-0834-4064-8344-f895aff68867",
+        "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
+        "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+        "699b192c-f3f2-4ac5-9ca9-e35bcf08ad8a",
+        "fbe61f74-1b3c-4e12-8758-7029872c9ff1",
+        "f759d112-76db-4091-a22b-b9f19ab6fa5f",
+        "aa1a6646-c1e6-4bff-9092-43ee3e137914"
+      ],
+      "supportCards": [
+        "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
+        "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
+        "22a78443-db21-4656-b38a-e3e3186fd94b",
+        "0b23d9aa-d4ed-4ccf-8810-4a4d11d6fb9c",
+        "594f6881-c059-46f8-aa4e-7151d502de73",
+        "05878e49-93ad-4144-9c50-a0bb86126c2e",
+        "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+        "15d5b198-edbe-40f3-87e2-d72f7f0c58ab",
+        "367d4cf2-270f-4236-af10-7d5e8ea8c9fe",
+        "9843d8a6-bcbf-40c2-8c41-316e97db9c62",
+        "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
+        "a6708b11-1bcd-4208-a967-fe91f2e3313c",
+        "d48e1545-7997-45ed-83a1-aee45b3d3d20",
+        "958d71ff-c9f7-46f0-96ca-79e7f4d65a16",
+        "9218b56d-aaec-482f-99e9-d95d227bfe25",
+        "f3abd4d1-a975-4e85-8684-aa0fce029670",
+        "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+        "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
+        "93cf50cf-0ecc-4d3e-abea-778c1ebacec4",
+        "0d6b89dc-23fb-48e9-a54b-cea2838ae7c8"
+      ],
+      "recommendedCreatureCount": [
+        6,
+        11
+      ],
+      "recommendedRemovalCount": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "cedric:dimir_tempo",
+      "name": "Dimir Tempo & Disruption",
+      "primaryColors": [
+        "U",
+        "B"
+      ],
+      "category": "midrange",
+      "description": "Menaces efficaces qui génèrent de l'avantage, protégées par défausse ciblée, contre-sorts et removal économique.",
+      "gameplan": "Défausser le sort clé adverse au tour 1, poser Orcish Bowmasters ou Baleful Strix, puis garder le mana ouvert pour contrer ou tuer pendant que les menaces évasives ferment la partie.",
+      "keyCards": [
+        "ea5103f5-27e0-4eb1-902c-7f34652d6bf3",
+        "34f34409-326d-4994-a0ea-1a69aa278f03",
+        "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
+        "37688720-03de-4eca-a82d-a0afe8d58adc",
+        "c5c2d209-e3ef-4b0d-85f5-e7402dcf09eb",
+        "68b51d58-7566-4a26-8c31-8da32799bea7"
+      ],
+      "supportCards": [
+        "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+        "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
+        "112322ad-8f66-4cd4-98a1-f425d61a69ce",
+        "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
+        "244d4807-0802-41bc-9460-55ac38a28a72",
+        "3a6f886b-2043-47e9-9c0f-f7913a6fa67d",
+        "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
+        "2068185c-1b50-47d0-aa3f-bf505d199428",
+        "250cb58b-2924-4dff-92fe-ac0ebbbeb218",
+        "b8619990-9dc2-4fcc-bc7e-457b77cd2a8e",
+        "3d038f7c-95fa-4b71-8f74-b9b4dd45cde0",
+        "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+        "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+        "cc187110-1148-4090-bbb8-e205694a39f5",
+        "70486bee-6ee7-41ea-b834-8caf4699302b",
+        "c61fe162-2202-4e56-9ba0-393547f9875f",
+        "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
+        "324824cb-f938-401c-b9b5-d8908b431ef0",
+        "3641d572-8335-4804-88ad-edf4dc67a8e4",
+        "e4b1ef6a-6f05-472e-aaed-1c24dd6605c7",
+        "992d9a72-d34d-47d7-96fb-37f0efb515ef"
+      ],
+      "recommendedCreatureCount": [
+        10,
+        14
       ],
       "recommendedRemovalCount": [
         6,
@@ -175,41 +240,185 @@
       ]
     },
     {
-      "id": "cedric:gruul_stompy_sneak",
-      "name": "Gruul Stompy and Monster Cheat",
+      "id": "cedric:sneak_show",
+      "name": "Sneak Attack / Show and Tell",
+      "primaryColors": [
+        "U",
+        "R"
+      ],
+      "category": "combo",
+      "description": "Mise en jeu gratuite d'une menace colossale via Show and Tell ou Sneak Attack, souvent dès le tour 2-3 avec Ancient Tomb.",
+      "gameplan": "Trouver un moteur (Show and Tell, Sneak Attack) et deux cibles (Emrakul, Griselbrand, Ulamog). Brainstorm et Mystical Tutor assemblent la paire ; chaque grosse créature draftée sans moteur est une carte morte.",
+      "keyCards": [
+        "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+        "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+        "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
+        "f759d112-76db-4091-a22b-b9f19ab6fa5f"
+      ],
+      "supportCards": [
+        "aa1a6646-c1e6-4bff-9092-43ee3e137914",
+        "0bfa4512-e35a-4c93-b324-80ec659f5a97",
+        "b817bc56-9b4d-4c50-bafa-3c652b99578f",
+        "7b8528b0-71eb-4c9e-bed9-aa2d2e84038f",
+        "e80772e2-8623-4094-81a2-70828b2b151c",
+        "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
+        "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+        "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
+        "958d71ff-c9f7-46f0-96ca-79e7f4d65a16",
+        "8c52bd39-0586-48ca-b263-17210cf9feb6",
+        "17975a20-2c13-4325-be1e-0bcda5063a2d",
+        "2d7e00b6-12f0-4b03-82a6-50e3d1b5395e",
+        "7514e401-7aa1-405d-9f7a-312b4e630cc2",
+        "daff70a4-a990-47c9-b6ef-2c379272c8a3",
+        "fb81f95c-70f8-4eb7-8d15-15d0ae23ec03",
+        "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
+        "23467047-6dba-4498-b783-1ebc4f74b8c2"
+      ],
+      "recommendedCreatureCount": [
+        6,
+        10
+      ],
+      "recommendedRemovalCount": [
+        2,
+        5
+      ]
+    },
+    {
+      "id": "cedric:artifact_tinker",
+      "name": "Tinker & Artifact Ramp",
+      "primaryColors": [
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Accélérateurs artefacts (Monolithes, Mana Vault, Thran Dynamo) vers Tinker, Urza et des menaces incolores démesurées.",
+      "gameplan": "Poser deux accélérateurs artefacts dès les premiers tours, puis Tinker pour Blightsteel Colossus ou caster directement Wurmcoil, Karn ou Ugin. Les artefacts incolores restent jouables dans toute paire de couleurs.",
+      "keyCards": [
+        "254878f0-be90-4653-a395-0c41258fceaf",
+        "e87906d2-db1a-4e19-b910-adb4eb339945",
+        "e22824cf-07a1-4c83-b6c4-9d8fcff3892f",
+        "e80772e2-8623-4094-81a2-70828b2b151c",
+        "060209fa-4b7d-4e08-bf8b-8759bba5641b"
+      ],
+      "supportCards": [
+        "736892cb-a34b-4bb9-b56c-e26e3db207a2",
+        "229d6627-1292-4ae1-8849-b0f956fa6540",
+        "6b8cf2a0-b045-4d91-9d91-c602d40c6237",
+        "a699c663-8131-4045-9265-a83e86609374",
+        "9a02a9a7-39d9-4763-85d3-747a0540b60b",
+        "b166b670-febc-4821-855e-f8d465644c03",
+        "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
+        "32263baa-d3f0-463f-92b3-4e9938476add",
+        "04cf02dc-f053-414e-87d8-1537f25bcbf4",
+        "f3c5978a-70fa-431f-933b-b954bd0db0ea",
+        "23467047-6dba-4498-b783-1ebc4f74b8c2",
+        "7b0767b8-b504-456e-93bd-218502f73b3d",
+        "08afc0d7-192f-4ab6-b6a0-c4265cf5e225",
+        "7060f2c8-fca0-4b7a-bddf-37682f434596",
+        "d1a60f44-7696-49ee-91fb-cab5b3102962",
+        "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+        "d17d071d-dbee-4d65-8435-137f35cd89ca",
+        "0ca233f4-1b7f-4807-ab6e-2b1f5439b3db",
+        "eecb3047-a563-441a-9175-200421981ac3",
+        "18bdc181-9592-4147-81fb-7f83ce137f70",
+        "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
+        "4b515bb0-f275-4400-8032-3173b799ab40"
+      ],
+      "recommendedCreatureCount": [
+        6,
+        11
+      ],
+      "recommendedRemovalCount": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "cedric:rakdos_aristocrats",
+      "name": "Rakdos Sacrifice & Recursive Threats",
+      "primaryColors": [
+        "B",
+        "R"
+      ],
+      "category": "aggro",
+      "description": "Créatures qui reviennent du cimetière et jetons sacrifiés à Goblin Bombardment, Falkenrath Aristocrat ou Skullclamp pour drainer et piocher.",
+      "gameplan": "Dérouler Bloodghast, Gravecrawler et producteurs de jetons, puis convertir chaque créature en dégâts ou en cartes via un outlet de sacrifice. Sans outlet, ces corps restent de simples attaquants fragiles.",
+      "keyCards": [
+        "edad60c6-80de-4033-af1b-a703ac332983",
+        "cd2a87c4-d1c3-4a9e-b2df-e6fe251421c4",
+        "65986c1b-8e51-4604-b685-d82fa7d1263a",
+        "127de52b-df75-4342-95a0-20d84c5bf916",
+        "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
+        "e97f9c2b-b41e-4f36-9245-77c0ac125647"
+      ],
+      "supportCards": [
+        "09ff28b1-b6c9-48e6-b12e-2f0e644f709f",
+        "cad09970-14c8-4d80-82fe-6c855efb0191",
+        "88154d64-221f-4742-bccb-b1b61a2e8bf0",
+        "d37e0127-6f68-438e-8b9e-a71bb3c34733",
+        "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
+        "d309e1e9-26e6-4a10-a3f4-352c7ba3f2ff",
+        "a498bc70-36e7-4454-bc44-906893df38b8",
+        "ddc7f59a-bbb1-4ba1-82c8-6813fd191940",
+        "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
+        "86084ed9-b8bb-4289-9579-6056194787bc",
+        "e8065e1d-e937-4b56-8011-78f0d07328a0",
+        "fb868840-09fa-49b1-85cb-b08ad065e972",
+        "55eca80c-dcd8-4c2f-aa0f-fb0aec7b80f7",
+        "c0957e5e-c71b-439c-931c-9f55d2f76ace",
+        "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+        "2e3ee458-fa3f-4452-ab95-5a7fb5a0483b"
+      ],
+      "recommendedCreatureCount": [
+        15,
+        19
+      ],
+      "recommendedRemovalCount": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "cedric:gruul_stompy",
+      "name": "Gruul Haste & Stompy",
       "primaryColors": [
         "R",
         "G"
       ],
-      "category": "ramp",
-      "description": "Accélération de mana brutale et projection immédiate de créatures gigantesques via Sneak Attack ou Natural Order.",
-      "gameplan": "Ramper avec Wood Elves ou Sylvan Caryatid, poser Minsc and Boo ou activer Sneak Attack pour envoyer Worldspine Wurm.",
+      "category": "aggro",
+      "description": "Accélérateurs à un mana vers des menaces à célérité et à valeur immédiate qui écrasent les decks lents.",
+      "gameplan": "Mana dork tour 1, menace à 3 mana tour 2 (Minsc & Boo, Questing Beast), puis Bloodbraid Elf et dragons à célérité. Rancor et Embercleave convertissent chaque attaque en dégâts décisifs.",
       "keyCards": [
-        "3a310554-3f69-4158-bb94-9d6965c7125a",
         "3f0c9466-5ab9-4205-a84f-b4b27b5a678e",
-        "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
-        "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+        "3a310554-3f69-4158-bb94-9d6965c7125a",
         "108ae90a-50fa-4cfd-b751-d630e41425fe",
-        "254f87cc-e0c2-484d-b5e8-1ea8c366990c"
+        "b685757b-521e-4353-a233-97052359723d",
+        "4d6120d6-fcce-40bc-9fc6-e1f5beb6c728",
+        "582328cd-660d-47a4-bb23-e91e80b9a907"
       ],
       "supportCards": [
-        "13d4c46b-c2d6-44cc-a252-4a991d471854",
-        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+        "fbbc3acb-c917-44ff-ac6f-9dd6ebe3f4ad",
+        "450a07f5-709c-48a6-aaa8-ddbd7da4fd2e",
+        "30d2437a-87c9-4f88-8fb8-b686d6522677",
+        "d6d72f5f-8f5d-4180-b514-f22ff5482902",
+        "f02557b0-f422-48cb-875e-2c814c39967d",
+        "b75c3902-633e-4d24-acde-d7a9cc8f466e",
+        "e958144e-01bc-46ff-8f56-ddf2eb098630",
+        "fa56a5fa-ef96-404c-8fb6-d1f5fcebb52e",
+        "8b21062e-97b0-4967-96df-30e8309f4fba",
+        "daff70a4-a990-47c9-b6ef-2c379272c8a3",
+        "8d38194e-b607-4ff4-9c19-0e8636d463bf",
+        "af12758f-4a7b-4156-8942-de4716aa0623",
+        "942a318e-90eb-4f10-bb30-2e10f5cc922a",
+        "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
         "68954295-54e3-4303-a6bc-fc4547a4e3a3",
         "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
-        "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
         "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
-        "942a318e-90eb-4f10-bb30-2e10f5cc922a",
-        "b685757b-521e-4353-a233-97052359723d",
-        "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
-        "7514e401-7aa1-405d-9f7a-312b4e630cc2",
-        "daff70a4-a990-47c9-b6ef-2c379272c8a3",
-        "4457ed35-7c10-48c8-9776-456485fdf070",
-        "22e3cf1d-3559-4ce1-954c-8dc815342979",
-        "16052b52-ade1-406f-a06b-ce7ea607fb63"
+        "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+        "c8de43a3-ebd3-4000-b343-a6ffed11d34d"
       ],
       "recommendedCreatureCount": [
-        15,
+        16,
         20
       ],
       "recommendedRemovalCount": [
@@ -218,41 +427,96 @@
       ]
     },
     {
+      "id": "cedric:simic_ramp_goodstuff",
+      "name": "Green Ramp & Natural Order",
+      "primaryColors": [
+        "G",
+        "U"
+      ],
+      "category": "ramp",
+      "description": "Accélération verte massive vers Oko, Uro, Hydroid Krasis et les tutors de créatures (Natural Order, Green Sun's Zenith).",
+      "gameplan": "Trois accélérateurs ou plus pour sauter au tour 4-5, puis Natural Order vers Craterhoof ou Woodfall Primus, ou valeur continue avec Oko et Uro. Le bleu apporte contres et pioche.",
+      "keyCards": [
+        "60c60923-ff1b-43f7-8768-731499fcffc9",
+        "ee302659-59ed-4eef-babe-451b9ccf7f14",
+        "6bd872b2-5c40-4e11-9a7f-0136a51b0642",
+        "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
+        "8c52bd39-0586-48ca-b263-17210cf9feb6",
+        "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
+        "0d96b60b-a060-48ee-bb83-93f1c4a10669"
+      ],
+      "supportCards": [
+        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
+        "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+        "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
+        "98aa9424-5912-4bd6-9300-b3972a31d8af",
+        "13d4c46b-c2d6-44cc-a252-4a991d471854",
+        "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
+        "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
+        "a011aefe-5853-4435-b686-179e931ba897",
+        "3015882b-4897-4d2c-8e33-6731c85a0d03",
+        "e3afc704-220f-498f-9eaa-0821b17dc24c",
+        "6c5b02eb-7829-436a-8555-fea200e4b67f",
+        "ae83ef2c-960f-4c5b-97cc-52465c687c18",
+        "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+        "4ba5b3f6-503b-43e6-b66e-4f8c55cffed7",
+        "3b1f8108-6911-49e9-8f78-f950bb58cb6c",
+        "17975a20-2c13-4325-be1e-0bcda5063a2d",
+        "382b7873-e78d-473b-8346-d92d16e8f634",
+        "372351fd-58f7-4cb8-8644-5fbc94ccb145",
+        "8c411f4e-a091-447c-9450-d895b10b4985"
+      ],
+      "recommendedCreatureCount": [
+        14,
+        19
+      ],
+      "recommendedRemovalCount": [
+        2,
+        5
+      ]
+    },
+    {
       "id": "cedric:selesnya_tokens_midrange",
-      "name": "Selesnya Midrange and Hatebears",
+      "name": "Selesnya Tokens & Anthems",
       "primaryColors": [
         "G",
         "W"
       ],
       "category": "midrange",
-      "description": "Déploiement de créatures résilientes, protection des menaces et amplification par le nombre.",
-      "gameplan": "Protéger ses attaquants avec Giver of Runes, déployer Voice of Resurgence et Knight of Autumn pour dominer le combat.",
+      "description": "Producteurs de jetons multiples amplifiés par des anthems et des finishers de masse (Craterhoof, Overrun).",
+      "gameplan": "Multiplier les corps avec Spectral Procession, Hero of Bladehold et Esika's Chariot, protéger le plateau avec Mother of Runes, puis convertir la largeur en dégâts via Intrepid Adversary, Gideon ou Gaea's Cradle.",
       "keyCards": [
-        "5cbbb3f3-63a4-4983-81ea-8c405b10e63f",
-        "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
-        "4ec85850-f274-4c0c-9a03-0488267caa14",
-        "60433b48-d27f-413c-905c-43839b1943f1",
+        "454a8902-8120-4373-96ee-bbf352b04e8d",
+        "376271a6-80f0-47a6-990a-5ec5517aae42",
+        "05e6b243-48a6-4a42-bc5f-413441de9c33",
         "8e7b079d-9ede-421c-bd2b-f9a5126a8e6f",
+        "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
+        "b72fde5e-862a-45e8-9880-f2c16975a9ac",
+        "51eae7ff-fed9-4afe-8053-7690379449dd",
         "7c427c3d-ecd8-45ef-bebd-8f10f4a311db"
       ],
       "supportCards": [
-        "13d4c46b-c2d6-44cc-a252-4a991d471854",
-        "069f6530-e65c-4d52-85f3-e0a2acd148c5",
-        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
-        "98aa9424-5912-4bd6-9300-b3972a31d8af",
-        "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
-        "d90af00a-d322-4265-9954-7b1e80702e18",
-        "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
-        "5470dcfa-4eff-43da-abf7-19922841f719",
-        "10821e37-8a83-4d8e-a12f-249a10933a22",
-        "b1544f21-7e98-461b-aed5-e748b0168c52",
-        "d683d985-9888-4d21-8b5f-69e69ce4a03b",
-        "703243f0-8cb3-420f-958f-5fd4bde30293",
-        "f413a83d-a40d-434c-b20a-4c707c0527fa"
+        "b2347910-d6c6-4681-8316-7ef27056485c",
+        "49471b65-be9d-4ded-b2e5-dfc81b306b54",
+        "c15bb7eb-aaaa-4468-9641-8f706d6137e8",
+        "ea6616e4-db8d-4905-80f8-cb0162906850",
+        "eab0d8b9-c66f-402f-b259-f46f15cefd78",
+        "2b7c4dab-e432-4b34-b058-3cec5c0d72df",
+        "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
+        "e5deac0b-4417-42cc-b145-db0afe34f6e0",
+        "5cbbb3f3-63a4-4983-81ea-8c405b10e63f",
+        "186b4def-4fff-4a2b-bcbf-5318b0ac5fa9",
+        "4ba5b3f6-503b-43e6-b66e-4f8c55cffed7",
+        "dc600c06-8239-409e-b53d-20f813a3f5e7",
+        "495ebe60-f0e5-4f0f-9d99-b2c64c95dbf4",
+        "204f9afe-c20b-4933-b5cd-aa572784762a",
+        "8c52bd39-0586-48ca-b263-17210cf9feb6",
+        "60433b48-d27f-413c-905c-43839b1943f1",
+        "4ec85850-f274-4c0c-9a03-0488267caa14"
       ],
       "recommendedCreatureCount": [
-        16,
-        21
+        14,
+        19
       ],
       "recommendedRemovalCount": [
         3,
@@ -261,125 +525,135 @@
     },
     {
       "id": "cedric:orzhov_attrition_tokens",
-      "name": "Orzhov Attrition and Tokens",
+      "name": "Orzhov Midrange & Recursion",
       "primaryColors": [
         "W",
         "B"
       ],
       "category": "midrange",
-      "description": "Contrôle à l'usure combinant removal inconditionnel, esprits volants et récursion de menaces à bas coût.",
-      "gameplan": "Éliminer toute menace avec Vindicate, peupler les airs avec Lingering Souls ou Sorin, et récurer avec Lurrus.",
+      "description": "Removal inconditionnel, défausse et menaces résilientes (esprits, Lurrus) pour gagner la guerre d'usure.",
+      "gameplan": "Échanger un-pour-un avec Swords to Plowshares, Vindicate et Thoughtseize, puis prendre l'avantage avec Lingering Souls, Sorin et la récursion de Lurrus ou Unburial Rites.",
       "keyCards": [
-        "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
-        "5c780dda-ee76-482a-a610-53c321c4fdec",
-        "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
         "0b8c3337-04dd-4798-8203-6d8b8cfb936b",
-        "b01d61cc-9844-4191-86a0-f2db6d42d6e5",
-        "fb868840-09fa-49b1-85cb-b08ad065e972"
+        "3bc757c1-3adb-4321-8832-8e1cc9e687f7",
+        "5c780dda-ee76-482a-a610-53c321c4fdec",
+        "63c1ac21-e3d8-40c2-8c09-3f31c52992ef",
+        "b01d61cc-9844-4191-86a0-f2db6d42d6e5"
       ],
       "supportCards": [
-        "4ec85850-f274-4c0c-9a03-0488267caa14",
-        "60433b48-d27f-413c-905c-43839b1943f1",
         "b1544f21-7e98-461b-aed5-e748b0168c52",
         "d683d985-9888-4d21-8b5f-69e69ce4a03b",
+        "acf4d685-a718-42f7-9a7a-dee069ae8db2",
+        "f21d0319-0509-4ac1-b6e3-10955a26fd7a",
+        "afaef788-34d1-460b-b884-9d7ae6ddeb18",
         "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
         "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
-        "afaef788-34d1-460b-b884-9d7ae6ddeb18",
+        "217062f5-96f1-454c-9507-17f34ef37070",
+        "4236851b-5366-43a1-bde4-f525b4fbcbce",
         "d48e1545-7997-45ed-83a1-aee45b3d3d20",
-        "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
+        "0429d146-332f-4fb0-8273-c73679ca6d47",
+        "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
         "d90af00a-d322-4265-9954-7b1e80702e18",
-        "f21d0319-0509-4ac1-b6e3-10955a26fd7a",
-        "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
-        "73864fcc-1bde-4bc0-831e-2b93e546e417"
+        "64a9a6b4-26b5-4d23-be86-85c54e9c4727",
+        "fb868840-09fa-49b1-85cb-b08ad065e972",
+        "0d95ee14-9ff0-4d7f-be56-361a500ce36f"
       ],
       "recommendedCreatureCount": [
-        12,
-        17
+        11,
+        16
       ],
       "recommendedRemovalCount": [
-        5,
-        9
+        6,
+        10
       ]
     },
     {
       "id": "cedric:izzet_spells_tempo",
-      "name": "Izzet Spells and Tempo",
+      "name": "Izzet Spells & Tempo",
       "primaryColors": [
         "U",
         "R"
       ],
       "category": "midrange",
-      "description": "Enchaînement de sorts à faible coût, pioche impulsive, gestion de tempo et vol d'artefacts.",
-      "gameplan": "Gérer les créatures au blast avec Lightning Bolt et Electrolyze, générer du card advantage avec Dack Fayden et Fact or Fiction.",
+      "description": "Sorts à bas coût qui déclenchent Young Pyromancer, Thing in the Ice ou Talrand, appuyés par burn et contre-sorts.",
+      "gameplan": "Poser un payoff de sorts tôt, enchaîner cantrips et burn pour générer des jetons ou des dégâts, et garder Counterspell ou Remand pour protéger le moteur.",
       "keyCards": [
+        "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
+        "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+        "f2c10591-4c0c-4286-af91-e8d8d10a4c9d",
         "9d4b1e44-3c66-4b1b-8a1d-308aa4f841f8",
-        "07b222d7-24f2-4994-9004-ff6672ebe161",
-        "4457ed35-7c10-48c8-9776-456485fdf070",
-        "2bb2eda7-3b38-4c56-870f-c3218a1056f5",
-        "37108cd4-bbab-4ce3-9ed6-f60e8422e703",
-        "158a6225-a246-4fd6-aa57-0df8067b4383"
+        "ea1eb902-a23c-44ff-9169-19baf71de238",
+        "c6bdaf76-6a03-4695-9c4b-f040e73435af",
+        "2bb2eda7-3b38-4c56-870f-c3218a1056f5"
       ],
       "supportCards": [
-        "3979067a-9c68-443d-a85f-d9f07be880b9",
-        "cc187110-1148-4090-bbb8-e205694a39f5",
-        "d71cd08e-3e84-41ff-b9db-9e343c0af6b4",
-        "bbfb3e4a-b389-4391-8141-13b68c0ef2e0",
-        "c61fe162-2202-4e56-9ba0-393547f9875f",
+        "675de007-a71e-4036-8204-140c67871b7f",
+        "ea43fd04-e9fa-42fb-ba20-22dcc21c6c43",
+        "bab0ab8d-74d2-49a3-b258-b93d19925d99",
+        "7a3e50a5-c163-4c41-b62d-d52c233c55b7",
+        "158a6225-a246-4fd6-aa57-0df8067b4383",
+        "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
         "02090581-61aa-4348-ad57-451be8ee91c2",
         "ac641490-ca14-48d7-8cc4-b69ce984befa",
-        "ae92942b-919c-4ea9-b693-85fcef765d5a",
-        "fa3e28b1-131c-4223-81e0-18dfbab22c26",
+        "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
+        "5b6bdf5a-2742-4851-92cd-a857a3852836",
+        "4457ed35-7c10-48c8-9776-456485fdf070",
         "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-        "8d98d674-6811-4d45-b22a-63792e272a2b",
-        "c0957e5e-c71b-439c-931c-9f55d2f76ace",
-        "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
-        "17039058-822d-409f-938c-b727a366ba63"
+        "ae92942b-919c-4ea9-b693-85fcef765d5a",
+        "07b222d7-24f2-4994-9004-ff6672ebe161",
+        "a07698f6-5ad5-49a3-9da2-f82d407f5cd7",
+        "fa3e28b1-131c-4223-81e0-18dfbab22c26",
+        "cc187110-1148-4090-bbb8-e205694a39f5",
+        "d71cd08e-3e84-41ff-b9db-9e343c0af6b4"
       ],
       "recommendedCreatureCount": [
-        10,
-        15
+        8,
+        12
       ],
       "recommendedRemovalCount": [
-        5,
-        8
+        6,
+        9
       ]
     },
     {
       "id": "cedric:golgari_rock_graveyard",
-      "name": "Golgari The Rock and Graveyard",
+      "name": "Golgari Rock & Survival",
       "primaryColors": [
         "B",
         "G"
       ],
       "category": "midrange",
-      "description": "Destruction chirurgicale permanente, menaces polyvalentes et exploitation du cimetière comme ressource.",
-      "gameplan": "Détruire les permanents clés avec Abrupt Decay et Assassin's Trophy, alimenter Deathrite Shaman et régner avec Grist.",
+      "description": "Removal polyvalent et moteurs de valeur basés sur le cimetière (Survival of the Fittest, Deathrite, Grist).",
+      "gameplan": "Détruire chaque permanent clé avec Abrupt Decay ou Assassin's Trophy, accumuler l'avantage avec Tireless Tracker et Eternal Witness, puis Survival of the Fittest enchaîne Vengevine et créatures utilitaires.",
       "keyCards": [
         "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
-        "1c747fe2-289e-492a-a846-aa77707e2dc3",
         "0efb0d7e-dea0-4817-a243-15066e9ef333",
+        "119d719d-e965-45b4-9bc9-ac03211b10c2",
+        "1c747fe2-289e-492a-a846-aa77707e2dc3",
         "ac10d218-f9a6-4058-9cda-a15ca1b0b7b5",
-        "95ce305f-34bc-4d6d-b7ba-ffd4b2a25336",
         "62e44e0d-eda0-4275-8367-49dab9a087c3"
       ],
       "supportCards": [
-        "13d4c46b-c2d6-44cc-a252-4a991d471854",
-        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
-        "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
-        "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
-        "395611fa-aec2-4c9e-92c3-70cf95cc00f4",
+        "95ce305f-34bc-4d6d-b7ba-ffd4b2a25336",
+        "9b271430-f53d-42d6-a547-2f286dd9bcb6",
         "0ba134d8-ee7d-48ec-8dc6-57942b8e9261",
+        "edd8d1e8-be43-4c38-bb3a-83081fbaf0b5",
+        "7b459306-149b-4f43-abc1-2dd70c748c0e",
         "131096a3-2d53-4ec2-96d3-fcb58e698a13",
         "7cec9021-6f25-4fd8-b40e-adf4ffd3a7b8",
         "1ff25f67-36a7-4cfa-a2b1-2135b5b6fb67",
+        "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
+        "e6555cca-e608-4c87-b835-9cd47fd1f543",
+        "35b8fa77-4e85-418b-b335-cd1af127075c",
+        "7ed52301-81ea-4e7f-b985-cfab0593cae4",
+        "59324efc-65b7-4b31-89c5-17aed5c7eeb1",
+        "a6708b11-1bcd-4208-a967-fe91f2e3313c",
         "46779609-4fa7-4fd2-b5b4-7d4d749339e6",
-        "0dd0e91a-d16b-4718-8d11-1a3fcf8e0753",
-        "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
-        "975ec9a3-6f20-4177-8211-82526e092538"
+        "92eed395-62ca-4293-882b-8565c40daab5"
       ],
       "recommendedCreatureCount": [
-        14,
-        19
+        13,
+        17
       ],
       "recommendedRemovalCount": [
         5,
@@ -388,88 +662,52 @@
     },
     {
       "id": "cedric:boros_aggro_equipment",
-      "name": "Boros Aggro and Equipment",
+      "name": "Boros Aggro & Equipment",
       "primaryColors": [
         "R",
         "W"
       ],
       "category": "aggro",
-      "description": "Agression ultra-rapide sur courbe basse armée d'équipements mirrans et de blasts dévastateurs.",
-      "gameplan": "Dérouler des attaquants rapides, équiper une Sword of Fire and Ice et achever au blast avec Forth Eorlingas! et Lightning Helix.",
+      "description": "Courbe basse d'attaquants agressifs armés d'équipements dominants et finie au burn.",
+      "gameplan": "Une à deux menaces à un mana, Stoneforge Mystic pour Jitte ou Batterskull, puis Lightning Helix et Fireblast pour les derniers points de vie. Prioriser les créatures à 1-2 mana.",
       "keyCards": [
-        "35807c14-4647-482f-9ba1-6d640fd5e8d8",
-        "800c258a-cfc4-4a54-a667-065ea8dea69e",
-        "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
-        "e0c00a74-bdf8-4fee-8042-42c5878e9e3c",
         "37108cd4-bbab-4ce3-9ed6-f60e8422e703",
-        "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba"
-      ],
-      "supportCards": [
-        "4ec85850-f274-4c0c-9a03-0488267caa14",
-        "60433b48-d27f-413c-905c-43839b1943f1",
-        "8c4d7cbc-9cfc-4f0a-8844-e458ab806056",
-        "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
-        "e49d745c-5130-4b54-bcbb-643b08528456",
-        "454a8902-8120-4373-96ee-bbf352b04e8d",
+        "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
         "51d9564b-44fc-4de1-9119-09d7b4089378",
         "dafd2713-d1bc-474b-b390-d2ff20b5375e",
-        "fbf9f8c5-849f-45d5-8129-5fc683c21a04",
+        "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
+        "60433b48-d27f-413c-905c-43839b1943f1",
+        "358789f9-7d87-411d-919e-d597da665cbd",
+        "1da10d5c-36a8-473f-a5d4-782ad61d8057",
+        "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
+        "35807c14-4647-482f-9ba1-6d640fd5e8d8"
+      ],
+      "supportCards": [
+        "46808926-d95b-4313-89d1-6bdfe13fcb77",
+        "e49d745c-5130-4b54-bcbb-643b08528456",
+        "cfb756dd-6fe1-430a-8f04-8b10cac62a86",
+        "91c380f6-2c41-48b7-9f07-104e8659e397",
+        "0bc2875b-3a5a-4885-86b9-16ab7330ac10",
+        "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
+        "cb9994b9-924b-4e10-9075-9cfbec88f2bf",
+        "d03dbb60-e32b-4b74-ae8a-73d428d344cd",
+        "786baa29-afd4-40f0-95c8-920a972b9175",
+        "f02557b0-f422-48cb-875e-2c814c39967d",
+        "dcc349e9-399d-4f33-8131-d1801272466a",
+        "d12e5ce0-5705-4c35-9a93-b883db52c80c",
+        "b10ad415-0aae-4d70-82e6-a4055a40cbe4",
         "4457ed35-7c10-48c8-9776-456485fdf070",
         "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-        "b1544f21-7e98-461b-aed5-e748b0168c52",
-        "c7a15ca4-085f-4d92-8387-c3711c04c8fa",
-        "45181cb8-2090-4471-ba90-e5a8f04d525f"
+        "800c258a-cfc4-4a54-a667-065ea8dea69e",
+        "9dd7f27a-e862-47d7-9158-034cf4d353b8"
       ],
       "recommendedCreatureCount": [
         16,
-        21
+        20
       ],
       "recommendedRemovalCount": [
         4,
         7
-      ]
-    },
-    {
-      "id": "cedric:simic_ramp_goodstuff",
-      "name": "Simic Ramp and Big Mana",
-      "primaryColors": [
-        "G",
-        "U"
-      ],
-      "category": "ramp",
-      "description": "Accélération mana continue vers des menaces intraitables et domination totale du champ de bataille.",
-      "gameplan": "Poser Oko T2 via Sylvan Caryatid ou mana rock, développer d'immenses Hydroid Krasis et verrouiller aux contres.",
-      "keyCards": [
-        "60c60923-ff1b-43f7-8768-731499fcffc9",
-        "6bd872b2-5c40-4e11-9a7f-0136a51b0642",
-        "13d4c46b-c2d6-44cc-a252-4a991d471854",
-        "ee302659-59ed-4eef-babe-451b9ccf7f14",
-        "ae83ef2c-960f-4c5b-97cc-52465c687c18",
-        "0d96b60b-a060-48ee-bb83-93f1c4a10669"
-      ],
-      "supportCards": [
-        "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
-        "d3a0b660-358c-41bd-9cd2-41fbf3491b1a",
-        "f9d3b046-0b95-4103-a630-4b3fb88bb60b",
-        "68954295-54e3-4303-a6bc-fc4547a4e3a3",
-        "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
-        "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
-        "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
-        "6c5b02eb-7829-436a-8555-fea200e4b67f",
-        "69fd4ddf-9ed8-4c56-bef3-9944daf05e4f",
-        "cc187110-1148-4090-bbb8-e205694a39f5",
-        "74d3277a-38e5-4732-afed-084a56148f20",
-        "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
-        "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
-        "20283c4a-f1f0-42f0-bc08-6da87474426b"
-      ],
-      "recommendedCreatureCount": [
-        13,
-        18
-      ],
-      "recommendedRemovalCount": [
-        3,
-        6
       ]
     }
   ],
@@ -516,9 +754,9 @@
       "oracleId": "13ff3222-91cb-4796-a34e-899ed817694c",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "baleful-strix",
@@ -526,9 +764,9 @@
       "oracleId": "37688720-03de-4eca-a82d-a0afe8d58adc",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "bayou",
@@ -536,9 +774,9 @@
       "oracleId": "b76d1ae6-ad1d-4bac-b4c3-2e03e0e84d9b",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "birds-of-paradise",
@@ -556,9 +794,9 @@
       "oracleId": "43985bbc-a0f6-4812-984e-392bc8562633",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "bloodstained-mire",
@@ -576,9 +814,9 @@
       "oracleId": "20283c4a-f1f0-42f0-bc08-6da87474426b",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "broadside-bombardiers",
@@ -596,9 +834,9 @@
       "oracleId": "82004860-e589-4e38-8d61-8c0210e4ea39",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "fable-of-the-mirror-breaker",
@@ -606,9 +844,9 @@
       "oracleId": "c0957e5e-c71b-439c-931c-9f55d2f76ace",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "flooded-strand",
@@ -626,9 +864,9 @@
       "oracleId": "956381ba-6d37-4a8a-846c-bad79222dbee",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "forth-eorlingas",
@@ -646,9 +884,9 @@
       "oracleId": "fbf9f8c5-849f-45d5-8129-5fc683c21a04",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "godless-shrine",
@@ -656,9 +894,9 @@
       "oracleId": "73864fcc-1bde-4bc0-831e-2b93e546e417",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "hallowed-fountain",
@@ -666,9 +904,9 @@
       "oracleId": "f1750962-a87c-49f6-b731-02ae971ac6ea",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "hullbreacher",
@@ -686,9 +924,9 @@
       "oracleId": "16cd0b90-f70c-4efa-b252-8de8784ef9a3",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "leovold-emissary-of-trest",
@@ -766,9 +1004,9 @@
       "oracleId": "975ec9a3-6f20-4177-8211-82526e092538",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "palace-jailer",
@@ -786,9 +1024,9 @@
       "oracleId": "c7a15ca4-085f-4d92-8387-c3711c04c8fa",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "polluted-delta",
@@ -826,9 +1064,9 @@
       "oracleId": "45181cb8-2090-4471-ba90-e5a8f04d525f",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "savannah",
@@ -836,9 +1074,9 @@
       "oracleId": "703243f0-8cb3-420f-958f-5fd4bde30293",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "scalding-tarn",
@@ -856,9 +1094,9 @@
       "oracleId": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "sheoldred-the-apocalypse",
@@ -886,9 +1124,9 @@
       "oracleId": "16052b52-ade1-406f-a06b-ce7ea607fb63",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "swords-to-plowshares",
@@ -906,9 +1144,9 @@
       "oracleId": "22e3cf1d-3559-4ce1-954c-8dc815342979",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "teferi-time-raveler",
@@ -916,9 +1154,9 @@
       "oracleId": "ae7604bb-4818-45a3-960c-cf3d83f15964",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "the-one-ring",
@@ -926,9 +1164,9 @@
       "oracleId": "3aa83ed2-f48b-4ce6-a614-2c54ddf50538",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "thoughtseize",
@@ -946,9 +1184,9 @@
       "oracleId": "74b7fe23-5d3a-4092-8d78-7c0eba8f6f73",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "tundra",
@@ -956,9 +1194,9 @@
       "oracleId": "02418479-9455-417f-a6a1-004356faff37",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "underground-sea",
@@ -966,9 +1204,9 @@
       "oracleId": "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "uro-titan-of-nature-s-wrath",
@@ -996,9 +1234,9 @@
       "oracleId": "c718911c-c955-4eb9-9e16-be4bd49a4e4e",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "watery-grave",
@@ -1006,9 +1244,9 @@
       "oracleId": "fc9ec820-4245-4a96-b009-5308a818ca58",
       "tier": "A+",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "windswept-heath",
@@ -1056,9 +1294,9 @@
       "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
       "tier": "A",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "booster-tutor",
@@ -1116,9 +1354,9 @@
       "oracleId": "250cb58b-2924-4dff-92fe-ac0ebbbeb218",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "dack-fayden",
@@ -1146,9 +1384,9 @@
       "oracleId": "fd74f8eb-0253-42dd-8277-186d4934da38",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "duress",
@@ -1216,9 +1454,9 @@
       "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
       "tier": "A",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "force-of-negation",
@@ -1246,9 +1484,9 @@
       "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "green-sun-s-zenith",
@@ -1276,9 +1514,9 @@
       "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
       "tier": "A",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "grist-the-hunger-tide",
@@ -1296,9 +1534,9 @@
       "oracleId": "c8de43a3-ebd3-4000-b343-a6ffed11d34d",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "inquisition-of-kozilek",
@@ -1316,9 +1554,9 @@
       "oracleId": "45f1e957-09f0-4d46-8e32-238f26060a87",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "lightning-bolt",
@@ -1326,9 +1564,9 @@
       "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "lightning-helix",
@@ -1336,9 +1574,9 @@
       "oracleId": "800c258a-cfc4-4a54-a667-065ea8dea69e",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "llanowar-elves",
@@ -1366,9 +1604,9 @@
       "oracleId": "736892cb-a34b-4bb9-b56c-e26e3db207a2",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "memory-lapse",
@@ -1396,9 +1634,9 @@
       "oracleId": "f3c5978a-70fa-431f-933b-b954bd0db0ea",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "mystic-confluence",
@@ -1406,9 +1644,9 @@
       "oracleId": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "natural-order",
@@ -1476,9 +1714,9 @@
       "oracleId": "217062f5-96f1-454c-9507-17f34ef37070",
       "tier": "A",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "skullclamp",
@@ -1486,9 +1724,9 @@
       "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "skyclave-apparition",
@@ -1516,9 +1754,9 @@
       "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "steam-vents",
@@ -1526,9 +1764,9 @@
       "oracleId": "17039058-822d-409f-938c-b727a366ba63",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "strip-mine",
@@ -1556,9 +1794,9 @@
       "oracleId": "f413a83d-a40d-434c-b20a-4c707c0527fa",
       "tier": "A",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "toxic-deluge",
@@ -1576,9 +1814,9 @@
       "oracleId": "ededbdae-d9dc-4206-9335-d7158f2d7700",
       "tier": "A",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "vindicate",
@@ -1616,9 +1854,9 @@
       "oracleId": "23467047-6dba-4498-b783-1ebc4f74b8c2",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "basalt-monolith",
@@ -1626,9 +1864,9 @@
       "oracleId": "6b8cf2a0-b045-4d91-9d91-c602d40c6237",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "biophagus",
@@ -1645,20 +1883,20 @@
       "name": "Bitterblossom",
       "oracleId": "fb868840-09fa-49b1-85cb-b08ad065e972",
       "tier": "A-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "blightsteel-colossus",
       "name": "Blightsteel Colossus",
       "oracleId": "e80772e2-8623-4094-81a2-70828b2b151c",
       "tier": "A-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "bloodchief-s-thirst",
@@ -1666,9 +1904,9 @@
       "oracleId": "4236851b-5366-43a1-bde4-f525b4fbcbce",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "bone-shards",
@@ -1686,9 +1924,9 @@
       "oracleId": "d6d72f5f-8f5d-4180-b514-f22ff5482902",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "bribery",
@@ -1706,9 +1944,9 @@
       "oracleId": "49471b65-be9d-4ded-b2e5-dfc81b306b54",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "cavern-of-souls",
@@ -1765,10 +2003,10 @@
       "name": "Dauthi Voidwalker",
       "oracleId": "f1c2dbe2-fbe0-4058-bdf1-91d1b1832786",
       "tier": "A-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "daze",
@@ -1805,10 +2043,10 @@
       "name": "Emrakul, the Aeons Torn",
       "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
       "tier": "A-",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "evolving-wilds",
@@ -1876,9 +2114,9 @@
       "oracleId": "3641d572-8335-4804-88ad-edf4dc67a8e4",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "hexdrinker",
@@ -1906,9 +2144,9 @@
       "oracleId": "a011aefe-5853-4435-b686-179e931ba897",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "kytheon-hero-of-akros",
@@ -1965,10 +2203,10 @@
       "name": "Lutri, the Spellchaser",
       "oracleId": "158a6225-a246-4fd6-aa57-0df8067b4383",
       "tier": "A-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "miscalculation",
@@ -1985,10 +2223,10 @@
       "name": "Nissa, Who Shakes the World",
       "oracleId": "5aa3abf1-d56b-4f42-8c84-7e5a2c15ee0f",
       "tier": "A-",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "persist",
@@ -2026,9 +2264,9 @@
       "oracleId": "7b459306-149b-4f43-abc1-2dd70c748c0e",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sakura-tribe-elder",
@@ -2036,9 +2274,9 @@
       "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
       "tier": "A-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sensei-s-divining-top",
@@ -2075,10 +2313,10 @@
       "name": "Sylvan Caryatid",
       "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
       "tier": "A-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "the-wandering-emperor",
@@ -2086,9 +2324,9 @@
       "oracleId": "0c7f18d5-36cb-4bc6-a358-443b97666215",
       "tier": "A-",
       "fit": "staple",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "thraben-inspector",
@@ -2105,10 +2343,10 @@
       "name": "Tinker",
       "oracleId": "254878f0-be90-4653-a395-0c41258fceaf",
       "tier": "A-",
-      "fit": "build_around",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "ultimate-price",
@@ -2125,30 +2363,30 @@
       "name": "Umezawa's Jitte",
       "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
       "tier": "A-",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "urza-lord-high-artificer",
       "name": "Urza, Lord High Artificer",
       "oracleId": "e87906d2-db1a-4e19-b910-adb4eb339945",
       "tier": "A-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "young-pyromancer",
       "name": "Young Pyromancer",
       "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
       "tier": "A-",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "arbor-elf",
@@ -2176,9 +2414,9 @@
       "oracleId": "069f6530-e65c-4d52-85f3-e0a2acd148c5",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "avenger-of-zendikar",
@@ -2186,9 +2424,9 @@
       "oracleId": "4ba5b3f6-503b-43e6-b66e-4f8c55cffed7",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "banishing-light",
@@ -2226,9 +2464,9 @@
       "oracleId": "acf4d685-a718-42f7-9a7a-dee069ae8db2",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "courser-of-kruphix",
@@ -2306,9 +2544,9 @@
       "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "grand-coliseum",
@@ -2335,10 +2573,10 @@
       "name": "Hero of Bladehold",
       "oracleId": "454a8902-8120-4373-96ee-bbf352b04e8d",
       "tier": "B+",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "icefall-regent",
@@ -2396,9 +2634,9 @@
       "oracleId": "5470dcfa-4eff-43da-abf7-19922841f719",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "kitesail-freebooter",
@@ -2406,9 +2644,9 @@
       "oracleId": "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "liliana-of-the-veil",
@@ -2505,20 +2743,20 @@
       "name": "Primeval Titan",
       "oracleId": "ae83ef2c-960f-4c5b-97cc-52465c687c18",
       "tier": "B+",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "questing-beast",
       "name": "Questing Beast",
       "oracleId": "b685757b-521e-4353-a233-97052359723d",
       "tier": "B+",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "rampant-growth",
@@ -2546,9 +2784,9 @@
       "oracleId": "ecd8d7f4-7b11-4097-afc0-ef3c81edd90c",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "serum-visions",
@@ -2606,9 +2844,9 @@
       "oracleId": "47a785ed-8095-4685-8daa-02c4e2b0ffcd",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "thalia-heretic-cathar",
@@ -2626,9 +2864,9 @@
       "oracleId": "0dd0e91a-d16b-4718-8d11-1a3fcf8e0753",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "tithe-taker",
@@ -2666,9 +2904,9 @@
       "oracleId": "112322ad-8f66-4cd4-98a1-f425d61a69ce",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wasteland",
@@ -2696,9 +2934,9 @@
       "oracleId": "d1a60f44-7696-49ee-91fb-cab5b3102962",
       "tier": "B+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "angel-of-invention",
@@ -2706,9 +2944,9 @@
       "oracleId": "28c7f2b6-ba67-4ccf-9e1b-99c89a9d1f72",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "bloodbraid-elf",
@@ -2736,9 +2974,9 @@
       "oracleId": "8c411f4e-a091-447c-9450-d895b10b4985",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "collective-brutality",
@@ -2746,19 +2984,19 @@
       "oracleId": "22a78443-db21-4656-b38a-e3e3186fd94b",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "consecrated-sphinx",
       "name": "Consecrated Sphinx",
       "oracleId": "311a449d-dc74-46e6-9a47-6a597931f736",
       "tier": "B",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "control-magic",
@@ -2776,9 +3014,9 @@
       "oracleId": "654ff673-4630-4068-9bcf-e88a7877eb58",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "dragonlord-silumgar",
@@ -2796,19 +3034,19 @@
       "oracleId": "3d038f7c-95fa-4b71-8f74-b9b4dd45cde0",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "exhume",
       "name": "Exhume",
       "oracleId": "fbe61f74-1b3c-4e12-8758-7029872c9ff1",
       "tier": "B",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "firebolt",
@@ -2836,9 +3074,9 @@
       "oracleId": "24661b81-6bee-4ad8-b3ab-53cb65005c51",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "hero-of-oxid-ridge",
@@ -2865,10 +3103,10 @@
       "name": "Hostage Taker",
       "oracleId": "c5c2d209-e3ef-4b0d-85f5-e7402dcf09eb",
       "tier": "B",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "hymn-to-tourach",
@@ -2876,9 +3114,9 @@
       "oracleId": "992d9a72-d34d-47d7-96fb-37f0efb515ef",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "karn-liberated",
@@ -2886,9 +3124,9 @@
       "oracleId": "0ca233f4-1b7f-4807-ab6e-2b1f5439b3db",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "keiga-the-tide-star",
@@ -2906,9 +3144,9 @@
       "oracleId": "e8065e1d-e937-4b56-8011-78f0d07328a0",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "lavaclaw-reaches",
@@ -2926,9 +3164,9 @@
       "oracleId": "04cf02dc-f053-414e-87d8-1537f25bcbf4",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "mechagodzilla-battle-fortress",
@@ -3006,9 +3244,9 @@
       "oracleId": "372351fd-58f7-4cb8-8644-5fbc94ccb145",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "putrefy",
@@ -3016,9 +3254,9 @@
       "oracleId": "9b271430-f53d-42d6-a547-2f286dd9bcb6",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "raffine-s-tower",
@@ -3036,9 +3274,9 @@
       "oracleId": "8d38194e-b607-4ff4-9c19-0e8636d463bf",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "scavenging-ooze",
@@ -3066,9 +3304,9 @@
       "oracleId": "9218b56d-aaec-482f-99e9-d95d227bfe25",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sorin-lord-of-innistrad",
@@ -3116,19 +3354,19 @@
       "oracleId": "6257c2fd-005f-41e3-8a72-af76df1eb134",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "thief-of-sanity",
       "name": "Thief of Sanity",
       "oracleId": "68b51d58-7566-4a26-8c31-8da32799bea7",
       "tier": "B",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "thran-dynamo",
@@ -3136,9 +3374,9 @@
       "oracleId": "a699c663-8131-4045-9265-a83e86609374",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "treetop-village",
@@ -3166,9 +3404,9 @@
       "oracleId": "18bdc181-9592-4147-81fb-7f83ce137f70",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "vendilion-clique",
@@ -3176,9 +3414,9 @@
       "oracleId": "244d4807-0802-41bc-9460-55ac38a28a72",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "vizier-of-the-menagerie",
@@ -3216,9 +3454,9 @@
       "oracleId": "4b515bb0-f275-4400-8032-3173b799ab40",
       "tier": "B",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wall-of-roots",
@@ -3245,10 +3483,10 @@
       "name": "Worldspine Wurm",
       "oracleId": "254f87cc-e0c2-484d-b5e8-1ea8c366990c",
       "tier": "B",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "abrupt-decay",
@@ -3306,9 +3544,9 @@
       "oracleId": "c7b044c3-3cfa-407e-bf20-2875e8e04b7b",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "cavalier-of-gales",
@@ -3316,19 +3554,19 @@
       "oracleId": "08e2fead-53e9-445b-8fd1-c108bb09d81c",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "craterhoof-behemoth",
       "name": "Craterhoof Behemoth",
       "oracleId": "8c52bd39-0586-48ca-b263-17210cf9feb6",
       "tier": "B-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "cultivate",
@@ -3385,10 +3623,10 @@
       "name": "Elspeth, Sun's Champion",
       "oracleId": "05e6b243-48a6-4a42-bc5f-413441de9c33",
       "tier": "B-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "emeria-angel",
@@ -3396,9 +3634,9 @@
       "oracleId": "ea6616e4-db8d-4905-80f8-cb0162906850",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "emeria-s-call",
@@ -3416,9 +3654,9 @@
       "oracleId": "437b2dab-15e0-4b9a-a204-58622d37a3b3",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "faithless-looting",
@@ -3426,9 +3664,9 @@
       "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
       "tier": "B-",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "garruk-relentless",
@@ -3495,10 +3733,10 @@
       "name": "Karn, Scion of Urza",
       "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
       "tier": "B-",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "kogla-the-titan-ape",
@@ -3506,9 +3744,9 @@
       "oracleId": "8b21062e-97b0-4967-96df-30e8309f4fba",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "kor-skyfisher",
@@ -3536,9 +3774,9 @@
       "oracleId": "64a9a6b4-26b5-4d23-be86-85c54e9c4727",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "lumbering-falls",
@@ -3556,19 +3794,19 @@
       "oracleId": "cb9994b9-924b-4e10-9075-9cfbec88f2bf",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "maelstrom-pulse",
       "name": "Maelstrom Pulse",
       "oracleId": "95ce305f-34bc-4d6d-b7ba-ffd4b2a25336",
       "tier": "B-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "magister-of-worth",
@@ -3576,9 +3814,9 @@
       "oracleId": "0429d146-332f-4fb0-8273-c73679ca6d47",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "mirran-crusader",
@@ -3606,9 +3844,9 @@
       "oracleId": "55eca80c-dcd8-4c2f-aa0f-fb0aec7b80f7",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "palinchron",
@@ -3626,9 +3864,9 @@
       "oracleId": "b8619990-9dc2-4fcc-bc7e-457b77cd2a8e",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "raugrin-triome",
@@ -3666,9 +3904,9 @@
       "oracleId": "3a6f886b-2043-47e9-9c0f-f7913a6fa67d",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sphinx-of-the-steel-wind",
@@ -3696,9 +3934,9 @@
       "oracleId": "d17d071d-dbee-4d65-8435-137f35cd89ca",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "surrak-the-hunt-caller",
@@ -3706,29 +3944,29 @@
       "oracleId": "fa56a5fa-ef96-404c-8fb6-d1f5fcebb52e",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "survival-of-the-fittest",
       "name": "Survival of the Fittest",
       "oracleId": "119d719d-e965-45b4-9bc9-ac03211b10c2",
       "tier": "B-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "the-meathook-massacre",
       "name": "The Meathook Massacre",
       "oracleId": "127de52b-df75-4342-95a0-20d84c5bf916",
       "tier": "B-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "tourach-dread-cantor",
@@ -3755,10 +3993,10 @@
       "name": "Voice of Resurgence",
       "oracleId": "5cbbb3f3-63a4-4983-81ea-8c405b10e63f",
       "tier": "B-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wolfir-silverheart",
@@ -3776,9 +4014,9 @@
       "oracleId": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
       "tier": "B-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wrenn-and-realmbreaker",
@@ -3846,9 +4084,9 @@
       "oracleId": "36cd2364-d113-47d1-b2c4-b088d9eb88dd",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "charming-prince",
@@ -3856,9 +4094,9 @@
       "oracleId": "c48d844c-3976-4fa5-8e0d-3f0e535e7619",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "clever-impersonator",
@@ -3896,9 +4134,9 @@
       "oracleId": "59b02ca7-e7bd-4820-ac32-87ea1a8c64c0",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "custodi-lich",
@@ -3906,19 +4144,19 @@
       "oracleId": "0d95ee14-9ff0-4d7f-be56-361a500ce36f",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "daretti-ingenious-iconoclast",
       "name": "Daretti, Ingenious Iconoclast",
       "oracleId": "add0f7e7-8990-4fd1-8ac7-8115f7802912",
       "tier": "C+",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "disallow",
@@ -3946,9 +4184,9 @@
       "oracleId": "eab0d8b9-c66f-402f-b259-f46f15cefd78",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "faith-s-fetters",
@@ -3966,9 +4204,9 @@
       "oracleId": "35b8fa77-4e85-418b-b335-cd1af127075c",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "fiend-hunter",
@@ -3976,9 +4214,9 @@
       "oracleId": "cb9d557a-fc06-428c-8be6-7d28add33028",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "garruk-wildspeaker",
@@ -3986,9 +4224,9 @@
       "oracleId": "186b4def-4fff-4a2b-bcbf-5318b0ac5fa9",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "geist-of-saint-traft",
@@ -4006,9 +4244,9 @@
       "oracleId": "e5deac0b-4417-42cc-b145-db0afe34f6e0",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "grave-titan",
@@ -4016,9 +4254,9 @@
       "oracleId": "f3abd4d1-a975-4e85-8684-aa0fce029670",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "imposing-sovereign",
@@ -4036,9 +4274,9 @@
       "oracleId": "a07698f6-5ad5-49a3-9da2-f82d407f5cd7",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "kari-zev-skyship-raider",
@@ -4046,9 +4284,9 @@
       "oracleId": "786baa29-afd4-40f0-95c8-920a972b9175",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "kodama-s-reach",
@@ -4086,9 +4324,9 @@
       "oracleId": "93cf50cf-0ecc-4d3e-abea-778c1ebacec4",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "mizzium-mortars",
@@ -4166,9 +4404,9 @@
       "oracleId": "2e3ee458-fa3f-4452-ab95-5a7fb5a0483b",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "porcelain-legionnaire",
@@ -4186,9 +4424,9 @@
       "oracleId": "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "restoration-angel",
@@ -4276,9 +4514,9 @@
       "oracleId": "92eed395-62ca-4293-882b-8565c40daab5",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "terastodon",
@@ -4286,19 +4524,19 @@
       "oracleId": "17975a20-2c13-4325-be1e-0bcda5063a2d",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "thalia-guardian-of-thraben",
       "name": "Thalia, Guardian of Thraben",
       "oracleId": "9b7f1d05-707c-4ed3-9f0e-8ced1232c2ee",
       "tier": "C+",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "venser-shaper-savant",
@@ -4306,9 +4544,9 @@
       "oracleId": "0f41cefc-d6ff-4db7-ba35-502b7e081de1",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "vivien-reid",
@@ -4336,9 +4574,9 @@
       "oracleId": "34515b16-c9a4-4f98-8c77-416a7a523407",
       "tier": "C+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "xander-s-lounge",
@@ -4475,20 +4713,20 @@
       "name": "Electrolyze",
       "oracleId": "07b222d7-24f2-4994-9004-ff6672ebe161",
       "tier": "C",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "embercleave",
       "name": "Embercleave",
       "oracleId": "4d6120d6-fcce-40bc-9fc6-e1f5beb6c728",
       "tier": "C",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "eowyn-fearless-knight",
@@ -4496,9 +4734,9 @@
       "oracleId": "dcc349e9-399d-4f33-8131-d1801272466a",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "exclude",
@@ -4506,9 +4744,9 @@
       "oracleId": "a8c9f91a-b1e7-451d-b6db-ae865e2b853c",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "fire-ice",
@@ -4525,10 +4763,10 @@
       "name": "Goblin Guide",
       "oracleId": "51d9564b-44fc-4de1-9119-09d7b4089378",
       "tier": "C",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "impulse",
@@ -4546,19 +4784,19 @@
       "oracleId": "cfb756dd-6fe1-430a-8f04-8b10cac62a86",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "jace-the-mind-sculptor",
       "name": "Jace, the Mind Sculptor",
       "oracleId": "7f77a84e-5a4b-4834-aefa-3cecc175ae8e",
       "tier": "C",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "karmic-guide",
@@ -4566,9 +4804,9 @@
       "oracleId": "8c31fec9-e4b3-4761-990e-7be38eb05604",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "lively-dirge",
@@ -4576,9 +4814,9 @@
       "oracleId": "0b23d9aa-d4ed-4ccf-8810-4a4d11d6fb9c",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "magma-jet",
@@ -4616,19 +4854,19 @@
       "oracleId": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "monastery-swiftspear",
       "name": "Monastery Swiftspear",
       "oracleId": "dafd2713-d1bc-474b-b390-d2ff20b5375e",
       "tier": "C",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "morgul-knife",
@@ -4646,9 +4884,9 @@
       "oracleId": "fb81f95c-70f8-4eb7-8d15-15d0ae23ec03",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "nekrataal",
@@ -4776,9 +5014,9 @@
       "oracleId": "b333c194-d285-4dfb-984c-57b7e88393af",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "shark-typhoon",
@@ -4786,9 +5024,9 @@
       "oracleId": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "siege-gang-commander",
@@ -4796,9 +5034,9 @@
       "oracleId": "ddc7f59a-bbb1-4ba1-82c8-6813fd191940",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "spellskite",
@@ -4826,9 +5064,9 @@
       "oracleId": "495ebe60-f0e5-4f0f-9d99-b2c64c95dbf4",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "stonecoil-serpent",
@@ -4846,9 +5084,9 @@
       "oracleId": "ea43fd04-e9fa-42fb-ba20-22dcc21c6c43",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sword-of-body-and-mind",
@@ -4896,9 +5134,9 @@
       "oracleId": "e6555cca-e608-4c87-b835-9cd47fd1f543",
       "tier": "C",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "vapor-snag",
@@ -4926,9 +5164,9 @@
       "oracleId": "91c380f6-2c41-48b7-9f07-104e8659e397",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "chandra-flamecaller",
@@ -4946,9 +5184,9 @@
       "oracleId": "69fd4ddf-9ed8-4c56-bef3-9944daf05e4f",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "dark-confidant",
@@ -4956,9 +5194,9 @@
       "oracleId": "2068185c-1b50-47d0-aa3f-bf505d199428",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "detention-sphere",
@@ -4996,9 +5234,9 @@
       "oracleId": "30b24e8e-3b0e-4d8e-90f3-f66eb7c1858c",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "faerie-conclave",
@@ -5016,9 +5254,9 @@
       "oracleId": "e4b1ef6a-6f05-472e-aaed-1c24dd6605c7",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "force-spike",
@@ -5035,10 +5273,10 @@
       "name": "Goblin Bombardment",
       "oracleId": "edad60c6-80de-4033-af1b-a703ac332983",
       "tier": "C-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "gonti-lord-of-luxury",
@@ -5056,9 +5294,9 @@
       "oracleId": "dc600c06-8239-409e-b53d-20f813a3f5e7",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "jetmir-s-garden",
@@ -5075,10 +5313,10 @@
       "name": "Knight of Autumn",
       "oracleId": "c4212ba4-8c43-40ca-aa36-b3b535659fa8",
       "tier": "C-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "loxodon-warhammer",
@@ -5126,9 +5364,9 @@
       "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
       "tier": "C-",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "nahiri-the-harbinger",
@@ -5216,9 +5454,9 @@
       "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "seasoned-hallowblade",
@@ -5226,9 +5464,9 @@
       "oracleId": "d03dbb60-e32b-4b74-ae8a-73d428d344cd",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "seasoned-pyromancer",
@@ -5236,9 +5474,9 @@
       "oracleId": "02238355-9c84-4ae0-b850-269f460144a8",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "secure-the-wastes",
@@ -5246,9 +5484,9 @@
       "oracleId": "b2347910-d6c6-4681-8316-7ef27056485c",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "shatterskull-smashing",
@@ -5306,9 +5544,9 @@
       "oracleId": "0bc2875b-3a5a-4885-86b9-16ab7330ac10",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sun-titan",
@@ -5316,9 +5554,9 @@
       "oracleId": "b2e950fb-cb7e-40a0-a311-5bbdd0477b29",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "supreme-verdict",
@@ -5336,19 +5574,19 @@
       "oracleId": "b10ad415-0aae-4d70-82e6-a4055a40cbe4",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "talrand-sky-summoner",
       "name": "Talrand, Sky Summoner",
       "oracleId": "ea1eb902-a23c-44ff-9169-19baf71de238",
       "tier": "C-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "tamiyo-the-moon-sage",
@@ -5365,20 +5603,20 @@
       "name": "Tezzeret, Artifice Master",
       "oracleId": "e22824cf-07a1-4c83-b6c4-9d8fcff3892f",
       "tier": "C-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "thing-in-the-ice",
       "name": "Thing in the Ice",
       "oracleId": "f2c10591-4c0c-4286-af91-e8d8d10a4c9d",
       "tier": "C-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "thrun-the-last-troll",
@@ -5396,9 +5634,9 @@
       "oracleId": "e958144e-01bc-46ff-8f56-ddf2eb098630",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "timeless-dragon",
@@ -5416,9 +5654,9 @@
       "oracleId": "eecb3047-a563-441a-9175-200421981ac3",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "unexpectedly-absent",
@@ -5456,9 +5694,9 @@
       "oracleId": "7060f2c8-fca0-4b7a-bddf-37682f434596",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "worn-powerstone",
@@ -5466,9 +5704,9 @@
       "oracleId": "b166b670-febc-4821-855e-f8d465644c03",
       "tier": "C-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "arena-rector",
@@ -5506,9 +5744,9 @@
       "oracleId": "05878e49-93ad-4144-9c50-a0bb86126c2e",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "day-of-judgment",
@@ -5516,9 +5754,9 @@
       "oracleId": "d057289d-5e28-43d5-8ff3-4a1bc723477d",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "den-protector",
@@ -5526,9 +5764,9 @@
       "oracleId": "59324efc-65b7-4b31-89c5-17aed5c7eeb1",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "dragonlord-atarka",
@@ -5546,9 +5784,9 @@
       "oracleId": "958d71ff-c9f7-46f0-96ca-79e7f4d65a16",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "empyrial-archangel",
@@ -5565,10 +5803,10 @@
       "name": "Falkenrath Aristocrat",
       "oracleId": "cd2a87c4-d1c3-4a9e-b2df-e6fe251421c4",
       "tier": "D+",
-      "fit": "support",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "force-of-virtue",
@@ -5586,9 +5824,9 @@
       "oracleId": "d37e0127-6f68-438e-8b9e-a71bb3c34733",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "frost-titan",
@@ -5636,19 +5874,19 @@
       "oracleId": "c15bb7eb-aaaa-4468-9641-8f706d6137e8",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "huntmaster-of-the-fells",
       "name": "Huntmaster of the Fells",
       "oracleId": "582328cd-660d-47a4-bb23-e91e80b9a907",
       "tier": "D+",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "inferno-titan",
@@ -5656,9 +5894,9 @@
       "oracleId": "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "inkwell-leviathan",
@@ -5695,10 +5933,10 @@
       "name": "Intrepid Adversary",
       "oracleId": "b72fde5e-862a-45e8-9880-f2c16975a9ac",
       "tier": "D+",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "ketria-triome",
@@ -5766,9 +6004,9 @@
       "oracleId": "2b7c4dab-e432-4b34-b058-3cec5c0d72df",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "nighthawk-scavenger",
@@ -5935,10 +6173,10 @@
       "name": "Stoneforge Mystic",
       "oracleId": "358789f9-7d87-411d-919e-d597da665cbd",
       "tier": "D+",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "sudden-demise",
@@ -5986,9 +6224,9 @@
       "oracleId": "277aafa6-4270-4d24-a888-cf9e8e635d4b",
       "tier": "D+",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wretched-confluence",
@@ -6076,9 +6314,9 @@
       "oracleId": "cad09970-14c8-4d80-82fe-6c855efb0191",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "bonfire-of-the-damned",
@@ -6135,10 +6373,10 @@
       "name": "Delver of Secrets",
       "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
       "tier": "D",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "diabolic-servitude",
@@ -6226,9 +6464,9 @@
       "oracleId": "9a02a9a7-39d9-4763-85d3-747a0540b60b",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "glory-bound-initiate",
@@ -6255,10 +6493,10 @@
       "name": "Guttersnipe",
       "oracleId": "c6bdaf76-6a03-4695-9c4b-f040e73435af",
       "tier": "D",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "heir-of-falkenrath",
@@ -6286,9 +6524,9 @@
       "oracleId": "3b1f8108-6911-49e9-8f78-f950bb58cb6c",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "kozilek-butcher-of-truth",
@@ -6296,9 +6534,9 @@
       "oracleId": "7b8528b0-71eb-4c9e-bed9-aa2d2e84038f",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "maze-of-ith",
@@ -6346,9 +6584,9 @@
       "oracleId": "2d7e00b6-12f0-4b03-82a6-50e3d1b5395e",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "quarantine-field",
@@ -6376,9 +6614,9 @@
       "oracleId": "a6708b11-1bcd-4208-a967-fe91f2e3313c",
       "tier": "D",
       "fit": "build_around",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "rift-bolt",
@@ -6396,9 +6634,9 @@
       "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "sea-gate-stormcaller",
@@ -6406,9 +6644,9 @@
       "oracleId": "675de007-a71e-4036-8204-140c67871b7f",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "search-for-tomorrow",
@@ -6476,9 +6714,9 @@
       "oracleId": "af12758f-4a7b-4156-8942-de4716aa0623",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "stunt-double",
@@ -6506,9 +6744,9 @@
       "oracleId": "382b7873-e78d-473b-8346-d92d16e8f634",
       "tier": "D",
       "fit": "build_around",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "torrential-gearhulk",
@@ -6526,9 +6764,9 @@
       "oracleId": "0bfa4512-e35a-4c93-b324-80ec659f5a97",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "ulamog-the-infinite-gyre",
@@ -6536,9 +6774,9 @@
       "oracleId": "b817bc56-9b4d-4c50-bafa-3c652b99578f",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "urborg-tomb-of-yawgmoth",
@@ -6556,9 +6794,9 @@
       "oracleId": "7ed52301-81ea-4e7f-b985-cfab0593cae4",
       "tier": "D",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "warleader-s-helix",
@@ -6615,10 +6853,10 @@
       "name": "Blightning",
       "oracleId": "a6496440-dc0c-4d9b-bf37-f537b6f0187b",
       "tier": "D-",
-      "fit": "staple",
-      "scoreModifier": 8,
-      "metaBonus": 8,
-      "metaRole": "key"
+      "fit": "support",
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "bloodghast",
@@ -6636,9 +6874,9 @@
       "oracleId": "30d2437a-87c9-4f88-8fb8-b686d6522677",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "brimstone-volley",
@@ -6686,9 +6924,9 @@
       "oracleId": "7a3e50a5-c163-4c41-b62d-d52c233c55b7",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "dread-wanderer",
@@ -6696,9 +6934,9 @@
       "oracleId": "88154d64-221f-4742-bccb-b1b61a2e8bf0",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "eater-of-virtue",
@@ -6746,9 +6984,9 @@
       "oracleId": "9dd7f27a-e862-47d7-9158-034cf4d353b8",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "gatekeeper-of-malakir",
@@ -6776,9 +7014,9 @@
       "oracleId": "bab0ab8d-74d2-49a3-b258-b93d19925d99",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "gravecrawler",
@@ -6786,9 +7024,9 @@
       "oracleId": "09ff28b1-b6c9-48e6-b12e-2f0e644f709f",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "gutterbones",
@@ -6796,9 +7034,9 @@
       "oracleId": "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "harmonize",
@@ -6826,9 +7064,9 @@
       "oracleId": "32263baa-d3f0-463f-92b3-4e9938476add",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "hell-s-thunder",
@@ -6866,9 +7104,9 @@
       "oracleId": "fbbc3acb-c917-44ff-ac6f-9dd6ebe3f4ad",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "koth-of-the-hammer",
@@ -6916,9 +7154,9 @@
       "oracleId": "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "overrun",
@@ -6926,9 +7164,9 @@
       "oracleId": "204f9afe-c20b-4933-b5cd-aa572784762a",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "palladium-myr",
@@ -6936,9 +7174,9 @@
       "oracleId": "7b0767b8-b504-456e-93bd-218502f73b3d",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "phoenix-of-ash",
@@ -6956,9 +7194,9 @@
       "oracleId": "86084ed9-b8bb-4289-9579-6056194787bc",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "prophetic-bolt",
@@ -6996,9 +7234,9 @@
       "oracleId": "450a07f5-709c-48a6-aaa8-ddbd7da4fd2e",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "read-the-bones",
@@ -7036,9 +7274,9 @@
       "oracleId": "d309e1e9-26e6-4a10-a3f4-352c7ba3f2ff",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "searing-blaze",
@@ -7065,10 +7303,10 @@
       "name": "Spectral Procession",
       "oracleId": "376271a6-80f0-47a6-990a-5ec5517aae42",
       "tier": "D-",
-      "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "stormblood-berserker",
@@ -7096,9 +7334,9 @@
       "oracleId": "3dd196b6-a85a-4e3e-bb57-ec34241f8117",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "unburial-rites",
@@ -7126,9 +7364,9 @@
       "oracleId": "46808926-d95b-4313-89d1-6bdfe13fcb77",
       "tier": "D-",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "armageddon",
@@ -7166,9 +7404,9 @@
       "oracleId": "d12e5ce0-5705-4c35-9a93-b883db52c80c",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "blade-splicer",
@@ -7176,9 +7414,9 @@
       "oracleId": "194166ad-0179-42a3-86b9-ba7f322ec576",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "coalition-relic",
@@ -7196,9 +7434,9 @@
       "oracleId": "a3e51a35-09df-4189-b131-08a21e6a557d",
       "tier": "F",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "damn",
@@ -7216,9 +7454,9 @@
       "oracleId": "f8b17b89-26ce-4208-874a-9e1d66514640",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "elder-gargaroth",
@@ -7265,10 +7503,10 @@
       "name": "Ephemerate",
       "oracleId": "0fd57894-b917-41c8-a394-360d1d31b236",
       "tier": "F",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "etali-primal-conqueror",
@@ -7296,9 +7534,9 @@
       "oracleId": "cd51cc2d-0d39-4aba-b0ea-70e8118149bc",
       "tier": "F",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "fleetwheel-cruiser",
@@ -7315,10 +7553,10 @@
       "name": "Flickerwisp",
       "oracleId": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
       "tier": "F",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "frantic-search",
@@ -7326,19 +7564,19 @@
       "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
       "tier": "F",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "gideon-ally-of-zendikar",
       "name": "Gideon, Ally of Zendikar",
       "oracleId": "51eae7ff-fed9-4afe-8053-7690379449dd",
       "tier": "F",
-      "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "glorybringer",
@@ -7346,9 +7584,9 @@
       "oracleId": "b75c3902-633e-4d24-acde-d7a9cc8f466e",
       "tier": "F",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "hallowed-spiritkeeper",
@@ -7386,9 +7624,9 @@
       "oracleId": "f02557b0-f422-48cb-875e-2c814c39967d",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "indatha-triome",
@@ -7506,9 +7744,9 @@
       "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 4,
-      "metaBonus": 4,
-      "metaRole": "support"
+      "scoreModifier": 0,
+      "metaBonus": 0,
+      "metaRole": "neutral"
     },
     {
       "slug": "nissa-resurgent-animist",
@@ -7565,10 +7803,10 @@
       "name": "Show and Tell",
       "oracleId": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
       "tier": "F",
-      "fit": "build_around",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "fit": "staple",
+      "scoreModifier": 8,
+      "metaBonus": 8,
+      "metaRole": "key"
     },
     {
       "slug": "smash-to-smithereens",
@@ -7626,9 +7864,9 @@
       "oracleId": "5b6bdf5a-2742-4851-92cd-a857a3852836",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "trophy-mage",
@@ -7636,9 +7874,9 @@
       "oracleId": "08afc0d7-192f-4ab6-b6a0-c4265cf5e225",
       "tier": "F",
       "fit": "filler",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "ulvenwald-oddity",
@@ -7656,9 +7894,9 @@
       "oracleId": "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
       "tier": "F",
       "fit": "support",
-      "scoreModifier": 0,
-      "metaBonus": 0,
-      "metaRole": "neutral"
+      "scoreModifier": 4,
+      "metaBonus": 4,
+      "metaRole": "support"
     },
     {
       "slug": "wickerbough-elder",

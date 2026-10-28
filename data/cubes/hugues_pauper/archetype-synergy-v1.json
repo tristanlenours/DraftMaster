@@ -10,18 +10,18 @@
   "archetypes": [
     {
       "id": "hugues:azorius_blink",
-      "name": "Azorius Blink and Attrition",
-      "targetPoints": 14,
+      "name": "Azorius Fliers & ETB Value",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
+          "id": "rebuy",
+          "name": "Créature qui rejoue un permanent",
           "minimum": 1
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
+          "id": "etb",
+          "name": "Créature à effet d'arrivée",
+          "minimum": 4
         }
       ],
       "cards": [
@@ -30,15 +30,69 @@
           "name": "Aether Adept",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "be5d6779-ecc9-44b9-8c4d-97a243059d55",
+          "name": "Augur of Bolas",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a4d22abe-87c5-4f6b-ad14-4a7935883169",
+          "name": "Aven Riftwatcher",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b5a4bf91-4d31-4557-9ec4-a96ff4d9be6b",
+          "name": "Cloudreader Sphinx",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
@@ -48,33 +102,50 @@
           "name": "Deputy of Acquittals",
           "strength": "key",
           "roles": [
-            "payoff"
+            "enabler"
           ],
           "families": [
-            "payoff"
+            "rebuy"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Renvoie un permanent en main pour rejouer son effet."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "b2e65e8b-5f08-4cc2-ab1d-00f8903dbea2",
+          "name": "Faerie Seer",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
           "name": "Guardian of the Guildpact",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction",
+            "fixer"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal ou artefact à rejouer qui soutient le plan."
             }
           ],
           "confidence": "B"
@@ -84,15 +155,50 @@
           "name": "Journey to Nowhere",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction",
+            "fixer"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal ou artefact à rejouer qui soutient le plan."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e6941577-8262-42ef-bf32-f6505d90b73a",
+          "name": "Kor Hookmaster",
+          "strength": "support",
+          "roles": [
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "55d8ac5b-622c-42a9-83dc-f2c1c6c2506f",
+          "name": "Kor Sanctifiers",
+          "strength": "support",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
@@ -102,51 +208,68 @@
           "name": "Kor Skyfisher",
           "strength": "key",
           "roles": [
-            "payoff"
+            "enabler"
           ],
           "families": [
-            "payoff"
+            "rebuy"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Renvoie un permanent en main pour rejouer son effet."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "67a3541c-8408-40c8-b44f-90035b860f57",
-          "name": "Man-o'-War",
+          "oracleId": "626f1dc3-3b14-4873-902f-ffec5487a97d",
+          "name": "Lone Missionary",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
+        },
+        {
+          "oracleId": "67a3541c-8408-40c8-b44f-90035b860f57",
+          "name": "Man-o'-War",
+          "strength": "key",
+          "roles": [
+            "target"
+          ],
+          "families": [
+            "etb"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Effet d'arrivée qui génère un 2-pour-1."
+            }
+          ],
+          "confidence": "A"
         },
         {
           "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
           "name": "Mana Leak",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction",
+            "fixer"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal ou artefact à rejouer qui soutient le plan."
             }
           ],
           "confidence": "B"
@@ -156,15 +279,15 @@
           "name": "Mist Raven",
           "strength": "key",
           "roles": [
-            "payoff"
+            "target"
           ],
           "families": [
-            "payoff"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Effet d'arrivée qui génère un 2-pour-1."
             }
           ],
           "confidence": "A"
@@ -174,15 +297,15 @@
           "name": "Mulldrifter",
           "strength": "key",
           "roles": [
-            "payoff"
+            "target"
           ],
           "families": [
-            "payoff"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Effet d'arrivée qui génère un 2-pour-1."
             }
           ],
           "confidence": "A"
@@ -192,69 +315,67 @@
           "name": "Oblivion Ring",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction",
+            "fixer"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal ou artefact à rejouer qui soutient le plan."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-          "name": "Ponder",
+          "oracleId": "83cf4235-eb4e-4c55-839a-f2740d41ed5e",
+          "name": "Pestermite",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
-          "name": "Preordain",
+          "oracleId": "3f278970-201d-4a93-b038-cc7218f2ac57",
+          "name": "Pondering Mage",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "6cb37ac1-dd11-4a8c-bca5-ef44d828059f",
-          "name": "Razortide Bridge",
+          "oracleId": "134a9877-5cfb-4a2a-a0f0-930dce45f58b",
+          "name": "Prophetic Prism",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction",
+            "fixer"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal ou artefact à rejouer qui soutient le plan."
             }
           ],
           "confidence": "B"
@@ -264,69 +385,33 @@
           "name": "Sea Gate Oracle",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
-        },
-        {
-          "oracleId": "fbf4ce62-26f1-4886-952a-efdc1f4946b6",
-          "name": "Silkbind Faerie",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Azorius Blink and Attrition."
-            }
-          ],
-          "confidence": "A"
         },
         {
           "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
           "name": "Thraben Inspector",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target"
           ],
           "families": [
-            "support"
+            "etb"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "5d641bf6-0f93-4189-8dc1-ec7ea446dade",
-          "name": "Tranquil Cove",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Azorius Blink and Attrition."
+              "source": "curated_inference",
+              "detail": "Produit de la valeur à chaque arrivée."
             }
           ],
           "confidence": "B"
@@ -334,19 +419,19 @@
       ]
     },
     {
-      "id": "hugues:faeries_ninjas_tempo",
-      "name": "Dimir / Mono-U Faeries and Ninjas",
-      "targetPoints": 14,
+      "id": "hugues:dimir_ninja_tempo",
+      "name": "Dimir Evasion & Ninjutsu Tempo",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
+          "id": "evasive",
+          "name": "Menace évasive à bas coût",
+          "minimum": 5
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
+          "id": "disruption",
+          "name": "Contre-sort ou removal économique",
+          "minimum": 3
         }
       ],
       "cards": [
@@ -355,33 +440,33 @@
           "name": "Agony Warp",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "disruption"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "51acd176-e84d-42c2-acb2-cceeb28a9fec",
-          "name": "Blink of an Eye",
+          "oracleId": "d38a33ae-59d1-4d08-8e14-5fa5a8c3762d",
+          "name": "Cloaked Siren",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "evasive"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
             }
           ],
           "confidence": "B"
@@ -391,105 +476,126 @@
           "name": "Cloudfin Raptor",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "evasive"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
             }
           ],
           "confidence": "B"
+        },
+        {
+          "oracleId": "07c20708-c305-46e7-a98e-c99f54aeafec",
+          "name": "Dauthi Horror",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace évasive qui définit l'horloge Dimir."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "cb754749-a769-4c9c-b62b-4972dfc5069f",
+          "name": "Dauthi Marauder",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c1d0537b-954f-4d3b-b9fe-1dd7ffaa1197",
+          "name": "Dauthi Slayer",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace évasive qui définit l'horloge Dimir."
+            }
+          ],
+          "confidence": "A"
         },
         {
           "oracleId": "70486bee-6ee7-41ea-b834-8caf4699302b",
           "name": "Daze",
-          "strength": "key",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "disruption"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+          "name": "Delver of Secrets",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace évasive qui définit l'horloge Dimir."
             }
           ],
           "confidence": "A"
-        },
-        {
-          "oracleId": "579cbd92-797f-4cdf-91ed-fca7a523eae5",
-          "name": "Deep Analysis",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "1b6c67e5-5913-4db9-85d9-8dae57da02ee",
-          "name": "Dimir Guildmage",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "B"
         },
         {
           "oracleId": "b2e65e8b-5f08-4cc2-ab1d-00f8903dbea2",
           "name": "Faerie Seer",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "e89e1fae-bac3-4cc0-a233-24b9e08a5290",
-          "name": "Fall from Favor",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "evasive"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
             }
           ],
           "confidence": "B"
@@ -499,15 +605,33 @@
           "name": "Force Spike",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "disruption"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "992d9a72-d34d-47d7-96fb-37f0efb515ef",
+          "name": "Hymn to Tourach",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "disruption"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
             }
           ],
           "confidence": "B"
@@ -517,15 +641,16 @@
           "name": "Looter il-Kor",
           "strength": "key",
           "roles": [
+            "body",
             "payoff"
           ],
           "families": [
-            "payoff"
+            "evasive"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Menace évasive qui définit l'horloge Dimir."
             }
           ],
           "confidence": "A"
@@ -535,33 +660,15 @@
           "name": "Lose Focus",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "disruption"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "67a3541c-8408-40c8-b44f-90035b860f57",
-          "name": "Man-o'-War",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
             }
           ],
           "confidence": "B"
@@ -569,71 +676,51 @@
         {
           "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
           "name": "Mana Leak",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "disruption"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "1f3c2b00-0000-4ae1-9650-9553accac52e",
+          "name": "Ninja of the Deep Hours",
           "strength": "key",
           "roles": [
             "payoff"
           ],
-          "families": [
-            "payoff"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Convertit chaque attaque évasive en carte piochée."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-          "name": "Ponder",
+          "oracleId": "83cf4235-eb4e-4c55-839a-f2740d41ed5e",
+          "name": "Pestermite",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "evasive"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
-          "name": "Preordain",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "6f7ef1d1-c441-41ba-b7d6-6b7727ffcf04",
-          "name": "Repulse",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
             }
           ],
           "confidence": "B"
@@ -643,15 +730,123 @@
           "name": "Snuff Out",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "disruption"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Dimir / Mono-U Faeries and Ninjas."
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "45f2af87-0235-49f8-a63d-370faff3a097",
+          "name": "Spined Thopter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "10fd868f-45b3-4e2f-89d9-5c0b8a92f9fe",
+          "name": "Stitched Drake",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c8877da5-7008-4b47-955e-d205220c91e6",
+          "name": "Thalakos Scout",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "64cf5d59-7bcd-4b0b-a160-c8468d4c0f60",
+          "name": "Vault Skirge",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "50a16634-ebf7-477f-ad6f-23332599f838",
+          "name": "Vendetta",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "disruption"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Interaction à bas coût protégeant le tempo."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "55d1f44f-8554-49e7-b36f-92682926e6d0",
+          "name": "Wingcrafter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "evasive"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps évasif qui active Ninjutsu et la pression."
             }
           ],
           "confidence": "B"
@@ -660,18 +855,18 @@
     },
     {
       "id": "hugues:rakdos_attrition",
-      "name": "Rakdos Attrition and Removal",
-      "targetPoints": 14,
+      "name": "Rakdos Pestilence Attrition",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
+          "id": "engine",
+          "name": "Moteur d'attrition noir",
+          "minimum": 2
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
+          "id": "removal",
+          "name": "Removal ciblé",
+          "minimum": 4
         }
       ],
       "cards": [
@@ -680,69 +875,34 @@
           "name": "Blightning",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "engine"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
             }
           ],
           "confidence": "A"
-        },
-        {
-          "oracleId": "64e29bfc-9313-4e8c-808c-bc27f6b018a6",
-          "name": "Bloodfell Caves",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
         },
         {
           "oracleId": "cdaab6b0-1a2d-4809-8e6b-56013acd8f78",
           "name": "Cast Down",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-          "name": "Chain Lightning",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
@@ -750,35 +910,73 @@
         {
           "oracleId": "08dfe42e-35c0-4be0-abba-57269792ff3d",
           "name": "Chittering Rats",
-          "strength": "support",
+          "strength": "key",
           "roles": [
-            "enabler"
+            "payoff",
+            "interaction"
           ],
           "families": [
-            "support"
+            "engine"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "104095ed-55e3-408e-bf70-4fe06bb16d2f",
+          "name": "Crypt Rats",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "interaction"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b1804304-fac1-4b19-a48d-6ade9407972a",
+          "name": "Dead Weight",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "104095ed-55e3-408e-bf70-4fe06bb16d2f",
-          "name": "Crypt Rats",
+          "oracleId": "77eafe49-b9c5-461d-89c5-cec217dd2974",
+          "name": "Disfigure",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
@@ -786,53 +984,55 @@
         {
           "oracleId": "59e7f2ae-4535-4191-98be-3e65b6b2befa",
           "name": "Doom Blade",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "44b83535-fdbf-4307-bf53-ca20470a768d",
-          "name": "Drossforge Bridge",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
+        },
+        {
+          "oracleId": "c0d3dfc0-1ff2-4ac3-98eb-32eaa5b84c05",
+          "name": "Evincar's Justice",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "interaction"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
+            }
+          ],
+          "confidence": "A"
         },
         {
           "oracleId": "5237a105-60c4-4597-b24e-84c12ce7b01f",
           "name": "Faceless Butcher",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target",
+            "body"
           ],
           "families": [
-            "support"
+            "engine"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
             }
           ],
           "confidence": "B"
@@ -842,15 +1042,15 @@
           "name": "Firebolt",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
@@ -860,936 +1060,34 @@
           "name": "Flame Slash",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "992d9a72-d34d-47d7-96fb-37f0efb515ef",
-          "name": "Hymn to Tourach",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
-          "name": "Lightning Bolt",
+          "oracleId": "1a2030cc-d7ee-4059-b2d7-fb95ea8e267b",
+          "name": "Gravedigger",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target",
+            "body"
           ],
           "families": [
-            "support"
+            "engine"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "dafe63ef-f3d6-45e7-877a-573da92ba85e",
-          "name": "Pestilence",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "056c3b7d-b603-40b8-8404-18c2eb7e7129",
-          "name": "Staggershock",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "6c9d3ad0-1ede-41de-a1b4-15de9c728216",
-          "name": "Strangling Soot",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "6257c2fd-005f-41e3-8a72-af76df1eb134",
-          "name": "Terminate",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "a7894a81-8c0a-4015-8bc1-2698cf5306d1",
-          "name": "Thorn of the Black Rose",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Rakdos Attrition and Removal."
-            }
-          ],
-          "confidence": "B"
-        }
-      ]
-    },
-    {
-      "id": "hugues:gruul_stompy",
-      "name": "Gruul Stompy and Aggro",
-      "targetPoints": 14,
-      "requiredFamilies": [
-        {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
-        },
-        {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
-        }
-      ],
-      "cards": [
-        {
-          "oracleId": "d6ee8bd6-0207-46ee-9892-c1d1b23b934e",
-          "name": "Blastoderm",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "13f63b98-40b0-499b-bb5d-640b95a6ea1c",
-          "name": "Branching Bolt",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-          "name": "Chain Lightning",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "c138bd7f-8751-4e96-b54a-d5082e1a491f",
-          "name": "Elephant Guide",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
-          "name": "Elvish Mystic",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
-          "name": "Flame Slash",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "df317532-7d36-40fd-938f-e972749c8792",
-          "name": "Fyndhorn Elves",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "14817050-9f2d-453f-b36b-e6429fa29165",
-          "name": "Horned Kavu",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "82406175-63b3-4972-be8b-db0e70c908cb",
-          "name": "Krosan Tusker",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
-          "name": "Lightning Bolt",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
-          "name": "Llanowar Elves",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "f75ed312-3a23-4624-80c5-03980aa22d0b",
-          "name": "Llanowar Visionary",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "4b1befff-48fa-47a3-832e-bdaf43495c02",
-          "name": "Ram Through",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
-          "name": "Rancor",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "86187aed-77ce-4b2d-aab0-0a8f807a9451",
-          "name": "River Boa",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "6c922206-6e68-4dcd-9559-88da1074f2c4",
-          "name": "Rugged Highlands",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "e040a8e6-b90c-42d1-a1b1-771d954c61ab",
-          "name": "Slagwoods Bridge",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "8998d211-5ca6-41d2-bc64-f51f70bd41e5",
-          "name": "Vines of Vastwood",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Gruul Stompy and Aggro."
-            }
-          ],
-          "confidence": "B"
-        }
-      ]
-    },
-    {
-      "id": "hugues:selesnya_tokens",
-      "name": "Selesnya Tokens and Go-Wide",
-      "targetPoints": 14,
-      "requiredFamilies": [
-        {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
-        },
-        {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
-        }
-      ],
-      "cards": [
-        {
-          "oracleId": "db5380ed-ba28-4ea2-abc3-4998e2022903",
-          "name": "Ancestral Mask",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "15397a59-70a8-441f-abf7-230405a1602b",
-          "name": "Armadillo Cloak",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "45429b2c-be3b-4b2e-9bab-a059ccbda8cd",
-          "name": "Blossoming Sands",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "49fe9f5a-5821-4586-b913-7d8aef1f8669",
-          "name": "Cenn's Enlistment",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "c138bd7f-8751-4e96-b54a-d5082e1a491f",
-          "name": "Elephant Guide",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "3f3b2c10-21f8-4e13-be83-4ef3fa36e123",
-          "name": "Elvish Mystic",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
-          "name": "Guardian of the Guildpact",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
-          "name": "Journey to Nowhere",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
-          "name": "Llanowar Elves",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
-          "name": "Qasali Pridemage",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
-          "name": "Rancor",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "54b3ccdc-e5b0-44d9-bc81-a296fc5dc005",
-          "name": "Rosemane Centaur",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "60ba93eb-39e6-4af2-9c66-cd38f72daff2",
-          "name": "Savannah Lions",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "5b15dcac-38dc-4957-bc01-40153ea07559",
-          "name": "Silhana Ledgewalker",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "8b33d890-7d67-44a8-a253-e2b171d7ca9d",
-          "name": "Sprout Swarm",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "99720c65-be96-4220-8ed4-720660bf6928",
-          "name": "Thornglint Bridge",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
-          "name": "Thraben Inspector",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "48090c64-f41a-447b-ad7a-54e3194f759b",
-          "name": "Triplicate Spirits",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Selesnya Tokens and Go-Wide."
-            }
-          ],
-          "confidence": "A"
-        }
-      ]
-    },
-    {
-      "id": "hugues:orzhov_drain_extort",
-      "name": "Orzhov Drain and Attrition",
-      "targetPoints": 14,
-      "requiredFamilies": [
-        {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
-        },
-        {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
-        }
-      ],
-      "cards": [
-        {
-          "oracleId": "752ebcba-97fb-43a3-8811-d244164b3e16",
-          "name": "Basilica Screecher",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "cdaab6b0-1a2d-4809-8e6b-56013acd8f78",
-          "name": "Cast Down",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "59e7f2ae-4535-4191-98be-3e65b6b2befa",
-          "name": "Doom Blade",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "2b2d76f5-4c9b-49dc-b202-68095e2d9b29",
-          "name": "Faith's Fetters",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "c9b7ea9c-3bcb-4538-aa25-cdb82a52037e",
-          "name": "Goldmire Bridge",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
             }
           ],
           "confidence": "B"
@@ -1799,51 +1097,1206 @@
           "name": "Gray Merchant of Asphodel",
           "strength": "support",
           "roles": [
-            "enabler"
+            "target",
+            "body"
           ],
           "families": [
-            "support"
+            "engine"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
-          "name": "Guardian of the Guildpact",
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "1a7e0e55-41c3-4fd8-b718-55b59b5cab90",
+          "name": "Liliana's Specter",
+          "strength": "support",
+          "roles": [
+            "target",
+            "body"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dafe63ef-f3d6-45e7-877a-573da92ba85e",
+          "name": "Pestilence",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "interaction"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "62d293a6-4fad-4aaa-af87-62d705e243ca",
+          "name": "Pith Driller",
+          "strength": "support",
+          "roles": [
+            "target",
+            "body"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
+          "name": "Snuff Out",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6c9d3ad0-1ede-41de-a1b4-15de9c728216",
+          "name": "Strangling Soot",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "6257c2fd-005f-41e3-8a72-af76df1eb134",
+          "name": "Terminate",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a7894a81-8c0a-4015-8bc1-2698cf5306d1",
+          "name": "Thorn of the Black Rose",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "interaction"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Moteur qui gagne la guerre d'usure."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "fa6e2a47-a8cb-4224-ae3e-f61c90477285",
+          "name": "Tragic Slip",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "139af10d-a3e5-4ade-b876-87324e6c8017",
+          "name": "Twisted Abomination",
+          "strength": "support",
+          "roles": [
+            "target",
+            "body"
+          ],
+          "families": [
+            "engine"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur d'arrivée pour l'attrition."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "50a16634-ebf7-477f-ad6f-23332599f838",
+          "name": "Vendetta",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique noir ou rouge."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "hugues:gruul_stompy",
+      "name": "Gruul Stompy",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "threat",
+          "name": "Menace efficace à bas coût",
+          "minimum": 6
+        },
+        {
+          "id": "pump",
+          "name": "Aura ou trick de combat",
+          "minimum": 2
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "d6ee8bd6-0207-46ee-9892-c1d1b23b934e",
+          "name": "Blastoderm",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace au-dessus de la courbe qui définit l'agression Gruul."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "11fd2650-2150-4e62-8b64-e820d734a231",
+          "name": "Borderland Marauder",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "13f63b98-40b0-499b-bb5d-640b95a6ea1c",
+          "name": "Branching Bolt",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn qui dégage les bloqueurs."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+          "name": "Chain Lightning",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn qui dégage les bloqueurs."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a78ab15e-72e7-4d2b-bc42-b2960147ea7b",
+          "name": "Darkthicket Wolf",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c138bd7f-8751-4e96-b54a-d5082e1a491f",
+          "name": "Elephant Guide",
           "strength": "key",
           "roles": [
             "payoff"
           ],
           "families": [
-            "payoff"
+            "pump"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Aura qui rend chaque attaquant décisif."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "31ea0a21-9c47-4917-9df9-3469b6e5243d",
+          "name": "Gathan Raiders",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "ddbacb74-1f98-4607-a92e-d14973b9d0ef",
+          "name": "Groundswell",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "pump"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Trick de combat ou de protection."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "14817050-9f2d-453f-b36b-e6429fa29165",
+          "name": "Horned Kavu",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "45b42694-9ee8-44f3-9de3-aa2c0f1b6a13",
+          "name": "Jungle Lion",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e05b850f-24cd-42b9-bc4f-0f05f9aea679",
+          "name": "Keldon Marauders",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fbbc3acb-c917-44ff-ac6f-9dd6ebe3f4ad",
+          "name": "Kird Ape",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace au-dessus de la courbe qui définit l'agression Gruul."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn qui dégage les bloqueurs."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e9a3a466-df78-49a0-add3-975b94c5cd09",
+          "name": "Mire Boa",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8b46e077-f667-432f-ab5b-8256a7378311",
+          "name": "Nessian Asp",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d1efc4fd-2978-4434-8fdf-ddc05484ebb1",
+          "name": "Plated Geopede",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "70a2b5ea-dae4-46e8-87eb-8c8d8dfb242b",
+          "name": "Pouncing Jaguar",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4b1befff-48fa-47a3-832e-bdaf43495c02",
+          "name": "Ram Through",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "pump"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Trick de combat ou de protection."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
+          "name": "Rancor",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "pump"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura qui rend chaque attaquant décisif."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "86187aed-77ce-4b2d-aab0-0a8f807a9451",
+          "name": "River Boa",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace au-dessus de la courbe qui définit l'agression Gruul."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8998d211-5ca6-41d2-bc64-f51f70bd41e5",
+          "name": "Vines of Vastwood",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "pump"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Trick de combat ou de protection."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "96cf3320-c730-4618-8768-28a179f4d9c0",
+          "name": "Werebear",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e9441ab3-7a17-4f9b-a873-e5e82f6e9690",
+          "name": "Wild Mongrel",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Corps agressif de la courbe Gruul."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "35d3d96a-d303-4bf5-b972-f311331ec07a",
+          "name": "Wild Nacatl",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace au-dessus de la courbe qui définit l'agression Gruul."
+            }
+          ],
+          "confidence": "A"
+        }
+      ]
+    },
+    {
+      "id": "hugues:selesnya_auras",
+      "name": "Selesnya Auras & Hexproof",
+      "targetPoints": 13,
+      "requiredFamilies": [
+        {
+          "id": "aura",
+          "name": "Aura de renforcement",
+          "minimum": 3
+        },
+        {
+          "id": "carrier",
+          "name": "Porteur d'auras",
+          "minimum": 3
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "2b8ef83b-1a1d-4299-ab69-e9e296bb224d",
+          "name": "Akrasan Squire",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "db5380ed-ba28-4ea2-abc3-4998e2022903",
+          "name": "Ancestral Mask",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura qui transforme un porteur en menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "15397a59-70a8-441f-abf7-230405a1602b",
+          "name": "Armadillo Cloak",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura qui transforme un porteur en menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "586aebf2-4653-49fa-8425-13bd1f511bf0",
+          "name": "Aura Gnarlid",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9472c96a-2827-4af6-a6a1-b6749a5e9069",
+          "name": "Benevolent Blessing",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c138bd7f-8751-4e96-b54a-d5082e1a491f",
+          "name": "Elephant Guide",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dbba75f5-2404-4bd5-982b-f6c4effa5316",
+          "name": "Ethereal Armor",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura qui transforme un porteur en menace décisive."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "48e603a2-b965-4fbc-ad57-4388bce5ac8b",
+          "name": "Gods Willing",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Protège le porteur au moment critique."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "517c7295-8ba2-47a6-a1c6-aee722f8ca88",
+          "name": "Leonin Skyhunter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "8e414ad6-ba19-44a1-a291-2e420734a6dd",
+          "name": "Prismatic Strands",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Protège le porteur au moment critique."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "10821e37-8a83-4d8e-a12f-249a10933a22",
+          "name": "Qasali Pridemage",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9d2d6479-531c-4ce1-b52b-00e36fa63b64",
+          "name": "Rancor",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "60ba93eb-39e6-4af2-9c66-cd38f72daff2",
+          "name": "Savannah Lions",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5b15dcac-38dc-4957-bc01-40153ea07559",
+          "name": "Silhana Ledgewalker",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "aura",
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Tutorise une aura ou résiste au removal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "70ed2052-f03c-461d-b32a-8835c97c559f",
+          "name": "Snake Umbra",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "aura"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Aura complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "501109bb-3406-41d8-9433-a100e494f938",
+          "name": "Soltari Trooper",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c3a1bb65-556a-4016-a06a-3894710cb190",
+          "name": "Totem-Guide Hartebeest",
+          "strength": "key",
+          "roles": [
+            "enabler",
+            "body"
+          ],
+          "families": [
+            "aura",
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Tutorise une aura ou résiste au removal."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "8998d211-5ca6-41d2-bc64-f51f70bd41e5",
+          "name": "Vines of Vastwood",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Protège le porteur au moment critique."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "35d3d96a-d303-4bf5-b972-f311331ec07a",
+          "name": "Wild Nacatl",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "carrier"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Porteur efficace ou évasif."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "hugues:orzhov_drain_extort",
+      "name": "Orzhov Extort & Drain",
+      "targetPoints": 13,
+      "requiredFamilies": [
+        {
+          "id": "drain",
+          "name": "Extorsion ou drain",
+          "minimum": 2
+        },
+        {
+          "id": "removal",
+          "name": "Removal blanc ou noir",
+          "minimum": 4
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "752ebcba-97fb-43a3-8811-d244164b3e16",
+          "name": "Basilica Screecher",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "drain"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Draine à chaque sort ou à chaque tour."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "79af045e-2c73-4003-8f62-b8611a225f08",
+          "name": "Bonds of Faith",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "cdaab6b0-1a2d-4809-8e6b-56013acd8f78",
+          "name": "Cast Down",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "08dfe42e-35c0-4be0-abba-57269792ff3d",
+          "name": "Chittering Rats",
+          "strength": "support",
+          "roles": [
+            "body",
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "59e7f2ae-4535-4191-98be-3e65b6b2befa",
+          "name": "Doom Blade",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "2b2d76f5-4c9b-49dc-b202-68095e2d9b29",
+          "name": "Faith's Fetters",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "38f3b157-0df4-409b-89cc-086e1531cd5b",
+          "name": "Gray Merchant of Asphodel",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "drain"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Draine à chaque sort ou à chaque tour."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "20822aa7-5f84-442d-add3-b56167e6eb38",
+          "name": "Guardian of the Guildpact",
+          "strength": "support",
+          "roles": [
+            "body",
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
           "name": "Journey to Nowhere",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
             }
           ],
           "confidence": "B"
@@ -1856,12 +2309,12 @@
             "payoff"
           ],
           "families": [
-            "payoff"
+            "drain"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Draine à chaque sort ou à chaque tour."
             }
           ],
           "confidence": "A"
@@ -1871,33 +2324,49 @@
           "name": "Kor Skyfisher",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body",
+            "velocity"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "bf28a2ed-cad7-48a7-9dec-06e43af73e9c",
-          "name": "Loyal Cathar",
+          "oracleId": "626f1dc3-3b14-4873-902f-ffec5487a97d",
+          "name": "Lone Missionary",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body",
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d6911456-42cb-4b23-a560-dc98784530f5",
+          "name": "Nameless Inversion",
+          "strength": "support",
+          "roles": [
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
             }
           ],
           "confidence": "B"
@@ -1907,33 +2376,15 @@
           "name": "Oblivion Ring",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "dafe63ef-f3d6-45e7-877a-573da92ba85e",
-          "name": "Pestilence",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
             }
           ],
           "confidence": "B"
@@ -1946,66 +2397,82 @@
             "payoff"
           ],
           "families": [
-            "payoff"
+            "drain"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Draine à chaque sort ou à chaque tour."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "d37f858e-03c8-4594-9b92-cd03699a1591",
-          "name": "Scoured Barrens",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "a7894a81-8c0a-4015-8bc1-2698cf5306d1",
-          "name": "Thorn of the Black Rose",
+          "oracleId": "8f5c52d2-0583-4c94-a043-15b2118877fa",
+          "name": "Syndic of Tithes",
           "strength": "key",
           "roles": [
             "payoff"
           ],
           "families": [
-            "payoff"
+            "drain"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Draine à chaque sort ou à chaque tour."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "a7894a81-8c0a-4015-8bc1-2698cf5306d1",
+          "name": "Thorn of the Black Rose",
+          "strength": "support",
+          "roles": [
+            "body",
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
           "name": "Thraben Inspector",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body",
+            "velocity"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Créature à valeur pour la partie longue."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fa6e2a47-a8cb-4224-ae3e-f61c90477285",
+          "name": "Tragic Slip",
+          "strength": "support",
+          "roles": [
+            "interaction"
           ],
           "families": [
-            "support"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
             }
           ],
           "confidence": "B"
@@ -2013,37 +2480,60 @@
         {
           "oracleId": "c551ba63-2a74-439d-8996-d566e2efbd5f",
           "name": "Unmake",
-          "strength": "key",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "removal"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Orzhov Drain and Attrition."
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "50a16634-ebf7-477f-ad6f-23332599f838",
+          "name": "Vendetta",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "removal"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Removal économique qui déclenche l'Extorsion."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     },
     {
       "id": "hugues:izzet_spellslinger",
-      "name": "Izzet Spellslinger and Tempo",
-      "targetPoints": 14,
+      "name": "Izzet Burn & Spells",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
           "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
+          "name": "Payoff de sorts",
           "minimum": 1
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
+          "id": "cantrip",
+          "name": "Cantrip ou pioche",
+          "minimum": 3
+        },
+        {
+          "id": "burn",
+          "name": "Burn ou interaction instantanée",
+          "minimum": 4
         }
       ],
       "cards": [
@@ -2052,15 +2542,15 @@
           "name": "Augur of Bolas",
           "strength": "support",
           "roles": [
-            "enabler"
+            "velocity"
           ],
           "families": [
-            "support"
+            "cantrip"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
             }
           ],
           "confidence": "B"
@@ -2070,15 +2560,15 @@
           "name": "Burst Lightning",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
@@ -2088,15 +2578,15 @@
           "name": "Chain Lightning",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
@@ -2106,15 +2596,33 @@
           "name": "Deep Analysis",
           "strength": "support",
           "roles": [
-            "enabler"
+            "velocity"
           ],
           "families": [
-            "support"
+            "cantrip"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+          "name": "Delver of Secrets",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Payoff secondaire des sorts."
             }
           ],
           "confidence": "B"
@@ -2124,15 +2632,15 @@
           "name": "Fire // Ice",
           "strength": "key",
           "roles": [
-            "payoff"
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Interaction double qui définit l'Izzet."
             }
           ],
           "confidence": "A"
@@ -2142,33 +2650,87 @@
           "name": "Firebolt",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
+        },
+        {
+          "oracleId": "2e9289d6-dbc6-456d-88cf-d1f534e731d6",
+          "name": "Firebrand Archer",
+          "strength": "key",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récompense les sorts non-créature."
+            }
+          ],
+          "confidence": "A"
         },
         {
           "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
           "name": "Flame Slash",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "f6bd2902-7f8b-419e-bbc7-bcab0c1b7e01",
+          "name": "Impulse",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "cantrip"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d8fd7a34-8418-4e98-b79b-119c4348c667",
+          "name": "Incinerate",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
@@ -2185,80 +2747,62 @@
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Récompense les sorts non-créature."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
-          "name": "Lightning Bolt",
-          "strength": "key",
+          "oracleId": "c629feae-084c-452f-9c09-4b9716331498",
+          "name": "Kaervek's Torch",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
+          "name": "Lightning Bolt",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn efficace."
+            }
+          ],
+          "confidence": "B"
         },
         {
           "oracleId": "f34b9bc4-7bfe-47fd-ba23-4eeeb46026eb",
           "name": "Lightning Strike",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "1cea6439-7ae5-4887-8c33-7da9fb36e2d4",
-          "name": "Lose Focus",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-          "name": "Mana Leak",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
@@ -2275,8 +2819,8 @@
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Récompense les sorts non-créature."
             }
           ],
           "confidence": "A"
@@ -2286,15 +2830,33 @@
           "name": "Ponder",
           "strength": "support",
           "roles": [
-            "enabler"
+            "velocity"
           ],
           "families": [
-            "support"
+            "cantrip"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "3f278970-201d-4a93-b038-cc7218f2ac57",
+          "name": "Pondering Mage",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "cantrip"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
             }
           ],
           "confidence": "B"
@@ -2304,51 +2866,69 @@
           "name": "Preordain",
           "strength": "support",
           "roles": [
-            "enabler"
+            "velocity"
           ],
           "families": [
-            "support"
+            "cantrip"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "081bfd50-a436-463b-9d2c-5bc8a32b387c",
-          "name": "Silverbluff Bridge",
+          "oracleId": "aafd44c1-74a9-4aa7-a4a2-67eb39a07478",
+          "name": "Searing Spear",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "2f4ad084-2062-44c0-9975-15f100204531",
-          "name": "Swiftwater Cliffs",
+          "oracleId": "056c3b7d-b603-40b8-8404-18c2eb7e7129",
+          "name": "Staggershock",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Izzet Spellslinger and Tempo."
+              "source": "curated_inference",
+              "detail": "Burn efficace."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "5b6bdf5a-2742-4851-92cd-a857a3852836",
+          "name": "Treasure Cruise",
+          "strength": "support",
+          "roles": [
+            "velocity"
+          ],
+          "families": [
+            "cantrip"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Sélection et pioche à bas coût."
             }
           ],
           "confidence": "B"
@@ -2357,179 +2937,142 @@
     },
     {
       "id": "hugues:golgari_graveyard",
-      "name": "Golgari Delve and Morbid",
-      "targetPoints": 14,
+      "name": "Golgari Recursion & Tortured Existence",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
+          "id": "enabler",
+          "name": "Remplit le cimetière (cycling, défausse, sacrifice)",
+          "minimum": 2
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
+          "id": "recursion",
+          "name": "Récursion de créatures",
           "minimum": 2
         }
       ],
       "cards": [
         {
-          "oracleId": "a465ba74-615a-4261-b4a0-fcb0819f10b3",
-          "name": "Blood Researcher",
-          "strength": "key",
+          "oracleId": "2edf106d-f504-430e-ad9c-50fc95b0ad9c",
+          "name": "Bone Picker",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui profite d'un cimetière rempli."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "94f23a93-cd98-4ee7-9e62-9b7b49ace6fd",
+          "name": "Death Denied",
+          "strength": "support",
+          "roles": [
+            "recursion"
           ],
           "families": [
-            "payoff"
+            "recursion"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Récursion complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "1a2030cc-d7ee-4059-b2d7-fb95ea8e267b",
+          "name": "Gravedigger",
+          "strength": "key",
+          "roles": [
+            "recursion"
+          ],
+          "families": [
+            "recursion"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récupère une créature du cimetière."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "cdaab6b0-1a2d-4809-8e6b-56013acd8f78",
-          "name": "Cast Down",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "b9e53414-c21f-4479-b8c1-8b36c3e6e006",
-          "name": "Civic Wayfinder",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "53fd9fb1-c28f-4d73-bf98-94cdab418f21",
-          "name": "Consume Strength",
+          "oracleId": "231ca538-b277-4c12-979f-57640a0e87f0",
+          "name": "Grim Harvest",
           "strength": "key",
           "roles": [
-            "payoff"
+            "recursion"
           ],
           "families": [
-            "payoff"
+            "recursion"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Récupère une créature du cimetière."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "2065cada-4078-41c4-9e06-2460d2a2e8ee",
-          "name": "Darkmoss Bridge",
+          "oracleId": "70e35385-6129-4bd1-861c-df04469566b7",
+          "name": "Hooting Mandrills",
           "strength": "support",
           "roles": [
-            "enabler"
+            "payoff",
+            "body"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Menace qui profite d'un cimetière rempli."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "59e7f2ae-4535-4191-98be-3e65b6b2befa",
-          "name": "Doom Blade",
-          "strength": "support",
+          "oracleId": "82406175-63b3-4972-be8b-db0e70c908cb",
+          "name": "Krosan Tusker",
+          "strength": "key",
           "roles": [
-            "enabler"
+            "enabler",
+            "body"
           ],
           "families": [
-            "support"
+            "enabler"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Cycle ou se met au cimetière en apportant de la valeur."
             }
           ],
-          "confidence": "B"
+          "confidence": "A"
         },
         {
-          "oracleId": "5237a105-60c4-4597-b24e-84c12ce7b01f",
-          "name": "Faceless Butcher",
+          "oracleId": "ce87e5ed-2562-4563-9a5b-bd53c04ec4a5",
+          "name": "Moan of the Unhallowed",
           "strength": "support",
           "roles": [
-            "enabler"
+            "recursion"
           ],
           "families": [
-            "support"
+            "recursion"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "6de714e1-446d-4fb9-9e3d-bcd3ec6af9ca",
-          "name": "Jungle Hollow",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "f75ed312-3a23-4624-80c5-03980aa22d0b",
-          "name": "Llanowar Visionary",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Récursion complémentaire."
             }
           ],
           "confidence": "B"
@@ -2539,15 +3082,16 @@
           "name": "Penumbra Spider",
           "strength": "support",
           "roles": [
+            "outlet",
             "enabler"
           ],
           "families": [
-            "support"
+            "enabler"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Remplit le cimetière en générant de la valeur."
             }
           ],
           "confidence": "B"
@@ -2555,53 +3099,52 @@
         {
           "oracleId": "16b723bc-aab9-40f2-8e1b-b9c2bd2af3bc",
           "name": "Putrid Leech",
-          "strength": "key",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "payoff",
+            "body"
           ],
-          "families": [
-            "payoff"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Menace qui profite d'un cimetière rempli."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "e3afc704-220f-498f-9eaa-0821b17dc24c",
           "name": "Sakura-Tribe Elder",
           "strength": "support",
           "roles": [
+            "outlet",
             "enabler"
           ],
           "families": [
-            "support"
+            "enabler"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Remplit le cimetière en générant de la valeur."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
-          "name": "Snuff Out",
+          "oracleId": "837f72a9-9522-46e9-a48c-c6ff6d0bbe67",
+          "name": "Sultai Scavenger",
           "strength": "support",
           "roles": [
-            "enabler"
+            "payoff",
+            "body"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Menace qui profite d'un cimetière rempli."
             }
           ],
           "confidence": "B"
@@ -2611,51 +3154,54 @@
           "name": "Tortured Existence",
           "strength": "key",
           "roles": [
-            "payoff"
+            "enabler",
+            "recursion"
           ],
           "families": [
-            "payoff"
+            "enabler",
+            "recursion"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Moteur de récursion répétable."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "fa6e2a47-a8cb-4224-ae3e-f61c90477285",
-          "name": "Tragic Slip",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
           "oracleId": "139af10d-a3e5-4ade-b876-87324e6c8017",
           "name": "Twisted Abomination",
-          "strength": "support",
+          "strength": "key",
           "roles": [
-            "enabler"
+            "enabler",
+            "body"
           ],
           "families": [
-            "support"
+            "enabler"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Cycle ou se met au cimetière en apportant de la valeur."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4e0b647a-6e1a-421b-bca9-8d5e346bda80",
+          "name": "Unearth",
+          "strength": "support",
+          "roles": [
+            "recursion"
+          ],
+          "families": [
+            "recursion"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Récursion complémentaire."
             }
           ],
           "confidence": "B"
@@ -2663,54 +3209,492 @@
         {
           "oracleId": "96cf3320-c730-4618-8768-28a179f4d9c0",
           "name": "Werebear",
+          "strength": "support",
+          "roles": [
+            "payoff",
+            "body"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui profite d'un cimetière rempli."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e9441ab3-7a17-4f9b-a873-e5e82f6e9690",
+          "name": "Wild Mongrel",
+          "strength": "support",
+          "roles": [
+            "outlet",
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remplit le cimetière en générant de la valeur."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "7fd4c452-07f2-492c-9c78-d1c6362d9eec",
+          "name": "Yavimaya Elder",
+          "strength": "support",
+          "roles": [
+            "outlet",
+            "enabler"
+          ],
+          "families": [
+            "enabler"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Remplit le cimetière en générant de la valeur."
+            }
+          ],
+          "confidence": "B"
+        }
+      ]
+    },
+    {
+      "id": "hugues:white_weenie",
+      "name": "White Weenie & Equipment",
+      "targetPoints": 14,
+      "requiredFamilies": [
+        {
+          "id": "threat",
+          "name": "Menace blanche à bas coût",
+          "minimum": 7
+        },
+        {
+          "id": "boost",
+          "name": "Équipement de pression",
+          "minimum": 1
+        }
+      ],
+      "cards": [
+        {
+          "oracleId": "2b8ef83b-1a1d-4299-ab69-e9e296bb224d",
+          "name": "Akrasan Squire",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "452e3f5f-ce17-4682-966b-5cc100210aee",
+          "name": "Bonesplitter",
           "strength": "key",
           "roles": [
             "payoff"
           ],
           "families": [
-            "payoff"
+            "boost"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Golgari Delve and Morbid."
+              "source": "curated_inference",
+              "detail": "Équipement bon marché qui rend chaque attaquant dangereux."
             }
           ],
           "confidence": "A"
+        },
+        {
+          "oracleId": "f15a202d-c1c4-49bd-924a-7a0a5667ff70",
+          "name": "Daring Skyjek",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a30907c0-fbde-4fd3-a8c7-f304305fcea7",
+          "name": "Doomed Traveler",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b3b9a87d-cb95-435c-90b6-037406cab32e",
+          "name": "Elite Vanguard",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "bae86bb0-5a97-4f6a-8a3f-4e6848bfacc0",
+          "name": "Gideon's Lawkeeper",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "582fdfbe-c5fe-45d0-b3ff-e66db5183725",
+          "name": "Goblin Legionnaire",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "546f037b-aea8-4c7a-9b66-373f1be0bac6",
+          "name": "Goldmeadow Harrier",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "054a0193-861e-4644-ab0a-8aa33407abc8",
+          "name": "Kor Skyfisher",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "517c7295-8ba2-47a6-a1c6-aee722f8ca88",
+          "name": "Leonin Skyhunter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "66442396-f804-47f3-8daa-0d43d8cfb482",
+          "name": "Porcelain Legionnaire",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace à un ou deux mana qui définit l'horloge."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "60ba93eb-39e6-4af2-9c66-cd38f72daff2",
+          "name": "Savannah Lions",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace à un ou deux mana qui définit l'horloge."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "7a004a4b-b53b-4b8e-86f5-528c1082e146",
+          "name": "Sickleslicer",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "boost"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Équipement complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "501109bb-3406-41d8-9433-a100e494f938",
+          "name": "Soltari Trooper",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace à un ou deux mana qui définit l'horloge."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "63ec5617-0da6-4534-b502-34304b1ea02b",
+          "name": "Squall Drifter",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b16cef02-dcf8-4866-ac42-6ee929ddbea2",
+          "name": "Steppe Lynx",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace à un ou deux mana qui définit l'horloge."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "b35c1b30-c1dc-489f-bd79-ad6566fb9389",
+          "name": "Stormfront Pegasus",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
+          "name": "Thraben Inspector",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9e2cd0d5-1537-412b-9ecd-989ab4ac2700",
+          "name": "Topan Freeblade",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "48090c64-f41a-447b-ad7a-54e3194f759b",
+          "name": "Triplicate Spirits",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant efficace de la courbe basse."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "12a8adc4-927f-4314-b2ef-9c647ace68d5",
+          "name": "Vulshok Morningstar",
+          "strength": "support",
+          "roles": [
+            "payoff"
+          ],
+          "families": [
+            "boost"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Équipement complémentaire."
+            }
+          ],
+          "confidence": "B"
         }
       ]
     },
     {
-      "id": "hugues:boros_synth_tokens",
-      "name": "Boros Synthesizer and Burn",
+      "id": "hugues:red_deck_wins",
+      "name": "Red Deck Wins",
       "targetPoints": 14,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
+          "id": "threat",
+          "name": "Menace rouge agressive",
+          "minimum": 5
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
-          "minimum": 2
+          "id": "burn",
+          "name": "Burn pouvant viser le joueur",
+          "minimum": 5
         }
       ],
       "cards": [
         {
-          "oracleId": "452e3f5f-ce17-4682-966b-5cc100210aee",
-          "name": "Bonesplitter",
+          "oracleId": "11fd2650-2150-4e62-8b64-e820d734a231",
+          "name": "Borderland Marauder",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "threat"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
             }
           ],
           "confidence": "B"
@@ -2720,15 +3704,15 @@
           "name": "Burst Lightning",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
           "confidence": "B"
@@ -2736,287 +3720,436 @@
         {
           "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
           "name": "Chain Lightning",
-          "strength": "support",
+          "strength": "key",
           "roles": [
-            "enabler"
+            "interaction",
+            "payoff"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn efficace qui définit Red Deck Wins."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "4b23a89c-89ba-41ad-b894-ec02221689eb",
+          "name": "Death Spark",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
           "confidence": "B"
+        },
+        {
+          "oracleId": "aa7714b0-2bfb-458a-8ebf-37ec2c53383e",
+          "name": "Fireball",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "9dd7f27a-e862-47d7-9158-034cf4d353b8",
+          "name": "Fireblast",
+          "strength": "key",
+          "roles": [
+            "interaction",
+            "payoff"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn efficace qui définit Red Deck Wins."
+            }
+          ],
+          "confidence": "A"
         },
         {
           "oracleId": "7aa31280-12c3-479d-a6dd-f1c669043083",
           "name": "Firebolt",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "8d98d674-6811-4d45-b22a-63792e272a2b",
-          "name": "Flame Slash",
+          "oracleId": "ab52988f-ffd0-4154-9052-593a9d450d98",
+          "name": "Goblin Heelcutter",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "threat"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "582fdfbe-c5fe-45d0-b3ff-e66db5183725",
-          "name": "Goblin Legionnaire",
-          "strength": "key",
+          "oracleId": "dbe3e317-3c39-4b38-ae06-eae02a910c37",
+          "name": "Gore-House Chainwalker",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "body"
           ],
           "families": [
-            "payoff"
+            "threat"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "fb260f5a-b937-435b-ab18-dcc57d6845df",
+          "name": "Immolating Souleater",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d8fd7a34-8418-4e98-b79b-119c4348c667",
+          "name": "Incinerate",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "227f95ba-65b1-4399-8b12-39f8b1327d62",
+          "name": "Intimidator Initiate",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "993e41e6-0643-4a1f-8ada-b7a4aae486d9",
+          "name": "Jackal Pup",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c629feae-084c-452f-9c09-4b9716331498",
+          "name": "Kaervek's Torch",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "e05b850f-24cd-42b9-bc4f-0f05f9aea679",
+          "name": "Keldon Marauders",
+          "strength": "key",
+          "roles": [
+            "body",
+            "payoff"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui inflige des dégâts même bloquée."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
-          "name": "Journey to Nowhere",
+          "oracleId": "fbbc3acb-c917-44ff-ac6f-9dd6ebe3f4ad",
+          "name": "Kird Ape",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "threat"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "054a0193-861e-4644-ab0a-8aa33407abc8",
-          "name": "Kor Skyfisher",
-          "strength": "key",
+          "oracleId": "e48891e3-30a2-4fc8-a858-cec33c6e4ab5",
+          "name": "Lava Dart",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "interaction"
           ],
           "families": [
-            "payoff"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "4457ed35-7c10-48c8-9776-456485fdf070",
           "name": "Lightning Bolt",
           "strength": "key",
           "roles": [
+            "interaction",
             "payoff"
           ],
           "families": [
-            "payoff"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn efficace qui définit Red Deck Wins."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "380429d5-82db-449c-b9b9-3e82ab987972",
-          "name": "Orim's Thunder",
+          "oracleId": "f34b9bc4-7bfe-47fd-ba23-4eeeb46026eb",
+          "name": "Lightning Strike",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [
+            "burn"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "7efd5d62-6da2-428a-98e3-5b842f668656",
+          "name": "Mogg Fanatic",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "dd21cbaa-7537-414b-b720-3c7d6fc7c93d",
+          "name": "Orcish Hellraiser",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "d1efc4fd-2978-4434-8fdf-ddc05484ebb1",
+          "name": "Plated Geopede",
+          "strength": "support",
+          "roles": [
+            "body"
+          ],
+          "families": [
+            "threat"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "2b8afa9f-4236-4c02-a8d5-3c145caecfd6",
+          "name": "Rift Bolt",
           "strength": "key",
           "roles": [
+            "interaction",
             "payoff"
           ],
           "families": [
-            "payoff"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn efficace qui définit Red Deck Wins."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "66442396-f804-47f3-8daa-0d43d8cfb482",
-          "name": "Porcelain Legionnaire",
+          "oracleId": "74b08a70-b0bb-4340-98a0-b1d5b7c9d2cc",
+          "name": "Searing Blaze",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "a3faf70d-c034-4692-9e92-1922029e3852",
-          "name": "Rustvale Bridge",
+          "oracleId": "aafd44c1-74a9-4aa7-a4a2-67eb39a07478",
+          "name": "Searing Spear",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
           "families": [
-            "support"
+            "burn"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Burn complémentaire."
             }
           ],
           "confidence": "B"
         },
         {
-          "oracleId": "60ba93eb-39e6-4af2-9c66-cd38f72daff2",
-          "name": "Savannah Lions",
+          "oracleId": "8ba0e831-054a-4e01-92ed-2845bd2fa12f",
+          "name": "Skirk Marauder",
           "strength": "support",
           "roles": [
-            "enabler"
+            "body"
           ],
           "families": [
-            "support"
+            "threat"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "b16cef02-dcf8-4866-ac42-6ee929ddbea2",
-          "name": "Steppe Lynx",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "caa02547-66e3-4e27-a2d3-5e94f3e7a069",
-          "name": "Thraben Inspector",
-          "strength": "key",
-          "roles": [
-            "payoff"
-          ],
-          "families": [
-            "payoff"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Boros Synthesizer and Burn."
-            }
-          ],
-          "confidence": "A"
-        },
-        {
-          "oracleId": "48090c64-f41a-447b-ad7a-54e3194f759b",
-          "name": "Triplicate Spirits",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "b0af0c54-2a59-4075-8543-d41ff20c4c87",
-          "name": "Wind-Scarred Crag",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "96d6a400-f1bc-40f8-91ef-1d3cb96926f1",
-          "name": "Wojek Halberdiers",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Boros Synthesizer and Burn."
+              "source": "curated_inference",
+              "detail": "Attaquant rouge à bas coût."
             }
           ],
           "confidence": "B"
@@ -3025,17 +4158,17 @@
     },
     {
       "id": "hugues:simic_ramp_value",
-      "name": "Simic Ramp and Tempo Value",
-      "targetPoints": 14,
+      "name": "Green Ramp & Big Bodies",
+      "targetPoints": 13,
       "requiredFamilies": [
         {
-          "id": "payoff",
-          "name": "Carte clé ou moteur du plan",
-          "minimum": 1
+          "id": "mana",
+          "name": "Accélération verte",
+          "minimum": 3
         },
         {
-          "id": "support",
-          "name": "Support ou synergie du plan",
+          "id": "payoff",
+          "name": "Menace de haut de courbe",
           "minimum": 2
         }
       ],
@@ -3043,17 +4176,73 @@
         {
           "oracleId": "a0cd19c1-9125-4627-83ba-d42c489b4e7d",
           "name": "Aeromunculus",
-          "strength": "key",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "payoff",
+            "target"
           ],
           "families": [
             "payoff"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Menace de haut de courbe complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "4567a528-75f0-4ea6-b927-3a500caf76ac",
+          "name": "Arbor Elf",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b9e53414-c21f-4479-b8c1-8b36c3e6e006",
+          "name": "Civic Wayfinder",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "b5a4bf91-4d31-4557-9ec4-a96ff4d9be6b",
+          "name": "Cloudreader Sphinx",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "target"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui justifie l'accélération."
             }
           ],
           "confidence": "A"
@@ -3061,35 +4250,35 @@
         {
           "oracleId": "69fd4ddf-9ed8-4c56-bef3-9944daf05e4f",
           "name": "Coiling Oracle",
-          "strength": "key",
+          "strength": "support",
           "roles": [
-            "payoff"
+            "mana"
           ],
           "families": [
-            "payoff"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
-          "confidence": "A"
+          "confidence": "B"
         },
         {
           "oracleId": "8b755881-a72d-4e21-a369-d2924eb4585a",
           "name": "Cultivate",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
           "confidence": "B"
@@ -3099,15 +4288,50 @@
           "name": "Elvish Mystic",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "c77b89ec-4514-4e62-a508-2012f38a3e15",
+          "name": "Errant Ephemeron",
+          "strength": "support",
+          "roles": [
+            "payoff",
+            "target"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace de haut de courbe complémentaire."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a8c9f91a-b1e7-451d-b6db-ae865e2b853c",
+          "name": "Exclude",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Interaction qui gagne du temps pour la rampe."
             }
           ],
           "confidence": "B"
@@ -3117,15 +4341,52 @@
           "name": "Fyndhorn Elves",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "705509e9-a034-4a5a-9c65-66f58748b8a2",
+          "name": "Harrow",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "a4ddff34-d0ae-481f-870b-b911b249250f",
+          "name": "Havenwood Wurm",
+          "strength": "support",
+          "roles": [
+            "payoff",
+            "target"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace de haut de courbe complémentaire."
             }
           ],
           "confidence": "B"
@@ -3135,15 +4396,34 @@
           "name": "Kodama's Reach",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "82406175-63b3-4972-be8b-db0e70c908cb",
+          "name": "Krosan Tusker",
+          "strength": "support",
+          "roles": [
+            "payoff",
+            "target"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace de haut de courbe complémentaire."
             }
           ],
           "confidence": "B"
@@ -3153,15 +4433,15 @@
           "name": "Llanowar Elves",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
           "confidence": "B"
@@ -3171,51 +4451,32 @@
           "name": "Llanowar Visionary",
           "strength": "key",
           "roles": [
-            "payoff"
+            "mana",
+            "velocity"
           ],
           "families": [
-            "payoff"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélère tout en remplaçant sa carte."
             }
           ],
           "confidence": "A"
-        },
-        {
-          "oracleId": "67a3541c-8408-40c8-b44f-90035b860f57",
-          "name": "Man-o'-War",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
-            }
-          ],
-          "confidence": "B"
         },
         {
           "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
           "name": "Mana Leak",
           "strength": "support",
           "roles": [
-            "enabler"
+            "interaction"
           ],
-          "families": [
-            "support"
-          ],
+          "families": [],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Interaction qui gagne du temps pour la rampe."
             }
           ],
           "confidence": "B"
@@ -3225,51 +4486,34 @@
           "name": "Mulldrifter",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "target"
           ],
           "families": [
             "payoff"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Menace qui justifie l'accélération."
             }
           ],
           "confidence": "A"
         },
         {
-          "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-          "name": "Ponder",
+          "oracleId": "3ecaefc8-ead2-47a3-a7ea-b030faab65a7",
+          "name": "Quirion Ranger",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "ac641490-ca14-48d7-8cc4-b69ce984befa",
-          "name": "Preordain",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
           "confidence": "B"
@@ -3279,15 +4523,15 @@
           "name": "Sakura-Tribe Elder",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
           "confidence": "B"
@@ -3295,71 +4539,89 @@
         {
           "oracleId": "76ae07ce-ca0c-4308-b8bd-d999eea0a65f",
           "name": "Snakeform",
+          "strength": "support",
+          "roles": [
+            "interaction"
+          ],
+          "families": [],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Interaction qui gagne du temps pour la rampe."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "597bce51-af89-4d13-9a97-667b4f4f4694",
+          "name": "Ulamog's Crusher",
           "strength": "key",
           "roles": [
-            "payoff"
+            "payoff",
+            "target"
           ],
           "families": [
             "payoff"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte clé déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Menace qui justifie l'accélération."
             }
           ],
           "confidence": "A"
-        },
-        {
-          "oracleId": "29cd8a7c-108a-43d1-af63-f603a27c24f2",
-          "name": "Tanglepool Bridge",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
-            }
-          ],
-          "confidence": "B"
-        },
-        {
-          "oracleId": "ec96cde2-f1e6-495c-94e2-3e8ae79e556c",
-          "name": "Thornwood Falls",
-          "strength": "support",
-          "roles": [
-            "enabler"
-          ],
-          "families": [
-            "support"
-          ],
-          "evidence": [
-            {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
-            }
-          ],
-          "confidence": "B"
         },
         {
           "oracleId": "00d8efa6-a2d9-4249-8da7-b45173675329",
           "name": "Utopia Sprawl",
           "strength": "support",
           "roles": [
-            "enabler"
+            "mana"
           ],
           "families": [
-            "support"
+            "mana"
           ],
           "evidence": [
             {
-              "source": "owner_description",
-              "detail": "Carte support déclarée pour Simic Ramp and Tempo Value."
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
+            }
+          ],
+          "confidence": "B"
+        },
+        {
+          "oracleId": "02d69413-e040-46b1-8f58-69bde666329d",
+          "name": "Walker of the Grove",
+          "strength": "key",
+          "roles": [
+            "payoff",
+            "target"
+          ],
+          "families": [
+            "payoff"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Menace qui justifie l'accélération."
+            }
+          ],
+          "confidence": "A"
+        },
+        {
+          "oracleId": "3a21a6ae-b2f2-4f0c-acfd-5f3e8d63fd2f",
+          "name": "Wall of Roots",
+          "strength": "support",
+          "roles": [
+            "mana"
+          ],
+          "families": [
+            "mana"
+          ],
+          "evidence": [
+            {
+              "source": "curated_inference",
+              "detail": "Accélération ou fixing vert."
             }
           ],
           "confidence": "B"
