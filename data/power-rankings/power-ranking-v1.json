@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rankingId": "power-ranking-v1",
-  "generatedAt": "2026-10-17T10:25:29.155Z",
+  "generatedAt": "2026-10-28T11:40:21.246Z",
   "referenceId": "untapped-reference-v1",
   "calibrationId": "cubecobra-features-to-untapped-v1",
   "coverage": {
@@ -1416,6 +1416,18 @@
       "observedMax": 42
     },
     {
+      "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
+      "name": "Grim Monolith",
+      "score": 40.5,
+      "source": "expert_heuristic",
+      "rawSourceScore": 40.5,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 5,
+      "observedMin": 9.7,
+      "observedMax": 18,
+      "rejectedUntappedScore": 17
+    },
+    {
       "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
       "name": "Adeline, Resplendent Cathar",
       "score": 40,
@@ -1899,6 +1911,42 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+      "name": "Brain Freeze",
+      "score": 37.2,
+      "source": "expert_heuristic",
+      "rawSourceScore": 37.2,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 14,
+      "observedMin": 1.2,
+      "observedMax": 26,
+      "rejectedUntappedScore": 16
+    },
+    {
+      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
+      "name": "Lion's Eye Diamond",
+      "score": 37.2,
+      "source": "expert_heuristic",
+      "rawSourceScore": 37.2,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 13,
+      "observedMin": 9.2,
+      "observedMax": 17,
+      "rejectedUntappedScore": 10
+    },
+    {
+      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+      "name": "Underworld Breach",
+      "score": 37.2,
+      "source": "expert_heuristic",
+      "rawSourceScore": 37.2,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 17,
+      "observedMin": 14,
+      "observedMax": 22,
+      "rejectedUntappedScore": 14
+    },
+    {
       "oracleId": "17fa98cd-ed8f-483f-9525-7e989a82ebb2",
       "name": "Balance",
       "score": 37,
@@ -2070,6 +2118,18 @@
       "source": "untapped",
       "rawSourceScore": 36,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "ba284fe6-bb29-455c-8321-9714a0cdc05e",
+      "name": "Mishra's Workshop",
+      "score": 35.3,
+      "source": "expert_heuristic",
+      "rawSourceScore": 35.3,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 20,
+      "observedMin": 10,
+      "observedMax": 19,
+      "rejectedUntappedScore": 10
     },
     {
       "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
@@ -2321,6 +2381,30 @@
       "source": "expert_heuristic",
       "rawSourceScore": 33.1,
       "method": "existing_fallback"
+    },
+    {
+      "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
+      "name": "Retrofitter Foundry",
+      "score": 33.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 33.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 13,
+      "observedMin": 16,
+      "observedMax": 21,
+      "rejectedUntappedScore": 15
+    },
+    {
+      "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
+      "name": "Urza's Bauble",
+      "score": 33.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 33.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 20,
+      "observedMin": 16,
+      "observedMax": 18,
+      "rejectedUntappedScore": 16
     },
     {
       "oracleId": "8ad91f64-ccab-4edc-bd54-b2ee9267d614",
@@ -2649,6 +2733,18 @@
       "source": "expert_heuristic",
       "rawSourceScore": 31.4,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
+      "name": "Umezawa's Jitte",
+      "score": 31.4,
+      "source": "expert_heuristic",
+      "rawSourceScore": 31.4,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 13,
+      "observedMin": 11,
+      "observedMax": 16,
+      "rejectedUntappedScore": 11
     },
     {
       "oracleId": "e0548f0d-4aec-4c39-8c34-52bfa2bf7c60",
@@ -3157,12 +3253,36 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+      "name": "Chromatic Star",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 16,
+      "observedMin": 6.3,
+      "observedMax": 10,
+      "rejectedUntappedScore": 10
+    },
+    {
       "oracleId": "f25351e3-539b-4bbc-b92d-6480acf4d722",
       "name": "City of Brass",
       "score": 29.8,
       "source": "expert_heuristic",
       "rawSourceScore": 29.8,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
+      "name": "Emrakul, the Aeons Torn",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 14,
+      "observedMin": 8.9,
+      "observedMax": 11,
+      "rejectedUntappedScore": 10
     },
     {
       "oracleId": "c338eedb-9b70-4b77-b5d6-8ea74b7bea3e",
@@ -3173,12 +3293,72 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+      "name": "Kappa Cannoneer",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 12,
+      "observedMin": 18,
+      "observedMax": 19,
+      "rejectedUntappedScore": 14
+    },
+    {
+      "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
+      "name": "Lightning Greaves",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 22,
+      "observedMin": 9.3,
+      "observedMax": 18,
+      "rejectedUntappedScore": 10
+    },
+    {
+      "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+      "name": "Relic of Sauron",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 1,
+      "observedMin": 20,
+      "observedMax": 20,
+      "rejectedUntappedScore": 11
+    },
+    {
       "oracleId": "fa1ed9fa-5f77-4f7d-bab0-47c719cdc5bc",
       "name": "Spring-Loaded Sawblades",
       "score": 29.8,
       "source": "expert_heuristic",
       "rawSourceScore": 29.8,
       "method": "existing_fallback"
+    },
+    {
+      "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
+      "name": "Young Pyromancer",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 5,
+      "observedMin": 6.2,
+      "observedMax": 9.9,
+      "rejectedUntappedScore": 10
+    },
+    {
+      "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
+      "name": "Zuran Orb",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 19,
+      "observedMin": 5.4,
+      "observedMax": 8.1,
+      "rejectedUntappedScore": 7
     },
     {
       "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
@@ -4637,6 +4817,18 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+      "name": "Aether Spellbomb",
+      "score": 26,
+      "source": "expert_heuristic",
+      "rawSourceScore": 26,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 16,
+      "observedMin": 10,
+      "observedMax": 12,
+      "rejectedUntappedScore": 11
+    },
+    {
       "oracleId": "9d581188-ce80-494e-bd38-f411e1f4efb5",
       "name": "Bridgeworks Battle",
       "score": 26,
@@ -4665,6 +4857,18 @@
       "evidenceCount": 1,
       "observedMin": 26,
       "observedMax": 26
+    },
+    {
+      "oracleId": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
+      "name": "Expedition Map",
+      "score": 26,
+      "source": "expert_heuristic",
+      "rawSourceScore": 26,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 23,
+      "observedMin": 6.7,
+      "observedMax": 8.3,
+      "rejectedUntappedScore": 8
     },
     {
       "oracleId": "2bc92c16-cd1e-4c32-9102-4593d77a9a9f",
@@ -4717,6 +4921,18 @@
       "evidenceCount": 18,
       "observedMin": 22,
       "observedMax": 32
+    },
+    {
+      "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
+      "name": "Talisman of Progress",
+      "score": 26,
+      "source": "expert_heuristic",
+      "rawSourceScore": 26,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 12,
+      "observedMin": 9.3,
+      "observedMax": 12,
+      "rejectedUntappedScore": 11
     },
     {
       "oracleId": "50a16634-ebf7-477f-ad6f-23332599f838",
@@ -7068,6 +7284,42 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
+      "name": "Faithless Looting",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 22,
+      "observedMin": 9.4,
+      "observedMax": 13,
+      "rejectedUntappedScore": 10
+    },
+    {
+      "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
+      "name": "Grim Lavamancer",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 33,
+      "observedMin": 8.4,
+      "observedMax": 11,
+      "rejectedUntappedScore": 9
+    },
+    {
+      "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
+      "name": "Karn, Scion of Urza",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 22,
+      "observedMin": 2.7,
+      "observedMax": 10,
+      "rejectedUntappedScore": 9
+    },
+    {
       "oracleId": "0429d146-332f-4fb0-8273-c73679ca6d47",
       "name": "Magister of Worth",
       "score": 22.8,
@@ -7076,12 +7328,36 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "04c7f4fe-2098-4311-866d-6733c08d5178",
+      "name": "Nettlecyst",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 13,
+      "observedMin": 6.6,
+      "observedMax": 8.9,
+      "rejectedUntappedScore": 7
+    },
+    {
       "oracleId": "b9c8b929-f3ee-457f-9cbc-9de18eb69dc5",
       "name": "Ranger of Eos",
       "score": 22.8,
       "source": "expert_heuristic",
       "rawSourceScore": 22.8,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
+      "name": "Seething Song",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 27,
+      "observedMin": 3.6,
+      "observedMax": 5.4,
+      "rejectedUntappedScore": 4
     },
     {
       "oracleId": "bd49a05c-ed51-4d69-ab9b-11192442ec17",
@@ -7098,6 +7374,18 @@
       "source": "expert_heuristic",
       "rawSourceScore": 22.8,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
+      "name": "The Mightstone and Weakstone",
+      "score": 22.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 22.8,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 14,
+      "observedMin": 8.1,
+      "observedMax": 10,
+      "rejectedUntappedScore": 8
     },
     {
       "oracleId": "0c952586-e522-4982-bebd-96f1db73053d",
@@ -8523,12 +8811,36 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "86ef6474-613f-41fb-931c-d4279b03ed99",
+      "name": "Pyretic Ritual",
+      "score": 21.2,
+      "source": "expert_heuristic",
+      "rawSourceScore": 21.2,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 18,
+      "observedMin": 3.2,
+      "observedMax": 4.5,
+      "rejectedUntappedScore": 3
+    },
+    {
       "oracleId": "2acb15bd-6c89-4ff3-ab32-beac67e9c88a",
       "name": "Quina, Qu Gourmet",
       "score": 21.2,
       "source": "expert_heuristic",
       "rawSourceScore": 21.2,
       "method": "existing_fallback"
+    },
+    {
+      "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
+      "name": "Settle the Wreckage",
+      "score": 21.2,
+      "source": "expert_heuristic",
+      "rawSourceScore": 21.2,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 27,
+      "observedMin": 7.2,
+      "observedMax": 12,
+      "rejectedUntappedScore": 8
     },
     {
       "oracleId": "605f719d-01f8-406c-9d4c-3f4992c6a69f",
@@ -10282,12 +10594,72 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "efe9c3e0-7315-408e-9903-9d25a681039b",
+      "name": "Golos, Tireless Pilgrim",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 20,
+      "observedMin": 5.5,
+      "observedMax": 7.2,
+      "rejectedUntappedScore": 7
+    },
+    {
+      "oracleId": "63bfb9ca-d9d5-4c17-be39-82eb115bc20c",
+      "name": "Lavaspur Boots",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 24,
+      "observedMin": 4.9,
+      "observedMax": 7.5,
+      "rejectedUntappedScore": 5
+    },
+    {
+      "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+      "name": "Myr Battlesphere",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 3,
+      "observedMin": 5.8,
+      "observedMax": 7.9,
+      "rejectedUntappedScore": 6
+    },
+    {
       "oracleId": "65481ae1-54b2-44d2-91e1-20cd486386da",
       "name": "Ob Nixilis Reignited",
       "score": 20.1,
       "source": "expert_heuristic",
       "rawSourceScore": 20.1,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
+      "name": "Reckoner Bankbuster",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 25,
+      "observedMin": 8.3,
+      "observedMax": 15,
+      "rejectedUntappedScore": 8
+    },
+    {
+      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
+      "name": "Scrapwork Mutt",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 23,
+      "observedMin": 4.9,
+      "observedMax": 8.1,
+      "rejectedUntappedScore": 5
     },
     {
       "oracleId": "7fbad3f2-66f6-4e3a-b9e0-1ddbcd94d42a",
@@ -10304,6 +10676,18 @@
       "source": "expert_heuristic",
       "rawSourceScore": 20.1,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "2249001c-08d5-4c0a-86f8-d97519a39f37",
+      "name": "Stoke the Flames",
+      "score": 20.1,
+      "source": "expert_heuristic",
+      "rawSourceScore": 20.1,
+      "method": "untapped_elo_contradiction_v1",
+      "evidenceCount": 18,
+      "observedMin": 6.7,
+      "observedMax": 7.5,
+      "rejectedUntappedScore": 7
     },
     {
       "oracleId": "598e3ed2-659f-4400-b41d-3aee8068fba6",
@@ -14534,17 +14918,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
-      "name": "Grim Monolith",
-      "score": 17,
-      "source": "untapped",
-      "rawSourceScore": 17,
-      "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 9.7,
-      "observedMax": 18
-    },
-    {
       "oracleId": "a2b8185a-9ff2-4d65-9bdd-b060b7ce69bb",
       "name": "Impostor of the Sixth Pride",
       "score": 17,
@@ -14832,17 +15205,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
-      "name": "Brain Freeze",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 1.2,
-      "observedMax": 26
-    },
-    {
       "oracleId": "4c9bcba6-87b5-4fb3-97ee-6fe5b739337d",
       "name": "Consider",
       "score": 16,
@@ -14923,17 +15285,6 @@
       "evidenceCount": 12,
       "observedMin": 16,
       "observedMax": 17
-    },
-    {
-      "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
-      "name": "Urza's Bauble",
-      "score": 16,
-      "source": "untapped",
-      "rawSourceScore": 16,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 16,
-      "observedMax": 18
     },
     {
       "oracleId": "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
@@ -15528,17 +15879,6 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
-      "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
-      "name": "Retrofitter Foundry",
-      "score": 15,
-      "source": "untapped",
-      "rawSourceScore": 15,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 16,
-      "observedMax": 21
-    },
-    {
       "oracleId": "f9221367-24a5-41a3-8943-c6a3cb5d605d",
       "name": "Riverwheel Aerialists",
       "score": 15,
@@ -15830,17 +16170,6 @@
       "observedMax": 19
     },
     {
-      "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
-      "name": "Kappa Cannoneer",
-      "score": 14,
-      "source": "untapped",
-      "rawSourceScore": 14,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 18,
-      "observedMax": 19
-    },
-    {
       "oracleId": "3979067a-9c68-443d-a85f-d9f07be880b9",
       "name": "Monastery Mentor",
       "score": 14,
@@ -15872,17 +16201,6 @@
       "evidenceCount": 3,
       "observedMin": 9.3,
       "observedMax": 14
-    },
-    {
-      "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
-      "name": "Underworld Breach",
-      "score": 14,
-      "source": "untapped",
-      "rawSourceScore": 14,
-      "method": "historical_mode",
-      "evidenceCount": 17,
-      "observedMin": 14,
-      "observedMax": 22
     },
     {
       "oracleId": "4e0b647a-6e1a-421b-bca9-8d5e346bda80",
@@ -16058,17 +16376,6 @@
       "observedMax": 15
     },
     {
-      "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
-      "name": "Aether Spellbomb",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 10,
-      "observedMax": 12
-    },
-    {
       "oracleId": "c9ed8b01-959a-47d6-891e-0abbdccf6e4f",
       "name": "Armageddon",
       "score": 11,
@@ -16113,17 +16420,6 @@
       "observedMax": 29
     },
     {
-      "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
-      "name": "Relic of Sauron",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 1,
-      "observedMin": 20,
-      "observedMax": 20
-    },
-    {
       "oracleId": "14d2979d-5728-42d7-a027-0eb1f754655d",
       "name": "Talisman of Creativity",
       "score": 11,
@@ -16135,34 +16431,12 @@
       "observedMax": 11
     },
     {
-      "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
-      "name": "Talisman of Progress",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 12,
-      "observedMin": 9.3,
-      "observedMax": 12
-    },
-    {
       "oracleId": "f2ef8bda-373d-4387-900d-0f1b6ccf72e9",
       "name": "Trumpeting Carnosaur",
       "score": 11,
       "source": "untapped",
       "rawSourceScore": 11,
       "method": "cubecobra_feature_calibration_v1"
-    },
-    {
-      "oracleId": "1da10d5c-36a8-473f-a5d4-782ad61d8057",
-      "name": "Umezawa's Jitte",
-      "score": 11,
-      "source": "untapped",
-      "rawSourceScore": 11,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 11,
-      "observedMax": 16
     },
     {
       "oracleId": "7cafc972-a6f5-4cac-a3d3-8a3ae36ffb1e",
@@ -16174,72 +16448,6 @@
       "evidenceCount": 19,
       "observedMin": 11,
       "observedMax": 15
-    },
-    {
-      "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
-      "name": "Chromatic Star",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 16,
-      "observedMin": 6.3,
-      "observedMax": 10
-    },
-    {
-      "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
-      "name": "Emrakul, the Aeons Torn",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 8.9,
-      "observedMax": 11
-    },
-    {
-      "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
-      "name": "Faithless Looting",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 9.4,
-      "observedMax": 13
-    },
-    {
-      "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
-      "name": "Lightning Greaves",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 9.3,
-      "observedMax": 18
-    },
-    {
-      "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
-      "name": "Lion's Eye Diamond",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 9.2,
-      "observedMax": 17
-    },
-    {
-      "oracleId": "ba284fe6-bb29-455c-8321-9714a0cdc05e",
-      "name": "Mishra's Workshop",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 10,
-      "observedMax": 19
     },
     {
       "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
@@ -16352,17 +16560,6 @@
       "observedMax": 15
     },
     {
-      "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
-      "name": "Young Pyromancer",
-      "score": 10,
-      "source": "untapped",
-      "rawSourceScore": 10,
-      "method": "historical_mode",
-      "evidenceCount": 5,
-      "observedMin": 6.2,
-      "observedMax": 9.9
-    },
-    {
       "oracleId": "8fb9ff2d-1e90-4a26-8397-bb981fda2f7b",
       "name": "Breya's Apprentice",
       "score": 9,
@@ -16394,28 +16591,6 @@
       "evidenceCount": 13,
       "observedMin": 8.8,
       "observedMax": 9.8
-    },
-    {
-      "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
-      "name": "Grim Lavamancer",
-      "score": 9,
-      "source": "untapped",
-      "rawSourceScore": 9,
-      "method": "historical_mode",
-      "evidenceCount": 33,
-      "observedMin": 8.4,
-      "observedMax": 11
-    },
-    {
-      "oracleId": "060209fa-4b7d-4e08-bf8b-8759bba5641b",
-      "name": "Karn, Scion of Urza",
-      "score": 9,
-      "source": "untapped",
-      "rawSourceScore": 9,
-      "method": "historical_mode",
-      "evidenceCount": 22,
-      "observedMin": 2.7,
-      "observedMax": 10
     },
     {
       "oracleId": "953a2bd3-5bca-41fc-8785-66b2d7fa381a",
@@ -16473,17 +16648,6 @@
       "observedMax": 8.9
     },
     {
-      "oracleId": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
-      "name": "Expedition Map",
-      "score": 8,
-      "source": "untapped",
-      "rawSourceScore": 8,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 6.7,
-      "observedMax": 8.3
-    },
-    {
       "oracleId": "72e8d67a-41e6-4074-bcbd-b54ead995237",
       "name": "Pentad Prism",
       "score": 8,
@@ -16506,34 +16670,12 @@
       "observedMax": 8.6
     },
     {
-      "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
-      "name": "Reckoner Bankbuster",
-      "score": 8,
-      "source": "untapped",
-      "rawSourceScore": 8,
-      "method": "historical_mode",
-      "evidenceCount": 25,
-      "observedMin": 8.3,
-      "observedMax": 15
-    },
-    {
-      "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
-      "name": "Settle the Wreckage",
-      "score": 8,
-      "source": "untapped",
-      "rawSourceScore": 8,
-      "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 7.2,
-      "observedMax": 12
-    },
-    {
       "oracleId": "1b5e6560-ff2e-4475-96cb-63f64c8a86db",
       "name": "Soul-Guide Lantern",
       "score": 8,
       "source": "untapped",
       "rawSourceScore": 8,
-      "method": "cubecobra_feature_calibration_v1"
+      "method": "historical_mode"
     },
     {
       "oracleId": "6c326439-5620-4ec6-a56a-fe9c3d5d2a46",
@@ -16545,17 +16687,6 @@
       "evidenceCount": 21,
       "observedMin": 8.5,
       "observedMax": 14
-    },
-    {
-      "oracleId": "c396db03-bf11-4e20-b630-4f9aa8fd78da",
-      "name": "The Mightstone and Weakstone",
-      "score": 8,
-      "source": "untapped",
-      "rawSourceScore": 8,
-      "method": "historical_mode",
-      "evidenceCount": 14,
-      "observedMin": 8.1,
-      "observedMax": 10
     },
     {
       "oracleId": "322f0459-f394-44f0-977b-55fd0cbe0712",
@@ -16624,17 +16755,6 @@
       "observedMax": 7.8
     },
     {
-      "oracleId": "efe9c3e0-7315-408e-9903-9d25a681039b",
-      "name": "Golos, Tireless Pilgrim",
-      "score": 7,
-      "source": "untapped",
-      "rawSourceScore": 7,
-      "method": "historical_mode",
-      "evidenceCount": 20,
-      "observedMin": 5.5,
-      "observedMax": 7.2
-    },
-    {
       "oracleId": "7359e82b-db79-488d-a1d4-75a00f12a4cf",
       "name": "Kaldra Compleat",
       "score": 7,
@@ -16657,28 +16777,6 @@
       "observedMax": 9.6
     },
     {
-      "oracleId": "04c7f4fe-2098-4311-866d-6733c08d5178",
-      "name": "Nettlecyst",
-      "score": 7,
-      "source": "untapped",
-      "rawSourceScore": 7,
-      "method": "historical_mode",
-      "evidenceCount": 13,
-      "observedMin": 6.6,
-      "observedMax": 8.9
-    },
-    {
-      "oracleId": "2249001c-08d5-4c0a-86f8-d97519a39f37",
-      "name": "Stoke the Flames",
-      "score": 7,
-      "source": "untapped",
-      "rawSourceScore": 7,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 6.7,
-      "observedMax": 7.5
-    },
-    {
       "oracleId": "3765e8bb-e70d-4503-b8dc-1e684e434c18",
       "name": "Verdurous Gearhulk",
       "score": 7,
@@ -16688,17 +16786,6 @@
       "evidenceCount": 20,
       "observedMin": 1.2,
       "observedMax": 10
-    },
-    {
-      "oracleId": "08cb8a30-9cb4-4517-bee5-8848aa60d1a2",
-      "name": "Zuran Orb",
-      "score": 7,
-      "source": "untapped",
-      "rawSourceScore": 7,
-      "method": "historical_mode",
-      "evidenceCount": 19,
-      "observedMin": 5.4,
-      "observedMax": 8.1
     },
     {
       "oracleId": "33c722cf-b4bf-431f-aefd-ee96241a7fbf",
@@ -16734,17 +16821,6 @@
       "observedMax": 5.5
     },
     {
-      "oracleId": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
-      "name": "Myr Battlesphere",
-      "score": 6,
-      "source": "untapped",
-      "rawSourceScore": 6,
-      "method": "historical_mode",
-      "evidenceCount": 3,
-      "observedMin": 5.8,
-      "observedMax": 7.9
-    },
-    {
       "oracleId": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
       "name": "Nexus of Becoming",
       "score": 6,
@@ -16776,28 +16852,6 @@
       "evidenceCount": 25,
       "observedMin": 4.3,
       "observedMax": 6.5
-    },
-    {
-      "oracleId": "63bfb9ca-d9d5-4c17-be39-82eb115bc20c",
-      "name": "Lavaspur Boots",
-      "score": 5,
-      "source": "untapped",
-      "rawSourceScore": 5,
-      "method": "historical_mode",
-      "evidenceCount": 24,
-      "observedMin": 4.9,
-      "observedMax": 7.5
-    },
-    {
-      "oracleId": "5906b378-c7a7-44fd-a63b-55a347d97854",
-      "name": "Scrapwork Mutt",
-      "score": 5,
-      "source": "untapped",
-      "rawSourceScore": 5,
-      "method": "historical_mode",
-      "evidenceCount": 23,
-      "observedMin": 4.9,
-      "observedMax": 8.1
     },
     {
       "oracleId": "2ccdc60a-49a9-44b9-a7af-0ebf18b26785",
@@ -16886,28 +16940,6 @@
       "evidenceCount": 21,
       "observedMin": 3.6,
       "observedMax": 4.2
-    },
-    {
-      "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
-      "name": "Seething Song",
-      "score": 4,
-      "source": "untapped",
-      "rawSourceScore": 4,
-      "method": "historical_mode",
-      "evidenceCount": 27,
-      "observedMin": 3.6,
-      "observedMax": 5.4
-    },
-    {
-      "oracleId": "86ef6474-613f-41fb-931c-d4279b03ed99",
-      "name": "Pyretic Ritual",
-      "score": 3,
-      "source": "untapped",
-      "rawSourceScore": 3,
-      "method": "historical_mode",
-      "evidenceCount": 18,
-      "observedMin": 3.2,
-      "observedMax": 4.5
     }
   ],
   "inputs": {

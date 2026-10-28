@@ -3,13 +3,13 @@
   "engineVersion": "cube-upgrade-advisor@3",
   "cubeKey": "titou_tribal",
   "snapshotId": "titou_tribal@2026-02-24.1",
-  "generatedAt": "2026-10-17T09:39:25.635Z",
+  "generatedAt": "2026-10-28T11:40:09.436Z",
   "sourceProvenance": {
-    "generatedAt": "2026-10-17T09:39:25.635Z",
+    "generatedAt": "2026-10-28T11:40:09.436Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "ff084b264003eaee0f57bcd3f346129d89a380bd81955df72c33331900183d23",
+      "sha256": "6ed650df219de072f2c4d10ebe37c9e03b03e274b657df154d5ccdc2fd54315b",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,11 +49,11 @@
     "benchmarkCoveragePercentage": 34
   },
   "stats": {
-    "totalUpgrades": 118,
+    "totalUpgrades": 116,
     "totalMaybeboard": 30,
-    "recentUpgradesCount": 35,
-    "benchmarkMatchesCount": 29,
-    "recentMaybeboardCount": 9,
+    "recentUpgradesCount": 34,
+    "benchmarkMatchesCount": 26,
+    "recentMaybeboardCount": 10,
     "directReplacementMaybeboardCount": 30
   },
   "upgrades": {
@@ -118,58 +118,6 @@
         {
           "key": "peer_benchmark",
           "points": 15
-        }
-      ]
-    },
-    "Aether Spellbomb": {
-      "targetCard": {
-        "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
-        "name": "Aether Spellbomb",
-        "score": 11,
-        "tier": "F",
-        "cmc": 1,
-        "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
-        "frenchName": "Bombe à sortilèges d'Éther",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/6/e6c48f49-e4c4-45a6-bbfe-b06841f3382e.jpg?1782833802",
-        "colors": [],
-        "releaseYear": 2003,
-        "set": "DDF",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
-        "name": "Sensei's Divining Top",
-        "score": 35.2,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
-        "colors": [],
-        "releaseYear": 2004,
-        "set": "CHK",
-        "isRecent": false
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 24.2,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+24.2 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+24.2 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2004)"
-      },
-      "releaseYear": 2004,
-      "isRecent": false,
-      "rankingScore": 36.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 35.2
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
         }
       ]
     },
@@ -568,53 +516,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-        "name": "Ponder",
-        "score": 29,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ba6b6fc5-5077-4812-b8e9-906783dbaf67/normal.webp",
-        "frenchName": "Contemplation",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 2007,
-        "set": "LRW",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 11.8,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.8 pts).",
+      "scoreDelta": 20,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+20 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+11.8 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+20 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (2007)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2007,
+      "releaseYear": 2003,
       "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
-      ],
-      "rankingScore": 45,
+      "rankingScore": 45.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29
+          "points": 37.2
         },
         {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
+          "key": "role_alignment",
+          "points": 8
         }
       ]
     },
@@ -623,7 +562,7 @@
         "oracleId": "13822dcf-0639-4852-9a7f-e1d55719e82c",
         "name": "Bonfire of the Damned",
         "score": 18.3,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://cards.scryfall.io/normal/front/c/f/cf4f47a9-1c23-4d63-bb89-83c889615e50.jpg?1783936648",
@@ -1214,53 +1153,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-        "name": "Ponder",
-        "score": 29,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ba6b6fc5-5077-4812-b8e9-906783dbaf67/normal.webp",
-        "frenchName": "Contemplation",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 2007,
-        "set": "LRW",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 13,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts).",
+      "scoreDelta": 21.2,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21.2 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+13 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+21.2 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (2007)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2007,
+      "releaseYear": 2003,
       "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
-      ],
-      "rankingScore": 45,
+      "rankingScore": 45.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29
+          "points": 37.2
         },
         {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
+          "key": "role_alignment",
+          "points": 8
         }
       ]
     },
@@ -1719,41 +1649,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-        "name": "Mana Leak",
-        "score": 41,
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a7c7757d-8036-4b33-a1cb-07795d392588/normal.webp",
-        "frenchName": "Fuite de mana",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 1998,
-        "set": "M11",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 22.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts).",
+      "scoreDelta": 18.3,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.3 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+22.1 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+18.3 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1998)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 1998,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 42,
+      "rankingScore": 46.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 41
+          "points": 37.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -2398,53 +2331,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
-        "name": "Ponder",
-        "score": 29,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ba6b6fc5-5077-4812-b8e9-906783dbaf67/normal.webp",
-        "frenchName": "Contemplation",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 2007,
-        "set": "LRW",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 10.9,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10.9 pts).",
+      "scoreDelta": 19.1,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+10.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+19.1 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (2007)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2007,
+      "releaseYear": 2003,
       "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
-      ],
-      "rankingScore": 45,
+      "rankingScore": 45.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29
+          "points": 37.2
         },
         {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
+          "key": "role_alignment",
+          "points": 8
         }
       ]
     },
@@ -2453,7 +2377,7 @@
         "oracleId": "6e26a525-2584-490d-b106-621c1a30e1fd",
         "name": "Forbid",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Instant",
         "imageUrl": "https://cards.scryfall.io/normal/front/0/f/0fc2a6c5-9904-47e0-adec-e9e6e79cd11d.jpg?1783938498",
@@ -2467,41 +2391,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-        "name": "Mana Leak",
-        "score": 41,
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a7c7757d-8036-4b33-a1cb-07795d392588/normal.webp",
-        "frenchName": "Fuite de mana",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 1998,
-        "set": "M11",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 23.1,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.1 pts).",
+      "scoreDelta": 19.3,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+23.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+19.3 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1998)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 1998,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 44,
+      "rankingScore": 48.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 41
+          "points": 37.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -2712,7 +2639,7 @@
         "oracleId": "bab0ab8d-74d2-49a3-b258-b93d19925d99",
         "name": "Goblin Dark-Dwellers",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 5,
         "typeLine": "Creature — Goblin",
         "imageUrl": "https://cards.scryfall.io/normal/front/3/b/3bb7be0d-1937-4b30-909c-df2b31a921e3.jpg?1783931172",
@@ -3094,7 +3021,7 @@
         "oracleId": "b80df711-af51-4f9a-9a3f-f7a4cddc9c2c",
         "name": "Goro-Goro, Disciple of Ryusei",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 2,
         "typeLine": "Legendary Creature — Goblin Samurai",
         "imageUrl": "https://cards.scryfall.io/normal/front/1/c/1ca736c7-35a9-48c7-b5a9-69b2a6e33ad0.jpg?1783923865",
@@ -3140,66 +3067,6 @@
         {
           "key": "power",
           "points": 44
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        }
-      ]
-    },
-    "Grim Lavamancer": {
-      "targetCard": {
-        "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
-        "name": "Grim Lavamancer",
-        "score": 9,
-        "tier": "F",
-        "cmc": 1,
-        "typeLine": "Creature — Human Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1ab6ffe8-e1ad-4db9-98f7-d6038f271866.jpg?1783918459",
-        "frenchName": "Sinistre lavamancien",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/3/a/3a5768bd-eecf-4561-9f11-92781564fd9c.jpg?1782832809",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2002,
-        "set": "M12",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "176f5ba8-6e7b-4234-a298-b6164f51656f",
-        "name": "Inti, Seneschal of the Sun",
-        "score": 40,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Knight",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/0548ddb6-5301-4911-93fd-bb988275f44a/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "LCI",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 31,
-      "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+31 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser la méta du cube (+31 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "rankingScore": 78,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
         },
         {
           "key": "tribal_coherence",
@@ -4393,58 +4260,6 @@
         }
       ]
     },
-    "Lightning Greaves": {
-      "targetCard": {
-        "oracleId": "ca204b66-8d0c-431a-8d34-282f7c2d17da",
-        "name": "Lightning Greaves",
-        "score": 10,
-        "tier": "F",
-        "cmc": 2,
-        "typeLine": "Artifact — Equipment",
-        "imageUrl": "https://cards.scryfall.io/normal/front/b/6/b61634ae-05be-4b56-8ebb-9d4ade902e42.jpg?1783903217",
-        "frenchName": "Jambières d'éclair",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/a/ea29fd50-067a-4725-a35c-d080164348f2.jpg?1785265179",
-        "colors": [],
-        "releaseYear": 2003,
-        "set": "DDE",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "65986c1b-8e51-4604-b685-d82fa7d1263a",
-        "name": "Skullclamp",
-        "score": 37,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Artifact — Equipment",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/55318397-de3c-47ea-a088-72a24df5c8fa/normal.webp",
-        "colors": [],
-        "releaseYear": 2004,
-        "set": "DST",
-        "isRecent": false
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 27,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+27 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant la méta du cube (+27 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2004)"
-      },
-      "releaseYear": 2004,
-      "isRecent": false,
-      "rankingScore": 40,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 37
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        }
-      ]
-    },
     "Linvala, Shield of Sea Gate": {
       "targetCard": {
         "oracleId": "afd8ff3e-1d57-4fc5-91dc-1a8400c98787",
@@ -4717,7 +4532,7 @@
         "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
         "name": "Mana Confluence",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 0,
         "typeLine": "Land",
         "imageUrl": "https://cards.scryfall.io/normal/front/5/0/504a69eb-3c2d-4bb1-b117-252b15acf0c2.jpg?1783939402",
@@ -4953,7 +4768,7 @@
         "oracleId": "c1fc5923-c3cd-448a-98d1-c154661c2812",
         "name": "Nissa, Resurgent Animist",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 3,
         "typeLine": "Legendary Creature — Elf Scout",
         "imageUrl": "https://cards.scryfall.io/normal/front/2/4/248c76d3-b5cb-4582-be17-7cd1d0cb0f58.jpg?1783916520",
@@ -5429,96 +5244,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "9728dec9-d482-4c7a-8cdc-44d010dc878d",
-        "name": "Ancestral Vision",
-        "score": 27.8,
-        "tier": "A-",
-        "cmc": 0,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bccedc4d-38c7-4bf3-9ca7-4febd6c49d3d/normal.webp",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 2006,
-        "set": "TSP",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 8.8,
-      "reason": "Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+8.8 pts).",
+      "scoreDelta": 18.2,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.2 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (0 vs 1 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+8.8 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+18.2 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2006)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2006,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 30.8,
+      "rankingScore": 45.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 37.2
         },
         {
-          "key": "mana_efficiency",
-          "points": 3
-        }
-      ]
-    },
-    "Reckoner Bankbuster": {
-      "targetCard": {
-        "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
-        "name": "Reckoner Bankbuster",
-        "score": 8,
-        "tier": "F",
-        "cmc": 2,
-        "typeLine": "Artifact — Vehicle",
-        "imageUrl": "https://cards.scryfall.io/normal/front/2/7/279acd17-6c17-427b-a69d-fc02442ff4a3.jpg?1783923822",
-        "frenchName": "Brisebanque héliaste",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/3/c35f4761-7ffe-4bce-9cde-62e2de1705e1.jpg?1782861213",
-        "colors": [],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
-        "name": "Strixhaven Skycoach",
-        "score": 26.8,
-        "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Artifact — Vehicle",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/87741fbb-b426-4f83-a358-587b0907f081/normal.webp",
-        "colors": [],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 18.8,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+18.8 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 32.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26.8
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "key": "role_alignment",
+          "points": 8
         }
       ]
     },
@@ -5655,7 +5418,7 @@
         "oracleId": "00625242-9348-4ef4-b975-f2ac82fee21d",
         "name": "Savai Triome",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 0,
         "typeLine": "Land — Mountain Plains Swamp",
         "imageUrl": "https://cards.scryfall.io/normal/front/7/4/748e6a61-9c1f-4225-9f04-e54002f63ac3.jpg?1783931000",
@@ -5725,41 +5488,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-        "name": "Mana Leak",
-        "score": 41,
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a7c7757d-8036-4b33-a1cb-07795d392588/normal.webp",
-        "frenchName": "Fuite de mana",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 1998,
-        "set": "M11",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 23.1,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.1 pts).",
+      "scoreDelta": 19.3,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+23.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+19.3 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1998)"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 1998,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 44,
+      "rankingScore": 48.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 41
+          "points": 37.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -5905,7 +5671,7 @@
         "oracleId": "5fe07a76-f261-4f16-8a15-571bed707261",
         "name": "Sigarda, Font of Blessings",
         "score": 19.3,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 4,
         "typeLine": "Legendary Creature — Angel",
         "imageUrl": "https://cards.scryfall.io/normal/front/c/b/cba71725-d6df-44d7-a93b-934573759711.jpg?1783916509",
@@ -6249,12 +6015,72 @@
         }
       ]
     },
+    "Sulfuric Vortex": {
+      "targetCard": {
+        "oracleId": "7652f328-e142-494b-a869-772ced10c26a",
+        "name": "Sulfuric Vortex",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/3253a624-50cc-4a8a-9b0c-9902aa53775f.jpg?1783918451",
+        "frenchName": "Vortex sulfureux",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/d/2df6e64f-e4f7-44e6-99f5-fb43e4ea8716.jpg?1782832723",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2003,
+        "set": "EMA",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 19.3,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+19.3 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "rankingScore": 40.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Sunfall": {
       "targetCard": {
         "oracleId": "fb3f5097-0da0-458c-8508-60823567e2da",
         "name": "Sunfall",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 5,
         "typeLine": "Sorcery",
         "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32e29c7d-ed4b-4eff-b3c2-d99e5b63ef8d.jpg?1783917046",
@@ -7282,6 +7108,62 @@
         }
       ]
     },
+    "Witch's Oven": {
+      "targetCard": {
+        "oracleId": "8fa0fe02-2452-4386-8e0c-165757b0f0a3",
+        "name": "Witch's Oven",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/0/4/04ef8493-d986-45f8-a718-617b028f7ad4.jpg?1783932580",
+        "frenchName": "Four de l'envoûteuse",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/e/ee981917-4187-4861-947f-835e45f8b86a.jpg?1782912485",
+        "colors": [],
+        "releaseYear": 2019,
+        "set": "ELD",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "ee6099b0-fb1f-42f1-b862-7708c6e36d05",
+        "name": "Lion's Eye Diamond",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 0,
+        "typeLine": "Artifact",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Lion's%20Eye%20Diamond&format=image",
+        "colors": [],
+        "releaseYear": 1996,
+        "set": "MIR",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 19.3,
+      "reason": "Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (0 vs 1 mana) tout en renforçant la méta du cube (+19.3 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (1996)"
+      },
+      "releaseYear": 1996,
+      "isRecent": false,
+      "rankingScore": 48.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Wolf-Skull Shaman": {
       "targetCard": {
         "oracleId": "c29724c7-dc2e-4a66-8371-449fd012d429",
@@ -7676,7 +7558,7 @@
           "name": "Bonfire of the Damned",
           "frenchName": "Bonfire of the Damned",
           "score": 18.3,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 13,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts)."
         },
@@ -7938,6 +7820,71 @@
     },
     {
       "card": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Sulfuric Vortex (+19.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+37.2 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Sulfuric Vortex",
+          "frenchName": "Vortex sulfureux",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 19.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
+        }
+      ],
+      "rankingScore": 95.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 28
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "8c1fe337-375a-4add-93b6-0ac39ed72b4f",
         "name": "Natural Order",
         "score": 36,
@@ -8032,7 +7979,7 @@
         "titou:tribal_glue"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Blustersquall (+11.8 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.8 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Growth Spiral (+9.1 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+9.1 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+29 pts).",
         "affectedArchetypes": [
@@ -8050,30 +7997,6 @@
         "Tribal Synergy Cube"
       ],
       "replacesCards": [
-        {
-          "name": "Blustersquall",
-          "frenchName": "Blustersquall",
-          "score": 17.2,
-          "tier": "D-",
-          "scoreDelta": 11.8,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.8 pts)."
-        },
-        {
-          "name": "Consider",
-          "frenchName": "Scruter",
-          "score": 16,
-          "tier": "F",
-          "scoreDelta": 13,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts)."
-        },
-        {
-          "name": "Fading Hope",
-          "frenchName": "Espoir volatilisé",
-          "score": 18.1,
-          "tier": "D",
-          "scoreDelta": 10.9,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10.9 pts)."
-        },
         {
           "name": "Growth Spiral",
           "frenchName": "Spirale de croissance",
@@ -8203,85 +8126,6 @@
         {
           "key": "archetype_match",
           "points": 20
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "c61fe162-2202-4e56-9ba0-393547f9875f",
-        "name": "Mana Leak",
-        "score": 41,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a7c7757d-8036-4b33-a1cb-07795d392588/normal.webp",
-        "frenchName": "Fuite de mana",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1998,
-        "set": "M11",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Disdainful Stroke (+22.1 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+41 pts).",
-        "affectedArchetypes": [
-          "Temur/5-Color Dragons Ramp & Bombes",
-          "Izzet Sorciers Spells & Tempo",
-          "5-Color Chromatic Legends & Domain"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1998)"
-      },
-      "releaseYear": 1998,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Disdainful Stroke",
-          "frenchName": "Botte dédaigneuse",
-          "score": 18.9,
-          "tier": "D+",
-          "scoreDelta": 22.1,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts)."
-        },
-        {
-          "name": "Forbid",
-          "frenchName": "Interdit",
-          "score": 17.9,
-          "tier": "D",
-          "scoreDelta": 23.1,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.1 pts)."
-        },
-        {
-          "name": "Saw It Coming",
-          "frenchName": "Je t'ai vu !",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 23.1,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.1 pts)."
-        }
-      ],
-      "rankingScore": 87,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
         }
       ]
     },
@@ -8522,6 +8366,116 @@
     },
     {
       "card": {
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2003,
+        "set": "SCG",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Blustersquall (+20 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+20 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+37.2 pts).",
+        "affectedArchetypes": [
+          "Temur/5-Color Dragons Ramp & Bombes",
+          "Izzet Sorciers Spells & Tempo",
+          "5-Color Chromatic Legends & Domain"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Blustersquall",
+          "frenchName": "Blustersquall",
+          "score": 17.2,
+          "tier": "D-",
+          "scoreDelta": 20,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+20 pts)."
+        },
+        {
+          "name": "Consider",
+          "frenchName": "Scruter",
+          "score": 16,
+          "tier": "F",
+          "scoreDelta": 21.2,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21.2 pts)."
+        },
+        {
+          "name": "Disdainful Stroke",
+          "frenchName": "Botte dédaigneuse",
+          "score": 18.9,
+          "tier": "D+",
+          "scoreDelta": 18.3,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.3 pts)."
+        },
+        {
+          "name": "Fading Hope",
+          "frenchName": "Espoir volatilisé",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 19.1,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts)."
+        },
+        {
+          "name": "Forbid",
+          "frenchName": "Interdit",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 19.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
+        },
+        {
+          "name": "Rapid Hybridization",
+          "frenchName": "Hybridation rapide",
+          "score": 19,
+          "tier": "D+",
+          "scoreDelta": 18.2,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.2 pts)."
+        },
+        {
+          "name": "Saw It Coming",
+          "frenchName": "Je t'ai vu !",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 19.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
+        }
+      ],
+      "rankingScore": 83.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "3f6101a5-3038-45b0-8302-b2e4127b9510",
         "name": "Rally the Monastery",
         "score": 27.2,
@@ -8562,7 +8516,7 @@
           "name": "Sunfall",
           "frenchName": "Fin du soleil",
           "score": 17,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 10.2,
           "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.2 pts)."
         }
@@ -9134,7 +9088,7 @@
           "name": "Goro-Goro, Disciple of Ryusei",
           "frenchName": "Goro-Goro, disciple de Ryusei",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 26.1,
           "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+26.1 pts)."
         },
@@ -9292,7 +9246,7 @@
           "name": "Goblin Dark-Dwellers",
           "frenchName": "Gobelins sciaphiles",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 9.9,
           "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+9.9 pts)."
         }
@@ -9382,68 +9336,6 @@
     },
     {
       "card": {
-        "oracleId": "9728dec9-d482-4c7a-8cdc-44d010dc878d",
-        "name": "Ancestral Vision",
-        "score": 27.8,
-        "tier": "A-",
-        "cmc": 0,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bccedc4d-38c7-4bf3-9ca7-4febd6c49d3d/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2006,
-        "set": "TSP",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Rapid Hybridization (+8.8 pts). Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+8.8 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+27.8 pts).",
-        "affectedArchetypes": [
-          "Temur/5-Color Dragons Ramp & Bombes",
-          "Izzet Sorciers Spells & Tempo",
-          "5-Color Chromatic Legends & Domain"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2006)"
-      },
-      "releaseYear": 2006,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Rapid Hybridization",
-          "frenchName": "Hybridation rapide",
-          "score": 19,
-          "tier": "D+",
-          "scoreDelta": 8.8,
-          "reason": "Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+8.8 pts)."
-        }
-      ],
-      "rankingScore": 73.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "91f410c5-4313-462f-8d21-da63988d919f",
         "name": "Sutina, Speaker of the Tajuru",
         "score": 33.3,
@@ -9518,7 +9410,7 @@
           "name": "Nissa, Resurgent Animist",
           "frenchName": "Nissa, animiste résurgente",
           "score": 17,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 16.3,
           "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+16.3 pts)."
         },
@@ -9622,55 +9514,6 @@
     },
     {
       "card": {
-        "oracleId": "176f5ba8-6e7b-4234-a298-b6164f51656f",
-        "name": "Inti, Seneschal of the Sun",
-        "score": 40,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Knight",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/0548ddb6-5301-4911-93fd-bb988275f44a/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "LCI",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Grim Lavamancer (+31 pts). Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+31 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser la méta du cube (+40 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Grim Lavamancer",
-          "frenchName": "Sinistre lavamancien",
-          "score": 9,
-          "tier": "F",
-          "scoreDelta": 31,
-          "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+31 pts)."
-        }
-      ],
-      "rankingScore": 70,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
         "name": "Bothersome Noisemaker",
         "score": 29.9,
@@ -9708,6 +9551,67 @@
           "tier": "D+",
           "scoreDelta": 11.4,
           "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+11.4 pts)."
+        }
+      ],
+      "rankingScore": 69.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.9
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "88eeb519-5782-4732-bd34-81d1ee6dbc8f",
+        "name": "Ka-Zar of the Savage Land",
+        "score": 29.9,
+        "tier": "A-",
+        "cmc": 5,
+        "typeLine": "Legendary Creature — Human Barbarian Hero",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/caf70fc5-87a0-4b4d-bedd-74dd09569bed/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_humans"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Master of the Wild Hunt (+11.9 pts). Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+11.9 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+29.9 pts).",
+        "affectedArchetypes": [
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Master of the Wild Hunt",
+          "frenchName": "Maître de la vénerie sauvage",
+          "score": 18,
+          "tier": "D",
+          "scoreDelta": 11.9,
+          "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+11.9 pts)."
         }
       ],
       "rankingScore": 69.9,
