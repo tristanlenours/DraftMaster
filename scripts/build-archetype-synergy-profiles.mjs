@@ -2,6 +2,10 @@ import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import cedricCuration from "./archetype-curation/cedric-cube.mjs";
+import huguesCuration from "./archetype-curation/hugues-pauper.mjs";
+import titouPeasantCuration from "./archetype-curation/titou-arena-peasant-plus.mjs";
+
 const rootDir = resolve(import.meta.dirname, "..");
 
 async function readJson(path) {
@@ -322,7 +326,7 @@ async function buildTitouProfile(masterCards) {
   return makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, archetypes);
 }
 
-function createNicoArchetype(resolver, definition) {
+function createCuratedArchetype(resolver, definition) {
   const cards = new Map();
   for (const group of definition.groups) {
     addNamedCards(cards, resolver, group.names, {
@@ -976,92 +980,113 @@ async function buildNicoProfile(masterCards) {
     cubeKey,
     meta.activeSnapshotId,
     rawSource.sha256,
-    definitions.map((definition) => createNicoArchetype(resolver, definition)),
+    definitions.map((definition) => createCuratedArchetype(resolver, definition)),
   );
 }
 
-async function buildMetaDrivenProfile(cubeKey, masterCards) {
+const KEY_CARD_RANGE = [4, 10];
+const MAX_SUPPORT_CARDS = 28;
+
+// cube-meta.json keeps a projection of the curated archetypes: the curation module is the
+// single source of truth for their colours, plan and key/support cards.
+function projectMetaArchetype(curated, profileArchetype, resolver) {
+  const cardsByOracleId = new Map(profileArchetype.cards.map((card) => [card.oracleId, card]));
+  const orderedCards = [
+    ...new Set(
+      curated.groups
+        .flatMap((group) => group.names)
+        .map((name) => resolver.require(name).details.oracle_id),
+    ),
+  ].map((oracleId) => cardsByOracleId.get(oracleId));
+  const keyCards = orderedCards.filter((card) => card.strength === "key");
+  const supportCards = orderedCards.filter((card) => card.strength === "support");
+  if (keyCards.length < KEY_CARD_RANGE[0] || keyCards.length > KEY_CARD_RANGE[1]) {
+    throw new Error(
+      `${curated.id}: ${String(keyCards.length)} key cards outside ${KEY_CARD_RANGE}`,
+    );
+  }
+  if (supportCards.length > MAX_SUPPORT_CARDS) {
+    throw new Error(`${curated.id}: ${String(supportCards.length)} support cards`);
+  }
+  return {
+    id: curated.id,
+    name: curated.name,
+    primaryColors: curated.primaryColors,
+    ...(curated.splashColors ? { splashColors: curated.splashColors } : {}),
+    category: curated.category,
+    description: curated.description,
+    gameplan: curated.gameplan,
+    keyCards: keyCards.map((card) => card.oracleId),
+    supportCards: supportCards.map((card) => card.oracleId),
+    recommendedCreatureCount: curated.recommendedCreatureCount,
+    recommendedRemovalCount: curated.recommendedRemovalCount,
+  };
+}
+
+async function buildCuratedCube(curation, masterCards) {
+  const { cubeKey } = curation;
   const rawSource = await readJsonSource(`data/cubes/${cubeKey}/cubecobra-raw.json`);
-  const raw = rawSource.value;
   const meta = await readJson(`data/cubes/${cubeKey}/cube-meta.json`);
-  const resolver = createCardResolver(raw, cubeKey, masterCards);
+  const resolver = createCardResolver(rawSource.value, cubeKey, masterCards);
+  const profileArchetypes = curation.archetypes.map((definition) =>
+    createCuratedArchetype(resolver, definition),
+  );
 
-  const archetypes = meta.archetypes
-    .filter((archetype) => !archetype.id.includes("staple") && !archetype.id.includes("glue"))
-    .map((archetype) => {
-      const cards = new Map();
-      for (const oracleId of archetype.keyCards) {
-        const entry = resolver.byOracleId.get(oracleId);
-        if (!entry)
-          throw new Error(`${cubeKey}: unresolved key card ${oracleId} in ${archetype.id}`);
-        mergeCard(cards, entry, {
-          strength: "key",
-          roles: ["payoff"],
-          families: ["payoff"],
-          evidence: {
-            source: "owner_description",
-            detail: `Carte clé déclarée pour ${archetype.name}.`,
-          },
-          confidence: "A",
-        });
-      }
-      for (const oracleId of archetype.supportCards) {
-        const entry = resolver.byOracleId.get(oracleId);
-        if (!entry)
-          throw new Error(`${cubeKey}: unresolved support card ${oracleId} in ${archetype.id}`);
-        mergeCard(cards, entry, {
-          strength: "support",
-          roles: ["enabler"],
-          families: ["support"],
-          evidence: {
-            source: "owner_description",
-            detail: `Carte support déclarée pour ${archetype.name}.`,
-          },
-          confidence: "B",
-        });
-      }
+  const curatedMeta = curation.archetypes.map((definition, index) =>
+    projectMetaArchetype(definition, profileArchetypes[index], resolver),
+  );
+  const passthrough = meta.archetypes.filter((archetype) =>
+    curation.passthroughArchetypeIds.includes(archetype.id),
+  );
+  const metaDocument = {
+    ...meta,
+    ...curation.metaOverrides,
+    archetypes: [...curatedMeta, ...passthrough],
+  };
 
-      return {
-        id: archetype.id,
-        name: archetype.name,
-        targetPoints: 14,
-        requiredFamilies: [
-          { id: "payoff", name: "Carte clé ou moteur du plan", minimum: 1 },
-          { id: "support", name: "Support ou synergie du plan", minimum: 2 },
-        ],
-        cards: [...cards.values()].sort((a, b) => a.name.localeCompare(b.name)),
-      };
-    });
+  return {
+    profile: makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, profileArchetypes),
+    meta: metaDocument,
+  };
+}
 
-  return makeDocument(cubeKey, meta.activeSnapshotId, rawSource.sha256, archetypes);
+async function emit(outputPath, document, label) {
+  const serialized = `${JSON.stringify(document, null, 2)}\n`;
+  if (process.argv.includes("--check")) {
+    const current = await readFile(outputPath, "utf8").catch(() => "");
+    if (current !== serialized) {
+      console.error(`Outdated ${label}: ${outputPath}`);
+      return true;
+    }
+    return false;
+  }
+  await writeFile(outputPath, serialized, "utf8");
+  console.log(`Wrote ${outputPath}`);
+  return false;
 }
 
 const masterData = await readJson("data/cards/master-cards.json");
 const masterCards = masterData.cards || {};
 
+const curatedCubes = await Promise.all(
+  [cedricCuration, huguesCuration, titouPeasantCuration].map(async (curation) => ({
+    cubeKey: curation.cubeKey,
+    ...(await buildCuratedCube(curation, masterCards)),
+  })),
+);
+
 let hasDrift = false;
 for (const [cubeKey, document] of [
   ["titou_tribal", await buildTitouProfile(masterCards)],
   ["nico_candyshop", await buildNicoProfile(masterCards)],
-  ["cedric_cube", await buildMetaDrivenProfile("cedric_cube", masterCards)],
-  ["hugues_pauper", await buildMetaDrivenProfile("hugues_pauper", masterCards)],
-  [
-    "titou_arena_peasant_plus",
-    await buildMetaDrivenProfile("titou_arena_peasant_plus", masterCards),
-  ],
+  ...curatedCubes.map(({ cubeKey, profile }) => [cubeKey, profile]),
 ]) {
   const outputPath = resolve(rootDir, `data/cubes/${cubeKey}/archetype-synergy-v1.json`);
-  const serialized = `${JSON.stringify(document, null, 2)}\n`;
-  if (process.argv.includes("--check")) {
-    const current = await readFile(outputPath, "utf8").catch(() => "");
-    if (current !== serialized) {
-      hasDrift = true;
-      console.error(`Outdated archetype synergy profile: ${outputPath}`);
-    }
-  } else {
-    await writeFile(outputPath, serialized, "utf8");
-    console.log(`Wrote ${outputPath}`);
-  }
+  hasDrift = (await emit(outputPath, document, "archetype synergy profile")) || hasDrift;
+}
+for (const { cubeKey, meta } of curatedCubes) {
+  const outputPath = resolve(rootDir, `data/cubes/${cubeKey}/cube-meta.json`);
+  hasDrift = (await emit(outputPath, meta, "cube meta archetypes")) || hasDrift;
 }
 
 if (hasDrift) process.exitCode = 1;

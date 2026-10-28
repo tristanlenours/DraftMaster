@@ -257,10 +257,11 @@ for (const cfg of cubeConfigs) {
       ana.metaBonus = metaBonus;
       ana.metaRole = metaRole;
       ana.scoreModifier = metaBonus;
-      const syncedArchetypes = archetypesByOracleId.get(card.oracleId);
-      if (syncedArchetypes) {
-        ana.archetypes = [...new Set([...(ana.archetypes || []), ...syncedArchetypes])];
-      }
+      // Memberships are re-derived on every sync so retired archetype ids do not linger;
+      // the importers' "*_staple" labels are kept because no archetype file declares them.
+      const stapleLabels = (ana.archetypes || []).filter((id) => id.endsWith("_staple"));
+      const syncedArchetypes = archetypesByOracleId.get(card.oracleId) ?? [];
+      ana.archetypes = [...new Set([...stapleLabels, ...syncedArchetypes])];
     }
   });
 

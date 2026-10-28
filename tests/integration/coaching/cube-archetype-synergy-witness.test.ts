@@ -176,4 +176,53 @@ describe("cube archetype synergy witnesses", () => {
       expect.arrayContaining(["Dark Depths", "Thespian's Stage"]),
     );
   });
+
+  it.each([
+    ["cedric_cube", "cedric:dimir_reanimator", "reanimation"],
+    ["cedric_cube", "cedric:sneak_show", "target"],
+    ["hugues_pauper", "hugues:selesnya_auras", "aura"],
+    ["titou_arena_peasant_plus", "titou_peasant:dimir_control", "draw"],
+  ] as const)(
+    "%s: distinguishes an assembled %s deck from a pile of one brick (%s)",
+    async (cubeKey, archetypeId, loneFamily) => {
+      const registry = await loadProfile(cubeKey);
+      const archetype = registry.document.archetypes.find(
+        (candidate) => candidate.id === archetypeId,
+      );
+      expect(archetype).toBeDefined();
+      if (!archetype) return;
+      const cardsFor = (family: string, count: number) =>
+        archetype.cards
+          .filter((card) => card.families.includes(family))
+          .slice(0, count)
+          .map((card, index) => spell(`${family}-${String(index)}`, card.name, card.oracleId));
+      const assembled = [
+        ...new Map(
+          archetype.requiredFamilies
+            .flatMap((family) => cardsFor(family.id, family.minimum + 2))
+            .map((card) => [card.oracleId, card]),
+        ).values(),
+      ];
+      const lonePile = cardsFor(loneFamily, 8).filter(
+        (card) =>
+          !archetype.cards.some(
+            (candidate) =>
+              candidate.oracleId === card.oracleId &&
+              candidate.families.some((family) => family !== loneFamily),
+          ),
+      );
+
+      const complete = evaluateDeck(deckWith(assembled), {
+        synergyProfile: registry.evaluationProfile,
+      });
+      const onlyOneBrick = evaluateDeck(deckWith(lonePile), {
+        synergyProfile: registry.evaluationProfile,
+      });
+
+      expect(complete.audit.synergy.bestArchetype?.id).toBe(archetypeId);
+      expect(complete.audit.synergy.bestArchetype?.missingRequiredFamilyCount).toBe(0);
+      expect(complete.radar.synergy).toBeGreaterThanOrEqual(90);
+      expect(onlyOneBrick.radar.synergy).toBeLessThanOrEqual(45);
+    },
+  );
 });

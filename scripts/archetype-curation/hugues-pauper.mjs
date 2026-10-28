@@ -1,0 +1,593 @@
+// Tier 1 curation of Hugues's Pauper cube (354 commons).
+// Each archetype lists functional bricks: `requiredFamilies` gate the deck evaluation so a pile of
+// isolated staples cannot pass for an assembled plan, and key/support strengths feed the draft
+// pick bonus. Names resolve against data/cubes/hugues_pauper/cubecobra-raw.json at build time.
+
+const key = (families, roles, evidence, names) => ({
+  strength: "key",
+  roles,
+  families,
+  evidence,
+  confidence: "A",
+  names,
+});
+const support = (families, roles, evidence, names, confidence = "B") => ({
+  strength: "support",
+  roles,
+  families,
+  evidence,
+  confidence,
+  names,
+});
+
+export default {
+  cubeKey: "hugues_pauper",
+  passthroughArchetypeIds: ["hugues:pauper_staple"],
+  metaOverrides: {
+    dominantMechanics: [
+      "Blink / ETB Value",
+      "Ninjutsu and Shadow Evasion",
+      "Pestilence and Gray Merchant Attrition",
+      "Auras and Hexproof Carriers",
+      "Tortured Existence / Graveyard Recursion",
+      "Burn / Red Deck Wins",
+      "Green Ramp",
+    ],
+  },
+  archetypes: [
+    {
+      id: "hugues:azorius_blink",
+      name: "Azorius Fliers & ETB Value",
+      primaryColors: ["W", "U"],
+      category: "midrange",
+      description:
+        "Créatures à effet d'arrivée (Mulldrifter, Man-o'-War, Mist Raven) rejouées par Kor Skyfisher et Deputy of Acquittals.",
+      gameplan:
+        "Stabiliser avec les créatures à ETB qui piochent ou renvoient, puis les remettre en main avec Kor Skyfisher ou Deputy of Acquittals pour enchaîner les 2-pour-1 dans les airs.",
+      recommendedCreatureCount: [13, 17],
+      recommendedRemovalCount: [4, 7],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "rebuy", name: "Créature qui rejoue un permanent", minimum: 1 },
+        { id: "etb", name: "Créature à effet d'arrivée", minimum: 4 },
+      ],
+      groups: [
+        key(["rebuy"], ["enabler"], "Renvoie un permanent en main pour rejouer son effet.", [
+          "Kor Skyfisher",
+          "Deputy of Acquittals",
+        ]),
+        key(["etb"], ["target"], "Effet d'arrivée qui génère un 2-pour-1.", [
+          "Mulldrifter",
+          "Man-o'-War",
+          "Mist Raven",
+        ]),
+        support(["etb"], ["target"], "Produit de la valeur à chaque arrivée.", [
+          "Sea Gate Oracle",
+          "Aether Adept",
+          "Thraben Inspector",
+          "Lone Missionary",
+          "Kor Sanctifiers",
+          "Aven Riftwatcher",
+          "Pestermite",
+          "Augur of Bolas",
+          "Cloudreader Sphinx",
+          "Faerie Seer",
+          "Kor Hookmaster",
+          "Pondering Mage",
+        ]),
+        support(
+          [],
+          ["interaction", "fixer"],
+          "Removal ou artefact à rejouer qui soutient le plan.",
+          [
+            "Journey to Nowhere",
+            "Oblivion Ring",
+            "Prophetic Prism",
+            "Guardian of the Guildpact",
+            "Mana Leak",
+          ],
+        ),
+      ],
+    },
+    {
+      id: "hugues:dimir_ninja_tempo",
+      name: "Dimir Evasion & Ninjutsu Tempo",
+      primaryColors: ["U", "B"],
+      category: "aggro",
+      description:
+        "Menaces évasives à bas coût (ombre, vol, imblocables) qui ouvrent le Ninjutsu et la pioche, protégées par contres et removal.",
+      gameplan:
+        "Poser une menace évasive tour 1-2, la remplacer par Ninja of the Deep Hours pour piocher, puis garder Daze, Mana Leak ou Snuff Out pour protéger l'avance.",
+      recommendedCreatureCount: [14, 18],
+      recommendedRemovalCount: [4, 7],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "evasive", name: "Menace évasive à bas coût", minimum: 5 },
+        { id: "disruption", name: "Contre-sort ou removal économique", minimum: 3 },
+      ],
+      groups: [
+        key([], ["payoff"], "Convertit chaque attaque évasive en carte piochée.", [
+          "Ninja of the Deep Hours",
+        ]),
+        key(["evasive"], ["body", "payoff"], "Menace évasive qui définit l'horloge Dimir.", [
+          "Delver of Secrets",
+          "Looter il-Kor",
+          "Dauthi Slayer",
+          "Dauthi Horror",
+        ]),
+        support(["evasive"], ["body"], "Corps évasif qui active Ninjutsu et la pression.", [
+          "Faerie Seer",
+          "Cloudfin Raptor",
+          "Spined Thopter",
+          "Thalakos Scout",
+          "Dauthi Marauder",
+          "Vault Skirge",
+          "Stitched Drake",
+          "Pestermite",
+          "Wingcrafter",
+          "Cloaked Siren",
+        ]),
+        support(["disruption"], ["interaction"], "Interaction à bas coût protégeant le tempo.", [
+          "Daze",
+          "Mana Leak",
+          "Force Spike",
+          "Lose Focus",
+          "Snuff Out",
+          "Agony Warp",
+          "Vendetta",
+          "Hymn to Tourach",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:rakdos_attrition",
+      name: "Rakdos Pestilence Attrition",
+      primaryColors: ["B", "R"],
+      category: "control",
+      description:
+        "Contrôle noir à base de Pestilence et Crypt Rats qui nettoie les petites créatures, appuyé par removal et ETB de défausse.",
+      gameplan:
+        "Échanger un-pour-un avec le removal noir et rouge, punir les decks larges avec Pestilence ou Crypt Rats, puis finir avec Gray Merchant et la monarchie de Thorn of the Black Rose.",
+      recommendedCreatureCount: [11, 15],
+      recommendedRemovalCount: [7, 11],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "engine", name: "Moteur d'attrition noir", minimum: 2 },
+        { id: "removal", name: "Removal ciblé", minimum: 4 },
+      ],
+      groups: [
+        key(["engine"], ["payoff", "interaction"], "Moteur qui gagne la guerre d'usure.", [
+          "Pestilence",
+          "Crypt Rats",
+          "Evincar's Justice",
+          "Chittering Rats",
+          "Thorn of the Black Rose",
+          "Blightning",
+        ]),
+        support(["engine"], ["target", "body"], "Créature à valeur d'arrivée pour l'attrition.", [
+          "Gray Merchant of Asphodel",
+          "Liliana's Specter",
+          "Pith Driller",
+          "Faceless Butcher",
+          "Gravedigger",
+          "Twisted Abomination",
+        ]),
+        support(["removal"], ["interaction"], "Removal économique noir ou rouge.", [
+          "Terminate",
+          "Cast Down",
+          "Doom Blade",
+          "Vendetta",
+          "Snuff Out",
+          "Lightning Bolt",
+          "Flame Slash",
+          "Firebolt",
+          "Strangling Soot",
+          "Disfigure",
+          "Tragic Slip",
+          "Dead Weight",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:gruul_stompy",
+      name: "Gruul Stompy",
+      primaryColors: ["R", "G"],
+      category: "aggro",
+      description:
+        "Créatures surdimensionnées pour leur coût, poussées par Rancor, Elephant Guide et des sorts de combat.",
+      gameplan:
+        "Dérouler des menaces 2/2 à 3/3 pour un ou deux mana, les rendre impossibles à bloquer avec Rancor et les tricks verts, et finir au burn rouge.",
+      recommendedCreatureCount: [16, 20],
+      recommendedRemovalCount: [3, 6],
+      targetPoints: 14,
+      requiredFamilies: [
+        { id: "threat", name: "Menace efficace à bas coût", minimum: 6 },
+        { id: "pump", name: "Aura ou trick de combat", minimum: 2 },
+      ],
+      groups: [
+        key(
+          ["threat"],
+          ["body", "payoff"],
+          "Menace au-dessus de la courbe qui définit l'agression Gruul.",
+          ["Blastoderm", "Wild Nacatl", "Kird Ape", "River Boa"],
+        ),
+        key(["pump"], ["payoff"], "Aura qui rend chaque attaquant décisif.", [
+          "Rancor",
+          "Elephant Guide",
+        ]),
+        support(["threat"], ["body"], "Corps agressif de la courbe Gruul.", [
+          "Jungle Lion",
+          "Pouncing Jaguar",
+          "Werebear",
+          "Wild Mongrel",
+          "Horned Kavu",
+          "Mire Boa",
+          "Gathan Raiders",
+          "Plated Geopede",
+          "Keldon Marauders",
+          "Borderland Marauder",
+          "Nessian Asp",
+          "Darkthicket Wolf",
+        ]),
+        support(["pump"], ["interaction"], "Trick de combat ou de protection.", [
+          "Groundswell",
+          "Vines of Vastwood",
+          "Ram Through",
+        ]),
+        support([], ["interaction"], "Burn qui dégage les bloqueurs.", [
+          "Lightning Bolt",
+          "Chain Lightning",
+          "Branching Bolt",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:selesnya_auras",
+      name: "Selesnya Auras & Hexproof",
+      primaryColors: ["G", "W"],
+      category: "aggro",
+      description:
+        "Auras puissantes (Ancestral Mask, Armadillo Cloak, Ethereal Armor) posées sur des porteurs protégés ou évasifs.",
+      gameplan:
+        "Poser un porteur résistant (Silhana Ledgewalker, Aura Gnarlid) ou trouver une aura avec Totem-Guide Hartebeest, empiler les auras et protéger la cible avec Gods Willing ou Vines of Vastwood.",
+      recommendedCreatureCount: [12, 16],
+      recommendedRemovalCount: [2, 4],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "aura", name: "Aura de renforcement", minimum: 3 },
+        { id: "carrier", name: "Porteur d'auras", minimum: 3 },
+      ],
+      groups: [
+        key(["aura"], ["payoff"], "Aura qui transforme un porteur en menace décisive.", [
+          "Ancestral Mask",
+          "Armadillo Cloak",
+          "Ethereal Armor",
+        ]),
+        key(["aura", "carrier"], ["enabler", "body"], "Tutorise une aura ou résiste au removal.", [
+          "Totem-Guide Hartebeest",
+          "Silhana Ledgewalker",
+        ]),
+        support(["aura"], ["payoff"], "Aura complémentaire.", [
+          "Rancor",
+          "Snake Umbra",
+          "Elephant Guide",
+          "Benevolent Blessing",
+        ]),
+        support(["carrier"], ["body"], "Porteur efficace ou évasif.", [
+          "Aura Gnarlid",
+          "Akrasan Squire",
+          "Soltari Trooper",
+          "Leonin Skyhunter",
+          "Qasali Pridemage",
+          "Savannah Lions",
+          "Wild Nacatl",
+        ]),
+        support([], ["interaction"], "Protège le porteur au moment critique.", [
+          "Gods Willing",
+          "Vines of Vastwood",
+          "Prismatic Strands",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:orzhov_drain_extort",
+      name: "Orzhov Extort & Drain",
+      primaryColors: ["W", "B"],
+      category: "midrange",
+      description:
+        "Removal blanc et noir dont chaque sort draine grâce à l'Extorsion, finis par Gray Merchant.",
+      gameplan:
+        "Poser un permanent à Extorsion tôt, puis chaque removal ou créature draine un point ; Gray Merchant et Pillory of the Sleepless terminent une partie longue.",
+      recommendedCreatureCount: [12, 16],
+      recommendedRemovalCount: [6, 9],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "drain", name: "Extorsion ou drain", minimum: 2 },
+        { id: "removal", name: "Removal blanc ou noir", minimum: 4 },
+      ],
+      groups: [
+        key(["drain"], ["payoff"], "Draine à chaque sort ou à chaque tour.", [
+          "Kingpin's Pet",
+          "Basilica Screecher",
+          "Syndic of Tithes",
+          "Gray Merchant of Asphodel",
+          "Pillory of the Sleepless",
+        ]),
+        support(["removal"], ["interaction"], "Removal économique qui déclenche l'Extorsion.", [
+          "Unmake",
+          "Journey to Nowhere",
+          "Oblivion Ring",
+          "Cast Down",
+          "Doom Blade",
+          "Vendetta",
+          "Faith's Fetters",
+          "Bonds of Faith",
+          "Tragic Slip",
+          "Nameless Inversion",
+        ]),
+        support([], ["body", "velocity"], "Créature à valeur pour la partie longue.", [
+          "Thorn of the Black Rose",
+          "Guardian of the Guildpact",
+          "Kor Skyfisher",
+          "Thraben Inspector",
+          "Lone Missionary",
+          "Chittering Rats",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:izzet_spellslinger",
+      name: "Izzet Burn & Spells",
+      primaryColors: ["U", "R"],
+      category: "midrange",
+      description:
+        "Cantrips et burn à bas coût qui alimentent Firebrand Archer, Izzet Chronarch et Delver of Secrets.",
+      gameplan:
+        "Contrôler la table au burn, filtrer avec Ponder et Preordain, puis finir avec un payoff de sorts et Treasure Cruise pour recharger.",
+      recommendedCreatureCount: [9, 13],
+      recommendedRemovalCount: [7, 10],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "payoff", name: "Payoff de sorts", minimum: 1 },
+        { id: "cantrip", name: "Cantrip ou pioche", minimum: 3 },
+        { id: "burn", name: "Burn ou interaction instantanée", minimum: 4 },
+      ],
+      groups: [
+        key(["payoff"], ["payoff"], "Récompense les sorts non-créature.", [
+          "Firebrand Archer",
+          "Izzet Chronarch",
+          "Piston-Fist Cyclops",
+        ]),
+        key(["burn"], ["interaction"], "Interaction double qui définit l'Izzet.", ["Fire // Ice"]),
+        support(["payoff"], ["payoff"], "Payoff secondaire des sorts.", ["Delver of Secrets"]),
+        support(["cantrip"], ["velocity"], "Sélection et pioche à bas coût.", [
+          "Ponder",
+          "Preordain",
+          "Impulse",
+          "Deep Analysis",
+          "Treasure Cruise",
+          "Augur of Bolas",
+          "Pondering Mage",
+        ]),
+        support(["burn"], ["interaction"], "Burn efficace.", [
+          "Lightning Bolt",
+          "Chain Lightning",
+          "Firebolt",
+          "Burst Lightning",
+          "Lightning Strike",
+          "Incinerate",
+          "Searing Spear",
+          "Flame Slash",
+          "Staggershock",
+          "Kaervek's Torch",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:golgari_graveyard",
+      name: "Golgari Recursion & Tortured Existence",
+      primaryColors: ["B", "G"],
+      category: "midrange",
+      description:
+        "Cimetière utilisé comme main supplémentaire : cycling, défausse et récursion de créatures avec Tortured Existence et Gravedigger.",
+      gameplan:
+        "Cycler Krosan Tusker et Twisted Abomination, défausser avec Wild Mongrel ou Tortured Existence, puis récupérer les meilleures créatures avec Gravedigger et Grim Harvest.",
+      recommendedCreatureCount: [14, 18],
+      recommendedRemovalCount: [4, 7],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "enabler", name: "Remplit le cimetière (cycling, défausse, sacrifice)", minimum: 2 },
+        { id: "recursion", name: "Récursion de créatures", minimum: 2 },
+      ],
+      groups: [
+        key(["enabler", "recursion"], ["enabler", "recursion"], "Moteur de récursion répétable.", [
+          "Tortured Existence",
+        ]),
+        key(["recursion"], ["recursion"], "Récupère une créature du cimetière.", [
+          "Gravedigger",
+          "Grim Harvest",
+        ]),
+        key(
+          ["enabler"],
+          ["enabler", "body"],
+          "Cycle ou se met au cimetière en apportant de la valeur.",
+          ["Krosan Tusker", "Twisted Abomination"],
+        ),
+        support(
+          ["enabler"],
+          ["outlet", "enabler"],
+          "Remplit le cimetière en générant de la valeur.",
+          ["Wild Mongrel", "Yavimaya Elder", "Sakura-Tribe Elder", "Penumbra Spider"],
+        ),
+        support(["recursion"], ["recursion"], "Récursion complémentaire.", [
+          "Death Denied",
+          "Unearth",
+          "Moan of the Unhallowed",
+        ]),
+        support([], ["payoff", "body"], "Menace qui profite d'un cimetière rempli.", [
+          "Werebear",
+          "Hooting Mandrills",
+          "Sultai Scavenger",
+          "Bone Picker",
+          "Putrid Leech",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:white_weenie",
+      name: "White Weenie & Equipment",
+      primaryColors: ["W"],
+      splashColors: ["R"],
+      category: "aggro",
+      description:
+        "Créatures blanches à un et deux mana qui frappent tôt, équipées de Bonesplitter et Vulshok Morningstar.",
+      gameplan:
+        "Commencer tour 1 avec Savannah Lions ou Steppe Lynx, ajouter des volants et des menaces à ombre, puis équiper pour passer les bloqueurs avant que l'adversaire ne stabilise.",
+      recommendedCreatureCount: [17, 21],
+      recommendedRemovalCount: [3, 5],
+      targetPoints: 14,
+      requiredFamilies: [
+        { id: "threat", name: "Menace blanche à bas coût", minimum: 7 },
+        { id: "boost", name: "Équipement de pression", minimum: 1 },
+      ],
+      groups: [
+        key(["threat"], ["body", "payoff"], "Menace à un ou deux mana qui définit l'horloge.", [
+          "Savannah Lions",
+          "Steppe Lynx",
+          "Soltari Trooper",
+          "Porcelain Legionnaire",
+        ]),
+        key(["boost"], ["payoff"], "Équipement bon marché qui rend chaque attaquant dangereux.", [
+          "Bonesplitter",
+        ]),
+        support(["threat"], ["body"], "Attaquant efficace de la courbe basse.", [
+          "Elite Vanguard",
+          "Akrasan Squire",
+          "Gideon's Lawkeeper",
+          "Goldmeadow Harrier",
+          "Daring Skyjek",
+          "Leonin Skyhunter",
+          "Topan Freeblade",
+          "Stormfront Pegasus",
+          "Doomed Traveler",
+          "Squall Drifter",
+          "Kor Skyfisher",
+          "Thraben Inspector",
+          "Goblin Legionnaire",
+          "Triplicate Spirits",
+        ]),
+        support(["boost"], ["payoff"], "Équipement complémentaire.", [
+          "Vulshok Morningstar",
+          "Sickleslicer",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:red_deck_wins",
+      name: "Red Deck Wins",
+      primaryColors: ["R"],
+      category: "aggro",
+      description:
+        "Créatures rouges agressives et burn qui vise le visage : chaque carte inflige deux ou trois dégâts.",
+      gameplan:
+        "Attaquer dès le tour 1 avec Jackal Pup ou Kird Ape, utiliser le burn pour dégager le chemin, puis finir avec Fireblast, Keldon Marauders et les blasts restants.",
+      recommendedCreatureCount: [14, 18],
+      recommendedRemovalCount: [7, 11],
+      targetPoints: 14,
+      requiredFamilies: [
+        { id: "threat", name: "Menace rouge agressive", minimum: 5 },
+        { id: "burn", name: "Burn pouvant viser le joueur", minimum: 5 },
+      ],
+      groups: [
+        key(["burn"], ["interaction", "payoff"], "Burn efficace qui définit Red Deck Wins.", [
+          "Lightning Bolt",
+          "Chain Lightning",
+          "Fireblast",
+          "Rift Bolt",
+        ]),
+        key(["threat"], ["body", "payoff"], "Menace qui inflige des dégâts même bloquée.", [
+          "Keldon Marauders",
+        ]),
+        support(["threat"], ["body"], "Attaquant rouge à bas coût.", [
+          "Jackal Pup",
+          "Kird Ape",
+          "Mogg Fanatic",
+          "Plated Geopede",
+          "Borderland Marauder",
+          "Gore-House Chainwalker",
+          "Immolating Souleater",
+          "Intimidator Initiate",
+          "Goblin Heelcutter",
+          "Orcish Hellraiser",
+          "Skirk Marauder",
+        ]),
+        support(["burn"], ["interaction"], "Burn complémentaire.", [
+          "Lava Dart",
+          "Firebolt",
+          "Burst Lightning",
+          "Searing Blaze",
+          "Kaervek's Torch",
+          "Fireball",
+          "Incinerate",
+          "Searing Spear",
+          "Lightning Strike",
+          "Death Spark",
+        ]),
+      ],
+    },
+    {
+      id: "hugues:simic_ramp_value",
+      name: "Green Ramp & Big Bodies",
+      primaryColors: ["G", "U"],
+      category: "ramp",
+      description:
+        "Elfes et sorts de terrains vers Ulamog's Crusher, Walker of the Grove et les créatures cantrip bleues.",
+      gameplan:
+        "Accélérer avec les elfes et Cultivate, accumuler de la valeur avec Mulldrifter et Llanowar Visionary, puis écraser le sol avec Ulamog's Crusher.",
+      recommendedCreatureCount: [14, 18],
+      recommendedRemovalCount: [2, 5],
+      targetPoints: 13,
+      requiredFamilies: [
+        { id: "mana", name: "Accélération verte", minimum: 3 },
+        { id: "payoff", name: "Menace de haut de courbe", minimum: 2 },
+      ],
+      groups: [
+        key(["payoff"], ["payoff", "target"], "Menace qui justifie l'accélération.", [
+          "Ulamog's Crusher",
+          "Walker of the Grove",
+          "Mulldrifter",
+          "Cloudreader Sphinx",
+        ]),
+        key(["mana"], ["mana", "velocity"], "Accélère tout en remplaçant sa carte.", [
+          "Llanowar Visionary",
+        ]),
+        support(["mana"], ["mana"], "Accélération ou fixing vert.", [
+          "Llanowar Elves",
+          "Elvish Mystic",
+          "Fyndhorn Elves",
+          "Arbor Elf",
+          "Utopia Sprawl",
+          "Wall of Roots",
+          "Sakura-Tribe Elder",
+          "Cultivate",
+          "Kodama's Reach",
+          "Civic Wayfinder",
+          "Harrow",
+          "Quirion Ranger",
+          "Coiling Oracle",
+        ]),
+        support(["payoff"], ["payoff", "target"], "Menace de haut de courbe complémentaire.", [
+          "Havenwood Wurm",
+          "Errant Ephemeron",
+          "Krosan Tusker",
+          "Aeromunculus",
+        ]),
+        support([], ["interaction"], "Interaction qui gagne du temps pour la rampe.", [
+          "Snakeform",
+          "Mana Leak",
+          "Exclude",
+        ]),
+      ],
+    },
+  ],
+};

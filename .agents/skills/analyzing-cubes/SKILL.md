@@ -61,7 +61,7 @@ Classify cards into strict functional roles and `requiredFamilies` so runtime en
 
 Propagate the foundational cube intelligence into all runtime catalogs and verify non-regression:
 
-1. Compile synergy profiles:
+1. Compile synergy profiles. For `cedric_cube`, `hugues_pauper` and `titou_arena_peasant_plus`, edit the curation module in `scripts/archetype-curation/<cube>.mjs`: it is the source of truth for archetypes, families and key/support cards, and the builder regenerates both `archetype-synergy-v1.json` and the `archetypes` of `cube-meta.json` from it.
    ```bash
    node scripts/build-archetype-synergy-profiles.mjs
    ```
