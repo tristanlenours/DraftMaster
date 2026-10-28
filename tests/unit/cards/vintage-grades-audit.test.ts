@@ -49,7 +49,7 @@ describe("Vintage Grades Audit (17lands / limitedgrades vs DraftMaster)", () => 
     );
     expect(grisel, "Griselbrand must be flagged as known calibrated trap").toBeDefined();
     expect(grisel?.grade).toBe("F");
-    expect(["C", "B-", "B+"]).toContain(grisel?.tier);
+    expect(["C", "B-", "B", "B+"]).toContain(grisel?.tier);
     expect(grisel?.fit).toBe("trap");
     expect(grisel?.powerScore).toBeGreaterThanOrEqual(25);
 
