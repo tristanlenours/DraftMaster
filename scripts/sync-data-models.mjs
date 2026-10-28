@@ -82,12 +82,15 @@ for (const cubeDirName of readdirSync(cubesDir).sort()) {
   }
 }
 const arenaGradesPath = resolve(rootDir, "data/power-rankings/limitedgrades-powered-cache.json");
+// Versioned local snapshot (never fetched here): without it every corroborated trap would be lifted.
+const arenaGrades = JSON.parse(readFileSync(arenaGradesPath, "utf8"));
 const arenaGradesByName = new Map();
-if (existsSync(arenaGradesPath)) {
-  for (const c of JSON.parse(readFileSync(arenaGradesPath, "utf8")).cards ?? []) {
-    arenaGradesByName.set(c.name.toLowerCase().trim(), { grade: c.grade, gameCount: c.gameCount });
-  }
+for (const c of arenaGrades.cards) {
+  arenaGradesByName.set(c.name.toLowerCase().trim(), { grade: c.grade, gameCount: c.gameCount });
 }
+console.log(
+  `📊 Loaded ${arenaGradesByName.size} 17lands Arena grades (${arenaGrades.sourceUrl}, captured ${arenaGrades.capturedAt}).`,
+);
 const eloOverriddenCards = [];
 const rejectedUntappedScores = new Map();
 
