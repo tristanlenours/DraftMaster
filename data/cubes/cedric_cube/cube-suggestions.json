@@ -3,13 +3,13 @@
   "engineVersion": "cube-upgrade-advisor@3",
   "cubeKey": "cedric_cube",
   "snapshotId": "cedric_cube@2026-03-01.1",
-  "generatedAt": "2026-10-17T09:39:25.635Z",
+  "generatedAt": "2026-10-28T11:40:09.436Z",
   "sourceProvenance": {
-    "generatedAt": "2026-10-17T09:39:25.635Z",
+    "generatedAt": "2026-10-28T11:40:09.436Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "ff084b264003eaee0f57bcd3f346129d89a380bd81955df72c33331900183d23",
+      "sha256": "d90c65d5c8ae0c6ae68991ff75d98b615edfc92c1df74e9e0445c7e36062c545",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,11 +49,11 @@
     "benchmarkCoveragePercentage": 69
   },
   "stats": {
-    "totalUpgrades": 207,
+    "totalUpgrades": 204,
     "totalMaybeboard": 30,
-    "recentUpgradesCount": 143,
-    "benchmarkMatchesCount": 145,
-    "recentMaybeboardCount": 22,
+    "recentUpgradesCount": 136,
+    "benchmarkMatchesCount": 153,
+    "recentMaybeboardCount": 21,
     "directReplacementMaybeboardCount": 29
   },
   "upgrades": {
@@ -686,7 +686,7 @@
         "oracleId": "5eff8a06-e0d6-435a-a7c0-db9f9d98636a",
         "name": "Banefire",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/b188c68a-e9df-4803-a722-1993dd88f833/normal.webp",
@@ -892,7 +892,7 @@
         "oracleId": "038c0165-32b6-4e81-8180-604b49905207",
         "name": "Black Sun's Zenith",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 2,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/03bdcf52-50b8-42c0-9665-931d83f5f314/normal.webp",
@@ -1102,7 +1102,7 @@
         "oracleId": "e97f9c2b-b41e-4f36-9245-77c0ac125647",
         "name": "Bloodghast",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 2,
         "typeLine": "Creature — Vampire Spirit",
         "imageUrl": "https://assets.cubecobra.com/cardimages/63870c81-63bf-4a9a-aeb5-74c6eaded9f1/normal.webp",
@@ -1236,7 +1236,7 @@
         "oracleId": "30d2437a-87c9-4f88-8fb8-b686d6522677",
         "name": "Boggart Ram-Gang",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Creature — Goblin Warrior",
         "imageUrl": "https://assets.cubecobra.com/cardimages/63e25b70-fa21-4663-aabd-34b7e0b75c34/normal.webp",
@@ -1367,7 +1367,7 @@
         "oracleId": "d12e374d-ed09-4d5e-bb7a-6c7d9ea80a1e",
         "name": "Brimstone Volley",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Instant",
         "imageUrl": "https://cards.scryfall.io/normal/front/9/4/94fa0577-f02a-4d24-835b-fef8d849b37a.jpg?1783930170",
@@ -1502,7 +1502,7 @@
         "oracleId": "65ddd04c-7207-4f6c-ae1b-c5e02a520a51",
         "name": "Chandra's Phoenix",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Creature — Phoenix",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c7c319cd-74ed-4ad8-ac0f-efb932bf5813/normal.webp",
@@ -1789,40 +1789,51 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "4d9554de-c005-41ab-a941-39328ebff9de",
-        "name": "Relic of Legends",
-        "score": 27.8,
+        "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+        "name": "Chromatic Star",
+        "score": 29.8,
         "tier": "A-",
-        "cmc": 3,
+        "cmc": 1,
         "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/9/89691cda-e38b-4f53-bee6-4c234186e6ad.jpg?1783903214",
-        "frenchName": "Relique de légendes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/f/2f5fdc78-e258-4d7d-a62d-5214e73b16b2.jpg?1785265497",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/1ef87e14-f536-4a2e-b834-55ed0e055800/normal.webp",
         "colors": [],
-        "releaseYear": 2022,
-        "set": "DMU",
+        "releaseYear": 2006,
+        "set": "BRR",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 19.8,
-      "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.8 pts).",
+      "scoreDelta": 21.8,
+      "reason": "Coût de mana plus agressif (1 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+21.8 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+19.8 pts).",
+        "summary": "Accélère le tempo de la curve (1 vs 3 mana) tout en renforçant la méta du cube (+21.8 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2006)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 2006,
       "isRecent": false,
-      "rankingScore": 28.8,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 55.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -1902,7 +1913,7 @@
         "oracleId": "c1eb530c-dd36-40ae-8617-6bb6969565e1",
         "name": "Cultivator's Caravan",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 3,
         "typeLine": "Artifact — Vehicle",
         "imageUrl": "https://cards.scryfall.io/normal/front/2/4/249aa94c-85ab-4606-aa2c-c902bd83ac21.jpg?1783908909",
@@ -2096,7 +2107,7 @@
         "oracleId": "70973a2d-66e6-4662-ab10-99678775dda1",
         "name": "Dauntless Bodyguard",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 1,
         "typeLine": "Creature — Human Knight",
         "imageUrl": "https://cards.scryfall.io/normal/front/a/3/a3f82012-5c33-47bc-a3c8-56ae2eea1fb9.jpg?1783935048",
@@ -2310,7 +2321,7 @@
         "oracleId": "ee9f0b29-8a54-4cb8-8e2c-7bd67c2184ba",
         "name": "Devil's Play",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://cards.scryfall.io/normal/front/d/4/d46473a7-69f5-492b-845d-c8862a1fec85.jpg?1783932758",
@@ -2432,7 +2443,7 @@
         "oracleId": "7a3e50a5-c163-4c41-b62d-d52c233c55b7",
         "name": "Dire Fleet Daredevil",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 2,
         "typeLine": "Creature — Human Pirate",
         "imageUrl": "https://assets.cubecobra.com/cardimages/13e3c0c5-7451-4da9-acc0-d6e4e1f2655e/normal.webp",
@@ -2577,7 +2588,7 @@
         "oracleId": "88154d64-221f-4742-bccb-b1b61a2e8bf0",
         "name": "Dread Wanderer",
         "score": 17.9,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 1,
         "typeLine": "Creature — Zombie Jackal",
         "imageUrl": "https://assets.cubecobra.com/cardimages/343fc82d-7d10-4489-8f7e-9995322114e2/normal.webp",
@@ -2644,7 +2655,7 @@
         "oracleId": "397b9dcf-690a-4a58-8637-bb9baab7cc2f",
         "name": "Elder Gargaroth",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 5,
         "typeLine": "Creature — Beast",
         "imageUrl": "https://assets.cubecobra.com/cardimages/d51269cf-a333-4a64-94cd-245798d840d2/normal.webp",
@@ -2919,7 +2930,7 @@
         "oracleId": "3a105959-dfce-4202-b37f-ae635dfcb30b",
         "name": "Empyrial Archangel",
         "score": 19.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 8,
         "typeLine": "Creature — Angel",
         "imageUrl": "https://assets.cubecobra.com/cardimages/43b789ea-df50-49a5-bd64-3b74b4042f83/normal.webp",
@@ -3282,7 +3293,7 @@
         "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
         "name": "Fabled Passage",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 0,
         "typeLine": "Land",
         "imageUrl": "https://cards.scryfall.io/normal/front/6/2/62ef854d-ec9e-443d-a4ba-4b2875ed3fe7.jpg?1783903202",
@@ -3331,79 +3342,12 @@
         }
       ]
     },
-    "Faithless Looting": {
-      "targetCard": {
-        "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
-        "name": "Faithless Looting",
-        "score": 10,
-        "tier": "F",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/65879a80-b656-412f-8b90-aa6d4f36a43c/normal.webp",
-        "frenchName": "Pillage sans foi",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2012,
-        "set": "CMM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "51473069-68dc-4e87-b345-d7cbcfdeea74",
-        "name": "Torch the Witness",
-        "score": 31,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/22bbf709-d8e9-4e3b-8ec8-206f1b2162b3/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "MKM",
-        "isRecent": true
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 21,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+21 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+21 pts).",
-        "affectedArchetypes": [
-          "Rakdos Aristocrats and Attrition",
-          "Gruul Stompy and Monster Cheat",
-          "Izzet Spells and Tempo"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 46,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Falkenrath Aristocrat": {
       "targetCard": {
         "oracleId": "cd2a87c4-d1c3-4a9e-b2df-e6fe251421c4",
         "name": "Falkenrath Aristocrat",
         "score": 19.7,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 4,
         "typeLine": "Creature — Vampire Noble",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c397388e-ebe2-4034-83b7-a7c0df1af78f/normal.webp",
@@ -3546,7 +3490,7 @@
         "oracleId": "46d6bc30-9a21-4476-947b-87951cd9c882",
         "name": "Falkenrath Pit Fighter",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 1,
         "typeLine": "Creature — Vampire Warrior",
         "imageUrl": "https://assets.cubecobra.com/cardimages/a743a3b6-3278-4644-a2d5-acf495c273ed/normal.webp",
@@ -3761,7 +3705,7 @@
         "oracleId": "e3c8cdf7-a26a-45eb-9498-99b618cfba99",
         "name": "Fleecemane Lion",
         "score": 18.5,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 2,
         "typeLine": "Creature — Cat",
         "imageUrl": "https://assets.cubecobra.com/cardimages/622d6c46-82bb-4a97-abe6-b388def44bda/normal.webp",
@@ -3837,7 +3781,7 @@
         "oracleId": "7b6b9c5a-d2ba-48b9-8efc-a3003c610130",
         "name": "Fleetwheel Cruiser",
         "score": 16.9,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 4,
         "typeLine": "Artifact — Vehicle",
         "imageUrl": "https://assets.cubecobra.com/cardimages/5fdaca1e-5741-456e-ae98-e2c45fd1731b/normal.webp",
@@ -4046,48 +3990,49 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "1abe8246-d2f9-407b-8c16-83da0a6b7de3",
-        "name": "We Say Thee Nay!",
-        "score": 29.3,
-        "tier": "A-",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
         "cmc": 2,
-        "typeLine": "Instant — Arcane",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/13b70321-75bd-4d44-b9f6-5f062a5dda0f/normal.webp",
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 2026,
-        "set": "MSH",
-        "isRecent": true
+        "releaseYear": 2003,
+        "set": "SCG",
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.4,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+9.4 pts).",
+      "scoreDelta": 17.3,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+17.3 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+9.4 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+17.3 pts).",
         "affectedArchetypes": [
           "Azorius Control and Blink",
           "Dimir Reanimator and Tempo",
           "Izzet Spells and Tempo"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 43.3,
+      "releaseYear": 2003,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 52.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.3
+          "points": 37.2
         },
         {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -4235,7 +4180,7 @@
         "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
         "name": "Frantic Search",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 3,
         "typeLine": "Instant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/a4a2a4ce-a44b-480b-b1a2-94fb2514c082/normal.webp",
@@ -4575,7 +4520,7 @@
         "oracleId": "7340dbcb-4b26-4038-be8c-a89e76294221",
         "name": "Gideon Jura",
         "score": 18.5,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 5,
         "typeLine": "Legendary Planeswalker — Gideon",
         "imageUrl": "https://assets.cubecobra.com/cardimages/e0440668-1b0e-437c-9e42-7166dd14dfe5/normal.webp",
@@ -4656,39 +4601,47 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "5f7f133e-58ea-41ab-b1be-be4b400fac4c",
-        "name": "Coat of Arms",
-        "score": 30,
+        "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+        "name": "Relic of Sauron",
+        "score": 29.8,
         "tier": "A-",
-        "cmc": 5,
+        "cmc": 4,
         "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/1/513d4c36-6ad4-4ee9-b161-3136eb59504f.jpg?1783936560",
-        "frenchName": "Coat of Arms",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
         "colors": [],
-        "releaseYear": 1998,
-        "set": "DDS",
+        "releaseYear": 2023,
+        "set": "LTC",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 11.9,
-      "reason": "Même coût de mana (5), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11.9 pts).",
+      "scoreDelta": 11.7,
+      "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+11.7 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+11.9 pts).",
+        "summary": "Accélère le tempo de la curve (4 vs 5 mana) tout en renforçant la méta du cube (+11.7 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1998)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2023)"
       },
-      "releaseYear": 1998,
+      "releaseYear": 2023,
       "isRecent": false,
-      "rankingScore": 31,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 47.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30
+          "points": 29.8
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -5128,138 +5081,6 @@
         }
       ]
     },
-    "Grim Lavamancer": {
-      "targetCard": {
-        "oracleId": "37445e06-88a1-4e2e-a432-383736c9b977",
-        "name": "Grim Lavamancer",
-        "score": 9,
-        "tier": "F",
-        "cmc": 1,
-        "typeLine": "Creature — Human Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1ab6ffe8-e1ad-4db9-98f7-d6038f271866.jpg?1783918459",
-        "frenchName": "Sinistre lavamancien",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/3/a/3a5768bd-eecf-4561-9f11-92781564fd9c.jpg?1782832809",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2002,
-        "set": "M12",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "176f5ba8-6e7b-4234-a298-b6164f51656f",
-        "name": "Inti, Seneschal of the Sun",
-        "score": 40,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Knight",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/0548ddb6-5301-4911-93fd-bb988275f44a/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "LCI",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 31,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+31 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+31 pts).",
-        "affectedArchetypes": [
-          "Rakdos Aristocrats and Attrition",
-          "Gruul Stompy and Monster Cheat",
-          "Izzet Spells and Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 63,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Grim Monolith": {
-      "targetCard": {
-        "oracleId": "229d6627-1292-4ae1-8849-b0f956fa6540",
-        "name": "Grim Monolith",
-        "score": 17,
-        "tier": "D-",
-        "cmc": 2,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9ddc9fe1-17c8-4e1d-aeb8-c4214e881280/normal.webp",
-        "colors": [],
-        "releaseYear": 1999,
-        "set": "ULG",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "ec3d4466-547c-4e02-b1b5-a156ec4637e9",
-        "name": "Chrome Mox",
-        "score": 28,
-        "tier": "A-",
-        "cmc": 0,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/90bbc0fa-4810-490d-bda7-a8fd4aaa01c4/normal.webp",
-        "colors": [],
-        "releaseYear": 2003,
-        "set": "MPS",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 11,
-      "reason": "Coût de mana plus agressif (0 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (0 vs 2 mana) tout en renforçant la méta du cube (+11 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2003)"
-      },
-      "releaseYear": 2003,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 54,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Gutterbones": {
       "targetCard": {
         "oracleId": "76ae3779-c821-4cd3-8d0f-8c42d1206ce4",
@@ -5401,7 +5222,7 @@
         "oracleId": "5852ed2f-4332-4c30-b145-373deea471d9",
         "name": "Hallowed Spiritkeeper",
         "score": 16.5,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 3,
         "typeLine": "Creature — Avatar",
         "imageUrl": "https://assets.cubecobra.com/cardimages/94ebd5bd-99b3-4371-9ca2-e0504db1458e/normal.webp",
@@ -5682,40 +5503,51 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "4d9554de-c005-41ab-a941-39328ebff9de",
-        "name": "Relic of Legends",
-        "score": 27.8,
+        "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+        "name": "Relic of Sauron",
+        "score": 29.8,
         "tier": "A-",
-        "cmc": 3,
+        "cmc": 4,
         "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/9/89691cda-e38b-4f53-bee6-4c234186e6ad.jpg?1783903214",
-        "frenchName": "Relique de légendes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/f/2f5fdc78-e258-4d7d-a62d-5214e73b16b2.jpg?1785265497",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
         "colors": [],
-        "releaseYear": 2022,
-        "set": "DMU",
+        "releaseYear": 2023,
+        "set": "LTC",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.9,
-      "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+9.9 pts).",
+      "scoreDelta": 11.9,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.9 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (3 vs 4 mana) tout en renforçant la méta du cube (+9.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+11.9 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2023)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 2023,
       "isRecent": false,
-      "rankingScore": 30.8,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 53.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
-          "points": 3
+          "points": 1
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -6399,7 +6231,7 @@
         "oracleId": "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
         "name": "Inferno Titan",
         "score": 19.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 6,
         "typeLine": "Creature — Giant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/17ac2bff-f570-4955-a8d4-7e12d616dd8b/normal.webp",
@@ -6461,7 +6293,7 @@
         "oracleId": "6791ec3c-c397-4087-8c8c-84d3797df415",
         "name": "Innocent Blood",
         "score": 19.7,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 1,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/d26af8f6-df64-4027-880c-f2fae2d8103f/normal.webp",
@@ -7924,7 +7756,7 @@
         "oracleId": "d0ee5bdc-2b69-4b73-9a20-ffcc18783b29",
         "name": "Mana Confluence",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 0,
         "typeLine": "Land",
         "imageUrl": "https://cards.scryfall.io/normal/front/5/0/504a69eb-3c2d-4bb1-b117-252b15acf0c2.jpg?1783939402",
@@ -8108,6 +7940,65 @@
         }
       ]
     },
+    "Mimic Vat": {
+      "targetCard": {
+        "oracleId": "6ebdc9f3-6b23-4716-8011-48f00d7e30c8",
+        "name": "Mimic Vat",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/736fff86-2417-4a77-b8eb-be2d1d142a9f/normal.webp",
+        "colors": [],
+        "releaseYear": 2010,
+        "set": "SOM",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
+        "name": "Retrofitter Foundry",
+        "score": 33.1,
+        "tier": "A-",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/5da578b8-19e6-4068-9336-e7cd33c585f1/normal.webp",
+        "colors": [],
+        "releaseYear": 2018,
+        "set": "C18",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.2,
+      "reason": "Coût de mana plus agressif (1 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+15.2 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 3 mana) tout en renforçant la méta du cube (+15.2 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2018)"
+      },
+      "releaseYear": 2018,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 51.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33.1
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
     "Mogg War Marshal": {
       "targetCard": {
         "oracleId": "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
@@ -8178,7 +8069,7 @@
         "oracleId": "7aba1039-f108-423e-8aa4-d9d8b4da2414",
         "name": "Mold Shambler",
         "score": 16.2,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 4,
         "typeLine": "Creature — Fungus Beast",
         "imageUrl": "https://assets.cubecobra.com/cardimages/903cb570-d769-4d7f-afbe-90ebad96657c/normal.webp",
@@ -8335,40 +8226,50 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "4d9554de-c005-41ab-a941-39328ebff9de",
-        "name": "Relic of Legends",
-        "score": 27.8,
-        "tier": "A-",
-        "cmc": 3,
+        "oracleId": "00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
+        "name": "Talisman of Progress",
+        "score": 26,
+        "tier": "B+",
+        "cmc": 2,
         "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/9/89691cda-e38b-4f53-bee6-4c234186e6ad.jpg?1783903214",
-        "frenchName": "Relique de légendes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/f/2f5fdc78-e258-4d7d-a62d-5214e73b16b2.jpg?1785265497",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/7333e089-dc31-4c2f-9230-c2033d95c7e6/normal.webp",
         "colors": [],
-        "releaseYear": 2022,
-        "set": "DMU",
+        "releaseYear": 2003,
+        "set": "SLD",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.7,
-      "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+9.7 pts).",
+      "scoreDelta": 7.9,
+      "reason": "Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+7.9 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (3 vs 4 mana) tout en renforçant la méta du cube (+9.7 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 4 mana) tout en renforçant la méta du cube (+7.9 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 30.8,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "rankingScore": 52,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 26
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
           "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -8377,7 +8278,7 @@
         "oracleId": "379ed4ec-8f2e-448b-9ed2-a3181e2f877e",
         "name": "Nighthawk Scavenger",
         "score": 19.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 3,
         "typeLine": "Creature — Vampire Rogue",
         "imageUrl": "https://cards.scryfall.io/normal/front/4/7/47433ce9-1ac6-4359-a5e4-4ec68490cb0c.jpg?1783911927",
@@ -8450,7 +8351,7 @@
         "oracleId": "c1fc5923-c3cd-448a-98d1-c154661c2812",
         "name": "Nissa, Resurgent Animist",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 3,
         "typeLine": "Legendary Creature — Elf Scout",
         "imageUrl": "https://cards.scryfall.io/normal/front/2/4/248c76d3-b5cb-4582-be17-7cd1d0cb0f58.jpg?1783916520",
@@ -8679,52 +8580,53 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "7df45a2a-75bc-4343-8dad-3a642efd13ee",
-        "name": "Metalhead",
-        "score": 25,
-        "tier": "B+",
-        "cmc": 5,
-        "typeLine": "Legendary Artifact Creature — Robot Turtle",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/3c2d8b09-8694-45ab-be01-f8dc17378cf0/normal.webp",
+        "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+        "name": "Kappa Cannoneer",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 6,
+        "typeLine": "Artifact Creature — Turtle Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/85a89077-b384-4fca-9d26-7297962c1541/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2026,
-        "set": "TMT",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "NEC",
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 5.6,
-      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+5.6 pts).",
+      "scoreDelta": 10.4,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10.4 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+5.6 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+10.4 pts).",
         "affectedArchetypes": [
           "Azorius Control and Blink",
           "Dimir Reanimator and Tempo",
           "Izzet Spells and Tempo"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [TMT]"
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 42,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 45.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 25
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
+          "points": 29.8
         },
         {
           "key": "mana_efficiency",
-          "points": 3
+          "points": 1
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -8917,7 +8819,7 @@
         "oracleId": "62e44e0d-eda0-4275-8367-49dab9a087c3",
         "name": "Pernicious Deed",
         "score": 19.7,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 3,
         "typeLine": "Enchantment",
         "imageUrl": "https://assets.cubecobra.com/cardimages/7ccb3e75-dc82-4dab-be96-38da1c3f20e6/normal.webp",
@@ -10135,7 +10037,7 @@
         "oracleId": "5d2acd3e-4782-42e3-bcd5-80f8b439cc28",
         "name": "Rhonas the Indomitable",
         "score": 19.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 3,
         "typeLine": "Legendary Creature — God",
         "imageUrl": "https://assets.cubecobra.com/cardimages/50f23c47-278c-4188-8fb4-ae20a0c423c5/normal.webp",
@@ -10285,52 +10187,49 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "2ad77eb7-9466-432f-87b4-e80e4b66e143",
-        "name": "Victor Timely, Wily Tycoon",
-        "score": 26.4,
-        "tier": "B+",
-        "cmc": 5,
-        "typeLine": "Legendary Creature — Human Artificer Villain",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/60178b2b-a049-4254-b754-b56910cece84/normal.webp",
+        "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+        "name": "Kappa Cannoneer",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 6,
+        "typeLine": "Artifact Creature — Turtle Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/85a89077-b384-4fca-9d26-7297962c1541/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2026,
-        "set": "MSC",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "NEC",
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 7.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+7.1 pts).",
+      "scoreDelta": 10.5,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10.5 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+7.1 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+10.5 pts).",
         "affectedArchetypes": [
           "Azorius Control and Blink",
           "Dimir Reanimator and Tempo",
           "Izzet Spells and Tempo"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSC]"
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 41.4,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 44.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26.4
+          "points": 29.8
         },
         {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -10485,7 +10384,7 @@
         "oracleId": "00625242-9348-4ef4-b975-f2ac82fee21d",
         "name": "Savai Triome",
         "score": 17,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 0,
         "typeLine": "Land — Mountain Plains Swamp",
         "imageUrl": "https://cards.scryfall.io/normal/front/7/4/748e6a61-9c1f-4225-9f04-e54002f63ac3.jpg?1783931000",
@@ -10539,7 +10438,7 @@
         "oracleId": "675de007-a71e-4036-8204-140c67871b7f",
         "name": "Sea Gate Stormcaller",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 2,
         "typeLine": "Creature — Human Wizard",
         "imageUrl": "https://assets.cubecobra.com/cardimages/17b79895-30ac-4bb4-bbe3-033a0dfcf1d6/normal.webp",
@@ -10895,78 +10794,12 @@
         }
       ]
     },
-    "Settle the Wreckage": {
-      "targetCard": {
-        "oracleId": "2a2ea189-b663-4f4a-bb23-ff7a4af25f71",
-        "name": "Settle the Wreckage",
-        "score": 8,
-        "tier": "F",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9cbd346e-098a-4cf6-a72f-468376fd2e8f/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2017,
-        "set": "XLN",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "7eccd10d-f224-4467-af25-f2b768993f9f",
-        "name": "Thraben Charm",
-        "score": 28.2,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/dd28a646-f38f-4cdf-948c-969cd979e5e6/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 20.2,
-      "reason": "Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+20.2 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 4 mana) tout en renforçant les archétypes Azorius Control and Blink & Selesnya Midrange and Hatebears & Orzhov Attrition and Tokens (+20.2 pts).",
-        "affectedArchetypes": [
-          "Azorius Control and Blink",
-          "Selesnya Midrange and Hatebears",
-          "Orzhov Attrition and Tokens"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 45.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.2
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Shambling Vent": {
       "targetCard": {
         "oracleId": "4725abd4-06bc-464a-bc5b-c9e0f71ec079",
         "name": "Shambling Vent",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 0,
         "typeLine": "Land",
         "imageUrl": "https://assets.cubecobra.com/cardimages/30a73816-1f33-4798-a9d6-5f0410d19625/normal.webp",
@@ -11114,39 +10947,43 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "ec3d4466-547c-4e02-b1b5-a156ec4637e9",
-        "name": "Chrome Mox",
-        "score": 28,
+        "oracleId": "aaadfe41-b2be-4183-b45e-a70e53a59d2e",
+        "name": "Retrofitter Foundry",
+        "score": 33.1,
         "tier": "A-",
-        "cmc": 0,
+        "cmc": 1,
         "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/90bbc0fa-4810-490d-bda7-a8fd4aaa01c4/normal.webp",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/5da578b8-19e6-4068-9336-e7cd33c585f1/normal.webp",
         "colors": [],
-        "releaseYear": 2003,
-        "set": "MPS",
+        "releaseYear": 2018,
+        "set": "C18",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.3,
-      "reason": "Coût de mana plus agressif (0 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+9.3 pts).",
+      "scoreDelta": 14.4,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.4 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (0 vs 2 mana) tout en renforçant la méta du cube (+9.3 pts).",
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant la méta du cube (+14.4 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "strategicRole": "Menace Déterminante de Fin de Partie",
         "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2003)"
+        "releaseContext": "Référence confirmée (2018)"
       },
-      "releaseYear": 2003,
+      "releaseYear": 2018,
       "isRecent": false,
       "benchmarkCubes": [
         "MTGO Vintage Cube",
         "Vintage Cube Archive"
       ],
-      "rankingScore": 46,
+      "rankingScore": 59.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28
+          "points": 33.1
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -11427,7 +11264,7 @@
         "oracleId": "e0583f29-c344-4b56-b0dc-bef1089a95c7",
         "name": "Smash to Smithereens",
         "score": 17.4,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 2,
         "typeLine": "Instant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/7eda1524-44dd-4f70-ac21-bac51578860e/normal.webp",
@@ -11537,6 +11374,77 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    "Sneak Attack": {
+      "targetCard": {
+        "oracleId": "e7aee670-e6ac-4b3a-b3d1-7b7013db8f3d",
+        "name": "Sneak Attack",
+        "score": 18,
+        "tier": "D",
+        "cmc": 4,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/5b8c11ba-533d-48c9-821c-3fec846bca97/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 1998,
+        "set": "2XM",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 19.2,
+      "reason": "Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+19.2 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 4 mana) tout en renforçant les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+19.2 pts).",
+        "affectedArchetypes": [
+          "Rakdos Aristocrats and Attrition",
+          "Gruul Stompy and Monster Cheat",
+          "Izzet Spells and Tempo"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 63.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -11866,72 +11774,6 @@
         }
       ]
     },
-    "Stoke the Flames": {
-      "targetCard": {
-        "oracleId": "2249001c-08d5-4c0a-86f8-d97519a39f37",
-        "name": "Stoke the Flames",
-        "score": 7,
-        "tier": "F",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/f5a1071a-c50c-439f-8387-5b2c143e24e4/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2014,
-        "set": "F14",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
-        "name": "Choco-Comet",
-        "score": 38,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/8d8d3903-a7f4-4cd8-8d29-b4a173e4fbb2/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2025,
-        "set": "FIN",
-        "isRecent": true
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 31,
-      "reason": "Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+31 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 4 mana) tout en renforçant les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+31 pts).",
-        "affectedArchetypes": [
-          "Rakdos Aristocrats and Attrition",
-          "Gruul Stompy and Monster Cheat",
-          "Izzet Spells and Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 55,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 38
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Stoneforge Mystic": {
       "targetCard": {
         "oracleId": "358789f9-7d87-411d-919e-d597da665cbd",
@@ -12079,7 +11921,7 @@
         "oracleId": "af12758f-4a7b-4156-8942-de4716aa0623",
         "name": "Strangleroot Geist",
         "score": 18.7,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 2,
         "typeLine": "Creature — Spirit",
         "imageUrl": "https://assets.cubecobra.com/cardimages/c840aa15-6d54-41ee-b2e3-c049785ae10d/normal.webp",
@@ -12355,6 +12197,75 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    "Sulfuric Vortex": {
+      "targetCard": {
+        "oracleId": "7652f328-e142-494b-a869-772ced10c26a",
+        "name": "Sulfuric Vortex",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/3253a624-50cc-4a8a-9b0c-9902aa53775f.jpg?1783918451",
+        "frenchName": "Vortex sulfureux",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/d/2df6e64f-e4f7-44e6-99f5-fb43e4ea8716.jpg?1782832723",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2003,
+        "set": "EMA",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 19.3,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+19.3 pts).",
+        "affectedArchetypes": [
+          "Rakdos Aristocrats and Attrition",
+          "Gruul Stompy and Monster Cheat",
+          "Izzet Spells and Tempo"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 55.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -12708,7 +12619,7 @@
         "oracleId": "382b7873-e78d-473b-8346-d92d16e8f634",
         "name": "Tooth and Nail",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 7,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/02f0067c-2d38-46bd-b52e-070c2ce424f0/normal.webp",
@@ -12786,48 +12697,53 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "7df45a2a-75bc-4343-8dad-3a642efd13ee",
-        "name": "Metalhead",
-        "score": 25,
-        "tier": "B+",
-        "cmc": 5,
-        "typeLine": "Legendary Artifact Creature — Robot Turtle",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/3c2d8b09-8694-45ab-be01-f8dc17378cf0/normal.webp",
+        "oracleId": "7fffbe7f-ad78-4bb6-a611-c37e495c6ee0",
+        "name": "Kappa Cannoneer",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 6,
+        "typeLine": "Artifact Creature — Turtle Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/85a89077-b384-4fca-9d26-7297962c1541/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2026,
-        "set": "TMT",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "NEC",
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 6.9,
-      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+6.9 pts).",
+      "scoreDelta": 11.7,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.7 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+6.9 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+11.7 pts).",
         "affectedArchetypes": [
           "Azorius Control and Blink",
           "Dimir Reanimator and Tempo",
           "Izzet Spells and Tempo"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [TMT]"
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 34,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 45.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 25
+          "points": 29.8
         },
         {
           "key": "mana_efficiency",
-          "points": 3
+          "points": 1
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -12902,7 +12818,7 @@
         "oracleId": "c744b5f4-fbcf-48b8-9d60-5e9c6ac297e0",
         "name": "Trygon Predator",
         "score": 19.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 3,
         "typeLine": "Creature — Beast",
         "imageUrl": "https://assets.cubecobra.com/cardimages/f31f54bf-7bf0-48f0-853d-1468713784eb/normal.webp",
@@ -13382,7 +13298,7 @@
         "oracleId": "7ed52301-81ea-4e7f-b985-cfab0593cae4",
         "name": "Vengevine",
         "score": 18.6,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 4,
         "typeLine": "Creature — Elemental",
         "imageUrl": "https://assets.cubecobra.com/cardimages/51eb9f05-9d5a-4196-9329-626ce4793c42/normal.webp",
@@ -13449,7 +13365,7 @@
         "oracleId": "8998d211-5ca6-41d2-bc64-f51f70bd41e5",
         "name": "Vines of Vastwood",
         "score": 19.9,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 1,
         "typeLine": "Instant",
         "imageUrl": "https://cards.scryfall.io/normal/front/6/2/6203e3d4-8998-41d6-9f7e-b68af0f1f8b5.jpg?1783938394",
@@ -13520,7 +13436,7 @@
         "oracleId": "b1ea88f5-162b-4f08-bec3-be1f06dec392",
         "name": "Warleader's Helix",
         "score": 18.7,
-        "tier": "D+",
+        "tier": "D",
         "cmc": 4,
         "typeLine": "Instant",
         "imageUrl": "https://assets.cubecobra.com/cardimages/fcc1dd23-90fa-4aa4-b0a9-7a92991ad7ec/normal.webp",
@@ -13934,69 +13850,6 @@
         }
       ]
     },
-    "Young Pyromancer": {
-      "targetCard": {
-        "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
-        "name": "Young Pyromancer",
-        "score": 10,
-        "tier": "F",
-        "cmc": 2,
-        "typeLine": "Creature — Human Shaman",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/6f10099a-d256-44ec-a7a3-c93b27741d06/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2013,
-        "set": "2X2",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "60e7130a-d321-4e50-93a4-999013c76054",
-        "name": "Gut, True Soul Zealot",
-        "score": 44,
-        "tier": "A+",
-        "cmc": 3,
-        "typeLine": "Legendary Creature — Goblin Shaman",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/163a7729-b115-46dd-afb4-7a5df89c3ed1/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2022,
-        "set": "CLB",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 34,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+34 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+34 pts).",
-        "affectedArchetypes": [
-          "Rakdos Aristocrats and Attrition",
-          "Gruul Stompy and Monster Cheat",
-          "Izzet Spells and Tempo"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 59,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 44
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Zealous Conscripts": {
       "targetCard": {
         "oracleId": "1dae6f39-2cbd-485c-b190-017a26401fd4",
@@ -14196,7 +14049,7 @@
         {
           "name": "Fleecemane Lion",
           "score": 18.5,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 30.5,
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+30.5 pts)."
         },
@@ -14210,7 +14063,7 @@
         {
           "name": "Hallowed Spiritkeeper",
           "score": 16.5,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 32.5,
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+32.5 pts)."
         },
@@ -14600,7 +14453,7 @@
         {
           "name": "Sea Gate Stormcaller",
           "score": 18.6,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 26.4,
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+26.4 pts)."
         },
@@ -14696,7 +14549,7 @@
         {
           "name": "Bloodghast",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 26.1,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26.1 pts)."
         },
@@ -14816,7 +14669,7 @@
           "name": "Dauntless Bodyguard",
           "frenchName": "Garde du corps intrépide",
           "score": 18.6,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 25.4,
           "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+25.4 pts)."
         },
@@ -14913,7 +14766,7 @@
         {
           "name": "Gideon Jura",
           "score": 18.5,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 24.5,
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+24.5 pts)."
         }
@@ -14994,7 +14847,7 @@
         {
           "name": "Dread Wanderer",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 25.1,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+25.1 pts)."
         },
@@ -15053,7 +14906,7 @@
           "name": "Nighthawk Scavenger",
           "frenchName": "Charognard faucon de nuit",
           "score": 19.8,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 23.2,
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.2 pts)."
         }
@@ -15144,7 +14997,7 @@
           "name": "Vines of Vastwood",
           "frenchName": "Vignes de Vastebois",
           "score": 19.9,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 22.1,
           "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+22.1 pts)."
         }
@@ -15240,14 +15093,14 @@
         {
           "name": "Rhonas the Indomitable",
           "score": 19.8,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 21.2,
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+21.2 pts)."
         },
         {
           "name": "Strangleroot Geist",
           "score": 18.7,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 22.3,
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+22.3 pts)."
         }
@@ -15335,7 +15188,7 @@
         {
           "name": "Frantic Search",
           "score": 17,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 24,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+24 pts)."
         },
@@ -15444,21 +15297,21 @@
         {
           "name": "Boggart Ram-Gang",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 26.1,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+26.1 pts)."
         },
         {
           "name": "Chandra's Phoenix",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 26.1,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+26.1 pts)."
         },
         {
           "name": "Falkenrath Aristocrat",
           "score": 19.7,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 24.3,
           "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+24.3 pts)."
         },
@@ -15511,13 +15364,6 @@
           "tier": "D-",
           "scoreDelta": 26.1,
           "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+26.1 pts)."
-        },
-        {
-          "name": "Young Pyromancer",
-          "score": 10,
-          "tier": "F",
-          "scoreDelta": 34,
-          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+34 pts)."
         }
       ],
       "rankingScore": 104,
@@ -15592,7 +15438,7 @@
         {
           "name": "Elder Gargaroth",
           "score": 17,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 25,
           "reason": "Même coût de mana (5), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+25 pts)."
         },
@@ -15606,7 +15452,7 @@
         {
           "name": "Vengevine",
           "score": 18.6,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 23.4,
           "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+23.4 pts)."
         }
@@ -15684,7 +15530,7 @@
           "name": "Nissa, Resurgent Animist",
           "frenchName": "Nissa, animiste résurgente",
           "score": 17,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 18,
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+18 pts)."
         },
@@ -15850,7 +15696,7 @@
         {
           "name": "Trygon Predator",
           "score": 19.8,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 27.2,
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+27.2 pts)."
         }
@@ -16034,7 +15880,7 @@
         {
           "name": "Dire Fleet Daredevil",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 22.1,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts)."
         },
@@ -16059,14 +15905,6 @@
           "tier": "D-",
           "scoreDelta": 22.1,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts)."
-        },
-        {
-          "name": "Grim Lavamancer",
-          "frenchName": "Sinistre lavamancien",
-          "score": 9,
-          "tier": "F",
-          "scoreDelta": 31,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+31 pts)."
         },
         {
           "name": "Hellspark Elemental",
@@ -16315,7 +16153,7 @@
         {
           "name": "Black Sun's Zenith",
           "score": 17.9,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 21.1,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+21.1 pts)."
         },
@@ -16343,7 +16181,7 @@
         {
           "name": "Innocent Blood",
           "score": 19.7,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 19.3,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+19.3 pts)."
         },
@@ -16429,7 +16267,7 @@
           "name": "Mold Shambler",
           "frenchName": "Escogriffe de moisissure",
           "score": 16.2,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 16.8,
           "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+16.8 pts)."
         },
@@ -16542,7 +16380,7 @@
         {
           "name": "Empyrial Archangel",
           "score": 19.8,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 12.2,
           "reason": "Coût de mana plus agressif (7 vs 8) permettant d'accélérer le tempo et d'optimiser la curve (+12.2 pts)."
         },
@@ -16585,6 +16423,155 @@
         {
           "key": "recent_release",
           "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2003,
+        "set": "SCG",
+        "isRecent": false
+      },
+      "archetypes": [
+        "cedric:azorius_control_blink",
+        "cedric:dimir_reanimator",
+        "cedric:izzet_spells_tempo",
+        "cedric:simic_ramp_goodstuff"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Force Spike (+17.3 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+17.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Control and Blink & Dimir Reanimator and Tempo & Izzet Spells and Tempo (+37.2 pts).",
+        "affectedArchetypes": [
+          "Azorius Control and Blink",
+          "Dimir Reanimator and Tempo",
+          "Izzet Spells and Tempo"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "replacesCards": [
+        {
+          "name": "Force Spike",
+          "frenchName": "Chiquenaude de force",
+          "score": 19.9,
+          "tier": "C-",
+          "scoreDelta": 17.3,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+17.3 pts)."
+        }
+      ],
+      "rankingScore": 97.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "archetypes": [
+        "cedric:rakdos_aristocrats",
+        "cedric:gruul_stompy_sneak",
+        "cedric:izzet_spells_tempo",
+        "cedric:boros_aggro_equipment"
+      ],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Sneak Attack (+19.2 pts). Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+19.2 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Aristocrats and Attrition & Gruul Stompy and Monster Cheat & Izzet Spells and Tempo (+37.2 pts).",
+        "affectedArchetypes": [
+          "Rakdos Aristocrats and Attrition",
+          "Gruul Stompy and Monster Cheat",
+          "Izzet Spells and Tempo"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "replacesCards": [
+        {
+          "name": "Sneak Attack",
+          "score": 18,
+          "tier": "D",
+          "scoreDelta": 19.2,
+          "reason": "Coût de mana plus agressif (2 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+19.2 pts)."
+        },
+        {
+          "name": "Sulfuric Vortex",
+          "frenchName": "Vortex sulfureux",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 19.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
+        }
+      ],
+      "rankingScore": 97.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
         },
         {
           "key": "peer_benchmark",
@@ -16707,7 +16694,7 @@
         {
           "name": "Falkenrath Pit Fighter",
           "score": 18.6,
-          "tier": "D+",
+          "tier": "D",
           "scoreDelta": 8.4,
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.4 pts)."
         }
@@ -16897,145 +16884,6 @@
         {
           "key": "peer_benchmark",
           "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "025939a0-424a-41bf-8fc9-2ef9ea5485f7",
-        "name": "Fire Covenant",
-        "score": 44,
-        "tier": "A+",
-        "cmc": 3,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/6a0139c2-ad86-4c71-ab6d-4840c37d5d20/normal.webp",
-        "colors": [
-          "B",
-          "R"
-        ],
-        "releaseYear": 1995,
-        "set": "ICE",
-        "isRecent": false
-      },
-      "archetypes": [
-        "cedric:rakdos_aristocrats"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Angrath's Rampage (+25.6 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+25.6 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Aristocrats and Attrition (+44 pts).",
-        "affectedArchetypes": [
-          "Rakdos Aristocrats and Attrition"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (1995)"
-      },
-      "releaseYear": 1995,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "replacesCards": [
-        {
-          "name": "Angrath's Rampage",
-          "score": 18.4,
-          "tier": "D",
-          "scoreDelta": 25.6,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+25.6 pts)."
-        },
-        {
-          "name": "Blightning",
-          "frenchName": "Éclair de flétrissement",
-          "score": 17.5,
-          "tier": "D-",
-          "scoreDelta": 26.5,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26.5 pts)."
-        }
-      ],
-      "rankingScore": 92,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 44
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "fcdc7dfc-04b5-411a-ab49-282b9c2608e2",
-        "name": "Mighty Mutanimals",
-        "score": 39.5,
-        "tier": "A",
-        "cmc": 4,
-        "typeLine": "Creature — Mutant Rebel",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/5dd5369c-174c-450b-b776-553866787f8f/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2026,
-        "set": "TMT",
-        "isRecent": true
-      },
-      "archetypes": [
-        "cedric:azorius_control_blink",
-        "cedric:selesnya_tokens_midrange",
-        "cedric:orzhov_attrition_tokens",
-        "cedric:boros_aggro_equipment"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Timeless Dragon (+19.6 pts). Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+19.6 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control and Blink & Selesnya Midrange and Hatebears & Orzhov Attrition and Tokens (+39.5 pts).",
-        "affectedArchetypes": [
-          "Azorius Control and Blink",
-          "Selesnya Midrange and Hatebears",
-          "Orzhov Attrition and Tokens"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [TMT]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Timeless Dragon",
-          "score": 19.9,
-          "tier": "C-",
-          "scoreDelta": 19.6,
-          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+19.6 pts)."
-        }
-      ],
-      "rankingScore": 91.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 39.5
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },

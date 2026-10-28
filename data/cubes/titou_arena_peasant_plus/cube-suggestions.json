@@ -3,13 +3,13 @@
   "engineVersion": "cube-upgrade-advisor@3",
   "cubeKey": "titou_arena_peasant_plus",
   "snapshotId": "titou_arena_peasant_plus@2026-09-08.1",
-  "generatedAt": "2026-10-17T09:39:25.635Z",
+  "generatedAt": "2026-10-28T11:40:09.436Z",
   "sourceProvenance": {
-    "generatedAt": "2026-10-17T09:39:25.635Z",
+    "generatedAt": "2026-10-28T11:40:09.436Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "ff084b264003eaee0f57bcd3f346129d89a380bd81955df72c33331900183d23",
+      "sha256": "d90c65d5c8ae0c6ae68991ff75d98b615edfc92c1df74e9e0445c7e36062c545",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -51,10 +51,10 @@
   "stats": {
     "totalUpgrades": 56,
     "totalMaybeboard": 30,
-    "recentUpgradesCount": 3,
+    "recentUpgradesCount": 2,
     "benchmarkMatchesCount": 2,
     "recentMaybeboardCount": 2,
-    "directReplacementMaybeboardCount": 24
+    "directReplacementMaybeboardCount": 25
   },
   "upgrades": {
     "Airbending Lesson": {
@@ -859,42 +859,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
-        "name": "Arcane Denial",
-        "score": 27.8,
-        "tier": "B-",
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
-        "frenchName": "Déni des arcanes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d066-66c7-430f-9347-9c25a4617a8d.jpg?1785262904",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
         "colors": [
           "U"
         ],
-        "releaseYear": 1996,
-        "set": "PLST",
+        "releaseYear": 2003,
+        "set": "SCG",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.7,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.7 pts).",
+      "scoreDelta": 19.1,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Dimir Control & Draw-Two & Simic Ramp & Combat Tricks (+9.7 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Dimir Control & Draw-Two & Simic Ramp & Combat Tricks (+19.1 pts).",
         "affectedArchetypes": [
           "Azorius Tempo & Disruptive Fliers",
           "Dimir Control & Draw-Two",
           "Simic Ramp & Combat Tricks"
         ],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1996)"
+        "releaseContext": "Référence confirmée (2003)"
       },
-      "releaseYear": 1996,
+      "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 35.8,
+      "rankingScore": 45.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 37.2
         },
         {
           "key": "role_alignment",
@@ -1581,7 +1579,7 @@
         "oracleId": "71ba6f1b-2fa6-4d4c-8778-f0765b1a5d8e",
         "name": "Maverick Thopterist",
         "score": 18.6,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 5,
         "typeLine": "Creature — Human Artificer",
         "imageUrl": "https://assets.cubecobra.com/cardimages/f1e6817f-2592-4074-aba0-c8efebd7883a/normal.webp",
@@ -1710,38 +1708,55 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
-        "name": "Sensei's Divining Top",
-        "score": 35.2,
-        "tier": "A",
+        "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+        "name": "Chromatic Star",
+        "score": 29.8,
+        "tier": "F",
         "cmc": 1,
         "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/1ef87e14-f536-4a2e-b834-55ed0e055800/normal.webp",
         "colors": [],
-        "releaseYear": 2004,
-        "set": "CHK",
+        "releaseYear": 2006,
+        "set": "BRR",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 14.2,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14.2 pts).",
+      "scoreDelta": 8.8,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.8 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+14.2 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+8.8 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2004)"
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "Référence confirmée (2006)"
       },
-      "releaseYear": 2004,
+      "releaseYear": 2006,
       "isRecent": false,
-      "rankingScore": 43.2,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "cubeCobraStats": {
+        "elo": 1448.2241671468887,
+        "popularity": 7.2401033831739845,
+        "cubeCount": 28685
+      },
+      "rankingScore": 57.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 35.2
+          "points": 29.8
         },
         {
           "key": "role_alignment",
           "points": 8
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        },
+        {
+          "key": "popularity",
+          "points": 5
         }
       ]
     },
@@ -1987,7 +2002,7 @@
         "oracleId": "4384996f-aeaa-41ac-aa0e-12d72c887731",
         "name": "Pursue the Past",
         "score": 18.9,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 2,
         "typeLine": "Sorcery",
         "imageUrl": "https://assets.cubecobra.com/cardimages/4584d5f7-b1f1-4c8e-80c5-ad35e44a968e/normal.webp",
@@ -2099,75 +2114,6 @@
         {
           "key": "mana_efficiency",
           "points": 3
-        }
-      ]
-    },
-    "Reckoner Bankbuster": {
-      "targetCard": {
-        "oracleId": "b6be94dc-7162-4887-b959-3bda709724eb",
-        "name": "Reckoner Bankbuster",
-        "score": 8,
-        "tier": "F",
-        "cmc": 2,
-        "typeLine": "Artifact — Vehicle",
-        "imageUrl": "https://cards.scryfall.io/normal/front/2/7/279acd17-6c17-427b-a69d-fc02442ff4a3.jpg?1783923822",
-        "frenchName": "Brisebanque héliaste",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/3/c35f4761-7ffe-4bce-9cde-62e2de1705e1.jpg?1782861213",
-        "colors": [],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e286a191-39d4-4073-b844-11d2aba911b4",
-        "name": "Strixhaven Skycoach",
-        "score": 26.8,
-        "tier": "C+",
-        "cmc": 3,
-        "typeLine": "Artifact — Vehicle",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/87741fbb-b426-4f83-a358-587b0907f081/normal.webp",
-        "colors": [],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 18.8,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+18.8 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "JDGP Peasant Cube"
-      ],
-      "cubeCobraStats": {
-        "elo": 1289.3224911422144,
-        "popularity": 0.17642782865046594,
-        "cubeCount": 699
-      },
-      "rankingScore": 47.98,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26.8
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        },
-        {
-          "key": "popularity",
-          "points": 0.17642782865046594
         }
       ]
     },
@@ -3383,6 +3329,64 @@
         }
       ]
     },
+    "Voldaren Epicure": {
+      "targetCard": {
+        "oracleId": "cef82674-1f61-407b-801b-a76a3803e598",
+        "name": "Voldaren Epicure",
+        "score": 10,
+        "tier": "F",
+        "cmc": 1,
+        "typeLine": "Creature — Vampire",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/e8fe855c-fe94-4de7-a033-9892a9d6ee0e/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2021,
+        "set": "INR",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
+        "name": "Young Pyromancer",
+        "score": 29.8,
+        "tier": "B+",
+        "cmc": 2,
+        "typeLine": "Creature — Human Shaman",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/6f10099a-d256-44ec-a7a3-c93b27741d06/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2013,
+        "set": "2X2",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 19.8,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+19.8 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Artifacts & Sacrifice & Gruul Stompy & Power Curve & Izzet Artifacts & Noncreature Spells (+19.8 pts).",
+        "affectedArchetypes": [
+          "Rakdos Artifacts & Sacrifice",
+          "Gruul Stompy & Power Curve",
+          "Izzet Artifacts & Noncreature Spells"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2013)"
+      },
+      "releaseYear": 2013,
+      "isRecent": false,
+      "rankingScore": 37.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        }
+      ]
+    },
     "Wandertale Mentor": {
       "targetCard": {
         "oracleId": "9d14c7bd-7802-401c-b02b-c7f3c51b007f",
@@ -3907,7 +3911,7 @@
         {
           "name": "Pursue the Past",
           "score": 18.9,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 22.1,
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+22.1 pts)."
         }
@@ -3925,6 +3929,73 @@
         {
           "key": "archetype_match",
           "points": 16
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "fedbd40b-e3a5-449c-a8a3-b42e9da191a9",
+        "name": "Chromatic Star",
+        "score": 29.8,
+        "tier": "F",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/1ef87e14-f536-4a2e-b834-55ed0e055800/normal.webp",
+        "colors": [],
+        "releaseYear": 2006,
+        "set": "BRR",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Mishra's Bauble (+8.8 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+29.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "Référence confirmée (2006)"
+      },
+      "releaseYear": 2006,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "cubeCobraStats": {
+        "elo": 1448.2241671468887,
+        "popularity": 7.2401033831739845,
+        "cubeCount": 28685
+      },
+      "replacesCards": [
+        {
+          "name": "Mishra's Bauble",
+          "score": 21,
+          "tier": "D",
+          "scoreDelta": 8.8,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.8 pts)."
+        }
+      ],
+      "rankingScore": 86.28,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        },
+        {
+          "key": "popularity",
+          "points": 10
+        },
+        {
+          "key": "elo",
+          "points": 2.482241671468887
         }
       ]
     },
@@ -4063,6 +4134,68 @@
         {
           "key": "power",
           "points": 39
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2003,
+        "set": "SCG",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou_peasant:azorius_tempo",
+        "titou_peasant:dimir_control",
+        "titou_peasant:simic_tempo_ramp",
+        "titou_peasant:izzet_artifacts"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+19.1 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Dimir Control & Draw-Two & Simic Ramp & Combat Tricks (+37.2 pts).",
+        "affectedArchetypes": [
+          "Azorius Tempo & Disruptive Fliers",
+          "Dimir Control & Draw-Two",
+          "Simic Ramp & Combat Tricks"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Fading Hope",
+          "frenchName": "Espoir volatilisé",
+          "score": 18.1,
+          "tier": "F",
+          "scoreDelta": 19.1,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts)."
+        }
+      ],
+      "rankingScore": 83.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
         },
         {
           "key": "direct_replacement",
@@ -4217,7 +4350,7 @@
       },
       "archetypes": [],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Reckoner Bankbuster (+18.8 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Smuggler's Copter (+8.8 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.8 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+26.8 pts).",
         "affectedArchetypes": [],
@@ -4236,14 +4369,6 @@
         "cubeCount": 699
       },
       "replacesCards": [
-        {
-          "name": "Reckoner Bankbuster",
-          "frenchName": "Brisebanque héliaste",
-          "score": 8,
-          "tier": "F",
-          "scoreDelta": 18.8,
-          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.8 pts)."
-        },
         {
           "name": "Smuggler's Copter",
           "frenchName": "Coptère de contrebandier",
@@ -4496,6 +4621,67 @@
     },
     {
       "card": {
+        "oracleId": "5fac139a-07d3-4e6c-98e3-d98b199f7a6f",
+        "name": "Young Pyromancer",
+        "score": 29.8,
+        "tier": "B+",
+        "cmc": 2,
+        "typeLine": "Creature — Human Shaman",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/6f10099a-d256-44ec-a7a3-c93b27741d06/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2013,
+        "set": "2X2",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou_peasant:rakdos_artifacts_sac",
+        "titou_peasant:gruul_stompy",
+        "titou_peasant:izzet_artifacts",
+        "titou_peasant:boros_game_objects"
+      ],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Voldaren Epicure (+19.8 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+19.8 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Artifacts & Sacrifice & Gruul Stompy & Power Curve & Izzet Artifacts & Noncreature Spells (+29.8 pts).",
+        "affectedArchetypes": [
+          "Rakdos Artifacts & Sacrifice",
+          "Gruul Stompy & Power Curve",
+          "Izzet Artifacts & Noncreature Spells"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2013)"
+      },
+      "releaseYear": 2013,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Voldaren Epicure",
+          "score": 10,
+          "tier": "F",
+          "scoreDelta": 19.8,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+19.8 pts)."
+        }
+      ],
+      "rankingScore": 75.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "02090581-61aa-4348-ad57-451be8ee91c2",
         "name": "Ponder",
         "score": 29,
@@ -4545,70 +4731,6 @@
         {
           "key": "power",
           "points": 29
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
-        "name": "Arcane Denial",
-        "score": 27.8,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
-        "frenchName": "Déni des arcanes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d066-66c7-430f-9347-9c25a4617a8d.jpg?1785262904",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1996,
-        "set": "PLST",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou_peasant:azorius_tempo",
-        "titou_peasant:dimir_control",
-        "titou_peasant:simic_tempo_ramp",
-        "titou_peasant:izzet_artifacts"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+9.7 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.7 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Tempo & Disruptive Fliers & Dimir Control & Draw-Two & Simic Ramp & Combat Tricks (+27.8 pts).",
-        "affectedArchetypes": [
-          "Azorius Tempo & Disruptive Fliers",
-          "Dimir Control & Draw-Two",
-          "Simic Ramp & Combat Tricks"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1996)"
-      },
-      "releaseYear": 1996,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Fading Hope",
-          "frenchName": "Espoir volatilisé",
-          "score": 18.1,
-          "tier": "F",
-          "scoreDelta": 9.7,
-          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.7 pts)."
-        }
-      ],
-      "rankingScore": 73.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
         },
         {
           "key": "direct_replacement",
@@ -4913,7 +5035,7 @@
         {
           "name": "Maverick Thopterist",
           "score": 18.6,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 7.3,
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+7.3 pts)."
         },
@@ -5000,52 +5122,6 @@
         {
           "key": "archetype_match",
           "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "13575cf9-65c1-4861-b21e-eb2155e07766",
-        "name": "Sensei's Divining Top",
-        "score": 35.2,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4a08ca06-58db-4ce6-b490-be4bea8956a1/normal.webp",
-        "colors": [],
-        "releaseYear": 2004,
-        "set": "CHK",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Mishra's Bauble (+14.2 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14.2 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+35.2 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2004)"
-      },
-      "releaseYear": 2004,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Mishra's Bauble",
-          "score": 21,
-          "tier": "D",
-          "scoreDelta": 14.2,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14.2 pts)."
-        }
-      ],
-      "rankingScore": 65.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 35.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
         }
       ]
     },
@@ -5385,55 +5461,6 @@
         {
           "key": "power",
           "points": 41
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
-        "name": "Snuff Out",
-        "score": 40,
-        "tier": "A+",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
-        "frenchName": "Dégommage",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 1999,
-        "set": "MMQ",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou_peasant:dimir_control",
-        "titou_peasant:rakdos_artifacts_sac",
-        "titou_peasant:orzhov_recursion",
-        "titou_peasant:golgari_food"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Renforce directement les archétypes Dimir Control & Draw-Two et Rakdos Artifacts & Sacrifice grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Control & Draw-Two & Rakdos Artifacts & Sacrifice & Orzhov Grind & Recursion (+40 pts).",
-        "affectedArchetypes": [
-          "Dimir Control & Draw-Two",
-          "Rakdos Artifacts & Sacrifice",
-          "Orzhov Grind & Recursion"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1999)"
-      },
-      "releaseYear": 1999,
-      "isRecent": false,
-      "rankingScore": 56,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
         },
         {
           "key": "archetype_match",

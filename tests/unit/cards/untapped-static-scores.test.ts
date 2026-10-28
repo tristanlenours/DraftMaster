@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { CardCatalog } from "../../../src/cards/card-catalog.ts";
 import { selectRepresentativeScore } from "../../../src/cards/power-calibration.ts";
+import { loadUntappedEloContradiction } from "../../helpers/untapped-elo-contradiction.ts";
 
 interface DraftRecord {
   readonly startTime: number;
@@ -23,7 +24,7 @@ const rootDir = process.cwd();
 const normalizeName = (name: string): string => name.trim().toLowerCase();
 
 describe("untapped static score fidelity", () => {
-  it("guarantees that all cards with known Untapped static scores match within 3 points", async () => {
+  it("guarantees that all cards with known Untapped static scores match within 3 points unless CubeCobra Elo contradicts them", async () => {
     // 1. Load compiled master catalog
     const catalogResult = await CardCatalog.fromFile(
       resolve(rootDir, "data/cards/master-cards.json"),
@@ -75,7 +76,9 @@ describe("untapped static score fidelity", () => {
       expectedScoresByName.set(normalizeName(name), refScore);
     }
 
-    // 5. Match against catalog cards
+    // 5. Match against catalog cards, skipping native scores replaced by the contradiction rule
+    const contradictionEstimate = loadUntappedEloContradiction();
+    let eloOverrideCount = 0;
     const verifiedCards: {
       name: string;
       catalogScore: number;
@@ -86,6 +89,10 @@ describe("untapped static score fidelity", () => {
       const key = normalizeName(card.name);
       const expectedScore = expectedScoresByName.get(key);
       if (expectedScore !== undefined) {
+        if (contradictionEstimate(card, expectedScore) !== undefined) {
+          eloOverrideCount++;
+          continue;
+        }
         const catalogScore = card.powerScore.score;
         const delta = Math.abs(catalogScore - expectedScore);
         verifiedCards.push({ name: card.name, catalogScore, expectedScore, delta });
@@ -93,7 +100,8 @@ describe("untapped static score fidelity", () => {
     }
 
     // Must cover at least 400 distinct cards from the Untapped empirical corpus
-    expect(verifiedCards.length).toBeGreaterThanOrEqual(400);
+    expect(verifiedCards.length + eloOverrideCount).toBeGreaterThanOrEqual(400);
+    expect(eloOverrideCount).toBeLessThan(verifiedCards.length / 10);
 
     // Every single card with an Untapped static score must be respected within 3 points
     const violations = verifiedCards.filter((c) => c.delta > 3);

@@ -3,13 +3,13 @@
   "engineVersion": "cube-upgrade-advisor@3",
   "cubeKey": "hugues_pauper",
   "snapshotId": "hugues_pauper@2026-03-01.1",
-  "generatedAt": "2026-10-17T09:39:25.635Z",
+  "generatedAt": "2026-10-28T11:40:09.436Z",
   "sourceProvenance": {
-    "generatedAt": "2026-10-17T09:39:25.635Z",
+    "generatedAt": "2026-10-28T11:40:09.436Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "ff084b264003eaee0f57bcd3f346129d89a380bd81955df72c33331900183d23",
+      "sha256": "d90c65d5c8ae0c6ae68991ff75d98b615edfc92c1df74e9e0445c7e36062c545",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,7 +49,7 @@
     "benchmarkCoveragePercentage": 41
   },
   "stats": {
-    "totalUpgrades": 148,
+    "totalUpgrades": 150,
     "totalMaybeboard": 30,
     "recentUpgradesCount": 95,
     "benchmarkMatchesCount": 123,
@@ -625,6 +625,59 @@
         }
       ]
     },
+    "Armillary Sphere": {
+      "targetCard": {
+        "oracleId": "3963140c-da67-43e6-9514-fe9dc0a43c4d",
+        "name": "Armillary Sphere",
+        "score": 18.1,
+        "tier": "C+",
+        "cmc": 2,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b06cdd3b-3f8d-4b5e-882b-130b1db750a0/normal.webp",
+        "frenchName": "Sphère armillaire",
+        "colors": [],
+        "releaseYear": 2009,
+        "set": "CON",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+        "name": "Aether Spellbomb",
+        "score": 26,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
+        "frenchName": "Bombe à sortilèges d'Éther",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/6/e6c48f49-e4c4-45a6-bbfe-b06841f3382e.jpg?1782833802",
+        "colors": [],
+        "releaseYear": 2003,
+        "set": "DDF",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 7.9,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+7.9 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant la méta du cube (+7.9 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "rankingScore": 29,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Ashes to Ashes": {
       "targetCard": {
         "oracleId": "944a52d9-bb14-43c5-8d05-2afaf023dc9f",
@@ -967,7 +1020,7 @@
         "oracleId": "e3191093-1aaa-4002-a603-7c8d132b6a31",
         "name": "Bannerhide Krushok",
         "score": 17.9,
-        "tier": "C+",
+        "tier": "C",
         "cmc": 4,
         "typeLine": "Creature — Beast",
         "imageUrl": "https://assets.cubecobra.com/cardimages/1271251b-7d79-4cb4-80bb-98574aa63249/normal.webp",
@@ -1101,7 +1154,7 @@
         "oracleId": "76f22670-6806-4124-8bbb-822ed33d2bda",
         "name": "Bitterbow Sharpshooters",
         "score": 15,
-        "tier": "D",
+        "tier": "D-",
         "cmc": 5,
         "typeLine": "Creature — Jackal Archer",
         "imageUrl": "https://assets.cubecobra.com/cardimages/8ecfcf99-be2b-4e5f-adef-1977ee5c6a0f/normal.webp",
@@ -3430,69 +3483,6 @@
         {
           "key": "recent_release",
           "points": 6
-        }
-      ]
-    },
-    "Faithless Looting": {
-      "targetCard": {
-        "oracleId": "3d6fa57a-aa53-4b5c-b8af-a7612c823117",
-        "name": "Faithless Looting",
-        "score": 10,
-        "tier": "F",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/65879a80-b656-412f-8b90-aa6d4f36a43c/normal.webp",
-        "frenchName": "Pillage sans foi",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2012,
-        "set": "CMM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "10d33e95-3e5d-447e-ba4a-acd3c33b4045",
-        "name": "Torch the Tower",
-        "score": 33.9,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/b3d6027c-813f-46df-95b4-e2e305a67620/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "WOE",
-        "isRecent": false
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 23.9,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.9 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Attrition and Removal & Gruul Stompy and Aggro & Izzet Spellslinger and Tempo (+23.9 pts).",
-        "affectedArchetypes": [
-          "Rakdos Attrition and Removal",
-          "Gruul Stompy and Aggro",
-          "Izzet Spellslinger and Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "rankingScore": 42.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.9
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
         }
       ]
     },
@@ -6994,12 +6984,65 @@
         }
       ]
     },
+    "Prophetic Prism": {
+      "targetCard": {
+        "oracleId": "134a9877-5cfb-4a2a-a0f0-930dce45f58b",
+        "name": "Prophetic Prism",
+        "score": 17.9,
+        "tier": "C-",
+        "cmc": 2,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/06450be5-0634-4aef-bda7-4d4fbb9ec00a/normal.webp",
+        "frenchName": "Prisme prophétique",
+        "colors": [],
+        "releaseYear": 2010,
+        "set": "KLD",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+        "name": "Aether Spellbomb",
+        "score": 26,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
+        "frenchName": "Bombe à sortilèges d'Éther",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/6/e6c48f49-e4c4-45a6-bbfe-b06841f3382e.jpg?1782833802",
+        "colors": [],
+        "releaseYear": 2003,
+        "set": "DDF",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.1,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant la méta du cube (+8.1 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "rankingScore": 29,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Prowling Felidar": {
       "targetCard": {
         "oracleId": "ed26f6bf-fcd6-4cf4-9b65-a492cb79f2df",
         "name": "Prowling Felidar",
         "score": 15,
-        "tier": "D-",
+        "tier": "F",
         "cmc": 4,
         "typeLine": "Creature — Cat Beast",
         "imageUrl": "https://assets.cubecobra.com/cardimages/b9d1c11a-a32c-449c-95c6-450dce6c26d2/normal.webp",
@@ -8498,7 +8541,7 @@
         "oracleId": "63ec5617-0da6-4534-b502-34304b1ea02b",
         "name": "Squall Drifter",
         "score": 17.8,
-        "tier": "C-",
+        "tier": "D+",
         "cmc": 2,
         "typeLine": "Snow Creature — Elemental",
         "imageUrl": "https://assets.cubecobra.com/cardimages/b3ecb728-4b54-47d0-bbef-d39e5f7d172f/normal.webp",
@@ -9526,6 +9569,59 @@
         {
           "key": "peer_benchmark",
           "points": 15
+        }
+      ]
+    },
+    "Tumble Magnet": {
+      "targetCard": {
+        "oracleId": "0481adcd-b66d-432e-80ba-3a4718bb3a7d",
+        "name": "Tumble Magnet",
+        "score": 17.9,
+        "tier": "C-",
+        "cmc": 3,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/e6478389-15be-405f-b755-108c942d72ec/normal.webp",
+        "frenchName": "Aimant de culbute",
+        "colors": [],
+        "releaseYear": 2010,
+        "set": "SOM",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+        "name": "Aether Spellbomb",
+        "score": 26,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
+        "frenchName": "Bombe à sortilèges d'Éther",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/6/e6c48f49-e4c4-45a6-bbfe-b06841f3382e.jpg?1782833802",
+        "colors": [],
+        "releaseYear": 2003,
+        "set": "DDF",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.1,
+      "reason": "Coût de mana plus agressif (1 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 3 mana) tout en renforçant la méta du cube (+8.1 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "rankingScore": 29,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
         }
       ]
     },
@@ -11839,7 +11935,7 @@
           "name": "Squall Drifter",
           "frenchName": "Dériveur des bourrasques",
           "score": 17.8,
-          "tier": "C-",
+          "tier": "D+",
           "scoreDelta": 7.7,
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+7.7 pts)."
         },
@@ -12069,7 +12165,7 @@
           "name": "Prowling Felidar",
           "frenchName": "Félidar rôdeur",
           "score": 15,
-          "tier": "D-",
+          "tier": "F",
           "scoreDelta": 12.8,
           "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+12.8 pts)."
         },
@@ -12366,7 +12462,7 @@
           "name": "Bitterbow Sharpshooters",
           "frenchName": "Francs-tireurs cinglarc",
           "score": 15,
-          "tier": "D",
+          "tier": "D-",
           "scoreDelta": 10,
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10 pts)."
         },
@@ -12773,69 +12869,6 @@
     },
     {
       "card": {
-        "oracleId": "10d33e95-3e5d-447e-ba4a-acd3c33b4045",
-        "name": "Torch the Tower",
-        "score": 33.9,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/b3d6027c-813f-46df-95b4-e2e305a67620/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "WOE",
-        "isRecent": false
-      },
-      "archetypes": [
-        "hugues:rakdos_attrition",
-        "hugues:gruul_stompy",
-        "hugues:izzet_spellslinger",
-        "hugues:boros_synth_tokens",
-        "hugues:pauper_staple"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Faithless Looting (+23.9 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.9 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Attrition and Removal & Gruul Stompy and Aggro & Izzet Spellslinger and Tempo (+33.9 pts).",
-        "affectedArchetypes": [
-          "Rakdos Attrition and Removal",
-          "Gruul Stompy and Aggro",
-          "Izzet Spellslinger and Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Faithless Looting",
-          "frenchName": "Pillage sans foi",
-          "score": 10,
-          "tier": "F",
-          "scoreDelta": 23.9,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.9 pts)."
-        }
-      ],
-      "rankingScore": 83.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.9
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 20
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "788a4896-3414-40bf-b391-d2efea2fb5f9",
         "name": "Springbloom Druid",
         "score": 27.4,
@@ -12876,7 +12909,7 @@
           "name": "Bannerhide Krushok",
           "frenchName": "Krushok au dos bariolé",
           "score": 17.9,
-          "tier": "C+",
+          "tier": "C",
           "scoreDelta": 9.5,
           "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+9.5 pts)."
         },
@@ -13392,6 +13425,71 @@
         {
           "key": "peer_benchmark",
           "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "4b033a0a-c1ae-44d7-9662-72cbbfda024b",
+        "name": "Aether Spellbomb",
+        "score": 26,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
+        "frenchName": "Bombe à sortilèges d'Éther",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/6/e6c48f49-e4c4-45a6-bbfe-b06841f3382e.jpg?1782833802",
+        "colors": [],
+        "releaseYear": 2003,
+        "set": "DDF",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Armillary Sphere (+7.9 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+7.9 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+26 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Armillary Sphere",
+          "frenchName": "Sphère armillaire",
+          "score": 18.1,
+          "tier": "C+",
+          "scoreDelta": 7.9,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+7.9 pts)."
+        },
+        {
+          "name": "Prophetic Prism",
+          "frenchName": "Prisme prophétique",
+          "score": 17.9,
+          "tier": "C-",
+          "scoreDelta": 8.1,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts)."
+        },
+        {
+          "name": "Tumble Magnet",
+          "frenchName": "Aimant de culbute",
+          "score": 17.9,
+          "tier": "C-",
+          "scoreDelta": 8.1,
+          "reason": "Coût de mana plus agressif (1 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts)."
+        }
+      ],
+      "rankingScore": 56,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
         }
       ]
     }

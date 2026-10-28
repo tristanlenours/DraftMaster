@@ -158,6 +158,74 @@ export function roundPowerScore(score: number): number {
   return Math.round(Math.max(MIN_POWER_SCORE, Math.min(MAX_POWER_SCORE, score)) * 10) / 10;
 }
 
+export interface CubeCobraEvidence {
+  readonly elo: number;
+  readonly pickCount?: number | undefined;
+}
+
+/** 17lands (limitedgrades.com) Arena Vintage Cube grade for one card. */
+export interface ArenaGradeEvidence {
+  readonly grade: string;
+  readonly gameCount?: number | undefined;
+}
+
+/**
+ * Untapped static scores come from MTG Arena cubes. Some paper staples
+ * (Umezawa's Jitte, Lion's Eye Diamond, Mishra's Workshop) receive near-zero
+ * scores that contradict their CubeCobra Elo. The native score is distrusted
+ * only when the Elo is itself well-sampled and above CubeCobra's 1200 starting
+ * rating, and the isotonic Elo estimate is both far above (more than the
+ * calibration's ~9.4 cross-validated MAE) and at least double the native score.
+ * Mid-band disagreements keep the native score.
+ *
+ * Elo measures pick preference, not win rate. When 17lands independently
+ * grades the card D- or F on a solid Arena sample (Batterskull, Show and Tell,
+ * Bolas's Citadel), the low native score is a corroborated draft trap and stays.
+ */
+export const UNTAPPED_ELO_CONTRADICTION_RULE = {
+  id: "untapped_elo_contradiction_v1",
+  minElo: 1300,
+  minPickCount: 10_000,
+  minScoreGap: 12,
+  minEstimateRatio: 2,
+  corroboratingArenaGrades: ["D-", "F"],
+  minCorroboratingGameCount: 2_000,
+} as const;
+
+function isCorroboratedByArena(arenaGrade: ArenaGradeEvidence | undefined): boolean {
+  const rule = UNTAPPED_ELO_CONTRADICTION_RULE;
+  return (
+    arenaGrade !== undefined &&
+    (rule.corroboratingArenaGrades as readonly string[]).includes(arenaGrade.grade) &&
+    (arenaGrade.gameCount ?? 0) >= rule.minCorroboratingGameCount
+  );
+}
+
+/**
+ * Returns the calibrated CubeCobra estimate that replaces a native Untapped
+ * score contradicted by Elo, or undefined when the native score is trusted.
+ */
+export function detectUntappedEloContradiction(
+  untappedScore: number,
+  evidence: CubeCobraEvidence | undefined,
+  blocks: readonly IsotonicBlock[],
+  arenaGrade?: ArenaGradeEvidence,
+): number | undefined {
+  const rule = UNTAPPED_ELO_CONTRADICTION_RULE;
+  if (!evidence || !Number.isFinite(evidence.elo) || !Number.isFinite(untappedScore)) {
+    return undefined;
+  }
+  if (evidence.elo < rule.minElo || !((evidence.pickCount ?? 0) >= rule.minPickCount)) {
+    return undefined;
+  }
+  if (isCorroboratedByArena(arenaGrade)) return undefined;
+  const estimate = roundPowerScore(predictIsotonicScore(blocks, evidence.elo));
+  const contradicted =
+    estimate - untappedScore >= rule.minScoreGap &&
+    estimate >= rule.minEstimateRatio * untappedScore;
+  return contradicted ? estimate : undefined;
+}
+
 export function fitRidgeRegression(
   features: readonly (readonly number[])[],
   targets: readonly number[],

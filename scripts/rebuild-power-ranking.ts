@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {
+  UNTAPPED_ELO_CONTRADICTION_RULE,
+  detectUntappedEloContradiction,
   fitIsotonicCalibration,
   fitRidgeRegression,
   predictKnnScore,
@@ -118,6 +120,12 @@ for (const [name, score] of referenceScores) {
     });
   }
 }
+
+const arenaGrades = new Map(
+  readJson<{ cards: Array<{ name: string; grade: string; gameCount?: number }> }>(
+    "data/power-rankings/limitedgrades-powered-cache.json",
+  ).cards.map(({ name, grade, gameCount }) => [normalizeName(name), { grade, gameCount }]),
+);
 
 const detailsByOracleId = new Map<string, CubeCardDetails>();
 const detailsByName = new Map<string, CubeCardDetails>();
@@ -334,6 +342,7 @@ const ensembleCrossValidatedMae =
   ensembleFoldErrors.reduce((total, error) => total + error, 0) / ensembleFoldErrors.length;
 
 let directCount = 0;
+let eloOverrideCount = 0;
 let calibratedCount = 0;
 let fallbackCount = 0;
 const ranking: Array<Record<string, unknown>> = [];
@@ -346,7 +355,22 @@ for (const { path, card } of cards) {
   let powerScore: CardDocument["powerScore"];
   let method: string;
 
-  if (direct) {
+  const eloEstimate = direct
+    ? detectUntappedEloContradiction(direct.score, details, calibration, arenaGrades.get(nameKey))
+    : undefined;
+
+  if (direct && details && eloEstimate !== undefined) {
+    eloOverrideCount += 1;
+    method = UNTAPPED_ELO_CONTRADICTION_RULE.id;
+    powerScore = {
+      score: eloEstimate,
+      source: "expert_heuristic",
+      rawSourceScore: eloEstimate,
+      harmonizationDegree: "calibrated_medium",
+      confidence: 0.6,
+      updatedAt: generatedAt,
+    };
+  } else if (direct) {
     directCount += 1;
     method = observationsByName.has(nameKey) ? "historical_mode" : "verified_reference";
     powerScore = {
@@ -452,6 +476,7 @@ const rankingArtifact = {
   coverage: {
     total: cards.length,
     directUntapped: directCount,
+    untappedEloOverride: eloOverrideCount,
     calibratedCubeCobra: calibratedCount,
     fallback: fallbackCount,
   },
