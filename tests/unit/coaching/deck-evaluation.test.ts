@@ -443,13 +443,13 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     expect(evaluation.radar.mana).toBeGreaterThan(70);
     expect(evaluation.radar.interaction).toBeGreaterThan(70); // Has Bolt, Path, Swords, Helix, Abrade, Get Lost
 
-    // Normalized weighting check: overallScore must match the weighted formula
+    // Without a cube profile, synergy is left out and the four other axes share the score.
     const expectedScore = Math.round(
-      0.2 * evaluation.radar.power +
-        0.25 * evaluation.radar.synergy +
+      (0.2 * evaluation.radar.power +
         0.2 * evaluation.radar.curve +
         0.2 * evaluation.radar.mana +
-        0.15 * evaluation.radar.interaction,
+        0.15 * evaluation.radar.interaction) /
+        0.75,
     );
     expect(evaluation.overallScore).toBe(expectedScore);
   });
@@ -539,7 +539,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
 
     expect(evaluation.radar.power).toBeGreaterThanOrEqual(82);
-    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@5");
+    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@6");
     expect(evaluation.audit.scoreMeaning).toContain("ni une probabilité de victoire");
     expect(evaluation.audit.power.meanStaticScore).toBeCloseTo(34.74, 2);
     expect(evaluation.audit.power.topFiveMean).toBeCloseTo(51.8, 2);
@@ -1132,7 +1132,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       "interaction",
     ]);
     expect(evaluation.audit.contributions.map((contribution) => contribution.weight)).toEqual([
-      0.2, 0.25, 0.2, 0.2, 0.15,
+      0.2667, 0, 0.2667, 0.2667, 0.2,
     ]);
     expect(
       Math.round(
@@ -1362,6 +1362,277 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     expect(coverageByName["Thieving Skydiver"]).toContain("permanents");
   });
 
+  describe("deck-evaluation@6 reliability", () => {
+    const basicLands = (
+      counts: Partial<Record<"W" | "U" | "B" | "R" | "G", number>>,
+    ): CardEvaluationInput[] =>
+      Object.entries(counts).flatMap(([color, count]) =>
+        Array.from({ length: count }, (_, index) => ({
+          id: `basic-${color}-${String(index)}`,
+          name: `Basic ${color}`,
+          staticScore: 5,
+          colors: [] as const,
+          isLand: true,
+          producesColors: [color as "W" | "U" | "B" | "R" | "G"],
+        })),
+      );
+    const spell = (
+      id: string,
+      color: "W" | "U" | "B" | "R" | "G",
+      manaCost: string,
+      cmc: number,
+      oracleText = "",
+      typeLine = "Creature",
+    ): CardEvaluationInput => ({
+      id,
+      name: id,
+      staticScore: 32,
+      colors: [color],
+      cmc,
+      manaCost,
+      typeLine,
+      types: typeLine.includes("Creature") ? ["Creature"] : [],
+      oracleText,
+    });
+
+    it("does not count protection, pump, equipment attachment or sacrifice costs as interaction", () => {
+      const nonInteraction = [
+        spell(
+          "Mother of Runes",
+          "W",
+          "{W}",
+          1,
+          "{oT}: Target creature you control gains protection from the color of your choice until end of turn.",
+        ),
+        spell(
+          "Luminarch Aspirant",
+          "W",
+          "{1}{W}",
+          2,
+          "At the beginning of combat on your turn, put a +1/+1 counter on target creature you control.",
+        ),
+        spell(
+          "Elspeth, Knight-Errant",
+          "W",
+          "{2}{W}{W}",
+          4,
+          "+1: Create a 1/1 white Soldier creature token.\n+1: Target creature gets +3/+3 and gains flying until end of turn.",
+          "Legendary Planeswalker",
+        ),
+        spell(
+          "Embercleave",
+          "R",
+          "{4}{R}{R}",
+          6,
+          "Flash\nWhen Embercleave enters, attach it to target creature you control.\nEquipped creature gets +1/+1 and has double strike and trample.",
+          "Legendary Artifact — Equipment",
+        ),
+        spell(
+          "Witch's Oven",
+          "B",
+          "{1}",
+          1,
+          "{T}, Sacrifice a creature: Create a Food token.",
+          "Artifact",
+        ),
+      ];
+      const removal = [
+        spell("Doom Blade", "B", "{1}{B}", 2, "Destroy target nonblack creature.", "Instant"),
+        spell(
+          "Fiend Hunter",
+          "W",
+          "{1}{W}{W}",
+          3,
+          "When this creature enters, you may exile another target creature.",
+        ),
+        spell(
+          "Pacifism",
+          "W",
+          "{1}{W}",
+          2,
+          "Enchant creature\nEnchanted creature can't attack or block.",
+          "Enchantment — Aura",
+        ),
+        spell(
+          "Oblivion Ring",
+          "W",
+          "{2}{W}",
+          3,
+          "When this enchantment enters, exile another target nonland permanent.",
+          "Enchantment",
+        ),
+        spell(
+          "Pyroclasm",
+          "R",
+          "{1}{R}",
+          2,
+          "Pyroclasm deals 2 damage to each creature.",
+          "Sorcery",
+        ),
+        spell(
+          "Bone Shards",
+          "B",
+          "{B}",
+          1,
+          "As an additional cost to cast this spell, sacrifice a creature or discard a card.\nDestroy target creature or planeswalker.",
+          "Sorcery",
+        ),
+      ];
+      const filler = Array.from({ length: 12 }, (_, index) =>
+        spell(`Filler ${String(index)}`, "W", "{1}{W}", 2),
+      );
+
+      const evaluation = evaluateDeck([
+        ...basicLands({ W: 9, R: 4, B: 4 }),
+        ...nonInteraction,
+        ...removal,
+        ...filler,
+      ]);
+      const coverageByName = Object.fromEntries(
+        evaluation.audit.interaction.cards.map((card) => [card.name, card.coverage]),
+      );
+
+      expect(Object.keys(coverageByName).sort()).toEqual(removal.map((card) => card.name).sort());
+      expect(coverageByName.Pyroclasm).toContain("sweeper");
+      expect(coverageByName["Oblivion Ring"]).toEqual(["permanents"]);
+      expect(coverageByName.Pacifism).toEqual(["créatures"]);
+    });
+
+    it("detects a control plan from the same interaction cards that the radar audits", () => {
+      const answers = [
+        spell("Pacifism", "W", "{1}{W}", 2, "Enchanted creature can't attack or block.", "Aura"),
+        spell("Arrest", "W", "{2}{W}", 3, "Enchanted creature can't attack or block.", "Aura"),
+        spell(
+          "Pyroclasm",
+          "R",
+          "{1}{R}",
+          2,
+          "Pyroclasm deals 2 damage to each creature.",
+          "Sorcery",
+        ),
+        spell("Anger", "R", "{3}{R}", 4, "Anger deals 3 damage to each creature.", "Sorcery"),
+        spell(
+          "Fiend Hunter",
+          "W",
+          "{1}{W}{W}",
+          3,
+          "When this creature enters, you may exile another target creature.",
+        ),
+        spell(
+          "Banisher",
+          "W",
+          "{2}{W}",
+          3,
+          "When this creature enters, exile another target creature.",
+        ),
+      ];
+      const value = Array.from({ length: 17 }, (_, index) =>
+        spell(`Value ${String(index)}`, "W", "{2}{W}", 3, "Draw a card.", "Sorcery"),
+      );
+      const deck = [...basicLands({ W: 12, R: 5 }), ...answers, ...value];
+
+      expect(evaluateDeck(deck).audit.interaction.cards).toHaveLength(6);
+      expect(detectArchetype(deck).category).toBe("control");
+    });
+
+    it("does not tax a two-color basics-only deck for lacking multicolor lands", () => {
+      const spells = [
+        ...Array.from({ length: 12 }, (_, index) =>
+          spell(`White ${String(index)}`, "W", "{1}{W}", 2),
+        ),
+        ...Array.from({ length: 11 }, (_, index) =>
+          spell(`Blue ${String(index)}`, "U", "{2}{U}", 3),
+        ),
+      ];
+      const evaluation = evaluateDeck([...basicLands({ W: 9, U: 8 }), ...spells]);
+
+      expect(evaluation.radar.mana).toBeGreaterThanOrEqual(95);
+      expect(evaluation.audit.mana.requiredFixerUnits).toBe(0);
+      expect(evaluation.weaknesses.join(" ")).not.toMatch(/Tension/u);
+    });
+
+    it("asks for more colored sources when a color carries double pips", () => {
+      const build = (blueCost: string) =>
+        evaluateDeck([
+          ...basicLands({ W: 10, U: 7 }),
+          ...Array.from({ length: 12 }, (_, index) =>
+            spell(`White ${String(index)}`, "W", "{1}{W}", 2),
+          ),
+          ...Array.from({ length: 11 }, (_, index) =>
+            spell(`Blue ${String(index)}`, "U", blueCost, 3),
+          ),
+        ]);
+      const singlePip = build("{2}{U}");
+      const doublePip = build("{1}{U}{U}");
+
+      expect(doublePip.radar.mana).toBeLessThan(singlePip.radar.mana);
+      expect(doublePip.audit.mana.targetSourcesByColor.U).toBeGreaterThan(
+        singlePip.audit.mana.targetSourcesByColor.U,
+      );
+    });
+
+    it("reports a fragile strategic plan as a weakness without scoring the package", () => {
+      const plan = [
+        spell(
+          "Entomb",
+          "B",
+          "{B}",
+          1,
+          "Search your library for a card, put that card into your graveyard, then shuffle.",
+          "Instant",
+        ),
+        spell(
+          "Reanimate",
+          "B",
+          "{B}",
+          1,
+          "Put target creature card from a graveyard onto the battlefield under your control.",
+          "Sorcery",
+        ),
+        spell("Grave Titan", "B", "{4}{B}{B}", 6),
+        spell("Archon of Cruelty", "B", "{6}{B}{B}", 8),
+        spell("Griselbrand", "B", "{4}{B}{B}{B}{B}", 8),
+      ];
+      const filler = Array.from({ length: 18 }, (_, index) =>
+        spell(`Filler ${String(index)}`, "B", "{1}{B}", 2),
+      );
+      const evaluation = evaluateDeck([...basicLands({ B: 17 }), ...plan, ...filler]);
+      const reanimation = evaluation.audit.synergy.packages.find(
+        (candidate) => candidate.id === "reanimation",
+      );
+
+      expect(reanimation?.fragilityPenalty).toBeGreaterThan(0);
+      expect(evaluation.weaknesses.join(" ")).toMatch(/Réanimation.*fragile.*Entomb/u);
+    });
+
+    it("leaves synergy out of the score instead of counting it as zero without a cube profile", () => {
+      const evaluation = evaluateDeck(borosAggroDeck);
+      const { power, curve, mana, interaction } = evaluation.radar;
+
+      expect(evaluation.audit.synergy.evaluated).toBe(false);
+      expect(evaluation.overallScore).toBe(
+        Math.round((0.2 * power + 0.2 * curve + 0.2 * mana + 0.15 * interaction) / 0.75),
+      );
+      expect(
+        evaluation.audit.contributions.find((contribution) => contribution.axis === "synergy")
+          ?.weight,
+      ).toBe(0);
+      expect(evaluation.strengths.concat(evaluation.weaknesses).join(" ")).not.toMatch(/cohésion/u);
+
+      const profiled = evaluateDeck(borosAggroDeck, {
+        synergyProfile: {
+          archetypes: [{ id: "test:other", name: "Autre", keyCards: ["absent"], supportCards: [] }],
+        },
+      });
+      expect(profiled.audit.synergy.evaluated).toBe(true);
+      expect(profiled.radar.synergy).toBe(0);
+      expect(
+        profiled.audit.contributions.find((contribution) => contribution.axis === "synergy")
+          ?.weight,
+      ).toBe(0.25);
+    });
+  });
+
   describe("League-relative deck evaluation & audit metadata", () => {
     const customCalibration: LeagueCalibration = {
       leagueId: "powered_vintage",
@@ -1387,9 +1658,9 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       leagueId: "powered_vintage",
     };
 
-    it("evaluates legacy decks with deck-evaluation@5 formula and default thresholds", () => {
+    it("evaluates legacy decks with deck-evaluation@6 formula and default thresholds", () => {
       const evaluation = evaluateDeck(borosAggroDeck);
-      expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@5");
+      expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@6");
       expect(evaluation.overallTier).toBeDefined();
       expect(evaluation.audit.leagueId).toBeUndefined();
     });
@@ -1411,7 +1682,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       }
 
       // Check audit metadata
-      expect(leagueEval.audit.formulaVersion).toBe("deck-evaluation@5");
+      expect(leagueEval.audit.formulaVersion).toBe("deck-evaluation@6");
       expect(leagueEval.audit.leagueId).toBe("powered_vintage");
       expect(leagueEval.audit.calibrationVersion).toBe("1.0.0");
       expect(leagueEval.audit.calibrationStatus).toBe("provisional");

@@ -77,9 +77,15 @@ function renderRating(parent, rating, label, translations) {
   headline.append(node("span", "", `Repère ${rating.tier} · ${rating.archetype}`));
   section.append(headline);
   const axes = node("div", "deck-lab-axes");
+  const synergyEvaluated = rating.audit.synergy.evaluated !== false;
   for (const [key, axisLabel] of AXES) {
     const row = node("div", "deck-lab-axis");
     row.append(node("span", "", axisLabel));
+    if (key === "synergy" && !synergyEvaluated) {
+      row.append(node("strong", "", "non évaluée"));
+      axes.append(row);
+      continue;
+    }
     const meter = node("meter");
     meter.min = 0;
     meter.max = 100;
@@ -98,9 +104,11 @@ function renderRating(parent, rating, label, translations) {
     ],
     [
       "Le plan est-il assemblé ?",
-      evidence.synergy.archetype
-        ? `${evidence.synergy.alignedCount} carte(s) alignée(s) avec ${evidence.synergy.archetype}. ${names(evidence.synergy.examples)}`
-        : "Aucune famille d'archétype confirmée par le profil du cube.",
+      !synergyEvaluated
+        ? "Ce cube n'a pas de profil d'archétypes : la synergie n'est pas évaluée et ne pèse pas dans la note."
+        : evidence.synergy.archetype
+          ? `${evidence.synergy.alignedCount} carte(s) alignée(s) avec ${evidence.synergy.archetype}. ${names(evidence.synergy.examples)}`
+          : "Aucune famille d'archétype confirmée par le profil du cube.",
     ],
     [
       "Le deck démarre-t-il assez tôt ?",
@@ -154,15 +162,19 @@ function renderRating(parent, rating, label, translations) {
   if (fastManaBonus > 0) {
     breakdown.append(node("li", "", `Bonus de mana rapide : +${fastManaBonus}.`));
   }
+  if (!synergyEvaluated) {
+    breakdown.append(
+      node("li", "", "Synergie non évaluée : les autres axes se partagent la note."),
+    );
+  }
   for (const pack of rating.audit.synergy.packages) {
-    if (pack.contribution > 0) {
-      breakdown.append(node("li", "", `${pack.label} : +${pack.contribution} en synergie.`));
-    }
-    if (pack.fragilityPenalty > 0) {
-      breakdown.append(
-        node("li", "", `${pack.label} : −${pack.fragilityPenalty} pour fragilité du plan.`),
-      );
-    }
+    breakdown.append(
+      node(
+        "li",
+        "",
+        `Plan détecté : ${pack.label} (${names([...pack.enablers, ...pack.supportCards])} → ${names(pack.payoffs)}). Repère qualitatif, non compté dans la note.`,
+      ),
+    );
   }
   audit.append(breakdown);
   section.append(audit);

@@ -7,7 +7,6 @@ import {
   type DeckEvaluation,
   type DeckEvaluationOptions,
   type InteractionAxisAudit,
-  type InteractionCoverage,
   type KiviatRadarScores,
   type ManaAxisAudit,
   type ManaFixerAuditEntry,
@@ -18,6 +17,7 @@ import {
 } from "./types.ts";
 import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
+import { INTERACTION_COVERAGE_ORDER, classifyInteraction } from "./interaction-classifier.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
 import {
   assertCubeLeagueMembership,
@@ -49,47 +49,6 @@ function isManaDorkOrRock(card: CardEvaluationInput): boolean {
     (card.cmc ?? 0) <= 3 &&
     [card.types?.includes("Creature"), card.typeLine?.includes("Artifact")].some(Boolean)
   );
-}
-
-const INTERACTION_COVERAGE_ORDER: readonly InteractionCoverage[] = [
-  "créatures",
-  "permanents",
-  "pile",
-  "main",
-  "cimetières",
-  "sweeper",
-];
-
-function classifyInteraction(card: CardEvaluationInput): readonly InteractionCoverage[] {
-  const text = (card.oracleText ?? "").toLowerCase();
-  const coverage = new Set<InteractionCoverage>();
-  if (
-    /target creature|all creatures|damage to (?:any|target)|target .* gets? (?:<[^>]+>)*-\d|sacrifices? (?:(?:a|target) )?creatures?/.test(
-      text,
-    )
-  ) {
-    coverage.add("créatures");
-  }
-  if (
-    /(?:destroy|exile|return|put) target (?:nonland )?permanent|(?:gain control of |target )(?:artifact|enchantment|planeswalker)/.test(
-      text,
-    )
-  ) {
-    coverage.add("permanents");
-  }
-  if (/counter target|return target spell/.test(text)) coverage.add("pile");
-  if (
-    /target player[^.]*discard|opponent[^.]*discard|players discard|reveals? (?:their|his|her) hand|look at target opponent's hand/.test(
-      text,
-    )
-  ) {
-    coverage.add("main");
-  }
-  if (/exile target card from (?:a|target player's) graveyard/.test(text)) {
-    coverage.add("cimetières");
-  }
-  if (/(?:destroy|exile) all|players[^.]*sacrifice creatures/.test(text)) coverage.add("sweeper");
-  return INTERACTION_COVERAGE_ORDER.filter((category) => coverage.has(category));
 }
 
 function roundTo(value: number, digits = 2): number {
@@ -429,6 +388,7 @@ function analyzeArchetypeSynergy(
   return {
     score: bestArchetype?.score ?? 0,
     audit: {
+      evaluated: (profile?.archetypes.length ?? 0) > 0,
       profile:
         profile?.modelVersion && profile.cubeKey && profile.cubeSnapshotId
           ? {
@@ -573,6 +533,63 @@ function getManaAccessColors(
   return ALL_COLORS.filter((color) => colors.has(color));
 }
 
+// Colored sources needed to cast a spell on curve about 90% of the time in a 40-card deck with
+// 17 lands, after Frank Karsten's tables. Rows are pip counts, columns mana values 1 to 6+.
+const SOURCES_FOR_PIPS: Readonly<Record<1 | 2 | 3 | 4, readonly number[]>> = {
+  1: [9, 8, 7, 7, 6, 6],
+  2: [13, 13, 11, 10, 9, 9],
+  3: [15, 15, 15, 13, 12, 11],
+  4: [15, 15, 15, 15, 14, 13],
+};
+
+function requiredSources(pips: number, manaValue: number): number {
+  const row = SOURCES_FOR_PIPS[Math.min(4, pips) as 1 | 2 | 3 | 4];
+  return row[Math.min(6, Math.max(manaValue, pips, 1)) - 1] ?? 6;
+}
+
+const MANA_SYMBOL = /\{([^}]+)\}|o(\([^)]*\)|\d+|[A-Z])/g;
+
+/**
+ * Colored source requirements of each castable face. Hybrid pips are paid with the
+ * better-supplied color; Phyrexian and generic-hybrid pips need no colored source.
+ */
+function getColoredRequirements(
+  card: CardEvaluationInput,
+  sourcesByColor: Readonly<Record<MtGColor, number>>,
+): readonly (readonly (readonly [MtGColor, number])[])[] {
+  const faces = (card.manaCost ?? "").split(/\s*\/\/\s*|\{SPLIT\}/iu).filter(Boolean);
+  if (faces.length === 0) {
+    return card.colors.length === 0
+      ? []
+      : [card.colors.map((color) => [color, requiredSources(1, card.cmc ?? 1)] as const)];
+  }
+  return faces.flatMap((face) => {
+    const pips: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    let manaValue = 0;
+    for (const match of face.matchAll(MANA_SYMBOL)) {
+      const symbol = (match[1] ?? match[2] ?? "").replace(/[()]/gu, "").toUpperCase();
+      if (/^\d+$/u.test(symbol)) {
+        manaValue += Number(symbol);
+        continue;
+      }
+      if (symbol === "X") continue;
+      manaValue += 1;
+      const options = symbol
+        .split("/")
+        .filter((part): part is MtGColor => ALL_COLORS.includes(part as MtGColor));
+      if (options.length === 0 || symbol.includes("P") || /\d/u.test(symbol)) continue;
+      const paidWith = options.reduce((left, right) =>
+        sourcesByColor[right] > sourcesByColor[left] ? right : left,
+      );
+      pips[paidWith] += 1;
+    }
+    const requirements = ALL_COLORS.filter((color) => pips[color] > 0).map(
+      (color) => [color, requiredSources(pips[color], manaValue)] as const,
+    );
+    return requirements.length > 0 ? [requirements] : [];
+  });
+}
+
 function computeLandCountAdequacy(effectiveLandCount: number, fastManaCount = 0): number {
   const lowLandAdjusted =
     effectiveLandCount < 16
@@ -645,29 +662,28 @@ function analyzeMana(
   }
   const fixers = [...fixersById.values()];
   const fixerUnits = roundTo(fixers.reduce((sum, fixer) => sum + fixer.contribution, 0));
-  const requiredFixerUnits = Math.max(0, (usedColors.length - 1) * 2);
+  // Two colors run on basics in cube; dedicated fixing is only demanded from the third color on.
+  const requiredFixerUnits = usedColors.length >= 3 ? (usedColors.length - 1) * 2 : 0;
   const fixingAdequacy =
     requiredFixerUnits === 0 ? 1 : roundTo(Math.min(1, fixerUnits / requiredFixerUnits));
 
-  const demandByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const spell of spells) {
-    for (const color of spell.colors) demandByColor[color] += 1;
-  }
-  const totalDemand = Object.values(demandByColor).reduce((sum, demand) => sum + demand, 0);
   const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const color of usedColors) {
-    const demandShare = totalDemand === 0 ? 0 : demandByColor[color] / totalDemand;
-    targetSourcesByColor[color] = Math.max(2, Math.ceil(effectiveLandCount * demandShare));
+  const castabilities: number[] = [];
+  for (const spell of spells) {
+    const faces = getColoredRequirements(spell, sourcesByColor);
+    if (faces.length === 0) continue;
+    let best = 0;
+    for (const face of faces) {
+      let castability = 1;
+      for (const [color, required] of face) {
+        targetSourcesByColor[color] = Math.max(targetSourcesByColor[color], required);
+        castability = Math.min(castability, sourcesByColor[color] / required);
+      }
+      best = Math.max(best, Math.min(1, castability));
+    }
+    castabilities.push(best);
   }
-  const sourceAdequacy = roundTo(
-    usedColors.length === 0
-      ? 1
-      : Math.min(
-          ...usedColors.map((color) =>
-            Math.min(1, sourcesByColor[color] / targetSourcesByColor[color]),
-          ),
-        ),
-  );
+  const sourceAdequacy = roundTo(mean(castabilities, 1));
   const fastManaCount = accelerators.filter((accelerator) => accelerator.cmc <= 1).length;
 
   return {
@@ -694,7 +710,7 @@ function analyzeMana(
 }
 
 function computeManaScore(mana: ManaAxisAudit): number {
-  const colorPressure = Math.max(0, (mana.usedColors.length - 1) / 4);
+  const colorPressure = mana.requiredFixerUnits === 0 ? 0 : (mana.usedColors.length - 1) / 4;
   const fixingFactor = 1 - colorPressure * (1 - mana.fixingAdequacy);
   return clamp(100 * mana.landCountAdequacy * mana.sourceAdequacy * fixingFactor);
 }
@@ -808,14 +824,24 @@ export function evaluateDeck(
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
 
-  const contributions = DECK_AXIS_WEIGHTS.map(([axis, weight]) => ({
-    axis,
-    score: radar[axis],
-    weight,
-    weightedPoints: roundTo(radar[axis] * weight),
-  }));
+  // Without a cube synergy profile the synergy axis is unknown, not zero: the remaining axes
+  // keep their relative weights and share the whole score.
+  const synergyEvaluated = synergyAnalysis.audit.evaluated;
+  const scoredWeights = DECK_AXIS_WEIGHTS.filter(
+    ([axis]) => synergyEvaluated || axis !== "synergy",
+  );
+  const totalWeight = scoredWeights.reduce((sum, [, weight]) => sum + weight, 0);
+  const contributions = DECK_AXIS_WEIGHTS.map(([axis, baseWeight]) => {
+    const weight = synergyEvaluated || axis !== "synergy" ? baseWeight / totalWeight : 0;
+    return {
+      axis,
+      score: radar[axis],
+      weight: roundTo(weight, 4),
+      weightedPoints: roundTo(radar[axis] * weight),
+    };
+  });
   const overallScore = Math.round(
-    contributions.reduce((sum, contribution) => sum + contribution.weightedPoints, 0),
+    scoredWeights.reduce((sum, [axis, weight]) => sum + radar[axis] * weight, 0) / totalWeight,
   );
 
   const strengths: string[] = [];
@@ -840,6 +866,16 @@ export function evaluateDeck(
     );
     recommendations.push(
       "Compléter les familles de rôles manquantes avant d'ajouter du soutien redondant.",
+    );
+  }
+  for (const strategicPackage of packages) {
+    if (strategicPackage.fragilityPenalty === 0) continue;
+    const pieces = [...strategicPackage.enablers, ...strategicPackage.supportCards];
+    weaknesses.push(
+      `Plan ${strategicPackage.label} fragile : il repose sur peu de pièces (${pieces.join(", ")}) pour ${String(strategicPackage.payoffs.length)} cible(s).`,
+    );
+    recommendations.push(
+      `Ajouter de la redondance au plan ${strategicPackage.label} ou réduire le nombre de cibles qui en dépendent.`,
     );
   }
   if (radar.curve >= 85) strengths.push("Courbe de mana idéalement proportionnée.");
@@ -882,7 +918,7 @@ export function evaluateDeck(
     overallTier,
     radarTiers,
     audit: {
-      formulaVersion: "deck-evaluation@5",
+      formulaVersion: "deck-evaluation@6",
       scoreMeaning:
         "Heuristique explicable sur 100 : ni une probabilité de victoire, ni un percentile statistique.",
       power: powerAnalysis.audit,

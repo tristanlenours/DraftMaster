@@ -274,6 +274,10 @@ test("a photo populates editable MTGA text before rating", async ({ page }, test
   );
   expect(overflow).toBe(false);
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
+  // A partial recognition is not completed with dozens of virtual lands.
+  await expect(page.locator("#deck-lab-status")).toContainText("Liste incomplète");
+  await text.fill(redDeck(16));
+  await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-warnings")).toContainText("virtuel");
   await text.fill("");

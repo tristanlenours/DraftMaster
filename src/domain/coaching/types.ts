@@ -215,6 +215,8 @@ export interface SynergyAxisAudit {
     readonly cubeKey: string;
     readonly cubeSnapshotId: string;
   } | null;
+  /** False when no cube synergy profile is available: the axis is then left out of the score. */
+  readonly evaluated: boolean;
   readonly packages: readonly StrategicPackageAudit[];
   readonly bestArchetype: ArchetypeSynergyAudit | null;
   readonly archetypes: readonly ArchetypeSynergyAudit[];
@@ -293,7 +295,7 @@ export interface DeckScoreContribution {
 }
 
 export interface DeckEvaluationAudit {
-  readonly formulaVersion: "deck-evaluation@4" | "deck-evaluation@5";
+  readonly formulaVersion: "deck-evaluation@4" | "deck-evaluation@5" | "deck-evaluation@6";
   readonly scoreMeaning: string;
   readonly power: PowerAxisAudit;
   readonly synergy: SynergyAxisAudit;

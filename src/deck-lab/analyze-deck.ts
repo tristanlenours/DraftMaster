@@ -30,6 +30,8 @@ interface NamedCount {
 }
 
 const BASIC_NAMES = ["Plains", "Island", "Swamp", "Mountain", "Forest"] as const;
+/** Rate completes a short list with virtual basics only up to this many lands. */
+const MAX_RATE_LAND_COUNT = 18;
 const BASIC_INPUTS = {
   Plains: DEFAULT_BASIC_LANDS.W,
   Island: DEFAULT_BASIC_LANDS.U,
@@ -224,6 +226,17 @@ export function analyzeDeckText(
     throw new DeckLabInputError(
       `Pimp my deck demande au moins ${String(MIN_BUILD_NONLAND_CARDS)} cartes hors terrain distinctes. Les cartes recto sort, verso terrain comptent comme terrains.`,
     );
+  }
+  if (mode === "rate" && parsed.totalCount < 40) {
+    const landCount =
+      main.filter((card) => card.isLand).length +
+      BASIC_NAMES.reduce((sum, name) => sum + parsed.basicLands[name], 0);
+    const missingSpells = 40 - parsed.totalCount - Math.max(0, MAX_RATE_LAND_COUNT - landCount);
+    if (missingSpells > 0) {
+      throw new DeckLabInputError(
+        `Liste incomplète : ${String(parsed.totalCount - landCount)} sorts et ${String(landCount)} terrains. Il manque au moins ${String(missingSpells)} sort(s) pour un deck de 40 cartes ; des terrains virtuels ne peuvent pas les remplacer. Complétez la liste ou analysez votre pool avec Pimp my deck.`,
+      );
+    }
   }
   const virtualBasicLands =
     mode === "rate" ? virtualBasicsForRate(main, parsed.basicLands, 40 - parsed.totalCount) : [];

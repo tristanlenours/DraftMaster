@@ -1875,8 +1875,8 @@ ${serializedReport}
           : '<div>Aucune carte clé ou support d’un archétype du cube.</div>') +
         (audit.synergy.packages.length > 0
           ? audit.synergy.packages.map(pkg =>
-              '<hr><div><strong>' + escapeHtml(pkg.label) + '</strong> : +' + pkg.contribution +
-              ', fragilité -' + pkg.fragilityPenalty + '<br>Enablers : ' + listNames(pkg.enablers) +
+              '<hr><div><strong>' + escapeHtml(pkg.label) + '</strong> : plan détecté, non compté dans la note' +
+              (pkg.fragilityPenalty > 0 ? ' (fragile)' : '') + '<br>Enablers : ' + listNames(pkg.enablers) +
               '<br>Payoffs : ' + listNames(pkg.payoffs) + '<br>Soutien : ' +
               listNames(pkg.supportCards) + '</div>'
             ).join('<hr>')

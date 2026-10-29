@@ -1,5 +1,6 @@
 import type { ArchetypeCategory, CardEvaluationInput, DeckArchetype, MtGColor } from "./types.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
+import { isInteractionCard } from "./interaction-classifier.ts";
 
 const COLOR_PAIR_NAMES: Record<string, string> = {
   WU: "Azorius",
@@ -103,13 +104,6 @@ function isManaDorkOrRamp(card: CardEvaluationInput): boolean {
   );
 }
 
-function isInteractionSpell(card: CardEvaluationInput): boolean {
-  const text = (card.oracleText ?? "").toLowerCase();
-  return /counter target|destroy target|exile target|damage to (any|target)|target .* gets? (?:<[^>]+>)*-\d|return target .* to (its|their) owner's hand|put target (?:nonland )?permanent|gain control of target (?:artifact|enchantment|planeswalker)|destroy all|players[^.]*sacrifice creatures|target player[^.]*discard|opponent[^.]*discard|players discard|reveals? (their|his|her) hand|look at target opponent's hand/i.test(
-    text,
-  );
-}
-
 function isCreatureCheatEnabler(card: CardEvaluationInput): boolean {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
@@ -147,7 +141,7 @@ export function detectArchetype(deck: readonly CardEvaluationInput[]): DeckArche
     if (isManaDorkOrRamp(card)) {
       rampCount++;
     }
-    if (isInteractionSpell(card)) {
+    if (isInteractionCard(card)) {
       interactionCount++;
     }
     if (isCreatureCheatEnabler(card)) {
