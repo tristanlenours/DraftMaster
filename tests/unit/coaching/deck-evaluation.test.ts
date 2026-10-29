@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  DEFAULT_BASIC_LANDS,
   detectArchetype,
   evaluateDeck,
   type CardEvaluationInput,
@@ -539,7 +540,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
 
     expect(evaluation.radar.power).toBeGreaterThanOrEqual(82);
-    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@6");
+    expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@7");
     expect(evaluation.audit.scoreMeaning).toContain("ni une probabilité de victoire");
     expect(evaluation.audit.power.meanStaticScore).toBeCloseTo(34.74, 2);
     expect(evaluation.audit.power.topFiveMean).toBeCloseTo(51.8, 2);
@@ -1633,6 +1634,159 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
     });
   });
 
+  describe("deck-evaluation@7 curve and advice", () => {
+    const creature = (
+      id: string,
+      cmc: number,
+      staticScore = 32,
+      color: "W" | "U" | "B" | "R" | "G" = "B",
+      oracleText = "",
+    ): CardEvaluationInput => ({
+      id,
+      name: id,
+      oracleId: id,
+      staticScore,
+      colors: [color],
+      cmc,
+      manaCost: `o${String(Math.max(0, cmc - 1))}o${color}`,
+      typeLine: "Creature",
+      types: ["Creature"],
+      oracleText,
+    });
+    const swamps = Array.from({ length: 17 }, () => DEFAULT_BASIC_LANDS.B);
+    const curveDeck = (costs: readonly number[]): CardEvaluationInput[] => [
+      ...costs.map((cmc, index) => creature(`c${String(index)}-mv${String(cmc)}`, cmc)),
+      ...swamps,
+    ];
+    const balanced = [1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6];
+
+    it("separates curves the former step thresholds scored identically", () => {
+      const heavier = [...balanced];
+      heavier[3] = 5;
+
+      const reference = evaluateDeck(curveDeck(balanced));
+      const shifted = evaluateDeck(curveDeck(heavier));
+
+      expect(reference.archetype.category).toBe("midrange");
+      expect(shifted.archetype.category).toBe("midrange");
+      expect(shifted.radar.curve).toBeLessThan(reference.radar.curve);
+      expect(reference.audit.curve.distribution).toEqual([3, 6, 6, 4, 2, 2]);
+      expect(reference.audit.curve.targetDistribution).toHaveLength(6);
+    });
+
+    it("punishes an overloaded top end and names the weakest expensive cards to cut", () => {
+      const costs = [1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4];
+      const deck = [
+        ...costs.map((cmc, index) => creature(`low${String(index)}`, cmc)),
+        ...Array.from({ length: 9 }, (_, index) =>
+          creature(`Top ${String(index)}`, index < 3 ? 9 : 6, 40 - index),
+        ),
+        ...swamps,
+      ];
+
+      const evaluation = evaluateDeck(deck);
+
+      expect(evaluation.audit.curve.distribution[5]).toBe(9);
+      expect(evaluation.radar.curve).toBeLessThan(75);
+      expect(evaluation.weaknesses.join(" ")).toMatch(/9 sorts à 6\+/u);
+      const advice = evaluation.recommendations.join(" ");
+      expect(advice).toMatch(/sorts à 6\+/u);
+      expect(advice).toContain("Top 8");
+      expect(advice).toContain("Top 7");
+      expect(advice).not.toContain("Top 0");
+    });
+
+    it("tells which basic land to switch when one color lacks sources", () => {
+      const deck = [
+        ...Array.from({ length: 12 }, (_, index) => creature(`white${String(index)}`, 2, 32, "W")),
+        ...Array.from({ length: 11 }, (_, index) => creature(`blue${String(index)}`, 2, 32, "U")),
+        ...Array.from({ length: 13 }, () => DEFAULT_BASIC_LANDS.W),
+        ...Array.from({ length: 4 }, () => DEFAULT_BASIC_LANDS.U),
+      ];
+
+      const evaluation = evaluateDeck(deck);
+
+      expect(evaluation.weaknesses.join(" ")).toMatch(/bleu[^.]*4 pour 8/u);
+      expect(evaluation.recommendations.join(" ")).toContain("Remplacer 4 Plains par 4 Island");
+    });
+
+    it("does not flag a color for a single demanding card", () => {
+      const deck = [
+        ...Array.from({ length: 12 }, (_, index) => creature(`white${String(index)}`, 2, 32, "W")),
+        ...Array.from({ length: 10 }, (_, index) => creature(`blue${String(index)}`, 2, 32, "U")),
+        { ...creature("Counterspell", 2, 40, "U"), manaCost: "oUoU" },
+        ...Array.from({ length: 9 }, () => DEFAULT_BASIC_LANDS.W),
+        ...Array.from({ length: 8 }, () => DEFAULT_BASIC_LANDS.U),
+      ];
+
+      const evaluation = evaluateDeck(deck);
+
+      expect(evaluation.audit.mana.targetSourcesByColor.U).toBe(13);
+      expect(evaluation.weaknesses.join(" ")).not.toMatch(/Sources de/u);
+      expect(evaluation.recommendations.join(" ")).not.toMatch(/sources de bleu|Island/u);
+    });
+
+    it("quantifies missing interaction against the archetype target", () => {
+      const deck = curveDeck(balanced).map((card, index) =>
+        index === 0 ? { ...card, oracleText: "Destroy target creature." } : card,
+      );
+
+      const evaluation = evaluateDeck(deck);
+
+      expect(evaluation.audit.interaction.cards).toHaveLength(1);
+      expect(evaluation.recommendations.join(" ")).toMatch(
+        /1 réponse pour 3 à 8 attendues[^.]*au moins 2/u,
+      );
+    });
+
+    it("names cube cards that would complete a missing role family", () => {
+      const keyIds = Array.from({ length: 6 }, (_, index) => `key${String(index)}`);
+      const profile = {
+        archetypes: [
+          {
+            id: "test:sacrifice",
+            name: "Sacrifice",
+            keyCards: keyIds,
+            supportCards: ["outlet-a", "outlet-b"],
+            requiredFamilies: [
+              { id: "outlet", name: "Exutoire", minimum: 1, cardIds: ["outlet-a", "outlet-b"] },
+            ],
+            affinities: [
+              {
+                oracleId: "outlet-a",
+                name: "Carrion Feeder",
+                strength: "support" as const,
+                roles: [],
+                families: ["outlet"],
+                evidence: [],
+                confidence: "B" as const,
+              },
+              {
+                oracleId: "outlet-b",
+                name: "Viscera Seer",
+                strength: "support" as const,
+                roles: [],
+                families: ["outlet"],
+                evidence: [],
+                confidence: "B" as const,
+              },
+            ],
+          },
+        ],
+      };
+      const deck = curveDeck(balanced).map((card, index) =>
+        index < keyIds.length ? { ...card, oracleId: keyIds[index] } : card,
+      );
+
+      const evaluation = evaluateDeck(deck, { synergyProfile: profile });
+
+      expect(evaluation.audit.synergy.bestArchetype?.missingRequiredFamilyCount).toBe(1);
+      expect(evaluation.recommendations.join(" ")).toMatch(
+        /Exutoire \(0\/1\)[^.]*Carrion Feeder ; Viscera Seer/u,
+      );
+    });
+  });
+
   describe("League-relative deck evaluation & audit metadata", () => {
     const customCalibration: LeagueCalibration = {
       leagueId: "powered_vintage",
@@ -1658,9 +1812,9 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       leagueId: "powered_vintage",
     };
 
-    it("evaluates legacy decks with deck-evaluation@6 formula and default thresholds", () => {
+    it("evaluates legacy decks with deck-evaluation@7 formula and default thresholds", () => {
       const evaluation = evaluateDeck(borosAggroDeck);
-      expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@6");
+      expect(evaluation.audit.formulaVersion).toBe("deck-evaluation@7");
       expect(evaluation.overallTier).toBeDefined();
       expect(evaluation.audit.leagueId).toBeUndefined();
     });
@@ -1682,7 +1836,7 @@ describe("Deck Evaluation & 5-Axis Kiviat Radar", () => {
       }
 
       // Check audit metadata
-      expect(leagueEval.audit.formulaVersion).toBe("deck-evaluation@6");
+      expect(leagueEval.audit.formulaVersion).toBe("deck-evaluation@7");
       expect(leagueEval.audit.leagueId).toBe("powered_vintage");
       expect(leagueEval.audit.calibrationVersion).toBe("1.0.0");
       expect(leagueEval.audit.calibrationStatus).toBe("provisional");

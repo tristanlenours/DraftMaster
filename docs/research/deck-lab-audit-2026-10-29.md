@@ -218,6 +218,30 @@ les ajustements de coût effectif existants.
 - Reste hors lot : le repli local de `final-deck-coach` (partagé avec les bots) n'utilise pas la
   recherche locale, et aucun splash n'est exploré.
 
+## Lot 3 — réalisé (`deck-evaluation@7`)
+
+- **9** : l'axe courbe est une distance continue à une courbe de référence par catégorie
+  d'archétype, en six tranches (≤1, 2, 3, 4, 5, 6+, coûts effectifs). C'est la distance du
+  « déplacement de terre » entre répartitions cumulées : 45 points par pas de mana trop lourd,
+  15 par pas trop léger, et toujours −5 par accélérateur manquant sous 3 en rampe. Les coûts
+  ≥ 8 comptent désormais. Sur 90 propositions réelles, la moyenne bouge peu (≈ 88 → ≈ 90),
+  mais les plateaux disparaissent et un haut de courbe chargé est enfin puni (9 sorts à 6+ :
+  92 → < 75). L'audit expose la répartition et la référence, et Rate les affiche.
+- **8** : les recommandations de Rate sont dérivées de l'audit :
+  - mana : une couleur n'est signalée que si au moins deux sorts sont difficiles à lancer à
+    temps (< 85 % des sources de Karsten), avec ces sorts nommés. Quand une autre couleur a
+    des basiques en trop, la piste chiffre l'échange (« Remplacer 4 Plains par 4 Island »).
+    S'y ajoutent le manque de fixing à 3 couleurs et un nombre de terrains hors 16–18 ;
+  - interaction : le nombre de réponses est comparé à la fourchette de l'archétype, avec le
+    nombre à ajouter ;
+  - courbe : les tranches en excès et en manque, et les deux sorts les plus faibles à couper
+    dans la tranche en excès ;
+  - synergie : chaque famille de rôles manquante est nommée avec son compte et jusqu'à quatre
+    cartes du cube qui la remplissent (affinités du profil Tier 1).
+- Limites : les noms de cartes dans les recommandations restent en anglais ; les cartes du cube
+  proposées pour une famille ne sont pas filtrées par couleur, faute de couleurs dans les
+  affinités du profil.
+
 ## Ordre de mise en œuvre proposé
 
 1. **Fiabiliser l'évaluateur** (1, 2, 3, 5, 6) : tests rouges d'abord, puis passage

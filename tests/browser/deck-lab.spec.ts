@@ -116,6 +116,9 @@ test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-axis")).toHaveCount(5);
   await expect(page.locator("#deck-lab-result .deck-lab-evidence")).toContainText("Lightning Bolt");
+  await expect(page.locator("#deck-lab-result .deck-lab-evidence")).toContainText(
+    /Répartition ≤1\/2\/3\/4\/5\/6\+ : \d+(?:·\d+){5} \(référence/u,
+  );
   await expect(page.locator("#deck-lab-result .deck-lab-audit")).toContainText("Détail du score");
   await expect(page.locator("#deck-lab-result .deck-lab-provenance")).toContainText(
     "coach-context@1",

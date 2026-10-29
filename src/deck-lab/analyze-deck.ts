@@ -125,6 +125,8 @@ function compactEvaluation(evaluation: DeckEvaluation, deck: readonly CardEvalua
       curve: {
         earlyActions: evaluation.audit.curve.earlyActionCount,
         averageCost: evaluation.audit.curve.effectiveAverageCmc,
+        distribution: evaluation.audit.curve.distribution,
+        targetDistribution: evaluation.audit.curve.targetDistribution,
       },
       mana: {
         lands: evaluation.audit.mana.landCount,

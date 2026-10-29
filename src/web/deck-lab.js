@@ -112,7 +112,7 @@ function renderRating(parent, rating, label, translations) {
     ],
     [
       "Le deck démarre-t-il assez tôt ?",
-      `${evidence.curve.earlyActions} action(s) précoces ; coût moyen effectif ${evidence.curve.averageCost.toFixed(1)}.`,
+      `${evidence.curve.earlyActions} action(s) précoces ; coût moyen effectif ${evidence.curve.averageCost.toFixed(1)}. Répartition ≤1/2/3/4/5/6+ : ${evidence.curve.distribution.join("·")} (référence ${evidence.curve.targetDistribution.map((count) => Math.round(count)).join("·")}).`,
     ],
     [
       "Le mana soutient-il les couleurs ?",
