@@ -215,9 +215,10 @@ describe("League Deck Calibration Integration (US1 - FR-002, FR-005, SC-005, SC-
       },
     });
 
-    // Without an explicit cube synergy profile, synergy is unmeasured (0) and evaluates to C,
-    // demonstrating why independent expert witness annotation (expectedTier: A) is essential for calibration.
-    expect(evalResult.overallTier).toBe("C");
+    // Without a cube synergy profile, synergy is left out of the score instead of counting as 0:
+    // the deck now lands on the tier the independent expert annotation expects.
+    expect(evalResult.audit.synergy.evaluated).toBe(false);
+    expect(evalResult.overallTier).toBe(deckWitness.expectedTier);
     expect(evalResult.audit.leagueId).toBe("powered_vintage");
     expect(evalResult.audit.calibrationVersion).toBe("1.0.0");
   });

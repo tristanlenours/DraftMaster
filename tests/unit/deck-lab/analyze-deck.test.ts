@@ -93,6 +93,25 @@ describe("deck lab", () => {
     expect(withoutBasics.rating.evidence.mana.lands).toBe(17);
   });
 
+  it("fills only missing lands and refuses to rate a list that lacks spells", () => {
+    const twentyTwoSpells = `Deck\n${RED_SPELLS.slice(0, 22)
+      .map((name) => `1 ${name}`)
+      .join("\n")}`;
+    const filled = analyzeDeckText(twentyTwoSpells, "rate", catalog);
+    expect(filled.input.virtualBasicLands).toEqual([{ name: "Mountain", count: 18 }]);
+    expect(filled.rating.evidence.mana.lands).toBe(18);
+
+    const twentySpells = `Deck\n${RED_SPELLS.slice(0, 20)
+      .map((name) => `1 ${name}`)
+      .join("\n")}`;
+    expect(() => analyzeDeckText(twentySpells, "rate", catalog)).toThrow(
+      /incompl.*20 sorts.*2 sort/iu,
+    );
+    expect(() => analyzeDeckText(`${twentySpells}\n10 Mountain`, "rate", catalog)).toThrow(
+      /incompl/iu,
+    );
+  });
+
   it("rejects a second copy of a nonbasic card but accepts repeated basics", () => {
     expect(() => analyzeDeckText("Deck\n2 Lightning Bolt\n38 Mountain", "rate", catalog)).toThrow(
       /un seul exemplaire.*Lightning Bolt/iu,
@@ -133,6 +152,45 @@ describe("deck lab", () => {
     ).toHaveLength(24);
     expect(Object.values(result.build.basicLands).reduce((sum, count) => sum + count, 0)).toBe(16);
     expect(result.rating).toEqual(result.before);
+  });
+
+  it("proposes ranked swaps from a 40-card deck, each worth at least one point", () => {
+    const result = analyzeDeckText(
+      `${redDeck(17)}
+Sideboard
+1 Ragavan, Nimble Pilferer
+1 Ancestral Recall`,
+      "pimp",
+      catalog,
+    );
+    if (!("retouch" in result) || !result.retouch || !result.before) {
+      throw new Error("Pimp result is missing its retouch");
+    }
+    const { retouch } = result;
+    expect(retouch.swaps[0]?.add).toBe("Ragavan, Nimble Pilferer");
+    expect(retouch.swaps.map((swap) => swap.add)).not.toContain("Ancestral Recall");
+    expect(retouch.scoreBefore).toBe(result.before.score);
+    let score = retouch.scoreBefore;
+    for (const swap of retouch.swaps) {
+      expect(swap.scoreBefore).toBe(score);
+      expect(swap.scoreAfter).toBeGreaterThanOrEqual(score + 1);
+      expect(Object.values(swap.axes).some((delta) => delta > 0)).toBe(true);
+      score = swap.scoreAfter;
+    }
+    expect(retouch.scoreAfter).toBe(score);
+    expect(result.rating.score).toBeGreaterThanOrEqual(retouch.scoreAfter);
+  });
+
+  it("offers no swaps when the submitted maindeck is not a 40-card deck", () => {
+    const result = analyzeDeckText(
+      `${redDeck(10)}
+Sideboard
+1 Black Lotus`,
+      "pimp",
+      catalog,
+    );
+    if (!("retouch" in result)) throw new Error("Pimp result is missing its retouch");
+    expect(result.retouch).toBeNull();
   });
 
   it("rejects a maindeck above 40 cards and unknown card names", () => {
@@ -274,8 +332,9 @@ describe("deck lab", () => {
     expect(rateResult.rating.audit.mana.usedColors).toEqual(["U", "B"]);
     expect(rateResult.rating.audit.mana.landEquivalentCards).toEqual(["Fell the Profane"]);
     expect(rateResult.rating.axes.synergy).toBe(100);
-    expect(rateResult.rating.axes.mana).toBe(100);
-    expect(rateResult.rating.score).toBe(89);
+    // Hymn to Tourach and Liliana of the Veil ask for more black sources than 10.35.
+    expect(rateResult.rating.axes.mana).toBe(98);
+    expect(rateResult.rating.score).toBe(90);
 
     const pimpResult = analyzeDeckText(
       text,

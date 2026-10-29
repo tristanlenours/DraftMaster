@@ -215,6 +215,8 @@ export interface SynergyAxisAudit {
     readonly cubeKey: string;
     readonly cubeSnapshotId: string;
   } | null;
+  /** False when no cube synergy profile is available: the axis is then left out of the score. */
+  readonly evaluated: boolean;
   readonly packages: readonly StrategicPackageAudit[];
   readonly bestArchetype: ArchetypeSynergyAudit | null;
   readonly archetypes: readonly ArchetypeSynergyAudit[];
@@ -232,6 +234,13 @@ export interface CurveAxisAudit {
   readonly effectiveAverageCmc: number;
   readonly earlyActionCount: number;
   readonly effectiveCostAdjustments: readonly EffectiveCostAdjustment[];
+  /** Spells per effective mana value bucket: ≤1, 2, 3, 4, 5, 6+. */
+  readonly distribution: readonly number[];
+  /** Spells the archetype's reference curve expects in each bucket. */
+  readonly targetDistribution: readonly number[];
+  /** Mana-value steps by which the curve is heavier, then lighter, than its reference. */
+  readonly heavyExcess: number;
+  readonly lightExcess: number;
 }
 
 export type InteractionCoverage =
@@ -293,7 +302,8 @@ export interface DeckScoreContribution {
 }
 
 export interface DeckEvaluationAudit {
-  readonly formulaVersion: "deck-evaluation@4" | "deck-evaluation@5";
+  readonly formulaVersion:
+    "deck-evaluation@4" | "deck-evaluation@5" | "deck-evaluation@6" | "deck-evaluation@7";
   readonly scoreMeaning: string;
   readonly power: PowerAxisAudit;
   readonly synergy: SynergyAxisAudit;

@@ -2,12 +2,12 @@ import {
   scoreToTier,
   type CardEvaluationInput,
   type CurveAxisAudit,
+  type DeckSynergyArchetypeProfile,
   type DeckSynergyProfile,
   type DeckArchetype,
   type DeckEvaluation,
   type DeckEvaluationOptions,
   type InteractionAxisAudit,
-  type InteractionCoverage,
   type KiviatRadarScores,
   type ManaAxisAudit,
   type ManaFixerAuditEntry,
@@ -18,6 +18,8 @@ import {
 } from "./types.ts";
 import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
+import { memoizeByCard } from "./card-memo.ts";
+import { INTERACTION_COVERAGE_ORDER, classifyInteraction } from "./interaction-classifier.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
 import {
   assertCubeLeagueMembership,
@@ -37,7 +39,7 @@ const DECK_AXIS_WEIGHTS = [
   ["interaction", 0.15],
 ] as const satisfies readonly (readonly [keyof KiviatRadarScores, number])[];
 
-function isManaDorkOrRock(card: CardEvaluationInput): boolean {
+const isManaDorkOrRock = memoizeByCard((card: CardEvaluationInput): boolean => {
   if (card.isLand || isLandEquivalent(card)) return false;
   const produces = getEffectiveProducingColors(card);
   const text = (card.oracleText ?? "").toLowerCase();
@@ -49,48 +51,7 @@ function isManaDorkOrRock(card: CardEvaluationInput): boolean {
     (card.cmc ?? 0) <= 3 &&
     [card.types?.includes("Creature"), card.typeLine?.includes("Artifact")].some(Boolean)
   );
-}
-
-const INTERACTION_COVERAGE_ORDER: readonly InteractionCoverage[] = [
-  "créatures",
-  "permanents",
-  "pile",
-  "main",
-  "cimetières",
-  "sweeper",
-];
-
-function classifyInteraction(card: CardEvaluationInput): readonly InteractionCoverage[] {
-  const text = (card.oracleText ?? "").toLowerCase();
-  const coverage = new Set<InteractionCoverage>();
-  if (
-    /target creature|all creatures|damage to (?:any|target)|target .* gets? (?:<[^>]+>)*-\d|sacrifices? (?:(?:a|target) )?creatures?/.test(
-      text,
-    )
-  ) {
-    coverage.add("créatures");
-  }
-  if (
-    /(?:destroy|exile|return|put) target (?:nonland )?permanent|(?:gain control of |target )(?:artifact|enchantment|planeswalker)/.test(
-      text,
-    )
-  ) {
-    coverage.add("permanents");
-  }
-  if (/counter target|return target spell/.test(text)) coverage.add("pile");
-  if (
-    /target player[^.]*discard|opponent[^.]*discard|players discard|reveals? (?:their|his|her) hand|look at target opponent's hand/.test(
-      text,
-    )
-  ) {
-    coverage.add("main");
-  }
-  if (/exile target card from (?:a|target player's) graveyard/.test(text)) {
-    coverage.add("cimetières");
-  }
-  if (/(?:destroy|exile) all|players[^.]*sacrifice creatures/.test(text)) coverage.add("sweeper");
-  return INTERACTION_COVERAGE_ORDER.filter((category) => coverage.has(category));
-}
+});
 
 function roundTo(value: number, digits = 2): number {
   const factor = 10 ** digits;
@@ -107,7 +68,7 @@ function normalizeStaticScore(score: number): number {
   return clamp((score / MAX_POWER_SCORE) * 100);
 }
 
-function estimateFastManaGain(card: CardEvaluationInput): number {
+const estimateFastManaGain = memoizeByCard((card: CardEvaluationInput): number => {
   if (card.isLand || (card.cmc ?? 0) > 1) return 0;
   const text = card.oracleText ?? "";
   if (!/\badd\b/i.test(text)) return 0;
@@ -126,7 +87,7 @@ function estimateFastManaGain(card: CardEvaluationInput): number {
   const symbolCount = addClause.match(/\{(?:[WUBRGC]|\d+)\}|o[WUBRGC]/gi)?.length ?? 0;
   if (symbolCount > 0) return symbolCount;
   return (card.producesColors?.length ?? 0) > 0 ? 1 : 0;
-}
+});
 
 function analyzePower(
   spells: readonly CardEvaluationInput[],
@@ -191,7 +152,7 @@ function isCreature(card: CardEvaluationInput): boolean {
   return card.types?.includes("Creature") ?? card.typeLine?.includes("Creature") ?? false;
 }
 
-function isCreatureCheatEnabler(card: CardEvaluationInput): boolean {
+const isCreatureCheatEnabler = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /put (?:an? )?(?:artifact, )?creature(?:, enchantment, or land)? card from (?:your|their) hand onto the battlefield/.test(
@@ -199,16 +160,16 @@ function isCreatureCheatEnabler(card: CardEvaluationInput): boolean {
     ) ||
     (text.includes("each player may put") && text.includes("from their hand onto the battlefield"))
   );
-}
+});
 
-function isSelectionOrTutor(card: CardEvaluationInput): boolean {
+const isSelectionOrTutor = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return /search your library|draw (?:a|one|two|three|\d+) card|scry|surveil|look at the top/.test(
     text,
   );
-}
+});
 
-function isGraveyardSetup(card: CardEvaluationInput): boolean {
+const isGraveyardSetup = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /put (?:that|a|target) card into your graveyard/.test(text) ||
@@ -216,9 +177,9 @@ function isGraveyardSetup(card: CardEvaluationInput): boolean {
     /draw (?:a|one|two|three|\d+) cards?(?:, then|\.\s*if you do,) discard/.test(text) ||
     text.includes("each player discards a card")
   );
-}
+});
 
-function isReanimationEffect(card: CardEvaluationInput): boolean {
+const isReanimationEffect = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /(?:put|return) target (?:nonlegendary )?creature card from (?:a|your) graveyard (?:onto|to) the battlefield/.test(
@@ -228,7 +189,7 @@ function isReanimationEffect(card: CardEvaluationInput): boolean {
       text,
     )
   );
-}
+});
 
 function analyzeStrategicPackages(
   spells: readonly CardEvaluationInput[],
@@ -368,6 +329,26 @@ function analyzeStrategicPackages(
 
 const DEFAULT_ARCHETYPE_TARGET_POINTS = 18;
 
+interface ArchetypeIdSets {
+  readonly keyIds: ReadonlySet<string>;
+  readonly supportIds: ReadonlySet<string>;
+  readonly familyIds: readonly ReadonlySet<string>[];
+}
+
+const archetypeIdSetCache = new WeakMap<DeckSynergyArchetypeProfile, ArchetypeIdSets>();
+
+function archetypeIdSets(archetype: DeckSynergyArchetypeProfile): ArchetypeIdSets {
+  const cached = archetypeIdSetCache.get(archetype);
+  if (cached) return cached;
+  const sets = {
+    keyIds: new Set(archetype.keyCards),
+    supportIds: new Set(archetype.supportCards),
+    familyIds: (archetype.requiredFamilies ?? []).map((family) => new Set(family.cardIds)),
+  };
+  archetypeIdSetCache.set(archetype, sets);
+  return sets;
+}
+
 function analyzeArchetypeSynergy(
   spells: readonly CardEvaluationInput[],
   profile: DeckSynergyProfile | undefined,
@@ -375,8 +356,7 @@ function analyzeArchetypeSynergy(
 ): { readonly score: number; readonly audit: SynergyAxisAudit } {
   const archetypes = (profile?.archetypes ?? [])
     .map((archetype) => {
-      const keyIds = new Set(archetype.keyCards);
-      const supportIds = new Set(archetype.supportCards);
+      const { keyIds, supportIds, familyIds } = archetypeIdSets(archetype);
       const keyCards = spells.filter((card) => card.oracleId && keyIds.has(card.oracleId));
       const supportCards = spells.filter(
         (card) => card.oracleId && !keyIds.has(card.oracleId) && supportIds.has(card.oracleId),
@@ -387,10 +367,10 @@ function analyzeArchetypeSynergy(
       const points = keyCardCount * 3 + supportCardCount;
       const targetPoints = archetype.targetPoints ?? DEFAULT_ARCHETYPE_TARGET_POINTS;
       let score = clamp((points / targetPoints) * 100);
-      const families = (archetype.requiredFamilies ?? []).map((family) => {
-        const familyIds = new Set(family.cardIds);
+      const families = (archetype.requiredFamilies ?? []).map((family, index) => {
+        const ids = familyIds[index];
         const matchedCards = spells
-          .filter((card) => card.oracleId && familyIds.has(card.oracleId))
+          .filter((card) => card.oracleId && ids?.has(card.oracleId))
           .map((card) => card.name);
         return {
           id: family.id,
@@ -429,6 +409,7 @@ function analyzeArchetypeSynergy(
   return {
     score: bestArchetype?.score ?? 0,
     audit: {
+      evaluated: (profile?.archetypes.length ?? 0) > 0,
       profile:
         profile?.modelVersion && profile.cubeKey && profile.cubeSnapshotId
           ? {
@@ -444,9 +425,28 @@ function analyzeArchetypeSynergy(
   };
 }
 
+const CURVE_BUCKET_LABELS = ["≤1", "2", "3", "4", "5", "6+"] as const;
+
+// Share of spells expected at each mana value bucket in a 40-card cube deck of each category.
+const CURVE_TARGETS: Readonly<Record<DeckArchetype["category"], readonly number[]>> = {
+  aggro: [0.22, 0.36, 0.24, 0.12, 0.04, 0.02],
+  midrange: [0.12, 0.28, 0.25, 0.18, 0.1, 0.07],
+  control: [0.14, 0.28, 0.22, 0.16, 0.11, 0.09],
+  ramp: [0.16, 0.24, 0.18, 0.12, 0.1, 0.2],
+  combo: [0.18, 0.3, 0.25, 0.15, 0.07, 0.05],
+};
+// Points lost per mana-value step the curve sits above, then below, its reference.
+const CURVE_HEAVY_PENALTY = 45;
+const CURVE_LIGHT_PENALTY = 15;
+
+function curveBucket(cmc: number): number {
+  return Math.min(CURVE_BUCKET_LABELS.length - 1, Math.max(0, Math.round(cmc) - 1));
+}
+
 function analyzeCurve(
   spells: readonly CardEvaluationInput[],
   packages: readonly StrategicPackageAudit[],
+  category: DeckArchetype["category"],
 ): CurveAxisAudit {
   const effectivePayoffs = new Map<string, string>();
   for (const strategicPackage of packages) {
@@ -470,11 +470,35 @@ function analyzeCurve(
   const printedCmcs = spells.map((card) => card.cmc ?? 0);
   const effectiveCmcs = spells.map((card) => effectiveByName.get(card.name) ?? card.cmc ?? 0);
 
+  // Earth mover's distance between the effective curve and its reference, split by direction:
+  // cumulative shortfalls mean mana sits later than expected, surpluses earlier.
+  const distribution = CURVE_BUCKET_LABELS.map(() => 0);
+  for (const cmc of effectiveCmcs) {
+    const bucket = curveBucket(cmc);
+    distribution[bucket] = (distribution[bucket] ?? 0) + 1;
+  }
+  const target = CURVE_TARGETS[category];
+  const spellCount = Math.max(1, effectiveCmcs.length);
+  let deckShare = 0;
+  let targetShare = 0;
+  let heavyExcess = 0;
+  let lightExcess = 0;
+  for (let bucket = 0; bucket < CURVE_BUCKET_LABELS.length - 1; bucket++) {
+    deckShare += (distribution[bucket] ?? 0) / spellCount;
+    targetShare += target[bucket] ?? 0;
+    if (deckShare < targetShare) heavyExcess += targetShare - deckShare;
+    else lightExcess += deckShare - targetShare;
+  }
+
   return {
     printedAverageCmc: roundTo(mean(printedCmcs, 3)),
     effectiveAverageCmc: roundTo(mean(effectiveCmcs, 3)),
     earlyActionCount: effectiveCmcs.filter((cmc) => cmc <= 2).length,
     effectiveCostAdjustments,
+    distribution,
+    targetDistribution: target.map((share) => roundTo(share * effectiveCmcs.length, 1)),
+    heavyExcess: roundTo(heavyExcess),
+    lightExcess: roundTo(lightExcess),
   };
 }
 
@@ -534,7 +558,7 @@ function analyzeInteraction(
   };
 }
 
-function isLandEquivalent(card: CardEvaluationInput): boolean {
+const isLandEquivalent = memoizeByCard((card: CardEvaluationInput): boolean => {
   if (card.isLand) return false;
   return (
     /(?:basic )?landcycling|plainscycling|islandcycling|swampcycling|mountaincycling|forestcycling/i.test(
@@ -543,7 +567,7 @@ function isLandEquivalent(card: CardEvaluationInput): boolean {
     /\/\/\s*(?:basic\s+)?land\b/i.test(card.typeLine ?? "") ||
     /\b(?:as|when) (?:this|that) land enters\b/i.test(card.oracleText ?? "")
   );
-}
+});
 
 const BASIC_LAND_COLOR_BY_NAME: Readonly<Record<string, MtGColor>> = {
   plains: "W",
@@ -573,6 +597,81 @@ function getManaAccessColors(
   return ALL_COLORS.filter((color) => colors.has(color));
 }
 
+// Colored sources needed to cast a spell on curve about 90% of the time in a 40-card deck with
+// 17 lands, after Frank Karsten's tables. Rows are pip counts, columns mana values 1 to 6+.
+const SOURCES_FOR_PIPS: Readonly<Record<1 | 2 | 3 | 4, readonly number[]>> = {
+  1: [9, 8, 7, 7, 6, 6],
+  2: [13, 13, 11, 10, 9, 9],
+  3: [15, 15, 15, 13, 12, 11],
+  4: [15, 15, 15, 15, 14, 13],
+};
+
+function requiredSources(pips: number, manaValue: number): number {
+  const row = SOURCES_FOR_PIPS[Math.min(4, pips) as 1 | 2 | 3 | 4];
+  return row[Math.min(6, Math.max(manaValue, pips, 1)) - 1] ?? 6;
+}
+
+const MANA_SYMBOL = /\{([^}]+)\}|o(\([^)]*\)|\d+|[A-Z])/g;
+
+interface ManaFace {
+  readonly manaValue: number;
+  /** Colored pips; a hybrid pip lists every color that pays it. */
+  readonly pips: readonly (readonly MtGColor[])[];
+}
+
+const parseManaFaces = memoizeByCard((card: CardEvaluationInput): readonly ManaFace[] | null => {
+  const faces = (card.manaCost ?? "").split(/\s*\/\/\s*|\{SPLIT\}/iu).filter(Boolean);
+  if (faces.length === 0) return null;
+  return faces.map((face) => {
+    const pips: MtGColor[][] = [];
+    let manaValue = 0;
+    for (const match of face.matchAll(MANA_SYMBOL)) {
+      const symbol = (match[1] ?? match[2] ?? "").replace(/[()]/gu, "").toUpperCase();
+      if (/^\d+$/u.test(symbol)) {
+        manaValue += Number(symbol);
+        continue;
+      }
+      if (symbol === "X") continue;
+      manaValue += 1;
+      const options = symbol
+        .split("/")
+        .filter((part): part is MtGColor => ALL_COLORS.includes(part as MtGColor));
+      if (options.length === 0 || symbol.includes("P") || /\d/u.test(symbol)) continue;
+      pips.push(options);
+    }
+    return { manaValue, pips };
+  });
+});
+
+/**
+ * Colored source requirements of each castable face. Hybrid pips are paid with the
+ * better-supplied color; Phyrexian and generic-hybrid pips need no colored source.
+ */
+function getColoredRequirements(
+  card: CardEvaluationInput,
+  sourcesByColor: Readonly<Record<MtGColor, number>>,
+): readonly (readonly (readonly [MtGColor, number])[])[] {
+  const faces = parseManaFaces(card);
+  if (faces === null) {
+    return card.colors.length === 0
+      ? []
+      : [card.colors.map((color) => [color, requiredSources(1, card.cmc ?? 1)] as const)];
+  }
+  return faces.flatMap(({ manaValue, pips: facePips }) => {
+    const pips: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    for (const options of facePips) {
+      const paidWith = options.reduce((left, right) =>
+        sourcesByColor[right] > sourcesByColor[left] ? right : left,
+      );
+      pips[paidWith] += 1;
+    }
+    const requirements = ALL_COLORS.filter((color) => pips[color] > 0).map(
+      (color) => [color, requiredSources(pips[color], manaValue)] as const,
+    );
+    return requirements.length > 0 ? [requirements] : [];
+  });
+}
+
 function computeLandCountAdequacy(effectiveLandCount: number, fastManaCount = 0): number {
   const lowLandAdjusted =
     effectiveLandCount < 16
@@ -583,6 +682,106 @@ function computeLandCountAdequacy(effectiveLandCount: number, fastManaCount = 0)
   return Math.max(0, 1 - (lowLandAdjusted - 18) * 0.1);
 }
 
+function countColorSources(
+  spells: readonly CardEvaluationInput[],
+  lands: readonly CardEvaluationInput[],
+  usedColors: readonly MtGColor[],
+): Record<MtGColor, number> {
+  const sourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const land of lands) {
+    for (const color of getManaAccessColors(land, usedColors)) sourcesByColor[color] += 1;
+  }
+  for (const card of spells.filter(isManaDorkOrRock)) {
+    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.6;
+  }
+  for (const card of spells.filter(isLandEquivalent)) {
+    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.75;
+  }
+  return sourcesByColor;
+}
+
+/** Mean per-spell castability (best face, capped at 1) and the source target of each color. */
+function measureCastability(
+  spells: readonly CardEvaluationInput[],
+  sourcesByColor: Readonly<Record<MtGColor, number>>,
+): { readonly sourceAdequacy: number; readonly targetSourcesByColor: Record<MtGColor, number> } {
+  const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const castabilities: number[] = [];
+  for (const spell of spells) {
+    const faces = getColoredRequirements(spell, sourcesByColor);
+    if (faces.length === 0) continue;
+    let best = 0;
+    for (const face of faces) {
+      let castability = 1;
+      for (const [color, required] of face) {
+        targetSourcesByColor[color] = Math.max(targetSourcesByColor[color], required);
+        castability = Math.min(castability, sourcesByColor[color] / required);
+      }
+      best = Math.max(best, Math.min(1, castability));
+    }
+    castabilities.push(best);
+  }
+  return { sourceAdequacy: mean(castabilities, 1), targetSourcesByColor };
+}
+
+/**
+ * Splits basic lands among the allowed colors the spells actually use, one land at a time,
+ * where it raises the Mana axis castability most. Sources already provided by nonbasic lands,
+ * accelerators and land-equivalent spells count first; once every spell is castable, the
+ * remaining basics follow pip demand.
+ */
+export function allocateBasicLands(
+  spells: readonly CardEvaluationInput[],
+  lands: readonly CardEvaluationInput[],
+  allowedColors: readonly MtGColor[],
+  count: number,
+): Readonly<Record<MtGColor, number>> {
+  const allocation: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const usedColors = ALL_COLORS.filter((color) =>
+    spells.some((card) => card.colors.includes(color)),
+  );
+  const usedAllowed = allowedColors.filter((color) => usedColors.includes(color));
+  const eligible = usedAllowed.length > 0 ? usedAllowed : allowedColors.slice(0, 1);
+  const [firstColor] = eligible;
+  if (firstColor === undefined) return allocation;
+
+  const pipDemand: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const spell of spells) {
+    const faces = parseManaFaces(spell);
+    if (faces === null) {
+      for (const color of spell.colors) pipDemand[color] += 1;
+      continue;
+    }
+    for (const options of faces.flatMap((face) => face.pips)) {
+      for (const color of options) pipDemand[color] += 1 / options.length;
+    }
+  }
+
+  const sources = countColorSources(spells, lands, usedColors);
+  for (let index = 0; index < count; index++) {
+    let best = firstColor;
+    let bestAdequacy = -1;
+    let bestDemand = -1;
+    for (const color of eligible) {
+      sources[color] += 1;
+      const adequacy = measureCastability(spells, sources).sourceAdequacy;
+      sources[color] -= 1;
+      const demand = pipDemand[color] / (sources[color] + 1);
+      if (
+        adequacy > bestAdequacy + 1e-9 ||
+        (Math.abs(adequacy - bestAdequacy) <= 1e-9 && demand > bestDemand)
+      ) {
+        best = color;
+        bestAdequacy = adequacy;
+        bestDemand = demand;
+      }
+    }
+    allocation[best] += 1;
+    sources[best] += 1;
+  }
+  return allocation;
+}
+
 function analyzeMana(
   spells: readonly CardEvaluationInput[],
   lands: readonly CardEvaluationInput[],
@@ -590,22 +789,13 @@ function analyzeMana(
   const usedColors = ALL_COLORS.filter((color) =>
     spells.some((card) => card.colors.includes(color)),
   );
-  const sourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const land of lands) {
-    for (const color of getManaAccessColors(land, usedColors)) {
-      sourcesByColor[color] += 1;
-    }
-  }
-
-  const accelerators = spells.filter(isManaDorkOrRock).map((card) => {
-    const producesColors = getManaAccessColors(card, usedColors);
-    for (const color of producesColors) sourcesByColor[color] += 0.6;
-    return { name: card.name, cmc: card.cmc ?? 0, producesColors };
-  });
+  const sourcesByColor = countColorSources(spells, lands, usedColors);
+  const accelerators = spells.filter(isManaDorkOrRock).map((card) => ({
+    name: card.name,
+    cmc: card.cmc ?? 0,
+    producesColors: getManaAccessColors(card, usedColors),
+  }));
   const landEquivalents = spells.filter(isLandEquivalent);
-  for (const card of landEquivalents) {
-    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.75;
-  }
   const landEquivalentCards = landEquivalents.map((card) => card.name);
   const effectiveLandCount = roundTo(lands.length + landEquivalentCards.length * 0.75);
 
@@ -645,29 +835,14 @@ function analyzeMana(
   }
   const fixers = [...fixersById.values()];
   const fixerUnits = roundTo(fixers.reduce((sum, fixer) => sum + fixer.contribution, 0));
-  const requiredFixerUnits = Math.max(0, (usedColors.length - 1) * 2);
+  // Two colors run on basics in cube; dedicated fixing is only demanded from the third color on.
+  const requiredFixerUnits = usedColors.length >= 3 ? (usedColors.length - 1) * 2 : 0;
   const fixingAdequacy =
     requiredFixerUnits === 0 ? 1 : roundTo(Math.min(1, fixerUnits / requiredFixerUnits));
 
-  const demandByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const spell of spells) {
-    for (const color of spell.colors) demandByColor[color] += 1;
-  }
-  const totalDemand = Object.values(demandByColor).reduce((sum, demand) => sum + demand, 0);
-  const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const color of usedColors) {
-    const demandShare = totalDemand === 0 ? 0 : demandByColor[color] / totalDemand;
-    targetSourcesByColor[color] = Math.max(2, Math.ceil(effectiveLandCount * demandShare));
-  }
-  const sourceAdequacy = roundTo(
-    usedColors.length === 0
-      ? 1
-      : Math.min(
-          ...usedColors.map((color) =>
-            Math.min(1, sourcesByColor[color] / targetSourcesByColor[color]),
-          ),
-        ),
-  );
+  const castability = measureCastability(spells, sourcesByColor);
+  const targetSourcesByColor = castability.targetSourcesByColor;
+  const sourceAdequacy = roundTo(castability.sourceAdequacy);
   const fastManaCount = accelerators.filter((accelerator) => accelerator.cmc <= 1).length;
 
   return {
@@ -694,7 +869,7 @@ function analyzeMana(
 }
 
 function computeManaScore(mana: ManaAxisAudit): number {
-  const colorPressure = Math.max(0, (mana.usedColors.length - 1) / 4);
+  const colorPressure = mana.requiredFixerUnits === 0 ? 0 : (mana.usedColors.length - 1) / 4;
   const fixingFactor = 1 - colorPressure * (1 - mana.fixingAdequacy);
   return clamp(100 * mana.landCountAdequacy * mana.sourceAdequacy * fixingFactor);
 }
@@ -702,66 +877,207 @@ function computeManaScore(mana: ManaAxisAudit): number {
 /**
  * Computes the 5 mathematical axes of the Kiviat Radar.
  */
-export function computeKiviatRadar(
+const CATEGORY_LABELS: Readonly<Record<DeckArchetype["category"], string>> = {
+  aggro: "aggro",
+  midrange: "midrange",
+  control: "contrôle",
+  ramp: "rampe",
+  combo: "combo",
+};
+
+const COLOR_LABELS: Readonly<Record<MtGColor, string>> = {
+  W: "blanc",
+  U: "bleu",
+  B: "noir",
+  R: "rouge",
+  G: "vert",
+};
+
+const BASIC_NAME_BY_COLOR: Readonly<Record<MtGColor, string>> = {
+  W: "Plains",
+  U: "Island",
+  B: "Swamp",
+  R: "Mountain",
+  G: "Forest",
+};
+
+/** Below this share of its Karsten sources, a spell is unlikely to be cast on curve. */
+const STRAINED_CASTABILITY = 0.85;
+
+function formatSources(value: number): string {
+  return Number.isInteger(value) ? String(value) : value.toFixed(1).replace(".", ",");
+}
+
+/** Basic lands of the deck that tap for exactly one given color. */
+function basicsOfColor(
+  lands: readonly CardEvaluationInput[],
+  color: MtGColor,
+): CardEvaluationInput[] {
+  return lands.filter((land) => {
+    const produced = getEffectiveProducingColors(land);
+    return (
+      produced.length === 1 &&
+      produced[0] === color &&
+      (/\bbasic\b/iu.test(land.typeLine ?? "") || land.name === BASIC_NAME_BY_COLOR[color])
+    );
+  });
+}
+
+/**
+ * Names each color short of its Karsten target with the spell that sets it, then the basic land
+ * switch that fixes it when another color has spare basics.
+ */
+function adviseMana(
+  spells: readonly CardEvaluationInput[],
+  lands: readonly CardEvaluationInput[],
+  mana: ManaAxisAudit,
+): { readonly weaknesses: readonly string[]; readonly recommendations: readonly string[] } {
+  const weaknesses: string[] = [];
+  const recommendations: string[] = [];
+  const surplus = (color: MtGColor) =>
+    mana.sourcesByColor[color] - mana.targetSourcesByColor[color];
+  // Spells unlikely to be cast on curve, per limiting color, judged on their most castable face.
+  const strained = new Map<MtGColor, { card: CardEvaluationInput; ratio: number }[]>();
+  for (const spell of spells) {
+    const faces = getColoredRequirements(spell, mana.sourcesByColor);
+    const castability = (face: (typeof faces)[number]) =>
+      Math.min(1, ...face.map(([color, required]) => mana.sourcesByColor[color] / required));
+    const best = faces.reduce<(typeof faces)[number] | undefined>(
+      (left, right) =>
+        left === undefined || castability(right) > castability(left) ? right : left,
+      undefined,
+    );
+    for (const [color, required] of best ?? []) {
+      const ratio = mana.sourcesByColor[color] / required;
+      if (ratio < STRAINED_CASTABILITY) {
+        strained.set(color, [...(strained.get(color) ?? []), { card: spell, ratio }]);
+      }
+    }
+  }
+  for (const color of mana.usedColors) {
+    const sources = mana.sourcesByColor[color];
+    const target = mana.targetSourcesByColor[color];
+    // One demanding card is a deckbuilding choice; a color problem strains several spells.
+    const affected = (strained.get(color) ?? []).sort(
+      (left, right) => left.ratio - right.ratio || left.card.name.localeCompare(right.card.name),
+    );
+    if (affected.length < 2) continue;
+    const examples = affected.slice(0, 2).map(({ card }) => card.name);
+    weaknesses.push(
+      `Sources de ${COLOR_LABELS[color]} insuffisantes : ${formatSources(sources)} pour ${String(target)} requises ; ${String(affected.length)} sorts difficiles à lancer à temps (${examples.join(" et ")}).`,
+    );
+    const donor = mana.usedColors
+      .filter((other) => other !== color && surplus(other) >= 1)
+      .sort((left, right) => surplus(right) - surplus(left))[0];
+    const donorBasics = donor ? basicsOfColor(lands, donor) : [];
+    const switched = donor
+      ? Math.min(Math.ceil(target - sources), Math.floor(surplus(donor)), donorBasics.length)
+      : 0;
+    if (donor && switched > 0) {
+      const from = donorBasics[0]?.name ?? BASIC_NAME_BY_COLOR[donor];
+      const to = basicsOfColor(lands, color)[0]?.name ?? BASIC_NAME_BY_COLOR[color];
+      recommendations.push(
+        `Remplacer ${String(switched)} ${from} par ${String(switched)} ${to} : le ${COLOR_LABELS[color]} passe à ${formatSources(sources + switched)} sources sans faire passer le ${COLOR_LABELS[donor]} sous ${String(mana.targetSourcesByColor[donor])}.`,
+      );
+    } else {
+      recommendations.push(
+        `Ajouter des sources de ${COLOR_LABELS[color]} (bi-terrains, accélérateurs) ou alléger les cartes exigeantes : ${examples.join(" et ")}.`,
+      );
+    }
+  }
+  if (mana.fixingAdequacy < 1) {
+    recommendations.push(
+      `Fixing : ${formatSources(mana.fixerUnits)} unité(s) pour ${String(mana.requiredFixerUnits)} attendues à ${String(mana.usedColors.length)} couleurs ; ajouter des bi-terrains de ces couleurs.`,
+    );
+  }
+  if (mana.effectiveLandCount < 16 || mana.effectiveLandCount > 18) {
+    recommendations.push(
+      `Jouer 16 à 18 terrains (actuellement ${formatSources(mana.effectiveLandCount)} en comptant les cartes terrain).`,
+    );
+  }
+  return { weaknesses, recommendations };
+}
+
+/**
+ * Points at the most overloaded and the most lacking mana values of the curve and the weakest
+ * spells of the overloaded one.
+ */
+function adviseCurve(
+  spells: readonly CardEvaluationInput[],
+  curve: CurveAxisAudit,
+  category: DeckArchetype["category"],
+): { readonly weakness: string; readonly recommendation: string | null } {
+  const gaps = curve.distribution.map((count, bucket) => ({
+    bucket,
+    gap: count - (curve.targetDistribution[bucket] ?? 0),
+  }));
+  const over = [...gaps].sort((left, right) => right.gap - left.gap)[0];
+  const under = [...gaps].sort((left, right) => left.gap - right.gap)[0];
+  if (!over || !under || over.gap < 1) {
+    return { weakness: "Déséquilibre dans la courbe de mana.", recommendation: null };
+  }
+  const label = (bucket: number) => CURVE_BUCKET_LABELS[bucket] ?? "?";
+  const heavy = curve.heavyExcess >= curve.lightExcess;
+  const effectiveByName = new Map(
+    curve.effectiveCostAdjustments.map((adjustment) => [adjustment.name, adjustment.effectiveCmc]),
+  );
+  const cuts = spells
+    .filter((card) => curveBucket(effectiveByName.get(card.name) ?? card.cmc ?? 0) === over.bucket)
+    .sort(
+      (left, right) => left.staticScore - right.staticScore || left.name.localeCompare(right.name),
+    )
+    .slice(0, 2)
+    .map((card) => card.name);
+  return {
+    weakness: `Courbe trop ${heavy ? "lourde" : "basse"} : ${String(curve.distribution[over.bucket] ?? 0)} sorts à ${label(over.bucket)} pour environ ${String(Math.round(curve.targetDistribution[over.bucket] ?? 0))} attendus en ${CATEGORY_LABELS[category]}.`,
+    recommendation: `Remplacer des sorts à ${label(over.bucket)} par des sorts à ${label(under.bucket)}${cuts.length > 0 ? ` ; couper en priorité ${cuts.join(" et ")}` : ""}.`,
+  };
+}
+
+interface DeckAxisAnalysis {
+  readonly radar: KiviatRadarScores;
+  readonly spells: readonly CardEvaluationInput[];
+  readonly lands: readonly CardEvaluationInput[];
+  readonly powerAnalysis: ReturnType<typeof analyzePower>;
+  readonly packages: readonly StrategicPackageAudit[];
+  readonly synergyAnalysis: ReturnType<typeof analyzeArchetypeSynergy>;
+  readonly curveAnalysis: CurveAxisAudit;
+  readonly interactionAnalysis: ReturnType<typeof analyzeInteraction>;
+  readonly manaAnalysis: ManaAxisAudit;
+}
+
+function analyzeDeckAxes(
   deck: readonly CardEvaluationInput[],
   archetype: DeckArchetype,
-  options: DeckEvaluationOptions = {},
-): KiviatRadarScores {
+  options: DeckEvaluationOptions,
+): DeckAxisAnalysis {
   const spells = deck.filter((c) => !c.isLand);
   const lands = deck.filter((c) => c.isLand);
   const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
   const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
+  const powerAnalysis = analyzePower(spells, bombThreshold);
   const packages = analyzeStrategicPackages(spells);
-  const curveAnalysis = analyzeCurve(spells, packages);
+  const curveAnalysis = analyzeCurve(spells, packages, archetype.category);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
   const manaAnalysis = analyzeMana(spells, lands);
   const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
 
   // 1. Puissance Brute (20%)
-  const power = analyzePower(spells, bombThreshold).score;
+  const power = powerAnalysis.score;
 
   // 2. Synergies d'Archétype (25%) - 3 points per key card, 1 per support card.
   const synergy = synergyAnalysis.score;
 
-  // 3. Fluidité de Courbe (20%) - Adjusted to archetype
-  let curveScore = 80;
-  const adjustedCmcByName = new Map(
-    curveAnalysis.effectiveCostAdjustments.map((adjustment) => [
-      adjustment.name,
-      adjustment.effectiveCmc,
-    ]),
+  // 3. Fluidité de Courbe (20%) - continuous distance to the archetype's reference curve.
+  // Ramp still needs accelerators to carry its heavier top end.
+  const missingAccelerators =
+    archetype.category === "ramp" ? Math.max(0, 3 - spells.filter(isManaDorkOrRock).length) : 0;
+  const curve = clamp(
+    100 -
+      CURVE_HEAVY_PENALTY * curveAnalysis.heavyExcess -
+      CURVE_LIGHT_PENALTY * curveAnalysis.lightExcess -
+      5 * missingAccelerators,
   );
-  const cmcs = spells.map((card) => adjustedCmcByName.get(card.name) ?? card.cmc ?? 0);
-  const avgCmc = cmcs.length > 0 ? cmcs.reduce((a, b) => a + b, 0) / cmcs.length : 3;
-
-  if (archetype.category === "aggro") {
-    // Aggro demands low average CMC (<= 2.3 is ideal) and high 1-2 drops
-    if (avgCmc <= 2.3) curveScore = 95;
-    else if (avgCmc <= 2.6) curveScore = 88;
-    else if (avgCmc <= 3.0) curveScore = 72;
-    else curveScore = 55;
-  } else if (archetype.category === "ramp") {
-    // Ramp accommodates higher CMC because of mana accelerators
-    const dorks = spells.filter(isManaDorkOrRock).length;
-    if (dorks >= 5) curveScore = 90;
-    else if (dorks >= 3) curveScore = 82;
-    else curveScore = 65;
-  } else if (archetype.category === "combo") {
-    if (avgCmc <= 3 && curveAnalysis.earlyActionCount >= 8) curveScore = 92;
-    else if (avgCmc <= 3.5 && curveAnalysis.earlyActionCount >= 6) curveScore = 84;
-    else curveScore = 68;
-  } else {
-    // Control & Midrange: smooth distribution across 1 to 5
-    const cmcCounts: Record<number, number> = {};
-    for (const cmc of cmcs) cmcCounts[cmc] = (cmcCounts[cmc] ?? 0) + 1;
-    const early = (cmcCounts[1] ?? 0) + (cmcCounts[2] ?? 0);
-    const mid = (cmcCounts[3] ?? 0) + (cmcCounts[4] ?? 0);
-    const late = (cmcCounts[5] ?? 0) + (cmcCounts[6] ?? 0) + (cmcCounts[7] ?? 0);
-    if (early >= 8 && mid >= 6 && late >= 2) curveScore = 92;
-    else if (early >= 5 && mid >= 4) curveScore = 82;
-    else curveScore = 68;
-  }
-  const curve = clamp(curveScore);
 
   // 4. Base de Mana (20%) - land count, colored-source coverage, and fixing density
   const mana = computeManaScore(manaAnalysis);
@@ -770,12 +1086,24 @@ export function computeKiviatRadar(
   const interaction = interactionAnalysis.score;
 
   return {
-    power,
-    synergy,
-    curve,
-    mana,
-    interaction,
+    radar: { power, synergy, curve, mana, interaction },
+    spells,
+    lands,
+    powerAnalysis,
+    packages,
+    synergyAnalysis,
+    curveAnalysis,
+    interactionAnalysis,
+    manaAnalysis,
   };
+}
+
+export function computeKiviatRadar(
+  deck: readonly CardEvaluationInput[],
+  archetype: DeckArchetype,
+  options: DeckEvaluationOptions = {},
+): KiviatRadarScores {
+  return analyzeDeckAxes(deck, archetype, options).radar;
 }
 
 /**
@@ -793,29 +1121,37 @@ export function evaluateDeck(
     }
   }
 
-  const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
-  const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
-
   const archetype = detectArchetype(deck);
-  const radar = computeKiviatRadar(deck, archetype, options);
+  const {
+    radar,
+    spells,
+    lands,
+    powerAnalysis,
+    packages,
+    synergyAnalysis,
+    curveAnalysis,
+    interactionAnalysis,
+    manaAnalysis,
+  } = analyzeDeckAxes(deck, archetype, options);
 
-  const spells = deck.filter((c) => !c.isLand);
-  const lands = deck.filter((c) => c.isLand);
-  const powerAnalysis = analyzePower(spells, bombThreshold);
-  const packages = analyzeStrategicPackages(spells);
-  const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
-  const curveAnalysis = analyzeCurve(spells, packages);
-  const interactionAnalysis = analyzeInteraction(spells, archetype);
-  const manaAnalysis = analyzeMana(spells, lands);
-
-  const contributions = DECK_AXIS_WEIGHTS.map(([axis, weight]) => ({
-    axis,
-    score: radar[axis],
-    weight,
-    weightedPoints: roundTo(radar[axis] * weight),
-  }));
+  // Without a cube synergy profile the synergy axis is unknown, not zero: the remaining axes
+  // keep their relative weights and share the whole score.
+  const synergyEvaluated = synergyAnalysis.audit.evaluated;
+  const scoredWeights = DECK_AXIS_WEIGHTS.filter(
+    ([axis]) => synergyEvaluated || axis !== "synergy",
+  );
+  const totalWeight = scoredWeights.reduce((sum, [, weight]) => sum + weight, 0);
+  const contributions = DECK_AXIS_WEIGHTS.map(([axis, baseWeight]) => {
+    const weight = synergyEvaluated || axis !== "synergy" ? baseWeight / totalWeight : 0;
+    return {
+      axis,
+      score: radar[axis],
+      weight: roundTo(weight, 4),
+      weightedPoints: roundTo(radar[axis] * weight),
+    };
+  });
   const overallScore = Math.round(
-    contributions.reduce((sum, contribution) => sum + contribution.weightedPoints, 0),
+    scoredWeights.reduce((sum, [axis, weight]) => sum + radar[axis] * weight, 0) / totalWeight,
   );
 
   const strengths: string[] = [];
@@ -832,33 +1168,77 @@ export function evaluateDeck(
     synergyAnalysis.audit.bestArchetype &&
     synergyAnalysis.audit.bestArchetype.missingRequiredFamilyCount > 0
   ) {
-    const missingFamilies = synergyAnalysis.audit.bestArchetype.families
-      .filter((family) => !family.complete)
-      .map((family) => family.name);
+    const best = synergyAnalysis.audit.bestArchetype;
+    const missingFamilies = best.families.filter((family) => !family.complete);
     weaknesses.push(
-      `Archétype ${synergyAnalysis.audit.bestArchetype.name} amorcé, mais incomplet : ${missingFamilies.join(", ")}.`,
+      `Archétype ${best.name} amorcé, mais incomplet : ${missingFamilies.map((family) => family.name).join(", ")}.`,
+    );
+    const profile = (
+      options.synergyProfile ?? options.cubeContext?.synergyProfile
+    )?.archetypes.find((archetype) => archetype.id === best.id);
+    const namesByOracleId = new Map(
+      (profile?.affinities ?? []).map((affinity) => [affinity.oracleId, affinity.name]),
+    );
+    const deckOracleIds = new Set(deck.flatMap((card) => (card.oracleId ? [card.oracleId] : [])));
+    for (const family of missingFamilies) {
+      const candidates = (
+        profile?.requiredFamilies?.find((required) => required.id === family.id)?.cardIds ?? []
+      )
+        .filter((oracleId) => !deckOracleIds.has(oracleId))
+        .flatMap((oracleId) => {
+          const name = namesByOracleId.get(oracleId);
+          return name ? [name] : [];
+        })
+        .slice(0, 4);
+      recommendations.push(
+        `Compléter la famille ${family.name} (${String(family.matchedCount)}/${String(family.minimum)})${
+          candidates.length > 0
+            ? ` : cartes du cube qui la remplissent : ${candidates.join(" ; ")}`
+            : ""
+        }.`,
+      );
+    }
+  }
+  for (const strategicPackage of packages) {
+    if (strategicPackage.fragilityPenalty === 0) continue;
+    const pieces = [...strategicPackage.enablers, ...strategicPackage.supportCards];
+    weaknesses.push(
+      `Plan ${strategicPackage.label} fragile : il repose sur peu de pièces (${pieces.join(", ")}) pour ${String(strategicPackage.payoffs.length)} cible(s).`,
     );
     recommendations.push(
-      "Compléter les familles de rôles manquantes avant d'ajouter du soutien redondant.",
+      `Ajouter de la redondance au plan ${strategicPackage.label} ou réduire le nombre de cibles qui en dépendent.`,
     );
   }
   if (radar.curve >= 85) strengths.push("Courbe de mana idéalement proportionnée.");
   if (radar.mana >= 85) strengths.push("Base de mana solide avec sources fiables.");
   if (radar.interaction >= 85) strengths.push("Riche panoplie de réponses et contresorts.");
 
-  if (radar.mana < 75) {
+  const manaAdvice = adviseMana(spells, lands, manaAnalysis);
+  weaknesses.push(...manaAdvice.weaknesses);
+  recommendations.push(...manaAdvice.recommendations);
+  if (radar.mana < 75 && manaAdvice.weaknesses.length === 0) {
     weaknesses.push("Tension sur les sources de mana coloré.");
-    recommendations.push("Ajouter des terrains de fixation bicolores ou des accélérateurs.");
   }
+
+  const interactionCount = interactionAnalysis.audit.cards.length;
+  const interactionRange = interactionAnalysis.audit.targetRange;
   if (radar.interaction < 70) {
     weaknesses.push("Nombre de réponses (removals/contresorts) insuffisant.");
+  }
+  if (interactionCount < interactionRange.minimum) {
     recommendations.push(
-      "Intégrer des sorts d'interaction légers pour contrer les menaces adverses.",
+      `Interaction : ${String(interactionCount)} ${interactionCount === 1 ? "réponse" : "réponses"} pour ${String(interactionRange.minimum)} à ${String(interactionRange.maximum)} attendues en ${CATEGORY_LABELS[archetype.category]} ; ajouter au moins ${String(interactionRange.minimum - interactionCount)} removal(s) ou contresort(s).`,
+    );
+  } else if (radar.interaction < 70) {
+    recommendations.push(
+      "Interaction : privilégier des réponses moins chères ou à vitesse d'éphémère.",
     );
   }
-  if (radar.curve < 75) {
-    weaknesses.push("Déséquilibre dans la courbe de mana.");
-    recommendations.push("Ajuster le ratio de créatures à 2 manas pour assurer un départ fluide.");
+
+  if (radar.curve < 80) {
+    const curveAdvice = adviseCurve(spells, curveAnalysis, archetype.category);
+    weaknesses.push(curveAdvice.weakness);
+    if (curveAdvice.recommendation) recommendations.push(curveAdvice.recommendation);
   }
 
   const overallTier = options.leagueCalibration
@@ -882,7 +1262,7 @@ export function evaluateDeck(
     overallTier,
     radarTiers,
     audit: {
-      formulaVersion: "deck-evaluation@5",
+      formulaVersion: "deck-evaluation@7",
       scoreMeaning:
         "Heuristique explicable sur 100 : ni une probabilité de victoire, ni un percentile statistique.",
       power: powerAnalysis.audit,

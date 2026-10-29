@@ -40,7 +40,7 @@ import { getUnifiedDraftAdvice } from "../coach-advice/draft-coach-service.ts";
 import { computeWheelSignals, type WheelSignalAnalysis } from "../domain/coaching/wheel-signals.ts";
 import { evaluatePack } from "../domain/coaching/dynamic-score.ts";
 import { generateCoachingExplanation } from "../domain/coaching/coaching-explainer.ts";
-import { recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
+import { PROPOSAL_LOCAL_SEARCH, recommendDeckBuilds } from "../domain/coaching/deck-recommender.ts";
 import { evaluateDeck } from "../domain/coaching/deck-evaluation.ts";
 import type {
   CardEvaluationInput,
@@ -151,6 +151,10 @@ export class SoloDraftSession {
   private readonly coachContext: Readonly<CoachContext>;
   private readonly bombOracleIds: ReadonlySet<string>;
   private readonly instanceToInputMap = new Map<string, CardEvaluationInput>();
+  private deckRecommendationCache?: {
+    readonly poolKey: string;
+    readonly recommendation: SoloDraftDeckRecommendation;
+  };
   private readonly instanceToEnrichedMap = new Map<string, EnrichedCard>();
   private readonly policies: PickPolicy[];
   private readonly seatProfiles: readonly FriendProfile[];
@@ -1873,7 +1877,15 @@ export class SoloDraftSession {
 
     const evaluationOptions = this.coachContext.deckEvaluationOptions;
 
-    const options = recommendDeckBuilds(poolInputs, undefined, evaluationOptions);
+    // The pool is frozen during deckbuilding; the refined build is costly and asked for by
+    // every state snapshot.
+    const poolKey = poolIds.join("|");
+    if (this.deckRecommendationCache?.poolKey === poolKey) {
+      return this.deckRecommendationCache.recommendation;
+    }
+    const options = recommendDeckBuilds(poolInputs, undefined, evaluationOptions, {
+      localSearch: PROPOSAL_LOCAL_SEARCH,
+    });
     const bestOption = options[0];
     if (!bestOption) {
       throw new Error("No deck recommendation available");
@@ -1888,7 +1900,7 @@ export class SoloDraftSession {
       Forest: bestOption.maindeck.filter((id) => id === "basic-forest").length,
     };
 
-    return {
+    const recommendation: SoloDraftDeckRecommendation = {
       maindeckCardInstanceIds,
       basicLands,
       archetype: bestOption.evaluation.archetype,
@@ -1898,6 +1910,8 @@ export class SoloDraftSession {
       provider: "DraftMaster local",
       justification: `Recommandation locale auditable basee sur l'archetype ${bestOption.evaluation.archetype.label} (${bestOption.evaluation.overallTier})`,
     };
+    this.deckRecommendationCache = { poolKey, recommendation };
+    return recommendation;
   }
 
   public async getAssistedDeckRecommendation(

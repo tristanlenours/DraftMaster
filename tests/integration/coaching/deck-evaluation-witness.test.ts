@@ -121,8 +121,10 @@ describe("Witness Deck Evaluation (SC-005)", () => {
 
     // 2. Full Deck Evaluation & Kiviat Radar
     const evaluation = evaluateDeck(deckCards);
-    expect(evaluation.overallScore).toBeGreaterThanOrEqual(60);
-    expect(evaluation.overallScore).toBeLessThanOrEqual(70);
+    // Synergy is left out of the score rather than counted as zero (deck-evaluation@6).
+    expect(evaluation.audit.synergy.evaluated).toBe(false);
+    expect(evaluation.overallScore).toBeGreaterThanOrEqual(75);
+    expect(evaluation.overallScore).toBeLessThanOrEqual(90);
     expect(evaluation.overallScore).toBeLessThanOrEqual(100);
 
     // Verify 5 Kiviat axes (INV-006)
@@ -144,7 +146,7 @@ describe("Witness Deck Evaluation (SC-005)", () => {
 
     // 3. Mathematical weighting consistency (INV-007)
     const computedOverall = Math.round(
-      power * 0.2 + synergy * 0.25 + curve * 0.2 + mana * 0.2 + interaction * 0.15,
+      (power * 0.2 + curve * 0.2 + mana * 0.2 + interaction * 0.15) / 0.75,
     );
     expect(evaluation.overallScore).toBe(computedOverall);
   });

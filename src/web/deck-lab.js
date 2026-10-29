@@ -77,9 +77,15 @@ function renderRating(parent, rating, label, translations) {
   headline.append(node("span", "", `Repère ${rating.tier} · ${rating.archetype}`));
   section.append(headline);
   const axes = node("div", "deck-lab-axes");
+  const synergyEvaluated = rating.audit.synergy.evaluated !== false;
   for (const [key, axisLabel] of AXES) {
     const row = node("div", "deck-lab-axis");
     row.append(node("span", "", axisLabel));
+    if (key === "synergy" && !synergyEvaluated) {
+      row.append(node("strong", "", "non évaluée"));
+      axes.append(row);
+      continue;
+    }
     const meter = node("meter");
     meter.min = 0;
     meter.max = 100;
@@ -98,13 +104,15 @@ function renderRating(parent, rating, label, translations) {
     ],
     [
       "Le plan est-il assemblé ?",
-      evidence.synergy.archetype
-        ? `${evidence.synergy.alignedCount} carte(s) alignée(s) avec ${evidence.synergy.archetype}. ${names(evidence.synergy.examples)}`
-        : "Aucune famille d'archétype confirmée par le profil du cube.",
+      !synergyEvaluated
+        ? "Ce cube n'a pas de profil d'archétypes : la synergie n'est pas évaluée et ne pèse pas dans la note."
+        : evidence.synergy.archetype
+          ? `${evidence.synergy.alignedCount} carte(s) alignée(s) avec ${evidence.synergy.archetype}. ${names(evidence.synergy.examples)}`
+          : "Aucune famille d'archétype confirmée par le profil du cube.",
     ],
     [
       "Le deck démarre-t-il assez tôt ?",
-      `${evidence.curve.earlyActions} action(s) précoces ; coût moyen effectif ${evidence.curve.averageCost.toFixed(1)}.`,
+      `${evidence.curve.earlyActions} action(s) précoces ; coût moyen effectif ${evidence.curve.averageCost.toFixed(1)}. Répartition ≤1/2/3/4/5/6+ : ${evidence.curve.distribution.join("·")} (référence ${evidence.curve.targetDistribution.map((count) => Math.round(count)).join("·")}).`,
     ],
     [
       "Le mana soutient-il les couleurs ?",
@@ -154,15 +162,19 @@ function renderRating(parent, rating, label, translations) {
   if (fastManaBonus > 0) {
     breakdown.append(node("li", "", `Bonus de mana rapide : +${fastManaBonus}.`));
   }
+  if (!synergyEvaluated) {
+    breakdown.append(
+      node("li", "", "Synergie non évaluée : les autres axes se partagent la note."),
+    );
+  }
   for (const pack of rating.audit.synergy.packages) {
-    if (pack.contribution > 0) {
-      breakdown.append(node("li", "", `${pack.label} : +${pack.contribution} en synergie.`));
-    }
-    if (pack.fragilityPenalty > 0) {
-      breakdown.append(
-        node("li", "", `${pack.label} : −${pack.fragilityPenalty} pour fragilité du plan.`),
-      );
-    }
+    breakdown.append(
+      node(
+        "li",
+        "",
+        `Plan détecté : ${pack.label} (${names([...pack.enablers, ...pack.supportCards])} → ${names(pack.payoffs)}). Repère qualitatif, non compté dans la note.`,
+      ),
+    );
   }
   audit.append(breakdown);
   section.append(audit);
@@ -182,6 +194,41 @@ function renderCardList(parent, heading, cards, translations) {
     }
     section.append(list);
   }
+  parent.append(section);
+}
+
+function renderRetouch(parent, retouch, translations) {
+  const section = node("section", "deck-lab-swaps");
+  section.append(node("h3", "", "Échanges depuis votre deck"));
+  if (retouch.swaps.length === 0) {
+    section.append(
+      node("p", "deck-lab-hint", "Aucun échange avec la réserve ne gagne au moins un point."),
+    );
+    parent.append(section);
+    return;
+  }
+  const list = node("ol");
+  for (const swap of retouch.swaps) {
+    const gains = AXES.flatMap(([key, label]) => {
+      const delta = swap.axes[key];
+      return delta ? [`${label} ${delta > 0 ? "+" : ""}${delta}`] : [];
+    });
+    list.append(
+      node(
+        "li",
+        "",
+        `Retirer ${displayName(swap.remove, translations)}, ajouter ${displayName(swap.add, translations)} : ${swap.scoreBefore} → ${swap.scoreAfter} (+${swap.scoreAfter - swap.scoreBefore}) · ${gains.join(", ")}`,
+      ),
+    );
+  }
+  section.append(list);
+  section.append(
+    node(
+      "p",
+      "deck-lab-hint",
+      `Avec ces échanges, votre deck passe de ${retouch.scoreBefore} à ${retouch.scoreAfter}/100, sans changer de couleurs ni de nombre de terrains.`,
+    ),
+  );
   parent.append(section);
 }
 
@@ -222,6 +269,7 @@ function renderResult(result) {
   }
   sources.append(sourceList);
   root.append(sources);
+  if (result.retouch) renderRetouch(root, result.retouch, result.translations);
   if (result.build) {
     const build = result.build;
     root.append(node("h3", "deck-lab-build-title", build.title));

@@ -231,4 +231,97 @@ describe("Deck Recommender (FR-015)", () => {
 
     expect(option?.maindeck).toEqual(expect.arrayContaining(["bolt_1", "bolt_2"]));
   });
+
+  describe("assembly reliability", () => {
+    const land = (id: string, name: string, producesColors: ("W" | "U" | "B" | "R" | "G")[]) => ({
+      ...makeCard(id, name, [], 45, 0, true),
+      producesColors,
+    });
+
+    it("plays a dual only when it taps for two colors of the build", () => {
+      const pool = [
+        ...Array.from({ length: 12 }, (_, index) =>
+          makeCard(`W_${String(index)}`, `White ${String(index)}`, ["W"], 40, 2, false, "o1oW"),
+        ),
+        ...Array.from({ length: 12 }, (_, index) =>
+          makeCard(`U_${String(index)}`, `Blue ${String(index)}`, ["U"], 40, 2, false, "o1oU"),
+        ),
+        ...Array.from({ length: 18 }, (_, index) =>
+          makeCard(`R_${String(index)}`, `Red ${String(index)}`, ["R"], 10, 3, false, "o2oR"),
+        ),
+        land("land_breeding_pool", "Breeding Pool", ["G", "U"]),
+        land("land_stomping_ground", "Stomping Ground", ["R", "G"]),
+        { ...land("land_hallowed_fountain", "Hallowed Fountain", ["W", "U"]), staticScore: 30 },
+      ];
+
+      const option = recommendDeckBuilds(pool)[0];
+
+      expect(option?.evaluation.audit.mana.usedColors).toEqual(["W", "U"]);
+      expect(option?.maindeck).toContain("land_hallowed_fountain");
+      expect(option?.maindeck).not.toContain("land_breeding_pool");
+      expect(option?.maindeck).not.toContain("land_stomping_ground");
+      expect(option?.maindeck).toHaveLength(40);
+    });
+
+    it("gives no basic land to a color the chosen spells never use", () => {
+      const pool = [
+        ...Array.from({ length: 30 }, (_, index) =>
+          makeCard(`W_${String(index)}`, `White ${String(index)}`, ["W"], 40, 2, false, "o1oW"),
+        ),
+        ...Array.from({ length: 15 }, (_, index) =>
+          makeCard(`G_${String(index)}`, `Green ${String(index)}`, ["G"], 10, 3, false, "o2oG"),
+        ),
+      ];
+
+      const basics = recommendDeckBuilds(pool)[0]?.maindeck.filter((id) => id.startsWith("basic-"));
+
+      expect(basics?.length).toBeGreaterThanOrEqual(16);
+      expect(new Set(basics)).toEqual(new Set(["basic-plains"]));
+    });
+
+    it("splits basics by unmet source requirements after counting nonbasic sources", () => {
+      const pool = [
+        ...Array.from({ length: 18 }, (_, index) =>
+          makeCard(`W_${String(index)}`, `White ${String(index)}`, ["W"], 40, 2, false, "o1oW"),
+        ),
+        ...Array.from({ length: 5 }, (_, index) =>
+          makeCard(`U_${String(index)}`, `Blue ${String(index)}`, ["U"], 40, 2, false, "o1oU"),
+        ),
+        ...Array.from({ length: 19 }, (_, index) =>
+          makeCard(`R_${String(index)}`, `Red ${String(index)}`, ["R"], 10, 3, false, "o2oR"),
+        ),
+        land("land_1", "Hallowed Fountain", ["W", "U"]),
+        land("land_2", "Tundra", ["W", "U"]),
+        land("land_3", "Glacial Fortress", ["W", "U"]),
+      ];
+
+      const mana = recommendDeckBuilds(pool)[0]?.evaluation.audit.mana;
+      if (!mana) throw new Error("Missing build");
+
+      // Single-pip two-drops need 8 sources each (Karsten, 40 cards): Islands must not be starved
+      // while Plains overshoot.
+      expect(mana.sourcesByColor.U).toBeGreaterThanOrEqual(mana.targetSourcesByColor.U);
+      expect(mana.sourcesByColor.W).toBeGreaterThanOrEqual(mana.targetSourcesByColor.W);
+    });
+
+    it("keeps a drafted card in the maindeck whatever its instance id", () => {
+      const pool = [
+        makeCard("90790", "Fireblast", ["R"], 60, 1, false, "oR"),
+        ...Array.from({ length: 29 }, (_, index) =>
+          makeCard(`R_${String(index)}`, `Red ${String(index)}`, ["R"], 40, 2, false, "o1oR"),
+        ),
+        ...Array.from({ length: 15 }, (_, index) =>
+          makeCard(`G_${String(index)}`, `Green ${String(index)}`, ["G"], 10, 4),
+        ),
+      ];
+
+      const option = recommendDeckBuilds(pool)[0];
+
+      expect(option?.maindeck).toContain("90790");
+      expect(option?.sideboard).not.toContain("90790");
+      expect((option?.maindeck.length ?? 0) + (option?.sideboard.length ?? 0)).toBe(
+        40 + pool.length - (option?.maindeck.filter((id) => !id.startsWith("basic-")).length ?? 0),
+      );
+    });
+  });
 });

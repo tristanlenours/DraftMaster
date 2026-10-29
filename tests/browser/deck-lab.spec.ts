@@ -116,6 +116,9 @@ test("rate and pimp a pasted pool on a narrow screen", async ({ page }) => {
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-axis")).toHaveCount(5);
   await expect(page.locator("#deck-lab-result .deck-lab-evidence")).toContainText("Lightning Bolt");
+  await expect(page.locator("#deck-lab-result .deck-lab-evidence")).toContainText(
+    /Répartition ≤1\/2\/3\/4\/5\/6\+ : \d+(?:·\d+){5} \(référence/u,
+  );
   await expect(page.locator("#deck-lab-result .deck-lab-audit")).toContainText("Détail du score");
   await expect(page.locator("#deck-lab-result .deck-lab-provenance")).toContainText(
     "coach-context@1",
@@ -169,6 +172,21 @@ test("pimp distinguishes additions, removals and the copied final deck", async (
   await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
   const unused = page.locator(".deck-lab-card-list").filter({ hasText: "Cartes écartées" });
   await expect(unused).toContainText("5 × Island");
+});
+
+test("pimp lists scored swaps from a complete 40-card deck", async ({ page }) => {
+  await page.goto("/deck-lab");
+  await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  await page.locator("#deck-lab-text").fill(`${redDeck(17)}
+Sideboard
+1 Ragavan, Nimble Pilferer
+1 Ancestral Recall`);
+  await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
+  const swaps = page.locator(".deck-lab-swaps");
+  await expect(swaps.getByRole("heading", { name: /Échanges depuis votre deck/u })).toBeVisible();
+  await expect(swaps.locator("li").first()).toContainText("Ragavan, Nimble Pilferer");
+  await expect(swaps.locator("li").first()).toContainText(/\(\+\d+\)/u);
+  await expect(swaps).not.toContainText("Ancestral Recall");
 });
 
 test("a cube without a ready synergy profile gives a clearly limited rating", async ({
@@ -273,6 +291,10 @@ test("a photo populates editable MTGA text before rating", async ({ page }, test
     () => document.documentElement.scrollWidth > window.innerWidth,
   );
   expect(overflow).toBe(false);
+  await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
+  // A partial recognition is not completed with dozens of virtual lands.
+  await expect(page.locator("#deck-lab-status")).toContainText("Liste incomplète");
+  await text.fill(redDeck(16));
   await page.getByRole("button", { name: "Rate my deck", exact: true }).click();
   await expect(page.locator("#deck-lab-result .deck-lab-score")).toContainText("/100");
   await expect(page.locator("#deck-lab-result .deck-lab-warnings")).toContainText("virtuel");
