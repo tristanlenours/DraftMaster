@@ -197,6 +197,41 @@ function renderCardList(parent, heading, cards, translations) {
   parent.append(section);
 }
 
+function renderRetouch(parent, retouch, translations) {
+  const section = node("section", "deck-lab-swaps");
+  section.append(node("h3", "", "Échanges depuis votre deck"));
+  if (retouch.swaps.length === 0) {
+    section.append(
+      node("p", "deck-lab-hint", "Aucun échange avec la réserve ne gagne au moins un point."),
+    );
+    parent.append(section);
+    return;
+  }
+  const list = node("ol");
+  for (const swap of retouch.swaps) {
+    const gains = AXES.flatMap(([key, label]) => {
+      const delta = swap.axes[key];
+      return delta ? [`${label} ${delta > 0 ? "+" : ""}${delta}`] : [];
+    });
+    list.append(
+      node(
+        "li",
+        "",
+        `Retirer ${displayName(swap.remove, translations)}, ajouter ${displayName(swap.add, translations)} : ${swap.scoreBefore} → ${swap.scoreAfter} (+${swap.scoreAfter - swap.scoreBefore}) · ${gains.join(", ")}`,
+      ),
+    );
+  }
+  section.append(list);
+  section.append(
+    node(
+      "p",
+      "deck-lab-hint",
+      `Avec ces échanges, votre deck passe de ${retouch.scoreBefore} à ${retouch.scoreAfter}/100, sans changer de couleurs ni de nombre de terrains.`,
+    ),
+  );
+  parent.append(section);
+}
+
 function renderResult(result) {
   const root = element("deck-lab-result");
   root.replaceChildren();
@@ -234,6 +269,7 @@ function renderResult(result) {
   }
   sources.append(sourceList);
   root.append(sources);
+  if (result.retouch) renderRetouch(root, result.retouch, result.translations);
   if (result.build) {
     const build = result.build;
     root.append(node("h3", "deck-lab-build-title", build.title));

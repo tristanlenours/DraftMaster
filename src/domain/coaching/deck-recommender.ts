@@ -4,8 +4,9 @@ import type {
   DeckEvaluationOptions,
   MtGColor,
 } from "./types.ts";
-import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
-import { evaluateDeck } from "./deck-evaluation.ts";
+import { getEffectiveProducingColors } from "./dynamic-score.ts";
+import { allocateBasicLands, evaluateDeck } from "./deck-evaluation.ts";
+import { optimizeDeck } from "./deck-optimizer.ts";
 import {
   COMPATIBLE_TRIBE_MAP,
   KNOWN_TRIBAL_SUBTYPES,
@@ -23,9 +24,18 @@ export interface BasicLandDefinitions {
 
 export interface DeckBuildConstraints {
   readonly targetNonlandCards?: number;
+  /**
+   * Refines each assembled option with bounded swaps against the rest of the pool so the
+   * proposal maximizes the Rate score. Costs a few hundred evaluations per option, so only
+   * human-facing proposals ask for it.
+   */
+  readonly localSearch?: { readonly maxSwaps: number };
 }
 
 export const MIN_BUILD_NONLAND_CARDS = 22;
+
+/** Local search budget for proposals shown to a player (Solo deckbuilding and Pimp my deck). */
+export const PROPOSAL_LOCAL_SEARCH = { maxSwaps: 4 } as const;
 
 export const DEFAULT_BASIC_LANDS: BasicLandDefinitions = {
   W: {
@@ -124,17 +134,15 @@ function canCastWithColors(
   return card.colors.every((c) => allowedColors.has(c));
 }
 
-function countColoredPips(manaCost: string | undefined): Record<MtGColor, number> {
-  const pips: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  if (!manaCost) return pips;
-  for (const color of ALL_COLORS) {
-    const regex = new RegExp(`o?${color}`, "gi");
-    const matches = manaCost.match(regex);
-    if (matches) {
-      pips[color] += matches.length;
-    }
-  }
-  return pips;
+/**
+ * A land earns a slot when it adds a color of the build without wasting half of its mana on
+ * another color: duals must tap for two build colors. Colorless utility lands stay eligible.
+ */
+function isLandForPath(land: CardEvaluationInput, colors: ReadonlySet<MtGColor>): boolean {
+  const produced = getEffectiveProducingColors(land);
+  if (produced.length === 0) return true;
+  const onPath = produced.filter((color) => colors.has(color)).length;
+  return onPath >= 2 || (onPath >= 1 && onPath === produced.length);
 }
 
 interface ColorPathCandidate {
@@ -382,56 +390,20 @@ function assembleDeckOption(
     neededBasicLands += targetSpells - chosenSpells.length;
   }
 
-  // Calculate pip distribution for basic land allocation
-  const pipTotals: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const spell of chosenSpells) {
-    const pips = countColoredPips(spell.manaCost);
-    for (const c of ALL_COLORS) {
-      pipTotals[c] += pips[c];
-    }
-  }
-
-  const activeColors = candidate.colors;
-  const totalActivePips = activeColors.reduce((sum, c) => sum + pipTotals[c], 0);
-
-  const basicLandsAdded: CardEvaluationInput[] = [];
-  if (neededBasicLands > 0) {
-    let remainingToDistribute = neededBasicLands;
-    for (let i = 0; i < activeColors.length; i++) {
-      const color = activeColors[i];
-      if (!color) continue;
-      const isLast = i === activeColors.length - 1;
-      let count = 0;
-      if (isLast) {
-        count = remainingToDistribute;
-      } else {
-        const ratio =
-          totalActivePips > 0 ? pipTotals[color] / totalActivePips : 1 / activeColors.length;
-        const ideal = Math.round(ratio * neededBasicLands);
-        const maxAllowed = Math.max(0, remainingToDistribute - (activeColors.length - i - 1));
-        count = Math.min(ideal, maxAllowed);
-        if (remainingToDistribute > 0 && count === 0 && maxAllowed > 0 && pipTotals[color] > 0) {
-          count = 1;
-        }
-      }
-      count = Math.max(0, Math.min(remainingToDistribute, count));
-      remainingToDistribute -= count;
-      const basicDef = basics[color];
-      for (let k = 0; k < count; k++) {
-        basicLandsAdded.push(basicDef);
-      }
-    }
-  }
+  const allocation = allocateBasicLands(
+    chosenSpells,
+    nonBasicLands,
+    candidate.colors,
+    neededBasicLands,
+  );
+  const basicLandsAdded = candidate.colors.flatMap((color) =>
+    Array.from({ length: allocation[color] }, () => basics[color]),
+  );
 
   const maindeck = [...chosenSpells, ...nonBasicLands, ...basicLandsAdded];
+  const basicCards = new Set<CardEvaluationInput>(Object.values(basics));
   const maindeckDraftedIds = new Set(
-    maindeck
-      .filter(
-        (c) =>
-          !c.id.startsWith("basic-") &&
-          !["90790", "90792", "90794", "90796", "90798"].includes(c.id),
-      )
-      .map((c) => c.id),
+    maindeck.filter((card) => !basicCards.has(card)).map((card) => card.id),
   );
 
   const sideboard = allPool.filter((c) => !maindeckDraftedIds.has(c.id));
@@ -462,14 +434,22 @@ export function recommendDeckBuilds(
     if (compatibleSpells.length < (constraints.targetNonlandCards ?? MIN_BUILD_NONLAND_CARDS))
       return;
 
-    const compatibleLands = lands.filter((land) => {
-      const produced = getEffectiveProducingColors(land);
-      return produced.length === 0 || produced.some((c) => colorSet.has(c));
-    });
+    const compatibleLands = lands.filter((land) => isLandForPath(land, colorSet));
 
     const targetSpellCount =
       constraints.targetNonlandCards ?? 40 - estimateTargetLandCount(compatibleSpells);
     const viableTribes = detectViableTribeClusters(compatibleSpells);
+    // A trio whose best spells use only two colors is that pair plus wasted lands, and fixing
+    // only scores when it serves colors the chosen spells use.
+    const scorePath = (
+      topSpells: readonly CardEvaluationInput[],
+      spellScore: number,
+    ): number | undefined => {
+      const usedColors = new Set(topSpells.flatMap((card) => card.colors));
+      if (colors.length === 3 && colors.some((color) => !usedColors.has(color))) return undefined;
+      const fixers = compatibleLands.filter((land) => isLandForPath(land, usedColors)).length;
+      return spellScore + fixers * 5;
+    };
 
     if (viableTribes.length > 0) {
       for (const vt of viableTribes) {
@@ -484,9 +464,11 @@ export function recommendDeckBuilds(
         }));
         scored.sort((a, b) => b.adjusted - a.adjusted);
         const topSpells = scored.slice(0, targetSpellCount);
-        const spellScore = topSpells.reduce((acc, s) => acc + s.adjusted, 0);
-        const fixersBonus = compatibleLands.length * 5;
-        const score = spellScore + fixersBonus;
+        const score = scorePath(
+          topSpells.map((s) => s.card),
+          topSpells.reduce((acc, s) => acc + s.adjusted, 0),
+        );
+        if (score === undefined) continue;
 
         candidatePaths.push({
           colors,
@@ -501,9 +483,11 @@ export function recommendDeckBuilds(
       const topSpells = [...compatibleSpells]
         .sort((a, b) => b.staticScore - a.staticScore)
         .slice(0, targetSpellCount);
-      const spellScore = topSpells.reduce((acc, c) => acc + c.staticScore, 0);
-      const fixersBonus = compatibleLands.length * 5;
-      const score = spellScore + fixersBonus;
+      const score = scorePath(
+        topSpells,
+        topSpells.reduce((acc, c) => acc + c.staticScore, 0),
+      );
+      if (score === undefined) return;
 
       candidatePaths.push({
         colors,
@@ -556,14 +540,18 @@ export function recommendDeckBuilds(
 
   // Assemble and evaluate options
   const options: DeckBuildOption[] = selectedPaths.map((cand, idx) => {
-    const { maindeck, sideboard } = assembleDeckOption(
-      cand,
-      pool,
-      customBasics,
-      evaluationOptions,
-      constraints,
-    );
-    const evaluation = evaluateDeck(maindeck, evaluationOptions);
+    const assembled = assembleDeckOption(cand, pool, customBasics, evaluationOptions, constraints);
+    const refined = constraints.localSearch
+      ? optimizeDeck(assembled.maindeck, assembled.sideboard, evaluationOptions, {
+          maxSwaps: constraints.localSearch.maxSwaps,
+          basics: customBasics,
+        })
+      : null;
+    const maindeck = refined?.maindeck ?? assembled.maindeck;
+    const sideboard = refined
+      ? pool.filter((card) => !refined.maindeck.includes(card))
+      : assembled.sideboard;
+    const evaluation = refined?.evaluation ?? evaluateDeck(maindeck, evaluationOptions);
     const position = idx + 1;
     let label = evaluation.archetype.label;
     if (cand.focusTribe) {

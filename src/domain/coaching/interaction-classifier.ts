@@ -1,4 +1,5 @@
 import type { CardEvaluationInput, InteractionCoverage } from "./types.ts";
+import { memoizeByCard } from "./card-memo.ts";
 
 export const INTERACTION_COVERAGE_ORDER: readonly InteractionCoverage[] = [
   "créatures",
@@ -77,13 +78,15 @@ const COVERAGE_PATTERNS: Readonly<Record<InteractionCoverage, readonly RegExp[]>
 };
 
 /** Shared interaction classifier for the radar audit and archetype detection. */
-export function classifyInteraction(card: CardEvaluationInput): readonly InteractionCoverage[] {
-  const text = (card.oracleText ?? "").replace(/<[^>]+>/gu, "").toLowerCase();
-  if (text.length === 0) return [];
-  return INTERACTION_COVERAGE_ORDER.filter((category) =>
-    COVERAGE_PATTERNS[category].some((pattern) => pattern.test(text)),
-  );
-}
+export const classifyInteraction = memoizeByCard(
+  (card: CardEvaluationInput): readonly InteractionCoverage[] => {
+    const text = (card.oracleText ?? "").replace(/<[^>]+>/gu, "").toLowerCase();
+    if (text.length === 0) return [];
+    return INTERACTION_COVERAGE_ORDER.filter((category) =>
+      COVERAGE_PATTERNS[category].some((pattern) => pattern.test(text)),
+    );
+  },
+);
 
 export function isInteractionCard(card: CardEvaluationInput): boolean {
   return classifyInteraction(card).length > 0;

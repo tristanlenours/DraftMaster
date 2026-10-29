@@ -171,6 +171,21 @@ test("pimp distinguishes additions, removals and the copied final deck", async (
   await expect(unused).toContainText("5 × Island");
 });
 
+test("pimp lists scored swaps from a complete 40-card deck", async ({ page }) => {
+  await page.goto("/deck-lab");
+  await page.locator("#deck-lab-cube").selectOption("titou_tribal");
+  await page.locator("#deck-lab-text").fill(`${redDeck(17)}
+Sideboard
+1 Ragavan, Nimble Pilferer
+1 Ancestral Recall`);
+  await page.getByRole("button", { name: "Pimp my deck", exact: true }).click();
+  const swaps = page.locator(".deck-lab-swaps");
+  await expect(swaps.getByRole("heading", { name: /Échanges depuis votre deck/u })).toBeVisible();
+  await expect(swaps.locator("li").first()).toContainText("Ragavan, Nimble Pilferer");
+  await expect(swaps.locator("li").first()).toContainText(/\(\+\d+\)/u);
+  await expect(swaps).not.toContainText("Ancestral Recall");
+});
+
 test("a cube without a ready synergy profile gives a clearly limited rating", async ({
   request,
 }) => {

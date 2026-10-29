@@ -2,6 +2,7 @@ import {
   scoreToTier,
   type CardEvaluationInput,
   type CurveAxisAudit,
+  type DeckSynergyArchetypeProfile,
   type DeckSynergyProfile,
   type DeckArchetype,
   type DeckEvaluation,
@@ -17,6 +18,7 @@ import {
 } from "./types.ts";
 import { MAX_POWER_SCORE } from "../../cards/power-harmonizer.ts";
 import { detectArchetype } from "./deck-archetypes.ts";
+import { memoizeByCard } from "./card-memo.ts";
 import { INTERACTION_COVERAGE_ORDER, classifyInteraction } from "./interaction-classifier.ts";
 import { ALL_COLORS, getEffectiveProducingColors } from "./dynamic-score.ts";
 import {
@@ -37,7 +39,7 @@ const DECK_AXIS_WEIGHTS = [
   ["interaction", 0.15],
 ] as const satisfies readonly (readonly [keyof KiviatRadarScores, number])[];
 
-function isManaDorkOrRock(card: CardEvaluationInput): boolean {
+const isManaDorkOrRock = memoizeByCard((card: CardEvaluationInput): boolean => {
   if (card.isLand || isLandEquivalent(card)) return false;
   const produces = getEffectiveProducingColors(card);
   const text = (card.oracleText ?? "").toLowerCase();
@@ -49,7 +51,7 @@ function isManaDorkOrRock(card: CardEvaluationInput): boolean {
     (card.cmc ?? 0) <= 3 &&
     [card.types?.includes("Creature"), card.typeLine?.includes("Artifact")].some(Boolean)
   );
-}
+});
 
 function roundTo(value: number, digits = 2): number {
   const factor = 10 ** digits;
@@ -66,7 +68,7 @@ function normalizeStaticScore(score: number): number {
   return clamp((score / MAX_POWER_SCORE) * 100);
 }
 
-function estimateFastManaGain(card: CardEvaluationInput): number {
+const estimateFastManaGain = memoizeByCard((card: CardEvaluationInput): number => {
   if (card.isLand || (card.cmc ?? 0) > 1) return 0;
   const text = card.oracleText ?? "";
   if (!/\badd\b/i.test(text)) return 0;
@@ -85,7 +87,7 @@ function estimateFastManaGain(card: CardEvaluationInput): number {
   const symbolCount = addClause.match(/\{(?:[WUBRGC]|\d+)\}|o[WUBRGC]/gi)?.length ?? 0;
   if (symbolCount > 0) return symbolCount;
   return (card.producesColors?.length ?? 0) > 0 ? 1 : 0;
-}
+});
 
 function analyzePower(
   spells: readonly CardEvaluationInput[],
@@ -150,7 +152,7 @@ function isCreature(card: CardEvaluationInput): boolean {
   return card.types?.includes("Creature") ?? card.typeLine?.includes("Creature") ?? false;
 }
 
-function isCreatureCheatEnabler(card: CardEvaluationInput): boolean {
+const isCreatureCheatEnabler = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /put (?:an? )?(?:artifact, )?creature(?:, enchantment, or land)? card from (?:your|their) hand onto the battlefield/.test(
@@ -158,16 +160,16 @@ function isCreatureCheatEnabler(card: CardEvaluationInput): boolean {
     ) ||
     (text.includes("each player may put") && text.includes("from their hand onto the battlefield"))
   );
-}
+});
 
-function isSelectionOrTutor(card: CardEvaluationInput): boolean {
+const isSelectionOrTutor = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return /search your library|draw (?:a|one|two|three|\d+) card|scry|surveil|look at the top/.test(
     text,
   );
-}
+});
 
-function isGraveyardSetup(card: CardEvaluationInput): boolean {
+const isGraveyardSetup = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /put (?:that|a|target) card into your graveyard/.test(text) ||
@@ -175,9 +177,9 @@ function isGraveyardSetup(card: CardEvaluationInput): boolean {
     /draw (?:a|one|two|three|\d+) cards?(?:, then|\.\s*if you do,) discard/.test(text) ||
     text.includes("each player discards a card")
   );
-}
+});
 
-function isReanimationEffect(card: CardEvaluationInput): boolean {
+const isReanimationEffect = memoizeByCard((card: CardEvaluationInput): boolean => {
   const text = (card.oracleText ?? "").toLowerCase();
   return (
     /(?:put|return) target (?:nonlegendary )?creature card from (?:a|your) graveyard (?:onto|to) the battlefield/.test(
@@ -187,7 +189,7 @@ function isReanimationEffect(card: CardEvaluationInput): boolean {
       text,
     )
   );
-}
+});
 
 function analyzeStrategicPackages(
   spells: readonly CardEvaluationInput[],
@@ -327,6 +329,26 @@ function analyzeStrategicPackages(
 
 const DEFAULT_ARCHETYPE_TARGET_POINTS = 18;
 
+interface ArchetypeIdSets {
+  readonly keyIds: ReadonlySet<string>;
+  readonly supportIds: ReadonlySet<string>;
+  readonly familyIds: readonly ReadonlySet<string>[];
+}
+
+const archetypeIdSetCache = new WeakMap<DeckSynergyArchetypeProfile, ArchetypeIdSets>();
+
+function archetypeIdSets(archetype: DeckSynergyArchetypeProfile): ArchetypeIdSets {
+  const cached = archetypeIdSetCache.get(archetype);
+  if (cached) return cached;
+  const sets = {
+    keyIds: new Set(archetype.keyCards),
+    supportIds: new Set(archetype.supportCards),
+    familyIds: (archetype.requiredFamilies ?? []).map((family) => new Set(family.cardIds)),
+  };
+  archetypeIdSetCache.set(archetype, sets);
+  return sets;
+}
+
 function analyzeArchetypeSynergy(
   spells: readonly CardEvaluationInput[],
   profile: DeckSynergyProfile | undefined,
@@ -334,8 +356,7 @@ function analyzeArchetypeSynergy(
 ): { readonly score: number; readonly audit: SynergyAxisAudit } {
   const archetypes = (profile?.archetypes ?? [])
     .map((archetype) => {
-      const keyIds = new Set(archetype.keyCards);
-      const supportIds = new Set(archetype.supportCards);
+      const { keyIds, supportIds, familyIds } = archetypeIdSets(archetype);
       const keyCards = spells.filter((card) => card.oracleId && keyIds.has(card.oracleId));
       const supportCards = spells.filter(
         (card) => card.oracleId && !keyIds.has(card.oracleId) && supportIds.has(card.oracleId),
@@ -346,10 +367,10 @@ function analyzeArchetypeSynergy(
       const points = keyCardCount * 3 + supportCardCount;
       const targetPoints = archetype.targetPoints ?? DEFAULT_ARCHETYPE_TARGET_POINTS;
       let score = clamp((points / targetPoints) * 100);
-      const families = (archetype.requiredFamilies ?? []).map((family) => {
-        const familyIds = new Set(family.cardIds);
+      const families = (archetype.requiredFamilies ?? []).map((family, index) => {
+        const ids = familyIds[index];
         const matchedCards = spells
-          .filter((card) => card.oracleId && familyIds.has(card.oracleId))
+          .filter((card) => card.oracleId && ids?.has(card.oracleId))
           .map((card) => card.name);
         return {
           id: family.id,
@@ -494,7 +515,7 @@ function analyzeInteraction(
   };
 }
 
-function isLandEquivalent(card: CardEvaluationInput): boolean {
+const isLandEquivalent = memoizeByCard((card: CardEvaluationInput): boolean => {
   if (card.isLand) return false;
   return (
     /(?:basic )?landcycling|plainscycling|islandcycling|swampcycling|mountaincycling|forestcycling/i.test(
@@ -503,7 +524,7 @@ function isLandEquivalent(card: CardEvaluationInput): boolean {
     /\/\/\s*(?:basic\s+)?land\b/i.test(card.typeLine ?? "") ||
     /\b(?:as|when) (?:this|that) land enters\b/i.test(card.oracleText ?? "")
   );
-}
+});
 
 const BASIC_LAND_COLOR_BY_NAME: Readonly<Record<string, MtGColor>> = {
   plains: "W",
@@ -549,22 +570,17 @@ function requiredSources(pips: number, manaValue: number): number {
 
 const MANA_SYMBOL = /\{([^}]+)\}|o(\([^)]*\)|\d+|[A-Z])/g;
 
-/**
- * Colored source requirements of each castable face. Hybrid pips are paid with the
- * better-supplied color; Phyrexian and generic-hybrid pips need no colored source.
- */
-function getColoredRequirements(
-  card: CardEvaluationInput,
-  sourcesByColor: Readonly<Record<MtGColor, number>>,
-): readonly (readonly (readonly [MtGColor, number])[])[] {
+interface ManaFace {
+  readonly manaValue: number;
+  /** Colored pips; a hybrid pip lists every color that pays it. */
+  readonly pips: readonly (readonly MtGColor[])[];
+}
+
+const parseManaFaces = memoizeByCard((card: CardEvaluationInput): readonly ManaFace[] | null => {
   const faces = (card.manaCost ?? "").split(/\s*\/\/\s*|\{SPLIT\}/iu).filter(Boolean);
-  if (faces.length === 0) {
-    return card.colors.length === 0
-      ? []
-      : [card.colors.map((color) => [color, requiredSources(1, card.cmc ?? 1)] as const)];
-  }
-  return faces.flatMap((face) => {
-    const pips: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  if (faces.length === 0) return null;
+  return faces.map((face) => {
+    const pips: MtGColor[][] = [];
     let manaValue = 0;
     for (const match of face.matchAll(MANA_SYMBOL)) {
       const symbol = (match[1] ?? match[2] ?? "").replace(/[()]/gu, "").toUpperCase();
@@ -578,6 +594,29 @@ function getColoredRequirements(
         .split("/")
         .filter((part): part is MtGColor => ALL_COLORS.includes(part as MtGColor));
       if (options.length === 0 || symbol.includes("P") || /\d/u.test(symbol)) continue;
+      pips.push(options);
+    }
+    return { manaValue, pips };
+  });
+});
+
+/**
+ * Colored source requirements of each castable face. Hybrid pips are paid with the
+ * better-supplied color; Phyrexian and generic-hybrid pips need no colored source.
+ */
+function getColoredRequirements(
+  card: CardEvaluationInput,
+  sourcesByColor: Readonly<Record<MtGColor, number>>,
+): readonly (readonly (readonly [MtGColor, number])[])[] {
+  const faces = parseManaFaces(card);
+  if (faces === null) {
+    return card.colors.length === 0
+      ? []
+      : [card.colors.map((color) => [color, requiredSources(1, card.cmc ?? 1)] as const)];
+  }
+  return faces.flatMap(({ manaValue, pips: facePips }) => {
+    const pips: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    for (const options of facePips) {
       const paidWith = options.reduce((left, right) =>
         sourcesByColor[right] > sourcesByColor[left] ? right : left,
       );
@@ -600,6 +639,106 @@ function computeLandCountAdequacy(effectiveLandCount: number, fastManaCount = 0)
   return Math.max(0, 1 - (lowLandAdjusted - 18) * 0.1);
 }
 
+function countColorSources(
+  spells: readonly CardEvaluationInput[],
+  lands: readonly CardEvaluationInput[],
+  usedColors: readonly MtGColor[],
+): Record<MtGColor, number> {
+  const sourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const land of lands) {
+    for (const color of getManaAccessColors(land, usedColors)) sourcesByColor[color] += 1;
+  }
+  for (const card of spells.filter(isManaDorkOrRock)) {
+    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.6;
+  }
+  for (const card of spells.filter(isLandEquivalent)) {
+    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.75;
+  }
+  return sourcesByColor;
+}
+
+/** Mean per-spell castability (best face, capped at 1) and the source target of each color. */
+function measureCastability(
+  spells: readonly CardEvaluationInput[],
+  sourcesByColor: Readonly<Record<MtGColor, number>>,
+): { readonly sourceAdequacy: number; readonly targetSourcesByColor: Record<MtGColor, number> } {
+  const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const castabilities: number[] = [];
+  for (const spell of spells) {
+    const faces = getColoredRequirements(spell, sourcesByColor);
+    if (faces.length === 0) continue;
+    let best = 0;
+    for (const face of faces) {
+      let castability = 1;
+      for (const [color, required] of face) {
+        targetSourcesByColor[color] = Math.max(targetSourcesByColor[color], required);
+        castability = Math.min(castability, sourcesByColor[color] / required);
+      }
+      best = Math.max(best, Math.min(1, castability));
+    }
+    castabilities.push(best);
+  }
+  return { sourceAdequacy: mean(castabilities, 1), targetSourcesByColor };
+}
+
+/**
+ * Splits basic lands among the allowed colors the spells actually use, one land at a time,
+ * where it raises the Mana axis castability most. Sources already provided by nonbasic lands,
+ * accelerators and land-equivalent spells count first; once every spell is castable, the
+ * remaining basics follow pip demand.
+ */
+export function allocateBasicLands(
+  spells: readonly CardEvaluationInput[],
+  lands: readonly CardEvaluationInput[],
+  allowedColors: readonly MtGColor[],
+  count: number,
+): Readonly<Record<MtGColor, number>> {
+  const allocation: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  const usedColors = ALL_COLORS.filter((color) =>
+    spells.some((card) => card.colors.includes(color)),
+  );
+  const usedAllowed = allowedColors.filter((color) => usedColors.includes(color));
+  const eligible = usedAllowed.length > 0 ? usedAllowed : allowedColors.slice(0, 1);
+  const [firstColor] = eligible;
+  if (firstColor === undefined) return allocation;
+
+  const pipDemand: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+  for (const spell of spells) {
+    const faces = parseManaFaces(spell);
+    if (faces === null) {
+      for (const color of spell.colors) pipDemand[color] += 1;
+      continue;
+    }
+    for (const options of faces.flatMap((face) => face.pips)) {
+      for (const color of options) pipDemand[color] += 1 / options.length;
+    }
+  }
+
+  const sources = countColorSources(spells, lands, usedColors);
+  for (let index = 0; index < count; index++) {
+    let best = firstColor;
+    let bestAdequacy = -1;
+    let bestDemand = -1;
+    for (const color of eligible) {
+      sources[color] += 1;
+      const adequacy = measureCastability(spells, sources).sourceAdequacy;
+      sources[color] -= 1;
+      const demand = pipDemand[color] / (sources[color] + 1);
+      if (
+        adequacy > bestAdequacy + 1e-9 ||
+        (Math.abs(adequacy - bestAdequacy) <= 1e-9 && demand > bestDemand)
+      ) {
+        best = color;
+        bestAdequacy = adequacy;
+        bestDemand = demand;
+      }
+    }
+    allocation[best] += 1;
+    sources[best] += 1;
+  }
+  return allocation;
+}
+
 function analyzeMana(
   spells: readonly CardEvaluationInput[],
   lands: readonly CardEvaluationInput[],
@@ -607,22 +746,13 @@ function analyzeMana(
   const usedColors = ALL_COLORS.filter((color) =>
     spells.some((card) => card.colors.includes(color)),
   );
-  const sourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  for (const land of lands) {
-    for (const color of getManaAccessColors(land, usedColors)) {
-      sourcesByColor[color] += 1;
-    }
-  }
-
-  const accelerators = spells.filter(isManaDorkOrRock).map((card) => {
-    const producesColors = getManaAccessColors(card, usedColors);
-    for (const color of producesColors) sourcesByColor[color] += 0.6;
-    return { name: card.name, cmc: card.cmc ?? 0, producesColors };
-  });
+  const sourcesByColor = countColorSources(spells, lands, usedColors);
+  const accelerators = spells.filter(isManaDorkOrRock).map((card) => ({
+    name: card.name,
+    cmc: card.cmc ?? 0,
+    producesColors: getManaAccessColors(card, usedColors),
+  }));
   const landEquivalents = spells.filter(isLandEquivalent);
-  for (const card of landEquivalents) {
-    for (const color of getManaAccessColors(card, usedColors)) sourcesByColor[color] += 0.75;
-  }
   const landEquivalentCards = landEquivalents.map((card) => card.name);
   const effectiveLandCount = roundTo(lands.length + landEquivalentCards.length * 0.75);
 
@@ -667,23 +797,9 @@ function analyzeMana(
   const fixingAdequacy =
     requiredFixerUnits === 0 ? 1 : roundTo(Math.min(1, fixerUnits / requiredFixerUnits));
 
-  const targetSourcesByColor: Record<MtGColor, number> = { W: 0, U: 0, B: 0, R: 0, G: 0 };
-  const castabilities: number[] = [];
-  for (const spell of spells) {
-    const faces = getColoredRequirements(spell, sourcesByColor);
-    if (faces.length === 0) continue;
-    let best = 0;
-    for (const face of faces) {
-      let castability = 1;
-      for (const [color, required] of face) {
-        targetSourcesByColor[color] = Math.max(targetSourcesByColor[color], required);
-        castability = Math.min(castability, sourcesByColor[color] / required);
-      }
-      best = Math.max(best, Math.min(1, castability));
-    }
-    castabilities.push(best);
-  }
-  const sourceAdequacy = roundTo(mean(castabilities, 1));
+  const castability = measureCastability(spells, sourcesByColor);
+  const targetSourcesByColor = castability.targetSourcesByColor;
+  const sourceAdequacy = roundTo(castability.sourceAdequacy);
   const fastManaCount = accelerators.filter((accelerator) => accelerator.cmc <= 1).length;
 
   return {
@@ -718,15 +834,28 @@ function computeManaScore(mana: ManaAxisAudit): number {
 /**
  * Computes the 5 mathematical axes of the Kiviat Radar.
  */
-export function computeKiviatRadar(
+interface DeckAxisAnalysis {
+  readonly radar: KiviatRadarScores;
+  readonly spells: readonly CardEvaluationInput[];
+  readonly lands: readonly CardEvaluationInput[];
+  readonly powerAnalysis: ReturnType<typeof analyzePower>;
+  readonly packages: readonly StrategicPackageAudit[];
+  readonly synergyAnalysis: ReturnType<typeof analyzeArchetypeSynergy>;
+  readonly curveAnalysis: CurveAxisAudit;
+  readonly interactionAnalysis: ReturnType<typeof analyzeInteraction>;
+  readonly manaAnalysis: ManaAxisAudit;
+}
+
+function analyzeDeckAxes(
   deck: readonly CardEvaluationInput[],
   archetype: DeckArchetype,
-  options: DeckEvaluationOptions = {},
-): KiviatRadarScores {
+  options: DeckEvaluationOptions,
+): DeckAxisAnalysis {
   const spells = deck.filter((c) => !c.isLand);
   const lands = deck.filter((c) => c.isLand);
   const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
   const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
+  const powerAnalysis = analyzePower(spells, bombThreshold);
   const packages = analyzeStrategicPackages(spells);
   const curveAnalysis = analyzeCurve(spells, packages);
   const interactionAnalysis = analyzeInteraction(spells, archetype);
@@ -734,7 +863,7 @@ export function computeKiviatRadar(
   const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
 
   // 1. Puissance Brute (20%)
-  const power = analyzePower(spells, bombThreshold).score;
+  const power = powerAnalysis.score;
 
   // 2. Synergies d'Archétype (25%) - 3 points per key card, 1 per support card.
   const synergy = synergyAnalysis.score;
@@ -786,12 +915,24 @@ export function computeKiviatRadar(
   const interaction = interactionAnalysis.score;
 
   return {
-    power,
-    synergy,
-    curve,
-    mana,
-    interaction,
+    radar: { power, synergy, curve, mana, interaction },
+    spells,
+    lands,
+    powerAnalysis,
+    packages,
+    synergyAnalysis,
+    curveAnalysis,
+    interactionAnalysis,
+    manaAnalysis,
   };
+}
+
+export function computeKiviatRadar(
+  deck: readonly CardEvaluationInput[],
+  archetype: DeckArchetype,
+  options: DeckEvaluationOptions = {},
+): KiviatRadarScores {
+  return analyzeDeckAxes(deck, archetype, options).radar;
 }
 
 /**
@@ -809,20 +950,18 @@ export function evaluateDeck(
     }
   }
 
-  const bombThreshold = options.bombThreshold ?? options.cubeContext?.bombThreshold;
-  const synergyProfile = options.synergyProfile ?? options.cubeContext?.synergyProfile;
-
   const archetype = detectArchetype(deck);
-  const radar = computeKiviatRadar(deck, archetype, options);
-
-  const spells = deck.filter((c) => !c.isLand);
-  const lands = deck.filter((c) => c.isLand);
-  const powerAnalysis = analyzePower(spells, bombThreshold);
-  const packages = analyzeStrategicPackages(spells);
-  const synergyAnalysis = analyzeArchetypeSynergy(deck, synergyProfile, packages);
-  const curveAnalysis = analyzeCurve(spells, packages);
-  const interactionAnalysis = analyzeInteraction(spells, archetype);
-  const manaAnalysis = analyzeMana(spells, lands);
+  const {
+    radar,
+    spells,
+    lands,
+    powerAnalysis,
+    packages,
+    synergyAnalysis,
+    curveAnalysis,
+    interactionAnalysis,
+    manaAnalysis,
+  } = analyzeDeckAxes(deck, archetype, options);
 
   // Without a cube synergy profile the synergy axis is unknown, not zero: the remaining axes
   // keep their relative weights and share the whole score.

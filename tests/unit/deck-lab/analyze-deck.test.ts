@@ -154,6 +154,45 @@ describe("deck lab", () => {
     expect(result.rating).toEqual(result.before);
   });
 
+  it("proposes ranked swaps from a 40-card deck, each worth at least one point", () => {
+    const result = analyzeDeckText(
+      `${redDeck(17)}
+Sideboard
+1 Ragavan, Nimble Pilferer
+1 Ancestral Recall`,
+      "pimp",
+      catalog,
+    );
+    if (!("retouch" in result) || !result.retouch || !result.before) {
+      throw new Error("Pimp result is missing its retouch");
+    }
+    const { retouch } = result;
+    expect(retouch.swaps[0]?.add).toBe("Ragavan, Nimble Pilferer");
+    expect(retouch.swaps.map((swap) => swap.add)).not.toContain("Ancestral Recall");
+    expect(retouch.scoreBefore).toBe(result.before.score);
+    let score = retouch.scoreBefore;
+    for (const swap of retouch.swaps) {
+      expect(swap.scoreBefore).toBe(score);
+      expect(swap.scoreAfter).toBeGreaterThanOrEqual(score + 1);
+      expect(Object.values(swap.axes).some((delta) => delta > 0)).toBe(true);
+      score = swap.scoreAfter;
+    }
+    expect(retouch.scoreAfter).toBe(score);
+    expect(result.rating.score).toBeGreaterThanOrEqual(retouch.scoreAfter);
+  });
+
+  it("offers no swaps when the submitted maindeck is not a 40-card deck", () => {
+    const result = analyzeDeckText(
+      `${redDeck(10)}
+Sideboard
+1 Black Lotus`,
+      "pimp",
+      catalog,
+    );
+    if (!("retouch" in result)) throw new Error("Pimp result is missing its retouch");
+    expect(result.retouch).toBeNull();
+  });
+
   it("rejects a maindeck above 40 cards and unknown card names", () => {
     expect(() => analyzeDeckText(`${redDeck(17)}\n1 Plains`, "rate", catalog)).toThrow(
       /maximum 40/iu,

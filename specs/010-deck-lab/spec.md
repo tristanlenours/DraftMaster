@@ -11,11 +11,11 @@
 ## Rules
 
 - The MTGA parser accepts quantities, edition suffixes, French basic land names and a sideboard. Deck Lab enforces one copy per nonbasic card across main and sideboard; only basic lands may have multiple copies.
-- Rate ignores the sideboard, rejects more than 40 maindeck cards, and adds missing basic lands virtually. The allocation follows mana requirements deterministically and is displayed as provisional. Basic lands already supplied are retained.
+- Rate ignores the sideboard, rejects more than 40 maindeck cards, and adds missing basic lands virtually up to 18 lands; a list still short of spells is refused as incomplete. The allocation uses the same deterministic source split as the draft build engine and is displayed as provisional. Basic lands already supplied are retained.
 - Pimp counts nonbasic cards in main and sideboard toward the 45-card limit; basic lands do not use pool slots. At least 22 distinct nonland cards are required by the shared draft build engine.
 - Every card used by an analysis must resolve to exact catalog facts. Unknown maindeck names block Rate; unknown names in the entire pool block Pimp. Rate ignores sideboard names; no generic score is invented.
 - Both actions use the chosen active cube's verified CoachContext and existing deck evaluation engine. If a cube's synergy profile is blocked, they use its validated snapshot plus catalog facts and explicitly flag the narrower coverage. If no valid snapshot exists, they use only catalog facts and disclose this limit. Cards outside an available snapshot are flagged.
-- Pimp uses the existing deterministic deck recommender with the same adaptive constraints as the draft. A 40-card input is retained when its score is at least as high as the best candidate.
+- Pimp uses the existing deterministic deck recommender with the same adaptive constraints as the draft, refined by the same bounded local search as the Solo deckbuilding proposal. For a 40-card input, Pimp first lists up to three swaps with the reserve or basic lands, each gaining at least one point without changing colors or land count. The retouched deck is retained when its score is at least as high as the best rebuild.
 - The score and letter are heuristic diagnostics, not a win probability or calibrated league tier. Results are not persisted. Photo recognition requires manual text verification.
 - The copied list uses MTGA text syntax. Arena availability of individual cards is not verified.
 

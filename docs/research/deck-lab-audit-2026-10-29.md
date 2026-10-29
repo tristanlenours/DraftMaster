@@ -192,6 +192,32 @@ les ajustements de coût effectif existants.
 - **6** : jouabilité par carte selon l'intensité des pips (tables de Karsten, 40 cartes). Le
   fixing n'est exigé qu'à partir de 3 couleurs.
 
+## Lot 2 — réalisé (Pimp optimisé)
+
+- **4** : l'assemblage commun (draft, simulation, Deck Lab) ne garde plus que les bi-lands qui
+  produisent deux couleurs du chemin. Un trio dont les meilleurs sorts n'utilisent que deux
+  couleurs n'est plus proposé, et le bonus de fixing ne compte que les terrains utiles. Les
+  basiques sont réparties terrain par terrain là où elles améliorent le plus la jouabilité de
+  Karsten, après les sources non basiques. Rate utilise la même répartition pour ses basiques
+  virtuelles. Une recherche locale bornée (`optimizeDeck`, 4 échanges, déterministe) affine
+  ensuite les propositions destinées à un joueur : Pimp et la recommandation Solo, qui restent
+  identiques (test de parité). Les bots et la simulation n'en ont pas besoin et gardent le
+  coût d'avant. Sur 25 pools par cube (même méthode que l'audit), la note moyenne proposée passe
+  de 73,8 à 75,3 (titou_tribal), de 66,6 à 70,1 (cedric_cube) et de 72,1 à 74,6
+  (nico_candyshop). Une recherche à 10 échanges ne trouve ensuite plus aucun gain d'au moins
+  un point.
+- **7** : pour un deck de 40 cartes, Pimp liste d'abord jusqu'à 3 échanges avec la réserve ou
+  les basiques, chacun avec sa note avant/après et les axes gagnés, sans changer de couleurs
+  ni de nombre de terrains. Le deck retouché est retenu s'il vaut au moins la reconstruction.
+- **10a** : `evaluateDeck` calcule chaque analyse une seule fois. Les analyses de texte par
+  carte et les ensembles d'identifiants des profils sont mis en cache : 1,8 ms → 0,23 ms par
+  évaluation sur titou_tribal. Une proposition affinée coûte environ 0,3 à 0,7 s par pool sur
+  une machine chargée. La recommandation Solo est mise en cache pendant le deckbuilding.
+- **10b** : les basiques sont reconnues par identité d'objet, plus par identifiants codés en dur.
+  Une carte draftée d'identifiant `90790` restait sinon aussi en réserve.
+- Reste hors lot : le repli local de `final-deck-coach` (partagé avec les bots) n'utilise pas la
+  recherche locale, et aucun splash n'est exploré.
+
 ## Ordre de mise en œuvre proposé
 
 1. **Fiabiliser l'évaluateur** (1, 2, 3, 5, 6) : tests rouges d'abord, puis passage

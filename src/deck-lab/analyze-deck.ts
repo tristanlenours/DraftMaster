@@ -3,7 +3,10 @@ import { toCardEvaluationInput } from "../cards/evaluation-input.ts";
 import {
   DEFAULT_BASIC_LANDS,
   MIN_BUILD_NONLAND_CARDS,
+  PROPOSAL_LOCAL_SEARCH,
+  allocateBasicLands,
   evaluateDeck,
+  optimizeDeck,
   recommendDeckBuilds,
   type CardEvaluationInput,
   type DeckEvaluation,
@@ -32,6 +35,8 @@ interface NamedCount {
 const BASIC_NAMES = ["Plains", "Island", "Swamp", "Mountain", "Forest"] as const;
 /** Rate completes a short list with virtual basics only up to this many lands. */
 const MAX_RATE_LAND_COUNT = 18;
+/** Pimp lists at most this many swaps from the submitted deck. */
+const RETOUCH_MAX_SWAPS = 3;
 const BASIC_INPUTS = {
   Plains: DEFAULT_BASIC_LANDS.W,
   Island: DEFAULT_BASIC_LANDS.U,
@@ -70,32 +75,17 @@ function virtualBasicsForRate(
   supplied: Readonly<Record<string, number>>,
   missing: number,
 ): NamedCount[] {
-  const demand = Object.fromEntries(BASIC_NAMES.map((name) => [name, 0])) as Record<
-    (typeof BASIC_NAMES)[number],
-    number
-  >;
   const colors = ["W", "U", "B", "R", "G"] as const;
-  for (const card of cards) {
-    if (card.isLand) continue;
-    for (const [index, color] of colors.entries()) {
-      const name = BASIC_NAMES[index];
-      if (name) demand[name] += card.manaCost?.match(new RegExp(`o?${color}`, "giu"))?.length ?? 0;
-    }
-  }
-  if (Object.values(demand).every((count) => count === 0)) demand.Plains = 1;
-  const totalDemand = Object.values(demand).reduce((sum, count) => sum + count, 0);
-  const totalBasics = BASIC_NAMES.reduce((sum, name) => sum + (supplied[name] ?? 0), missing);
-  const added = Object.fromEntries(BASIC_NAMES.map((name) => [name, 0])) as typeof demand;
-  for (let index = 0; index < missing; index++) {
-    const best = BASIC_NAMES.reduce((left, right) =>
-      (demand[right] / totalDemand) * totalBasics - (supplied[right] ?? 0) - added[right] >
-      (demand[left] / totalDemand) * totalBasics - (supplied[left] ?? 0) - added[left]
-        ? right
-        : left,
-    );
-    added[best]++;
-  }
-  return BASIC_NAMES.flatMap((name) => (added[name] > 0 ? [{ name, count: added[name] }] : []));
+  const allocation = allocateBasicLands(
+    cards.filter((card) => !card.isLand),
+    [...cards.filter((card) => card.isLand), ...expandBasics(supplied)],
+    colors,
+    missing,
+  );
+  return colors.flatMap((color, index) => {
+    const name = BASIC_NAMES[index];
+    return name && allocation[color] > 0 ? [{ name, count: allocation[color] }] : [];
+  });
 }
 
 function summarize(
@@ -281,25 +271,33 @@ export function analyzeDeckText(
     parsed.totalCount === 40
       ? compactEvaluation(evaluateDeck(currentDeck, options), currentDeck)
       : null;
-  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options)[0];
+  const proposal = recommendDeckBuilds(pool, DEFAULT_BASIC_LANDS, options, {
+    localSearch: PROPOSAL_LOCAL_SEARCH,
+  })[0];
   if (!proposal) throw new DeckLabInputError("Aucune construction de deck n'a été trouvée.");
   const basicsById = new Map(Object.values(BASIC_INPUTS).map((card) => [card.id, card]));
   const proposedDeck = proposal.maindeck.flatMap((id) => {
     const card = byId.get(id) ?? basicsById.get(id);
     return card ? [card] : [];
   });
-  const useCurrent = previous !== null && previous.score >= proposal.evaluation.overallScore;
-  const chosenIds = useCurrent
-    ? main.map((card) => card.id)
-    : proposal.maindeck.filter((id) => byId.has(id));
+  // Swaps from the submitted deck come first: they keep the player's plan and explain each gain.
+  const retouched =
+    previous === null
+      ? null
+      : optimizeDeck(currentDeck, reserve, options, {
+          maxSwaps: RETOUCH_MAX_SWAPS,
+          basics: DEFAULT_BASIC_LANDS,
+        });
+  const useCurrent =
+    retouched !== null && retouched.evaluation.overallScore >= proposal.evaluation.overallScore;
+  const chosenDeck = useCurrent ? retouched.maindeck : proposedDeck;
+  const chosenIds = chosenDeck.filter((card) => byId.has(card.id)).map((card) => card.id);
   const chosen = new Set(chosenIds);
   const mainIds = new Set(main.map((card) => card.id));
   const basicLands = Object.fromEntries(
     BASIC_NAMES.map((name) => [
       name,
-      useCurrent
-        ? parsed.basicLands[name]
-        : proposal.maindeck.filter((id) => id === BASIC_INPUTS[name].id).length,
+      chosenDeck.filter((card) => card === BASIC_INPUTS[name]).length,
     ]),
   );
   const addedBasics = BASIC_NAMES.flatMap((name) => {
@@ -325,9 +323,29 @@ export function analyzeDeckText(
     mode,
     input,
     before: previous,
-    rating: useCurrent ? previous : compactEvaluation(proposal.evaluation, proposedDeck),
+    rating: useCurrent
+      ? compactEvaluation(retouched.evaluation, retouched.maindeck)
+      : compactEvaluation(proposal.evaluation, proposedDeck),
+    retouch:
+      retouched === null || previous === null
+        ? null
+        : {
+            scoreBefore: previous.score,
+            scoreAfter: retouched.evaluation.overallScore,
+            swaps: retouched.swaps.map((swap) => ({
+              remove: swap.removed.name,
+              add: swap.added.name,
+              scoreBefore: swap.scoreBefore,
+              scoreAfter: swap.scoreAfter,
+              axes: swap.axisDeltas,
+            })),
+          },
     build: {
-      title: useCurrent ? "Deck actuel conservé" : proposal.title,
+      title: useCurrent
+        ? retouched.swaps.length > 0
+          ? "Deck actuel retouché"
+          : "Deck actuel conservé"
+        : proposal.title,
       final: summarize(chosenIds, byId),
       keep: [
         ...summarize(
@@ -358,15 +376,18 @@ export function analyzeDeckText(
         ...unusedBasics,
       ],
       basicLands,
-      improved: previous === null ? null : !useCurrent,
+      improved:
+        previous === null
+          ? null
+          : (useCurrent ? retouched.evaluation : proposal.evaluation).overallScore > previous.score,
     },
     warnings: [
       ...contextWarnings,
       ...(previous === null
         ? ["La liste initiale ne contient pas 40 cartes : aucune note avant modification."]
-        : useCurrent
+        : useCurrent && retouched.swaps.length === 0
           ? [
-              "Aucune construction du pool ne dépasse la note du deck actuel selon cette heuristique.",
+              "Aucun échange ni aucune construction du pool ne dépasse la note du deck actuel selon cette heuristique.",
             ]
           : []),
     ],
