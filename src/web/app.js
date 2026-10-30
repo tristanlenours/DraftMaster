@@ -275,7 +275,6 @@ export function navigateTo(viewName, cubeKey = null) {
   state.currentView = viewName;
 
   // Header active tabs (Desktop)
-  elements.navBtnHome?.classList.toggle("active", viewName === "home");
   elements.navBtnCubes?.classList.toggle("active", viewName === "cubes");
   elements.navBtnCards?.classList.toggle("active", viewName === "cards");
   elements.navBtnBots?.classList.toggle("active", viewName === "bots");
@@ -286,7 +285,6 @@ export function navigateTo(viewName, cubeKey = null) {
   elements.navBtnDeckLab?.classList.toggle("active", viewName === "deck-lab");
 
   // Header active tabs (Mobile Drawer)
-  elements.mobileNavHome?.classList.toggle("active", viewName === "home");
   elements.mobileNavCubes?.classList.toggle("active", viewName === "cubes");
   elements.mobileNavCards?.classList.toggle("active", viewName === "cards");
   elements.mobileNavBots?.classList.toggle("active", viewName === "bots");
@@ -437,7 +435,11 @@ function closeMobileNav() {
 function setupEventListeners() {
   // SPA Navigation handlers (Desktop)
   elements.brandHomeBtn?.addEventListener("click", () => navigateTo("home"));
-  elements.navBtnHome?.addEventListener("click", () => navigateTo("home"));
+  elements.brandHomeBtn?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    navigateTo("home");
+  });
   elements.navBtnCubes?.addEventListener("click", () => navigateTo("cubes"));
   elements.navBtnCards?.addEventListener("click", () => navigateTo("cards"));
   elements.navBtnBots?.addEventListener("click", () => navigateTo("bots"));
@@ -450,10 +452,6 @@ function setupEventListeners() {
   // SPA Navigation handlers (Mobile Drawer)
   elements.mobileMenuBtn?.addEventListener("click", () => toggleMobileNav());
   elements.mobileNavBackdrop?.addEventListener("click", () => closeMobileNav());
-  elements.mobileNavHome?.addEventListener("click", () => {
-    navigateTo("home");
-    closeMobileNav();
-  });
   elements.mobileNavCubes?.addEventListener("click", () => {
     navigateTo("cubes");
     closeMobileNav();
