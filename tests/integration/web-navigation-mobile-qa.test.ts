@@ -58,11 +58,12 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).toContain('class="brand-badge"');
       expect(htmlContent).toContain('class="brand-title"');
       expect(htmlContent).toContain('class="brand-tagline"');
+      expect(htmlContent).toContain(`aria-label="Retour à l'accueil"`);
+      expect(htmlContent).not.toContain('data-view="home"');
     });
 
-    it("declares desktop navigation tabs for all 9 SPA views including the deck lab", () => {
+    it("declares desktop navigation tabs for all 8 SPA views including the deck lab", () => {
       const views = [
-        "home",
         "cubes",
         "cards",
         "bots",
@@ -92,13 +93,12 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(barMatches?.length).toBe(3);
     });
 
-    it("declares mobile navigation drawer with touch targets for all 9 views", () => {
+    it("declares mobile navigation drawer with touch targets for all 8 views", () => {
       expect(htmlContent).toContain('id="mobile-nav-drawer"');
       expect(htmlContent).toContain('class="mobile-nav-drawer"');
       expect(htmlContent).toContain('aria-label="Navigation mobile"');
 
       const mobileViews = [
-        "home",
         "cubes",
         "cards",
         "bots",
@@ -253,9 +253,8 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(jsContent).toContain("Escape");
     });
 
-    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 9 views", () => {
+    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 8 views", () => {
       const navKeys = [
-        "Home",
         "Cubes",
         "Cards",
         "Bots",

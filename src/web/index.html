@@ -31,6 +31,7 @@
           role="button"
           tabindex="0"
           title="Retour à l'accueil"
+          aria-label="Retour à l'accueil"
         >
           <span class="brand-badge" title="Les Magiciens : Cube Digital Extended Universe"
             >LMCDEU</span
@@ -43,33 +44,34 @@
 
         <!-- Main SPA Navigation Tabs (Desktop) -->
         <nav class="site-nav" aria-label="Navigation principale">
-          <button class="nav-tab-btn active" data-view="home" id="nav-btn-home">
-            <span class="tab-icon">🏛️</span>
-            <span class="tab-label">Accueil</span>
-          </button>
-          <button class="nav-tab-btn" data-view="cubes" id="nav-btn-cubes">
+          <button class="nav-tab-btn" data-view="cubes" id="nav-btn-cubes" title="Les Cubes">
             <span class="tab-icon">🎲</span>
-            <span class="tab-label">Les Cubes</span>
+            <span class="tab-label">Cubes</span>
           </button>
-          <button class="nav-tab-btn" data-view="cards" id="nav-btn-cards">
+          <button class="nav-tab-btn" data-view="cards" id="nav-btn-cards" title="Cartes & Ranking">
             <span class="tab-icon">🎴</span>
-            <span class="tab-label">Cartes & Ranking</span>
+            <span class="tab-label">Cartes</span>
           </button>
-          <button class="nav-tab-btn" data-view="bots" id="nav-btn-bots">
+          <button class="nav-tab-btn" data-view="bots" id="nav-btn-bots" title="Les 8 Bots">
             <span class="tab-icon">🤖</span>
-            <span class="tab-label">Les 8 Bots</span>
+            <span class="tab-label">Bots</span>
           </button>
-          <button class="nav-tab-btn" data-view="draft" id="nav-btn-draft">
+          <button class="nav-tab-btn" data-view="draft" id="nav-btn-draft" title="Draft Solo">
             <span class="tab-icon">⚔️</span>
-            <span class="tab-label">Draft Solo</span>
+            <span class="tab-label">Solo</span>
           </button>
-          <button class="nav-tab-btn" data-view="records" id="nav-btn-records">
+          <button
+            class="nav-tab-btn"
+            data-view="records"
+            id="nav-btn-records"
+            title="Mur des Records"
+          >
             <span class="tab-icon">🏆</span>
-            <span class="tab-label">Mur des Records</span>
+            <span class="tab-label">Records</span>
           </button>
-          <button class="nav-tab-btn" data-view="multi" id="nav-btn-multi">
+          <button class="nav-tab-btn" data-view="multi" id="nav-btn-multi" title="Draft Multi">
             <span class="tab-icon">👥</span>
-            <span class="tab-label">Draft Multi</span>
+            <span class="tab-label">Multi</span>
           </button>
           <button class="nav-tab-btn" data-view="tournaments" id="nav-btn-tournaments">
             <span class="tab-icon">🏟️</span>
@@ -137,10 +139,6 @@
       <!-- Mobile Navigation Drawer (Dropdown / Slide-down) -->
       <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Navigation mobile" hidden>
         <div class="mobile-nav-drawer-inner">
-          <button class="mobile-nav-item active" data-view="home" id="mobile-nav-home">
-            <span class="mobile-nav-icon">🏛️</span>
-            <span class="mobile-nav-label">Accueil</span>
-          </button>
           <button class="mobile-nav-item" data-view="cubes" id="mobile-nav-cubes">
             <span class="mobile-nav-icon">🎲</span>
             <span class="mobile-nav-label">Les Cubes</span>
@@ -3064,12 +3062,20 @@
               placeholder="Deck&#10;1 Lightning Bolt&#10;…&#10;17 Mountain"
             ></textarea>
             <p id="deck-lab-count" class="deck-lab-hint">
-              Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : au moins 22 cartes hors terrain parmi 45 cartes non basiques maximum, terrains adaptés au deck.
+              Rate : jusqu'à 40 cartes, terrains de base manquants ajoutés virtuellement. Pimp : au
+              moins 22 cartes hors terrain parmi 45 cartes non basiques maximum, terrains adaptés au
+              deck.
             </p>
             <div id="deck-lab-photo-review" hidden>
-              <p>La reconnaissance peut être incomplète. Corrigez les noms et les quantités dans la liste MTGA.</p>
+              <p>
+                La reconnaissance peut être incomplète. Corrigez les noms et les quantités dans la
+                liste MTGA.
+              </p>
               <div id="deck-lab-unverified"></div>
-              <label><input id="deck-lab-photo-confirm" type="checkbox" /> J'ai vérifié et corrigé la liste issue de la photo.</label>
+              <label
+                ><input id="deck-lab-photo-confirm" type="checkbox" /> J'ai vérifié et corrigé la
+                liste issue de la photo.</label
+              >
             </div>
             <div class="deck-lab-actions">
               <button type="button" class="deck-lab-photo-button" id="deck-lab-photo-trigger">

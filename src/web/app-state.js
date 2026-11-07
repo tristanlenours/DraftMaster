@@ -122,7 +122,6 @@ export const elements = {
 
   // Navigation Links (Desktop)
   brandHomeBtn: document.getElementById("brand-home-btn"),
-  navBtnHome: document.getElementById("nav-btn-home"),
   navBtnCubes: document.getElementById("nav-btn-cubes"),
   navBtnCards: document.getElementById("nav-btn-cards"),
   navBtnBots: document.getElementById("nav-btn-bots"),
@@ -138,7 +137,6 @@ export const elements = {
   mobileMenuBtn: document.getElementById("mobile-menu-btn"),
   mobileNavDrawer: document.getElementById("mobile-nav-drawer"),
   mobileNavBackdrop: document.getElementById("mobile-nav-backdrop"),
-  mobileNavHome: document.getElementById("mobile-nav-home"),
   mobileNavCubes: document.getElementById("mobile-nav-cubes"),
   mobileNavCards: document.getElementById("mobile-nav-cards"),
   mobileNavBots: document.getElementById("mobile-nav-bots"),
