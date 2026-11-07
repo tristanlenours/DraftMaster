@@ -12,7 +12,7 @@ describe("Cube Upgrade Advisor", () => {
     oracleId: "target-1",
     slug: "shocking-strike",
     name: "Shocking Strike",
-    cmc: 3,
+    cmc: 2,
     colors: ["R"],
     colorIdentity: ["R"],
     typeLine: "Instant",
@@ -51,6 +51,17 @@ describe("Cube Upgrade Advisor", () => {
       },
     },
   };
+
+  const mockTargetTribalAnalysis = {
+    cubeKey: "titou_tribal",
+    fit: "filler",
+    relativeTier: "F",
+    tier: "F",
+    archetypes: ["titou:tribal_goblins"],
+    synergyTags: ["burn"],
+    scoreModifier: 0,
+    analysis: "Outdated removal spell.",
+  } satisfies MasterCatalogCard["cubeAnalyses"][string];
 
   const mockCandidateUpgrade: MasterCatalogCard = {
     oracleId: "cand-1",
@@ -204,7 +215,7 @@ describe("Cube Upgrade Advisor", () => {
       expect(upgrades["Shocking Strike"]).toBeUndefined();
     });
 
-    it("accepts an easier-to-cast mono-color replacement for a multicolor spell", () => {
+    describe("slot-for-slot guardrails", () => {
       const multicolorTarget: MasterCatalogCard = {
         ...mockTargetCard,
         oracleId: "multicolor-target",
@@ -214,23 +225,233 @@ describe("Cube Upgrade Advisor", () => {
         colorIdentity: ["B", "R"],
         powerScore: { ...mockTargetCard.powerScore, score: 15 },
       };
-      const monoColorCandidate: MasterCatalogCard = {
-        ...mockCandidateUpgrade,
-        oracleId: "mono-candidate",
-        name: "Efficient Red Removal",
-        cmc: 2,
-        colors: ["R"],
-        colorIdentity: ["R"],
-        powerScore: { ...mockCandidateUpgrade.powerScore, score: 35 },
+      const removalCandidate = (
+        name: string,
+        overrides: Partial<MasterCatalogCard> & { score?: number } = {},
+      ): MasterCatalogCard => {
+        const { score = 35, ...cardOverrides } = overrides;
+        return {
+          ...mockCandidateUpgrade,
+          oracleId: `cand-${name}`,
+          name,
+          cmc: 2,
+          powerScore: { ...mockCandidateUpgrade.powerScore, score },
+          ...cardOverrides,
+        };
       };
 
-      const upgrades = generateCubeUpgradeProposals(
-        "titou_tribal",
-        [multicolorTarget, monoColorCandidate],
-        mockMeta,
-      );
+      it("never replaces a two-color card with a mono-color card", () => {
+        const monoColorCandidate = removalCandidate("Efficient Red Removal", {
+          colors: ["R"],
+          colorIdentity: ["R"],
+          score: 50,
+        });
 
-      expect(upgrades[multicolorTarget.name]?.suggestedCard.name).toBe(monoColorCandidate.name);
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [multicolorTarget, monoColorCandidate],
+          mockMeta,
+        );
+
+        expect(upgrades[multicolorTarget.name]).toBeUndefined();
+      });
+
+      it("replaces a two-color card with a card of the same color pair", () => {
+        const goldCandidate = removalCandidate("Rakdos Charm Upgrade", {
+          colors: ["R", "B"],
+          colorIdentity: ["R", "B"],
+        });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [multicolorTarget, goldCandidate],
+          mockMeta,
+        );
+
+        expect(upgrades[multicolorTarget.name]?.suggestedCard.name).toBe(goldCandidate.name);
+      });
+
+      it("never replaces a mono-color card with a multicolor card", () => {
+        const goldCandidate = removalCandidate("Gold Removal", {
+          colors: ["B", "R"],
+          colorIdentity: ["B", "R"],
+          score: 50,
+        });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, goldCandidate],
+          mockMeta,
+        );
+
+        expect(upgrades[mockTargetCard.name]).toBeUndefined();
+      });
+
+      it("rejects a noncreature replacement two mana away from the slot", () => {
+        const fourDrop = { ...mockTargetCard, cmc: 4 };
+        const twoDrop = removalCandidate("Cheap Removal", { colors: ["R"], cmc: 2, score: 54 });
+        const sixDrop = removalCandidate("Expensive Removal", { colors: ["R"], cmc: 6, score: 54 });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [fourDrop, twoDrop, sixDrop],
+          mockMeta,
+        );
+
+        expect(upgrades[fourDrop.name]).toBeUndefined();
+      });
+
+      it("accepts a one-mana-more replacement only when the power gain is worth it", () => {
+        // target score 14: +10 is not enough for a slower curve, +13 is.
+        const marginal = removalCandidate("Marginal Three Drop", {
+          colors: ["R"],
+          cmc: 3,
+          score: 25, // above the interesting-card floor, but only +11
+        });
+        const worthIt = removalCandidate("Worth It Three Drop", {
+          colors: ["R"],
+          cmc: 3,
+          score: 27,
+        });
+
+        const rejected = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, marginal],
+          mockMeta,
+        );
+        const accepted = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, worthIt],
+          mockMeta,
+        );
+
+        expect(rejected[mockTargetCard.name]).toBeUndefined();
+        expect(accepted[mockTargetCard.name]?.suggestedCard.name).toBe(worthIt.name);
+        expect(accepted[mockTargetCard.name]?.reason).toMatch(/Un mana de plus/);
+      });
+
+      it("prefers a same-cost replacement over a comparable one-mana-more card", () => {
+        const sameCost = removalCandidate("Same Cost Removal", {
+          colors: ["R"],
+          cmc: 2,
+          score: 40,
+        });
+        const pricier = removalCandidate("Pricier Removal", { colors: ["R"], cmc: 3, score: 42 });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, pricier, sameCost],
+          mockMeta,
+        );
+
+        expect(upgrades[mockTargetCard.name]?.suggestedCard.name).toBe(sameCost.name);
+      });
+
+      it("assigns each suggested card to a single slot", () => {
+        const secondTarget: MasterCatalogCard = {
+          ...mockTargetCard,
+          oracleId: "target-2",
+          name: "Other Weak Burn",
+          powerScore: { ...mockTargetCard.powerScore, score: 12 },
+        };
+        const best = removalCandidate("Best Burn", { colors: ["R"], score: 50 });
+        const second = removalCandidate("Second Burn", { colors: ["R"], score: 40 });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, secondTarget, best, second],
+          mockMeta,
+        );
+
+        const suggested = Object.values(upgrades).map((u) => u.suggestedCard.name);
+        expect(suggested.sort()).toEqual(["Best Burn", "Second Burn"]);
+      });
+
+      it("prefers a candidate sharing the slot's archetype synergies", () => {
+        const synergyCandidate = removalCandidate("Burn Synergy Card", {
+          colors: ["R"],
+          score: 38,
+          cubeAnalyses: {
+            nico_candyshop: {
+              cubeKey: "nico_candyshop",
+              fit: "support",
+              archetypes: [],
+              synergyTags: ["burn"],
+              scoreModifier: 0,
+              analysis: "Burn payoff.",
+            },
+          },
+        });
+        const genericCandidate = removalCandidate("Generic Strong Card", {
+          colors: ["R"],
+          score: 40,
+        });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, genericCandidate, synergyCandidate],
+          mockMeta,
+        );
+
+        const proposal = upgrades[mockTargetCard.name];
+        expect(proposal?.suggestedCard.name).toBe(synergyCandidate.name);
+        expect(proposal?.rankingFactors).toContainEqual({ key: "synergy_overlap", points: 3 });
+        expect(proposal?.rankingFactors.some((f) => f.key === "archetype_match")).toBe(true);
+      });
+
+      it("uses peer-cube oracle tags for a recent card analysed in none of our cubes", () => {
+        const recentImport = removalCandidate("Recent Peer Burn", {
+          colors: ["R"],
+          score: 38,
+          presentInCubes: [],
+          cubeAnalyses: {},
+        });
+        const genericCandidate = removalCandidate("Generic Strong Card", {
+          colors: ["R"],
+          score: 40,
+        });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, genericCandidate, recentImport],
+          mockMeta,
+          undefined,
+          undefined,
+          undefined,
+          new Map([["recent peer burn", ["burn", "removal"]]]),
+        );
+
+        const proposal = upgrades[mockTargetCard.name];
+        expect(proposal?.suggestedCard.name).toBe(recentImport.name);
+        expect(proposal?.rankingFactors).toContainEqual({ key: "synergy_overlap", points: 3 });
+      });
+
+      it("rejects a creature from another tribe that cannot serve the slot's archetype", () => {
+        const goblinTarget: MasterCatalogCard = {
+          ...mockTargetCard,
+          name: "Goblin Creature Slot",
+          typeLine: "Creature — Goblin",
+          types: ["Creature"],
+          subtypes: ["Goblin"],
+          oracleText: "Haste",
+        };
+        const elfCandidate = removalCandidate("Stronger Elf", {
+          colors: ["R"],
+          typeLine: "Creature — Elf",
+          types: ["Creature"],
+          subtypes: ["Elf"],
+          oracleText: "Trample",
+          score: 50,
+        });
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [goblinTarget, elfCandidate],
+          mockMeta,
+        );
+
+        expect(upgrades[goblinTarget.name]).toBeUndefined();
+      });
     });
 
     it("enforces Pauper legality when recommending for hugues_pauper", () => {
@@ -558,6 +779,32 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(upgrades[target.name]?.suggestedCard.name).toBe(compatible.name);
+    });
+
+    it("does not treat a blink of your own creature as removal", () => {
+      const blinkTarget: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "blink-target",
+        name: "Weak Blink",
+        oracleText:
+          "Exile target creature you control. Return it to the battlefield under its owner's control.",
+        presentInCubes: ["nico_candyshop"],
+      };
+      const removalCandidate: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "exile-removal",
+        name: "Strong Exile Removal",
+        oracleText: "Exile target creature or enchantment.",
+        presentInCubes: ["titou_tribal"],
+      };
+
+      const upgrades = generateCubeUpgradeProposals(
+        "nico_candyshop",
+        [blinkTarget, removalCandidate],
+        { ...mockMeta, cubeKey: "nico_candyshop" },
+      );
+
+      expect(upgrades[blinkTarget.name]).toBeUndefined();
     });
 
     it.each([
@@ -957,7 +1204,7 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(report.schemaVersion).toBe(2);
-      expect(report.engineVersion).toBe("cube-upgrade-advisor@3");
+      expect(report.engineVersion).toBe("cube-upgrade-advisor@4");
       expect(report.snapshotId).toBe("titou_tribal@test");
       expect(report.generatedAt).toBe(mockRunContext.generatedAt);
       expect(report.sourceProvenance).toEqual({
@@ -1063,6 +1310,12 @@ describe("Cube Upgrade Advisor", () => {
         typeLine: "Creature — Dragon",
         types: ["Creature"],
         subtypes: ["Dragon"],
+        cubeAnalyses: {
+          titou_tribal: {
+            ...mockTargetTribalAnalysis,
+            archetypes: ["titou:tribal_dragons"],
+          },
+        },
         powerScore: {
           score: 15,
           source: "untapped",
@@ -1174,6 +1427,9 @@ describe("Cube Upgrade Advisor", () => {
         subtypes: ["Shapeshifter"],
         oracleText: "Changeling (This card is every creature type.)",
         powerScore: { ...mockTargetCard.powerScore, score: 12 },
+        cubeAnalyses: {
+          titou_tribal: { ...mockTargetTribalAnalysis, archetypes: [] },
+        },
       };
       const unrelatedCandidate: MasterCatalogCard = {
         ...mockCandidateUpgrade,
