@@ -257,11 +257,11 @@ test.describe("AI Maybeboard on mobile", () => {
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
     await expect(page.locator("#modal-card-title")).toContainText("Confluence ardente");
     await expect(page.locator("#modal-hero-tier-card")).toHaveClass(/tier-a/);
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Acte de trahison");
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Incendier la maison");
     await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Confluence ardente");
 
     await page.locator("#lang-btn-en").tap();
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Act of Treason");
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Burn Down the House");
     await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Fiery Confluence");
     await page.locator("#lang-btn-fr").tap();
     await expect(page.locator("#modal-upgrade-sugg-name")).toContainText("Confluence ardente");
