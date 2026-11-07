@@ -21,6 +21,8 @@ The TypeScript runtime on Node.js 24 LTS and npm is active. Available scripts:
 - `npm run cards:build` — rebuild the unversioned `data/cards/master-cards.json` from `data/cards/items/` (source of truth); runs on install, build and start.
 - `npm run cube:validate -- --file <path>` — validate cube snapshot schema (Draft 2020-12) and canonical RFC 8785 SHA-256 integrity.
 - `npm --silent run simulate -- --seed 42` — run the headless draft simulator CLI.
+- `node scripts/fetch-cubecobra-benchmarks.mjs` — refresh peer CubeCobra cube lists, their compact card details and release metadata (network).
+- `node scripts/import-peer-cube-candidates.mjs --since 2024 [--apply]` — add recent peer-cube cards missing from the catalog as upgrade candidates (Scryfall facts, Elo-calibrated score; network), then run `npm run data:sync`.
 - `npm run format` / `npm run format:check` — format / verify formatting across source, tests, config, and `.github/workflows/`.
 - `npm run lint` — lint source and tests with ESLint.
 - `npm run typecheck` — TypeScript typecheck with `tsc --noEmit`.

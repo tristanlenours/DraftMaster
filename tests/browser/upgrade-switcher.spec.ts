@@ -29,9 +29,11 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await page.locator("#upgrade-filter-btn").click();
     await expect(page.locator("#upgrade-filter-btn")).toHaveClass(/active/);
 
-    // Search for Battle Cry Goblin
-    await page.locator("#card-search-input").fill("Battle Cry Goblin");
-    const goblinCard = page.locator(".card-matrix-item", { hasText: "Battle Cry Goblin" }).first();
+    // Search for Goro-Goro, Disciple of Ryusei
+    await page.locator("#card-search-input").fill("Goro-Goro, Disciple of Ryusei");
+    const goblinCard = page
+      .locator(".card-matrix-item", { hasText: "Goro-Goro, Disciple of Ryusei" })
+      .first();
     await expect(goblinCard).toBeVisible();
 
     // Open detail modal
@@ -39,8 +41,8 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
     await expect(page.locator("#modal-upgrade-section")).toBeVisible();
 
-    // 1. Initial State: Battle Cry Goblin is inspected
-    await expect(page.locator("#modal-card-title")).toContainText("Battle Cry Goblin");
+    // 1. Initial State: Goro-Goro is inspected
+    await expect(page.locator("#modal-card-title")).toContainText("Goro-Goro, Disciple of Ryusei");
     await expect(page.locator("#modal-upgrade-curr-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Affichée");
     await expect(page.locator("#modal-upgrade-sugg-status")).toContainText("Voir fiche");
@@ -64,8 +66,8 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     // 3. Click the center swap arrow button to swap back
     await page.locator("#modal-btn-swap-arrow").click();
 
-    // Modal is now back to Battle Cry Goblin
-    await expect(page.locator("#modal-card-title")).toContainText("Battle Cry Goblin");
+    // Modal is now back to Goro-Goro
+    await expect(page.locator("#modal-card-title")).toContainText("Goro-Goro, Disciple of Ryusei");
     await expect(page.locator("#modal-upgrade-curr-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Affichée");
 
@@ -87,31 +89,21 @@ test.describe("Card Upgrade Advisor and Bidirectional Switcher", () => {
     await expect(page.locator("#card-modal-backdrop")).toBeVisible();
     await expect(page.locator("#modal-upgrade-section")).toBeVisible();
 
-    // Fiery Confluence is inspected, with Act of Treason linked in left pane
+    // Fiery Confluence is inspected, with the single slot it replaces linked in left pane
     await expect(page.locator("#modal-card-title")).toContainText("Fiery Confluence");
     await expect(page.locator("#modal-upgrade-sugg-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-sugg-status")).toContainText("Affichée");
     await expect(page.locator("#modal-upgrade-curr-pane")).not.toHaveClass(/is-inspected/);
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Act of Treason");
+    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Burn Down the House");
 
-    // Check multi-targets chips container is visible
-    await expect(page.locator("#modal-upgrade-multi-targets-wrap")).toBeVisible();
-    const alternateTargetChip = page
-      .locator("#modal-upgrade-multi-targets-chips .btn-target-chip", {
-        hasText: "Brimstone Volley",
-      })
-      .first();
-    await expect(alternateTargetChip).toBeVisible();
+    // Slot-for-slot: a suggestion replaces exactly one cube card, so no alternate target chips
+    await expect(page.locator("#modal-upgrade-multi-targets-wrap")).toBeHidden();
 
-    // Click the alternate target chip to change comparison target
-    await alternateTargetChip.click();
-    await expect(page.locator("#modal-upgrade-curr-name")).toContainText("Brimstone Volley");
-
-    // Click bottom button to navigate directly to Brimstone Volley
+    // Click bottom button to navigate directly to the replaced card
     await page.locator("#modal-btn-inspect-upgrade").click();
 
-    // Now viewing Brimstone Volley
-    await expect(page.locator("#modal-card-title")).toContainText("Brimstone Volley");
+    // Now viewing Burn Down the House
+    await expect(page.locator("#modal-card-title")).toContainText("Burn Down the House");
     await expect(page.locator("#modal-upgrade-curr-pane")).toHaveClass(/is-inspected/);
     await expect(page.locator("#modal-upgrade-curr-status")).toContainText("Affichée");
   });

@@ -61,6 +61,98 @@ const benchmarkIndexPath = join(benchmarksDir, 'cubecobra-benchmarks.json');
 writeFileSync(benchmarkIndexPath, JSON.stringify(benchmarkIndex, null, 2), 'utf8');
 console.log(`💾 Saved benchmark index to ${benchmarkIndexPath}`);
 
+// 1b. Compact card details of the peer cubes (CubeCobra cubeJSON). Full exports weigh ~2 MB each,
+// so only the fields used by the power calibration, the release metadata and the card importer
+// (scripts/import-peer-cube-candidates.mjs) are versioned.
+const PEER_DETAIL_FIELDS = [
+  'name',
+  'oracle_id',
+  'scryfall_id',
+  'layout',
+  'elo',
+  'popularity',
+  'cubeCount',
+  'pickCount',
+  'cmc',
+  'parsed_cost',
+  'colors',
+  'color_identity',
+  'type',
+  'oracle_text',
+  'keywords',
+  'power',
+  'toughness',
+  'loyalty',
+  'produced_mana',
+  'oracle_tags',
+  'rarity',
+  'firstPrintYear',
+  'released_at',
+  'set',
+  'set_name',
+  'image_normal',
+  'art_crop',
+  'isToken',
+];
+const peerDetailsPath = join(benchmarksDir, 'cubecobra-peer-card-details.json');
+const previousPeerDetails = existsSync(peerDetailsPath)
+  ? JSON.parse(readFileSync(peerDetailsPath, 'utf8'))
+  : { cards: {} };
+const peerCards = {};
+const peerCapturedAt = {};
+for (const cube of BENCHMARK_CUBES) {
+  try {
+    const res = await fetch(`https://cubecobra.com/cube/api/cubeJSON/${cube.id}`, {
+      headers: { 'user-agent': 'DraftMaster/0.1 (+https://github.com/tristanlenours/DraftMaster)' },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    peerCapturedAt[cube.id] = new Date().toISOString();
+    for (const entry of json.cards?.mainboard ?? []) {
+      const d = entry.details;
+      if (!d?.oracle_id || !d.name) continue;
+      const existing = peerCards[d.oracle_id];
+      if (existing) {
+        if (!existing.peerCubes.includes(cube.id)) existing.peerCubes.push(cube.id);
+        continue;
+      }
+      const compact = { peerCubes: [cube.id] };
+      for (const field of PEER_DETAIL_FIELDS) {
+        if (d[field] !== undefined && d[field] !== null) compact[field] = d[field];
+      }
+      // A Pauper-legal card has a common printing even when the peer cube uses another one.
+      compact.pauperLegal = d.legalities?.Pauper === 'legal';
+      peerCards[d.oracle_id] = compact;
+    }
+    console.log(`  ✓ ${cube.name}: card details captured.`);
+  } catch (err) {
+    console.warn(`  ⚠️ Failed to fetch details for ${cube.name} (${err.message}). Keeping cached entries.`);
+    peerCapturedAt[cube.id] = previousPeerDetails.capturedAt?.[cube.id];
+    for (const [oracleId, card] of Object.entries(previousPeerDetails.cards ?? {})) {
+      if (card.peerCubes?.includes(cube.id) && !peerCards[oracleId]) peerCards[oracleId] = card;
+    }
+  }
+}
+const sortedPeerCards = Object.fromEntries(
+  Object.entries(peerCards).sort(([, a], [, b]) => a.name.localeCompare(b.name)),
+);
+writeFileSync(
+  peerDetailsPath,
+  JSON.stringify(
+    {
+      schemaVersion: 1,
+      source: 'https://cubecobra.com/cube/api/cubeJSON/<id> (mainboard details)',
+      capturedAt: peerCapturedAt,
+      cardCount: Object.keys(sortedPeerCards).length,
+      cards: sortedPeerCards,
+    },
+    null,
+    2,
+  ) + '\n',
+  'utf8',
+);
+console.log(`💾 Saved ${Object.keys(sortedPeerCards).length} peer card details to ${peerDetailsPath}`);
+
 // 2. Extract card release metadata from existing raw archives
 console.log('📦 Extracting card release years and set metadata...');
 const cubeKeys = [
@@ -108,6 +200,25 @@ for (const cKey of cubeKeys) {
   }
 }
 
+// Peer-cube cards complete the metadata for catalog candidates that are in none of our cubes.
+for (const card of Object.values(sortedPeerCards)) {
+  const normName = card.name.toLowerCase().trim();
+  if (cardMetadata[normName]) continue;
+  cardMetadata[normName] = {
+    name: card.name,
+    firstPrintYear:
+      card.firstPrintYear || (card.released_at ? parseInt(card.released_at.slice(0, 4), 10) : 2020),
+    released_at: card.released_at || undefined,
+    set: card.set?.toUpperCase() || undefined,
+    setName: card.set_name || undefined,
+    // Lowest known rarity: the Pauper-legality flag proves a common printing exists.
+    rarity: card.pauperLegal ? 'common' : card.rarity || undefined,
+    elo: card.elo || undefined,
+    popularity: card.popularity || undefined,
+    cubeCount: card.cubeCount || undefined,
+  };
+}
+
 // Fallback for missing 2 cards
 if (!cardMetadata['gurmag angler']) {
   cardMetadata['gurmag angler'] = {
@@ -122,10 +233,10 @@ if (!cardMetadata['gurmag angler']) {
 if (!cardMetadata['elspeth, storm slayer']) {
   cardMetadata['elspeth, storm slayer'] = {
     name: 'Elspeth, Storm Slayer',
-    firstPrintYear: 2024,
-    released_at: '2024-06-01',
-    set: 'MH3',
-    setName: 'Modern Horizons 3',
+    firstPrintYear: 2025,
+    released_at: '2025-04-11',
+    set: 'TDM',
+    setName: 'Tarkir: Dragonstorm',
     rarity: 'mythic',
   };
 }

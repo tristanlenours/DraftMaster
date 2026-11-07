@@ -119,6 +119,18 @@ console.log(
   `📡 Loaded ${Object.keys(benchmarksData).length} benchmark cubes & release metadata for ${releaseMetadataMap.size} cards.`,
 );
 
+// 2d. Peer-cube oracle tags: synergy vocabulary for candidates analysed in none of our cubes.
+const peerDetailsPath = resolve(rootDir, "data/benchmarks/cubecobra-peer-card-details.json");
+const peerDetailsRaw = existsSync(peerDetailsPath)
+  ? readFileSync(peerDetailsPath, "utf8")
+  : '{"cards":{}}';
+const peerOracleTagsMap = new Map();
+for (const card of Object.values(JSON.parse(peerDetailsRaw).cards ?? {})) {
+  if (card.oracle_tags?.length) {
+    peerOracleTagsMap.set(card.name.toLowerCase().trim(), card.oracle_tags);
+  }
+}
+
 // 3. Load all individual JSON files in itemsDir
 const itemFiles = readdirSync(itemsDir).filter((f) => f.endsWith(".json"));
 console.log(`📦 Found ${itemFiles.length} card documents in data/cards/items/`);
@@ -404,6 +416,7 @@ for (const cfg of cubeConfigs) {
         method: "Local archive; card Elo, popularity and cube count indexed by normalized name",
       },
     },
+    peerOracleTagsMap,
   );
   const suggestionsPath = resolve(rootDir, cfg.dir, "cube-suggestions.json");
   writeFileSync(suggestionsPath, JSON.stringify(suggestionsReport, null, 2) + "\n", "utf8");
@@ -502,6 +515,31 @@ if (existsSync(powerRankingPath)) {
         delete entry.rejectedUntappedScore;
       }
     }
+  }
+  // Cards added after the last power rebuild (e.g. peer-cube imports) join the ranking with
+  // their item score, so the ranking always covers the whole catalog.
+  const rankedOracleIds = new Set((powerRankingData.ranking || []).map((e) => e.oracleId));
+  let addedRankingEntries = 0;
+  for (const card of Object.values(cardsByOracleId)) {
+    if (rankedOracleIds.has(card.oracleId)) continue;
+    powerRankingData.ranking.push({
+      oracleId: card.oracleId,
+      name: card.name,
+      score: card.powerScore.score,
+      source: card.powerScore.source,
+      rawSourceScore: card.powerScore.score,
+      method:
+        card.powerScore.source === "untapped"
+          ? "untapped_reference_v2"
+          : card.powerScore.harmonizationDegree === "fallback"
+            ? "peer_cubecobra_elo_isotonic_low_sample"
+            : "peer_cubecobra_elo_isotonic",
+    });
+    addedRankingEntries += 1;
+  }
+  if (powerRankingData.coverage) {
+    powerRankingData.coverage.total = powerRankingData.ranking.length;
+    powerRankingData.coverage.addedSinceRebuild = addedRankingEntries;
   }
   // Sort descending by score, tie-break by name
   powerRankingData.ranking.sort((a, b) => {

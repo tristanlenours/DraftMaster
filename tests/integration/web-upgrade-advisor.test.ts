@@ -65,7 +65,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
         const raw = await readFile(filePath, "utf-8");
         const data = JSON.parse(raw) as CubeSuggestionsReport;
         expect(data.schemaVersion).toBe(2);
-        expect(data.engineVersion).toBe("cube-upgrade-advisor@3");
+        expect(data.engineVersion).toBe("cube-upgrade-advisor@4");
         expect(data.cubeKey).toBe(cubeKey);
         expect(data.snapshotId).toBeTruthy();
         expect(data.sourceProvenance.catalog.sha256).toMatch(/^[a-f0-9]{64}$/);
@@ -80,6 +80,22 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
           data.sourceCoverage.benchmarkCards,
         );
         expect(data.stats.totalUpgrades).toBeGreaterThan(0);
+
+        // Slot-for-slot guardrails hold on every precomputed swap.
+        const swaps = Object.values(data.upgrades);
+        for (const swap of swaps) {
+          const label = `${swap.targetCard.name} -> ${swap.suggestedCard.name}`;
+          expect([...swap.suggestedCard.colors].sort(), label).toEqual(
+            [...swap.targetCard.colors].sort(),
+          );
+          const cmcShift = swap.suggestedCard.cmc - swap.targetCard.cmc;
+          expect(Math.abs(cmcShift), label).toBeLessThanOrEqual(1);
+          const minimumGain = cmcShift > 0 ? 12 : cmcShift < 0 ? 8 : 5;
+          expect(swap.scoreDelta, label).toBeGreaterThanOrEqual(minimumGain);
+        }
+        const suggestedNames = swaps.map((swap) => swap.suggestedCard.name);
+        expect(new Set(suggestedNames).size).toBe(suggestedNames.length);
+
         expect(data.stats.totalMaybeboard).toBeGreaterThan(0);
         expect(data.stats.totalMaybeboard).toBeLessThanOrEqual(30);
         expect(data.stats.recentMaybeboardCount).toBeLessThanOrEqual(data.stats.totalMaybeboard);
@@ -100,9 +116,9 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
       const raw = await readFile(filePath, "utf-8");
       const data = JSON.parse(raw) as CubeSuggestionsReport;
 
-      // Verify at least one proposal
+      // Guardrails make the list shorter but every proposal must be a true slot-for-slot swap.
       const upgradeNames = Object.keys(data.upgrades);
-      expect(upgradeNames.length).toBeGreaterThan(50);
+      expect(upgradeNames.length).toBeGreaterThan(30);
 
       const sampleKey = upgradeNames[0];
       expect(sampleKey).toBeDefined();
