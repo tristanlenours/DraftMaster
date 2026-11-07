@@ -22,7 +22,7 @@ describe("CoachContext", () => {
     expect(context.provenance.snapshotSha256).toMatch(/^[0-9a-f]{64}$/u);
     expect(context.provenance.profileSourceSha256).toMatch(/^[0-9a-f]{64}$/u);
     expect(context.provenance.archetypeModelVersion).toBe("archetype-synergy@2");
-    expect(context.provenance.catalogCardCount).toBe(1948);
+    expect(context.provenance.catalogCardCount).toBe(2194);
 
     const unresolved = context.snapshot.cards.filter(
       (card) => context.catalog.getCardByOracleId(card.oracleId) === undefined,

@@ -95,7 +95,8 @@ export interface RankingFactor {
     | "popularity"
     | "elo"
     | "direct_replacement"
-    | "archetype_match";
+    | "archetype_match"
+    | "synergy_overlap";
   readonly points: number;
 }
 
@@ -117,7 +118,7 @@ export interface AdvisorRunContext {
 
 export interface CubeSuggestionsReport {
   readonly schemaVersion: 2;
-  readonly engineVersion: "cube-upgrade-advisor@3";
+  readonly engineVersion: "cube-upgrade-advisor@4";
   readonly cubeKey: string;
   readonly snapshotId: string;
   readonly generatedAt: string;
@@ -243,24 +244,32 @@ function isWeakTarget(card: MasterCatalogCard, cubeKey: string): boolean {
   return false;
 }
 
+/**
+ * A slot-for-slot swap keeps the exact color identity of the slot: a gold card is the
+ * cube's reward for playing that color pair, so replacing it with a mono-color card
+ * silently removes the pair's signpost (and a mono slot cannot become gold either).
+ */
 function areColorsCompatible(
   targetColors: readonly string[],
   candidateColors: readonly string[],
 ): boolean {
-  if (targetColors.length === 0) {
-    // Colorless can only be replaced by colorless
-    return candidateColors.length === 0;
-  }
-  if (candidateColors.length === 0) {
-    // Colorless can sometimes replace colored, but prefer exact color
-    return false;
-  }
-  if (targetColors.length === 1) {
-    // Mono-color must be replaced by same mono-color
-    return candidateColors.length === 1 && candidateColors[0] === targetColors[0];
-  }
-  // Multi-color: a candidate may keep the same colors or reduce color requirements.
-  return candidateColors.every((color) => targetColors.includes(color));
+  if (targetColors.length !== candidateColors.length) return false;
+  return targetColors.every((color) => candidateColors.includes(color));
+}
+
+/** Minimum power gain for a same-cost swap. */
+const MIN_SCORE_DELTA_SAME_CMC = 5;
+/** A cheaper slot shifts the curve: the swap must clearly be worth it. */
+const MIN_SCORE_DELTA_CMC_DOWN = 8;
+/** A more expensive slot slows the curve: the swap must be worth it even more. */
+const MIN_SCORE_DELTA_CMC_UP = 12;
+/** Slot-for-slot swaps never move more than one mana away from the replaced card. */
+const MAX_CMC_SHIFT = 1;
+
+function getMinimumScoreDelta(cmcDelta: number): number {
+  if (cmcDelta > 0) return MIN_SCORE_DELTA_CMC_UP;
+  if (cmcDelta < 0) return MIN_SCORE_DELTA_CMC_DOWN;
+  return MIN_SCORE_DELTA_SAME_CMC;
 }
 
 function areTypesCompatible(target: MasterCatalogCard, candidate: MasterCatalogCard): boolean {
@@ -330,9 +339,17 @@ function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> 
   const text = card.oracleText.toLowerCase();
   const functions = new Set<RulesFunction>();
 
+  // Removal targets an opponent's permanent: "exile target creature you control" is a blink.
+  const removesOpponentPermanent = text
+    .split(/[.\n]/)
+    .some(
+      (sentence) =>
+        (sentence.includes("destroy target") || sentence.includes("exile target")) &&
+        !sentence.includes("you control") &&
+        !sentence.includes("you own"),
+    );
   if (
-    text.includes("destroy target") ||
-    text.includes("exile target") ||
+    removesOpponentPermanent ||
     /deals? [^.]*(?:damage to any target|damage to target)/.test(text)
   ) {
     functions.add("removal");
@@ -376,7 +393,12 @@ function areRulesFunctionsCompatible(
 ): boolean {
   const targetFunctions = getRulesFunctions(target);
   const candidateFunctions = getRulesFunctions(candidate);
-  if (targetFunctions.size === 0 || candidateFunctions.size === 0) return true;
+  if (targetFunctions.size === 0 && candidateFunctions.size === 0) return true;
+  // Only one side has a recognised Oracle function: the curated roles must still align
+  // (a blink spell is not replaced by an unrecognised bounce or a vanilla threat).
+  if (targetFunctions.size === 0 || candidateFunctions.size === 0) {
+    return getRoleAlignmentBonus(target, candidate) > 0;
+  }
   return [...targetFunctions].some((role) => candidateFunctions.has(role));
 }
 
@@ -620,34 +642,81 @@ function generateStrategicRole(cand: MasterCatalogCard): string {
   return "Polyvalence Stratégique & Impact Supérieur";
 }
 
+type AdvisorArchetype = NonNullable<AdvisorCubeMeta["archetypes"]>[number];
+
+function cardFitsArchetype(
+  card: MasterCatalogCard,
+  archetype: AdvisorArchetype,
+  preserveCreatureTypes: boolean,
+  supportedCreatureTypes: ReadonlySet<string>,
+  allowColorless: boolean,
+): boolean {
+  const allowedColors = [...(archetype.primaryColors ?? []), ...(archetype.splashColors ?? [])];
+  const colorMatch =
+    card.colors.length === 0 || card.colors.every((color) => allowedColors.includes(color));
+  if (!colorMatch) return false;
+
+  if (!preserveCreatureTypes || !card.types.includes("Creature")) {
+    return allowColorless || card.colors.length > 0;
+  }
+
+  const archetypeTypes = archetype.creatureTypes ?? [];
+  const universalTribal = isChangelingCard(card) || isUniversalTribalCard(card);
+  return (
+    archetypeTypes.length > 0 &&
+    (universalTribal ||
+      getCardTribes(card, supportedCreatureTypes).some((tribe) => archetypeTypes.includes(tribe)))
+  );
+}
+
 function findMatchedArchetypeIds(
   card: MasterCatalogCard,
   archetypes: NonNullable<AdvisorCubeMeta["archetypes"]>,
   preserveCreatureTypes: boolean,
   supportedCreatureTypes: ReadonlySet<string>,
 ): string[] {
-  const cardTribes = getCardTribes(card, supportedCreatureTypes);
-  const universalTribal = isChangelingCard(card) || isUniversalTribalCard(card);
-
   return archetypes
-    .filter((archetype) => {
-      const allowedColors = [...(archetype.primaryColors ?? []), ...(archetype.splashColors ?? [])];
-      const colorMatch =
-        card.colors.length === 0 || card.colors.every((color) => allowedColors.includes(color));
-      if (!colorMatch) return false;
-
-      if (!preserveCreatureTypes || !card.types.includes("Creature")) {
-        return card.colors.length > 0;
-      }
-
-      const archetypeTypes = archetype.creatureTypes ?? [];
-      return (
-        archetypeTypes.length > 0 &&
-        (universalTribal || cardTribes.some((tribe) => archetypeTypes.includes(tribe)))
-      );
-    })
+    .filter((archetype) =>
+      cardFitsArchetype(card, archetype, preserveCreatureTypes, supportedCreatureTypes, false),
+    )
     .map((archetype) => archetype.id);
 }
+
+/** Archetypes of the cube that the replaced card currently serves (curated Tier 1 data). */
+function getTargetArchetypes(
+  target: MasterCatalogCard,
+  cubeKey: string,
+  cubeMeta?: AdvisorCubeMeta,
+): readonly AdvisorArchetype[] {
+  const ids = new Set(target.cubeAnalyses[cubeKey]?.archetypes ?? []);
+  return (cubeMeta?.archetypes ?? []).filter((archetype) => ids.has(archetype.id));
+}
+
+/** Synergy tags of the slot being replaced, in its own cube. */
+function getTargetSynergyTags(target: MasterCatalogCard, cubeKey: string): ReadonlySet<string> {
+  return new Set(target.cubeAnalyses[cubeKey]?.synergyTags ?? []);
+}
+
+/**
+ * Synergy tags a candidate carries in any cube where it has been analysed. A card analysed in
+ * none of our cubes (e.g. a recent peer-cube import) falls back to its peer-cube oracle tags, the
+ * same Scryfall vocabulary, so recent cards are not handicapped on archetype synergy.
+ */
+function getCandidateSynergyTags(
+  card: MasterCatalogCard,
+  peerOracleTagsMap?: ReadonlyMap<string, readonly string[]>,
+): ReadonlySet<string> {
+  const analysedTags = Object.values(card.cubeAnalyses).flatMap((analysis) => analysis.synergyTags);
+  if (analysedTags.length > 0) return new Set(analysedTags);
+  return new Set(peerOracleTagsMap?.get(card.name.toLowerCase()) ?? []);
+}
+
+const SYNERGY_OVERLAP_POINTS_PER_TAG = 3;
+const SYNERGY_OVERLAP_MAX_POINTS = 15;
+const ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE = 6;
+const ARCHETYPE_MATCH_MAX_POINTS = 12;
+/** Pushes same-cost swaps ahead of a +1 mana swap of comparable value. */
+const CMC_UP_RANKING_PENALTY = -4;
 
 function findAffectedArchetypes(
   cand: MasterCatalogCard,
@@ -716,29 +785,38 @@ function generateSwapReason(
   cand: MasterCatalogCard,
   scoreDelta: number,
   isTribalMatch: boolean,
+  sharedArchetypeNames: readonly string[] = [],
 ): string {
   const roundedDelta = Math.round(scoreDelta * 10) / 10;
   const candRoles = cand.objectiveAnalysis.roles;
   const targetRoles = target.objectiveAnalysis.roles;
+  const archetypeSuffix =
+    sharedArchetypeNames.length > 0
+      ? ` Reste au service de ${sharedArchetypeNames.slice(0, 2).join(" & ")}.`
+      : "";
+
+  if (cand.cmc > target.cmc) {
+    return `Un mana de plus (${String(cand.cmc)} vs ${String(target.cmc)}), compensé par un gain d'impact net (+${String(roundedDelta)} pts) qui justifie le décalage de curve.${archetypeSuffix}`;
+  }
 
   if (isTribalMatch) {
     const sharedSubtype = cand.subtypes.find((s) => target.subtypes.includes(s)) ?? "Tribal";
-    return `Maintient la synergie ${sharedSubtype} tout en offrant une présence sur table et un impact considérablement supérieurs (+${String(roundedDelta)} pts).`;
+    return `Maintient la synergie ${sharedSubtype} tout en offrant une présence sur table et un impact considérablement supérieurs (+${String(roundedDelta)} pts).${archetypeSuffix}`;
   }
 
   if (cand.cmc < target.cmc) {
-    return `Coût de mana plus agressif (${String(cand.cmc)} vs ${String(target.cmc)}) permettant d'accélérer le tempo et d'optimiser la curve (+${String(roundedDelta)} pts).`;
+    return `Coût de mana plus agressif (${String(cand.cmc)} vs ${String(target.cmc)}) permettant d'accélérer le tempo et d'optimiser la curve (+${String(roundedDelta)} pts).${archetypeSuffix}`;
   }
 
   if (candRoles.includes("premium_removal") || targetRoles.includes("situational_removal")) {
-    return `Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+${String(roundedDelta)} pts).`;
+    return `Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+${String(roundedDelta)} pts).${archetypeSuffix}`;
   }
 
   if (candRoles.includes("engine") || candRoles.includes("card_advantage")) {
-    return `Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+${String(roundedDelta)} pts).`;
+    return `Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+${String(roundedDelta)} pts).${archetypeSuffix}`;
   }
 
-  return `Même coût de mana (${String(target.cmc)}), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+${String(roundedDelta)} pts).`;
+  return `Même coût de mana (${String(target.cmc)}), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+${String(roundedDelta)} pts).${archetypeSuffix}`;
 }
 
 function toCardRef(
@@ -767,6 +845,33 @@ function toCardRef(
   };
 }
 
+interface ScoredSwap {
+  readonly target: MasterCatalogCard;
+  readonly candidate: MasterCatalogCard;
+  readonly scoreDelta: number;
+  readonly matchScore: number;
+  readonly isTribalMatch: boolean;
+  readonly sharedArchetypeNames: readonly string[];
+  readonly synergyOverlap: number;
+  readonly relInfo: CardReleaseInfo | undefined;
+  readonly benchmarks: readonly string[];
+  readonly rankingFactors: readonly RankingFactor[];
+}
+
+function compareSwaps(a: ScoredSwap, b: ScoredSwap): number {
+  return (
+    b.matchScore - a.matchScore ||
+    b.scoreDelta - a.scoreDelta ||
+    a.target.name.localeCompare(b.target.name) ||
+    a.candidate.name.localeCompare(b.candidate.name)
+  );
+}
+
+/**
+ * Slot-for-slot ("poste pour poste") upgrades. Every proposal must keep the replaced slot's
+ * exact colors, card types, rules function and archetype, stay within one mana of it (a curve
+ * shift needs a larger power gain), and each candidate fills at most one slot of the cube.
+ */
 export function generateCubeUpgradeProposals(
   cubeKey: string,
   catalogCards: readonly MasterCatalogCard[],
@@ -774,6 +879,7 @@ export function generateCubeUpgradeProposals(
   cubeCobraStatsMap?: ReadonlyMap<string, CubeCobraStats>,
   releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
   benchmarkCardsMap?: ReadonlyMap<string, readonly string[]>,
+  peerOracleTagsMap?: ReadonlyMap<string, readonly string[]>,
 ): Record<string, UpgradeProposal> {
   const proposals: Record<string, UpgradeProposal> = {};
 
@@ -789,23 +895,34 @@ export function generateCubeUpgradeProposals(
   const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
   const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
 
+  const allowedCandidates = candidatePool.flatMap((cand) => {
+    const candLower = cand.name.toLowerCase();
+    const relInfo = releaseMetadataMap?.get(candLower);
+    const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
+    if (!isCandidateAllowedByPolicy(cand, policy, relInfo, benchmarks.length > 0)) return [];
+    if (getCardScore(cand) < MIN_INTERESTING_CARD_SCORE) return [];
+    return [
+      {
+        cand,
+        candLower,
+        relInfo,
+        benchmarks,
+        tags: getCandidateSynergyTags(cand, peerOracleTagsMap),
+      },
+    ];
+  });
+
+  const swaps: ScoredSwap[] = [];
+
   for (const target of eligibleTargets) {
     const targetScore = getCardScore(target);
-    let bestCandidate: MasterCatalogCard | null = null;
-    let bestScore = -Infinity;
-    let bestIsTribal = false;
-    let bestRelInfo: CardReleaseInfo | undefined = undefined;
-    let bestBenchmarks: readonly string[] = [];
-    let bestRankingFactors: readonly RankingFactor[] = [];
+    const targetArchetypes = getTargetArchetypes(target, cubeKey, cubeMeta);
+    const targetTags = getTargetSynergyTags(target, cubeKey);
+    const targetTribes = policy.preserveCreatureTypes
+      ? getCardTribes(target, supportedCreatureTypes)
+      : [];
 
-    for (const cand of candidatePool) {
-      const candLower = cand.name.toLowerCase();
-      const relInfo = releaseMetadataMap?.get(candLower);
-      const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
-      const hasBenchmark = benchmarks.length > 0;
-
-      if (!isCandidateAllowedByPolicy(cand, policy, relInfo, hasBenchmark)) continue;
-
+    for (const { cand, candLower, relInfo, benchmarks, tags } of allowedCandidates) {
       // Strict Tribal Coherence for Titou's Tribal Cube:
       // Tribal cards can ONLY be replaced by cards of the same tribe (or Changelings)
       if (
@@ -814,32 +931,35 @@ export function generateCubeUpgradeProposals(
       )
         continue;
 
-      // Color compatibility
+      // Exact color identity of the slot (no gold -> mono, no mono -> gold).
       if (!areColorsCompatible(target.colors, cand.colors)) continue;
       if (!preservesLandManaAccess(target, cand)) continue;
 
-      // Mana curve constraint:
-      // For creatures: preserve board curve tightly (|delta CMC| <= 1)
-      // For non-creatures: allow cheaper efficient spells (target.cmc - 2 <= cand.cmc <= target.cmc + 1)
+      // Mana curve: at most one mana away from the replaced slot.
       const cmcDelta = cand.cmc - target.cmc;
-      const isCreature = target.types.includes("Creature");
-      if (isCreature) {
-        if (Math.abs(cmcDelta) > 1) continue;
-      } else {
-        if (cmcDelta > 1 || cmcDelta < -2) continue;
-      }
+      if (Math.abs(cmcDelta) > MAX_CMC_SHIFT) continue;
 
       // Type compatibility
       if (!areTypesCompatible(target, cand)) continue;
       if (!areRulesFunctionsCompatible(target, cand)) continue;
 
+      // The candidate must keep serving at least one archetype the slot belongs to.
+      const sharedArchetypes = targetArchetypes.filter((archetype) =>
+        cardFitsArchetype(
+          cand,
+          archetype,
+          policy.preserveCreatureTypes,
+          supportedCreatureTypes,
+          true,
+        ),
+      );
+      if (targetArchetypes.length > 0 && sharedArchetypes.length === 0) continue;
+
       const candScore = getCardScore(cand);
       const scoreDelta = candScore - targetScore;
 
-      if (candScore < MIN_INTERESTING_CARD_SCORE) continue;
-
-      // Minimum power improvement threshold (+5.0 points)
-      if (scoreDelta < 5.0) continue;
+      // A curve shift has to be worth it: the required power gain grows with the shift.
+      if (scoreDelta < getMinimumScoreDelta(cmcDelta)) continue;
 
       // Calculate the auditable composite score.
       const rankingFactors: RankingFactor[] = [{ key: "power", points: candScore }];
@@ -848,14 +968,36 @@ export function generateCubeUpgradeProposals(
         rankingFactors.push({ key: "role_alignment", points: roleAlignmentBonus });
       }
 
-      // Mana efficiency bonus (prefer equal or lower CMC)
+      if (sharedArchetypes.length > 0) {
+        rankingFactors.push({
+          key: "archetype_match",
+          points: Math.min(
+            ARCHETYPE_MATCH_MAX_POINTS,
+            sharedArchetypes.length * ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE,
+          ),
+        });
+      }
+
+      // Better in the same archetype: shared synergy tags with the replaced slot.
+      const synergyOverlap = [...targetTags].filter((tag) => tags.has(tag)).length;
+      if (synergyOverlap > 0) {
+        rankingFactors.push({
+          key: "synergy_overlap",
+          points: Math.min(
+            SYNERGY_OVERLAP_MAX_POINTS,
+            synergyOverlap * SYNERGY_OVERLAP_POINTS_PER_TAG,
+          ),
+        });
+      }
+
+      // Mana efficiency (prefer equal or lower CMC, penalize a slower curve)
       if (cmcDelta < 0) rankingFactors.push({ key: "mana_efficiency", points: 3 });
       else if (cmcDelta === 0) rankingFactors.push({ key: "mana_efficiency", points: 1 });
+      else rankingFactors.push({ key: "mana_efficiency", points: CMC_UP_RANKING_PENALTY });
 
       // Tribal affinity bonus for Titou's Tribal
       let isTribalMatch = false;
       if (policy.preserveCreatureTypes) {
-        const targetTribes = getCardTribes(target, supportedCreatureTypes);
         if (targetTribes.length > 0 || isUniversalTribalCard(target)) {
           rankingFactors.push({ key: "tribal_coherence", points: 30 });
           isTribalMatch = true;
@@ -863,8 +1005,7 @@ export function generateCubeUpgradeProposals(
       }
 
       // Recency only separates otherwise close candidates.
-      const isRecent = isRecentRelease(relInfo, recentReferenceYear);
-      if (isRecent) {
+      if (isRecentRelease(relInfo, recentReferenceYear)) {
         rankingFactors.push({ key: "recent_release", points: UPGRADE_RECENCY_BONUS });
       }
 
@@ -879,68 +1020,83 @@ export function generateCubeUpgradeProposals(
         rankingFactors.push({ key: "popularity", points: Math.min(5, stats.popularity) });
       }
 
-      const matchScore = sumRankingFactors(rankingFactors);
-
-      if (matchScore > bestScore) {
-        bestScore = matchScore;
-        bestCandidate = cand;
-        bestIsTribal = isTribalMatch;
-        bestRelInfo = relInfo;
-        bestBenchmarks = benchmarks;
-        bestRankingFactors = rankingFactors;
-      }
-    }
-
-    if (bestCandidate) {
-      const delta = getCardScore(bestCandidate) - targetScore;
-      const swapType: SwapType =
-        bestCandidate.cmc <= target.cmc && delta >= 15
-          ? "strict_upgrade"
-          : bestIsTribal
-            ? "archetype_booster"
-            : "versatile_alternative";
-
-      const candStats = cubeCobraStatsMap?.get(bestCandidate.name.toLowerCase());
-      const metaAddedValue = generateMetaAddedValue(
+      swaps.push({
         target,
-        bestCandidate,
-        delta,
-        cubeMeta,
-        bestRelInfo,
-        bestBenchmarks,
-        recentReferenceYear,
-      );
-
-      proposals[target.name] = {
-        targetCard: toCardRef(
-          target,
-          cubeKey,
-          releaseMetadataMap?.get(target.name.toLowerCase()),
-          thresholds,
-          recentReferenceYear,
-        ),
-        suggestedCard: toCardRef(
-          bestCandidate,
-          cubeKey,
-          bestRelInfo,
-          thresholds,
-          recentReferenceYear,
-        ),
-        swapType,
-        scoreDelta: Math.round(delta * 10) / 10,
-        reason: generateSwapReason(target, bestCandidate, delta, bestIsTribal),
-        metaAddedValue,
-        releaseYear: bestRelInfo?.firstPrintYear,
-        isRecent: isRecentRelease(bestRelInfo, recentReferenceYear),
-        benchmarkCubes: bestBenchmarks.length > 0 ? bestBenchmarks : undefined,
-        cubeCobraStats: candStats,
-        rankingScore: Math.round(bestScore * 100) / 100,
-        rankingFactors: bestRankingFactors,
-      };
+        candidate: cand,
+        scoreDelta,
+        matchScore: sumRankingFactors(rankingFactors),
+        isTribalMatch,
+        sharedArchetypeNames: sharedArchetypes.map((archetype) => archetype.name),
+        synergyOverlap,
+        relInfo,
+        benchmarks,
+        rankingFactors,
+      });
     }
   }
 
-  return proposals;
+  // 3. One-to-one assignment: a candidate fills a single slot, best pairings first.
+  swaps.sort(compareSwaps);
+  const assignedTargets = new Set<string>();
+  const assignedCandidates = new Set<string>();
+
+  for (const swap of swaps) {
+    if (assignedTargets.has(swap.target.oracleId)) continue;
+    if (assignedCandidates.has(swap.candidate.oracleId)) continue;
+    assignedTargets.add(swap.target.oracleId);
+    assignedCandidates.add(swap.candidate.oracleId);
+
+    const { target, candidate, scoreDelta: delta, relInfo, benchmarks } = swap;
+    const swapType: SwapType =
+      candidate.cmc <= target.cmc && delta >= 15
+        ? "strict_upgrade"
+        : swap.isTribalMatch || swap.synergyOverlap > 0
+          ? "archetype_booster"
+          : "versatile_alternative";
+
+    proposals[target.name] = {
+      targetCard: toCardRef(
+        target,
+        cubeKey,
+        releaseMetadataMap?.get(target.name.toLowerCase()),
+        thresholds,
+        recentReferenceYear,
+      ),
+      suggestedCard: toCardRef(candidate, cubeKey, relInfo, thresholds, recentReferenceYear),
+      swapType,
+      scoreDelta: Math.round(delta * 10) / 10,
+      reason: generateSwapReason(
+        target,
+        candidate,
+        delta,
+        swap.isTribalMatch,
+        swap.sharedArchetypeNames,
+      ),
+      metaAddedValue: generateMetaAddedValue(
+        target,
+        candidate,
+        delta,
+        cubeMeta,
+        relInfo,
+        benchmarks,
+        recentReferenceYear,
+      ),
+      releaseYear: relInfo?.firstPrintYear,
+      isRecent: isRecentRelease(relInfo, recentReferenceYear),
+      benchmarkCubes: benchmarks.length > 0 ? benchmarks : undefined,
+      cubeCobraStats: cubeCobraStatsMap?.get(candidate.name.toLowerCase()),
+      rankingScore: Math.round(swap.matchScore * 100) / 100,
+      rankingFactors: swap.rankingFactors,
+    };
+  }
+
+  // Keep the cube order of the replaced slots for a stable, reviewable report.
+  return Object.fromEntries(
+    eligibleTargets.flatMap((target) => {
+      const proposal = proposals[target.name];
+      return proposal ? [[target.name, proposal] as const] : [];
+    }),
+  );
 }
 
 export function generateCubeMaybeboard(
@@ -1177,6 +1333,7 @@ export function generateCubeSuggestionsReport(
   releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
   benchmarkCardsMap?: ReadonlyMap<string, readonly string[]>,
   runContext?: AdvisorRunContext,
+  peerOracleTagsMap?: ReadonlyMap<string, readonly string[]>,
 ): CubeSuggestionsReport {
   if (!cubeMeta?.activeSnapshotId) {
     throw new Error(`Missing active snapshot ID for cube suggestion report ${cubeKey}`);
@@ -1191,6 +1348,7 @@ export function generateCubeSuggestionsReport(
     cubeCobraStatsMap,
     releaseMetadataMap,
     benchmarkCardsMap,
+    peerOracleTagsMap,
   );
   const maybeboard = generateCubeMaybeboard(
     cubeKey,
@@ -1220,7 +1378,7 @@ export function generateCubeSuggestionsReport(
 
   return {
     schemaVersion: 2,
-    engineVersion: "cube-upgrade-advisor@3",
+    engineVersion: "cube-upgrade-advisor@4",
     cubeKey,
     snapshotId: cubeMeta.activeSnapshotId,
     generatedAt: runContext.generatedAt,
