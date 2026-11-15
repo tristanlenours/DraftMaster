@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@5",
   "cubeKey": "titou_tribal",
   "snapshotId": "titou_tribal@2026-02-24.1",
-  "generatedAt": "2026-11-15T20:32:43.480Z",
+  "generatedAt": "2026-11-15T20:39:41.554Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-15T20:32:43.480Z",
+    "generatedAt": "2026-11-15T20:39:41.554Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "245e83498610419ea29f2e05b9a18a2fb0446bfa132fa532008196f807258731",
+      "sha256": "1ff1160c73f8fabce06a02f076c69d4e27e8440ea66afb93d49daf22a61fb6c2",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "74cc4813c2127bb19f1d965cb142ac53da7df1c70c1d34d3757585c5423e021d",
+      "sha256": "59def39285dd2cc97e98eac15480518653ebf3c3422cba7e1b97025275bf4c96",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,20 +41,20 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2195,
-    "availableCandidates": 1653,
+    "catalogCards": 2203,
+    "availableCandidates": 1661,
     "benchmarkCards": 540,
     "benchmarkCardsInCatalog": 182,
     "missingBenchmarkCards": 358,
     "benchmarkCoveragePercentage": 34
   },
   "stats": {
-    "totalUpgrades": 49,
-    "totalMaybeboard": 39,
-    "recentUpgradesCount": 24,
+    "totalUpgrades": 52,
+    "totalMaybeboard": 40,
+    "recentUpgradesCount": 27,
     "benchmarkMatchesCount": 5,
-    "recentMaybeboardCount": 16,
-    "directReplacementMaybeboardCount": 34
+    "recentMaybeboardCount": 17,
+    "directReplacementMaybeboardCount": 35
   },
   "upgrades": {
     "Act of Treason": {
@@ -1624,6 +1624,70 @@
         }
       ]
     },
+    "Heirloom Blade": {
+      "targetCard": {
+        "oracleId": "7c3a8766-e440-48c5-a561-197490efdba5",
+        "name": "Heirloom Blade",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Artifact — Equipment",
+        "imageUrl": "https://cards.scryfall.io/normal/front/4/9/49fe8b13-3f83-4a35-aa2d-2292b96f3d3e.jpg?1783913840",
+        "frenchName": "Lame d'héritage",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/b/6/b604fa5b-32f5-441f-a879-c15b3c5da5f3.jpg?1782809594",
+        "colors": [],
+        "releaseYear": 2017,
+        "set": "LCC",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "8255a797-ddd3-4db0-a3f5-dd8f38c3b908",
+        "name": "Captain America's Shield",
+        "score": 26,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Legendary Artifact — Equipment",
+        "imageUrl": "https://cards.scryfall.io/normal/front/4/b/4b5433ac-0d36-4472-bf8b-d22f0ffd367b.jpg?1783902892",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.1,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts). Reste au service de Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant la méta du cube (+8.1 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Payoff Clé d'Archétype",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 55,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Hidden Dragonslayer": {
       "targetCard": {
         "oracleId": "862af5c4-cb34-4bfa-a7ff-209e103defd6",
@@ -2492,6 +2556,62 @@
         }
       ]
     },
+    "Portal to Phyrexia": {
+      "targetCard": {
+        "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+        "name": "Portal to Phyrexia",
+        "score": 10,
+        "tier": "F",
+        "cmc": 9,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/5/f/5f608efc-0dbc-4cc3-aadd-ed473bfc29ab.jpg?1783920015",
+        "frenchName": "Portail de Phyrexia",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/a/1a84424e-84f1-4010-9f83-26fec0d1ad4a.jpg?1782839646",
+        "colors": [],
+        "releaseYear": 2022,
+        "set": "BRO",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "a82d855c-50c8-43f2-99ba-a84fe84539c5",
+        "name": "The Ten Rings",
+        "score": 25.6,
+        "tier": "A-",
+        "cmc": 8,
+        "typeLine": "Legendary Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/3/2332bc91-b0f2-4911-844d-d1cc915cd6c8.jpg?1783902890",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.6,
+      "reason": "Coût de mana plus agressif (8 vs 9) permettant d'accélérer le tempo et d'optimiser la curve (+15.6 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (8 vs 9 mana) tout en renforçant la méta du cube (+15.6 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 34.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Riders of Gavony": {
       "targetCard": {
         "oracleId": "60dabe9e-4872-4aec-9e8e-35358b3b7dd5",
@@ -2995,6 +3115,66 @@
         }
       ]
     },
+    "Urborg, Tomb of Yawgmoth": {
+      "targetCard": {
+        "oracleId": "db6174d7-211d-4817-b8e4-8384594c83f9",
+        "name": "Urborg, Tomb of Yawgmoth",
+        "score": 18.1,
+        "tier": "D",
+        "cmc": 0,
+        "typeLine": "Legendary Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+        "frenchName": "Urborg, tombe de Yaugzebul",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/4/c/4cb72dd1-a744-4a99-98e7-9ed5c5bc3d68.jpg?1782889215",
+        "colors": [],
+        "releaseYear": 2007,
+        "set": "PLC",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "97a2cd39-6b54-496b-b3ac-dab9dfed7edc",
+        "name": "Elven Passage",
+        "score": 26,
+        "tier": "A-",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/d/dd1fd2ab-2565-4798-a832-fc849df82f74.jpg?1785323319",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 7.9,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+7.9 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+7.9 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 41,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Valorous Stance": {
       "targetCard": {
         "oracleId": "1f938353-9081-4dc1-b8e7-d18ece038bd4",
@@ -3084,7 +3264,7 @@
       "suggestedCard": {
         "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
         "name": "Salt Vampire",
-        "score": 30,
+        "score": 29.8,
         "tier": "A-",
         "cmc": 2,
         "typeLine": "Creature — Vampire Shapeshifter",
@@ -3097,10 +3277,10 @@
         "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 11,
-      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+11 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "scoreDelta": 10.8,
+      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10.8 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+11 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+10.8 pts).",
         "affectedArchetypes": [
           "Mardu Vampires Aristocrates & Drain",
           "Changelins & Liant Universel (The Glue)"
@@ -3110,11 +3290,11 @@
       },
       "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 75,
+      "rankingScore": 74.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30
+          "points": 29.8
         },
         {
           "key": "archetype_match",
@@ -5483,6 +5663,57 @@
         {
           "key": "power",
           "points": 26
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "a82d855c-50c8-43f2-99ba-a84fe84539c5",
+        "name": "The Ten Rings",
+        "score": 25.6,
+        "tier": "A-",
+        "cmc": 8,
+        "typeLine": "Legendary Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/3/2332bc91-b0f2-4911-844d-d1cc915cd6c8.jpg?1783902890",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "archetypes": [],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Portal to Phyrexia (+15.6 pts). Coût de mana plus agressif (8 vs 9) permettant d'accélérer le tempo et d'optimiser la curve (+15.6 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+25.6 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Portal to Phyrexia",
+          "frenchName": "Portail de Phyrexia",
+          "score": 10,
+          "tier": "F",
+          "scoreDelta": 15.6,
+          "reason": "Coût de mana plus agressif (8 vs 9) permettant d'accélérer le tempo et d'optimiser la curve (+15.6 pts)."
+        }
+      ],
+      "rankingScore": 61.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.6
         },
         {
           "key": "direct_replacement",

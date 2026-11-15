@@ -129,9 +129,17 @@ const peerDetailsPath = resolve(rootDir, "data/benchmarks/cubecobra-peer-card-de
 const peerDetailsRaw = existsSync(peerDetailsPath)
   ? readFileSync(peerDetailsPath, "utf8")
   : '{"cards":{}}';
+// Popular recent cards (scripts/import-popular-recent-cards.mjs) carry the same evidence.
+const popularDetailsPath = resolve(rootDir, "data/benchmarks/popular-recent-card-details.json");
+const popularDetailsRaw = existsSync(popularDetailsPath)
+  ? readFileSync(popularDetailsPath, "utf8")
+  : '{"cards":{}}';
 const peerOracleTagsMap = new Map();
 const peerCardNames = new Set();
-for (const card of Object.values(JSON.parse(peerDetailsRaw).cards ?? {})) {
+for (const card of [
+  ...Object.values(JSON.parse(peerDetailsRaw).cards ?? {}),
+  ...Object.values(JSON.parse(popularDetailsRaw).cards ?? {}),
+]) {
   peerCardNames.add(card.name.toLowerCase().trim());
   if (card.oracle_tags?.length) {
     peerOracleTagsMap.set(card.name.toLowerCase().trim(), card.oracle_tags);

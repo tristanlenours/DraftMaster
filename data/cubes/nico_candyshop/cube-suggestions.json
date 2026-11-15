@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@5",
   "cubeKey": "nico_candyshop",
   "snapshotId": "nico_candyshop@2026-03-01.1",
-  "generatedAt": "2026-11-15T20:32:43.480Z",
+  "generatedAt": "2026-11-15T20:39:41.554Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-15T20:32:43.480Z",
+    "generatedAt": "2026-11-15T20:39:41.554Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "245e83498610419ea29f2e05b9a18a2fb0446bfa132fa532008196f807258731",
+      "sha256": "1ff1160c73f8fabce06a02f076c69d4e27e8440ea66afb93d49daf22a61fb6c2",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "74cc4813c2127bb19f1d965cb142ac53da7df1c70c1d34d3757585c5423e021d",
+      "sha256": "59def39285dd2cc97e98eac15480518653ebf3c3422cba7e1b97025275bf4c96",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,17 +41,17 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2195,
-    "availableCandidates": 1465,
+    "catalogCards": 2203,
+    "availableCandidates": 1473,
     "benchmarkCards": 669,
     "benchmarkCardsInCatalog": 578,
     "missingBenchmarkCards": 91,
     "benchmarkCoveragePercentage": 86
   },
   "stats": {
-    "totalUpgrades": 97,
+    "totalUpgrades": 100,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 70,
+    "recentUpgradesCount": 73,
     "benchmarkMatchesCount": 31,
     "recentMaybeboardCount": 41,
     "directReplacementMaybeboardCount": 49
@@ -825,40 +825,40 @@
         "isRecent": true
       },
       "suggestedCard": {
-        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
-        "name": "Salt Vampire",
-        "score": 30,
+        "oracleId": "d8ad23a1-0b43-48ea-9fbe-d89b29194509",
+        "name": "Accursed Marauder",
+        "score": 32.1,
         "tier": "B+",
         "cmc": 2,
-        "typeLine": "Creature — Vampire Shapeshifter",
-        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "typeLine": "Creature — Zombie Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/5da14d86-0780-4821-a799-96f64b377df4/normal.webp",
         "colors": [
           "B"
         ],
-        "releaseYear": 2026,
-        "set": "TRK",
+        "releaseYear": 2024,
+        "set": "MH3",
         "isRecent": true
       },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 13,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+13 pts).",
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.1,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.1 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+13 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+15.1 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Dimir / Grixis Reanimator",
           "Gruul / Jund Lands & Dark Depths"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
       },
-      "releaseYear": 2026,
+      "releaseYear": 2024,
       "isRecent": true,
-      "rankingScore": 37,
+      "rankingScore": 39.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30
+          "points": 32.1
         },
         {
           "key": "mana_efficiency",
@@ -1977,36 +1977,34 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
-        "name": "Evolving Wilds",
-        "score": 29.4,
-        "tier": "B",
+        "oracleId": "97a2cd39-6b54-496b-b3ac-dab9dfed7edc",
+        "name": "Elven Passage",
+        "score": 26,
+        "tier": "B-",
         "cmc": 0,
         "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/c/0/c0318a48-30e4-4ef7-be3d-5e561c5ce428.jpg?1783903203",
-        "frenchName": "Étendues sauvages en évolution",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/c/2cedb4ab-a1db-429d-88c2-484eb26c5327.jpg?1785266568",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/d/dd1fd2ab-2565-4798-a832-fc849df82f74.jpg?1785323319",
         "colors": [],
-        "releaseYear": 2010,
-        "set": "DDH",
-        "isRecent": false
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 12.4,
-      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.4 pts).",
+      "scoreDelta": 9,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+12.4 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+9 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2010)"
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2010,
-      "isRecent": false,
-      "rankingScore": 39.4,
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 42,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.4
+          "points": 26
         },
         {
           "key": "synergy_overlap",
@@ -2015,6 +2013,10 @@
         {
           "key": "mana_efficiency",
           "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -2816,40 +2818,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "d8ad23a1-0b43-48ea-9fbe-d89b29194509",
-        "name": "Accursed Marauder",
-        "score": 32.1,
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
         "tier": "B+",
         "cmc": 2,
-        "typeLine": "Creature — Zombie Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/5da14d86-0780-4821-a799-96f64b377df4/normal.webp",
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
         "colors": [
           "B"
         ],
-        "releaseYear": 2024,
-        "set": "MH3",
+        "releaseYear": 2026,
+        "set": "TRK",
         "isRecent": true
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 20.1,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts).",
+      "scoreDelta": 17.8,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+17.8 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+20.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+17.8 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Dimir / Grixis Reanimator",
           "Gruul / Jund Lands & Dark Depths"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 41.1,
+      "rankingScore": 41.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 32.1
+          "points": 29.8
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
         },
         {
           "key": "mana_efficiency",
@@ -3853,6 +3859,68 @@
         }
       ]
     },
+    "Nexus of Becoming": {
+      "targetCard": {
+        "oracleId": "07142ee9-dc2c-4b33-ad20-2f5285225e86",
+        "name": "Nexus of Becoming",
+        "score": 6,
+        "tier": "F",
+        "cmc": 6,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/f329b59c-1c1d-4a0a-89b4-c3fc4a8074bc/normal.webp",
+        "colors": [],
+        "releaseYear": 2024,
+        "set": "BIG",
+        "isRecent": true
+      },
+      "suggestedCard": {
+        "oracleId": "0866a630-d962-4aa9-a15f-08b2947540ef",
+        "name": "Cosmic Cube",
+        "score": 29.8,
+        "tier": "B+",
+        "cmc": 5,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/1/d1cf1ead-fe91-4328-89ab-6d0bc9ff6cbe.jpg?1783902891",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 23.8,
+      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+23.8 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant la méta du cube (+23.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 49.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Night's Whisper": {
       "targetCard": {
         "oracleId": "7ffae8f8-3006-4969-a339-6d30678f87ea",
@@ -4100,6 +4168,66 @@
         {
           "key": "archetype_match",
           "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    "Portal to Phyrexia": {
+      "targetCard": {
+        "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+        "name": "Portal to Phyrexia",
+        "score": 10,
+        "tier": "F",
+        "cmc": 9,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/5/f/5f608efc-0dbc-4cc3-aadd-ed473bfc29ab.jpg?1783920015",
+        "frenchName": "Portail de Phyrexia",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/a/1a84424e-84f1-4010-9f83-26fec0d1ad4a.jpg?1782839646",
+        "colors": [],
+        "releaseYear": 2022,
+        "set": "BRO",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "a82d855c-50c8-43f2-99ba-a84fe84539c5",
+        "name": "The Ten Rings",
+        "score": 25.6,
+        "tier": "B-",
+        "cmc": 8,
+        "typeLine": "Legendary Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/3/2332bc91-b0f2-4911-844d-d1cc915cd6c8.jpg?1783902890",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.6,
+      "reason": "Coût de mana plus agressif (8 vs 9) permettant d'accélérer le tempo et d'optimiser la curve (+15.6 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (8 vs 9 mana) tout en renforçant la méta du cube (+15.6 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 37.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.6
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
         },
         {
           "key": "mana_efficiency",
@@ -4622,36 +4750,36 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
-        "name": "Terramorphic Expanse",
-        "score": 26.9,
-        "tier": "B-",
+        "oracleId": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
+        "name": "Evolving Wilds",
+        "score": 29.4,
+        "tier": "B",
         "cmc": 0,
         "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/8/a81f924b-0527-4311-8120-9bfff71524f6.jpg?1783903191",
-        "frenchName": "Immensité terramorphe",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/6/c65f757a-aa66-4369-a2a8-704aa56bcd9f.jpg?1785268065",
+        "imageUrl": "https://cards.scryfall.io/normal/front/c/0/c0318a48-30e4-4ef7-be3d-5e561c5ce428.jpg?1783903203",
+        "frenchName": "Étendues sauvages en évolution",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/c/2cedb4ab-a1db-429d-88c2-484eb26c5327.jpg?1785266568",
         "colors": [],
-        "releaseYear": 2005,
+        "releaseYear": 2010,
         "set": "DDH",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9.9,
-      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.9 pts).",
+      "scoreDelta": 12.4,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.4 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+9.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+12.4 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2005)"
+        "releaseContext": "Référence confirmée (2010)"
       },
-      "releaseYear": 2005,
+      "releaseYear": 2010,
       "isRecent": false,
-      "rankingScore": 27.9,
+      "rankingScore": 30.4,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26.9
+          "points": 29.4
         },
         {
           "key": "mana_efficiency",
@@ -5116,6 +5244,60 @@
         {
           "key": "peer_benchmark",
           "points": 15
+        }
+      ]
+    },
+    "Spara's Headquarters": {
+      "targetCard": {
+        "oracleId": "3123ec89-8e95-4761-ba17-747ec667509f",
+        "name": "Spara's Headquarters",
+        "score": 18,
+        "tier": "D",
+        "cmc": 0,
+        "typeLine": "Land — Forest Plains Island",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/3/7363f1fb-9af3-4212-921f-d59533faf0e5.jpg?1783923052",
+        "frenchName": "Quartier général de Spara",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/5/2/521388a2-26cd-44e7-9559-f80d399356b2.jpg?1782854928",
+        "colors": [],
+        "releaseYear": 2022,
+        "set": "SNC",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
+        "name": "Terramorphic Expanse",
+        "score": 26.9,
+        "tier": "B-",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/8/a81f924b-0527-4311-8120-9bfff71524f6.jpg?1783903191",
+        "frenchName": "Immensité terramorphe",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/6/c65f757a-aa66-4369-a2a8-704aa56bcd9f.jpg?1785268065",
+        "colors": [],
+        "releaseYear": 2005,
+        "set": "DDH",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.9,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.9 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+8.9 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2005)"
+      },
+      "releaseYear": 2005,
+      "isRecent": false,
+      "rankingScore": 27.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.9
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         }
       ]
     },
@@ -10115,7 +10297,7 @@
         "nico:dimir_tempo"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Graveyard Trespasser (+20.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Caustic Bronco (+15.1 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.1 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+32.1 pts).",
         "affectedArchetypes": [
@@ -10130,11 +10312,11 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Graveyard Trespasser",
-          "score": 12,
-          "tier": "F",
-          "scoreDelta": 20.1,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts)."
+          "name": "Caustic Bronco",
+          "score": 17,
+          "tier": "D-",
+          "scoreDelta": 15.1,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.1 pts)."
         }
       ],
       "rankingScore": 84.1,

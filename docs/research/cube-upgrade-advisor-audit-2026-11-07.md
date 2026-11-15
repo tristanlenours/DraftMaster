@@ -102,6 +102,27 @@ Maybeboard sizes after regeneration: tribal 39 (34 replacements, 5 peer-cube car
 peasant 14, cedric 50 and nico 50 (both capped). The slot-for-slot `upgrades` map is unchanged
 apart from the two rules-function fixes.
 
+## Popular cards of recent sets (2026-11-15)
+
+Peer cubes adopt new cards slowly, so a card released after the last peer refresh stayed invisible
+(Salt Vampire, Star Trek, 2026-11-13). `scripts/import-popular-recent-cards.mjs` closes the gap:
+
+- discovery: Scryfall lists the first prints released since `--since` (default: six months), most
+  played in Commander first (EDHREC rank); `--card "Name"` adds a card by name;
+- strength: the CubeCobra card page (`/tool/card/<scryfall id>`) gives the cube Elo, pick count and
+  oracle tags of any card; the score comes from the same frozen Elo → power isotonic calibration
+  as the peer import. Commander popularity only selects which cards are looked at;
+- only cards scoring at least 25 (the advisor's floor) are imported; the evidence is versioned in
+  `data/benchmarks/popular-recent-card-details.json` and feeds the advisor's synergy tags.
+
+First run (`--since 2026-05-01 --top 150 --card "Salt Vampire"`): 151 cards graded, 9 imported
+(Gleaming Splendor 31.4, Salt Vampire 29.8, Cosmic Cube, Doom's Time Platform, Smaug the
+Magnificent, Captain America's Shield, Elven Passage, The Ten Rings, Mjölnir). Most Commander
+staples are weak cube cards, hence the low yield. Salt Vampire replaces Vito, Thorn of the Dusk
+Rose in `titou_tribal` (+10.8), just under the maybeboard's +12 bar.
+
+Cards without an EDHREC rank yet (a set released within days) are only reachable with `--card`.
+
 ## Known limits
 
 - The isotonic calibration saturates near 37 points, so a recent bomb is under-rated until
