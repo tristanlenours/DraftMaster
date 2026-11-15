@@ -118,7 +118,7 @@ export interface AdvisorRunContext {
 
 export interface CubeSuggestionsReport {
   readonly schemaVersion: 2;
-  readonly engineVersion: "cube-upgrade-advisor@4";
+  readonly engineVersion: "cube-upgrade-advisor@5";
   readonly cubeKey: string;
   readonly snapshotId: string;
   readonly generatedAt: string;
@@ -175,6 +175,26 @@ const UPGRADE_RECENCY_BONUS = 6;
 const MAYBEBOARD_RECENCY_BONUS = 6;
 const RECENT_WINDOW_YEARS = 3;
 const MAX_DISCOVERY_SCORE_GAP = 6;
+/**
+ * The maybeboard has no target size: it lists every card that brings a real added value and
+ * nothing else. This ceiling only keeps the largest cubes reviewable.
+ */
+export const MAX_MAYBEBOARD_SUGGESTIONS = 50;
+/** A direct replacement is worth noting when it clearly outclasses the slot it takes. */
+const MIN_ADDED_VALUE_REPLACEMENT_DELTA = 12;
+/** A card without a slot must be played by a peer cube and rank in this cube's tier A or better. */
+const DISCOVERY_MIN_TIER = "A";
+
+/**
+ * Minimum power of a discovery, i.e. a card that replaces no identified slot: the score that
+ * would place it in the cube's tier A. Falls back to the global floor for an empty cube.
+ */
+function getDiscoveryMinScore(thresholds: readonly CubeTierThreshold[]): number {
+  return (
+    thresholds.find((threshold) => threshold.tier === DISCOVERY_MIN_TIER)?.minScore ??
+    MIN_INTERESTING_CARD_SCORE
+  );
+}
 
 function getRecentReferenceYear(
   releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
@@ -350,7 +370,8 @@ function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> 
     );
   if (
     removesOpponentPermanent ||
-    /deals? [^.]*(?:damage to any target|damage to target)/.test(text)
+    /deals? [^.]*(?:damage to any target|damage to target)/.test(text) ||
+    /target creature[^.]*gets -[\dx]+\/-[\dx]+/.test(text)
   ) {
     functions.add("removal");
   }
@@ -380,7 +401,11 @@ function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> 
     functions.add("blink");
   }
   if (/create [^.]* token/.test(text)) functions.add("tokens");
-  if (text.includes("opponent discards") || text.includes("target player discards")) {
+  if (
+    text.includes("opponent discards") ||
+    text.includes("target player discards") ||
+    text.includes("that player discards")
+  ) {
     functions.add("discard");
   }
 
@@ -1106,7 +1131,7 @@ export function generateCubeMaybeboard(
   cubeCobraStatsMap?: ReadonlyMap<string, CubeCobraStats>,
   releaseMetadataMap?: ReadonlyMap<string, CardReleaseInfo>,
   benchmarkCardsMap?: ReadonlyMap<string, readonly string[]>,
-  maxSuggestions = 30,
+  maxSuggestions = MAX_MAYBEBOARD_SUGGESTIONS,
   upgrades?: Readonly<Record<string, UpgradeProposal>>,
 ): readonly MaybeboardSuggestion[] {
   const cubeCards = catalogCards.filter((c) => c.presentInCubes.includes(cubeKey));
@@ -1145,7 +1170,7 @@ export function generateCubeMaybeboard(
     replacesByCardName.set(suggName, list);
   }
 
-  const scoredCandidates: {
+  const allCandidates: {
     cand: MasterCatalogCard;
     compositeScore: number;
     matchedArchetypes: string[];
@@ -1220,7 +1245,7 @@ export function generateCubeMaybeboard(
     else if (roles.includes("engine")) role = "engine";
     else if (matchedArchetypes.length > 0) role = "archetype_payoff";
 
-    scoredCandidates.push({
+    allCandidates.push({
       cand,
       compositeScore,
       matchedArchetypes,
@@ -1231,9 +1256,21 @@ export function generateCubeMaybeboard(
     });
   }
 
-  scoredCandidates.sort((a, b) => b.compositeScore - a.compositeScore);
+  // Real added value only: a clear gain on an identified slot, or a card without a slot that a
+  // peer cube already plays and that would rank among this cube's best. The list is as long as
+  // the cube deserves.
+  const discoveryMinScore = getDiscoveryMinScore(thresholds);
+  const scoredCandidates = allCandidates
+    .filter((item) => {
+      const replaced = replacesByCardName.get(item.cand.name);
+      if (replaced && replaced.length > 0) {
+        return replaced.some((target) => target.scoreDelta >= MIN_ADDED_VALUE_REPLACEMENT_DELTA);
+      }
+      return getCardScore(item.cand) >= discoveryMinScore && item.benchmarks.length > 0;
+    })
+    .sort((a, b) => b.compositeScore - a.compositeScore);
 
-  const targetCount = Math.max(0, maxSuggestions);
+  const targetCount = Math.min(Math.max(0, maxSuggestions), scoredCandidates.length);
   const selectedCards = new Map<string, (typeof scoredCandidates)[0]>();
   const discoverySlots = Math.ceil(targetCount / 3);
   const bestNonReplacementScore = scoredCandidates.find(
@@ -1357,7 +1394,7 @@ export function generateCubeSuggestionsReport(
     cubeCobraStatsMap,
     releaseMetadataMap,
     benchmarkCardsMap,
-    30,
+    MAX_MAYBEBOARD_SUGGESTIONS,
     upgrades,
   );
 
@@ -1378,7 +1415,7 @@ export function generateCubeSuggestionsReport(
 
   return {
     schemaVersion: 2,
-    engineVersion: "cube-upgrade-advisor@4",
+    engineVersion: "cube-upgrade-advisor@5",
     cubeKey,
     snapshotId: cubeMeta.activeSnapshotId,
     generatedAt: runContext.generatedAt,

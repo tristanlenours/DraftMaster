@@ -931,6 +931,33 @@ describe("Cube Upgrade Advisor", () => {
       expect(upgrades[removalTarget.name]?.suggestedCard.name).toBe(alignedRemoval.name);
     });
 
+    it("reads a -X/-X shrink as removal and a forced discard as discard", () => {
+      const shrink: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleText: "Target creature gets -1/-1 until end of turn.",
+        objectiveAnalysis: { ...mockTargetCard.objectiveAnalysis, roles: ["synergy_enabler"] },
+      };
+      const discard: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "forced-discard",
+        name: "Forced Discard",
+        oracleText:
+          "Target opponent reveals their hand. You choose a card from it. That player discards that card.",
+        objectiveAnalysis: {
+          ...mockCandidateUpgrade.objectiveAnalysis,
+          roles: ["synergy_enabler"],
+        },
+      };
+
+      const upgrades = generateCubeUpgradeProposals(
+        "titou_tribal",
+        [shrink, discard, mockCandidateUpgrade],
+        mockMeta,
+      );
+
+      expect(upgrades[shrink.name]?.suggestedCard.name).toBe(mockCandidateUpgrade.name);
+    });
+
     it("generates structured meta added value analysis with pedagogical French summaries", () => {
       const releaseMap = new Map([
         ["lightning bolt", { firstPrintYear: 2024, isRecent: true, set: "MH3", rarity: "rare" }],
@@ -958,6 +985,100 @@ describe("Cube Upgrade Advisor", () => {
   });
 
   describe("AI Maybeboard Generation", () => {
+    const cedricMeta = { ...mockMeta, cubeKey: "cedric_cube" };
+    const cedricSlot = (name: string, score: number): MasterCatalogCard => ({
+      ...mockTargetCard,
+      oracleId: `${name}-slot`,
+      name: `${name} Slot`,
+      presentInCubes: ["cedric_cube"],
+      powerScore: { ...mockTargetCard.powerScore, score },
+      cubeAnalyses: {},
+    });
+
+    it("lists every card with a real added value instead of filling a fixed size", () => {
+      const candidates = Array.from({ length: 4 }, (_, index): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: `peer-staple-${String(index)}`,
+        name: `Peer Staple ${String(index)}`,
+        colors: ["W"],
+        colorIdentity: ["W"],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 40 - index },
+      }));
+      const benchmarkMap = new Map(
+        candidates.slice(0, 2).map((card) => [card.name.toLowerCase(), ["Peer Cube"]] as const),
+      );
+
+      const maybeboard = generateCubeMaybeboard(
+        "cedric_cube",
+        candidates,
+        cedricMeta,
+        undefined,
+        undefined,
+        benchmarkMap,
+      );
+
+      expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual([
+        "Peer Staple 0",
+        "Peer Staple 1",
+      ]);
+    });
+
+    it("drops a direct replacement whose gain is too small to be worth noting", () => {
+      const marginal: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "marginal-upgrade",
+        name: "Marginal Upgrade",
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 25 },
+      };
+      const catalog = [mockTargetCard, marginal];
+      const upgrades = generateCubeUpgradeProposals("titou_tribal", catalog, mockMeta);
+      expect(upgrades[mockTargetCard.name]?.scoreDelta).toBe(11);
+
+      expect(
+        generateCubeMaybeboard(
+          "titou_tribal",
+          catalog,
+          mockMeta,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          upgrades,
+        ),
+      ).toEqual([]);
+    });
+
+    it("keeps a peer-cube card without a slot only when it would rank in the cube's tier A", () => {
+      const cube = Array.from({ length: 20 }, (_, index) =>
+        cedricSlot(`Rank ${String(index)}`, 50 - index),
+      );
+      const discovery = (name: string, score: number): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        colors: ["W"],
+        colorIdentity: ["W"],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+      });
+      const benchmarkMap = new Map([
+        ["top discovery", ["Peer Cube"]],
+        ["average discovery", ["Peer Cube"]],
+      ]);
+
+      const maybeboard = generateCubeMaybeboard(
+        "cedric_cube",
+        [...cube, discovery("Top Discovery", 50), discovery("Average Discovery", 36)],
+        cedricMeta,
+        undefined,
+        undefined,
+        benchmarkMap,
+        undefined,
+        {},
+      );
+
+      expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual(["Top Discovery"]);
+    });
+
     it("honors maxSuggestions even when more direct replacements are available", () => {
       const secondCandidate: MasterCatalogCard = {
         ...mockCandidateUpgrade,
@@ -1016,6 +1137,7 @@ describe("Cube Upgrade Advisor", () => {
         ),
         ["recent discovery", { firstPrintYear: 2026, rarity: "rare" }] as const,
       ]);
+      const benchmarkMap = new Map([["recent discovery", ["Peer Cube"]]]);
       const catalog = [...targets, ...directCandidates, recentDiscovery];
       const meta = { ...mockMeta, cubeKey: "cedric_cube" };
       const upgrades = generateCubeUpgradeProposals(
@@ -1032,7 +1154,7 @@ describe("Cube Upgrade Advisor", () => {
         meta,
         undefined,
         releaseMap,
-        undefined,
+        benchmarkMap,
         3,
         upgrades,
       );
@@ -1067,7 +1189,10 @@ describe("Cube Upgrade Advisor", () => {
         { ...mockMeta, cubeKey: "cedric_cube" },
         undefined,
         releaseMap,
-        undefined,
+        new Map([
+          ["established discovery", ["Peer Cube"]],
+          ["weaker recent discovery", ["Peer Cube"]],
+        ]),
         1,
       );
 
@@ -1093,6 +1218,10 @@ describe("Cube Upgrade Advisor", () => {
         { ...mockMeta, cubeKey: "cedric_cube" },
         undefined,
         releaseMap,
+        new Map([
+          ["lightning bolt", ["Peer Cube"]],
+          ["recent discovery", ["Peer Cube"]],
+        ]),
       );
 
       expect(maybeboard.find((item) => item.card.name === "Lightning Bolt")?.isRecent).toBe(false);
@@ -1142,6 +1271,12 @@ describe("Cube Upgrade Advisor", () => {
         "titou_tribal",
         [mockTargetCard, unrelatedMerfolk, goblinCandidate],
         mockMeta,
+        undefined,
+        undefined,
+        new Map([
+          ["unrelated merfolk", ["Peer Cube"]],
+          ["relevant goblin", ["Peer Cube"]],
+        ]),
       );
       const names = maybeboard.map((suggestion) => suggestion.card.name);
 
@@ -1179,6 +1314,9 @@ describe("Cube Upgrade Advisor", () => {
         "titou_tribal",
         [mockTargetCard, goblinCandidate],
         metaWithWizard,
+        undefined,
+        undefined,
+        new Map([["focused goblin", ["Peer Cube"]]]),
       );
       const suggestion = maybeboard.find((item) => item.card.name === goblinCandidate.name);
 
@@ -1204,7 +1342,7 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(report.schemaVersion).toBe(2);
-      expect(report.engineVersion).toBe("cube-upgrade-advisor@4");
+      expect(report.engineVersion).toBe("cube-upgrade-advisor@5");
       expect(report.snapshotId).toBe("titou_tribal@test");
       expect(report.generatedAt).toBe(mockRunContext.generatedAt);
       expect(report.sourceProvenance).toEqual({
