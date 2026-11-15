@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@5",
   "cubeKey": "cedric_cube",
   "snapshotId": "cedric_cube@2026-03-01.1",
-  "generatedAt": "2026-11-07T11:36:04.936Z",
+  "generatedAt": "2026-11-15T20:32:43.480Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-07T11:36:04.936Z",
+    "generatedAt": "2026-11-15T20:32:43.480Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "8d3f3366e3f5fde4c8c2bad5244b7da4bbf1ec13e18f5c2da59d48938cef12c5",
+      "sha256": "245e83498610419ea29f2e05b9a18a2fb0446bfa132fa532008196f807258731",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "2d68b60c6ce26b5a616bf5aba56437b78071a6c3009b68366db3364a0355072f",
+      "sha256": "74cc4813c2127bb19f1d965cb142ac53da7df1c70c1d34d3757585c5423e021d",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,17 +41,17 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2194,
-    "availableCandidates": 1474,
+    "catalogCards": 2195,
+    "availableCandidates": 1475,
     "benchmarkCards": 669,
     "benchmarkCardsInCatalog": 578,
     "missingBenchmarkCards": 91,
     "benchmarkCoveragePercentage": 86
   },
   "stats": {
-    "totalUpgrades": 138,
+    "totalUpgrades": 139,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 93,
+    "recentUpgradesCount": 94,
     "benchmarkMatchesCount": 66,
     "recentMaybeboardCount": 36,
     "directReplacementMaybeboardCount": 49
@@ -5865,40 +5865,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "33c3a81a-6cea-48c9-b966-67084d96e74f",
-        "name": "Osseous Sticktwister",
-        "score": 28,
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 30,
         "tier": "A-",
         "cmc": 2,
-        "typeLine": "Artifact Creature — Scarecrow",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4f43473e-1302-4543-b331-1a86cfbc3ced/normal.webp",
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
         "colors": [
           "B"
         ],
-        "releaseYear": 2024,
-        "set": "DSK",
+        "releaseYear": 2026,
+        "set": "TRK",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts).",
+      "scoreDelta": 11,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+9 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+11 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Dimir Tempo & Disruption",
           "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 43,
+      "rankingScore": 45,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28
+          "points": 30
         },
         {
           "key": "role_alignment",
@@ -9379,6 +9379,70 @@
         {
           "key": "peer_benchmark",
           "points": 15
+        }
+      ]
+    },
+    "Vampire Hexmage": {
+      "targetCard": {
+        "oracleId": "fcb2a95b-cef0-4b29-8b2b-538f380aff2b",
+        "name": "Vampire Hexmage",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shaman",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/7/97ec2e55-fa60-4ee1-b9c0-e6b84939697b.jpg?1783930170",
+        "frenchName": "Sortimage vampire",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/0/e02b2286-c193-4cad-b760-4c4f512064bf.jpg?1782888868",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2009,
+        "set": "ZEN",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "33c3a81a-6cea-48c9-b966-67084d96e74f",
+        "name": "Osseous Sticktwister",
+        "score": 28,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Artifact Creature — Scarecrow",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/4f43473e-1302-4543-b331-1a86cfbc3ced/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2024,
+        "set": "DSK",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 10.1,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.1 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+10.1 pts).",
+        "affectedArchetypes": [
+          "Dimir Reanimator",
+          "Dimir Tempo & Disruption",
+          "Rakdos Sacrifice & Recursive Threats"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "rankingScore": 35,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },

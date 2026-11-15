@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "rankingId": "power-ranking-v1",
-  "generatedAt": "2026-11-07T11:38:36.695Z",
+  "generatedAt": "2026-11-15T20:32:45.700Z",
   "referenceId": "untapped-reference-v1",
   "calibrationId": "cubecobra-features-to-untapped-v1",
   "coverage": {
-    "total": 2194,
+    "total": 2195,
     "directUntapped": 438,
     "calibratedCubeCobra": 1223,
     "fallback": 287,
-    "addedSinceRebuild": 246
+    "addedSinceRebuild": 1
   },
   "ranking": [
     {
@@ -3473,6 +3473,14 @@
       "evidenceCount": 24,
       "observedMin": 28,
       "observedMax": 39
+    },
+    {
+      "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+      "name": "Salt Vampire",
+      "score": 30,
+      "source": "expert_heuristic",
+      "rawSourceScore": 30,
+      "method": "manual_expert_estimate"
     },
     {
       "oracleId": "8c81f7b6-38e7-482b-afff-727074a23888",

@@ -39,7 +39,12 @@ const catalogMetaPath = resolve(rootDir, "data/cards/catalog-meta.json");
 const catalogMeta = JSON.parse(readFileSync(catalogMetaPath, "utf8"));
 const masterData = existsSync(masterPath)
   ? JSON.parse(readFileSync(masterPath, "utf8"))
-  : { schemaVersion: catalogMeta.schemaVersion, generatedAt: catalogMeta.generatedAt, cardCount: 0, cards: {} };
+  : {
+      schemaVersion: catalogMeta.schemaVersion,
+      generatedAt: catalogMeta.generatedAt,
+      cardCount: 0,
+      cards: {},
+    };
 masterData.generatedAt = catalogMeta.generatedAt;
 const previousCatalogFingerprint = sha256(
   JSON.stringify({ cardCount: masterData.cardCount, cards: masterData.cards }),
@@ -125,7 +130,9 @@ const peerDetailsRaw = existsSync(peerDetailsPath)
   ? readFileSync(peerDetailsPath, "utf8")
   : '{"cards":{}}';
 const peerOracleTagsMap = new Map();
+const peerCardNames = new Set();
 for (const card of Object.values(JSON.parse(peerDetailsRaw).cards ?? {})) {
+  peerCardNames.add(card.name.toLowerCase().trim());
   if (card.oracle_tags?.length) {
     peerOracleTagsMap.set(card.name.toLowerCase().trim(), card.oracle_tags);
   }
@@ -209,7 +216,11 @@ if (nextCatalogFingerprint !== previousCatalogFingerprint) {
   masterData.generatedAt = new Date().toISOString();
   writeFileSync(
     catalogMetaPath,
-    JSON.stringify({ schemaVersion: masterData.schemaVersion, generatedAt: masterData.generatedAt }, null, 2) + "\n",
+    JSON.stringify(
+      { schemaVersion: masterData.schemaVersion, generatedAt: masterData.generatedAt },
+      null,
+      2,
+    ) + "\n",
     "utf8",
   );
 }
@@ -531,9 +542,12 @@ if (existsSync(powerRankingPath)) {
       method:
         card.powerScore.source === "untapped"
           ? "untapped_reference_v2"
-          : card.powerScore.harmonizationDegree === "fallback"
-            ? "peer_cubecobra_elo_isotonic_low_sample"
-            : "peer_cubecobra_elo_isotonic",
+          : !peerCardNames.has(card.name.toLowerCase().trim())
+            ? // Added by hand before any peer cube plays it: no Elo behind the score.
+              "manual_expert_estimate"
+            : card.powerScore.harmonizationDegree === "fallback"
+              ? "peer_cubecobra_elo_isotonic_low_sample"
+              : "peer_cubecobra_elo_isotonic",
     });
     addedRankingEntries += 1;
   }

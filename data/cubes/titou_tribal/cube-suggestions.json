@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@5",
   "cubeKey": "titou_tribal",
   "snapshotId": "titou_tribal@2026-02-24.1",
-  "generatedAt": "2026-11-07T11:36:04.936Z",
+  "generatedAt": "2026-11-15T20:32:43.480Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-07T11:36:04.936Z",
+    "generatedAt": "2026-11-15T20:32:43.480Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "8d3f3366e3f5fde4c8c2bad5244b7da4bbf1ec13e18f5c2da59d48938cef12c5",
+      "sha256": "245e83498610419ea29f2e05b9a18a2fb0446bfa132fa532008196f807258731",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "2d68b60c6ce26b5a616bf5aba56437b78071a6c3009b68366db3364a0355072f",
+      "sha256": "74cc4813c2127bb19f1d965cb142ac53da7df1c70c1d34d3757585c5423e021d",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,17 +41,17 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2194,
-    "availableCandidates": 1652,
+    "catalogCards": 2195,
+    "availableCandidates": 1653,
     "benchmarkCards": 540,
     "benchmarkCardsInCatalog": 182,
     "missingBenchmarkCards": 358,
     "benchmarkCoveragePercentage": 34
   },
   "stats": {
-    "totalUpgrades": 48,
+    "totalUpgrades": 49,
     "totalMaybeboard": 39,
-    "recentUpgradesCount": 23,
+    "recentUpgradesCount": 24,
     "benchmarkMatchesCount": 5,
     "recentMaybeboardCount": 16,
     "directReplacementMaybeboardCount": 34
@@ -3056,6 +3056,77 @@
         {
           "key": "mana_efficiency",
           "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    "Vito, Thorn of the Dusk Rose": {
+      "targetCard": {
+        "oracleId": "7336a541-3ae9-4ab2-acb8-f574c0a5b3a9",
+        "name": "Vito, Thorn of the Dusk Rose",
+        "score": 19,
+        "tier": "D+",
+        "cmc": 3,
+        "typeLine": "Legendary Creature — Vampire Cleric",
+        "imageUrl": "https://cards.scryfall.io/normal/front/0/f/0fe79ee4-c3f3-4a6b-a967-203ca3b70ee5.jpg?1783930698",
+        "frenchName": "Vito, Épine de la Rose du crépuscule",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/f/3/f37d1ec6-29fb-493a-bad6-41a05426737f.jpg?1782781492",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2020,
+        "set": "M21",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 30,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2026,
+        "set": "TRK",
+        "isRecent": true
+      },
+      "swapType": "archetype_booster",
+      "scoreDelta": 11,
+      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+11 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+11 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Changelins & Liant Universel (The Glue)"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 75,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 30
         },
         {
           "key": "recent_release",
