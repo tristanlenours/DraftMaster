@@ -105,7 +105,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
             expect(
               Math.max(...replaced.map((target) => target.scoreDelta)),
               suggestion.card.name,
-            ).toBeGreaterThanOrEqual(12);
+            ).toBeGreaterThanOrEqual(10);
           } else {
             expect(suggestion.benchmarkCubes?.length ?? 0, suggestion.card.name).toBeGreaterThan(0);
           }

@@ -89,7 +89,8 @@ Riddler, Sage of the Skies, Cori-Steel Cutter). 618 older peer-cube cards remain
 The maybeboard no longer fills a fixed list of 30 cards. It lists every card with a real added
 value, and only those:
 
-- a direct replacement is kept when it gains at least 12 points on the slot it takes;
+- a direct replacement is kept when it gains at least 10 points on the slot it takes (first set
+  to 12, lowered on 2026-11-15 at the cube owner's request);
 - a card without an identified slot is kept only when a peer cube already plays it and its score
   would place it in the cube's relative tier A or better;
 - a ceiling of 50 keeps the largest cubes reviewable (best ranking scores first).
@@ -98,9 +99,9 @@ Two rules-function gaps were closed on the way: a `-X/-X` shrink on a target cre
 (Tragic Slip is no longer replaced by Imperial Seal or Duress), and "that player discards" is
 discard.
 
-Maybeboard sizes after regeneration: tribal 39 (34 replacements, 5 peer-cube cards), hugues 25,
-peasant 14, cedric 50 and nico 50 (both capped). The slot-for-slot `upgrades` map is unchanged
-apart from the two rules-function fixes.
+Maybeboard sizes with the +10 bar and the popular recent cards below: tribal 47 (42 replacements,
+5 peer-cube cards), hugues 36, peasant 15, cedric 50 and nico 50 (both capped). The slot-for-slot
+`upgrades` map is unchanged apart from the two rules-function fixes.
 
 ## Popular cards of recent sets (2026-11-15)
 
@@ -119,7 +120,8 @@ First run (`--since 2026-05-01 --top 150 --card "Salt Vampire"`): 151 cards grad
 (Gleaming Splendor 31.4, Salt Vampire 29.8, Cosmic Cube, Doom's Time Platform, Smaug the
 Magnificent, Captain America's Shield, Elven Passage, The Ten Rings, Mjölnir). Most Commander
 staples are weak cube cards, hence the low yield. Salt Vampire replaces Vito, Thorn of the Dusk
-Rose in `titou_tribal` (+10.8), just under the maybeboard's +12 bar.
+Rose in `titou_tribal` (+10.8). That was under the maybeboard's first +12 bar; the bar was then
+lowered to +10, which brings it into the list.
 
 Cards without an EDHREC rank yet (a set released within days) are only reachable with `--card`.
 

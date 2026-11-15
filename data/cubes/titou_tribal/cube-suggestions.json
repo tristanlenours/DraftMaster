@@ -50,11 +50,11 @@
   },
   "stats": {
     "totalUpgrades": 52,
-    "totalMaybeboard": 40,
+    "totalMaybeboard": 47,
     "recentUpgradesCount": 27,
     "benchmarkMatchesCount": 5,
-    "recentMaybeboardCount": 17,
-    "directReplacementMaybeboardCount": 35
+    "recentMaybeboardCount": 21,
+    "directReplacementMaybeboardCount": 42
   },
   "upgrades": {
     "Act of Treason": {
@@ -4714,6 +4714,140 @@
     },
     {
       "card": {
+        "oracleId": "3f6101a5-3038-45b0-8302-b2e4127b9510",
+        "name": "Rally the Monastery",
+        "score": 27.2,
+        "tier": "A-",
+        "cmc": 4,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b56e0037-8143-4c13-83e1-0c3f44e685ea/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2025,
+        "set": "TDM",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_vampires",
+        "titou:tribal_angels",
+        "titou:tribal_humans",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Sunfall (+10.2 pts). Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.2 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Mardu Vampires Aristocrates & Drain & Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+27.2 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Orzhov/Mono-W Anges & Clercs",
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TDM]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Sunfall",
+          "frenchName": "Fin du soleil",
+          "score": 17,
+          "tier": "F",
+          "scoreDelta": 10.2,
+          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.2 pts)."
+        }
+      ],
+      "rankingScore": 83.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 20
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "e8a9350a-07c1-47ed-8c4f-88e4b3b17545",
+        "name": "Hop to It",
+        "score": 26.5,
+        "tier": "A-",
+        "cmc": 3,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/ee7207f8-5daa-42af-aeea-7a489047110b/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2024,
+        "set": "BLB",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_vampires",
+        "titou:tribal_angels",
+        "titou:tribal_humans",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Timely Reinforcements (+10.3 pts). Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Mardu Vampires Aristocrates & Drain & Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+26.5 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Orzhov/Mono-W Anges & Clercs",
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Timely Reinforcements",
+          "frenchName": "Renforts qui tombent à pic",
+          "score": 16.2,
+          "tier": "F",
+          "scoreDelta": 10.3,
+          "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.3 pts)."
+        }
+      ],
+      "rankingScore": 82.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.5
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 20
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "cfc7cef7-0a95-49f8-970f-abff2cacd82d",
         "name": "Sage of the Skies",
         "score": 42,
@@ -5046,6 +5180,131 @@
         {
           "key": "archetype_match",
           "points": 4
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "9728dec9-d482-4c7a-8cdc-44d010dc878d",
+        "name": "Ancestral Vision",
+        "score": 27.8,
+        "tier": "A-",
+        "cmc": 0,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/bccedc4d-38c7-4bf3-9ca7-4febd6c49d3d/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2006,
+        "set": "TSP",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Blustersquall (+10.6 pts). Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+10.6 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+27.8 pts).",
+        "affectedArchetypes": [
+          "Temur/5-Color Dragons Ramp & Bombes",
+          "Izzet Sorciers Spells & Tempo",
+          "5-Color Chromatic Legends & Domain"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2006)"
+      },
+      "releaseYear": 2006,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Blustersquall",
+          "frenchName": "Blustersquall",
+          "score": 17.2,
+          "tier": "D-",
+          "scoreDelta": 10.6,
+          "reason": "Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+10.6 pts)."
+        }
+      ],
+      "rankingScore": 73.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 16
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2026,
+        "set": "TRK",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_vampires",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Vito, Thorn of the Dusk Rose (+10.8 pts). Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10.8 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+29.8 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Changelins & Liant Universel (The Glue)"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Vito, Thorn of the Dusk Rose",
+          "frenchName": "Vito, Épine de la Rose du crépuscule",
+          "score": 19,
+          "tier": "D+",
+          "scoreDelta": 10.8,
+          "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10.8 pts). Reste au service de Mardu Vampires Aristocrates & Drain."
+        }
+      ],
+      "rankingScore": 73.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 8
         },
         {
           "key": "recent_release",
@@ -5625,6 +5884,124 @@
     },
     {
       "card": {
+        "oracleId": "96c2d71e-0fc9-42aa-bc6b-6d0ae3f66f8b",
+        "name": "Hexing Squelcher",
+        "score": 26,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Sorcerer",
+        "imageUrl": "https://cards.scryfall.io/normal/front/6/7/674960ce-ff33-4d5e-a24a-a4582b2e9809.jpg?1783904442",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2026,
+        "set": "ECL",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_goblins"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Goblin Wardriver (+11 pts). Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+11 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+26 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [ECL]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Goblin Wardriver",
+          "frenchName": "Goblin Wardriver",
+          "score": 15,
+          "tier": "F",
+          "scoreDelta": 11,
+          "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+11 pts). Reste au service de Rakdos Gobelins Aggro & Burn."
+        }
+      ],
+      "rankingScore": 66,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "name": "Sokenzan Smelter",
+        "score": 30.1,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_goblins"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Battle Cry Goblin (+10.3 pts). Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+10.3 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+30.1 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2022)"
+      },
+      "releaseYear": 2022,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Battle Cry Goblin",
+          "frenchName": "Gobelin au cri de guerre",
+          "score": 19.8,
+          "tier": "C-",
+          "scoreDelta": 10.3,
+          "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+10.3 pts). Reste au service de Rakdos Gobelins Aggro & Burn."
+        }
+      ],
+      "rankingScore": 64.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.1
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "c04197ad-d2f3-499f-b863-bed0c869519c",
         "name": "The Echoverse Fulcrum",
         "score": 26,
@@ -5722,6 +6099,53 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7",
+        "name": "Grand Coliseum",
+        "score": 27.8,
+        "tier": "A-",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/c2dc8061-a855-4a81-9eb7-350b355a9b3f/normal.webp",
+        "colors": [],
+        "releaseYear": 2002,
+        "set": "ONS",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Fabled Passage (+10.8 pts). Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.8 pts). Reste au service de 5-Color Chromatic Legends & Domain.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+27.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Accélération & Fixation de Mana",
+        "releaseContext": "Référence confirmée (2002)"
+      },
+      "releaseYear": 2002,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Fabled Passage",
+          "frenchName": "Passage merveilleux",
+          "score": 17,
+          "tier": "D-",
+          "scoreDelta": 10.8,
+          "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.8 pts). Reste au service de 5-Color Chromatic Legends & Domain."
+        }
+      ],
+      "rankingScore": 57.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
         }
       ]
     },

@@ -181,7 +181,7 @@ const MAX_DISCOVERY_SCORE_GAP = 6;
  */
 export const MAX_MAYBEBOARD_SUGGESTIONS = 50;
 /** A direct replacement is worth noting when it clearly outclasses the slot it takes. */
-const MIN_ADDED_VALUE_REPLACEMENT_DELTA = 12;
+const MIN_ADDED_VALUE_REPLACEMENT_DELTA = 10;
 /** A card without a slot must be played by a peer cube and rank in this cube's tier A or better. */
 const DISCOVERY_MIN_TIER = "A";
 
