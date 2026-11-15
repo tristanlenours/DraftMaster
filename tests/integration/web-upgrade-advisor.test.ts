@@ -65,7 +65,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
         const raw = await readFile(filePath, "utf-8");
         const data = JSON.parse(raw) as CubeSuggestionsReport;
         expect(data.schemaVersion).toBe(2);
-        expect(data.engineVersion).toBe("cube-upgrade-advisor@4");
+        expect(data.engineVersion).toBe("cube-upgrade-advisor@5");
         expect(data.cubeKey).toBe(cubeKey);
         expect(data.snapshotId).toBeTruthy();
         expect(data.sourceProvenance.catalog.sha256).toMatch(/^[a-f0-9]{64}$/);
@@ -97,7 +97,19 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
         expect(new Set(suggestedNames).size).toBe(suggestedNames.length);
 
         expect(data.stats.totalMaybeboard).toBeGreaterThan(0);
-        expect(data.stats.totalMaybeboard).toBeLessThanOrEqual(30);
+        // No target size: only cards with a real added value, capped to stay reviewable.
+        expect(data.stats.totalMaybeboard).toBeLessThanOrEqual(50);
+        for (const suggestion of data.maybeboard) {
+          const replaced = suggestion.replacesCards ?? [];
+          if (replaced.length > 0) {
+            expect(
+              Math.max(...replaced.map((target) => target.scoreDelta)),
+              suggestion.card.name,
+            ).toBeGreaterThanOrEqual(12);
+          } else {
+            expect(suggestion.benchmarkCubes?.length ?? 0, suggestion.card.name).toBeGreaterThan(0);
+          }
+        }
         expect(data.stats.recentMaybeboardCount).toBeLessThanOrEqual(data.stats.totalMaybeboard);
         expect(data.stats.directReplacementMaybeboardCount).toBeLessThanOrEqual(
           data.stats.totalMaybeboard,

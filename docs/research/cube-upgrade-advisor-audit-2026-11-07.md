@@ -84,6 +84,24 @@ tribal 48 (9); every maybeboard now features recent cards (e.g. Galvanic Dischar
 Riddler, Sage of the Skies, Cori-Steel Cutter). 618 older peer-cube cards remain outside the catalog
 (`artifacts/cube-upgrade-watchlist-2026-11-07.json`), mostly vintage staples.
 
+## Value-driven maybeboard in `cube-upgrade-advisor@5` (2026-11-15)
+
+The maybeboard no longer fills a fixed list of 30 cards. It lists every card with a real added
+value, and only those:
+
+- a direct replacement is kept when it gains at least 12 points on the slot it takes;
+- a card without an identified slot is kept only when a peer cube already plays it and its score
+  would place it in the cube's relative tier A or better;
+- a ceiling of 50 keeps the largest cubes reviewable (best ranking scores first).
+
+Two rules-function gaps were closed on the way: a `-X/-X` shrink on a target creature is removal
+(Tragic Slip is no longer replaced by Imperial Seal or Duress), and "that player discards" is
+discard.
+
+Maybeboard sizes after regeneration: tribal 39 (34 replacements, 5 peer-cube cards), hugues 25,
+peasant 14, cedric 50 and nico 50 (both capped). The slot-for-slot `upgrades` map is unchanged
+apart from the two rules-function fixes.
+
 ## Known limits
 
 - The isotonic calibration saturates near 37 points, so a recent bomb is under-rated until
