@@ -11,7 +11,7 @@ Le snapshot `data/cubes/titou_tribal/2026-02-24.1.json` contient 545 instances d
 
 ## Utilisation CLI (MVP US1)
 
-Le simulateur de draft s'exécute directement via npm avec Node.js 24 LTS :
+Le simulateur de draft s'exécute directement via npm avec Node.js 26 LTS :
 
 ```bash
 # Simulation avec snapshot par défaut et seed générée aléatoirement

@@ -6,7 +6,7 @@ DraftMaster is restarting from a greenfield baseline. Product vocabulary lives i
 
 ## Build, Test, and Development Commands
 
-The TypeScript runtime on Node.js 24 LTS and npm is active. Available scripts:
+The TypeScript runtime on Node.js 26 LTS and npm is active. Available scripts:
 
 - `npm run check` — execute the complete quality gate: Prettier format check, ESLint, `tsc --noEmit`, Vitest test suite, and V8 coverage.
 - `npm run test` — run Vitest test suite.
