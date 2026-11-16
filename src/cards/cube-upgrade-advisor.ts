@@ -244,7 +244,6 @@ function getCardTier(
   thresholds?: readonly CubeTierThreshold[],
 ): CubeTier {
   const ana = card.cubeAnalyses[cubeKey];
-  if (ana?.relativeTier) return ana.relativeTier;
   if (ana?.tier) return ana.tier;
   if (thresholds && thresholds.length > 0) {
     const score = getCardScore(card);

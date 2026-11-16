@@ -123,7 +123,7 @@ Chaque fichier de `data/cards/items/` doit respecter les champs requis :
     "titou_tribal": {
       "cubeKey": "titou_tribal",
       "fit": "build_around",
-      "tier": "S",
+      "tier": "A+",
       "archetypes": ["titou:tribal_humans"],
       "synergyTags": ["tribe:human", "aggro", "tokens", "counters"],
       "scoreModifier": 5,
@@ -143,7 +143,7 @@ Chaque fichier de `data/cards/items/` doit respecter les champs requis :
             "colors": ["W"],
             "archetype": "Tribal Humains",
             "grade": "S",
-            "winrateOrScore": "65.0 %",
+            "winrateOrScore": "Score 41.0",
             "comment": "Pilier et P1P1 incontournable."
           }
         ]
@@ -154,8 +154,9 @@ Chaque fichier de `data/cards/items/` doit respecter les champs requis :
 ```
 
 #### Règles impératives pour les Tiers :
-- Les Tiers de cartes sont **strictement simplifiés** sur l'échelle : **`S`**, **`A`**, **`B`**, **`C`**, **`D`**.
-- Aucun sous-grade (`+` ou `-`) n'est accepté par le validateur de schéma.
+- Le tier d'une carte dans un cube est **relatif** : `npm run data:sync` classe les cartes du cube par `powerScore` et les répartit en 13 quantiles égaux, de **`A+`** à **`F`** (`A+`, `A`, `A-`, `B+`, … `D-`, `F`).
+- `cubeAnalyses.<cubeKey>.tier` est l'unique champ de tier ; il n'est jamais saisi à la main.
+- Les copies du tier et du score dans les textes générés (`Carte de rang …`, `(Score : …)`, `winrateOrScore`, note des lignes `archetypeFit` génériques en majuscules) sont réécrites à chaque `data:sync`. Seules les lignes `archetypeFit` rédigées à la main gardent leur propre note d'archétype.
 
 ---
 
@@ -197,7 +198,7 @@ Chaque cube dispose d'un document `cube.json` contenant ses caractéristiques fo
       "slug": "adeline-resplendent-cathar",
       "name": "Adeline, Resplendent Cathar",
       "oracleId": "38515f89-348b-4cf3-b7bd-1f6fe4ce2fba",
-      "tier": "S",
+      "tier": "A+",
       "fit": "build_around",
       "scoreModifier": 5
     }

@@ -90,7 +90,6 @@ export interface CubeSpecificCardAnalysis {
   readonly cubeKey: string;
   readonly fit: CubeCardFit;
   readonly tier?: CubeTier;
-  readonly relativeTier?: CubeTier;
   readonly pedagogy?: CardPedagogy;
   readonly archetypes: readonly string[];
   readonly synergyTags: readonly string[];

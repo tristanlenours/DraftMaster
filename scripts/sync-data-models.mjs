@@ -3,6 +3,7 @@ import { resolve, join } from "node:path";
 import { createHash } from "node:crypto";
 import { generateCubeSuggestionsReport } from "../src/cards/cube-upgrade-advisor.ts";
 import { assignRelativeTiers } from "../src/cards/relative-tier-engine.ts";
+import { refreshDerivedTierText, refreshScoreMentions } from "../src/cards/derived-tier-text.ts";
 import { writeMasterCatalog } from "../src/cards/master-catalog-build.ts";
 import {
   UNTAPPED_ELO_CONTRADICTION_RULE,
@@ -330,7 +331,6 @@ for (const cfg of cubeConfigs) {
   tierAssignments.forEach(({ card, tier: relTier, metaRole, metaBonus }) => {
     const ana = card.cubeAnalyses[cfg.key];
     if (ana) {
-      ana.relativeTier = relTier;
       ana.tier = relTier;
       ana.metaBonus = metaBonus;
       ana.metaRole = metaRole;
@@ -427,7 +427,7 @@ for (const cfg of cubeConfigs) {
   // Populate cardIndex conforming strictly to cube.schema.json
   cubeCards.forEach((card) => {
     const ana = card.cubeAnalyses[cfg.key];
-    const relTier = ana?.relativeTier || "C";
+    const relTier = ana?.tier || "C";
     const metaRole = ana?.metaRole || "neutral";
     const metaBonus = ana?.metaBonus || 0;
 
@@ -485,6 +485,14 @@ for (const cfg of cubeConfigs) {
 
 // 6. Write back updated cards with relative tiers & meta bonuses
 for (const card of Object.values(cardsByOracleId)) {
+  card.objectiveAnalysis.summary = refreshScoreMentions(
+    card.objectiveAnalysis.summary,
+    card.powerScore.score,
+  );
+  // `tier` is the single tier field; prose and generic archetype rows quote it.
+  for (const [cubeKey, analysis] of Object.entries(card.cubeAnalyses)) {
+    card.cubeAnalyses[cubeKey] = refreshDerivedTierText(analysis, card.powerScore.score);
+  }
   const singleCardPath = join(itemsDir, `${card.slug}.json`);
   if (existsSync(singleCardPath)) {
     writeFileSync(singleCardPath, JSON.stringify(card, null, 2) + "\n", "utf8");

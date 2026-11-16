@@ -42,7 +42,6 @@ describe("Cube Upgrade Advisor", () => {
       titou_tribal: {
         cubeKey: "titou_tribal",
         fit: "filler",
-        relativeTier: "F",
         tier: "F",
         archetypes: ["titou:tribal_goblins"],
         synergyTags: ["burn"],
@@ -55,7 +54,6 @@ describe("Cube Upgrade Advisor", () => {
   const mockTargetTribalAnalysis = {
     cubeKey: "titou_tribal",
     fit: "filler",
-    relativeTier: "F",
     tier: "F",
     archetypes: ["titou:tribal_goblins"],
     synergyTags: ["burn"],
@@ -462,7 +460,6 @@ describe("Cube Upgrade Advisor", () => {
           hugues_pauper: {
             cubeKey: "hugues_pauper",
             fit: "filler",
-            relativeTier: "F",
             tier: "F",
             archetypes: [],
             synergyTags: [],

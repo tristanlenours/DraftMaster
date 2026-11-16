@@ -65,7 +65,7 @@ Propagate the foundational cube intelligence into all runtime catalogs and verif
    ```bash
    node scripts/build-archetype-synergy-profiles.mjs
    ```
-2. Synchronize card items, `master-cards.json` (`relativeTier`, `metaRole`, `metaBonus`, `cubeAnalyses[cubeKey].archetypes`), `cube.json`, `cube-suggestions.json`, and `power-ranking-v1.json`:
+2. Synchronize card items, `master-cards.json` (`tier`, `metaRole`, `metaBonus`, `cubeAnalyses[cubeKey].archetypes`), `cube.json`, `cube-suggestions.json`, and `power-ranking-v1.json`:
    ```bash
    node --experimental-strip-types scripts/sync-data-models.mjs
    ```
