@@ -196,7 +196,7 @@ describe("Tier and Power Score Consistency", () => {
     const catalog = catalogResult.value;
 
     const testCases: UtilityCardTestCase[] = [
-      { name: "Stoneforge Mystic", maxScore: 30, expectedTier: "D+" },
+      { name: "Stoneforge Mystic", maxScore: 30, expectedTier: "D" },
       { name: "Mishra's Bauble", maxScore: 25, expectedTier: "C-" },
       { name: "Mana Confluence", maxScore: 25, expectedTier: "D-" },
       { name: "Fabled Passage", maxScore: 20, expectedTier: "D-" },

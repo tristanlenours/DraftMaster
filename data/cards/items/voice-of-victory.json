@@ -41,7 +41,9 @@
     "confidence": 0.6,
     "updatedAt": "2026-11-07T11:33:15.323Z"
   },
-  "presentInCubes": [],
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
   "objectiveAnalysis": {
     "summary": "Nouveauté Tarkir: Dragonstorm (2025) adoptée par MTGO Vintage Cube & Vintage Cube Archive ; score calibré sur l'Elo CubeCobra (1456, 32438 picks).",
     "roles": [
@@ -57,5 +59,23 @@
       "behind": 2.6
     }
   },
-  "cubeAnalyses": {}
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "archetypes": [
+        "nico:boros_aggro"
+      ],
+      "synergyTags": [
+        "hate-flash",
+        "hate",
+        "delayed-trigger"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Entrée dans le cube lors de la mise à jour CubeCobra du 2026-11-18.",
+      "tier": "B",
+      "metaBonus": 8,
+      "metaRole": "key"
+    }
+  }
 }

@@ -2,7 +2,8 @@
   "schemaVersion": 1,
   "slug": "elspeth-storm-slayer",
   "name": "Elspeth, Storm Slayer",
-  "oracleId": "00000000-0000-4000-8000-000000000005",
+  "oracleId": "f78af825-023a-42e9-8374-5c52303a1417",
+  "scryfallId": "1fdf9438-fd5f-4638-8f41-dae35ae8f257",
   "manaCost": "{3}{W}{W}",
   "cmc": 5,
   "colors": [
@@ -38,7 +39,9 @@
     "confidence": 1,
     "updatedAt": "2026-09-15T21:17:13.920Z"
   },
-  "presentInCubes": [],
+  "presentInCubes": [
+    "nico_candyshop"
+  ],
   "objectiveAnalysis": {
     "summary": "Arpenteur militaire doublant la production de jetons et capable de raser les grosses menaces.",
     "roles": [
@@ -56,5 +59,23 @@
       "behind": 4.5
     }
   },
-  "cubeAnalyses": {}
+  "cubeAnalyses": {
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "archetypes": [
+        "nico:selesnya_counters"
+      ],
+      "synergyTags": [
+        "gives-flying",
+        "gives-evasion",
+        "passive-ability"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Entrée dans le cube lors de la mise à jour CubeCobra du 2026-11-18.",
+      "tier": "A",
+      "metaBonus": 8,
+      "metaRole": "key"
+    }
+  }
 }
