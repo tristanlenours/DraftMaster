@@ -291,6 +291,17 @@ const tierOrder = {
   D: 10,
 };
 
+// Combo archetypes curated in every cube: the upgrade advisor keeps their pieces out of cubes
+// that have no combo to play them with.
+const peerComboArchetypeIds = cubeConfigs.flatMap((cfg) => {
+  const metaPath = resolve(rootDir, cfg.dir, "cube-meta.json");
+  if (!existsSync(metaPath)) return [];
+  const meta = JSON.parse(readFileSync(metaPath, "utf8"));
+  return (meta.archetypes || [])
+    .filter((archetype) => archetype.category === "combo")
+    .map((archetype) => archetype.id);
+});
+
 for (const cfg of cubeConfigs) {
   const metaPath = resolve(rootDir, cfg.dir, "cube-meta.json");
   if (!existsSync(metaPath)) {
@@ -381,7 +392,7 @@ for (const cfg of cubeConfigs) {
   const suggestionsReport = generateCubeSuggestionsReport(
     cfg.key,
     Object.values(cardsByOracleId),
-    meta,
+    { ...meta, peerComboArchetypeIds },
     cubeCobraStatsMap,
     releaseMetadataMap,
     benchmarkCardsMap,

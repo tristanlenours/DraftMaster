@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@6",
+  "engineVersion": "cube-upgrade-advisor@7",
   "cubeKey": "titou_arena_peasant_plus",
   "snapshotId": "titou_arena_peasant_plus@2026-09-08.1",
   "generatedAt": "2026-11-18T12:26:56.317Z",
@@ -50,11 +50,11 @@
   },
   "stats": {
     "totalUpgrades": 19,
-    "totalMaybeboard": 14,
+    "totalMaybeboard": 12,
     "recentUpgradesCount": 1,
     "benchmarkMatchesCount": 1,
     "recentMaybeboardCount": 1,
-    "directReplacementMaybeboardCount": 14
+    "directReplacementMaybeboardCount": 12
   },
   "upgrades": {
     "Back for Seconds": {
@@ -463,44 +463,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
-        "name": "Brain Freeze",
-        "score": 36.6,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
+        "oracleId": "05a039ad-1689-4d13-b393-6c1219583b5d",
+        "name": "Sleight of Hand",
+        "score": 27.8,
+        "tier": "B-",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/1766d117-6ee1-4103-88e8-47b932a94d65/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2003,
-        "set": "SCG",
+        "releaseYear": 1998,
+        "set": "UMA",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 18.5,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
+      "scoreDelta": 9.7,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.7 pts). Reste au service de Izzet Noncreature Spells & Artifacts.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+18.5 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+9.7 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & Bounce Value",
           "Dimir Draw-Two & Control",
           "Simic Eldrazi Spawn & Ramp"
         ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2003)"
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (1998)"
       },
-      "releaseYear": 2003,
+      "releaseYear": 1998,
       "isRecent": false,
-      "rankingScore": 46.6,
+      "rankingScore": 34.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 36.6
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
+          "points": 27.8
         },
         {
           "key": "archetype_match",
@@ -508,7 +504,7 @@
         },
         {
           "key": "mana_efficiency",
-          "points": -4
+          "points": 1
         }
       ]
     },
@@ -597,44 +593,41 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
-        "name": "Booster Tutor",
-        "score": 42,
-        "tier": "A+",
+        "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+        "name": "Bone Shards",
+        "score": 29,
+        "tier": "B",
         "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/c3a5b25e-c5af-417e-8675-162ab18ac2b1/normal.webp",
+        "typeLine": "Sorcery",
+        "imageUrl": "https://cards.scryfall.io/normal/front/1/e/1ee98955-4c47-4d45-9377-608dfa755337.jpg?1783926865",
+        "frenchName": "Bone Shards",
         "colors": [
           "B"
         ],
-        "releaseYear": 2004,
-        "set": "UNH",
+        "releaseYear": 2021,
+        "set": "PLST",
         "isRecent": false
       },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 18.9,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.9 pts).",
+      "swapType": "versatile_alternative",
+      "scoreDelta": 5.9,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+5.9 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+18.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+5.9 pts).",
         "affectedArchetypes": [
           "Dimir Draw-Two & Control",
           "Rakdos Artifacts & Sacrifice",
           "Orzhov Recursion & ETB Grind"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2004)"
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2021)"
       },
-      "releaseYear": 2004,
+      "releaseYear": 2021,
       "isRecent": false,
-      "rankingScore": 51,
+      "rankingScore": 30,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 42
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
+          "points": 29
         },
         {
           "key": "mana_efficiency",
@@ -727,42 +720,40 @@
         "isRecent": true
       },
       "suggestedCard": {
-        "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
-        "name": "Reanimate",
-        "score": 46,
+        "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
+        "name": "Booster Tutor",
+        "score": 42,
         "tier": "A+",
         "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
-        "frenchName": "Réanimation",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/a/9/a994d860-6ab2-45f9-9c31-cdda63096885.jpg?1782766482",
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/c3a5b25e-c5af-417e-8675-162ab18ac2b1/normal.webp",
         "colors": [
           "B"
         ],
-        "releaseYear": 1997,
-        "set": "PD3",
+        "releaseYear": 2004,
+        "set": "UNH",
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 25.2,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+25.2 pts). Reste au service de Orzhov Recursion & ETB Grind.",
+      "scoreDelta": 21.2,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+21.2 pts). Reste au service de Orzhov Recursion & ETB Grind.",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+25.2 pts).",
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+21.2 pts).",
         "affectedArchetypes": [
           "Dimir Draw-Two & Control",
           "Rakdos Artifacts & Sacrifice",
           "Orzhov Recursion & ETB Grind"
         ],
         "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (1997)"
+        "releaseContext": "Référence confirmée (2004)"
       },
-      "releaseYear": 1997,
+      "releaseYear": 2004,
       "isRecent": false,
-      "rankingScore": 63,
+      "rankingScore": 59,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 46
+          "points": 42
         },
         {
           "key": "role_alignment",
@@ -1342,69 +1333,6 @@
     },
     {
       "card": {
-        "oracleId": "a044474a-cd72-4e9d-bd8d-a08f2de9cdc0",
-        "name": "Reanimate",
-        "score": 46,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/6/368b6903-5fc4-43e7-bd44-46b8107c8bb4.jpg?1783909614",
-        "frenchName": "Réanimation",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/a/9/a994d860-6ab2-45f9-9c31-cdda63096885.jpg?1782766482",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 1997,
-        "set": "PD3",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou_peasant:dimir_control",
-        "titou_peasant:rakdos_artifacts_sac",
-        "titou_peasant:orzhov_recursion",
-        "titou_peasant:golgari_food"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Lively Dirge (+25.2 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+25.2 pts). Reste au service de Orzhov Recursion & ETB Grind.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+46 pts).",
-        "affectedArchetypes": [
-          "Dimir Draw-Two & Control",
-          "Rakdos Artifacts & Sacrifice",
-          "Orzhov Recursion & ETB Grind"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (1997)"
-      },
-      "releaseYear": 1997,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Lively Dirge",
-          "score": 20.8,
-          "tier": "D-",
-          "scoreDelta": 25.2,
-          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+25.2 pts). Reste au service de Orzhov Recursion & ETB Grind."
-        }
-      ],
-      "rankingScore": 88,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 46
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
         "name": "Booster Tutor",
         "score": 42,
@@ -1425,8 +1353,8 @@
         "titou_peasant:orzhov_recursion",
         "titou_peasant:golgari_food"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Fungal Infection (+18.9 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.9 pts).",
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Lively Dirge (+21.2 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+21.2 pts). Reste au service de Orzhov Recursion & ETB Grind.",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+42 pts).",
         "affectedArchetypes": [
@@ -1441,11 +1369,11 @@
       "isRecent": false,
       "replacesCards": [
         {
-          "name": "Fungal Infection",
-          "score": 23.1,
-          "tier": "D+",
-          "scoreDelta": 18.9,
-          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.9 pts)."
+          "name": "Lively Dirge",
+          "score": 20.8,
+          "tier": "D-",
+          "scoreDelta": 21.2,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+21.2 pts). Reste au service de Orzhov Recursion & ETB Grind."
         }
       ],
       "rankingScore": 84,
@@ -1488,7 +1416,7 @@
         "titou_peasant:orzhov_recursion",
         "titou_peasant:boros_game_objects"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Steadfast Unicorn (+19.4 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.4 pts). Reste au service de Selesnya Go-Wide & Anthems.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & Bounce Value & Selesnya Go-Wide & Anthems & Orzhov Recursion & ETB Grind (+42 pts).",
@@ -1551,7 +1479,7 @@
         "titou_peasant:orzhov_recursion",
         "titou_peasant:golgari_food"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Back for Seconds (+19.1 pts). Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts). Reste au service de Orzhov Recursion & ETB Grind.",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice & Orzhov Recursion & ETB Grind (+41 pts).",
@@ -1614,7 +1542,7 @@
         "titou_peasant:orzhov_recursion",
         "titou_peasant:boros_game_objects"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Focus Fire (+21.3 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21.3 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Selesnya Go-Wide & Anthems & Orzhov Recursion & ETB Grind (+41 pts).",
@@ -1677,7 +1605,7 @@
         "titou_peasant:golgari_food",
         "titou_peasant:simic_tempo_ramp"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Environmental Scientist (+19 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+19 pts). Reste au service de Gruul Ramp, Fight & Landfall & Simic Eldrazi Spawn & Ramp.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Ramp, Fight & Landfall & Selesnya Go-Wide & Anthems & Golgari Food, Sacrifice & Graveyard (+40 pts).",
@@ -1740,7 +1668,7 @@
         "titou_peasant:golgari_food",
         "titou_peasant:simic_tempo_ramp"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Town Greeter (+14.5 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.5 pts). Reste au service de Golgari Food, Sacrifice & Graveyard.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Ramp, Fight & Landfall & Selesnya Go-Wide & Anthems & Golgari Food, Sacrifice & Graveyard (+38 pts).",
@@ -1768,68 +1696,6 @@
         {
           "key": "power",
           "points": 38
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
-        "name": "Brain Freeze",
-        "score": 36.6,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2003,
-        "set": "SCG",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou_peasant:azorius_tempo",
-        "titou_peasant:dimir_control",
-        "titou_peasant:simic_tempo_ramp",
-        "titou_peasant:izzet_artifacts"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+18.5 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+36.6 pts).",
-        "affectedArchetypes": [
-          "Azorius Fliers & Bounce Value",
-          "Dimir Draw-Two & Control",
-          "Simic Eldrazi Spawn & Ramp"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2003)"
-      },
-      "releaseYear": 2003,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Fading Hope",
-          "frenchName": "Espoir volatilisé",
-          "score": 18.1,
-          "tier": "F",
-          "scoreDelta": 18.5,
-          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts."
-        }
-      ],
-      "rankingScore": 78.6,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 36.6
         },
         {
           "key": "direct_replacement",
@@ -1917,7 +1783,7 @@
         "titou_peasant:simic_tempo_ramp",
         "titou_peasant:izzet_artifacts"
       ],
-      "role": "archetype_payoff",
+      "role": "staple",
       "rationale": "Proposée en remplacement poste pour poste de Cryogen Relic (+14.8 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Azorius Fliers & Bounce Value.",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+29.8 pts).",

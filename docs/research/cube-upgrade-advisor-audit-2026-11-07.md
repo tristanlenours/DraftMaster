@@ -102,6 +102,34 @@ Maybeboard sizes after regeneration: tribal 39 (34 replacements, 5 peer-cube car
 peasant 14, cedric 50 and nico 50 (both capped). The slot-for-slot `upgrades` map is unchanged
 apart from the two rules-function fixes.
 
+## Cross-cube awareness in `cube-upgrade-advisor@7` (2026-11-21)
+
+After Nico's update, 25 of Titou Tribal's 41 swaps came from Nico's cube, but mostly as vintage
+combo pieces (Lion's Eye Diamond, Brain Freeze, Underworld Breach, Wheel of Fortune), while Nico's
+genuine tribal cards (Palace Jailer, Elite Spellbinder, White Plume Adventurer, Vivi Ornitier)
+never surfaced. Changes:
+
+- **Tribe reading.** A card's tribes are its own creature types plus every tribe its rules text
+  names, including irregular plurals ("Elves", "Wolves"); reminder text is ignored (the party
+  reminder no longer makes a Rogue a Cleric).
+- **Combo pieces.** A card that our curated cubes play only in `combo` archetypes, or tag `combo`,
+  `engine:storm` or `alternate-win-condition`, is not proposed to a cube without a combo archetype.
+  Exceptions: a peer benchmark of the cube plays it, or in a tribal cube it belongs to one of the
+  cube's tribes. The sync script passes the combo archetype ids of every cube
+  (`peerComboArchetypeIds`). This applies to every cube: Brain Freeze and Reanimate also left the
+  Peasant suggestions.
+- **Tribal discoveries.** In Titou Tribal, a card without a slot that belongs to one of the
+  cube's tribes, fits that archetype's colors and reaches tier A is kept when another of our
+  curated cubes plays it, even without a peer benchmark. It earns `tribal_coherence` (+20), so it
+  ranks ahead of a generic peer-cube staple.
+- **Payoff label.** Sharing an archetype's colors no longer makes a card an `archetype_payoff`:
+  the label needs a tribe of the archetype or a curated `synergy_payoff`/`synergy_enabler` role
+  (this relabels some cards `staple` in every cube, without changing their rank).
+
+Titou Tribal after regeneration: 39 swaps, maybeboard 50 (capped; Celestial Colonnade, Creeping
+Tar Pit and Urza fall below the cap), with 19 tribal discoveries: 13 from Nico's cube, the rest
+from Cédric's and Titou's Peasant cubes. Nico, Cédric and Hugues keep the same cards.
+
 ## Known limits
 
 - The isotonic calibration saturates near 37 points, so a recent bomb is under-rated until
