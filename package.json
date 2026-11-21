@@ -32,6 +32,8 @@
     "lint": "eslint .",
     "power:rebuild": "node --experimental-strip-types scripts/rebuild-power-ranking.ts",
     "power:rebuild:apply": "node --experimental-strip-types scripts/rebuild-power-ranking.ts --apply",
+    "proxy:curate": "node --no-warnings --experimental-strip-types scripts/curate-proxy-scans.mjs",
+    "proxy:download": "node scripts/download-proxy-scans.mjs",
     "research:untapped-axis-benchmark": "node scripts/research/untapped-axis-benchmark.mjs --output docs/research/artifacts/untapped-axis-benchmark-v1.json",
     "research:untapped-pair-affinity-benchmark": "node scripts/research/untapped-pair-affinity-benchmark.mjs --output docs/research/artifacts/untapped-pair-affinity-benchmark-v1.json",
     "research:untapped-advanced-mana-benchmark": "node scripts/research/untapped-advanced-mana-benchmark.mjs --output docs/research/artifacts/untapped-advanced-mana-benchmark-v1.json",

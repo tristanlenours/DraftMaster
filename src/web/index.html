@@ -88,6 +88,16 @@
             <span class="tab-label">Rate / Pimp</span>
           </button>
           <button
+            class="nav-tab-btn"
+            data-view="proxies"
+            id="nav-btn-proxies"
+            aria-label="Scans HD et impression de proxies"
+            title="Scans HD & Proxies FR"
+          >
+            <span class="tab-icon">🖨️</span>
+            <span class="tab-label">Proxies</span>
+          </button>
+          <button
             class="nav-tab-btn btn-auth-logout"
             id="nav-btn-logout"
             title="Verrouiller la session / Déconnexion"
@@ -175,6 +185,15 @@
           >
             <span class="mobile-nav-icon">🃏</span>
             <span class="mobile-nav-label">Rate / Pimp my deck</span>
+          </button>
+          <button
+            class="mobile-nav-item"
+            data-view="proxies"
+            id="mobile-nav-proxies"
+            aria-label="Scans HD et impression de proxies"
+          >
+            <span class="mobile-nav-icon">🖨️</span>
+            <span class="mobile-nav-label">Scans & Proxies FR</span>
           </button>
           <button
             class="mobile-nav-item btn-auth-logout-mobile"
@@ -3368,6 +3387,297 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================================================
+         VIEW 10: PROXIES & SCANS HD (Base de scans Classique + Originale Populaire FR)
+         ========================================================================== -->
+    <section class="app-view view-proxies" id="view-proxies" hidden style="display: none">
+      <div class="proxy-studio-container">
+        <header class="proxy-studio-header">
+          <div class="proxy-studio-title-group">
+            <span class="proxy-eyebrow">BASE DE SCANS HD • IMPRESSION PROXIES FR</span>
+            <h1 class="proxy-studio-title">Studio Scans &amp; Proxies</h1>
+            <p class="proxy-studio-subtitle">
+              Chaque carte dispose d'un <strong>scan classique HD</strong> et d'une
+              <strong>illustration originale populaire</strong> (Borderless, Showcase, Secret Lair,
+              Rétro) avec texte en français automatique ou personnalisé, prêts pour planches A4
+              (63×88 mm) ou export PNG.
+            </p>
+          </div>
+          <div class="proxy-studio-stats" id="proxy-studio-stats"></div>
+        </header>
+
+        <div class="proxy-feedback-banner" id="proxy-studio-feedback" hidden role="status"></div>
+
+        <!-- Toolbar -->
+        <div class="proxy-controls-panel">
+          <div class="proxy-controls-row">
+            <div class="proxy-control-group">
+              <label for="proxy-source-select">Source / Cube</label>
+              <select id="proxy-source-select" class="proxy-select"></select>
+            </div>
+
+            <div class="proxy-control-group proxy-search-group">
+              <label for="proxy-search-input">Rechercher (FR / VO)</label>
+              <input
+                type="search"
+                id="proxy-search-input"
+                class="proxy-input"
+                placeholder="Foudre, Lightning Bolt, Black Lotus..."
+              />
+            </div>
+
+            <div class="proxy-control-group">
+              <label for="proxy-color-filter">Couleur</label>
+              <select id="proxy-color-filter" class="proxy-select">
+                <option value="ALL">Toutes</option>
+                <option value="W">Blanc (W)</option>
+                <option value="U">Bleu (U)</option>
+                <option value="B">Noir (B)</option>
+                <option value="R">Rouge (R)</option>
+                <option value="G">Vert (G)</option>
+                <option value="MULTI">Multicolore</option>
+                <option value="COLORLESS">Incolore / Terrain</option>
+              </select>
+            </div>
+
+            <div class="proxy-control-group">
+              <label for="proxy-status-filter">Filtre</label>
+              <select id="proxy-status-filter" class="proxy-select">
+                <option value="ALL">Toutes les cartes</option>
+                <option value="has_original">Avec illustration originale</option>
+                <option value="official_fr">Scan FR officiel</option>
+                <option value="proxy_fr">Rendu Proxy FR généré</option>
+                <option value="selected">Dans le panier d'impression</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="proxy-controls-row proxy-controls-row-secondary">
+            <div class="proxy-control-group">
+              <span class="proxy-inline-label">Version par défaut</span>
+              <div class="proxy-segmented-control" role="group" aria-label="Version d'illustration par défaut">
+                <button type="button" class="proxy-seg-btn active" id="proxy-global-classic">
+                  Classique
+                </button>
+                <button type="button" class="proxy-seg-btn" id="proxy-global-original">
+                  Originale populaire ✨
+                </button>
+              </div>
+            </div>
+
+            <div class="proxy-control-group">
+              <label for="proxy-render-mode-select">Texte en français</label>
+              <select id="proxy-render-mode-select" class="proxy-select">
+                <option value="hybrid">Hybride FR (Scan FR officiel + Proxy FR auto)</option>
+                <option value="force_fr">Rendu Proxy FR uniforme (toutes cartes)</option>
+                <option value="raw">Scan brut Scryfall (VO / VF)</option>
+              </select>
+            </div>
+
+            <div class="proxy-controls-actions">
+              <button type="button" class="proxy-btn-secondary" id="proxy-btn-toggle-import">
+                📋 Importer un deck
+              </button>
+              <button type="button" class="proxy-btn-secondary" id="proxy-btn-select-filtered">
+                ☑ Tout sélectionner (vue)
+              </button>
+            </div>
+          </div>
+
+          <!-- Collapsible Deck Import Drawer -->
+          <div class="proxy-deck-import-panel" id="proxy-deck-import-panel" hidden>
+            <label for="proxy-deck-import-textarea">
+              Collez une liste de deck (format MTGA ou 1 nom de carte par ligne, EN ou FR) :
+            </label>
+            <textarea
+              id="proxy-deck-import-textarea"
+              class="proxy-textarea"
+              rows="5"
+              placeholder="1 Lightning Bolt&#10;1 Black Lotus&#10;1 Counterspell&#10;1 Swords to Plowshares"
+            ></textarea>
+            <div class="proxy-deck-import-actions">
+              <span class="proxy-deck-import-status" id="proxy-deck-import-status"></span>
+              <div class="proxy-deck-import-btns">
+                <button type="button" class="proxy-btn-secondary" id="proxy-btn-import-cancel">
+                  Annuler
+                </button>
+                <button type="button" class="proxy-btn-primary" id="proxy-btn-import-apply">
+                  Charger &amp; sélectionner pour impression
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Print & Export Tray -->
+        <div class="proxy-basket-tray" id="proxy-basket-tray">
+          <div class="proxy-tray-summary">
+            <strong id="proxy-tray-count">Aucune carte sélectionnée</strong>
+            <span id="proxy-tray-pages">Sélectionnez des cartes ou importez un deck</span>
+          </div>
+
+          <div class="proxy-tray-options">
+            <label class="proxy-checkbox-label">
+              <input type="checkbox" id="proxy-opt-crop-marks" checked />
+              <span>Traits de coupe</span>
+            </label>
+            <label class="proxy-checkbox-label">
+              <input type="checkbox" id="proxy-opt-gap" />
+              <span>Espacement 2 mm</span>
+            </label>
+            <label class="proxy-checkbox-label">
+              <input type="checkbox" id="proxy-opt-back-faces" checked />
+              <span>Versos (DFC)</span>
+            </label>
+          </div>
+
+          <div class="proxy-tray-actions">
+            <span class="proxy-export-progress" id="proxy-export-progress" hidden>
+              <span id="proxy-export-progress-text">Préparation...</span>
+            </span>
+            <button type="button" class="proxy-btn-secondary" id="proxy-btn-clear-basket" disabled>
+              Vider
+            </button>
+            <button type="button" class="proxy-btn-secondary" id="proxy-btn-download-zip" disabled>
+              📦 Lot PNG (.zip)
+            </button>
+            <button type="button" class="proxy-btn-primary" id="proxy-btn-print-sheets" disabled>
+              🖨️ Planches A4 (PDF)
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Scans Grid -->
+        <div class="proxy-cards-grid" id="proxy-cards-grid"></div>
+
+        <div class="proxy-load-more-wrap" id="proxy-load-more-wrap" hidden>
+          <button type="button" class="proxy-btn-secondary" id="proxy-btn-load-more">
+            Afficher plus de cartes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proxy Print Picker & French Text Editor Modal -->
+    <div
+      class="proxy-modal-backdrop"
+      id="proxy-picker-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="proxy-picker-title"
+    >
+      <div class="proxy-picker-dialog">
+        <div class="proxy-picker-header">
+          <h2 id="proxy-picker-title">Scans &amp; Texte FR</h2>
+          <button
+            type="button"
+            class="proxy-modal-close"
+            id="proxy-picker-close-btn"
+            aria-label="Fermer le sélecteur de prints"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="proxy-picker-body">
+          <div class="proxy-picker-left">
+            <div class="proxy-segmented-control proxy-picker-slot-switch">
+              <button type="button" class="proxy-seg-btn active" id="proxy-picker-slot-classic">
+                Scan Classique
+              </button>
+              <button type="button" class="proxy-seg-btn" id="proxy-picker-slot-original">
+                Illustration Originale ✨
+              </button>
+            </div>
+            <div class="proxy-picker-preview-frame">
+              <img id="proxy-picker-preview-img" src="" alt="Aperçu Proxy HD" />
+            </div>
+            <div class="proxy-picker-preview-meta" id="proxy-picker-preview-meta"></div>
+            <button type="button" class="proxy-btn-primary proxy-btn-full" id="proxy-picker-download-btn">
+              ⬇️ Télécharger ce PNG HD (745×1040)
+            </button>
+          </div>
+
+          <div class="proxy-picker-right">
+            <div class="proxy-picker-tabs">
+              <button type="button" class="proxy-tab-btn active" id="proxy-picker-tab-prints">
+                🎨 Impressions Scryfall
+              </button>
+              <button type="button" class="proxy-tab-btn" id="proxy-picker-tab-french">
+                🇫🇷 Texte Français
+              </button>
+            </div>
+
+            <div class="proxy-picker-pane" id="proxy-picker-pane-prints">
+              <div class="proxy-picker-filter-bar">
+                <label for="proxy-picker-filter-select">Filtrer les impressions :</label>
+                <select id="proxy-picker-filter-select" class="proxy-select">
+                  <option value="all">Toutes (EN &amp; FR)</option>
+                  <option value="alt">Illustrations spéciales (Borderless, Showcase, Secret Lair...)</option>
+                  <option value="fr">Impressions françaises officielles</option>
+                </select>
+              </div>
+              <div class="proxy-picker-prints-list" id="proxy-picker-prints-list"></div>
+            </div>
+
+            <div class="proxy-picker-pane" id="proxy-picker-pane-french" hidden>
+              <p class="proxy-fr-source-badge" id="proxy-fr-source-badge"></p>
+              <div class="proxy-fr-form">
+                <label for="proxy-fr-name-input">Nom français</label>
+                <input type="text" id="proxy-fr-name-input" class="proxy-input" />
+
+                <label for="proxy-fr-type-input">Ligne de type française</label>
+                <input type="text" id="proxy-fr-type-input" class="proxy-input" />
+
+                <label for="proxy-fr-rules-input">
+                  Texte de règles français (utilisez {W}, {U}, {B}, {R}, {G}, {T}, {1} pour les symboles)
+                </label>
+                <textarea id="proxy-fr-rules-input" class="proxy-textarea" rows="6"></textarea>
+
+                <label for="proxy-fr-flavor-input">Texte d'ambiance (optionnel)</label>
+                <input type="text" id="proxy-fr-flavor-input" class="proxy-input" />
+
+                <div class="proxy-fr-form-actions">
+                  <button type="button" class="proxy-btn-secondary" id="proxy-fr-reset-btn">
+                    Réinitialiser (auto)
+                  </button>
+                  <button type="button" class="proxy-btn-primary" id="proxy-fr-save-btn">
+                    💾 Enregistrer &amp; prévisualiser
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A4 Print Sheets Preview Modal (exact 63x88mm @media print) -->
+    <div
+      class="proxy-print-modal-backdrop"
+      id="proxy-print-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="proxy-print-modal-title"
+    >
+      <div class="proxy-print-toolbar no-print">
+        <div class="proxy-print-toolbar-info">
+          <h2 id="proxy-print-modal-title">Planches A4 prêtes à imprimer</h2>
+          <span id="proxy-print-summary">63×88 mm • 9 cartes par page</span>
+        </div>
+        <div class="proxy-print-toolbar-actions">
+          <button type="button" class="proxy-btn-secondary" id="proxy-print-close-btn">
+            Fermer
+          </button>
+          <button type="button" class="proxy-btn-primary" id="proxy-btn-trigger-print">
+            🖨️ Imprimer / Enregistrer en PDF
+          </button>
+        </div>
+      </div>
+      <div class="proxy-print-sheets-container" id="proxy-print-sheets-container"></div>
+    </div>
     <!-- /view-tournaments -->
 
     <!-- Tournament Deck Viewer & Editor Modal -->
@@ -3685,6 +3995,14 @@
             <div class="card-image-container">
               <img id="modal-card-image" src="" alt="Illustration Magic" class="modal-card-img" />
             </div>
+            <button
+              type="button"
+              class="modal-proxy-shortcut-btn"
+              id="modal-open-proxy-btn"
+              title="Voir le scan classique, l'illustration originale et imprimer un proxy FR"
+            >
+              🖨️ Scans HD &amp; Proxy FR
+            </button>
             <div class="modal-quadrant-panel">
               <span class="panel-heading">Théorie des Quadrants (Zvi Mowshowitz)</span>
               <div class="quadrant-scores-grid">

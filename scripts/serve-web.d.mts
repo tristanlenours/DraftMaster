@@ -25,6 +25,9 @@ export interface CreateRequestHandlerOptions {
   readonly soloLanguageModel?: CoachLanguageModel | null;
   /** Origins allowed to call the API cross-origin (defaults to CORS_ALLOWED_ORIGINS). */
   readonly corsAllowedOrigins?: string;
+  readonly proxyScansCatalogPath?: string;
+  readonly proxyScansImageCacheDir?: string;
+  readonly proxyScansFetch?: typeof fetch;
 }
 
 export function createRequestHandler(options?: CreateRequestHandlerOptions): RequestListener;

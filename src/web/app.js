@@ -11,6 +11,7 @@ import { deactivateMultiplayerDraftView, initMultiplayerDraftView } from "./mult
 import { loadAndRenderLeaderboard, openDeckReviewModal } from "./records-view.js";
 import { SoloDraftController, openDeckShowcaseModal } from "./solo-draft.js";
 import { initTournamentManagementView } from "./tournaments.js";
+import { initProxyStudioView, openProxyPickerForCard } from "./proxy-studio.js";
 
 // Solo Draft & Leaderboard State
 let soloDraftCtrl = null;
@@ -283,6 +284,7 @@ export function navigateTo(viewName, cubeKey = null) {
   elements.navBtnMulti?.classList.toggle("active", viewName === "multi");
   elements.navBtnTournaments?.classList.toggle("active", viewName === "tournaments");
   elements.navBtnDeckLab?.classList.toggle("active", viewName === "deck-lab");
+  elements.navBtnProxies?.classList.toggle("active", viewName === "proxies");
 
   // Header active tabs (Mobile Drawer)
   elements.mobileNavCubes?.classList.toggle("active", viewName === "cubes");
@@ -293,6 +295,7 @@ export function navigateTo(viewName, cubeKey = null) {
   elements.mobileNavMulti?.classList.toggle("active", viewName === "multi");
   elements.mobileNavTournaments?.classList.toggle("active", viewName === "tournaments");
   elements.mobileNavDeckLab?.classList.toggle("active", viewName === "deck-lab");
+  elements.mobileNavProxies?.classList.toggle("active", viewName === "proxies");
 
   // Show/Hide Views
   if (elements.viewHome) {
@@ -335,6 +338,10 @@ export function navigateTo(viewName, cubeKey = null) {
     elements.viewDeckLab.hidden = viewName !== "deck-lab";
     elements.viewDeckLab.style.display = viewName === "deck-lab" ? "block" : "none";
   }
+  if (elements.viewProxies) {
+    elements.viewProxies.hidden = viewName !== "proxies";
+    elements.viewProxies.style.display = viewName === "proxies" ? "block" : "none";
+  }
 
   // URL routing
   let targetPath = "/";
@@ -347,6 +354,7 @@ export function navigateTo(viewName, cubeKey = null) {
   else if (viewName === "multi") targetPath = "/multi";
   else if (viewName === "tournaments") targetPath = "/tournaments";
   else if (viewName === "deck-lab") targetPath = "/deck-lab";
+  else if (viewName === "proxies") targetPath = "/proxies";
 
   if (window.location.pathname !== targetPath) {
     window.history.pushState({ view: viewName, cube: cubeKey }, "", targetPath);
@@ -366,6 +374,8 @@ export function navigateTo(viewName, cubeKey = null) {
     void initTournamentManagementView();
   } else if (viewName === "deck-lab") {
     void initDeckLabView(state.activeCubeKey);
+  } else if (viewName === "proxies") {
+    void initProxyStudioView(state.activeCubeKey);
   }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -394,6 +404,8 @@ function initRouter() {
     initialView = "tournaments";
   } else if (path === "/deck-lab" || hash === "#deck-lab") {
     initialView = "deck-lab";
+  } else if (path === "/proxies" || hash === "#proxies") {
+    initialView = "proxies";
   }
 
   navigateTo(initialView, state.activeCubeKey);
@@ -409,6 +421,7 @@ function initRouter() {
     else if (p === "/multi") navigateTo("multi");
     else if (p === "/tournaments") navigateTo("tournaments");
     else if (p === "/deck-lab") navigateTo("deck-lab");
+    else if (p === "/proxies") navigateTo("proxies");
     else navigateTo("home");
   });
 }
@@ -448,6 +461,7 @@ function setupEventListeners() {
   elements.navBtnMulti?.addEventListener("click", () => navigateTo("multi"));
   elements.navBtnTournaments?.addEventListener("click", () => navigateTo("tournaments"));
   elements.navBtnDeckLab?.addEventListener("click", () => navigateTo("deck-lab"));
+  elements.navBtnProxies?.addEventListener("click", () => navigateTo("proxies"));
 
   // SPA Navigation handlers (Mobile Drawer)
   elements.mobileMenuBtn?.addEventListener("click", () => toggleMobileNav());
@@ -483,6 +497,20 @@ function setupEventListeners() {
   elements.mobileNavDeckLab?.addEventListener("click", () => {
     navigateTo("deck-lab");
     closeMobileNav();
+  });
+  elements.mobileNavProxies?.addEventListener("click", () => {
+    navigateTo("proxies");
+    closeMobileNav();
+  });
+
+  // Card detail modal shortcut to Proxy Scans & Print Picker
+  document.getElementById("modal-open-proxy-btn")?.addEventListener("click", () => {
+    const activeCard = state.selectedCard;
+    if (!activeCard) return;
+    closeModal();
+    void initProxyStudioView(state.activeCubeKey).then(() => {
+      void openProxyPickerForCard(activeCard);
+    });
   });
 
   // Close mobile drawer on Escape key
