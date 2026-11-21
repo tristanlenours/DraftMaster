@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "rankingId": "power-ranking-v1",
-  "generatedAt": "2026-11-21T09:36:55.202Z",
+  "generatedAt": "2026-11-21T21:38:42.676Z",
   "referenceId": "untapped-reference-v1",
   "calibrationId": "cubecobra-features-to-untapped-v1",
   "coverage": {
-    "total": 2240,
+    "total": 2247,
     "directUntapped": 438,
     "calibratedCubeCobra": 1223,
     "fallback": 287,
@@ -3080,6 +3080,14 @@
       "method": "cubecobra_feature_calibration_v1"
     },
     {
+      "oracleId": "c01aeaa5-1d3b-4493-9575-30175dcd780d",
+      "name": "Gleaming Splendor",
+      "score": 31.4,
+      "source": "expert_heuristic",
+      "rawSourceScore": 31.4,
+      "method": "peer_cubecobra_elo_isotonic_low_sample"
+    },
+    {
       "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
       "name": "Relic of Sauron",
       "score": 31.4,
@@ -3676,6 +3684,22 @@
       "source": "expert_heuristic",
       "rawSourceScore": 29.8,
       "method": "cubecobra_feature_calibration_v1"
+    },
+    {
+      "oracleId": "0866a630-d962-4aa9-a15f-08b2947540ef",
+      "name": "Cosmic Cube",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "peer_cubecobra_elo_isotonic_low_sample"
+    },
+    {
+      "oracleId": "78019626-1154-483f-b862-73982f9ddc7f",
+      "name": "Doom's Time Platform",
+      "score": 29.8,
+      "source": "expert_heuristic",
+      "rawSourceScore": 29.8,
+      "method": "peer_cubecobra_elo_isotonic_low_sample"
     },
     {
       "oracleId": "900ca697-ad38-4b2b-bc74-2ff7eb6ea951",
@@ -5330,6 +5354,14 @@
       "method": "existing_fallback"
     },
     {
+      "oracleId": "8255a797-ddd3-4db0-a3f5-dd8f38c3b908",
+      "name": "Captain America's Shield",
+      "score": 26,
+      "source": "expert_heuristic",
+      "rawSourceScore": 26,
+      "method": "peer_cubecobra_elo_isotonic_low_sample"
+    },
+    {
       "oracleId": "774dce79-67e0-4820-8013-c7a7347993ce",
       "name": "Cathar Commando",
       "score": 26,
@@ -5350,6 +5382,14 @@
       "evidenceCount": 1,
       "observedMin": 26,
       "observedMax": 26
+    },
+    {
+      "oracleId": "97a2cd39-6b54-496b-b3ac-dab9dfed7edc",
+      "name": "Elven Passage",
+      "score": 26,
+      "source": "expert_heuristic",
+      "rawSourceScore": 26,
+      "method": "peer_cubecobra_elo_isotonic"
     },
     {
       "oracleId": "514b451b-814d-45fb-a2ba-8fe6f0bdad60",
@@ -5625,6 +5665,14 @@
       "rejectedUntappedScore": 12
     },
     {
+      "oracleId": "7f9a8845-d760-44a7-a4c9-8a20dba4e14a",
+      "name": "Mjölnir, Hammer of Thor",
+      "score": 25.6,
+      "source": "expert_heuristic",
+      "rawSourceScore": 25.6,
+      "method": "peer_cubecobra_elo_isotonic"
+    },
+    {
       "oracleId": "b749e9e4-0f2a-4157-8cca-facd6b48157f",
       "name": "Proft's Eidetic Memory",
       "score": 25.6,
@@ -5643,6 +5691,14 @@
     {
       "oracleId": "df5e4100-8c83-42d6-af96-1a1ec84a9210",
       "name": "Spellbook Seeker",
+      "score": 25.6,
+      "source": "expert_heuristic",
+      "rawSourceScore": 25.6,
+      "method": "peer_cubecobra_elo_isotonic_low_sample"
+    },
+    {
+      "oracleId": "a82d855c-50c8-43f2-99ba-a84fe84539c5",
+      "name": "The Ten Rings",
       "score": 25.6,
       "source": "expert_heuristic",
       "rawSourceScore": 25.6,

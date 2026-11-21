@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@7",
   "cubeKey": "titou_arena_peasant_plus",
   "snapshotId": "titou_arena_peasant_plus@2026-09-08.1",
-  "generatedAt": "2026-11-18T12:26:56.317Z",
+  "generatedAt": "2026-11-21T21:38:39.517Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-18T12:26:56.317Z",
+    "generatedAt": "2026-11-21T21:38:39.517Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
+      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "2d68b60c6ce26b5a616bf5aba56437b78071a6c3009b68366db3364a0355072f",
+      "sha256": "59def39285dd2cc97e98eac15480518653ebf3c3422cba7e1b97025275bf4c96",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,8 +41,8 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2240,
-    "availableCandidates": 1880,
+    "catalogCards": 2247,
+    "availableCandidates": 1887,
     "benchmarkCards": 360,
     "benchmarkCardsInCatalog": 356,
     "missingBenchmarkCards": 4,
@@ -50,11 +50,11 @@
   },
   "stats": {
     "totalUpgrades": 19,
-    "totalMaybeboard": 12,
+    "totalMaybeboard": 13,
     "recentUpgradesCount": 1,
     "benchmarkMatchesCount": 1,
     "recentMaybeboardCount": 1,
-    "directReplacementMaybeboardCount": 12
+    "directReplacementMaybeboardCount": 13
   },
   "upgrades": {
     "Back for Seconds": {
@@ -1977,6 +1977,53 @@
         {
           "key": "power",
           "points": 32
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "1cea9b82-d2e9-4758-8ec8-729fcf4bb7d7",
+        "name": "Grand Coliseum",
+        "score": 27.8,
+        "tier": "B-",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/c2dc8061-a855-4a81-9eb7-350b355a9b3f/normal.webp",
+        "colors": [],
+        "releaseYear": 2002,
+        "set": "ONS",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Mana Confluence (+10.8 pts). Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+27.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Accélération & Fixation de Mana",
+        "releaseContext": "Référence confirmée (2002)"
+      },
+      "releaseYear": 2002,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Mana Confluence",
+          "frenchName": "Confluence de mana",
+          "score": 17,
+          "tier": "F",
+          "scoreDelta": 10.8,
+          "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.8 pts)."
+        }
+      ],
+      "rankingScore": 57.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.8
         },
         {
           "key": "direct_replacement",

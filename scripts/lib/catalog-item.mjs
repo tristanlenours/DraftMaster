@@ -85,6 +85,40 @@ export function classifyRoles({ tags, types, cmc, isLand, producesColors, score 
   return [...new Set(roles)];
 }
 
+/** Power score of a candidate from its CubeCobra Elo, through the frozen isotonic calibration. */
+export function scoreFromElo(calibrationBlocks, elo) {
+  return roundPowerScore(predictIsotonicScore(calibrationBlocks, elo));
+}
+
+/**
+ * Reads the `card` object of `window.reactProps` in a CubeCobra card page. The props are a
+ * JavaScript literal (they may hold `undefined`), so only the card object is parsed.
+ */
+export function extractCubeCobraCard(html) {
+  const marker = 'window.reactProps = {"card":';
+  const markerIndex = html.indexOf(marker);
+  if (markerIndex < 0) return undefined;
+  const start = markerIndex + marker.length;
+  let depth = 0;
+  let inString = false;
+  for (let index = start; index < html.length; index += 1) {
+    const char = html[index];
+    if (inString) {
+      if (char === "\\") index += 1;
+      else if (char === '"') inString = false;
+    } else if (char === '"') inString = true;
+    else if (char === "{") depth += 1;
+    else if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        const literal = html.slice(start, index + 1).replace(/:undefined(?=[,}])/g, ":null");
+        return JSON.parse(literal);
+      }
+    }
+  }
+  return undefined;
+}
+
 /**
  * @param evidence {{ name, oracleId, elo, pickCount, oracleTags, summary, capturedAt, imageNormal?, artCrop? }}
  * @param scryfall Scryfall card object for the same oracle id

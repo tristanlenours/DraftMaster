@@ -120,13 +120,20 @@ console.log(
   `📡 Loaded ${Object.keys(benchmarksData).length} benchmark cubes & release metadata for ${releaseMetadataMap.size} cards.`,
 );
 
-// 2d. Peer-cube oracle tags: synergy vocabulary for candidates analysed in none of our cubes.
+// 2d. Peer-cube & popular-recent oracle tags: synergy vocabulary for candidates analysed in none of our cubes.
 const peerDetailsPath = resolve(rootDir, "data/benchmarks/cubecobra-peer-card-details.json");
 const peerDetailsRaw = existsSync(peerDetailsPath)
   ? readFileSync(peerDetailsPath, "utf8")
   : '{"cards":{}}';
+const popularDetailsPath = resolve(rootDir, "data/benchmarks/popular-recent-card-details.json");
+const popularDetailsRaw = existsSync(popularDetailsPath)
+  ? readFileSync(popularDetailsPath, "utf8")
+  : '{"cards":{}}';
 const peerOracleTagsMap = new Map();
-for (const card of Object.values(JSON.parse(peerDetailsRaw).cards ?? {})) {
+for (const card of [
+  ...Object.values(JSON.parse(peerDetailsRaw).cards ?? {}),
+  ...Object.values(JSON.parse(popularDetailsRaw).cards ?? {}),
+]) {
   if (card.oracle_tags?.length) {
     peerOracleTagsMap.set(card.name.toLowerCase().trim(), card.oracle_tags);
   }

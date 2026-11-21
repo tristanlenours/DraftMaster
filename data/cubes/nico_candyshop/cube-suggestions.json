@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@7",
   "cubeKey": "nico_candyshop",
   "snapshotId": "nico_candyshop@2026-11-18.1",
-  "generatedAt": "2026-11-18T12:26:56.317Z",
+  "generatedAt": "2026-11-21T21:38:39.517Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-18T12:26:56.317Z",
+    "generatedAt": "2026-11-21T21:38:39.517Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
+      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "2d68b60c6ce26b5a616bf5aba56437b78071a6c3009b68366db3364a0355072f",
+      "sha256": "59def39285dd2cc97e98eac15480518653ebf3c3422cba7e1b97025275bf4c96",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,20 +41,20 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2240,
-    "availableCandidates": 1510,
+    "catalogCards": 2247,
+    "availableCandidates": 1517,
     "benchmarkCards": 669,
     "benchmarkCardsInCatalog": 588,
     "missingBenchmarkCards": 81,
     "benchmarkCoveragePercentage": 88
   },
   "stats": {
-    "totalUpgrades": 82,
+    "totalUpgrades": 84,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 53,
+    "recentUpgradesCount": 56,
     "benchmarkMatchesCount": 10,
-    "recentMaybeboardCount": 33,
-    "directReplacementMaybeboardCount": 43
+    "recentMaybeboardCount": 41,
+    "directReplacementMaybeboardCount": 48
   },
   "upgrades": {
     "Aerid Konstrari": {
@@ -1180,6 +1180,64 @@
         }
       ]
     },
+    "Coveted Jewel": {
+      "targetCard": {
+        "oracleId": "98492d7d-3b9e-4ae1-ac45-1b508d6d2670",
+        "name": "Coveted Jewel",
+        "score": 8,
+        "tier": "F",
+        "cmc": 6,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/f83ed433-fae3-4fa5-acad-bb8a5b535ce3/normal.webp",
+        "colors": [],
+        "releaseYear": 2018,
+        "set": "C18",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "0866a630-d962-4aa9-a15f-08b2947540ef",
+        "name": "Cosmic Cube",
+        "score": 29.8,
+        "tier": "B",
+        "cmc": 5,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/1/d1cf1ead-fe91-4328-89ab-6d0bc9ff6cbe.jpg?1783902891",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 21.8,
+      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+21.8 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant la méta du cube (+21.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 46.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Cryptic Command": {
       "targetCard": {
         "oracleId": "a3e51a35-09df-4189-b131-08a21e6a557d",
@@ -1787,36 +1845,34 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
-        "name": "Evolving Wilds",
-        "score": 29.4,
-        "tier": "B",
+        "oracleId": "97a2cd39-6b54-496b-b3ac-dab9dfed7edc",
+        "name": "Elven Passage",
+        "score": 26,
+        "tier": "B-",
         "cmc": 0,
         "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/c/0/c0318a48-30e4-4ef7-be3d-5e561c5ce428.jpg?1783903203",
-        "frenchName": "Étendues sauvages en évolution",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/c/2cedb4ab-a1db-429d-88c2-484eb26c5327.jpg?1785266568",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/d/dd1fd2ab-2565-4798-a832-fc849df82f74.jpg?1785323319",
         "colors": [],
-        "releaseYear": 2010,
-        "set": "DDH",
-        "isRecent": false
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 12.4,
-      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.4 pts).",
+      "scoreDelta": 9,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+12.4 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+9 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2010)"
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2010,
-      "isRecent": false,
-      "rankingScore": 39.4,
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 42,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.4
+          "points": 26
         },
         {
           "key": "synergy_overlap",
@@ -1825,6 +1881,10 @@
         {
           "key": "mana_efficiency",
           "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -2728,36 +2788,36 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
-        "name": "Terramorphic Expanse",
-        "score": 26.9,
-        "tier": "B-",
+        "oracleId": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
+        "name": "Evolving Wilds",
+        "score": 29.4,
+        "tier": "B",
         "cmc": 0,
         "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/8/a81f924b-0527-4311-8120-9bfff71524f6.jpg?1783903191",
-        "frenchName": "Immensité terramorphe",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/6/c65f757a-aa66-4369-a2a8-704aa56bcd9f.jpg?1785268065",
+        "imageUrl": "https://cards.scryfall.io/normal/front/c/0/c0318a48-30e4-4ef7-be3d-5e561c5ce428.jpg?1783903203",
+        "frenchName": "Étendues sauvages en évolution",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/c/2cedb4ab-a1db-429d-88c2-484eb26c5327.jpg?1785266568",
         "colors": [],
-        "releaseYear": 2005,
+        "releaseYear": 2010,
         "set": "DDH",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 7.9,
-      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+7.9 pts).",
+      "scoreDelta": 10.4,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.4 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+7.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+10.4 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2005)"
+        "releaseContext": "Référence confirmée (2010)"
       },
-      "releaseYear": 2005,
+      "releaseYear": 2010,
       "isRecent": false,
-      "rankingScore": 27.9,
+      "rankingScore": 30.4,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26.9
+          "points": 29.4
         },
         {
           "key": "mana_efficiency",
@@ -3533,6 +3593,70 @@
         }
       ]
     },
+    "Portal to Phyrexia": {
+      "targetCard": {
+        "oracleId": "301d1d8e-d3fc-4010-8b29-4724fa0b31cd",
+        "name": "Portal to Phyrexia",
+        "score": 10,
+        "tier": "F",
+        "cmc": 9,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/5/f/5f608efc-0dbc-4cc3-aadd-ed473bfc29ab.jpg?1783920015",
+        "frenchName": "Portail de Phyrexia",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/a/1a84424e-84f1-4010-9f83-26fec0d1ad4a.jpg?1782839646",
+        "colors": [],
+        "releaseYear": 2022,
+        "set": "BRO",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "a82d855c-50c8-43f2-99ba-a84fe84539c5",
+        "name": "The Ten Rings",
+        "score": 25.6,
+        "tier": "C+",
+        "cmc": 8,
+        "typeLine": "Legendary Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/3/2332bc91-b0f2-4911-844d-d1cc915cd6c8.jpg?1783902890",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.6,
+      "reason": "Coût de mana plus agressif (8 vs 9) permettant d'accélérer le tempo et d'optimiser la curve (+15.6 pts). Reste au service de Mono-Blue / Colorless Artifacts & Tinker.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (8 vs 9 mana) tout en renforçant la méta du cube (+15.6 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 43.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.6
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Rofellos, Llanowar Emissary": {
       "targetCard": {
         "oracleId": "3015882b-4897-4d2c-8e33-6731c85a0d03",
@@ -3941,7 +4065,9 @@
         "colors": [
           "R"
         ],
-        "isRecent": false
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
       },
       "suggestedCard": {
         "oracleId": "0a73289f-0f0b-4316-be21-8edcbb08bd7c",
@@ -5722,6 +5848,76 @@
     },
     {
       "card": {
+        "oracleId": "94f0a572-e91c-4b56-a5d1-6cbbeabd210d",
+        "name": "Infernal Grasp",
+        "score": 31.5,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/0655bae1-d33b-4bac-856a-ca4518f192e8/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2021,
+        "set": "MID",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:lands",
+        "nico:dimir_tempo"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Vraska's Final Mercy (+11.4 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+11.4 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+31.5 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Gruul / Jund Lands & Dark Depths"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2021)"
+      },
+      "releaseYear": 2021,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "replacesCards": [
+        {
+          "name": "Vraska's Final Mercy",
+          "score": 20.1,
+          "tier": "D+",
+          "scoreDelta": 11.4,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+11.4 pts)."
+        }
+      ],
+      "rankingScore": 87.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31.5
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "fcdc7dfc-04b5-411a-ab49-282b9c2608e2",
         "name": "Mighty Mutanimals",
         "score": 39.5,
@@ -5923,6 +6119,75 @@
     },
     {
       "card": {
+        "oracleId": "13d4c46b-c2d6-44cc-a252-4a991d471854",
+        "name": "Sylvan Caryatid",
+        "score": 30,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Creature — Plant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/962717fa-c502-46af-8574-4222e8151679/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2013,
+        "set": "PTHS",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:lands",
+        "nico:green_ramp",
+        "nico:selesnya_counters"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Ursine Monstrosity (+10.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.1 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+30 pts).",
+        "affectedArchetypes": [
+          "Sneak Attack / Show and Tell / Flash",
+          "Gruul / Jund Lands & Dark Depths",
+          "Mono-Green Ramp & Natural Order"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "benchmarkPresence": "Vu dans Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2013)"
+      },
+      "releaseYear": 2013,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Vintage Cube Archive"
+      ],
+      "replacesCards": [
+        {
+          "name": "Ursine Monstrosity",
+          "score": 19.9,
+          "tier": "D",
+          "scoreDelta": 10.1,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.1 pts)."
+        }
+      ],
+      "rankingScore": 86,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "b215196a-3716-451f-bdbd-d16c05ace5b4",
         "name": "Flametongue Kavu",
         "score": 28.9,
@@ -5979,6 +6244,78 @@
         {
           "key": "power",
           "points": 28.9
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "e9117015-1050-44dd-a46b-e7ffe2085fae",
+        "name": "Ledger Shredder",
+        "score": 27.8,
+        "tier": "B-",
+        "cmc": 2,
+        "typeLine": "Creature — Bird Advisor",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/7ea4b5bc-18a4-45db-a56a-ab3f8bd2fb0d/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2022,
+        "set": "SNC",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Tishana's Tidebinder (+10.8 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.8 pts). Reste au service de Azorius Blink / Value & Dimir / Grixis Tempo & Disruption.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+27.8 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "Référence confirmée (2022)"
+      },
+      "releaseYear": 2022,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Tishana's Tidebinder",
+          "score": 17,
+          "tier": "D-",
+          "scoreDelta": 10.8,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.8 pts). Reste au service de Azorius Blink / Value & Dimir / Grixis Tempo & Disruption."
+        }
+      ],
+      "rankingScore": 83.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.8
         },
         {
           "key": "direct_replacement",
@@ -6522,6 +6859,71 @@
     },
     {
       "card": {
+        "oracleId": "8ecd3743-7c32-41ce-9ac1-c8c855a47302",
+        "name": "Nurturing Pixie",
+        "score": 31.7,
+        "tier": "B",
+        "cmc": 1,
+        "typeLine": "Creature — Faerie Rogue",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/0fe155f6-888b-41a0-a9a0-be7bea998718/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2024,
+        "set": "OTJ",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:boros_aggro",
+        "nico:selesnya_counters"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Spectacular Spider-Man (+11.8 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.8 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+31.7 pts).",
+        "affectedArchetypes": [
+          "Izzet / Jeskai Twin & Kiki Combo",
+          "Azorius Blink / Value",
+          "Boros / Red Aggro & Initiative"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [OTJ]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Spectacular Spider-Man",
+          "score": 19.9,
+          "tier": "D",
+          "scoreDelta": 11.8,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.8 pts)."
+        }
+      ],
+      "rankingScore": 79.7,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31.7
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "961e3023-39ea-4141-99b6-738280a2815d",
         "name": "Pinecone Strike",
         "score": 31.6,
@@ -6923,6 +7325,74 @@
     },
     {
       "card": {
+        "oracleId": "7b70696e-b09e-4bc9-8438-d31075d78c0c",
+        "name": "Glimpse the Impossible",
+        "score": 30.4,
+        "tier": "B",
+        "cmc": 3,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/133ad0dd-5b61-4c38-9264-0b0e75b95d95/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:lands",
+        "nico:boros_aggro",
+        "nico:dimir_tempo"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Seething Song (+10.3 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.3 pts). Reste au service de Izzet / Grixis Storm.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+30.4 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Seething Song",
+          "score": 20.1,
+          "tier": "D+",
+          "scoreDelta": 10.3,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.3 pts). Reste au service de Izzet / Grixis Storm."
+        }
+      ],
+      "rankingScore": 78.4,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.4
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "22d059fc-4e47-44b5-9e21-4a56f1dff6a7",
         "name": "Explosive Prodigy",
         "score": 30.3,
@@ -6975,6 +7445,141 @@
         {
           "key": "power",
           "points": 30.3
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
+        "name": "Weftstalker Ardent",
+        "score": 30.2,
+        "tier": "B",
+        "cmc": 3,
+        "typeLine": "Creature — Drix Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cddb48cc-8eb1-47ce-90f0-7aad1e93e2c4/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2025,
+        "set": "EOE",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:lands",
+        "nico:boros_aggro",
+        "nico:dimir_tempo"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Dualcaster Mage (+10.1 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+30.2 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Dualcaster Mage",
+          "score": 20.1,
+          "tier": "D+",
+          "scoreDelta": 10.1,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts)."
+        }
+      ],
+      "rankingScore": 78.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
+        "name": "Torgal, A Fine Hound",
+        "score": 30.1,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Legendary Creature — Wolf",
+        "imageUrl": "https://cards.scryfall.io/normal/front/0/f/0f5725aa-42bb-4dfd-9c15-135b38b33da3.jpg?1783906578",
+        "frenchName": "Talgor, un allié de taille",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/0/c/0c0e83de-9097-4838-aa96-8c9b9dd46b41.jpg?1782771796",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2025,
+        "set": "FIN",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:lands",
+        "nico:green_ramp",
+        "nico:selesnya_counters"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Carnivorous Cultivator (+10 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Gruul / Jund Lands & Dark Depths.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+30.1 pts).",
+        "affectedArchetypes": [
+          "Sneak Attack / Show and Tell / Flash",
+          "Gruul / Jund Lands & Dark Depths",
+          "Mono-Green Ramp & Natural Order"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Carnivorous Cultivator",
+          "score": 20.1,
+          "tier": "D+",
+          "scoreDelta": 10,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Gruul / Jund Lands & Dark Depths."
+        }
+      ],
+      "rankingScore": 78.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.1
         },
         {
           "key": "direct_replacement",
@@ -7058,6 +7663,74 @@
     },
     {
       "card": {
+        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
+        "name": "Bothersome Noisemaker",
+        "score": 29.9,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Bard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:lands",
+        "nico:boros_aggro",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Imperial Recruiter (+11.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.3 pts). Reste au service de Izzet / Jeskai Twin & Kiki Combo.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+29.9 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Imperial Recruiter",
+          "score": 18.6,
+          "tier": "D",
+          "scoreDelta": 11.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.3 pts). Reste au service de Izzet / Jeskai Twin & Kiki Combo."
+        }
+      ],
+      "rankingScore": 77.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.9
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
         "name": "Deduce",
         "score": 29.6,
@@ -7109,6 +7782,139 @@
         {
           "key": "power",
           "points": 29.6
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "1abe8246-d2f9-407b-8c16-83da0a6b7de3",
+        "name": "We Say Thee Nay!",
+        "score": 29.3,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Instant — Arcane",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/13b70321-75bd-4d44-b9f6-5f062a5dda0f/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:dimir_tempo"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Archmage's Charm (+11.4 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.4 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+29.3 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Archmage's Charm",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 11.4,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.4 pts)."
+        }
+      ],
+      "rankingScore": 77.3,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.3
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "f17b9356-a329-4f89-b690-afc2eaff4977",
+        "name": "Sunpearl Kirin",
+        "score": 29.2,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Creature — Kirin",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/18292b9c-0f42-4ce2-8b85-35d06cf45a63/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2025,
+        "set": "TDM",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:boros_aggro",
+        "nico:selesnya_counters"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Soulfire Grand Master (+11.1 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.1 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+29.2 pts).",
+        "affectedArchetypes": [
+          "Izzet / Jeskai Twin & Kiki Combo",
+          "Azorius Blink / Value",
+          "Boros / Red Aggro & Initiative"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TDM]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Soulfire Grand Master",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 11.1,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+11.1 pts)."
+        }
+      ],
+      "rankingScore": 77.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.2
         },
         {
           "key": "direct_replacement",
@@ -7323,6 +8129,74 @@
     },
     {
       "card": {
+        "oracleId": "0259a9ed-0558-4183-b737-871ed5573c32",
+        "name": "Gran-Gran",
+        "score": 28.7,
+        "tier": "B-",
+        "cmc": 1,
+        "typeLine": "Legendary Creature — Human Peasant Ally",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/fa434b41-e5f7-4989-865a-95db67b05cb1/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2025,
+        "set": "TLA",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Thieving Skydiver (+10.7 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+10.7 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+28.7 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Thieving Skydiver",
+          "score": 18,
+          "tier": "D",
+          "scoreDelta": 10.7,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+10.7 pts)."
+        }
+      ],
+      "rankingScore": 76.7,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28.7
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "7eccd10d-f224-4467-af25-f2b768993f9f",
         "name": "Thraben Charm",
         "score": 28.2,
@@ -7371,6 +8245,74 @@
         {
           "key": "power",
           "points": 28.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
+        "name": "Deem Inferior",
+        "score": 28.1,
+        "tier": "B-",
+        "cmc": 4,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cc0835c7-58ca-4f16-984a-c590ce6a229a/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Turnabout (+10 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Izzet / Grixis Storm.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+28.1 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Turnabout",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 10,
+          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Izzet / Grixis Storm."
+        }
+      ],
+      "rankingScore": 76.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28.1
         },
         {
           "key": "direct_replacement",
@@ -7519,6 +8461,74 @@
     },
     {
       "card": {
+        "oracleId": "1a8185ed-636b-49ad-bf24-2ab02c7fb91e",
+        "name": "Swallowed by Leviathan",
+        "score": 27.6,
+        "tier": "B-",
+        "cmc": 3,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/2270642d-fe2a-4265-aff0-a24a43ebe0a1/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2025,
+        "set": "FIN",
+        "isRecent": true
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:artifact_ramp",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Cryptic Command (+11.6 pts). Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+11.6 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+27.6 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Cryptic Command",
+          "score": 16,
+          "tier": "D-",
+          "scoreDelta": 11.6,
+          "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+11.6 pts)."
+        }
+      ],
+      "rankingScore": 75.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.6
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "322f44f0-e6da-4ee0-b474-e7d5e9a461c5",
         "name": "Morbid Opportunist",
         "score": 33.5,
@@ -7641,145 +8651,19 @@
     },
     {
       "card": {
-        "oracleId": "da785227-cf8a-4d44-9e7c-fc909ea868f2",
-        "name": "Prosperous Innkeeper",
-        "score": 31,
-        "tier": "B",
-        "cmc": 2,
-        "typeLine": "Creature — Halfling Citizen",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/096d3c0c-98e2-4cfc-a6e1-fddb0359c63f/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2021,
-        "set": "AFR",
-        "isRecent": false
-      },
-      "archetypes": [
-        "nico:sneak_show",
-        "nico:lands",
-        "nico:green_ramp",
-        "nico:selesnya_counters"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Sandstorm Salvager (+13.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.1 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+31 pts).",
-        "affectedArchetypes": [
-          "Sneak Attack / Show and Tell / Flash",
-          "Gruul / Jund Lands & Dark Depths",
-          "Mono-Green Ramp & Natural Order"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2021)"
-      },
-      "releaseYear": 2021,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Sandstorm Salvager",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 13.1,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.1 pts)."
-        }
-      ],
-      "rankingScore": 73,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "f46befcb-6a7f-4f5e-8634-393cbf4b3308",
-        "name": "Witchstalker Frenzy",
-        "score": 29.9,
-        "tier": "B",
+        "oracleId": "3f6101a5-3038-45b0-8302-b2e4127b9510",
+        "name": "Rally the Monastery",
+        "score": 27.2,
+        "tier": "B-",
         "cmc": 4,
         "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/649025a7-79d1-4d7c-b1db-d46bcf5a1ae2/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "WOE",
-        "isRecent": false
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:lands",
-        "nico:boros_aggro",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Mine Collapse (+16.9 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16.9 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+29.9 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Mine Collapse",
-          "score": 13,
-          "tier": "F",
-          "scoreDelta": 16.9,
-          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16.9 pts)."
-        }
-      ],
-      "rankingScore": 71.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.9
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
-        "name": "Journey to Nowhere",
-        "score": 27.6,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Enchantment",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/09cfe585-8a55-4b27-89e0-dfb6946fe1f3/normal.webp",
-        "frenchName": "Voyage vers le néant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b56e0037-8143-4c13-83e1-0c3f44e685ea/normal.webp",
         "colors": [
           "W"
         ],
-        "releaseYear": 2009,
-        "set": "ZEN",
-        "isRecent": false
+        "releaseYear": 2025,
+        "set": "TDM",
+        "isRecent": true
       },
       "archetypes": [
         "nico:twin_kiki",
@@ -7788,33 +8672,34 @@
         "nico:selesnya_counters"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Touch the Spirit Realm (+13.6 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.6 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Sunfall (+10.2 pts). Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.2 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+27.6 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+27.2 pts).",
         "affectedArchetypes": [
           "Izzet / Jeskai Twin & Kiki Combo",
           "Azorius Blink / Value",
           "Boros / Red Aggro & Initiative"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2009)"
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TDM]"
       },
-      "releaseYear": 2009,
-      "isRecent": false,
+      "releaseYear": 2025,
+      "isRecent": true,
       "replacesCards": [
         {
-          "name": "Touch the Spirit Realm",
-          "score": 14,
-          "tier": "F",
-          "scoreDelta": 13.6,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.6 pts)."
+          "name": "Sunfall",
+          "frenchName": "Fin du soleil",
+          "score": 17,
+          "tier": "D-",
+          "scoreDelta": 10.2,
+          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.2 pts)."
         }
       ],
-      "rankingScore": 69.6,
+      "rankingScore": 75.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.6
+          "points": 27.2
         },
         {
           "key": "direct_replacement",
@@ -7823,120 +8708,63 @@
         {
           "key": "archetype_match",
           "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
     {
       "card": {
-        "oracleId": "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
-        "name": "Kitesail Freebooter",
-        "score": 26.8,
+        "oracleId": "e8a9350a-07c1-47ed-8c4f-88e4b3b17545",
+        "name": "Hop to It",
+        "score": 26.5,
         "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Creature — Human Pirate",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/f62fd592-4910-417d-a500-e7029f3d119f/normal.webp",
+        "cmc": 3,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/ee7207f8-5daa-42af-aeea-7a489047110b/normal.webp",
         "colors": [
-          "B"
+          "W"
         ],
-        "releaseYear": 2017,
-        "set": "XLN",
-        "isRecent": false
+        "releaseYear": 2024,
+        "set": "BLB",
+        "isRecent": true
       },
       "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:lands",
-        "nico:dimir_tempo"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Tinybones, the Pickpocket (+13.8 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.8 pts) qui justifie le décalage de curve.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+26.8 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Gruul / Jund Lands & Dark Depths"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2017)"
-      },
-      "releaseYear": 2017,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Tinybones, the Pickpocket",
-          "score": 13,
-          "tier": "F",
-          "scoreDelta": 13.8,
-          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.8 pts) qui justifie le décalage de curve."
-        }
-      ],
-      "rankingScore": 68.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26.8
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "2bc92c16-cd1e-4c32-9102-4593d77a9a9f",
-        "name": "Kappa Tech-Wrecker",
-        "score": 26,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Creature — Turtle Ninja",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d3a7bc69-4500-4e7e-94e4-67b85597bd82/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "archetypes": [
-        "nico:sneak_show",
-        "nico:lands",
-        "nico:green_ramp",
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:boros_aggro",
         "nico:selesnya_counters"
       ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Outland Liberator (+13 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts).",
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Lingering Souls (+10.5 pts). Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.5 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+26 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+26.5 pts).",
         "affectedArchetypes": [
-          "Sneak Attack / Show and Tell / Flash",
-          "Gruul / Jund Lands & Dark Depths",
-          "Mono-Green Ramp & Natural Order"
+          "Izzet / Jeskai Twin & Kiki Combo",
+          "Azorius Blink / Value",
+          "Boros / Red Aggro & Initiative"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
       },
-      "releaseYear": 2022,
-      "isRecent": false,
+      "releaseYear": 2024,
+      "isRecent": true,
       "replacesCards": [
         {
-          "name": "Outland Liberator",
-          "score": 13,
-          "tier": "F",
-          "scoreDelta": 13,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts)."
+          "name": "Lingering Souls",
+          "score": 16,
+          "tier": "D-",
+          "scoreDelta": 10.5,
+          "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.5 pts)."
         }
       ],
-      "rankingScore": 68,
+      "rankingScore": 74.5,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26
+          "points": 26.5
         },
         {
           "key": "direct_replacement",
@@ -7945,111 +8773,10 @@
         {
           "key": "archetype_match",
           "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "a6eab631-77d8-4fc2-9305-a299ecf33e46",
-        "name": "Booster Tutor",
-        "score": 42,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/c3a5b25e-c5af-417e-8675-162ab18ac2b1/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2004,
-        "set": "UNH",
-        "isRecent": false
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:lands",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Renforce directement les archétypes Izzet / Grixis Storm et Dimir / Grixis Reanimator grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+42 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Gruul / Jund Lands & Dark Depths"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "benchmarkPresence": "Vu dans Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2004)"
-      },
-      "releaseYear": 2004,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 68,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 42
         },
         {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "89ca686a-7c72-4d8f-9290-e89635624a83",
-        "name": "Cavern of Souls",
-        "score": 34,
-        "tier": "B+",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/a/3aad15a2-8a1b-4460-9b06-e85863081878.jpg?1783913719",
-        "frenchName": "Caverne des âmes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/b/e/be5b8d08-4ba4-4297-b1b4-dd088d38afff.jpg?1782807494",
-        "colors": [],
-        "releaseYear": 2012,
-        "set": "AVR",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Spara's Headquarters (+16 pts). Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+34 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2012)"
-      },
-      "releaseYear": 2012,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Spara's Headquarters",
-          "frenchName": "Quartier général de Spara",
-          "score": 18,
-          "tier": "D",
-          "scoreDelta": 16,
-          "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16 pts)."
-        }
-      ],
-      "rankingScore": 64,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 34
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -8141,380 +8868,6 @@
         {
           "key": "peer_benchmark",
           "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "977c2f33-b622-4172-9efb-7f523becd32b",
-        "name": "Blazemire Verge",
-        "score": 41,
-        "tier": "A",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/d/1/d151c8e2-d715-470d-868a-f45191db9fa0.jpg?1783909431",
-        "colors": [],
-        "releaseYear": 2024,
-        "set": "DSK",
-        "isRecent": true
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Carte de calibre compétitif (Score 41/55), offrant une régularité et une puissance élevées pour dynamiser le format.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+41 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "2b8144a0-08d2-4c28-9fd7-5d90f90105e4",
-        "name": "Bleachbone Verge",
-        "score": 41,
-        "tier": "A",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/2/52dcdabd-a186-45fe-9fee-6c0f1afeaf16.jpg?1783907843",
-        "colors": [],
-        "releaseYear": 2025,
-        "set": "DFT",
-        "isRecent": true
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Carte de calibre compétitif (Score 41/55), offrant une régularité et une puissance élevées pour dynamiser le format.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+41 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [DFT]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "f1e9abfb-c3c8-483e-b446-5c2afc9f6394",
-        "name": "Floodfarm Verge",
-        "score": 41,
-        "tier": "A",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/d/5/d53ed0db-1199-44b3-8eda-8189dfcf53d1.jpg?1783909428",
-        "colors": [],
-        "releaseYear": 2024,
-        "set": "DSK",
-        "isRecent": true
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Carte de calibre compétitif (Score 41/55), offrant une régularité et une puissance élevées pour dynamiser le format.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+41 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "benchmarkPresence": "Vu dans Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "cce328b9-6100-417e-9ddf-808bbe3e3bc5",
-        "name": "Hushwood Verge",
-        "score": 41,
-        "tier": "A",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/e/c/ec288d76-c1f5-471b-8a53-504f88469c1b.jpg?1783909428",
-        "colors": [],
-        "releaseYear": 2024,
-        "set": "DSK",
-        "isRecent": true
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Carte de calibre compétitif (Score 41/55), offrant une régularité et une puissance élevées pour dynamiser le format.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+41 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "benchmarkPresence": "Vu dans Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "5f7f133e-58ea-41ab-b1be-be4b400fac4c",
-        "name": "Coat of Arms",
-        "score": 30,
-        "tier": "B",
-        "cmc": 5,
-        "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/1/513d4c36-6ad4-4ee9-b161-3136eb59504f.jpg?1783936560",
-        "frenchName": "Coat of Arms",
-        "colors": [],
-        "releaseYear": 1998,
-        "set": "DDS",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Mindslaver (+12.1 pts). Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+12.1 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+30 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1998)"
-      },
-      "releaseYear": 1998,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Mindslaver",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 12.1,
-          "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+12.1 pts)."
-        }
-      ],
-      "rankingScore": 60,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "a75445d3-1303-4bb5-89ad-26ea93fecd48",
-        "name": "Evolving Wilds",
-        "score": 29.4,
-        "tier": "B",
-        "cmc": 0,
-        "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/c/0/c0318a48-30e4-4ef7-be3d-5e561c5ce428.jpg?1783903203",
-        "frenchName": "Étendues sauvages en évolution",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/c/2cedb4ab-a1db-429d-88c2-484eb26c5327.jpg?1785266568",
-        "colors": [],
-        "releaseYear": 2010,
-        "set": "DDH",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Fabled Passage (+12.4 pts). Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.4 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+29.4 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2010)"
-      },
-      "releaseYear": 2010,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Fabled Passage",
-          "frenchName": "Passage merveilleux",
-          "score": 17,
-          "tier": "D-",
-          "scoreDelta": 12.4,
-          "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.4 pts)."
-        }
-      ],
-      "rankingScore": 59.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.4
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "4d9554de-c005-41ab-a941-39328ebff9de",
-        "name": "Relic of Legends",
-        "score": 27.8,
-        "tier": "B-",
-        "cmc": 3,
-        "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/9/89691cda-e38b-4f53-bee6-4c234186e6ad.jpg?1783903214",
-        "frenchName": "Relique de légendes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/f/2f5fdc78-e258-4d7d-a62d-5214e73b16b2.jpg?1785265497",
-        "colors": [],
-        "releaseYear": 2022,
-        "set": "DMU",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Coalition Relic (+19.8 pts). Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.8 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+27.8 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Coalition Relic",
-          "score": 8,
-          "tier": "F",
-          "scoreDelta": 19.8,
-          "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.8 pts)."
-        }
-      ],
-      "rankingScore": 57.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "800fb917-8898-4eba-9f94-aec6e9d75236",
-        "name": "Mazemind Tome",
-        "score": 25,
-        "tier": "C+",
-        "cmc": 2,
-        "typeLine": "Artifact — Book",
-        "imageUrl": "https://cards.scryfall.io/normal/front/f/4/f45072cd-e3f2-4090-b984-50ec8d360bf2.jpg?1783908904",
-        "frenchName": "Grimoire du dédale de l'esprit",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/d/edd510f2-9700-4a0a-8d59-15b985f0cb66.jpg?1782814915",
-        "colors": [],
-        "releaseYear": 2020,
-        "set": "M21",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Soul-Guide Lantern (+17 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+17 pts) qui justifie le décalage de curve.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+25 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2020)"
-      },
-      "releaseYear": 2020,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Soul-Guide Lantern",
-          "score": 8,
-          "tier": "F",
-          "scoreDelta": 17,
-          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+17 pts) qui justifie le décalage de curve."
-        }
-      ],
-      "rankingScore": 55,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 25
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
         }
       ]
     }

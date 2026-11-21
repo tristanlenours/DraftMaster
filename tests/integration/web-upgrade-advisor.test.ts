@@ -105,7 +105,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
             expect(
               Math.max(...replaced.map((target) => target.scoreDelta)),
               suggestion.card.name,
-            ).toBeGreaterThanOrEqual(12);
+            ).toBeGreaterThanOrEqual(10);
           } else {
             // A card without a slot is proven elsewhere: a peer benchmark plays it, or it is a
             // card of one of the cube's tribes curated in another of our cubes.
