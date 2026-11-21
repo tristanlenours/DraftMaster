@@ -5,7 +5,7 @@ import {
   generateCubeSuggestionsReport,
   type MaybeboardSuggestion,
 } from "../../../src/cards/cube-upgrade-advisor.ts";
-import type { MasterCatalogCard } from "../../../src/cards/types.ts";
+import type { CardFunctionalRole, MasterCatalogCard } from "../../../src/cards/types.ts";
 
 describe("Cube Upgrade Advisor", () => {
   const mockTargetCard: MasterCatalogCard = {
@@ -804,6 +804,103 @@ describe("Cube Upgrade Advisor", () => {
       expect(upgrades[blinkTarget.name]).toBeUndefined();
     });
 
+    it("never proposes to cut a card the cube's archetypes declare as key", () => {
+      const nicoMeta = {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [
+          {
+            id: "nico:twin",
+            name: "Twin & Kiki Combo",
+            primaryColors: ["R"],
+            keyCards: ["declared-key"],
+          },
+        ],
+      };
+      const declaredKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "declared-key",
+        name: "Declared Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const curatedKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "curated-key",
+        name: "Curated Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {
+          nico_candyshop: {
+            ...mockTargetTribalAnalysis,
+            cubeKey: "nico_candyshop",
+            archetypes: [],
+            metaRole: "key",
+          },
+        },
+      };
+      const weakFiller: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "weak-filler",
+        name: "Weak Filler",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const strongerCandidates = [1, 2, 3].map((index): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: `stronger-${String(index)}`,
+        name: `Stronger Burn ${String(index)}`,
+        presentInCubes: [],
+      }));
+
+      const upgrades = generateCubeUpgradeProposals(
+        "nico_candyshop",
+        [declaredKey, curatedKey, weakFiller, ...strongerCandidates],
+        nicoMeta,
+      );
+
+      expect(Object.keys(upgrades)).toEqual(["Weak Filler"]);
+    });
+
+    it("ignores reminder text and reads an additional mana ability as mana", () => {
+      const manaDork: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "mana-dork",
+        name: "Weak Mana Dork",
+        colors: ["G"],
+        colorIdentity: ["G"],
+        typeLine: "Creature — Elf Druid",
+        types: ["Creature"],
+        subtypes: ["Elf", "Druid"],
+        oracleText: "{T}: Add {G}.",
+        presentInCubes: ["nico_candyshop"],
+        objectiveAnalysis: { ...mockTargetCard.objectiveAnalysis, roles: [] },
+        cubeAnalyses: {},
+      };
+      const earthbendDork: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "earthbend-dork",
+        name: "Earthbend Dork",
+        cmc: 2,
+        colors: ["G"],
+        colorIdentity: ["G"],
+        typeLine: "Creature — Badger Mole",
+        types: ["Creature"],
+        subtypes: ["Badger", "Mole"],
+        oracleText:
+          "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+        presentInCubes: [],
+        objectiveAnalysis: { ...mockCandidateUpgrade.objectiveAnalysis, roles: [] },
+      };
+
+      const upgrades = generateCubeUpgradeProposals("nico_candyshop", [manaDork, earthbendDork], {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [],
+      });
+
+      expect(upgrades[manaDork.name]?.suggestedCard.name).toBe(earthbendDork.name);
+    });
+
     it.each([
       ["Aura", "Enchantment"],
       ["Class", "Enchantment"],
@@ -1076,6 +1173,62 @@ describe("Cube Upgrade Advisor", () => {
       expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual(["Top Discovery"]);
     });
 
+    it("caps the archetype bonus so a color shared by many archetypes is not favored", () => {
+      const archetype = (id: string, colors: string[]) => ({
+        id,
+        name: id,
+        primaryColors: colors,
+        keyCards: [],
+        supportCards: [],
+      });
+      const meta = {
+        ...cedricMeta,
+        archetypes: [
+          archetype("red-1", ["R"]),
+          archetype("red-2", ["R"]),
+          archetype("red-3", ["R"]),
+          archetype("red-4", ["R"]),
+          archetype("red-5", ["R"]),
+          archetype("green-1", ["G"]),
+          archetype("green-2", ["G"]),
+          archetype("green-3", ["G"]),
+        ],
+      };
+      const discovery = (name: string, color: "R" | "G", score: number): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        colors: [color],
+        colorIdentity: [color],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+      });
+      const benchmarkMap = new Map([
+        ["red discovery", ["Peer Cube"]],
+        ["green discovery", ["Peer Cube"]],
+      ]);
+
+      const maybeboard = generateCubeMaybeboard(
+        "cedric_cube",
+        [discovery("Red Discovery", "R", 41), discovery("Green Discovery", "G", 43)],
+        meta,
+        undefined,
+        undefined,
+        benchmarkMap,
+        undefined,
+        {},
+      );
+
+      expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual([
+        "Green Discovery",
+        "Red Discovery",
+      ]);
+      const archetypePoints = maybeboard.map(
+        (suggestion) =>
+          suggestion.rankingFactors.find((factor) => factor.key === "archetype_match")?.points,
+      );
+      expect(archetypePoints).toEqual([12, 12]);
+    });
+
     it("honors maxSuggestions even when more direct replacements are available", () => {
       const secondCandidate: MasterCatalogCard = {
         ...mockCandidateUpgrade,
@@ -1339,7 +1492,7 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(report.schemaVersion).toBe(2);
-      expect(report.engineVersion).toBe("cube-upgrade-advisor@5");
+      expect(report.engineVersion).toBe("cube-upgrade-advisor@7");
       expect(report.snapshotId).toBe("titou_tribal@test");
       expect(report.generatedAt).toBe(mockRunContext.generatedAt);
       expect(report.sourceProvenance).toEqual({
@@ -1818,6 +1971,375 @@ describe("Cube Upgrade Advisor", () => {
       expect(maybeNames).not.toContain("Ragavan, Nimble Pilferer");
       expect(maybeNames).not.toContain("Shocking Strike");
       expect(maybeNames).toContain("Lightning Bolt");
+    });
+  });
+
+  describe("Cross-cube tribal and combo awareness", () => {
+    const archetype = (
+      id: string,
+      primaryColors: string[],
+      creatureTypes: string[],
+      category?: string,
+    ) => ({
+      id,
+      name: id,
+      primaryColors,
+      creatureTypes,
+      keyCards: [],
+      supportCards: [],
+      ...(category ? { category } : {}),
+    });
+    const tribalMeta = {
+      ...mockMeta,
+      archetypes: [
+        ...mockMeta.archetypes,
+        archetype("titou:tribal_elves", ["G"], ["Elf"]),
+        archetype("titou:tribal_werewolves", ["R", "G"], ["Wolf", "Werewolf"]),
+        archetype("titou:tribal_humans", ["W", "G"], ["Human"]),
+      ],
+    };
+    const nicoAnalysis = (
+      archetypes: string[],
+      synergyTags: string[] = [],
+    ): MasterCatalogCard["cubeAnalyses"][string] => ({
+      cubeKey: "nico_candyshop",
+      fit: "support",
+      tier: "B+",
+      archetypes,
+      synergyTags,
+      scoreModifier: 0,
+      analysis: "Curated in Nico's cube.",
+    });
+
+    it("reads irregular tribal plurals such as Elves in a card's rules text", () => {
+      const elfSpellTarget: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "elf-spell-target",
+        name: "Elf Spell Target",
+        colors: ["G"],
+        colorIdentity: ["G"],
+        oracleText: "Elves you control get +1/+1 until end of turn.",
+        cubeAnalyses: {
+          titou_tribal: { ...mockTargetTribalAnalysis, archetypes: ["titou:tribal_elves"] },
+        },
+      };
+      const spell = (name: string, oracleText: string, score: number): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        colors: ["G"],
+        colorIdentity: ["G"],
+        oracleText,
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+      });
+
+      const upgrades = generateCubeUpgradeProposals(
+        "titou_tribal",
+        [
+          elfSpellTarget,
+          spell("Goblin Pump", "Goblins you control get +2/+2 until end of turn.", 45),
+          spell("Elf Pump", "Elves you control get +2/+2 until end of turn.", 35),
+        ],
+        tribalMeta,
+      );
+
+      expect(upgrades[elfSpellTarget.name]?.suggestedCard.name).toBe("Elf Pump");
+    });
+
+    it("reads the tribe a creature's rules text supports in addition to its own type", () => {
+      const wolfLord: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "human-wolf-lord",
+        name: "Human Wolf Lord",
+        cmc: 4,
+        colors: ["G"],
+        colorIdentity: ["G"],
+        typeLine: "Creature — Human Shaman",
+        types: ["Creature"],
+        subtypes: ["Human", "Shaman"],
+        oracleText: "At the beginning of your upkeep, create a 2/2 green Wolf creature token.",
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 40 },
+      };
+
+      const maybeboard = generateCubeMaybeboard(
+        "titou_tribal",
+        [wolfLord],
+        tribalMeta,
+        undefined,
+        undefined,
+        new Map([["human wolf lord", ["Peer Cube"]]]),
+        undefined,
+        {},
+      );
+
+      expect(maybeboard[0]?.archetypes).toEqual(["titou:tribal_werewolves", "titou:tribal_humans"]);
+    });
+
+    it("does not read a tribe named only in reminder text", () => {
+      const partyRogue: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "party-rogue",
+        name: "Party Rogue",
+        colors: ["W"],
+        colorIdentity: ["W"],
+        typeLine: "Creature — Rogue",
+        types: ["Creature"],
+        subtypes: ["Rogue"],
+        oracleText:
+          "Draw a card for each creature in your party. (Your party consists of up to one each of Cleric, Rogue, Warrior, and Wizard.)",
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 45 },
+      };
+      const clericMeta = {
+        ...mockMeta,
+        archetypes: [archetype("titou:tribal_angels", ["W"], ["Angel", "Cleric"])],
+      };
+
+      expect(
+        generateCubeMaybeboard(
+          "titou_tribal",
+          [partyRogue],
+          clericMeta,
+          undefined,
+          undefined,
+          new Map([["party rogue", ["Peer Cube"]]]),
+          undefined,
+          {},
+        ),
+      ).toEqual([]);
+    });
+
+    describe("combo-only pieces", () => {
+      const comboMeta = { ...mockMeta, peerComboArchetypeIds: ["nico:storm_combo"] };
+      const stormPiece: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "storm-piece",
+        name: "Storm Piece",
+        powerScore: { ...mockCandidateUpgrade.powerScore, score: 45 },
+        cubeAnalyses: {
+          nico_candyshop: nicoAnalysis(["nico:vintage_staple", "nico:storm_combo"]),
+        },
+      };
+
+      it("never proposes a card curated only for combo to a cube without a combo archetype", () => {
+        const catalog = [mockTargetCard, stormPiece];
+
+        expect(
+          generateCubeUpgradeProposals("titou_tribal", catalog, comboMeta)[mockTargetCard.name],
+        ).toBeUndefined();
+        expect(
+          generateCubeMaybeboard(
+            "titou_tribal",
+            catalog,
+            comboMeta,
+            undefined,
+            undefined,
+            new Map(),
+          ),
+        ).toEqual([]);
+      });
+
+      it("recognises a combo piece from its curated combo synergy tags", () => {
+        const comboTagged: MasterCatalogCard = {
+          ...stormPiece,
+          oracleId: "combo-tagged",
+          name: "Combo Tagged",
+          cubeAnalyses: { nico_candyshop: nicoAnalysis(["nico:blink"], ["combo"]) },
+        };
+
+        expect(
+          generateCubeUpgradeProposals("titou_tribal", [mockTargetCard, comboTagged], comboMeta)[
+            mockTargetCard.name
+          ],
+        ).toBeUndefined();
+      });
+
+      it("keeps a combo piece that a peer benchmark of the cube already plays", () => {
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, stormPiece],
+          comboMeta,
+          undefined,
+          undefined,
+          new Map([["storm piece", ["Tribal Synergy Cube"]]]),
+        );
+
+        expect(upgrades[mockTargetCard.name]?.suggestedCard.name).toBe("Storm Piece");
+      });
+
+      it("keeps a combo piece for a cube that declares a combo archetype", () => {
+        const metaWithCombo = {
+          ...comboMeta,
+          archetypes: [...comboMeta.archetypes, archetype("titou:storm", ["R"], [], "combo")],
+        };
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, stormPiece],
+          metaWithCombo,
+        );
+
+        expect(upgrades[mockTargetCard.name]?.suggestedCard.name).toBe("Storm Piece");
+      });
+
+      it("keeps an on-tribe combo piece in a tribal cube, where its creature type gives it a role", () => {
+        const comboGoblin: MasterCatalogCard = {
+          ...stormPiece,
+          oracleId: "combo-goblin",
+          name: "Combo Goblin",
+          typeLine: "Creature — Goblin Shaman",
+          types: ["Creature"],
+          subtypes: ["Goblin", "Shaman"],
+          oracleText: "Haste",
+        };
+
+        const maybeboard = generateCubeMaybeboard(
+          "titou_tribal",
+          [comboGoblin],
+          comboMeta,
+          undefined,
+          undefined,
+          new Map(),
+          undefined,
+          {},
+        );
+
+        expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual(["Combo Goblin"]);
+      });
+
+      it("keeps a card that also serves a non-combo archetype elsewhere", () => {
+        const versatile: MasterCatalogCard = {
+          ...stormPiece,
+          oracleId: "versatile",
+          name: "Versatile Piece",
+          cubeAnalyses: {
+            nico_candyshop: nicoAnalysis(["nico:storm_combo", "nico:boros_aggro"]),
+          },
+        };
+
+        const upgrades = generateCubeUpgradeProposals(
+          "titou_tribal",
+          [mockTargetCard, versatile],
+          comboMeta,
+        );
+
+        expect(upgrades[mockTargetCard.name]?.suggestedCard.name).toBe("Versatile Piece");
+      });
+    });
+
+    describe("tribal discoveries", () => {
+      const cube = Array.from({ length: 20 }, (_, index): MasterCatalogCard => ({
+        ...mockTargetCard,
+        oracleId: `tribal-slot-${String(index)}`,
+        name: `Tribal Slot ${String(index)}`,
+        powerScore: { ...mockTargetCard.powerScore, score: 30 - index },
+      }));
+      const goblin = (
+        name: string,
+        score: number,
+        presentInCubes: string[],
+      ): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        cmc: 2,
+        typeLine: "Creature — Goblin Warrior",
+        types: ["Creature"],
+        subtypes: ["Goblin", "Warrior"],
+        oracleText: "Haste",
+        presentInCubes,
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+        objectiveAnalysis: { ...mockCandidateUpgrade.objectiveAnalysis, roles: ["beater"] },
+      });
+
+      it("keeps an on-tribe card curated in another of our cubes without a peer benchmark", () => {
+        const genericCurated: MasterCatalogCard = {
+          ...mockCandidateUpgrade,
+          oracleId: "generic-curated",
+          name: "Generic Curated Spell",
+          powerScore: { ...mockCandidateUpgrade.powerScore, score: 40 },
+        };
+
+        const maybeboard = generateCubeMaybeboard(
+          "titou_tribal",
+          [
+            ...cube,
+            goblin("Curated Goblin", 40, ["nico_candyshop"]),
+            goblin("Uncurated Goblin", 40, []),
+            goblin("Modest Goblin", 24, ["nico_candyshop"]),
+            genericCurated,
+          ],
+          mockMeta,
+          undefined,
+          undefined,
+          new Map(),
+          undefined,
+          {},
+        );
+
+        expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual(["Curated Goblin"]);
+        expect(maybeboard[0]?.role).toBe("archetype_payoff");
+        expect(
+          maybeboard[0]?.rankingFactors.find((factor) => factor.key === "tribal_coherence"),
+        ).toBeDefined();
+      });
+
+      it("ranks an on-tribe card ahead of a slightly stronger off-tribe staple", () => {
+        const maybeboard = generateCubeMaybeboard(
+          "titou_tribal",
+          [
+            ...cube,
+            goblin("Tribal Goblin", 38, ["nico_candyshop"]),
+            {
+              ...mockCandidateUpgrade,
+              oracleId: "staple-spell",
+              name: "Staple Spell",
+              powerScore: { ...mockCandidateUpgrade.powerScore, score: 41 },
+            },
+          ],
+          mockMeta,
+          undefined,
+          undefined,
+          new Map([["staple spell", ["Peer Cube"]]]),
+          undefined,
+          {},
+        );
+
+        expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual([
+          "Tribal Goblin",
+          "Staple Spell",
+        ]);
+      });
+    });
+
+    it("labels a card matched by color only as a staple, not an archetype payoff", () => {
+      const discovery = (name: string, roles: CardFunctionalRole[]): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        oracleText: "Draw two cards.",
+        objectiveAnalysis: { ...mockCandidateUpgrade.objectiveAnalysis, roles },
+      });
+
+      const maybeboard = generateCubeMaybeboard(
+        "cedric_cube",
+        [
+          discovery("Generic Draw", ["card_advantage"]),
+          discovery("Synergy Draw", ["synergy_payoff"]),
+        ],
+        { ...mockMeta, cubeKey: "cedric_cube" },
+        undefined,
+        undefined,
+        new Map([
+          ["generic draw", ["Peer Cube"]],
+          ["synergy draw", ["Peer Cube"]],
+        ]),
+        undefined,
+        {},
+      );
+
+      expect(
+        Object.fromEntries(maybeboard.map((suggestion) => [suggestion.card.name, suggestion.role])),
+      ).toEqual({ "Generic Draw": "staple", "Synergy Draw": "archetype_payoff" });
     });
   });
 });

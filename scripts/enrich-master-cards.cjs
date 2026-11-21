@@ -652,7 +652,7 @@ const enrichedCards = [
 
   // 11. Elspeth, Storm Slayer (Nico [A])
   {
-    oracleId: '00000000-0000-4000-8000-000000000005',
+    oracleId: 'f78af825-023a-42e9-8374-5c52303a1417',
     name: 'Elspeth, Storm Slayer',
     manaCost: '{3}{W}{W}',
     cmc: 5,

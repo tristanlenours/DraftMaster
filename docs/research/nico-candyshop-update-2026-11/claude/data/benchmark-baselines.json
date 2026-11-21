@@ -1,0 +1,65 @@
+[
+ {
+  "name": "ADD: MTGO Vintage ∖ baseline",
+  "pred": 167,
+  "tp": 85,
+  "precision": 50.9,
+  "recall": 65.4
+ },
+ {
+  "name": "ADD: Vintage Archive ∖ baseline",
+  "pred": 169,
+  "tp": 53,
+  "precision": 31.4,
+  "recall": 40.8
+ },
+ {
+  "name": "ADD: (MTGO ∩ Archive) ∖ baseline",
+  "pred": 86,
+  "tp": 47,
+  "precision": 54.7,
+  "recall": 36.2
+ },
+ {
+  "name": "ADD: (MTGO ∪ Archive) ∖ baseline",
+  "pred": 250,
+  "tp": 91,
+  "precision": 36.4,
+  "recall": 70
+ },
+ {
+  "name": "ADD: IA v5 (maybeboard ∪ upgrades)",
+  "pred": 97,
+  "tp": 24,
+  "precision": 24.7,
+  "recall": 18.5
+ },
+ {
+  "name": "ADD: IA v5 maybeboard seule",
+  "pred": 50,
+  "tp": 21,
+  "precision": 42,
+  "recall": 16.2
+ },
+ {
+  "name": "CUT: baseline ∖ (MTGO ∪ Archive)",
+  "pred": 311,
+  "tp": 107,
+  "precision": 34.4,
+  "recall": 82.3
+ },
+ {
+  "name": "CUT: baseline ∖ (MTGO ∩ Archive)",
+  "pred": 405,
+  "tp": 121,
+  "precision": 29.9,
+  "recall": 93.1
+ },
+ {
+  "name": "CUT: IA v5 (cartes ciblées)",
+  "pred": 96,
+  "tp": 24,
+  "precision": 25,
+  "recall": 18.5
+ }
+]

@@ -23,6 +23,7 @@ The TypeScript runtime on Node.js 26 LTS and npm is active. Available scripts:
 - `npm --silent run simulate -- --seed 42` — run the headless draft simulator CLI.
 - `node scripts/fetch-cubecobra-benchmarks.mjs` — refresh peer CubeCobra cube lists, their compact card details and release metadata (network).
 - `node scripts/import-peer-cube-candidates.mjs --since 2024 [--apply]` — add recent peer-cube cards missing from the catalog as upgrade candidates (Scryfall facts, Elo-calibrated score; network), then run `npm run data:sync`.
+- `node --experimental-strip-types scripts/reconcile-cube-membership.mjs --cube <cubeKey> [--apply]` — after refreshing `data/cubes/<cubeKey>/cubecobra-raw.json`, align card items with the cube list (drop departed cards, add joined ones, create missing cards from Scryfall with an Elo-calibrated score; network), then update the cube's curation module and run `npm run data:sync`.
 - `npm run format` / `npm run format:check` — format / verify formatting across source, tests, config, and `.github/workflows/`.
 - `npm run lint` — lint source and tests with ESLint.
 - `npm run typecheck` — TypeScript typecheck with `tsc --noEmit`.

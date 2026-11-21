@@ -118,7 +118,7 @@ export interface AdvisorRunContext {
 
 export interface CubeSuggestionsReport {
   readonly schemaVersion: 2;
-  readonly engineVersion: "cube-upgrade-advisor@5";
+  readonly engineVersion: "cube-upgrade-advisor@7";
   readonly cubeKey: string;
   readonly snapshotId: string;
   readonly generatedAt: string;
@@ -160,8 +160,15 @@ export interface AdvisorCubeMeta {
     readonly creatureTypes?: readonly string[];
     readonly keyCards?: readonly string[];
     readonly supportCards?: readonly string[];
+    /** Curated archetype category (aggro, midrange, control, ramp, combo). */
+    readonly category?: string | undefined;
   }[];
   readonly dominantMechanics?: readonly string[];
+  /**
+   * Ids of the combo archetypes curated in every cube (Tier 1 data). A card that our cubes play
+   * only for those archetypes is a combo piece, whose power means nothing without its combo.
+   */
+  readonly peerComboArchetypeIds?: readonly string[] | undefined;
 }
 
 interface AdvisorCubePolicy {
@@ -252,7 +259,22 @@ function getCardTier(
   return "C";
 }
 
-function isWeakTarget(card: MasterCatalogCard, cubeKey: string): boolean {
+/**
+ * Key pieces of the cube's archetypes (curated Tier 1 data) are never proposed for a cut: their
+ * power score comes from limited-oriented signals that undervalue narrow but decisive combo and
+ * engine cards (Show and Tell, Griselbrand, a Twin enabler).
+ */
+function getProtectedOracleIds(cubeMeta?: AdvisorCubeMeta): ReadonlySet<string> {
+  return new Set(cubeMeta?.archetypes?.flatMap((archetype) => archetype.keyCards ?? []) ?? []);
+}
+
+function isWeakTarget(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  protectedOracleIds: ReadonlySet<string>,
+): boolean {
+  if (protectedOracleIds.has(card.oracleId)) return false;
+  if (card.cubeAnalyses[cubeKey]?.metaRole === "key") return false;
   const score = getCardScore(card);
   const tier = getCardTier(card, cubeKey);
   const fit = card.cubeAnalyses[cubeKey]?.fit;
@@ -355,7 +377,9 @@ type RulesFunction =
   | "tokens";
 
 function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> {
-  const text = card.oracleText.toLowerCase();
+  // Reminder text explains a keyword, it is not a function of the card (earthbend's reminder
+  // mentions exiling and returning a land you control, which is not a blink).
+  const text = card.oracleText.toLowerCase().replace(/\([^)]*\)/g, "");
   const functions = new Set<RulesFunction>();
 
   // Removal targets an opponent's permanent: "exile target creature you control" is a blink.
@@ -386,7 +410,7 @@ function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> 
     functions.add("card_selection");
   }
   if (
-    text.includes("add {") ||
+    /add (?:an additional )?\{/.test(text) ||
     text.includes("add one mana") ||
     text.includes("add two mana") ||
     /search your library for [^.]*land card[^.]*battlefield/.test(text)
@@ -497,16 +521,85 @@ function isPeasantLegal(
   return true;
 }
 
+/** Curated synergy tags that mark a card as a piece of a combo kill. */
+const COMBO_SYNERGY_TAGS = new Set(["combo", "engine:storm", "alternate-win-condition"]);
+
+/**
+ * A combo piece, per the curation of the other cubes: tagged as part of a combo kill, or played
+ * there only by combo archetypes ("*_staple" import labels say nothing about how it is used).
+ */
+function isComboPiece(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  comboArchetypeIds: ReadonlySet<string>,
+): boolean {
+  const otherAnalyses = Object.entries(card.cubeAnalyses)
+    .filter(([key]) => key !== cubeKey)
+    .map(([, analysis]) => analysis);
+  if (
+    otherAnalyses.some((analysis) =>
+      analysis.synergyTags.some((tag) => COMBO_SYNERGY_TAGS.has(tag)),
+    )
+  ) {
+    return true;
+  }
+  const archetypes = otherAnalyses
+    .flatMap((analysis) => analysis.archetypes)
+    .filter((id) => !id.endsWith("_staple"));
+  return archetypes.length > 0 && archetypes.every((id) => comboArchetypeIds.has(id));
+}
+
+interface CandidateContext {
+  readonly cubeKey: string;
+  readonly policy: AdvisorCubePolicy;
+  /** The cube has no combo archetype, so a combo piece has nothing to combo with. */
+  readonly rejectsComboPieces: boolean;
+  readonly comboArchetypeIds: ReadonlySet<string>;
+  readonly supportedCreatureTypes: ReadonlySet<string>;
+}
+
+function getCandidateContext(cubeKey: string, cubeMeta?: AdvisorCubeMeta): CandidateContext {
+  return {
+    cubeKey,
+    policy: getAdvisorCubePolicy(cubeKey),
+    rejectsComboPieces: !(cubeMeta?.archetypes ?? []).some(
+      (archetype) => archetype.category === "combo",
+    ),
+    comboArchetypeIds: new Set(cubeMeta?.peerComboArchetypeIds ?? []),
+    supportedCreatureTypes: getSupportedCreatureTypes(cubeMeta),
+  };
+}
+
+/** In a tribal cube, a card of one of its tribes keeps a role even without its combo. */
+function hasTribalRole(card: MasterCatalogCard, context: CandidateContext): boolean {
+  return (
+    context.policy.preserveCreatureTypes &&
+    (isChangelingCard(card) ||
+      isUniversalTribalCard(card) ||
+      getCardTribes(card, context.supportedCreatureTypes).length > 0)
+  );
+}
+
 function isCandidateAllowedByPolicy(
   card: MasterCatalogCard,
-  policy: AdvisorCubePolicy,
+  context: CandidateContext,
   releaseInfo: CardReleaseInfo | undefined,
   hasBenchmarkMatch: boolean,
 ): boolean {
+  const { policy } = context;
   if (policy.rarity === "pauper" && !isPauperLegal(card, releaseInfo, hasBenchmarkMatch)) {
     return false;
   }
   if (policy.rarity === "peasant" && !isPeasantLegal(card, releaseInfo, hasBenchmarkMatch)) {
+    return false;
+  }
+  // A peer benchmark of this cube playing the card proves it works without its combo here.
+  if (
+    context.rejectsComboPieces &&
+    !hasBenchmarkMatch &&
+    !hasTribalRole(card, context) &&
+    isComboPiece(card, context.cubeKey, context.comboArchetypeIds)
+  ) {
     return false;
   }
   return (
@@ -587,6 +680,24 @@ function isUniversalTribalCard(card: MasterCatalogCard | { oracleText?: string }
   return !text.includes("opponents control") && !text.includes("vos adversaires contrôlent");
 }
 
+/** Creature types whose plural is not formed by adding an "s" ("Elves you control"). */
+const IRREGULAR_TRIBE_PLURALS: Readonly<Record<string, string>> = {
+  Dwarf: "dwarves",
+  Elf: "elves",
+  Werewolf: "werewolves",
+  Wolf: "wolves",
+};
+
+function namesTribe(text: string, tribe: string): boolean {
+  const singular = tribe.toLowerCase();
+  const plural = IRREGULAR_TRIBE_PLURALS[tribe] ?? `${singular}s`;
+  return new RegExp(`\\b(?:${singular}|${plural})\\b`, "i").test(text);
+}
+
+/**
+ * Supported tribes a card belongs to or supports: its own creature types, plus every tribe its
+ * rules text names (a Human that makes Wolves serves both the Humans and the Wolves decks).
+ */
 function getCardTribes(
   card: MasterCatalogCard,
   supportedCreatureTypes: ReadonlySet<string>,
@@ -595,35 +706,19 @@ function getCardTribes(
     return ["*changeling*"];
   }
 
-  // 1. Check creature subtypes for specific primary tribes (Dragon, Goblin, Elf, Vampire, Angel, Wizard, etc.)
-  if (Array.isArray(card.subtypes)) {
-    const specific = (card.subtypes as readonly string[]).filter((st) =>
-      supportedCreatureTypes.has(st),
-    );
-    if (specific.length > 0) {
-      if (specific.includes("Wolf") || specific.includes("Werewolf")) {
-        return ["Wolf", "Werewolf"];
-      }
-      return [...specific];
-    }
-  }
-
-  // 2. Non-creature cards with explicit dedication to one of the cube's supported tribes.
-  const text = card.oracleText.toLowerCase();
+  // Reminder text is not a tribal reference (the party reminder lists Clerics and Wizards).
+  const text = card.oracleText.toLowerCase().replace(/\([^)]*\)/g, "");
   const typeLine = card.typeLine.toLowerCase();
+  const tribes = [...supportedCreatureTypes].filter(
+    (tribe) =>
+      card.subtypes.includes(tribe) || namesTribe(text, tribe) || namesTribe(typeLine, tribe),
+  );
 
-  for (const tribe of supportedCreatureTypes) {
-    const lower = tribe.toLowerCase();
-    const reg = new RegExp(`\\b${lower}s?\\b`, "i");
-    if (reg.test(text) || reg.test(typeLine)) {
-      if (tribe === "Wolf" || tribe === "Werewolf") {
-        return ["Wolf", "Werewolf"];
-      }
-      return [tribe];
-    }
+  // Wolves and Werewolves are one family: the cube's werewolf deck plays both.
+  if (tribes.includes("Wolf") || tribes.includes("Werewolf")) {
+    return [...new Set([...tribes, "Wolf", "Werewolf"])];
   }
-
-  return [];
+  return tribes;
 }
 
 function areTribalCardsCompatible(
@@ -706,6 +801,26 @@ function findMatchedArchetypeIds(
     .map((archetype) => archetype.id);
 }
 
+/**
+ * The card belongs to, or supports, the creature type of an archetype it fits (a changeling or
+ * a "choose a creature type" card fits every tribe).
+ */
+function isOnTribeForArchetypes(
+  card: MasterCatalogCard,
+  archetypes: readonly AdvisorArchetype[],
+  matchedArchetypeIds: readonly string[],
+  supportedCreatureTypes: ReadonlySet<string>,
+): boolean {
+  const universal = isChangelingCard(card) || isUniversalTribalCard(card);
+  const tribes = getCardTribes(card, supportedCreatureTypes);
+  return archetypes.some(
+    (archetype) =>
+      matchedArchetypeIds.includes(archetype.id) &&
+      (archetype.creatureTypes ?? []).length > 0 &&
+      (universal || tribes.some((tribe) => archetype.creatureTypes?.includes(tribe))),
+  );
+}
+
 /** Archetypes of the cube that the replaced card currently serves (curated Tier 1 data). */
 function getTargetArchetypes(
   target: MasterCatalogCard,
@@ -739,6 +854,9 @@ const SYNERGY_OVERLAP_POINTS_PER_TAG = 3;
 const SYNERGY_OVERLAP_MAX_POINTS = 15;
 const ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE = 6;
 const ARCHETYPE_MATCH_MAX_POINTS = 12;
+const MAYBEBOARD_ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE = 4;
+/** Outweighs a peer benchmark: a tribal cube needs tribe density more than generic staples. */
+const MAYBEBOARD_TRIBAL_COHERENCE_POINTS = 20;
 /** Pushes same-cost swaps ahead of a +1 mana swap of comparable value. */
 const CMC_UP_RANKING_PENALTY = -4;
 
@@ -910,12 +1028,14 @@ export function generateCubeUpgradeProposals(
   // 1. Identify target cards currently in the cube that are candidates for an upgrade
   const cubeCards = catalogCards.filter((c) => c.presentInCubes.includes(cubeKey));
   const thresholds = computeCubeTierThresholds(cubeCards);
-  const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey));
+  const protectedOracleIds = getProtectedOracleIds(cubeMeta);
+  const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey, protectedOracleIds));
 
   // 2. Identify candidate pool: cards in catalog NOT in this cube
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
-  const policy = getAdvisorCubePolicy(cubeKey);
+  const candidateContext = getCandidateContext(cubeKey, cubeMeta);
+  const { policy } = candidateContext;
   const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
   const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
 
@@ -923,7 +1043,9 @@ export function generateCubeUpgradeProposals(
     const candLower = cand.name.toLowerCase();
     const relInfo = releaseMetadataMap?.get(candLower);
     const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
-    if (!isCandidateAllowedByPolicy(cand, policy, relInfo, benchmarks.length > 0)) return [];
+    if (!isCandidateAllowedByPolicy(cand, candidateContext, relInfo, benchmarks.length > 0)) {
+      return [];
+    }
     if (getCardScore(cand) < MIN_INTERESTING_CARD_SCORE) return [];
     return [
       {
@@ -1137,7 +1259,8 @@ export function generateCubeMaybeboard(
   const thresholds = computeCubeTierThresholds(cubeCards);
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
 
-  const policy = getAdvisorCubePolicy(cubeKey);
+  const candidateContext = getCandidateContext(cubeKey, cubeMeta);
+  const { policy } = candidateContext;
   const archetypes = cubeMeta?.archetypes ?? [];
   const supportedCreatureTypes = getSupportedCreatureTypes(cubeMeta);
   const recentReferenceYear = getRecentReferenceYear(releaseMetadataMap);
@@ -1177,6 +1300,7 @@ export function generateCubeMaybeboard(
     relInfo?: CardReleaseInfo | undefined;
     benchmarks: readonly string[];
     rankingFactors: readonly RankingFactor[];
+    isOnTribe: boolean;
   }[] = [];
 
   for (const cand of candidatePool) {
@@ -1185,7 +1309,7 @@ export function generateCubeMaybeboard(
     const benchmarks = benchmarkCardsMap?.get(candLower) ?? [];
     const hasBenchmark = benchmarks.length > 0;
 
-    if (!isCandidateAllowedByPolicy(cand, policy, relInfo, hasBenchmark)) continue;
+    if (!isCandidateAllowedByPolicy(cand, candidateContext, relInfo, hasBenchmark)) continue;
 
     const score = getCardScore(cand);
     const replacesList = replacesByCardName.get(cand.name);
@@ -1213,7 +1337,23 @@ export function generateCubeMaybeboard(
       supportedCreatureTypes,
     );
     if (matchedArchetypes.length > 0) {
-      rankingFactors.push({ key: "archetype_match", points: matchedArchetypes.length * 4 });
+      // Capped like slot-for-slot swaps: a color shared by many archetypes must not outrank a
+      // stronger card of a color that fewer archetypes play.
+      rankingFactors.push({
+        key: "archetype_match",
+        points: Math.min(
+          ARCHETYPE_MATCH_MAX_POINTS,
+          matchedArchetypes.length * MAYBEBOARD_ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE,
+        ),
+      });
+    }
+
+    // In a tribal cube, a card that grows a tribe's density is worth more than a generic staple.
+    const isOnTribe =
+      policy.preserveCreatureTypes &&
+      isOnTribeForArchetypes(cand, archetypes, matchedArchetypes, supportedCreatureTypes);
+    if (isOnTribe) {
+      rankingFactors.push({ key: "tribal_coherence", points: MAYBEBOARD_TRIBAL_COHERENCE_POINTS });
     }
 
     const isRecent = isRecentRelease(relInfo, recentReferenceYear);
@@ -1242,7 +1382,13 @@ export function generateCubeMaybeboard(
     let role: MaybeboardSuggestion["role"] = "staple";
     if (roles.includes("premium_removal")) role = "premium_interaction";
     else if (roles.includes("engine")) role = "engine";
-    else if (matchedArchetypes.length > 0) role = "archetype_payoff";
+    // Sharing an archetype's colors is not enough to be its payoff.
+    else if (
+      matchedArchetypes.length > 0 &&
+      (isOnTribe || roles.includes("synergy_payoff") || roles.includes("synergy_enabler"))
+    ) {
+      role = "archetype_payoff";
+    }
 
     allCandidates.push({
       cand,
@@ -1252,12 +1398,14 @@ export function generateCubeMaybeboard(
       relInfo,
       benchmarks,
       rankingFactors,
+      isOnTribe,
     });
   }
 
-  // Real added value only: a clear gain on an identified slot, or a card without a slot that a
-  // peer cube already plays and that would rank among this cube's best. The list is as long as
-  // the cube deserves.
+  // Real added value only: a clear gain on an identified slot, or a card without a slot that
+  // would rank among this cube's best and has proven itself elsewhere: a peer cube plays it, or,
+  // for a tribe of this cube, another of our curated cubes does. The list is as long as the cube
+  // deserves.
   const discoveryMinScore = getDiscoveryMinScore(thresholds);
   const scoredCandidates = allCandidates
     .filter((item) => {
@@ -1265,7 +1413,9 @@ export function generateCubeMaybeboard(
       if (replaced && replaced.length > 0) {
         return replaced.some((target) => target.scoreDelta >= MIN_ADDED_VALUE_REPLACEMENT_DELTA);
       }
-      return getCardScore(item.cand) >= discoveryMinScore && item.benchmarks.length > 0;
+      const isProven =
+        item.benchmarks.length > 0 || (item.isOnTribe && item.cand.presentInCubes.length > 0);
+      return getCardScore(item.cand) >= discoveryMinScore && isProven;
     })
     .sort((a, b) => b.compositeScore - a.compositeScore);
 
@@ -1414,7 +1564,7 @@ export function generateCubeSuggestionsReport(
 
   return {
     schemaVersion: 2,
-    engineVersion: "cube-upgrade-advisor@5",
+    engineVersion: "cube-upgrade-advisor@7",
     cubeKey,
     snapshotId: cubeMeta.activeSnapshotId,
     generatedAt: runContext.generatedAt,

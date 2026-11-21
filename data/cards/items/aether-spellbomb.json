@@ -28,15 +28,16 @@
   },
   "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a54e8ce9-edd7-4ae7-9521-6fb6727cf63b.jpg?1783930343",
   "powerScore": {
-    "score": 26,
+    "score": 29.8,
     "source": "expert_heuristic",
-    "rawSourceScore": 26,
+    "rawSourceScore": 29.8,
     "harmonizationDegree": "calibrated_medium",
     "confidence": 0.6,
     "updatedAt": "2026-09-15T21:17:13.920Z"
   },
   "presentInCubes": [
-    "titou_tribal"
+    "titou_tribal",
+    "nico_candyshop"
   ],
   "objectiveAnalysis": {
     "summary": "Aether Spellbomb est une carte solide offrant un bon tempo et une flexibilité appréciable.",
@@ -61,7 +62,7 @@
       "archetypes": [],
       "synergyTags": [],
       "scoreModifier": 0,
-      "analysis": "Carte de rang A- (Score : 26.0) dans l'environnement tribal et interactif de Titou.",
+      "analysis": "Carte de rang A- (Score : 29.8) dans l'environnement tribal et interactif de Titou.",
       "pedagogy": {
         "howToPlay": "Jouez Aether Spellbomb sur courbe de mana pour consolider la présence sur table.",
         "archetypeFit": [
@@ -71,13 +72,30 @@
             ],
             "archetype": "TRIBAL SYNERGY",
             "grade": "A-",
-            "winrateOrScore": "Score 26.0",
+            "winrateOrScore": "Score 29.8",
             "comment": "Alignement au métagame Titou Tribal (A-)."
           }
         ]
       },
       "metaBonus": 0,
       "metaRole": "neutral"
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "archetypes": [
+        "nico:artifact_ramp"
+      ],
+      "synergyTags": [
+        "removal-bounce",
+        "blue-effect",
+        "bounce"
+      ],
+      "scoreModifier": 4,
+      "analysis": "Entrée dans le cube lors de la mise à jour CubeCobra du 2026-11-18.",
+      "tier": "B",
+      "metaBonus": 4,
+      "metaRole": "support"
     }
   },
   "frenchName": "Bombe à sortilèges d'Éther",

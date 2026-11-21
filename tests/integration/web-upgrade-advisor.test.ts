@@ -65,7 +65,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
         const raw = await readFile(filePath, "utf-8");
         const data = JSON.parse(raw) as CubeSuggestionsReport;
         expect(data.schemaVersion).toBe(2);
-        expect(data.engineVersion).toBe("cube-upgrade-advisor@5");
+        expect(data.engineVersion).toBe("cube-upgrade-advisor@7");
         expect(data.cubeKey).toBe(cubeKey);
         expect(data.snapshotId).toBeTruthy();
         expect(data.sourceProvenance.catalog.sha256).toMatch(/^[a-f0-9]{64}$/);
@@ -107,7 +107,15 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
               suggestion.card.name,
             ).toBeGreaterThanOrEqual(12);
           } else {
-            expect(suggestion.benchmarkCubes?.length ?? 0, suggestion.card.name).toBeGreaterThan(0);
+            // A card without a slot is proven elsewhere: a peer benchmark plays it, or it is a
+            // card of one of the cube's tribes curated in another of our cubes.
+            const isProvenTribalCard = suggestion.rankingFactors.some(
+              (factor) => factor.key === "tribal_coherence",
+            );
+            expect(
+              (suggestion.benchmarkCubes?.length ?? 0) > 0 || isProvenTribalCard,
+              suggestion.card.name,
+            ).toBe(true);
           }
         }
         expect(data.stats.recentMaybeboardCount).toBeLessThanOrEqual(data.stats.totalMaybeboard);

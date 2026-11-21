@@ -42,7 +42,8 @@
     "updatedAt": "2026-09-15T16:38:14.524Z"
   },
   "presentInCubes": [
-    "cedric_cube"
+    "cedric_cube",
+    "nico_candyshop"
   ],
   "objectiveAnalysis": {
     "summary": "Carte High-Power sélectionnée pour le Cube de Cédric (Score : 24.0).",
@@ -90,6 +91,24 @@
       },
       "metaBonus": 4,
       "metaRole": "support"
+    },
+    "nico_candyshop": {
+      "cubeKey": "nico_candyshop",
+      "fit": "support",
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:green_ramp"
+      ],
+      "synergyTags": [
+        "splits-on-death",
+        "leaves-body-behind",
+        "death-trigger-self"
+      ],
+      "scoreModifier": 8,
+      "analysis": "Entrée dans le cube lors de la mise à jour CubeCobra du 2026-11-18.",
+      "tier": "C+",
+      "metaBonus": 8,
+      "metaRole": "key"
     }
   }
 }
