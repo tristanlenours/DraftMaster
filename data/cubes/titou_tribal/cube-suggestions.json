@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@5",
+  "engineVersion": "cube-upgrade-advisor@6",
   "cubeKey": "titou_tribal",
   "snapshotId": "titou_tribal@2026-02-24.1",
-  "generatedAt": "2026-11-07T11:36:04.936Z",
+  "generatedAt": "2026-11-18T12:26:56.317Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-07T11:36:04.936Z",
+    "generatedAt": "2026-11-18T12:26:56.317Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "df90b7b69d237a361db4c18d1eb19d01db070180d9f6aae23a0e94ecbc3be86c",
+      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -41,20 +41,20 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2194,
-    "availableCandidates": 1652,
+    "catalogCards": 2240,
+    "availableCandidates": 1698,
     "benchmarkCards": 540,
-    "benchmarkCardsInCatalog": 182,
-    "missingBenchmarkCards": 358,
+    "benchmarkCardsInCatalog": 183,
+    "missingBenchmarkCards": 357,
     "benchmarkCoveragePercentage": 34
   },
   "stats": {
-    "totalUpgrades": 48,
-    "totalMaybeboard": 39,
-    "recentUpgradesCount": 23,
-    "benchmarkMatchesCount": 5,
-    "recentMaybeboardCount": 16,
-    "directReplacementMaybeboardCount": 34
+    "totalUpgrades": 41,
+    "totalMaybeboard": 37,
+    "recentUpgradesCount": 17,
+    "benchmarkMatchesCount": 6,
+    "recentMaybeboardCount": 11,
+    "directReplacementMaybeboardCount": 31
   },
   "upgrades": {
     "Act of Treason": {
@@ -178,142 +178,6 @@
         }
       ]
     },
-    "Baral, Chief of Compliance": {
-      "targetCard": {
-        "oracleId": "baf80db7-2ca8-4bfc-b5b6-25ed51878dd7",
-        "name": "Baral, Chief of Compliance",
-        "score": 18.1,
-        "tier": "D",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/6/0/60e16d94-1166-4050-8554-686e153a7f80.jpg?1783936774",
-        "frenchName": "Baral, directeur de conformité",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/c/cc45cb24-8e6c-45fa-9ea3-943200ce024e.jpg?1782823487",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2017,
-        "set": "AER",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a",
-        "name": "Tamiyo, Inquisitive Student",
-        "score": 45,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Legendary Creature — Moonfolk Wizard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/1b234fee-a2b6-4661-9f98-4da6fc26aebc/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 26.9,
-      "reason": "Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+26.9 pts). Reste au service de Izzet Sorciers Spells & Tempo.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Izzet Sorciers Spells & Tempo (+26.9 pts).",
-        "affectedArchetypes": [
-          "Izzet Sorciers Spells & Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 90,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 45
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Battle Cry Goblin": {
-      "targetCard": {
-        "oracleId": "e74c4001-d958-4d2b-b57d-c3601f01580c",
-        "name": "Battle Cry Goblin",
-        "score": 19.8,
-        "tier": "C-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin",
-        "imageUrl": "https://cards.scryfall.io/normal/front/9/7/9766a427-2bb3-4028-a502-d1194cdc93aa.jpg?1783926484",
-        "frenchName": "Gobelin au cri de guerre",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/2/12f9c643-810c-4a8f-911e-0ccfb5fbc14f.jpg?1782781258",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2021,
-        "set": "AFR",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
-        "name": "Sokenzan Smelter",
-        "score": 30.1,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 10.3,
-      "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+10.3 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+10.3 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "rankingScore": 67.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.1
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        }
-      ]
-    },
     "Blustersquall": {
       "targetCard": {
         "oracleId": "2dfad8c3-1973-4fc8-971d-f66cacd88070",
@@ -332,44 +196,48 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "9728dec9-d482-4c7a-8cdc-44d010dc878d",
-        "name": "Ancestral Vision",
-        "score": 27.8,
+        "oracleId": "6df1c314-b97b-4bbc-8b7e-a07785347a49",
+        "name": "Occult Epiphany",
+        "score": 29.8,
         "tier": "A-",
-        "cmc": 0,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bccedc4d-38c7-4bf3-9ca7-4febd6c49d3d/normal.webp",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/e/5/e5fcfaff-2fd0-46d8-b863-ad25558c9e95.jpg?1789599813",
         "colors": [
           "U"
         ],
-        "releaseYear": 2006,
-        "set": "TSP",
+        "releaseYear": 2021,
+        "set": "VOC",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 10.6,
-      "reason": "Coût de mana plus agressif (0 vs 1) permettant d'accélérer le tempo et d'optimiser la curve (+10.6 pts).",
+      "scoreDelta": 12.6,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.6 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (0 vs 1 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+10.6 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+12.6 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
           "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2006)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "Référence confirmée (2021)"
       },
-      "releaseYear": 2006,
+      "releaseYear": 2021,
       "isRecent": false,
-      "rankingScore": 30.8,
+      "rankingScore": 38.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 29.8
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
-          "points": 3
+          "points": 1
         }
       ]
     },
@@ -562,73 +430,6 @@
         {
           "key": "peer_benchmark",
           "points": 15
-        }
-      ]
-    },
-    "Collected Company": {
-      "targetCard": {
-        "oracleId": "0bbcb563-09b3-499d-a9cc-3a6d7501dd81",
-        "name": "Collected Company",
-        "score": 18.1,
-        "tier": "D",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/c/f/cfa7b456-7e83-4587-a875-9b35fde318c2.jpg?1783938582",
-        "frenchName": "Collected Company",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2015,
-        "set": "SLD",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "8e121178-e9e3-43a5-a174-ecbe47d759f9",
-        "name": "Under the Skin",
-        "score": 26.3,
-        "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/0aaf1ad3-00ad-48ec-a71f-812649d55e14/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2024,
-        "set": "DSK",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 8.2,
-      "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+8.2 pts). Reste au service de Golgari Elfes Ramp & Swarm & Mono-W / Selesnya Humains Aggro.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (3 vs 4 mana) tout en renforçant les archétypes Golgari Elfes Ramp & Swarm & Gruul Loups & Garous Midrange & Temur/5-Color Dragons Ramp & Bombes (+8.2 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm",
-          "Gruul Loups & Garous Midrange",
-          "Temur/5-Color Dragons Ramp & Bombes"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 47.3,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26.3
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -1020,215 +821,6 @@
         }
       ]
     },
-    "Dwynen, Gilt-Leaf Daen": {
-      "targetCard": {
-        "oracleId": "30d0d75f-e94c-460b-b957-9f1d655c0f65",
-        "name": "Dwynen, Gilt-Leaf Daen",
-        "score": 15.5,
-        "tier": "F",
-        "cmc": 4,
-        "typeLine": "Legendary Creature — Elf Warrior",
-        "imageUrl": "https://cards.scryfall.io/normal/front/0/1/01c00d7b-7fac-4f8c-a1ea-de2cf4d06627.jpg?1783909060",
-        "frenchName": "Dwynen, Gilt-Leaf Daen",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2015,
-        "set": "ORI",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "5bd06f9e-9a42-455d-ad26-24bc04e51c7c",
-        "name": "Formidable Speaker",
-        "score": 34,
-        "tier": "A",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://cards.scryfall.io/normal/front/2/6/265522eb-4f6a-40e7-b374-3833fa63c80b.jpg?1783904430",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2026,
-        "set": "ECL",
-        "isRecent": true
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 18.5,
-      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+18.5 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (3 vs 4 mana) tout en renforçant les archétypes Golgari Elfes Ramp & Swarm (+18.5 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [ECL]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 87,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 34
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Elvish Archdruid": {
-      "targetCard": {
-        "oracleId": "6e2c2423-d854-4478-99e6-64f29851f026",
-        "name": "Elvish Archdruid",
-        "score": 19.3,
-        "tier": "C-",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://cards.scryfall.io/normal/front/0/0/006ff5a3-355b-4a7d-b402-bb3c8d32a585.jpg?1785497593",
-        "frenchName": "Archidruide elfe",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/f/1fcd269d-b314-4579-92a6-4da4c4c3f8f0.jpg?1786552433",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2009,
-        "set": "DDU",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "788a4896-3414-40bf-b391-d2efea2fb5f9",
-        "name": "Springbloom Druid",
-        "score": 27.4,
-        "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/6161d2ed-7cff-4c90-9e74-1d179a6c1498/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2019,
-        "set": "MH1",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 8.1,
-      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+8.1 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+8.1 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Moteur de Synergie & Récurrence Continue",
-        "releaseContext": "Référence confirmée (2019)"
-      },
-      "releaseYear": 2019,
-      "isRecent": false,
-      "rankingScore": 64.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.4
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        }
-      ]
-    },
-    "Ezuri, Renegade Leader": {
-      "targetCard": {
-        "oracleId": "6734497c-16f0-4c4b-ba24-337333511fc6",
-        "name": "Ezuri, Renegade Leader",
-        "score": 17.9,
-        "tier": "D",
-        "cmc": 3,
-        "typeLine": "Legendary Creature — Elf Warrior",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/a/8a448dbf-08a1-4145-a4b2-0265cc9f2e53.jpg?1783935094",
-        "frenchName": "Ezuri, chef renégat",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/1/11804e50-d448-4006-8e8c-95a9890f577a.jpg?1782966152",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2010,
-        "set": "DDU",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e5152e8d-9f55-493d-a0fc-753cc72ee299",
-        "name": "Emeritus of Abundance",
-        "score": 32,
-        "tier": "A",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid // Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/c/ac095763-6f4e-4d4e-9c99-414646368f8d.jpg?1783903660",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 14.1,
-      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.1 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+14.1 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Moteur de Synergie & Récurrence Continue",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 75,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 32
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Fabled Passage": {
       "targetCard": {
         "oracleId": "0c85b8f7-0bd0-4680-9ec5-d4b110460a54",
@@ -1374,7 +966,7 @@
       "suggestedCard": {
         "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
         "name": "Brain Freeze",
-        "score": 37.2,
+        "score": 36.6,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
@@ -1387,10 +979,10 @@
         "isRecent": false
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 19.3,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "scoreDelta": 18.7,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+18.7 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+19.3 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+18.7 pts).",
         "affectedArchetypes": [
           "Temur/5-Color Dragons Ramp & Bombes",
           "Izzet Sorciers Spells & Tempo",
@@ -1401,11 +993,11 @@
       },
       "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 48.2,
+      "rankingScore": 47.6,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 37.2
+          "points": 36.6
         },
         {
           "key": "role_alignment",
@@ -1414,78 +1006,6 @@
         {
           "key": "mana_efficiency",
           "points": 3
-        }
-      ]
-    },
-    "Goblin Electromancer": {
-      "targetCard": {
-        "oracleId": "81f06f84-1580-43c0-89d5-08d34541a519",
-        "name": "Goblin Electromancer",
-        "score": 18.9,
-        "tier": "D+",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/b/d/bd9eca71-2430-4112-a23a-fba76ca2efb4.jpg?1783907139",
-        "frenchName": "Électromancien gobelin",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/8/0/80f3de86-f9a4-42cc-bedf-94b1540d0955.jpg?1782773972",
-        "colors": [
-          "R",
-          "U"
-        ],
-        "releaseYear": 2012,
-        "set": "RTR",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "0452be2a-e97a-4269-a9e3-b616265ecb2e",
-        "name": "Vivi Ornitier",
-        "score": 33,
-        "tier": "A",
-        "cmc": 3,
-        "typeLine": "Legendary Creature — Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/e/c/ecc1027a-8c07-44a0-bdde-fa2844cff694.jpg?1783906561",
-        "colors": [
-          "R",
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "FIN",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 14.1,
-      "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+14.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Sorciers Spells & Tempo.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet Sorciers Spells & Tempo (+14.1 pts).",
-        "affectedArchetypes": [
-          "Izzet Sorciers Spells & Tempo"
-        ],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 71,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": -4
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -1621,6 +1141,76 @@
         {
           "key": "tribal_coherence",
           "points": 30
+        }
+      ]
+    },
+    "Guttersnipe": {
+      "targetCard": {
+        "oracleId": "c6bdaf76-6a03-4695-9c4b-f040e73435af",
+        "name": "Guttersnipe",
+        "score": 18.1,
+        "tier": "D",
+        "cmc": 3,
+        "typeLine": "Creature — Goblin Shaman",
+        "imageUrl": "https://cards.scryfall.io/normal/front/f/6/f6bb1ffc-2251-4655-b8f9-4c8047dd5d5f.jpg?1785497556",
+        "frenchName": "Gobelin des rues",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/0/c04d452f-a0cd-4449-a1cf-5cc2214e4f8f.jpg?1786552194",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2012,
+        "set": "RTR",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
+        "name": "Bothersome Noisemaker",
+        "score": 29.9,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Bard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
+      },
+      "swapType": "archetype_booster",
+      "scoreDelta": 11.8,
+      "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+11.8 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Rakdos Gobelins Aggro & Burn (+11.8 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 74.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.9
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 30
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -2097,66 +1687,6 @@
         }
       ]
     },
-    "Martial Coup": {
-      "targetCard": {
-        "oracleId": "2b7c4dab-e432-4b34-b058-3cec5c0d72df",
-        "name": "Martial Coup",
-        "score": 19.2,
-        "tier": "D+",
-        "cmc": 2,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/0/a0660e74-6973-41d7-a20b-8d71fed1495a.jpg?1783903247",
-        "frenchName": "Coup d'état militaire",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/3/c/3cd94af8-244e-492f-8000-f1f3019c6558.jpg?1785262500",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2009,
-        "set": "CON",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "35bba442-1aec-4d33-b502-4c580d61644b",
-        "name": "Fateful Absence",
-        "score": 28.3,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/eca8d6f8-c6f1-437c-99e2-4281eae14a6f/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2021,
-        "set": "MID",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 9.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+9.1 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Mardu Vampires Aristocrates & Drain & Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+9.1 pts).",
-        "affectedArchetypes": [
-          "Mardu Vampires Aristocrates & Drain",
-          "Orzhov/Mono-W Anges & Clercs",
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2021)"
-      },
-      "releaseYear": 2021,
-      "isRecent": false,
-      "rankingScore": 29.3,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.3
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        }
-      ]
-    },
     "Mogg War Marshal": {
       "targetCard": {
         "oracleId": "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
@@ -2176,38 +1706,38 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
-        "name": "Bothersome Noisemaker",
-        "score": 29.9,
+        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "name": "Sokenzan Smelter",
+        "score": 30.1,
         "tier": "A-",
         "cmc": 2,
-        "typeLine": "Creature — Goblin Bard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
+        "typeLine": "Creature — Goblin Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 12,
-      "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "scoreDelta": 12.2,
+      "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+12 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+12.2 pts).",
         "affectedArchetypes": [
           "Rakdos Gobelins Aggro & Burn"
         ],
         "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 72.9,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "rankingScore": 67.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.9
+          "points": 30.1
         },
         {
           "key": "archetype_match",
@@ -2220,10 +1750,70 @@
         {
           "key": "tribal_coherence",
           "points": 30
+        }
+      ]
+    },
+    "Nighthawk Scavenger": {
+      "targetCard": {
+        "oracleId": "379ed4ec-8f2e-448b-9ed2-a3181e2f877e",
+        "name": "Nighthawk Scavenger",
+        "score": 19.8,
+        "tier": "C-",
+        "cmc": 3,
+        "typeLine": "Creature — Vampire Rogue",
+        "imageUrl": "https://cards.scryfall.io/normal/front/4/7/47433ce9-1ac6-4359-a5e4-4ec68490cb0c.jpg?1783911927",
+        "frenchName": "Charognard faucon de nuit",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/3/d/3d502093-6bb1-4871-98f0-e3ba9fad1acc.jpg?1782798356",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2020,
+        "set": "ZNR",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "colors": [
+          "B"
+        ],
+        "isRecent": false
+      },
+      "swapType": "archetype_booster",
+      "scoreDelta": 10,
+      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+10 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Changelins & Liant Universel (The Glue)"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "rankingScore": 68.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
         },
         {
-          "key": "recent_release",
+          "key": "archetype_match",
           "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 30
         }
       ]
     },
@@ -2246,38 +1836,42 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "91f410c5-4313-462f-8d21-da63988d919f",
-        "name": "Sutina, Speaker of the Tajuru",
-        "score": 33.3,
+        "oracleId": "5bd06f9e-9a42-455d-ad26-24bc04e51c7c",
+        "name": "Formidable Speaker",
+        "score": 34,
         "tier": "A",
         "cmc": 3,
-        "typeLine": "Legendary Creature — Elf Scout",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/1b794170-4ffd-4628-ba5a-b9293bb364dc/normal.webp",
+        "typeLine": "Creature — Elf Druid",
+        "imageUrl": "https://cards.scryfall.io/normal/front/2/6/265522eb-4f6a-40e7-b374-3833fa63c80b.jpg?1783904430",
         "colors": [
           "G"
         ],
-        "releaseYear": 2024,
-        "set": "J25",
+        "releaseYear": 2026,
+        "set": "ECL",
         "isRecent": true
       },
       "swapType": "strict_upgrade",
-      "scoreDelta": 16.3,
-      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+16.3 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
+      "scoreDelta": 17,
+      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+17 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+16.3 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+17 pts).",
         "affectedArchetypes": [
           "Golgari Elfes Ramp & Swarm"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [J25]"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [ECL]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 76.3,
+      "rankingScore": 85,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33.3
+          "points": 34
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "archetype_match",
@@ -2489,72 +2083,6 @@
         {
           "key": "recent_release",
           "points": 6
-        }
-      ]
-    },
-    "Riders of Gavony": {
-      "targetCard": {
-        "oracleId": "60dabe9e-4872-4aec-9e8e-35358b3b7dd5",
-        "name": "Riders of Gavony",
-        "score": 16.5,
-        "tier": "F",
-        "cmc": 4,
-        "typeLine": "Creature — Human Knight",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/5/3586c558-fb74-41ba-9ce0-0269154a9205.jpg?1783925350",
-        "frenchName": "Cavaliers de Gavonie",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/d/e/de7e1ccf-fed6-41e9-b896-3aa964ef5a7e.jpg?1782869536",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2012,
-        "set": "AVR",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "5ea675aa-88d6-4387-a14d-e606fa9c3aec",
-        "name": "Seasoned Dungeoneer",
-        "score": 44.5,
-        "tier": "A+",
-        "cmc": 4,
-        "typeLine": "Creature — Human Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7fee3f76-20a8-4621-84fb-ddf79c955532/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2022,
-        "set": "CLB",
-        "isRecent": false
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 28,
-      "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+28 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+28 pts).",
-        "affectedArchetypes": [
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "rankingScore": 81.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 44.5
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
         }
       ]
     },
@@ -3082,38 +2610,42 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "922d9d79-8038-4185-9dfb-2d2d52fd8460",
-        "name": "Serum Visionary",
-        "score": 26,
-        "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Creature — Vedalken Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/0/8/08a587f5-5910-405e-8982-c889dbbc7f98.jpg?1783911288",
+        "oracleId": "1de1b591-a73f-4974-b507-8c63e07a0868",
+        "name": "Thassa's Oracle",
+        "score": 33.1,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Creature — Merfolk Wizard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/726e8b29-13e9-4138-b6a9-d2a0d8188d1c/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
       },
-      "swapType": "archetype_booster",
-      "scoreDelta": 8.1,
-      "reason": "Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+8.1 pts). Reste au service de Izzet Sorciers Spells & Tempo.",
+      "swapType": "strict_upgrade",
+      "scoreDelta": 15.2,
+      "reason": "Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+15.2 pts). Reste au service de Izzet Sorciers Spells & Tempo.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet Sorciers Spells & Tempo (+8.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet Sorciers Spells & Tempo (+15.2 pts).",
         "affectedArchetypes": [
           "Izzet Sorciers Spells & Tempo"
         ],
         "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
+        "releaseContext": "Référence confirmée (2020)"
       },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 69,
+      "releaseYear": 2020,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Tribal Synergy Cube"
+      ],
+      "rankingScore": 87.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26
+          "points": 33.1
         },
         {
           "key": "archetype_match",
@@ -3121,15 +2653,15 @@
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
         },
         {
           "key": "tribal_coherence",
           "points": 30
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -3244,7 +2776,7 @@
           "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+22.1 pts)."
         }
       ],
-      "rankingScore": 112,
+      "rankingScore": 96,
       "rankingFactors": [
         {
           "key": "power",
@@ -3256,7 +2788,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 28
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3316,7 +2848,7 @@
           "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+18.1 pts)."
         }
       ],
-      "rankingScore": 105,
+      "rankingScore": 93,
       "rankingFactors": [
         {
           "key": "power",
@@ -3328,80 +2860,11 @@
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "peer_benchmark",
           "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
-        "name": "Choco-Comet",
-        "score": 38,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/8d8d3903-a7f4-4cd8-8d29-b4a173e4fbb2/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2025,
-        "set": "FIN",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_werewolves",
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Brimstone Volley (+20.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+38 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Gruul Loups & Garous Midrange"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Brimstone Volley",
-          "frenchName": "Volée sulfureuse",
-          "score": 17.9,
-          "tier": "D",
-          "scoreDelta": 20.1,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts)."
-        }
-      ],
-      "rankingScore": 102,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 38
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 28
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -3453,7 +2916,7 @@
           "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+20.2 pts) qui justifie le décalage de curve."
         }
       ],
-      "rankingScore": 99.9,
+      "rankingScore": 87.9,
       "rankingFactors": [
         {
           "key": "power",
@@ -3465,7 +2928,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -3525,7 +2988,7 @@
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.6 pts)."
         }
       ],
-      "rankingScore": 99.5,
+      "rankingScore": 87.5,
       "rankingFactors": [
         {
           "key": "power",
@@ -3537,7 +3000,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3547,84 +3010,18 @@
     },
     {
       "card": {
-        "oracleId": "4457ed35-7c10-48c8-9776-456485fdf071",
-        "name": "Hadoken",
-        "score": 41.4,
+        "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
+        "name": "Choco-Comet",
+        "score": 38,
         "tier": "A",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/27740ea5-79c8-420f-bc49-6d5eac58dac5/normal.webp",
-        "frenchName": "Hadoken",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1993,
-        "set": "SLD",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_werewolves",
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Devil's Play (+23.5 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.5 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+41.4 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Gruul Loups & Garous Midrange"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1993)"
-      },
-      "releaseYear": 1993,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Devil's Play",
-          "frenchName": "Manœuvre du diable",
-          "score": 17.9,
-          "tier": "D",
-          "scoreDelta": 23.5,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.5 pts)."
-        }
-      ],
-      "rankingScore": 99.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 41.4
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 28
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "a9282f91-638e-414b-8b3d-9a99e30aec96",
-        "name": "Firebending Lesson",
-        "score": 33.4,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Instant — Lesson",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/fa940e68-010e-4b68-be8a-555d7068f7b4/normal.webp",
+        "cmc": 2,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/8d8d3903-a7f4-4cd8-8d29-b4a173e4fbb2/normal.webp",
         "colors": [
           "R"
         ],
         "releaseYear": 2025,
-        "set": "TLA",
+        "set": "FIN",
         "isRecent": true
       },
       "archetypes": [
@@ -3636,78 +3033,8 @@
         "titou:chromatic_legends",
         "titou:tribal_glue"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Play with Fire (+15.3 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.3 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+33.4 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Gruul Loups & Garous Midrange"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Play with Fire",
-          "frenchName": "S'amuser avec le feu",
-          "score": 18.1,
-          "tier": "D",
-          "scoreDelta": 15.3,
-          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.3 pts)."
-        }
-      ],
-      "rankingScore": 97.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.4
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 28
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
-        "name": "Chain Lightning",
-        "score": 38,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9ca05db2-ad92-4f4a-992d-b7f08f4f9c26/normal.webp",
-        "frenchName": "Chaîne d'éclairs",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1994,
-        "set": "PD2",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_werewolves",
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Bonfire of the Damned (+19.7 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+19.7 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Brimstone Volley (+20.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+38 pts).",
         "affectedArchetypes": [
@@ -3716,21 +3043,21 @@
           "Gruul Loups & Garous Midrange"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1994)"
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
       },
-      "releaseYear": 1994,
-      "isRecent": false,
+      "releaseYear": 2025,
+      "isRecent": true,
       "replacesCards": [
         {
-          "name": "Bonfire of the Damned",
-          "frenchName": "Bonfire of the Damned",
-          "score": 18.3,
+          "name": "Brimstone Volley",
+          "frenchName": "Volée sulfureuse",
+          "score": 17.9,
           "tier": "D",
-          "scoreDelta": 19.7,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+19.7 pts)."
+          "scoreDelta": 20.1,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+20.1 pts)."
         }
       ],
-      "rankingScore": 96,
+      "rankingScore": 86,
       "rankingFactors": [
         {
           "key": "power",
@@ -3742,268 +3069,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 28
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
-        "name": "Underworld Breach",
-        "score": 37.2,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Enchantment",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2020,
-        "set": "THB",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_werewolves",
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "engine",
-      "rationale": "Proposée en remplacement poste pour poste de Sulfuric Vortex (+19.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+37.2 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Gruul Loups & Garous Midrange"
-        ],
-        "strategicRole": "Moteur de Synergie & Récurrence Continue",
-        "releaseContext": "Référence confirmée (2020)"
-      },
-      "releaseYear": 2020,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Sulfuric Vortex",
-          "frenchName": "Vortex sulfureux",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 19.3,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
-        }
-      ],
-      "rankingScore": 95.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 37.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 28
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
-        "name": "Snuff Out",
-        "score": 40,
-        "tier": "A",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
-        "frenchName": "Dégommage",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 1999,
-        "set": "MMQ",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_elves",
-        "titou:tribal_angels",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Baleful Mastery (+26 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+40 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (1999)"
-      },
-      "releaseYear": 1999,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Baleful Mastery",
-          "frenchName": "Maîtrise sinistre",
-          "score": 14,
-          "tier": "F",
-          "scoreDelta": 26,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26 pts)."
-        }
-      ],
-      "rankingScore": 94,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 24
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
-        "name": "Fell the Profane",
-        "score": 33.8,
-        "tier": "A",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a3cb782d-c459-468d-9779-9b5669abc337/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_elves",
-        "titou:tribal_angels",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Sever the Bloodline (+15.5 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+15.5 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+33.8 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Sever the Bloodline",
-          "frenchName": "Interrompre la lignée",
-          "score": 18.3,
-          "tier": "D",
-          "scoreDelta": 15.5,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+15.5 pts)."
-        }
-      ],
-      "rankingScore": 93.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.8
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 24
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "2e467fab-e808-44d3-99bf-e3621baeb7cb",
-        "name": "Erode",
-        "score": 34,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32e670da-7563-4f6a-a7db-4c126a440eb8.jpg?1783903705",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_vampires",
-        "titou:tribal_angels",
-        "titou:tribal_humans",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Valorous Stance (+15.3 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+15.3 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Mardu Vampires Aristocrates & Drain & Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+34 pts).",
-        "affectedArchetypes": [
-          "Mardu Vampires Aristocrates & Drain",
-          "Orzhov/Mono-W Anges & Clercs",
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Valorous Stance",
-          "frenchName": "Posture valeureuse",
-          "score": 18.7,
-          "tier": "D+",
-          "scoreDelta": 15.3,
-          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+15.3 pts)."
-        }
-      ],
-      "rankingScore": 90,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 34
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -4062,7 +3128,7 @@
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts)."
         }
       ],
-      "rankingScore": 89,
+      "rankingScore": 85,
       "rankingFactors": [
         {
           "key": "power",
@@ -4074,7 +3140,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -4084,18 +3150,19 @@
     },
     {
       "card": {
-        "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
-        "name": "Wheel of Fortune",
-        "score": 31,
+        "oracleId": "4457ed35-7c10-48c8-9776-456485fdf071",
+        "name": "Hadoken",
+        "score": 41.4,
         "tier": "A",
-        "cmc": 3,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a8a47aa2-7274-465a-865b-68fe47d4fa81/normal.webp",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/27740ea5-79c8-420f-bc49-6d5eac58dac5/normal.webp",
+        "frenchName": "Hadoken",
         "colors": [
           "R"
         ],
         "releaseYear": 1993,
-        "set": "G10",
+        "set": "SLD",
         "isRecent": false
       },
       "archetypes": [
@@ -4107,35 +3174,35 @@
         "titou:chromatic_legends",
         "titou:tribal_glue"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Act of Treason (+16 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+16 pts).",
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Devil's Play (+23.5 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.5 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+31 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+41.4 pts).",
         "affectedArchetypes": [
           "Rakdos Gobelins Aggro & Burn",
           "Mardu Vampires Aristocrates & Drain",
           "Gruul Loups & Garous Midrange"
         ],
-        "strategicRole": "Générateur de Card Advantage Actif",
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
         "releaseContext": "Référence confirmée (1993)"
       },
       "releaseYear": 1993,
       "isRecent": false,
       "replacesCards": [
         {
-          "name": "Act of Treason",
-          "frenchName": "Acte de trahison",
-          "score": 15,
-          "tier": "F",
-          "scoreDelta": 16,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+16 pts)."
+          "name": "Devil's Play",
+          "frenchName": "Manœuvre du diable",
+          "score": 17.9,
+          "tier": "D",
+          "scoreDelta": 23.5,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.5 pts)."
         }
       ],
-      "rankingScore": 89,
+      "rankingScore": 83.4,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 31
+          "points": 41.4
         },
         {
           "key": "direct_replacement",
@@ -4143,7 +3210,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 28
+          "points": 12
         }
       ]
     },
@@ -4194,7 +3261,7 @@
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+23.1 pts)."
         }
       ],
-      "rankingScore": 87,
+      "rankingScore": 83,
       "rankingFactors": [
         {
           "key": "power",
@@ -4206,7 +3273,74 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "2e467fab-e808-44d3-99bf-e3621baeb7cb",
+        "name": "Erode",
+        "score": 34,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32e670da-7563-4f6a-a7db-4c126a440eb8.jpg?1783903705",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_vampires",
+        "titou:tribal_angels",
+        "titou:tribal_humans",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Valorous Stance (+15.3 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+15.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Mardu Vampires Aristocrates & Drain & Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+34 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Orzhov/Mono-W Anges & Clercs",
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Valorous Stance",
+          "frenchName": "Posture valeureuse",
+          "score": 18.7,
+          "tier": "D+",
+          "scoreDelta": 15.3,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+15.3 pts)."
+        }
+      ],
+      "rankingScore": 82,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 34
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -4256,7 +3390,7 @@
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+21.1 pts)."
         }
       ],
-      "rankingScore": 86,
+      "rankingScore": 82,
       "rankingFactors": [
         {
           "key": "power",
@@ -4268,196 +3402,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "1ed9e351-0000-4b75-8ecb-d15bd88df68a",
-        "name": "Tamiyo, Inquisitive Student",
-        "score": 45,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Legendary Creature — Moonfolk Wizard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/1b234fee-a2b6-4661-9f98-4da6fc26aebc/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_wizards"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Baral, Chief of Compliance (+26.9 pts). Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+26.9 pts). Reste au service de Izzet Sorciers Spells & Tempo.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet Sorciers Spells & Tempo (+45 pts).",
-        "affectedArchetypes": [
-          "Izzet Sorciers Spells & Tempo"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Baral, Chief of Compliance",
-          "frenchName": "Baral, directeur de conformité",
-          "score": 18.1,
-          "tier": "D",
-          "scoreDelta": 26.9,
-          "reason": "Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+26.9 pts). Reste au service de Izzet Sorciers Spells & Tempo."
-        }
-      ],
-      "rankingScore": 85,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 45
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
-        "name": "Boomerang Basics",
-        "score": 31.2,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Sorcery — Lesson",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+13.1 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.1 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+31.2 pts).",
-        "affectedArchetypes": [
-          "Temur/5-Color Dragons Ramp & Bombes",
-          "Izzet Sorciers Spells & Tempo",
-          "5-Color Chromatic Legends & Domain"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Fading Hope",
-          "frenchName": "Espoir volatilisé",
-          "score": 18.1,
-          "tier": "D",
-          "scoreDelta": 13.1,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.1 pts)."
-        }
-      ],
-      "rankingScore": 83.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
-        "name": "Brain Freeze",
-        "score": 37.2,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2003,
-        "set": "SCG",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Forbid (+19.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+37.2 pts).",
-        "affectedArchetypes": [
-          "Temur/5-Color Dragons Ramp & Bombes",
-          "Izzet Sorciers Spells & Tempo",
-          "5-Color Chromatic Legends & Domain"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2003)"
-      },
-      "releaseYear": 2003,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Forbid",
-          "frenchName": "Interdit",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 19.3,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
-        }
-      ],
-      "rankingScore": 83.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 37.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -4524,18 +3469,19 @@
     },
     {
       "card": {
-        "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
-        "name": "Animate Dead",
-        "score": 44,
-        "tier": "A+",
-        "cmc": 2,
-        "typeLine": "Enchantment — Aura",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/fcd068bf-2b7d-4290-a86a-12355382ced5/normal.webp",
+        "oracleId": "324824cb-f938-401c-b9b5-d8908b431ef0",
+        "name": "Snuff Out",
+        "score": 40,
+        "tier": "A",
+        "cmc": 4,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Snuff%20Out&format=image",
+        "frenchName": "Dégommage",
         "colors": [
           "B"
         ],
-        "releaseYear": 1993,
-        "set": "FBB",
+        "releaseYear": 1999,
+        "set": "MMQ",
         "isRecent": false
       },
       "archetypes": [
@@ -4546,33 +3492,241 @@
         "titou:chromatic_legends",
         "titou:tribal_glue"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Renforce directement les archétypes Rakdos Gobelins Aggro & Burn et Mardu Vampires Aristocrates & Drain grâce à une excellente cohérence de tempo et d'impact.",
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Baleful Mastery (+26 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+44 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+40 pts).",
         "affectedArchetypes": [
           "Rakdos Gobelins Aggro & Burn",
           "Mardu Vampires Aristocrates & Drain",
           "Golgari Elfes Ramp & Swarm"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (1993)"
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (1999)"
       },
-      "releaseYear": 1993,
+      "releaseYear": 1999,
       "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
+      "replacesCards": [
+        {
+          "name": "Baleful Mastery",
+          "frenchName": "Maîtrise sinistre",
+          "score": 14,
+          "tier": "F",
+          "scoreDelta": 26,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+26 pts)."
+        }
       ],
       "rankingScore": 82,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 44
+          "points": 40
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "053a69d8-2b5e-4f14-8b02-ca405891dc4a",
+        "name": "Fell the Profane",
+        "score": 33.8,
+        "tier": "A",
+        "cmc": 4,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/a3cb782d-c459-468d-9779-9b5669abc337/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_elves",
+        "titou:tribal_angels",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Sever the Bloodline (+15.5 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+15.5 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+33.8 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Golgari Elfes Ramp & Swarm"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Sever the Bloodline",
+          "frenchName": "Interrompre la lignée",
+          "score": 18.3,
+          "tier": "D",
+          "scoreDelta": 15.5,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+15.5 pts)."
+        }
+      ],
+      "rankingScore": 81.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "a9282f91-638e-414b-8b3d-9a99e30aec96",
+        "name": "Firebending Lesson",
+        "score": 33.4,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Instant — Lesson",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/fa940e68-010e-4b68-be8a-555d7068f7b4/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2025,
+        "set": "TLA",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Play with Fire (+15.3 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+33.4 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Play with Fire",
+          "frenchName": "S'amuser avec le feu",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 15.3,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+15.3 pts)."
+        }
+      ],
+      "rankingScore": 81.4,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33.4
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "1de1b591-a73f-4974-b507-8c63e07a0868",
+        "name": "Thassa's Oracle",
+        "score": 33.1,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Creature — Merfolk Wizard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/726e8b29-13e9-4138-b6a9-d2a0d8188d1c/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_wizards"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Windrider Wizard (+15.2 pts). Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+15.2 pts). Reste au service de Izzet Sorciers Spells & Tempo.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet Sorciers Spells & Tempo (+33.1 pts).",
+        "affectedArchetypes": [
+          "Izzet Sorciers Spells & Tempo"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Tribal Synergy Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Windrider Wizard",
+          "frenchName": "Sorcier des vents",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 15.2,
+          "reason": "Maintient la synergie Wizard tout en offrant une présence sur table et un impact considérablement supérieurs (+15.2 pts). Reste au service de Izzet Sorciers Spells & Tempo."
+        }
+      ],
+      "rankingScore": 81.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33.1
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
         },
         {
           "key": "peer_benchmark",
@@ -4582,50 +3736,59 @@
     },
     {
       "card": {
-        "oracleId": "5ea675aa-88d6-4387-a14d-e606fa9c3aec",
-        "name": "Seasoned Dungeoneer",
-        "score": 44.5,
-        "tier": "A+",
-        "cmc": 4,
-        "typeLine": "Creature — Human Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7fee3f76-20a8-4621-84fb-ddf79c955532/normal.webp",
+        "oracleId": "8785f42f-87b9-4a0a-89ce-ea423649ba9c",
+        "name": "Chain Lightning",
+        "score": 38,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/9ca05db2-ad92-4f4a-992d-b7f08f4f9c26/normal.webp",
+        "frenchName": "Chaîne d'éclairs",
         "colors": [
-          "W"
+          "R"
         ],
-        "releaseYear": 2022,
-        "set": "CLB",
+        "releaseYear": 1994,
+        "set": "PD2",
         "isRecent": false
       },
       "archetypes": [
-        "titou:tribal_humans"
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Riders of Gavony (+28 pts). Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+28 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Bonfire of the Damned (+19.7 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+19.7 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+44.5 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+38 pts).",
         "affectedArchetypes": [
-          "Mono-W / Selesnya Humains Aggro"
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (1994)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 1994,
       "isRecent": false,
       "replacesCards": [
         {
-          "name": "Riders of Gavony",
-          "frenchName": "Cavaliers de Gavonie",
-          "score": 16.5,
-          "tier": "F",
-          "scoreDelta": 28,
-          "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+28 pts). Reste au service de Mono-W / Selesnya Humains Aggro."
+          "name": "Bonfire of the Damned",
+          "frenchName": "Bonfire of the Damned",
+          "score": 18.3,
+          "tier": "D",
+          "scoreDelta": 19.7,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+19.7 pts)."
         }
       ],
-      "rankingScore": 78.5,
+      "rankingScore": 80,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 44.5
+          "points": 38
         },
         {
           "key": "direct_replacement",
@@ -4633,7 +3796,200 @@
         },
         {
           "key": "archetype_match",
-          "points": 4
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
+        "name": "Boomerang Basics",
+        "score": 31.2,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Sorcery — Lesson",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2025,
+        "set": "TLA",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+13.1 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.1 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+31.2 pts).",
+        "affectedArchetypes": [
+          "Temur/5-Color Dragons Ramp & Bombes",
+          "Izzet Sorciers Spells & Tempo",
+          "5-Color Chromatic Legends & Domain"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Fading Hope",
+          "frenchName": "Espoir volatilisé",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 13.1,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.1 pts)."
+        }
+      ],
+      "rankingScore": 79.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "27e0948b-9916-473b-8d8c-a51bdfbc7457",
+        "name": "Underworld Breach",
+        "score": 37.2,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Underworld%20Breach&format=image",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Sulfuric Vortex (+19.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+37.2 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2020)"
+      },
+      "releaseYear": 2020,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Sulfuric Vortex",
+          "frenchName": "Vortex sulfureux",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 19.3,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+19.3 pts)."
+        }
+      ],
+      "rankingScore": 79.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37.2
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
+        "name": "Brain Freeze",
+        "score": 36.6,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://api.scryfall.com/cards/named?exact=Brain%20Freeze&format=image",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2003,
+        "set": "SCG",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Forbid (+18.7 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+18.7 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+36.6 pts).",
+        "affectedArchetypes": [
+          "Temur/5-Color Dragons Ramp & Bombes",
+          "Izzet Sorciers Spells & Tempo",
+          "5-Color Chromatic Legends & Domain"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2003)"
+      },
+      "releaseYear": 2003,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Forbid",
+          "frenchName": "Interdit",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 18.7,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+18.7 pts)."
+        }
+      ],
+      "rankingScore": 78.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 36.6
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
         }
       ]
     },
@@ -4761,7 +4117,7 @@
         "titou:tribal_elves"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Dwynen, Gilt-Leaf Daen (+18.5 pts). Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+18.5 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
+      "rationale": "Proposée en remplacement poste pour poste de Nissa, Resurgent Animist (+17 pts). Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+17 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+34 pts).",
         "affectedArchetypes": [
@@ -4774,12 +4130,12 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Dwynen, Gilt-Leaf Daen",
-          "frenchName": "Dwynen, Gilt-Leaf Daen",
-          "score": 15.5,
+          "name": "Nissa, Resurgent Animist",
+          "frenchName": "Nissa, animiste résurgente",
+          "score": 17,
           "tier": "F",
-          "scoreDelta": 18.5,
-          "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+18.5 pts). Reste au service de Golgari Elfes Ramp & Swarm."
+          "scoreDelta": 17,
+          "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+17 pts). Reste au service de Golgari Elfes Ramp & Swarm."
         }
       ],
       "rankingScore": 74,
@@ -4799,126 +4155,6 @@
         {
           "key": "recent_release",
           "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "91f410c5-4313-462f-8d21-da63988d919f",
-        "name": "Sutina, Speaker of the Tajuru",
-        "score": 33.3,
-        "tier": "A",
-        "cmc": 3,
-        "typeLine": "Legendary Creature — Elf Scout",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/1b794170-4ffd-4628-ba5a-b9293bb364dc/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2024,
-        "set": "J25",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_elves"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Nissa, Resurgent Animist (+16.3 pts). Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+16.3 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+33.3 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [J25]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Nissa, Resurgent Animist",
-          "frenchName": "Nissa, animiste résurgente",
-          "score": 17,
-          "tier": "F",
-          "scoreDelta": 16.3,
-          "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+16.3 pts). Reste au service de Golgari Elfes Ramp & Swarm."
-        }
-      ],
-      "rankingScore": 73.3,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.3
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "e0548f0d-4aec-4c39-8c34-52bfa2bf7c60",
-        "name": "Forked Bolt",
-        "score": 31.3,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/06127297-fdaa-45bf-a82e-4fc61315e0e2/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2010,
-        "set": "ROE",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins",
-        "titou:tribal_vampires",
-        "titou:tribal_werewolves",
-        "titou:tribal_dragons",
-        "titou:tribal_wizards",
-        "titou:chromatic_legends",
-        "titou:tribal_glue"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Renforce directement les archétypes Rakdos Gobelins Aggro & Burn et Mardu Vampires Aristocrates & Drain grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+31.3 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn",
-          "Mardu Vampires Aristocrates & Drain",
-          "Gruul Loups & Garous Midrange"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (2010)"
-      },
-      "releaseYear": 2010,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
-      ],
-      "rankingScore": 73.3,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.3
-        },
-        {
-          "key": "archetype_match",
-          "points": 28
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
         }
       ]
     },
@@ -4985,51 +4221,58 @@
     },
     {
       "card": {
-        "oracleId": "0452be2a-e97a-4269-a9e3-b616265ecb2e",
-        "name": "Vivi Ornitier",
-        "score": 33,
+        "oracleId": "a8abd966-de7b-46a3-8ac7-8747ab35653a",
+        "name": "Wheel of Fortune",
+        "score": 31,
         "tier": "A",
         "cmc": 3,
-        "typeLine": "Legendary Creature — Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/e/c/ecc1027a-8c07-44a0-bdde-fa2844cff694.jpg?1783906561",
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/a8a47aa2-7274-465a-865b-68fe47d4fa81/normal.webp",
         "colors": [
-          "R",
-          "U"
+          "R"
         ],
-        "releaseYear": 2025,
-        "set": "FIN",
-        "isRecent": true
+        "releaseYear": 1993,
+        "set": "G10",
+        "isRecent": false
       },
       "archetypes": [
-        "titou:tribal_wizards"
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Goblin Electromancer (+14.1 pts). Un mana de plus (3 vs 2), compensé par un gain d'impact net (+14.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Sorciers Spells & Tempo.",
+      "rationale": "Proposée en remplacement poste pour poste de Act of Treason (+16 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+16 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet Sorciers Spells & Tempo (+33 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+31 pts).",
         "affectedArchetypes": [
-          "Izzet Sorciers Spells & Tempo"
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
         ],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "Référence confirmée (1993)"
       },
-      "releaseYear": 2025,
-      "isRecent": true,
+      "releaseYear": 1993,
+      "isRecent": false,
       "replacesCards": [
         {
-          "name": "Goblin Electromancer",
-          "frenchName": "Électromancien gobelin",
-          "score": 18.9,
-          "tier": "D+",
-          "scoreDelta": 14.1,
-          "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+14.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Sorciers Spells & Tempo."
+          "name": "Act of Treason",
+          "frenchName": "Acte de trahison",
+          "score": 15,
+          "tier": "F",
+          "scoreDelta": 16,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+16 pts)."
         }
       ],
       "rankingScore": 73,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33
+          "points": 31
         },
         {
           "key": "direct_replacement",
@@ -5037,60 +4280,61 @@
         },
         {
           "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "points": 12
         }
       ]
     },
     {
       "card": {
-        "oracleId": "e5152e8d-9f55-493d-a0fc-753cc72ee299",
-        "name": "Emeritus of Abundance",
-        "score": 32,
-        "tier": "A",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid // Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/c/ac095763-6f4e-4d4e-9c99-414646368f8d.jpg?1783903660",
+        "oracleId": "6df1c314-b97b-4bbc-8b7e-a07785347a49",
+        "name": "Occult Epiphany",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/e/5/e5fcfaff-2fd0-46d8-b863-ad25558c9e95.jpg?1789599813",
         "colors": [
-          "G"
+          "U"
         ],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
+        "releaseYear": 2021,
+        "set": "VOC",
+        "isRecent": false
       },
       "archetypes": [
-        "titou:tribal_elves"
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
       ],
-      "role": "engine",
-      "rationale": "Proposée en remplacement poste pour poste de Ezuri, Renegade Leader (+14.1 pts). Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.1 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Blustersquall (+12.6 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.6 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+32 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Temur/5-Color Dragons Ramp & Bombes & Izzet Sorciers Spells & Tempo & 5-Color Chromatic Legends & Domain (+29.8 pts).",
         "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
+          "Temur/5-Color Dragons Ramp & Bombes",
+          "Izzet Sorciers Spells & Tempo",
+          "5-Color Chromatic Legends & Domain"
         ],
-        "strategicRole": "Moteur de Synergie & Récurrence Continue",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "Référence confirmée (2021)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
+      "releaseYear": 2021,
+      "isRecent": false,
       "replacesCards": [
         {
-          "name": "Ezuri, Renegade Leader",
-          "frenchName": "Ezuri, chef renégat",
-          "score": 17.9,
-          "tier": "D",
-          "scoreDelta": 14.1,
-          "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.1 pts). Reste au service de Golgari Elfes Ramp & Swarm."
+          "name": "Blustersquall",
+          "frenchName": "Blustersquall",
+          "score": 17.2,
+          "tier": "D-",
+          "scoreDelta": 12.6,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.6 pts)."
         }
       ],
-      "rankingScore": 72,
+      "rankingScore": 71.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 32
+          "points": 29.8
         },
         {
           "key": "direct_replacement",
@@ -5098,11 +4342,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "points": 12
         }
       ]
     },
@@ -5155,62 +4395,59 @@
     },
     {
       "card": {
-        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
-        "name": "Bothersome Noisemaker",
-        "score": 29.9,
-        "tier": "A-",
+        "oracleId": "c0d8fef4-65f4-4769-982d-b397d2b7e977",
+        "name": "Animate Dead",
+        "score": 44,
+        "tier": "A+",
         "cmc": 2,
-        "typeLine": "Creature — Goblin Bard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
+        "typeLine": "Enchantment — Aura",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/fcd068bf-2b7d-4290-a86a-12355382ced5/normal.webp",
         "colors": [
-          "R"
+          "B"
         ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
+        "releaseYear": 1993,
+        "set": "FBB",
+        "isRecent": false
       },
       "archetypes": [
-        "titou:tribal_goblins"
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_elves",
+        "titou:tribal_angels",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Mogg War Marshal (+12 pts). Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "rationale": "Renforce directement les archétypes Rakdos Gobelins Aggro & Burn et Mardu Vampires Aristocrates & Drain grâce à une excellente cohérence de tempo et d'impact.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+29.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Golgari Elfes Ramp & Swarm (+44 pts).",
         "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn"
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Golgari Elfes Ramp & Swarm"
         ],
         "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
+        "releaseContext": "Référence confirmée (1993)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Mogg War Marshal",
-          "frenchName": "Maréchal de guerre mogg",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 12,
-          "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12 pts). Reste au service de Rakdos Gobelins Aggro & Burn."
-        }
+      "releaseYear": 1993,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Tribal Synergy Cube"
       ],
-      "rankingScore": 69.9,
+      "rankingScore": 70,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.9
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
+          "points": 44
         },
         {
           "key": "archetype_match",
-          "points": 4
+          "points": 12
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 14
         }
       ]
     },
@@ -5374,6 +4611,63 @@
     },
     {
       "card": {
+        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "name": "Sokenzan Smelter",
+        "score": 30.1,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_goblins"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Mogg War Marshal (+12.2 pts). Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+30.1 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2022)"
+      },
+      "releaseYear": 2022,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Mogg War Marshal",
+          "frenchName": "Maréchal de guerre mogg",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 12.2,
+          "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn."
+        }
+      ],
+      "rankingScore": 64.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.1
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "c04197ad-d2f3-499f-b863-bed0c869519c",
         "name": "The Echoverse Fulcrum",
         "score": 26,
@@ -5420,6 +4714,106 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "e0548f0d-4aec-4c39-8c34-52bfa2bf7c60",
+        "name": "Forked Bolt",
+        "score": 31.3,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/06127297-fdaa-45bf-a82e-4fc61315e0e2/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2010,
+        "set": "ROE",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_goblins",
+        "titou:tribal_vampires",
+        "titou:tribal_werewolves",
+        "titou:tribal_dragons",
+        "titou:tribal_wizards",
+        "titou:chromatic_legends",
+        "titou:tribal_glue"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Renforce directement les archétypes Rakdos Gobelins Aggro & Burn et Mardu Vampires Aristocrates & Drain grâce à une excellente cohérence de tempo et d'impact.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain & Gruul Loups & Garous Midrange (+31.3 pts).",
+        "affectedArchetypes": [
+          "Rakdos Gobelins Aggro & Burn",
+          "Mardu Vampires Aristocrates & Drain",
+          "Gruul Loups & Garous Midrange"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
+        "releaseContext": "Référence confirmée (2010)"
+      },
+      "releaseYear": 2010,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Tribal Synergy Cube"
+      ],
+      "rankingScore": 57.3,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31.3
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "de2440de-e948-4811-903c-0bbe376ff64d",
+        "name": "Mox Opal",
+        "score": 40.5,
+        "tier": "A",
+        "cmc": 0,
+        "typeLine": "Legendary Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/5/6/56001a36-126b-4c08-af98-a6cc4d84210e.jpg?1783930101",
+        "colors": [],
+        "releaseYear": 2010,
+        "set": "SOM",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Carte de calibre compétitif (Score 40.5/55), offrant une régularité et une puissance élevées pour dynamiser le format.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+40.5 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Accélération & Fixation de Mana",
+        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
+        "releaseContext": "Référence confirmée (2010)"
+      },
+      "releaseYear": 2010,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "Tribal Synergy Cube"
+      ],
+      "rankingScore": 54.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 40.5
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
         }
       ]
     },

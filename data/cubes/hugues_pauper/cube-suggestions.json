@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@5",
+  "engineVersion": "cube-upgrade-advisor@6",
   "cubeKey": "hugues_pauper",
   "snapshotId": "hugues_pauper@2026-03-01.1",
-  "generatedAt": "2026-11-07T11:36:04.936Z",
+  "generatedAt": "2026-11-18T12:26:56.317Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-07T11:36:04.936Z",
+    "generatedAt": "2026-11-18T12:26:56.317Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "df90b7b69d237a361db4c18d1eb19d01db070180d9f6aae23a0e94ecbc3be86c",
+      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -41,20 +41,20 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2194,
-    "availableCandidates": 1838,
+    "catalogCards": 2240,
+    "availableCandidates": 1884,
     "benchmarkCards": 450,
     "benchmarkCardsInCatalog": 268,
     "missingBenchmarkCards": 182,
     "benchmarkCoveragePercentage": 60
   },
   "stats": {
-    "totalUpgrades": 32,
-    "totalMaybeboard": 25,
+    "totalUpgrades": 37,
+    "totalMaybeboard": 29,
     "recentUpgradesCount": 22,
-    "benchmarkMatchesCount": 21,
-    "recentMaybeboardCount": 14,
-    "directReplacementMaybeboardCount": 13
+    "benchmarkMatchesCount": 23,
+    "recentMaybeboardCount": 15,
+    "directReplacementMaybeboardCount": 19
   },
   "upgrades": {
     "Ashes to Ashes": {
@@ -138,6 +138,70 @@
         }
       ]
     },
+    "Audacious Thief": {
+      "targetCard": {
+        "oracleId": "5905c55a-f1d1-4021-a9af-f85b02ae21f3",
+        "name": "Audacious Thief",
+        "score": 15.4,
+        "tier": "D",
+        "cmc": 3,
+        "typeLine": "Creature — Human Rogue",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/e1ff5e66-4718-43c3-8a58-1a0a8e788f83/normal.webp",
+        "frenchName": "Voleur audacieux",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2019,
+        "set": "M20",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "514b451b-814d-45fb-a2ba-8fe6f0bdad60",
+        "name": "Gollum, Riddle Master",
+        "score": 26,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Legendary Creature — Halfling Horror",
+        "imageUrl": "https://cards.scryfall.io/normal/front/b/b/bbdc7e37-c65a-497a-92b7-a30a6e369c71.jpg?1784376959",
+        "colors": [
+          "B"
+        ],
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 10.6,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.6 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+10.6 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "rankingScore": 43,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        }
+      ]
+    },
     "Brimstone Volley": {
       "targetCard": {
         "oracleId": "d12e374d-ed09-4d5e-bb7a-6c7d9ea80a1e",
@@ -214,21 +278,21 @@
         }
       ]
     },
-    "Cloudreader Sphinx": {
+    "Cloaked Siren": {
       "targetCard": {
-        "oracleId": "b5a4bf91-4d31-4557-9ec4-a96ff4d9be6b",
-        "name": "Cloudreader Sphinx",
-        "score": 18.4,
-        "tier": "C+",
-        "cmc": 5,
-        "typeLine": "Creature — Sphinx",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/6c85a696-fa1a-4e05-b0aa-79b3381e849a/normal.webp",
-        "frenchName": "Sphinx déchiffre-nuage",
+        "oracleId": "d38a33ae-59d1-4d08-8e14-5fa5a8c3762d",
+        "name": "Cloaked Siren",
+        "score": 15,
+        "tier": "D-",
+        "cmc": 4,
+        "typeLine": "Creature — Siren",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/79a639aa-91f4-49df-8671-122710073084/normal.webp",
+        "frenchName": "Sirène dissimulée",
         "colors": [
           "U"
         ],
-        "releaseYear": 2018,
-        "set": "DOM",
+        "releaseYear": 2014,
+        "set": "JOU",
         "isRecent": false
       },
       "suggestedCard": {
@@ -247,10 +311,10 @@
         "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 11.4,
-      "reason": "Même coût de mana (5), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11.4 pts). Reste au service de Azorius Fliers & ETB Value & Green Ramp & Big Bodies.",
+      "scoreDelta": 14.8,
+      "reason": "Un mana de plus (5 vs 4), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+11.4 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+14.8 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & ETB Value",
           "Dimir Evasion & Ninjutsu Tempo",
@@ -265,7 +329,7 @@
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 80.8,
+      "rankingScore": 72.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -281,11 +345,146 @@
         },
         {
           "key": "synergy_overlap",
-          "points": 9
+          "points": 6
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": -4
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
+    "Cursed Minotaur": {
+      "targetCard": {
+        "oracleId": "88b50194-bc39-47a6-968b-983553d89cf9",
+        "name": "Cursed Minotaur",
+        "score": 15,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Creature — Zombie Minotaur",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/a3990d2f-39d9-49f9-936f-1d40adcf295c/normal.webp",
+        "frenchName": "Minotaure maudit",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2017,
+        "set": "AKH",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "1822f924-51ba-4f81-92cc-6c5d741a33f9",
+        "name": "Ravenloft Adventurer",
+        "score": 29.8,
+        "tier": "A+",
+        "cmc": 4,
+        "typeLine": "Creature — Human Rogue Assassin",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a5e27c36-d883-4681-8430-b4d0ad7f1df0.jpg?1783922756",
+        "colors": [
+          "B"
+        ],
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 14.8,
+      "reason": "Un mana de plus (4 vs 3), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+14.8 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "rankingScore": 31.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": -4
+        }
+      ]
+    },
+    "Daring Skyjek": {
+      "targetCard": {
+        "oracleId": "f15a202d-c1c4-49bd-924a-7a0a5667ff70",
+        "name": "Daring Skyjek",
+        "score": 16.2,
+        "tier": "D",
+        "cmc": 2,
+        "typeLine": "Creature — Human Knight",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/6c28412d-9add-4911-8487-c84559006fb0/normal.webp",
+        "frenchName": "Airjek audacieux",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2013,
+        "set": "GTC",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "c206bdcb-d2c4-4bda-a979-6c0627ef8f73",
+        "name": "Novice Inspector",
+        "score": 25.5,
+        "tier": "A",
+        "cmc": 1,
+        "typeLine": "Creature — Human Detective",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/0ad38866-fc5f-4f62-89c1-afc0f50765aa/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2024,
+        "set": "MKM",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 9.3,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+9.3 pts). Reste au service de White Weenie & Equipment & Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Azorius Fliers & ETB Value & Selesnya Auras & Hexproof & Orzhov Extort & Drain (+9.3 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Selesnya Auras & Hexproof",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 61.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.5
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
         },
         {
           "key": "recent_release",
@@ -376,16 +575,16 @@
         }
       ]
     },
-    "Dauthi Horror": {
+    "Dauthi Marauder": {
       "targetCard": {
-        "oracleId": "07c20708-c305-46e7-a98e-c99f54aeafec",
-        "name": "Dauthi Horror",
+        "oracleId": "cb754749-a769-4c9c-b62b-4972dfc5069f",
+        "name": "Dauthi Marauder",
         "score": 15,
         "tier": "D-",
-        "cmc": 2,
-        "typeLine": "Creature — Dauthi Horror",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/c5a8bb3a-3a84-442f-8e31-8af2f04408ab/normal.webp",
-        "frenchName": "Horreur dauthie",
+        "cmc": 3,
+        "typeLine": "Creature — Dauthi Minion",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/ee847d84-ec8d-4ec3-8436-68d6f144e22f/normal.webp",
+        "frenchName": "Maraudeur dauthi",
         "colors": [
           "B"
         ],
@@ -394,44 +593,37 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "058dae67-807e-4542-ae51-f2b1216ffaed",
-        "name": "Retrofitted Transmogrant",
-        "score": 26.9,
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
         "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Artifact Creature — Zombie",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/12c1b83d-710b-4680-855a-02ba1f72abf0/normal.webp",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
         "colors": [
           "B"
         ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 11.9,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts). Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff.",
+      "scoreDelta": 14.8,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff.",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+11.9 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+14.8 pts).",
         "affectedArchetypes": [
           "Dimir Evasion & Ninjutsu Tempo",
           "Rakdos Pestilence Attrition",
           "Orzhov Extort & Drain"
         ],
         "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+        "releaseContext": "Référence du format"
       },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 70.9,
+      "isRecent": false,
+      "rankingScore": 52.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26.9
+          "points": 29.8
         },
         {
           "key": "role_alignment",
@@ -444,14 +636,6 @@
         {
           "key": "mana_efficiency",
           "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
         }
       ]
     },
@@ -602,81 +786,6 @@
         {
           "key": "mana_efficiency",
           "points": -4
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Doomed Traveler": {
-      "targetCard": {
-        "oracleId": "a30907c0-fbde-4fd3-a8c7-f304305fcea7",
-        "name": "Doomed Traveler",
-        "score": 18.6,
-        "tier": "B-",
-        "cmc": 1,
-        "typeLine": "Creature — Human Soldier",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/652c3bbb-cac8-47ad-81de-41e954e17a29/normal.webp",
-        "frenchName": "Voyageur damné",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2011,
-        "set": "ISD",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "c206bdcb-d2c4-4bda-a979-6c0627ef8f73",
-        "name": "Novice Inspector",
-        "score": 25.5,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Creature — Human Detective",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/0ad38866-fc5f-4f62-89c1-afc0f50765aa/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2024,
-        "set": "MKM",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 6.9,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+6.9 pts). Reste au service de White Weenie & Equipment & Pauper Staples and Goodstuff.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Selesnya Auras & Hexproof & Orzhov Extort & Drain (+6.9 pts).",
-        "affectedArchetypes": [
-          "Azorius Fliers & ETB Value",
-          "Selesnya Auras & Hexproof",
-          "Orzhov Extort & Drain"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 59.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 25.5
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         },
         {
           "key": "peer_benchmark",
@@ -838,153 +947,6 @@
         }
       ]
     },
-    "Gray Merchant of Asphodel": {
-      "targetCard": {
-        "oracleId": "38f3b157-0df4-409b-89cc-086e1531cd5b",
-        "name": "Gray Merchant of Asphodel",
-        "score": 19.6,
-        "tier": "B",
-        "cmc": 5,
-        "typeLine": "Creature — Zombie",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d794d0a4-4041-43c0-aedb-e2a76611a3ea/normal.webp",
-        "frenchName": "Marchand gris d'Asphodèle",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2013,
-        "set": "THB",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
-        "name": "Troll of Khazad-dûm",
-        "score": 36,
-        "tier": "A+",
-        "cmc": 6,
-        "typeLine": "Creature — Troll",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d1ec9217-b7e3-46d3-9a6a-57a64e432edd/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2023,
-        "set": "LTR",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 16.4,
-      "reason": "Un mana de plus (6 vs 5), compensé par un gain d'impact net (+16.4 pts) qui justifie le décalage de curve. Reste au service de Rakdos Pestilence Attrition & Orzhov Extort & Drain.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+16.4 pts).",
-        "affectedArchetypes": [
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Rakdos Pestilence Attrition",
-          "Orzhov Extort & Drain"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 67,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 36
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": -4
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Grim Harvest": {
-      "targetCard": {
-        "oracleId": "231ca538-b277-4c12-979f-57640a0e87f0",
-        "name": "Grim Harvest",
-        "score": 17.9,
-        "tier": "C",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bdb1972f-2ef7-4fe2-8c8e-ab07f48a3176/normal.webp",
-        "frenchName": "Sinistre récolte",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2006,
-        "set": "CSP",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
-        "name": "Bone Shards",
-        "score": 29,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/e/1ee98955-4c47-4d45-9377-608dfa755337.jpg?1783926865",
-        "frenchName": "Bone Shards",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2021,
-        "set": "PLST",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 11.1,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.1 pts). Reste au service de Golgari Recursion & Tortured Existence.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+11.1 pts).",
-        "affectedArchetypes": [
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Rakdos Pestilence Attrition",
-          "Orzhov Extort & Drain"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2021)"
-      },
-      "releaseYear": 2021,
-      "isRecent": false,
-      "rankingScore": 49,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 3
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        }
-      ]
-    },
     "Harrow": {
       "targetCard": {
         "oracleId": "705509e9-a034-4a5a-9c65-66f58748b8a2",
@@ -1063,6 +1025,220 @@
         {
           "key": "peer_benchmark",
           "points": 15
+        }
+      ]
+    },
+    "Hungry Flames": {
+      "targetCard": {
+        "oracleId": "a2c00788-14e7-4ab5-8c71-2a176621a177",
+        "name": "Hungry Flames",
+        "score": 17.9,
+        "tier": "C",
+        "cmc": 3,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/07392a36-e63a-4648-b8df-1172403922eb/normal.webp",
+        "frenchName": "Flammes voraces",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2017,
+        "set": "JMP",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "961e3023-39ea-4141-99b6-738280a2815d",
+        "name": "Pinecone Strike",
+        "score": 31.6,
+        "tier": "A+",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/ea174cea-40e5-424e-9734-e39aae6c6b17/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 13.7,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.7 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+13.7 pts).",
+        "affectedArchetypes": [
+          "Rakdos Pestilence Attrition",
+          "Gruul Stompy",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 46.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31.6
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    "Irreverent Revelers": {
+      "targetCard": {
+        "oracleId": "05abc57a-839d-4376-986c-8e3855e34239",
+        "name": "Irreverent Revelers",
+        "score": 15,
+        "tier": "D-",
+        "cmc": 3,
+        "typeLine": "Creature — Satyr",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/55405dca-3555-45ff-be1c-e276fe1a0c2e/normal.webp",
+        "frenchName": "Fêtards irrévérencieux",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2020,
+        "set": "THB",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1",
+        "name": "Molten Gatekeeper",
+        "score": 28,
+        "tier": "A+",
+        "cmc": 3,
+        "typeLine": "Artifact Creature — Golem",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/9f5ba065-2806-4e99-a330-168cfe76250f/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 13,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+13 pts).",
+        "affectedArchetypes": [
+          "Rakdos Pestilence Attrition",
+          "Gruul Stompy",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 64,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
+    "Kor Hookmaster": {
+      "targetCard": {
+        "oracleId": "e6941577-8262-42ef-bf32-f6505d90b73a",
+        "name": "Kor Hookmaster",
+        "score": 17.9,
+        "tier": "C",
+        "cmc": 3,
+        "typeLine": "Creature — Kor Soldier",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/68ad3199-c202-4b71-8a36-53547e70c39b/normal.webp",
+        "frenchName": "Maîtresse aux crochets kor",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2009,
+        "set": "ZEN",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "f33217cc-175f-45e8-bc69-801f41cb4495",
+        "name": "Agent Bishop, Man in Black",
+        "score": 36,
+        "tier": "A+",
+        "cmc": 3,
+        "typeLine": "Legendary Creature — Human Soldier",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/c/9c769202-178c-442a-a9e2-aa08b5ae5c9a.jpg?1783904129",
+        "colors": [
+          "W"
+        ],
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 18.1,
+      "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.1 pts). Reste au service de Azorius Fliers & ETB Value & Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Selesnya Auras & Hexproof & Orzhov Extort & Drain (+18.1 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Selesnya Auras & Hexproof",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "rankingScore": 60,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 36
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         }
       ]
     },
@@ -1307,77 +1483,6 @@
         }
       ]
     },
-    "Merfolk Looter": {
-      "targetCard": {
-        "oracleId": "67362406-b1ca-49e2-800d-9050bfe8742a",
-        "name": "Merfolk Looter",
-        "score": 18.4,
-        "tier": "C+",
-        "cmc": 2,
-        "typeLine": "Creature — Merfolk Rogue",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/aad3aaec-7c88-4925-8023-0cf61bf906c2/normal.webp",
-        "frenchName": "Détrousseur ondin",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1998,
-        "set": "M12",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "a5a05edd-2a30-414b-b766-f0651d5783f5",
-        "name": "Forecasting Fortune Teller",
-        "score": 28.8,
-        "tier": "A+",
-        "cmc": 2,
-        "typeLine": "Creature — Human Advisor Ally",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/023e7ad4-6af0-4f29-a716-27a313974227/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10.4,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+10.4 pts). Reste au service de Pauper Staples and Goodstuff.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+10.4 pts).",
-        "affectedArchetypes": [
-          "Azorius Fliers & ETB Value",
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 49.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.8
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Nessian Asp": {
       "targetCard": {
         "oracleId": "8b46e077-f667-432f-ab5b-8256a7378311",
@@ -1442,6 +1547,85 @@
         {
           "key": "mana_efficiency",
           "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
+    "Nezumi Cutthroat": {
+      "targetCard": {
+        "oracleId": "a323a3af-8a74-433c-8994-707a09ef3a0c",
+        "name": "Nezumi Cutthroat",
+        "score": 15,
+        "tier": "D-",
+        "cmc": 2,
+        "typeLine": "Creature — Rat Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/166af8cd-9690-4741-ade3-5d5f9723c431/normal.webp",
+        "frenchName": "Surineur nezumi",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2004,
+        "set": "CHK",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "058dae67-807e-4542-ae51-f2b1216ffaed",
+        "name": "Retrofitted Transmogrant",
+        "score": 26.9,
+        "tier": "A+",
+        "cmc": 1,
+        "typeLine": "Artifact Creature — Zombie",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/12c1b83d-710b-4680-855a-02ba1f72abf0/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 11.9,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+11.9 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 64.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.9
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
         },
         {
           "key": "recent_release",
@@ -1846,40 +2030,46 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "961e3023-39ea-4141-99b6-738280a2815d",
-        "name": "Pinecone Strike",
-        "score": 31.6,
+        "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
+        "name": "Abrade",
+        "score": 30,
         "tier": "A+",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ea174cea-40e5-424e-9734-e39aae6c6b17/normal.webp",
+        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1add1757-c1f8-448a-b279-c6940fb7ad5f.jpg?1783903778",
+        "frenchName": "Fissuration",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/4/1470de83-df14-4298-8f1f-6d25d84a7ba3.jpg?1782760099",
         "colors": [
           "R"
         ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
+        "releaseYear": 2017,
+        "set": "HOU",
+        "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 13.7,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.7 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "scoreDelta": 12.1,
+      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+12.1 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+13.7 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+12.1 pts).",
         "affectedArchetypes": [
           "Rakdos Pestilence Attrition",
           "Gruul Stompy",
           "Izzet Burn & Spells"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (2017)"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 50.6,
+      "releaseYear": 2017,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 58,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 31.6
+          "points": 30
         },
         {
           "key": "role_alignment",
@@ -1898,8 +2088,8 @@
           "points": -4
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -1921,44 +2111,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
-        "name": "Miscalculation",
-        "score": 33,
+        "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
+        "name": "Gitaxian Probe",
+        "score": 27,
         "tier": "A+",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4b4956a2-9a39-4152-9c98-70e4b2acfa26/normal.webp",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b511dd44-4c2c-45be-a35b-61524d7a5761/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 1999,
-        "set": "ULG",
+        "releaseYear": 2011,
+        "set": "F12",
         "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 14.9,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.9 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "scoreDelta": 8.9,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.9 pts). Reste au service de Pauper Staples and Goodstuff.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+14.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+8.9 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & ETB Value",
           "Dimir Evasion & Ninjutsu Tempo",
           "Izzet Burn & Spells"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "strategicRole": "Générateur de Card Advantage Actif",
         "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (1999)"
+        "releaseContext": "Référence confirmée (2011)"
       },
-      "releaseYear": 1999,
+      "releaseYear": 2011,
       "isRecent": false,
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 67,
+      "rankingScore": 60,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33
+          "points": 27
         },
         {
           "key": "role_alignment",
@@ -1970,92 +2160,11 @@
         },
         {
           "key": "synergy_overlap",
-          "points": 9
-        },
-        {
-          "key": "mana_efficiency",
-          "points": -4
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Rift Bolt": {
-      "targetCard": {
-        "oracleId": "2b8afa9f-4236-4c02-a8d5-3c145caecfd6",
-        "name": "Rift Bolt",
-        "score": 18.1,
-        "tier": "C+",
-        "cmc": 3,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/25176fe7-a5a0-44d2-9619-193063c55902/normal.webp",
-        "frenchName": "Éclair de faille",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2006,
-        "set": "TSP",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
-        "name": "Abrade",
-        "score": 30,
-        "tier": "A+",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1add1757-c1f8-448a-b279-c6940fb7ad5f.jpg?1783903778",
-        "frenchName": "Fissuration",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/4/1470de83-df14-4298-8f1f-6d25d84a7ba3.jpg?1782760099",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2017,
-        "set": "HOU",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 11.9,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+11.9 pts).",
-        "affectedArchetypes": [
-          "Rakdos Pestilence Attrition",
-          "Gruul Stompy",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (2017)"
-      },
-      "releaseYear": 2017,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 71,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "synergy_overlap",
           "points": 3
         },
         {
           "key": "mana_efficiency",
-          "points": 3
+          "points": 1
         },
         {
           "key": "peer_benchmark",
@@ -2294,6 +2403,156 @@
         }
       ]
     },
+    "Sultai Scavenger": {
+      "targetCard": {
+        "oracleId": "837f72a9-9522-46e9-a48c-c6ff6d0bbe67",
+        "name": "Sultai Scavenger",
+        "score": 15,
+        "tier": "F",
+        "cmc": 6,
+        "typeLine": "Creature — Bird Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/2cb8e423-f7e7-4ac3-acc2-2a3722e409e7/normal.webp",
+        "frenchName": "Charognard sultaï",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2014,
+        "set": "KTK",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
+        "name": "Troll of Khazad-dûm",
+        "score": 36,
+        "tier": "A+",
+        "cmc": 6,
+        "typeLine": "Creature — Troll",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/d1ec9217-b7e3-46d3-9a6a-57a64e432edd/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2023,
+        "set": "LTR",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 21,
+      "reason": "Même coût de mana (6), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21 pts). Reste au service de Golgari Recursion & Tortured Existence.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+21 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (2023)"
+      },
+      "releaseYear": 2023,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 58,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 36
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
+    "Syncopate": {
+      "targetCard": {
+        "oracleId": "318f7f70-e374-40ef-8afb-3389c10461d8",
+        "name": "Syncopate",
+        "score": 18.1,
+        "tier": "C+",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/f81739a5-35a7-4812-a7af-e1951bf5579c/normal.webp",
+        "frenchName": "Syncope",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2001,
+        "set": "DOM",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "9078db26-3a54-4a11-9aae-e45c38da7226",
+        "name": "Miscalculation",
+        "score": 33,
+        "tier": "A+",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/4b4956a2-9a39-4152-9c98-70e4b2acfa26/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 1999,
+        "set": "ULG",
+        "isRecent": false
+      },
+      "swapType": "archetype_booster",
+      "scoreDelta": 14.9,
+      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.9 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+14.9 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (1999)"
+      },
+      "releaseYear": 1999,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 67,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 9
+        },
+        {
+          "key": "mana_efficiency",
+          "points": -4
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
+        }
+      ]
+    },
     "Tragic Fall": {
       "targetCard": {
         "oracleId": "1b7e325d-24ee-42e3-b06f-6c91ec5280c3",
@@ -2366,6 +2625,71 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    "Tragic Slip": {
+      "targetCard": {
+        "oracleId": "fa6e2a47-a8cb-4224-ae3e-f61c90477285",
+        "name": "Tragic Slip",
+        "score": 19.7,
+        "tier": "B",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/1/3/132ccc20-cb42-4474-b747-7e41a661060e.jpg?1783908131",
+        "frenchName": "Fatale glissade",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/6/a/6a9bf34c-7177-46ac-aa91-c0fbc34b5cb3.jpg?1782779767",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2012,
+        "set": "DKA",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "6e760cfe-45b9-4a3f-b2e2-4ca6ec2bd13a",
+        "name": "Bone Shards",
+        "score": 29,
+        "tier": "A+",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://cards.scryfall.io/normal/front/1/e/1ee98955-4c47-4d45-9377-608dfa755337.jpg?1783926865",
+        "frenchName": "Bone Shards",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2021,
+        "set": "PLST",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 9.3,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+9.3 pts). Reste au service de Rakdos Pestilence Attrition & Orzhov Extort & Drain.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+9.3 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2021)"
+      },
+      "releaseYear": 2021,
+      "isRecent": false,
+      "rankingScore": 42,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         }
       ]
     },
@@ -2512,82 +2836,6 @@
   "maybeboard": [
     {
       "card": {
-        "oracleId": "ef0f06f1-3991-4897-bf62-d4cab7ec79a0",
-        "name": "Galvanic Discharge",
-        "score": 40,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32aa6e33-221f-414c-9b51-850d97a7e051.jpg?1790212085",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "hugues:rakdos_attrition",
-        "hugues:gruul_stompy",
-        "hugues:izzet_spellslinger",
-        "hugues:white_weenie",
-        "hugues:red_deck_wins",
-        "hugues:pauper_staple"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Lava Dart (+22.1 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+40 pts).",
-        "affectedArchetypes": [
-          "Rakdos Pestilence Attrition",
-          "Gruul Stompy",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "replacesCards": [
-        {
-          "name": "Lava Dart",
-          "frenchName": "Dard de lave",
-          "score": 17.9,
-          "tier": "C",
-          "scoreDelta": 22.1,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff."
-        }
-      ],
-      "rankingScore": 114,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 40
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 24
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "d30d8968-ec24-4155-97e2-28efd52c8810",
         "name": "Malevolent Rumble",
         "score": 42,
@@ -2639,7 +2887,7 @@
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+24.1 pts). Reste au service de Green Ramp & Big Bodies & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 112,
+      "rankingScore": 104,
       "rankingFactors": [
         {
           "key": "power",
@@ -2651,7 +2899,83 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "ef0f06f1-3991-4897-bf62-d4cab7ec79a0",
+        "name": "Galvanic Discharge",
+        "score": 40,
+        "tier": "A+",
+        "cmc": 1,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/3/2/32aa6e33-221f-414c-9b51-850d97a7e051.jpg?1790212085",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "hugues:rakdos_attrition",
+        "hugues:gruul_stompy",
+        "hugues:izzet_spellslinger",
+        "hugues:white_weenie",
+        "hugues:red_deck_wins",
+        "hugues:pauper_staple"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Lava Dart (+22.1 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+40 pts).",
+        "affectedArchetypes": [
+          "Rakdos Pestilence Attrition",
+          "Gruul Stompy",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Lava Dart",
+          "frenchName": "Dard de lave",
+          "score": 17.9,
+          "tier": "C",
+          "scoreDelta": 22.1,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+22.1 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 102,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 40
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -2714,7 +3038,7 @@
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+14.2 pts). Reste au service de Rakdos Pestilence Attrition & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 102.1,
+      "rankingScore": 94.1,
       "rankingFactors": [
         {
           "key": "power",
@@ -2726,7 +3050,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -2789,7 +3113,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+13.4 pts). Reste au service de Gruul Stompy & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 101.3,
+      "rankingScore": 93.3,
       "rankingFactors": [
         {
           "key": "power",
@@ -2801,7 +3125,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -2837,7 +3161,7 @@
         "hugues:pauper_staple"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Gray Merchant of Asphodel (+16.4 pts). Un mana de plus (6 vs 5), compensé par un gain d'impact net (+16.4 pts) qui justifie le décalage de curve. Reste au service de Rakdos Pestilence Attrition & Orzhov Extort & Drain.",
+      "rationale": "Proposée en remplacement poste pour poste de Sultai Scavenger (+21 pts). Même coût de mana (6), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21 pts). Reste au service de Golgari Recursion & Tortured Existence.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+36 pts).",
         "affectedArchetypes": [
@@ -2856,15 +3180,15 @@
       ],
       "replacesCards": [
         {
-          "name": "Gray Merchant of Asphodel",
-          "frenchName": "Marchand gris d'Asphodèle",
-          "score": 19.6,
-          "tier": "B",
-          "scoreDelta": 16.4,
-          "reason": "Un mana de plus (6 vs 5), compensé par un gain d'impact net (+16.4 pts) qui justifie le décalage de curve. Reste au service de Rakdos Pestilence Attrition & Orzhov Extort & Drain."
+          "name": "Sultai Scavenger",
+          "frenchName": "Charognard sultaï",
+          "score": 15,
+          "tier": "F",
+          "scoreDelta": 21,
+          "reason": "Même coût de mana (6), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21 pts). Reste au service de Golgari Recursion & Tortured Existence."
         }
       ],
-      "rankingScore": 100,
+      "rankingScore": 92,
       "rankingFactors": [
         {
           "key": "power",
@@ -2876,7 +3200,158 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "076865e9-ee10-4a87-9180-4274202d37c1",
+        "name": "Starbreach Whale",
+        "score": 29.8,
+        "tier": "A+",
+        "cmc": 5,
+        "typeLine": "Creature — Whale",
+        "imageUrl": "https://cards.scryfall.io/normal/front/8/a/8a1a0476-7145-4493-97e5-4fc05c85e476.jpg?1783905977",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2025,
+        "set": "EOE",
+        "isRecent": true
+      },
+      "archetypes": [
+        "hugues:azorius_blink",
+        "hugues:dimir_ninja_tempo",
+        "hugues:izzet_spellslinger",
+        "hugues:simic_ramp_value",
+        "hugues:pauper_staple"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Cloaked Siren (+14.8 pts). Un mana de plus (5 vs 4), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+29.8 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Cloaked Siren",
+          "frenchName": "Sirène dissimulée",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 14.8,
+          "reason": "Un mana de plus (5 vs 4), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 91.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1",
+        "name": "Molten Gatekeeper",
+        "score": 28,
+        "tier": "A+",
+        "cmc": 3,
+        "typeLine": "Artifact Creature — Golem",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/9f5ba065-2806-4e99-a330-168cfe76250f/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "hugues:rakdos_attrition",
+        "hugues:gruul_stompy",
+        "hugues:izzet_spellslinger",
+        "hugues:white_weenie",
+        "hugues:red_deck_wins",
+        "hugues:pauper_staple"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Irreverent Revelers (+13 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+28 pts).",
+        "affectedArchetypes": [
+          "Rakdos Pestilence Attrition",
+          "Gruul Stompy",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Irreverent Revelers",
+          "frenchName": "Fêtards irrévérencieux",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 13,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 90,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         },
         {
           "key": "peer_benchmark",
@@ -2935,7 +3410,7 @@
           "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.5 pts) qui justifie le décalage de curve. Reste au service de Rakdos Pestilence Attrition & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 97.1,
+      "rankingScore": 89.1,
       "rankingFactors": [
         {
           "key": "power",
@@ -2947,7 +3422,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -2979,7 +3454,7 @@
         "hugues:pauper_staple"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Repeal (+14.9 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.9 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "rationale": "Proposée en remplacement poste pour poste de Syncopate (+14.9 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.9 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+33 pts).",
         "affectedArchetypes": [
@@ -2998,15 +3473,15 @@
       ],
       "replacesCards": [
         {
-          "name": "Repeal",
-          "frenchName": "Abrogation",
+          "name": "Syncopate",
+          "frenchName": "Syncope",
           "score": 18.1,
           "tier": "C+",
           "scoreDelta": 14.9,
           "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+14.9 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 97,
+      "rankingScore": 89,
       "rankingFactors": [
         {
           "key": "power",
@@ -3018,7 +3493,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3079,7 +3554,7 @@
           "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.9 pts). Reste au service de Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 96,
+      "rankingScore": 88,
       "rankingFactors": [
         {
           "key": "power",
@@ -3091,7 +3566,81 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "f9db72dc-9a5b-48a4-a86e-7464d9a2166a",
+        "name": "Abrade",
+        "score": 30,
+        "tier": "A+",
+        "cmc": 2,
+        "typeLine": "Instant",
+        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1add1757-c1f8-448a-b279-c6940fb7ad5f.jpg?1783903778",
+        "frenchName": "Fissuration",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/4/1470de83-df14-4298-8f1f-6d25d84a7ba3.jpg?1782760099",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2017,
+        "set": "HOU",
+        "isRecent": false
+      },
+      "archetypes": [
+        "hugues:rakdos_attrition",
+        "hugues:gruul_stompy",
+        "hugues:izzet_spellslinger",
+        "hugues:white_weenie",
+        "hugues:red_deck_wins",
+        "hugues:pauper_staple"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Reckless Charge (+12.1 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+12.1 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+30 pts).",
+        "affectedArchetypes": [
+          "Rakdos Pestilence Attrition",
+          "Gruul Stompy",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (2017)"
+      },
+      "releaseYear": 2017,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Reckless Charge",
+          "frenchName": "Charge téméraire",
+          "score": 17.9,
+          "tier": "C-",
+          "scoreDelta": 12.1,
+          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+12.1 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 86,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3147,7 +3696,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+15.5 pts). Reste au service de Red Deck Wins & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 93.4,
+      "rankingScore": 81.4,
       "rankingFactors": [
         {
           "key": "power",
@@ -3159,7 +3708,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -3192,7 +3741,7 @@
         "hugues:pauper_staple"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Reckless Charge (+13.7 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.7 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "rationale": "Proposée en remplacement poste pour poste de Hungry Flames (+13.7 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.7 pts). Reste au service de Pauper Staples and Goodstuff.",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+31.6 pts).",
         "affectedArchetypes": [
@@ -3207,15 +3756,15 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Reckless Charge",
-          "frenchName": "Charge téméraire",
+          "name": "Hungry Flames",
+          "frenchName": "Flammes voraces",
           "score": 17.9,
-          "tier": "C-",
+          "tier": "C",
           "scoreDelta": 13.7,
-          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.7 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff."
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.7 pts). Reste au service de Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 91.6,
+      "rankingScore": 79.6,
       "rankingFactors": [
         {
           "key": "power",
@@ -3227,7 +3776,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -3282,7 +3831,7 @@
           "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+15.8 pts). Reste au service de Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 86.8,
+      "rankingScore": 78.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -3294,7 +3843,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -3304,56 +3853,53 @@
     },
     {
       "card": {
-        "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
-        "name": "Deem Inferior",
-        "score": 28.1,
+        "oracleId": "f33217cc-175f-45e8-bc69-801f41cb4495",
+        "name": "Agent Bishop, Man in Black",
+        "score": 36,
         "tier": "A+",
-        "cmc": 4,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cc0835c7-58ca-4f16-984a-c590ce6a229a/normal.webp",
+        "cmc": 3,
+        "typeLine": "Legendary Creature — Human Soldier",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/c/9c769202-178c-442a-a9e2-aa08b5ae5c9a.jpg?1783904129",
         "colors": [
-          "U"
+          "W"
         ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
+        "isRecent": false
       },
       "archetypes": [
         "hugues:azorius_blink",
-        "hugues:dimir_ninja_tempo",
-        "hugues:izzet_spellslinger",
-        "hugues:simic_ramp_value",
+        "hugues:selesnya_auras",
+        "hugues:orzhov_drain_extort",
+        "hugues:white_weenie",
         "hugues:pauper_staple"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Ray of Command (+12.6 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.6 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "rationale": "Proposée en remplacement poste pour poste de Kor Hookmaster (+18.1 pts). Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.1 pts). Reste au service de Azorius Fliers & ETB Value & Pauper Staples and Goodstuff.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+28.1 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Fliers & ETB Value & Selesnya Auras & Hexproof & Orzhov Extort & Drain (+36 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & ETB Value",
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Izzet Burn & Spells"
+          "Selesnya Auras & Hexproof",
+          "Orzhov Extort & Drain"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
       },
-      "releaseYear": 2024,
-      "isRecent": true,
+      "isRecent": false,
       "replacesCards": [
         {
-          "name": "Ray of Command",
-          "frenchName": "Rayon de commandement",
-          "score": 15.5,
-          "tier": "D",
-          "scoreDelta": 12.6,
-          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.6 pts). Reste au service de Pauper Staples and Goodstuff."
+          "name": "Kor Hookmaster",
+          "frenchName": "Maîtresse aux crochets kor",
+          "score": 17.9,
+          "tier": "C",
+          "scoreDelta": 18.1,
+          "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.1 pts). Reste au service de Azorius Fliers & ETB Value & Pauper Staples and Goodstuff."
         }
       ],
-      "rankingScore": 84.1,
+      "rankingScore": 78,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28.1
+          "points": 36
         },
         {
           "key": "direct_replacement",
@@ -3361,11 +3907,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
-        },
-        {
-          "key": "recent_release",
-          "points": 6
+          "points": 12
         }
       ]
     },
@@ -3435,6 +3977,193 @@
     },
     {
       "card": {
+        "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
+        "name": "Deem Inferior",
+        "score": 28.1,
+        "tier": "A+",
+        "cmc": 4,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cc0835c7-58ca-4f16-984a-c590ce6a229a/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2024,
+        "set": "MH3",
+        "isRecent": true
+      },
+      "archetypes": [
+        "hugues:azorius_blink",
+        "hugues:dimir_ninja_tempo",
+        "hugues:izzet_spellslinger",
+        "hugues:simic_ramp_value",
+        "hugues:pauper_staple"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Ray of Command (+12.6 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.6 pts). Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+28.1 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Ray of Command",
+          "frenchName": "Rayon de commandement",
+          "score": 15.5,
+          "tier": "D",
+          "scoreDelta": 12.6,
+          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.6 pts). Reste au service de Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 76.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 28.1
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "1822f924-51ba-4f81-92cc-6c5d741a33f9",
+        "name": "Ravenloft Adventurer",
+        "score": 29.8,
+        "tier": "A+",
+        "cmc": 4,
+        "typeLine": "Creature — Human Rogue Assassin",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/5/a5e27c36-d883-4681-8430-b4d0ad7f1df0.jpg?1783922756",
+        "colors": [
+          "B"
+        ],
+        "isRecent": false
+      },
+      "archetypes": [
+        "hugues:dimir_ninja_tempo",
+        "hugues:rakdos_attrition",
+        "hugues:orzhov_drain_extort",
+        "hugues:golgari_graveyard",
+        "hugues:pauper_staple"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Cursed Minotaur (+14.8 pts). Un mana de plus (4 vs 3), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+29.8 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Cursed Minotaur",
+          "frenchName": "Minotaure maudit",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 14.8,
+          "reason": "Un mana de plus (4 vs 3), compensé par un gain d'impact net (+14.8 pts) qui justifie le décalage de curve. Reste au service de Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 71.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
+        "tier": "A+",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "colors": [
+          "B"
+        ],
+        "isRecent": false
+      },
+      "archetypes": [
+        "hugues:dimir_ninja_tempo",
+        "hugues:rakdos_attrition",
+        "hugues:orzhov_drain_extort",
+        "hugues:golgari_graveyard",
+        "hugues:pauper_staple"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Dauthi Marauder (+14.8 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Evasion & Ninjutsu Tempo & Rakdos Pestilence Attrition & Orzhov Extort & Drain (+29.8 pts).",
+        "affectedArchetypes": [
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Rakdos Pestilence Attrition",
+          "Orzhov Extort & Drain"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Dauthi Marauder",
+          "frenchName": "Maraudeur dauthi",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 14.8,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Dimir Evasion & Ninjutsu Tempo & Pauper Staples and Goodstuff."
+        }
+      ],
+      "rankingScore": 71.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "431d6a2b-e22c-4921-a5f1-dd672f764f78",
         "name": "Grim Bauble",
         "score": 33.6,
@@ -3474,7 +4203,7 @@
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 73.6,
+      "rankingScore": 65.6,
       "rankingFactors": [
         {
           "key": "power",
@@ -3482,69 +4211,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "90fdfba8-f29e-44f9-91d2-7bf3c458a9c1",
-        "name": "Molten Gatekeeper",
-        "score": 28,
-        "tier": "A+",
-        "cmc": 3,
-        "typeLine": "Artifact Creature — Golem",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9f5ba065-2806-4e99-a330-168cfe76250f/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "hugues:rakdos_attrition",
-        "hugues:gruul_stompy",
-        "hugues:izzet_spellslinger",
-        "hugues:white_weenie",
-        "hugues:red_deck_wins",
-        "hugues:pauper_staple"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Renforce directement les archétypes Rakdos Pestilence Attrition et Gruul Stompy grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Pestilence Attrition & Gruul Stompy & Izzet Burn & Spells (+28 pts).",
-        "affectedArchetypes": [
-          "Rakdos Pestilence Attrition",
-          "Gruul Stompy",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 72,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28
-        },
-        {
-          "key": "archetype_match",
-          "points": 24
+          "points": 12
         },
         {
           "key": "recent_release",
@@ -3651,7 +4318,7 @@
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 63,
+      "rankingScore": 55,
       "rankingFactors": [
         {
           "key": "power",
@@ -3659,7 +4326,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3710,7 +4377,7 @@
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 61.8,
+      "rankingScore": 53.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -3718,7 +4385,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -3767,7 +4434,7 @@
       "benchmarkCubes": [
         "The Pauper Cube"
       ],
-      "rankingScore": 61.8,
+      "rankingScore": 53.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -3775,178 +4442,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 20
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "0728b195-2dfe-4d73-91ae-e658a97b0b9a",
-        "name": "Hard Evidence",
-        "score": 27.5,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/501599d6-1072-4124-b05d-01f96de153f3/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2021,
-        "set": "MH2",
-        "isRecent": false
-      },
-      "archetypes": [
-        "hugues:azorius_blink",
-        "hugues:dimir_ninja_tempo",
-        "hugues:izzet_spellslinger",
-        "hugues:simic_ramp_value",
-        "hugues:pauper_staple"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Renforce directement les archétypes Azorius Fliers & ETB Value et Dimir Evasion & Ninjutsu Tempo grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+27.5 pts).",
-        "affectedArchetypes": [
-          "Azorius Fliers & ETB Value",
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (2021)"
-      },
-      "releaseYear": 2021,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 61.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.5
-        },
-        {
-          "key": "archetype_match",
-          "points": 20
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "1d67f5ff-1fce-45e5-b6a1-416c569351e2",
-        "name": "Gitaxian Probe",
-        "score": 27,
-        "tier": "A+",
-        "cmc": 1,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/b511dd44-4c2c-45be-a35b-61524d7a5761/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2011,
-        "set": "F12",
-        "isRecent": false
-      },
-      "archetypes": [
-        "hugues:azorius_blink",
-        "hugues:dimir_ninja_tempo",
-        "hugues:izzet_spellslinger",
-        "hugues:simic_ramp_value",
-        "hugues:pauper_staple"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Renforce directement les archétypes Azorius Fliers & ETB Value et Dimir Evasion & Ninjutsu Tempo grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+27 pts).",
-        "affectedArchetypes": [
-          "Azorius Fliers & ETB Value",
-          "Dimir Evasion & Ninjutsu Tempo",
-          "Izzet Burn & Spells"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (2011)"
-      },
-      "releaseYear": 2011,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 61,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27
-        },
-        {
-          "key": "archetype_match",
-          "points": 20
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
-        "name": "Generous Ent",
-        "score": 25,
-        "tier": "A",
-        "cmc": 6,
-        "typeLine": "Creature — Treefolk",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ffabb307-87f0-428b-a4dc-a147c6c926a8/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2023,
-        "set": "LTR",
-        "isRecent": false
-      },
-      "archetypes": [
-        "hugues:gruul_stompy",
-        "hugues:selesnya_auras",
-        "hugues:golgari_graveyard",
-        "hugues:simic_ramp_value",
-        "hugues:pauper_staple"
-      ],
-      "role": "engine",
-      "rationale": "Renforce directement les archétypes Gruul Stompy et Selesnya Auras & Hexproof grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Stompy & Selesnya Auras & Hexproof & Golgari Recursion & Tortured Existence (+25 pts).",
-        "affectedArchetypes": [
-          "Gruul Stompy",
-          "Selesnya Auras & Hexproof",
-          "Golgari Recursion & Tortured Existence"
-        ],
-        "strategicRole": "Moteur de Synergie & Récurrence Continue",
-        "benchmarkPresence": "Vu dans The Pauper Cube",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "The Pauper Cube"
-      ],
-      "rankingScore": 59,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 25
-        },
-        {
-          "key": "archetype_match",
-          "points": 20
+          "points": 12
         },
         {
           "key": "peer_benchmark",
@@ -4014,6 +4510,63 @@
     },
     {
       "card": {
+        "oracleId": "0728b195-2dfe-4d73-91ae-e658a97b0b9a",
+        "name": "Hard Evidence",
+        "score": 27.5,
+        "tier": "A+",
+        "cmc": 1,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/501599d6-1072-4124-b05d-01f96de153f3/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2021,
+        "set": "MH2",
+        "isRecent": false
+      },
+      "archetypes": [
+        "hugues:azorius_blink",
+        "hugues:dimir_ninja_tempo",
+        "hugues:izzet_spellslinger",
+        "hugues:simic_ramp_value",
+        "hugues:pauper_staple"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Renforce directement les archétypes Azorius Fliers & ETB Value et Dimir Evasion & Ninjutsu Tempo grâce à une excellente cohérence de tempo et d'impact.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & ETB Value & Dimir Evasion & Ninjutsu Tempo & Izzet Burn & Spells (+27.5 pts).",
+        "affectedArchetypes": [
+          "Azorius Fliers & ETB Value",
+          "Dimir Evasion & Ninjutsu Tempo",
+          "Izzet Burn & Spells"
+        ],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (2021)"
+      },
+      "releaseYear": 2021,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 53.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.5
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "ae3e5c80-6a6a-4781-a7b9-4d63357ffa3b",
         "name": "Eldrazi Repurposer",
         "score": 33.1,
@@ -4050,6 +4603,63 @@
         {
           "key": "recent_release",
           "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "b6859c7a-4c4d-4652-938f-ecedce29d506",
+        "name": "Generous Ent",
+        "score": 25,
+        "tier": "A",
+        "cmc": 6,
+        "typeLine": "Creature — Treefolk",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/ffabb307-87f0-428b-a4dc-a147c6c926a8/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2023,
+        "set": "LTR",
+        "isRecent": false
+      },
+      "archetypes": [
+        "hugues:gruul_stompy",
+        "hugues:selesnya_auras",
+        "hugues:golgari_graveyard",
+        "hugues:simic_ramp_value",
+        "hugues:pauper_staple"
+      ],
+      "role": "engine",
+      "rationale": "Renforce directement les archétypes Gruul Stompy et Selesnya Auras & Hexproof grâce à une excellente cohérence de tempo et d'impact.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Stompy & Selesnya Auras & Hexproof & Golgari Recursion & Tortured Existence (+25 pts).",
+        "affectedArchetypes": [
+          "Gruul Stompy",
+          "Selesnya Auras & Hexproof",
+          "Golgari Recursion & Tortured Existence"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "benchmarkPresence": "Vu dans The Pauper Cube",
+        "releaseContext": "Référence confirmée (2023)"
+      },
+      "releaseYear": 2023,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "The Pauper Cube"
+      ],
+      "rankingScore": 51,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
         },
         {
           "key": "peer_benchmark",

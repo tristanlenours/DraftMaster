@@ -804,6 +804,103 @@ describe("Cube Upgrade Advisor", () => {
       expect(upgrades[blinkTarget.name]).toBeUndefined();
     });
 
+    it("never proposes to cut a card the cube's archetypes declare as key", () => {
+      const nicoMeta = {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [
+          {
+            id: "nico:twin",
+            name: "Twin & Kiki Combo",
+            primaryColors: ["R"],
+            keyCards: ["declared-key"],
+          },
+        ],
+      };
+      const declaredKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "declared-key",
+        name: "Declared Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const curatedKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "curated-key",
+        name: "Curated Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {
+          nico_candyshop: {
+            ...mockTargetTribalAnalysis,
+            cubeKey: "nico_candyshop",
+            archetypes: [],
+            metaRole: "key",
+          },
+        },
+      };
+      const weakFiller: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "weak-filler",
+        name: "Weak Filler",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const strongerCandidates = [1, 2, 3].map((index): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: `stronger-${String(index)}`,
+        name: `Stronger Burn ${String(index)}`,
+        presentInCubes: [],
+      }));
+
+      const upgrades = generateCubeUpgradeProposals(
+        "nico_candyshop",
+        [declaredKey, curatedKey, weakFiller, ...strongerCandidates],
+        nicoMeta,
+      );
+
+      expect(Object.keys(upgrades)).toEqual(["Weak Filler"]);
+    });
+
+    it("ignores reminder text and reads an additional mana ability as mana", () => {
+      const manaDork: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "mana-dork",
+        name: "Weak Mana Dork",
+        colors: ["G"],
+        colorIdentity: ["G"],
+        typeLine: "Creature — Elf Druid",
+        types: ["Creature"],
+        subtypes: ["Elf", "Druid"],
+        oracleText: "{T}: Add {G}.",
+        presentInCubes: ["nico_candyshop"],
+        objectiveAnalysis: { ...mockTargetCard.objectiveAnalysis, roles: [] },
+        cubeAnalyses: {},
+      };
+      const earthbendDork: MasterCatalogCard = {
+        ...mockCandidateUpgrade,
+        oracleId: "earthbend-dork",
+        name: "Earthbend Dork",
+        cmc: 2,
+        colors: ["G"],
+        colorIdentity: ["G"],
+        typeLine: "Creature — Badger Mole",
+        types: ["Creature"],
+        subtypes: ["Badger", "Mole"],
+        oracleText:
+          "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+        presentInCubes: [],
+        objectiveAnalysis: { ...mockCandidateUpgrade.objectiveAnalysis, roles: [] },
+      };
+
+      const upgrades = generateCubeUpgradeProposals("nico_candyshop", [manaDork, earthbendDork], {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [],
+      });
+
+      expect(upgrades[manaDork.name]?.suggestedCard.name).toBe(earthbendDork.name);
+    });
+
     it.each([
       ["Aura", "Enchantment"],
       ["Class", "Enchantment"],
@@ -1076,6 +1173,62 @@ describe("Cube Upgrade Advisor", () => {
       expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual(["Top Discovery"]);
     });
 
+    it("caps the archetype bonus so a color shared by many archetypes is not favored", () => {
+      const archetype = (id: string, colors: string[]) => ({
+        id,
+        name: id,
+        primaryColors: colors,
+        keyCards: [],
+        supportCards: [],
+      });
+      const meta = {
+        ...cedricMeta,
+        archetypes: [
+          archetype("red-1", ["R"]),
+          archetype("red-2", ["R"]),
+          archetype("red-3", ["R"]),
+          archetype("red-4", ["R"]),
+          archetype("red-5", ["R"]),
+          archetype("green-1", ["G"]),
+          archetype("green-2", ["G"]),
+          archetype("green-3", ["G"]),
+        ],
+      };
+      const discovery = (name: string, color: "R" | "G", score: number): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: name,
+        name,
+        colors: [color],
+        colorIdentity: [color],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+      });
+      const benchmarkMap = new Map([
+        ["red discovery", ["Peer Cube"]],
+        ["green discovery", ["Peer Cube"]],
+      ]);
+
+      const maybeboard = generateCubeMaybeboard(
+        "cedric_cube",
+        [discovery("Red Discovery", "R", 41), discovery("Green Discovery", "G", 43)],
+        meta,
+        undefined,
+        undefined,
+        benchmarkMap,
+        undefined,
+        {},
+      );
+
+      expect(maybeboard.map((suggestion) => suggestion.card.name)).toEqual([
+        "Green Discovery",
+        "Red Discovery",
+      ]);
+      const archetypePoints = maybeboard.map(
+        (suggestion) =>
+          suggestion.rankingFactors.find((factor) => factor.key === "archetype_match")?.points,
+      );
+      expect(archetypePoints).toEqual([12, 12]);
+    });
+
     it("honors maxSuggestions even when more direct replacements are available", () => {
       const secondCandidate: MasterCatalogCard = {
         ...mockCandidateUpgrade,
@@ -1339,7 +1492,7 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(report.schemaVersion).toBe(2);
-      expect(report.engineVersion).toBe("cube-upgrade-advisor@5");
+      expect(report.engineVersion).toBe("cube-upgrade-advisor@6");
       expect(report.snapshotId).toBe("titou_tribal@test");
       expect(report.generatedAt).toBe(mockRunContext.generatedAt);
       expect(report.sourceProvenance).toEqual({

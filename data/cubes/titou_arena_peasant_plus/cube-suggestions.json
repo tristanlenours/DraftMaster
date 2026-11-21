@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@5",
+  "engineVersion": "cube-upgrade-advisor@6",
   "cubeKey": "titou_arena_peasant_plus",
   "snapshotId": "titou_arena_peasant_plus@2026-09-08.1",
-  "generatedAt": "2026-11-07T11:36:04.936Z",
+  "generatedAt": "2026-11-18T12:26:56.317Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-07T11:36:04.936Z",
+    "generatedAt": "2026-11-18T12:26:56.317Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "df90b7b69d237a361db4c18d1eb19d01db070180d9f6aae23a0e94ecbc3be86c",
+      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -41,8 +41,8 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2194,
-    "availableCandidates": 1834,
+    "catalogCards": 2240,
+    "availableCandidates": 1880,
     "benchmarkCards": 360,
     "benchmarkCardsInCatalog": 356,
     "missingBenchmarkCards": 4,
@@ -227,7 +227,7 @@
         "set": "TMT",
         "isRecent": true
       },
-      "swapType": "archetype_booster",
+      "swapType": "versatile_alternative",
       "scoreDelta": 14.8,
       "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Azorius Fliers & Bounce Value.",
       "metaAddedValue": {
@@ -242,7 +242,7 @@
       },
       "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 58.8,
+      "rankingScore": 52.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -254,10 +254,6 @@
         },
         {
           "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
           "points": 6
         },
         {
@@ -469,7 +465,7 @@
       "suggestedCard": {
         "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
         "name": "Brain Freeze",
-        "score": 37.2,
+        "score": 36.6,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
@@ -482,10 +478,10 @@
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 19.1,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+19.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
+      "scoreDelta": 18.5,
+      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+19.1 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+18.5 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & Bounce Value",
           "Dimir Draw-Two & Control",
@@ -496,11 +492,11 @@
       },
       "releaseYear": 2003,
       "isRecent": false,
-      "rankingScore": 47.2,
+      "rankingScore": 46.6,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 37.2
+          "points": 36.6
         },
         {
           "key": "role_alignment",
@@ -855,7 +851,7 @@
       "suggestedCard": {
         "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
         "name": "Urza's Bauble",
-        "score": 33.1,
+        "score": 34,
         "tier": "A",
         "cmc": 0,
         "typeLine": "Artifact",
@@ -866,10 +862,10 @@
         "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 12.1,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.1 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice.",
+      "scoreDelta": 13,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+12.1 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+13 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Générateur de Card Advantage Actif",
         "benchmarkPresence": "Vu dans JDGP Peasant Cube",
@@ -880,11 +876,11 @@
       "benchmarkCubes": [
         "JDGP Peasant Cube"
       ],
-      "rankingScore": 75.1,
+      "rankingScore": 76,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33.1
+          "points": 34
         },
         {
           "key": "role_alignment",
@@ -1328,7 +1324,7 @@
           "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+23.8 pts). Reste au service de Azorius Fliers & Bounce Value."
         }
       ],
-      "rankingScore": 93,
+      "rankingScore": 89,
       "rankingFactors": [
         {
           "key": "power",
@@ -1340,7 +1336,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1391,7 +1387,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+25.2 pts). Reste au service de Orzhov Recursion & ETB Grind."
         }
       ],
-      "rankingScore": 92,
+      "rankingScore": 88,
       "rankingFactors": [
         {
           "key": "power",
@@ -1403,7 +1399,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1452,7 +1448,7 @@
           "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18.9 pts)."
         }
       ],
-      "rankingScore": 88,
+      "rankingScore": 84,
       "rankingFactors": [
         {
           "key": "power",
@@ -1464,7 +1460,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1515,7 +1511,7 @@
           "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.4 pts). Reste au service de Selesnya Go-Wide & Anthems."
         }
       ],
-      "rankingScore": 88,
+      "rankingScore": 84,
       "rankingFactors": [
         {
           "key": "power",
@@ -1527,7 +1523,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1578,7 +1574,7 @@
           "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.1 pts). Reste au service de Orzhov Recursion & ETB Grind."
         }
       ],
-      "rankingScore": 87,
+      "rankingScore": 83,
       "rankingFactors": [
         {
           "key": "power",
@@ -1590,7 +1586,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1641,7 +1637,7 @@
           "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+21.3 pts)."
         }
       ],
-      "rankingScore": 87,
+      "rankingScore": 83,
       "rankingFactors": [
         {
           "key": "power",
@@ -1653,7 +1649,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1704,7 +1700,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+19 pts). Reste au service de Gruul Ramp, Fight & Landfall & Simic Eldrazi Spawn & Ramp."
         }
       ],
-      "rankingScore": 86,
+      "rankingScore": 82,
       "rankingFactors": [
         {
           "key": "power",
@@ -1716,7 +1712,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1767,7 +1763,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.5 pts). Reste au service de Golgari Food, Sacrifice & Graveyard."
         }
       ],
-      "rankingScore": 84,
+      "rankingScore": 80,
       "rankingFactors": [
         {
           "key": "power",
@@ -1779,7 +1775,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },
@@ -1787,7 +1783,7 @@
       "card": {
         "oracleId": "464c0150-3dbc-403b-9ada-fef25ab1f29d",
         "name": "Brain Freeze",
-        "score": 37.2,
+        "score": 36.6,
         "tier": "A",
         "cmc": 2,
         "typeLine": "Instant",
@@ -1806,9 +1802,9 @@
         "titou_peasant:izzet_artifacts"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+19.1 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+19.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
+      "rationale": "Proposée en remplacement poste pour poste de Fading Hope (+18.5 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+37.2 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Fliers & Bounce Value & Dimir Draw-Two & Control & Simic Eldrazi Spawn & Ramp (+36.6 pts).",
         "affectedArchetypes": [
           "Azorius Fliers & Bounce Value",
           "Dimir Draw-Two & Control",
@@ -1825,15 +1821,15 @@
           "frenchName": "Espoir volatilisé",
           "score": 18.1,
           "tier": "F",
-          "scoreDelta": 19.1,
-          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+19.1 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts."
+          "scoreDelta": 18.5,
+          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.5 pts) qui justifie le décalage de curve. Reste au service de Izzet Noncreature Spells & Artifacts."
         }
       ],
-      "rankingScore": 83.2,
+      "rankingScore": 78.6,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 37.2
+          "points": 36.6
         },
         {
           "key": "direct_replacement",
@@ -1841,7 +1837,61 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
+        "name": "Urza's Bauble",
+        "score": 34,
+        "tier": "A",
+        "cmc": 0,
+        "typeLine": "Artifact",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/58c9e9a7-e170-4361-b7d5-22fc0771c489/normal.webp",
+        "colors": [],
+        "releaseYear": 1995,
+        "set": "ICE",
+        "isRecent": false
+      },
+      "archetypes": [],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Mishra's Bauble (+13 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice.",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+34 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
+        "releaseContext": "Référence confirmée (1995)"
+      },
+      "releaseYear": 1995,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "JDGP Peasant Cube"
+      ],
+      "replacesCards": [
+        {
+          "name": "Mishra's Bauble",
+          "score": 21,
+          "tier": "D",
+          "scoreDelta": 13,
+          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice."
+        }
+      ],
+      "rankingScore": 78,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 34
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
         }
       ]
     },
@@ -1890,7 +1940,7 @@
           "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+14.8 pts). Reste au service de Azorius Fliers & Bounce Value."
         }
       ],
-      "rankingScore": 81.8,
+      "rankingScore": 77.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -1902,65 +1952,11 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         },
         {
           "key": "recent_release",
           "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "17dbbca3-ac1c-4d4e-9618-3e66ac3ccd24",
-        "name": "Urza's Bauble",
-        "score": 33.1,
-        "tier": "A",
-        "cmc": 0,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/58c9e9a7-e170-4361-b7d5-22fc0771c489/normal.webp",
-        "colors": [],
-        "releaseYear": 1995,
-        "set": "ICE",
-        "isRecent": false
-      },
-      "archetypes": [],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Mishra's Bauble (+12.1 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.1 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+33.1 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans JDGP Peasant Cube",
-        "releaseContext": "Référence confirmée (1995)"
-      },
-      "releaseYear": 1995,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "JDGP Peasant Cube"
-      ],
-      "replacesCards": [
-        {
-          "name": "Mishra's Bauble",
-          "score": 21,
-          "tier": "D",
-          "scoreDelta": 12.1,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.1 pts). Reste au service de Dimir Draw-Two & Control & Rakdos Artifacts & Sacrifice."
-        }
-      ],
-      "rankingScore": 77.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.1
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
         }
       ]
     },
@@ -2009,7 +2005,7 @@
           "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+19.8 pts) qui justifie le décalage de curve. Reste au service de Boros Go-Wide Aggro & Valiant."
         }
       ],
-      "rankingScore": 75.8,
+      "rankingScore": 71.8,
       "rankingFactors": [
         {
           "key": "power",
@@ -2021,7 +2017,7 @@
         },
         {
           "key": "archetype_match",
-          "points": 16
+          "points": 12
         }
       ]
     },

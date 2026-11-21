@@ -118,7 +118,7 @@ export interface AdvisorRunContext {
 
 export interface CubeSuggestionsReport {
   readonly schemaVersion: 2;
-  readonly engineVersion: "cube-upgrade-advisor@5";
+  readonly engineVersion: "cube-upgrade-advisor@6";
   readonly cubeKey: string;
   readonly snapshotId: string;
   readonly generatedAt: string;
@@ -252,7 +252,22 @@ function getCardTier(
   return "C";
 }
 
-function isWeakTarget(card: MasterCatalogCard, cubeKey: string): boolean {
+/**
+ * Key pieces of the cube's archetypes (curated Tier 1 data) are never proposed for a cut: their
+ * power score comes from limited-oriented signals that undervalue narrow but decisive combo and
+ * engine cards (Show and Tell, Griselbrand, a Twin enabler).
+ */
+function getProtectedOracleIds(cubeMeta?: AdvisorCubeMeta): ReadonlySet<string> {
+  return new Set(cubeMeta?.archetypes?.flatMap((archetype) => archetype.keyCards ?? []) ?? []);
+}
+
+function isWeakTarget(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  protectedOracleIds: ReadonlySet<string>,
+): boolean {
+  if (protectedOracleIds.has(card.oracleId)) return false;
+  if (card.cubeAnalyses[cubeKey]?.metaRole === "key") return false;
   const score = getCardScore(card);
   const tier = getCardTier(card, cubeKey);
   const fit = card.cubeAnalyses[cubeKey]?.fit;
@@ -355,7 +370,9 @@ type RulesFunction =
   | "tokens";
 
 function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> {
-  const text = card.oracleText.toLowerCase();
+  // Reminder text explains a keyword, it is not a function of the card (earthbend's reminder
+  // mentions exiling and returning a land you control, which is not a blink).
+  const text = card.oracleText.toLowerCase().replace(/\([^)]*\)/g, "");
   const functions = new Set<RulesFunction>();
 
   // Removal targets an opponent's permanent: "exile target creature you control" is a blink.
@@ -386,7 +403,7 @@ function getRulesFunctions(card: MasterCatalogCard): ReadonlySet<RulesFunction> 
     functions.add("card_selection");
   }
   if (
-    text.includes("add {") ||
+    /add (?:an additional )?\{/.test(text) ||
     text.includes("add one mana") ||
     text.includes("add two mana") ||
     /search your library for [^.]*land card[^.]*battlefield/.test(text)
@@ -739,6 +756,7 @@ const SYNERGY_OVERLAP_POINTS_PER_TAG = 3;
 const SYNERGY_OVERLAP_MAX_POINTS = 15;
 const ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE = 6;
 const ARCHETYPE_MATCH_MAX_POINTS = 12;
+const MAYBEBOARD_ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE = 4;
 /** Pushes same-cost swaps ahead of a +1 mana swap of comparable value. */
 const CMC_UP_RANKING_PENALTY = -4;
 
@@ -910,7 +928,8 @@ export function generateCubeUpgradeProposals(
   // 1. Identify target cards currently in the cube that are candidates for an upgrade
   const cubeCards = catalogCards.filter((c) => c.presentInCubes.includes(cubeKey));
   const thresholds = computeCubeTierThresholds(cubeCards);
-  const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey));
+  const protectedOracleIds = getProtectedOracleIds(cubeMeta);
+  const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey, protectedOracleIds));
 
   // 2. Identify candidate pool: cards in catalog NOT in this cube
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
@@ -1213,7 +1232,15 @@ export function generateCubeMaybeboard(
       supportedCreatureTypes,
     );
     if (matchedArchetypes.length > 0) {
-      rankingFactors.push({ key: "archetype_match", points: matchedArchetypes.length * 4 });
+      // Capped like slot-for-slot swaps: a color shared by many archetypes must not outrank a
+      // stronger card of a color that fewer archetypes play.
+      rankingFactors.push({
+        key: "archetype_match",
+        points: Math.min(
+          ARCHETYPE_MATCH_MAX_POINTS,
+          matchedArchetypes.length * MAYBEBOARD_ARCHETYPE_MATCH_POINTS_PER_ARCHETYPE,
+        ),
+      });
     }
 
     const isRecent = isRecentRelease(relInfo, recentReferenceYear);
@@ -1414,7 +1441,7 @@ export function generateCubeSuggestionsReport(
 
   return {
     schemaVersion: 2,
-    engineVersion: "cube-upgrade-advisor@5",
+    engineVersion: "cube-upgrade-advisor@6",
     cubeKey,
     snapshotId: cubeMeta.activeSnapshotId,
     generatedAt: runContext.generatedAt,
