@@ -62,7 +62,7 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(htmlContent).not.toContain('data-view="home"');
     });
 
-    it("declares desktop navigation tabs for all 8 SPA views including the deck lab", () => {
+    it("declares desktop navigation tabs for all 9 SPA views including deck lab and proxies", () => {
       const views = [
         "cubes",
         "cards",
@@ -72,6 +72,7 @@ describe("Web Navigation & Mobile Target QA", () => {
         "multi",
         "tournaments",
         "deck-lab",
+        "proxies",
       ];
       for (const view of views) {
         expect(htmlContent).toContain(`id="nav-btn-${view}"`);
@@ -93,7 +94,7 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(barMatches?.length).toBe(3);
     });
 
-    it("declares mobile navigation drawer with touch targets for all 8 views", () => {
+    it("declares mobile navigation drawer with touch targets for all 9 views", () => {
       expect(htmlContent).toContain('id="mobile-nav-drawer"');
       expect(htmlContent).toContain('class="mobile-nav-drawer"');
       expect(htmlContent).toContain('aria-label="Navigation mobile"');
@@ -107,6 +108,7 @@ describe("Web Navigation & Mobile Target QA", () => {
         "multi",
         "tournaments",
         "deck-lab",
+        "proxies",
       ];
       for (const view of mobileViews) {
         expect(htmlContent).toContain(`id="mobile-nav-${view}"`);
@@ -253,7 +255,7 @@ describe("Web Navigation & Mobile Target QA", () => {
       expect(jsContent).toContain("Escape");
     });
 
-    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 8 views", () => {
+    it("synchronizes active navigation state on both desktop tabs and mobile drawer items for all 9 views", () => {
       const navKeys = [
         "Cubes",
         "Cards",
@@ -263,6 +265,7 @@ describe("Web Navigation & Mobile Target QA", () => {
         "Multi",
         "Tournaments",
         "DeckLab",
+        "Proxies",
       ];
       for (const key of navKeys) {
         expect(jsContent).toContain(`elements.navBtn${key}?.classList.toggle("active"`);

@@ -11,6 +11,9 @@ export default defineConfig({
   use: {
     baseURL: `http://127.0.0.1:${String(port)}`,
     trace: "retain-on-failure",
+    ...(process.env.PLAYWRIGHT_BROWSER_CHANNEL
+      ? { channel: process.env.PLAYWRIGHT_BROWSER_CHANNEL }
+      : {}),
   },
   webServer: {
     command: "node --no-warnings --experimental-strip-types scripts/serve-web.mjs",

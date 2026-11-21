@@ -119,6 +119,7 @@ export const elements = {
   viewMulti: document.getElementById("view-multi"),
   viewTournaments: document.getElementById("view-tournaments"),
   viewDeckLab: document.getElementById("view-deck-lab"),
+  viewProxies: document.getElementById("view-proxies"),
 
   // Navigation Links (Desktop)
   brandHomeBtn: document.getElementById("brand-home-btn"),
@@ -130,6 +131,7 @@ export const elements = {
   navBtnMulti: document.getElementById("nav-btn-multi"),
   navBtnTournaments: document.getElementById("nav-btn-tournaments"),
   navBtnDeckLab: document.getElementById("nav-btn-deck-lab"),
+  navBtnProxies: document.getElementById("nav-btn-proxies"),
   globalLangFr: document.getElementById("global-lang-fr"),
   globalLangEn: document.getElementById("global-lang-en"),
 
@@ -145,6 +147,7 @@ export const elements = {
   mobileNavMulti: document.getElementById("mobile-nav-multi"),
   mobileNavTournaments: document.getElementById("mobile-nav-tournaments"),
   mobileNavDeckLab: document.getElementById("mobile-nav-deck-lab"),
+  mobileNavProxies: document.getElementById("mobile-nav-proxies"),
 
   // Home CTA Buttons
   homeCtaDraft: document.getElementById("home-cta-draft"),

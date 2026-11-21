@@ -30,6 +30,8 @@ import { loadCoachContext } from "../src/cubes/coach-context.ts";
 import { CardCatalog } from "../src/cards/card-catalog.ts";
 import { toCardEvaluationInput } from "../src/cards/evaluation-input.ts";
 import { createDeckLabHttpHandler } from "../src/deck-lab/http-handler.ts";
+import { createProxyScansHttpHandler } from "../src/proxy-scans/http-handler.ts";
+import { cardNameToSlug } from "../src/cards/types.ts";
 import { LlmRouter } from "../src/companion/llm-router.ts";
 import { createMultiplayerDraftCoordinator } from "../src/multiplayer-draft/index.ts";
 import {
@@ -70,7 +72,12 @@ const MIME_TYPES = {
 };
 
 // Only these subtrees of data/ are public; sessions, records and archives stay private.
-const PUBLIC_DATA_PREFIXES = ["cubes/", "cards/master-cards.json", "cards/images/"];
+const PUBLIC_DATA_PREFIXES = [
+  "cubes/",
+  "cards/master-cards.json",
+  "cards/proxy-scans.json",
+  "cards/images/",
+];
 
 const COMPRESSIBLE_EXTENSIONS = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg"]);
 const compressedAssetCache = new Map();
@@ -646,6 +653,32 @@ export function createRequestHandler(options = {}) {
       };
     },
   });
+  const proxyScansHandler = createProxyScansHttpHandler({
+    catalogPath: options.proxyScansCatalogPath ?? resolve(rootDir, "data", "cards", "proxy-scans.json"),
+    imageCacheDir:
+      options.proxyScansImageCacheDir ?? resolve(rootDir, "data", "cards", "images", "proxy-cache"),
+    fetchImpl: options.proxyScansFetch,
+    resolveCardFallback: async (oracleId, name) => {
+      try {
+        const catalog = await loadMultiplayerCatalog();
+        const card =
+          (oracleId ? catalog.getCardByOracleId(oracleId) : undefined) ??
+          (name ? catalog.getCardByName(name) : undefined);
+        if (!card) return null;
+        return {
+          oracleId: card.oracleId,
+          slug: card.slug ?? cardNameToSlug(card.name),
+          name: card.name,
+          typeLine: card.typeLine,
+          oracleText: card.oracleText,
+          ...(card.frenchName ? { frenchName: card.frenchName } : {}),
+          ...(card.frenchText ? { frenchText: card.frenchText } : {}),
+        };
+      } catch {
+        return null;
+      }
+    },
+  });
 
   return async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
@@ -834,6 +867,9 @@ export function createRequestHandler(options = {}) {
       return;
     }
     if (await deckLabHandler(req, res)) {
+      return;
+    }
+    if (await proxyScansHandler(req, res)) {
       return;
     }
 

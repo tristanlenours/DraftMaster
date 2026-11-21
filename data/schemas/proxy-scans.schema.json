@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://draftmaster.local/schemas/proxy-scans-v1.json",
+  "title": "DraftMaster Proxy Scans Catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "cardCount", "entries"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "cardCount": { "type": "integer", "minimum": 0 },
+    "entries": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/proxyScanEntry" }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "proxyScanBackFace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "typeLine", "oracleText", "pngUrl", "largeUrl"],
+      "properties": {
+        "name": { "type": "string" },
+        "printedName": { "type": "string" },
+        "manaCost": { "type": "string" },
+        "typeLine": { "type": "string" },
+        "printedTypeLine": { "type": "string" },
+        "oracleText": { "type": "string" },
+        "printedText": { "type": "string" },
+        "power": { "type": "string" },
+        "toughness": { "type": "string" },
+        "loyalty": { "type": "string" },
+        "pngUrl": { "type": "string" },
+        "largeUrl": { "type": "string" },
+        "artCropUrl": { "type": "string" }
+      }
+    },
+    "proxyScanVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scryfallId",
+        "lang",
+        "setCode",
+        "setName",
+        "collectorNumber",
+        "releasedAt",
+        "artist",
+        "frame",
+        "frameEffects",
+        "borderColor",
+        "promoTypes",
+        "fullArt",
+        "borderless",
+        "highresImage",
+        "imageStatus",
+        "treatmentLabel",
+        "pngUrl",
+        "largeUrl",
+        "isOfficialFrenchScan",
+        "needsFrenchProxyRender",
+        "score"
+      ],
+      "properties": {
+        "scryfallId": { "type": "string", "minLength": 1 },
+        "illustrationId": { "type": "string" },
+        "lang": { "type": "string" },
+        "setCode": { "type": "string" },
+        "setName": { "type": "string" },
+        "collectorNumber": { "type": "string" },
+        "releasedAt": { "type": "string" },
+        "artist": { "type": "string" },
+        "frame": { "type": "string" },
+        "frameEffects": { "type": "array", "items": { "type": "string" } },
+        "borderColor": { "type": "string" },
+        "promoTypes": { "type": "array", "items": { "type": "string" } },
+        "fullArt": { "type": "boolean" },
+        "borderless": { "type": "boolean" },
+        "highresImage": { "type": "boolean" },
+        "imageStatus": { "type": "string" },
+        "treatmentLabel": { "type": "string" },
+        "pngUrl": { "type": "string" },
+        "largeUrl": { "type": "string" },
+        "borderCropUrl": { "type": "string" },
+        "artCropUrl": { "type": "string" },
+        "localPngPath": { "type": "string" },
+        "localArtPath": { "type": "string" },
+        "backFace": { "$ref": "#/$defs/proxyScanBackFace" },
+        "isOfficialFrenchScan": { "type": "boolean" },
+        "needsFrenchProxyRender": { "type": "boolean" },
+        "score": { "type": "number" }
+      }
+    },
+    "proxyFrenchData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "typeLine", "rulesText", "source", "officialFrenchPrintExists"],
+      "properties": {
+        "name": { "type": "string" },
+        "typeLine": { "type": "string" },
+        "rulesText": { "type": "string" },
+        "flavorText": { "type": "string" },
+        "backFaceName": { "type": "string" },
+        "backFaceTypeLine": { "type": "string" },
+        "backFaceRulesText": { "type": "string" },
+        "source": {
+          "type": "string",
+          "enum": ["official_scryfall_fr", "catalog_fr", "translated_fallback", "custom"]
+        },
+        "officialFrenchPrintExists": { "type": "boolean" }
+      }
+    },
+    "proxyScanEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["oracleId", "slug", "name", "french", "classic", "original", "curatedAt"],
+      "properties": {
+        "oracleId": { "$ref": "#/$defs/uuid" },
+        "slug": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "french": { "$ref": "#/$defs/proxyFrenchData" },
+        "classic": { "$ref": "#/$defs/proxyScanVariant" },
+        "original": {
+          "anyOf": [{ "$ref": "#/$defs/proxyScanVariant" }, { "type": "null" }]
+        },
+        "curatedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
