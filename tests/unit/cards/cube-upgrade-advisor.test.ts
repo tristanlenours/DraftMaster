@@ -1124,9 +1124,13 @@ describe("Cube Upgrade Advisor", () => {
         name: "Marginal Upgrade",
         powerScore: { ...mockCandidateUpgrade.powerScore, score: 25 },
       };
-      const catalog = [mockTargetCard, marginal];
+      const slot: MasterCatalogCard = {
+        ...mockTargetCard,
+        powerScore: { ...mockTargetCard.powerScore, score: 16 },
+      };
+      const catalog = [slot, marginal];
       const upgrades = generateCubeUpgradeProposals("titou_tribal", catalog, mockMeta);
-      expect(upgrades[mockTargetCard.name]?.scoreDelta).toBe(11);
+      expect(upgrades[slot.name]?.scoreDelta).toBe(9);
 
       expect(
         generateCubeMaybeboard(

@@ -3,20 +3,20 @@
   "engineVersion": "cube-upgrade-advisor@7",
   "cubeKey": "cedric_cube",
   "snapshotId": "cedric_cube@2026-03-01.1",
-  "generatedAt": "2026-11-18T12:26:56.317Z",
+  "generatedAt": "2026-11-21T21:38:39.517Z",
   "sourceProvenance": {
-    "generatedAt": "2026-11-18T12:26:56.317Z",
+    "generatedAt": "2026-11-21T21:38:39.517Z",
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "160a51e3780ec2598e8bc992a607a3dd1b51f817ab5a0a991f56b8b232625d13",
+      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
     "releaseMetadata": {
       "id": "data/benchmarks/card-release-metadata.json",
       "version": "card-release-metadata@1",
-      "sha256": "2d68b60c6ce26b5a616bf5aba56437b78071a6c3009b68366db3364a0355072f",
+      "sha256": "59def39285dd2cc97e98eac15480518653ebf3c3422cba7e1b97025275bf4c96",
       "license": "Scryfall data usage terms; Magic: The Gathering © Wizards of the Coast",
       "method": "Versioned local extraction of first-print and rarity metadata"
     },
@@ -41,19 +41,19 @@
     }
   },
   "sourceCoverage": {
-    "catalogCards": 2240,
-    "availableCandidates": 1520,
+    "catalogCards": 2247,
+    "availableCandidates": 1527,
     "benchmarkCards": 669,
     "benchmarkCardsInCatalog": 588,
     "missingBenchmarkCards": 81,
     "benchmarkCoveragePercentage": 88
   },
   "stats": {
-    "totalUpgrades": 130,
+    "totalUpgrades": 131,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 84,
+    "recentUpgradesCount": 86,
     "benchmarkMatchesCount": 63,
-    "recentMaybeboardCount": 38,
+    "recentMaybeboardCount": 39,
     "directReplacementMaybeboardCount": 46
   },
   "upgrades": {
@@ -2344,36 +2344,34 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
-        "name": "Terramorphic Expanse",
-        "score": 26.9,
+        "oracleId": "97a2cd39-6b54-496b-b3ac-dab9dfed7edc",
+        "name": "Elven Passage",
+        "score": 26,
         "tier": "B+",
         "cmc": 0,
         "typeLine": "Land",
-        "imageUrl": "https://cards.scryfall.io/normal/front/a/8/a81f924b-0527-4311-8120-9bfff71524f6.jpg?1783903191",
-        "frenchName": "Immensité terramorphe",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/6/c65f757a-aa66-4369-a2a8-704aa56bcd9f.jpg?1785268065",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/d/dd1fd2ab-2565-4798-a832-fc849df82f74.jpg?1785323319",
         "colors": [],
-        "releaseYear": 2005,
-        "set": "DDH",
-        "isRecent": false
+        "releaseYear": 2026,
+        "set": "HOB",
+        "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 9.9,
-      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.9 pts).",
+      "scoreDelta": 9,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+9.9 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+9 pts).",
         "affectedArchetypes": [],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2005)"
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2005,
-      "isRecent": false,
-      "rankingScore": 36.9,
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 42,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 26.9
+          "points": 26
         },
         {
           "key": "synergy_overlap",
@@ -2382,6 +2380,10 @@
         {
           "key": "mana_efficiency",
           "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -5438,40 +5440,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "33c3a81a-6cea-48c9-b966-67084d96e74f",
-        "name": "Osseous Sticktwister",
-        "score": 28,
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
         "tier": "A-",
         "cmc": 2,
-        "typeLine": "Artifact Creature — Scarecrow",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/4f43473e-1302-4543-b331-1a86cfbc3ced/normal.webp",
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
         "colors": [
           "B"
         ],
-        "releaseYear": 2024,
-        "set": "DSK",
+        "releaseYear": 2026,
+        "set": "TRK",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 9,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts).",
+      "scoreDelta": 10.8,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.8 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+9 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+10.8 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Dimir Tempo & Disruption",
           "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 43,
+      "rankingScore": 44.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28
+          "points": 29.8
         },
         {
           "key": "role_alignment",
@@ -8661,6 +8663,64 @@
         }
       ]
     },
+    "Urborg, Tomb of Yawgmoth": {
+      "targetCard": {
+        "oracleId": "db6174d7-211d-4817-b8e4-8384594c83f9",
+        "name": "Urborg, Tomb of Yawgmoth",
+        "score": 18.1,
+        "tier": "D",
+        "cmc": 0,
+        "typeLine": "Legendary Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/e/9e1a9e38-6ffc-490f-b0be-23ba4e8204c6.jpg?1783927747",
+        "frenchName": "Urborg, tombe de Yaugzebul",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/4/c/4cb72dd1-a744-4a99-98e7-9ed5c5bc3d68.jpg?1782889215",
+        "colors": [],
+        "releaseYear": 2007,
+        "set": "PLC",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "1bd3e453-aa21-4ee6-95c2-d6d920ee8e7a",
+        "name": "Terramorphic Expanse",
+        "score": 26.9,
+        "tier": "B+",
+        "cmc": 0,
+        "typeLine": "Land",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/8/a81f924b-0527-4311-8120-9bfff71524f6.jpg?1783903191",
+        "frenchName": "Immensité terramorphe",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/6/c65f757a-aa66-4369-a2a8-704aa56bcd9f.jpg?1785268065",
+        "colors": [],
+        "releaseYear": 2005,
+        "set": "DDH",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8.8,
+      "reason": "Même coût de mana (0), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+8.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (2005)"
+      },
+      "releaseYear": 2005,
+      "isRecent": false,
+      "rankingScore": 35.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.9
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        }
+      ]
+    },
     "Usher of the Fallen": {
       "targetCard": {
         "oracleId": "a6eb06dc-a62d-4fdb-b336-e304d8d68c92",
@@ -8750,41 +8810,48 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
-        "name": "Salt Vampire",
-        "score": 29.8,
+        "oracleId": "33c3a81a-6cea-48c9-b966-67084d96e74f",
+        "name": "Osseous Sticktwister",
+        "score": 28,
         "tier": "A-",
         "cmc": 2,
-        "typeLine": "Creature — Vampire Shapeshifter",
-        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "typeLine": "Artifact Creature — Scarecrow",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/4f43473e-1302-4543-b331-1a86cfbc3ced/normal.webp",
         "colors": [
           "B"
         ],
-        "isRecent": false
+        "releaseYear": 2024,
+        "set": "DSK",
+        "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 11.9,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11.9 pts).",
+      "scoreDelta": 10.1,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10.1 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+11.9 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+10.1 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Dimir Tempo & Disruption",
           "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "Référence du format"
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [DSK]"
       },
-      "isRecent": false,
-      "rankingScore": 30.8,
+      "releaseYear": 2024,
+      "isRecent": true,
+      "rankingScore": 35,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 29.8
+          "points": 28
         },
         {
           "key": "mana_efficiency",
           "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -12566,60 +12633,62 @@
     },
     {
       "card": {
-        "oracleId": "bddf8f4a-3149-4dd6-a9e5-7747e7e45a1c",
-        "name": "Sylvan Safekeeper",
-        "score": 34,
+        "oracleId": "f5420901-b5e6-4d54-b3e8-5f45e37f1fab",
+        "name": "Headliner Scarlett",
+        "score": 28.3,
         "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Creature — Human Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/3/83036e21-21ea-4324-aa07-11757f80c417.jpg?1783911211",
+        "cmc": 4,
+        "typeLine": "Legendary Creature — Human Warlock",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/be77b98a-dd79-477c-8ab2-7ebf5637a89e/normal.webp",
         "colors": [
-          "G"
+          "R"
         ],
-        "releaseYear": 2002,
-        "set": "JUD",
-        "isRecent": false
+        "releaseYear": 2024,
+        "set": "CLU",
+        "isRecent": true
       },
       "archetypes": [
+        "cedric:dimir_reanimator",
+        "cedric:sneak_show",
+        "cedric:rakdos_aristocrats",
         "cedric:gruul_stompy",
-        "cedric:simic_ramp_goodstuff",
-        "cedric:selesnya_tokens_midrange",
-        "cedric:golgari_rock_graveyard"
+        "cedric:izzet_spells_tempo",
+        "cedric:boros_aggro_equipment"
       ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Ascendant Packleader (+19 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19 pts).",
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Goblin Dark-Dwellers (+10.4 pts). Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts). Reste au service de Izzet Spells & Tempo.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Haste & Stompy & Green Ramp & Natural Order & Selesnya Tokens & Anthems (+34 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+28.3 pts).",
         "affectedArchetypes": [
-          "Gruul Haste & Stompy",
-          "Green Ramp & Natural Order",
-          "Selesnya Tokens & Anthems"
+          "Dimir Reanimator",
+          "Sneak Attack / Show and Tell",
+          "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Enabler Majeur de Synergies",
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
         "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2002)"
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [CLU]"
       },
-      "releaseYear": 2002,
-      "isRecent": false,
+      "releaseYear": 2024,
+      "isRecent": true,
       "benchmarkCubes": [
         "MTGO Vintage Cube",
         "Vintage Cube Archive"
       ],
       "replacesCards": [
         {
-          "name": "Ascendant Packleader",
-          "frenchName": "Chef de meute ascendant",
-          "score": 15,
-          "tier": "F",
-          "scoreDelta": 19,
-          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19 pts)."
+          "name": "Goblin Dark-Dwellers",
+          "frenchName": "Gobelins sciaphiles",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 10.4,
+          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts). Reste au service de Izzet Spells & Tempo."
         }
       ],
-      "rankingScore": 90,
+      "rankingScore": 90.3,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 34
+          "points": 28.3
         },
         {
           "key": "direct_replacement",
@@ -12628,6 +12697,10 @@
         {
           "key": "archetype_match",
           "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         },
         {
           "key": "peer_benchmark",

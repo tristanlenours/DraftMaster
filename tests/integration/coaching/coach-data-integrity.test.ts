@@ -7,7 +7,7 @@ describe("coach data integrity", () => {
     const report = await verifyCoachData(process.cwd());
 
     expect(report.errors).toEqual([]);
-    expect(report.catalog).toMatchObject({ itemCount: 2240, masterCount: 2240 });
+    expect(report.catalog).toMatchObject({ itemCount: 2247, masterCount: 2247 });
     expect(report.cubes.map(({ cubeKey, status }) => ({ cubeKey, status }))).toEqual([
       { cubeKey: "cedric_cube", status: "ready" },
       { cubeKey: "hugues_pauper", status: "blocked" },
