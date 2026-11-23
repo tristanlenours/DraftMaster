@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { tmpdir } from "node:os";
@@ -11,6 +11,9 @@ const ONE_PIXEL_PNG = Buffer.from(
   "base64",
 );
 
+const MPC_ID = "1AA85Rfe_Rg5hozPMOcHBJLxpwSgO4xUA";
+const MPC_ID_FR = "1IS77TWnANnx6tViJ9BGb93gKa6ZjEwRz";
+const MPC_BROKEN_ID = "1brokenImageIdentifier0000000000";
 const LIGHTNING_BOLT_ORACLE_ID = "4457ed35-7c10-48c8-9776-456485fdf070";
 
 describe("Proxy Scans HTTP API integration", () => {
@@ -18,13 +21,71 @@ describe("Proxy Scans HTTP API integration", () => {
   let server: Server;
   let baseUrl: string;
   let imageFetchCount = 0;
+  let symbolFetchCount = 0;
+  let mpcApiFetchCount = 0;
+  let mpcImageFetchCount = 0;
+  let lastMpcSearchBody: unknown = null;
 
   beforeAll(async () => {
     tempDir = await mkdtemp(join(tmpdir(), "draftmaster-proxy-http-"));
 
-    const stubFetch: typeof fetch = (input) => {
+    const stubFetch: typeof fetch = (input, init) => {
       const url =
         typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+      if (url.startsWith("https://mpcfill.com/2/")) {
+        mpcApiFetchCount += 1;
+        if (url.endsWith("/2/sources/")) {
+          return Promise.resolve(
+            Response.json({ results: { "1": { pk: 1, name: "A" }, "2": { pk: 2, name: "B" } } }),
+          );
+        }
+        if (url.endsWith("/2/editorSearch/")) {
+          lastMpcSearchBody = JSON.parse(
+            typeof init?.body === "string" ? init.body : "{}",
+          ) as unknown;
+          return Promise.resolve(
+            Response.json({ results: { "lightning bolt": { CARD: [MPC_ID, MPC_ID_FR] } } }),
+          );
+        }
+        if (url.endsWith("/2/cards/")) {
+          return Promise.resolve(
+            Response.json({
+              results: {
+                [MPC_ID]: {
+                  identifier: MPC_ID,
+                  name: "Lightning Bolt (Borderless)",
+                  dpi: 1200,
+                  size: 2000000,
+                  sourceName: "JohnPrime",
+                  language: "EN",
+                  tags: [],
+                },
+                [MPC_ID_FR]: {
+                  identifier: MPC_ID_FR,
+                  name: "Foudre",
+                  dpi: 800,
+                  sourceName: "FrenchSource",
+                  language: "FR",
+                },
+              },
+            }),
+          );
+        }
+      }
+      if (url.startsWith("https://lh4.googleusercontent.com/d/")) {
+        mpcImageFetchCount += 1;
+        if (url.includes(MPC_BROKEN_ID)) {
+          return Promise.resolve(
+            new Response("<html>quota</html>", {
+              status: 200,
+              headers: { "Content-Type": "text/html" },
+            }),
+          );
+        }
+        return Promise.resolve(
+          new Response(ONE_PIXEL_PNG, { status: 200, headers: { "Content-Type": "image/png" } }),
+        );
+      }
       if (url.startsWith("https://api.scryfall.com/cards/search")) {
         return Promise.resolve(
           new Response(
@@ -87,6 +148,18 @@ describe("Proxy Scans HTTP API integration", () => {
           ),
         );
       }
+      if (url.startsWith("https://svgs.scryfall.io/card-symbols/")) {
+        symbolFetchCount += 1;
+        if (url.endsWith("/ZZ.svg")) {
+          return Promise.resolve(new Response("Not found", { status: 404 }));
+        }
+        return Promise.resolve(
+          new Response('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"></svg>', {
+            status: 200,
+            headers: { "Content-Type": "image/svg+xml" },
+          }),
+        );
+      }
       if (url.startsWith("https://cards.scryfall.io/")) {
         imageFetchCount += 1;
         return Promise.resolve(
@@ -105,7 +178,14 @@ describe("Proxy Scans HTTP API integration", () => {
       proxyScansCatalogPath: join(tempDir, "proxy-scans.json"),
       proxyScansImageCacheDir: join(tempDir, "image-cache"),
       proxyScansFetch: stubFetch,
+      proxyScansFontsDir: join(tempDir, "fonts"),
     });
+    await mkdir(join(tempDir, "fonts"), { recursive: true });
+    await writeFile(
+      join(tempDir, "fonts", "beleren-bold.woff2"),
+      Buffer.from([0x77, 0x4f, 0x46, 0x32]),
+    );
+    await writeFile(join(tempDir, "fonts", "notes.txt"), "ignored");
 
     server = createServer(handler);
     await new Promise<void>((resolvePromise) => {
@@ -232,5 +312,186 @@ describe("Proxy Scans HTTP API integration", () => {
       "Éclair Foudroyant",
     );
     expect(catalogBody.catalog.entries[LIGHTNING_BOLT_ORACLE_ID]?.french.source).toBe("custom");
+  });
+
+  it("serves Scryfall mana symbols as sandboxed SVG and caches them on disk", async () => {
+    const first = await fetch(`${baseUrl}/api/proxy-scans/symbol/T.svg`);
+    expect(first.status).toBe(200);
+    expect(first.headers.get("content-type")).toContain("image/svg+xml");
+    expect(first.headers.get("content-security-policy")).toContain("default-src 'none'");
+    expect(await first.text()).toContain("<svg");
+
+    const fetchesAfterFirst = symbolFetchCount;
+    const second = await fetch(`${baseUrl}/api/proxy-scans/symbol/T.svg`);
+    expect(second.status).toBe(200);
+    expect(symbolFetchCount).toBe(fetchesAfterFirst);
+  });
+
+  it("rejects malformed mana symbol codes without calling Scryfall", async () => {
+    const before = symbolFetchCount;
+    for (const path of ["t.svg", "W%2FU.svg", "TOOLONGCODE1.svg", "T.png"]) {
+      const res = await fetch(`${baseUrl}/api/proxy-scans/symbol/${path}`);
+      expect(res.status).toBe(400);
+    }
+    expect(symbolFetchCount).toBe(before);
+  });
+
+  it("reports an unknown symbol as 404", async () => {
+    const res = await fetch(`${baseUrl}/api/proxy-scans/symbol/ZZ.svg`);
+    expect(res.status).toBe(404);
+  });
+
+  it("lists and serves only well-formed user-supplied card fonts", async () => {
+    const list = await fetch(`${baseUrl}/api/proxy-scans/fonts`);
+    expect(((await list.json()) as { files: string[] }).files).toEqual(["beleren-bold.woff2"]);
+
+    const font = await fetch(`${baseUrl}/api/proxy-scans/fonts/beleren-bold.woff2`);
+    expect(font.status).toBe(200);
+    expect(font.headers.get("content-type")).toBe("font/woff2");
+
+    for (const path of ["notes.txt", "missing.ttf", "..%2Fproxy-scans.json"]) {
+      const res = await fetch(`${baseUrl}/api/proxy-scans/fonts/${path}`);
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it("searches MPC Autofill across every source and caches the result", async () => {
+    const res = await fetch(`${baseUrl}/api/proxy-scans/mpc/search?q=Lightning%20Bolt`);
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as {
+      ok: boolean;
+      query: string;
+      candidates: { identifier: string; dpi: number; language: string }[];
+    };
+    expect(body.query).toBe("lightning bolt");
+    expect(body.candidates.map((c) => [c.identifier, c.dpi, c.language])).toEqual([
+      [MPC_ID, 1200, "EN"],
+      [MPC_ID_FR, 800, "FR"],
+    ]);
+    expect(lastMpcSearchBody).toMatchObject({
+      queries: [{ query: "lightning bolt", cardType: "CARD" }],
+      searchSettings: {
+        sourceSettings: {
+          sources: [
+            [1, true],
+            [2, true],
+          ],
+        },
+      },
+    });
+
+    const callsAfterFirst = mpcApiFetchCount;
+    const again = await fetch(`${baseUrl}/api/proxy-scans/mpc/search?q=lightning%20bolt`);
+    expect(again.status).toBe(200);
+    expect(mpcApiFetchCount).toBe(callsAfterFirst);
+  });
+
+  it("refuses MPC searches without a usable card name", async () => {
+    const res = await fetch(`${baseUrl}/api/proxy-scans/mpc/search?q=%20`);
+    expect(res.status).toBe(400);
+  });
+
+  it("proxies MPC images from Google's public endpoint with a disk cache", async () => {
+    const first = await fetch(`${baseUrl}/api/proxy-scans/mpc/image/${MPC_ID}?size=full`);
+    expect(first.status).toBe(200);
+    expect(first.headers.get("content-type")).toBe("image/png");
+    const fetchesAfterFirst = mpcImageFetchCount;
+    const second = await fetch(`${baseUrl}/api/proxy-scans/mpc/image/${MPC_ID}?size=full`);
+    expect(second.status).toBe(200);
+    expect(mpcImageFetchCount).toBe(fetchesAfterFirst);
+  });
+
+  it("rejects malformed MPC identifiers and non-image upstream answers", async () => {
+    const before = mpcImageFetchCount;
+    for (const id of ["short", "..%2F..%2Fetc", `${MPC_ID}%3Fx%3D1`]) {
+      const res = await fetch(`${baseUrl}/api/proxy-scans/mpc/image/${id}?size=full`);
+      expect(res.status).toBe(400);
+    }
+    expect(mpcImageFetchCount).toBe(before);
+
+    const broken = await fetch(`${baseUrl}/api/proxy-scans/mpc/image/${MPC_BROKEN_ID}?size=thumb`);
+    expect(broken.status).toBe(502);
+  });
+
+  it("stores an MPC render as a curated variant but refuses foreign image hosts", async () => {
+    const mpcVariant = {
+      scryfallId: `mpc:${MPC_ID}`,
+      lang: "en",
+      setCode: "MPC",
+      pngUrl: `/api/proxy-scans/mpc/image/${MPC_ID}?size=full`,
+      largeUrl: `/api/proxy-scans/mpc/image/${MPC_ID}?size=thumb`,
+    };
+    const ok = await fetch(`${baseUrl}/api/proxy-scans/override`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ oracleId: LIGHTNING_BOLT_ORACLE_ID, original: mpcVariant }),
+    });
+    expect(ok.status).toBe(200);
+
+    const foreign = await fetch(`${baseUrl}/api/proxy-scans/override`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        oracleId: LIGHTNING_BOLT_ORACLE_ID,
+        original: { ...mpcVariant, pngUrl: "https://evil.example/card.png" },
+      }),
+    });
+    expect(foreign.status).toBe(400);
+  });
+
+  it("keeps the official French provenance when only the print changes", async () => {
+    const oracleId = "0f1c2d3e-4b5a-4c6d-8e7f-901234567890";
+    const catalogPath = join(tempDir, "proxy-scans.json");
+    const catalog = JSON.parse(await readFile(catalogPath, "utf8")) as {
+      entries: Record<string, unknown>;
+    };
+    const officialFrench = {
+      name: "Pyromancien aguerri",
+      typeLine: "Créature : humain et shamane",
+      rulesText: "Quand le Pyromancien aguerri arrive, défaussez-vous de deux cartes.",
+      source: "official_scryfall_fr",
+      officialFrenchPrintExists: true,
+    };
+    const classic = {
+      scryfallId: "pyro-en",
+      lang: "en",
+      setCode: "2x2",
+      pngUrl: "https://cards.scryfall.io/png/front/p/y/pyro-en.png",
+      largeUrl: "https://cards.scryfall.io/large/front/p/y/pyro-en.jpg",
+    };
+    catalog.entries[oracleId] = {
+      oracleId,
+      slug: "seasoned-pyromancer",
+      name: "Seasoned Pyromancer",
+      french: officialFrench,
+      classic,
+      original: null,
+      curatedAt: "",
+    };
+    await writeFile(catalogPath, JSON.stringify(catalog));
+
+    const post = (payload: Record<string, unknown>) =>
+      fetch(`${baseUrl}/api/proxy-scans/override`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ oracleId, ...payload }),
+      }).then(async (res) => {
+        expect(res.status).toBe(200);
+        return ((await res.json()) as { entry: { french: { source: string } } }).entry;
+      });
+
+    const reprinted = await post({
+      original: {
+        ...classic,
+        scryfallId: `mpc:${MPC_ID}`,
+        pngUrl: `/api/proxy-scans/mpc/image/${MPC_ID}?size=full`,
+        largeUrl: `/api/proxy-scans/mpc/image/${MPC_ID}?size=thumb`,
+      },
+      french: officialFrench,
+    });
+    expect(reprinted.french.source).toBe("official_scryfall_fr");
+
+    const edited = await post({ french: { ...officialFrench, rulesText: "Texte retouché." } });
+    expect(edited.french.source).toBe("custom");
   });
 });

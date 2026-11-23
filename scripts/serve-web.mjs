@@ -657,6 +657,7 @@ export function createRequestHandler(options = {}) {
     catalogPath: options.proxyScansCatalogPath ?? resolve(rootDir, "data", "cards", "proxy-scans.json"),
     imageCacheDir:
       options.proxyScansImageCacheDir ?? resolve(rootDir, "data", "cards", "images", "proxy-cache"),
+    fontsDir: options.proxyScansFontsDir ?? resolve(rootDir, "data", "fonts"),
     fetchImpl: options.proxyScansFetch,
     resolveCardFallback: async (oracleId, name) => {
       try {
