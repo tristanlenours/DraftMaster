@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@7",
+  "engineVersion": "cube-upgrade-advisor@8",
   "cubeKey": "titou_tribal",
   "snapshotId": "titou_tribal@2026-02-24.1",
   "generatedAt": "2026-11-21T21:38:39.517Z",
@@ -9,7 +9,7 @@
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
+      "sha256": "eb1934c0ebe648faf3bedbc24a9f96ea2c120a83606cdcd99ff11a7c4a8570a5",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,12 +49,12 @@
     "benchmarkCoveragePercentage": 34
   },
   "stats": {
-    "totalUpgrades": 42,
+    "totalUpgrades": 38,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 22,
-    "benchmarkMatchesCount": 6,
-    "recentMaybeboardCount": 24,
-    "directReplacementMaybeboardCount": 36
+    "recentUpgradesCount": 19,
+    "benchmarkMatchesCount": 5,
+    "recentMaybeboardCount": 25,
+    "directReplacementMaybeboardCount": 35
   },
   "upgrades": {
     "Baleful Mastery": {
@@ -589,38 +589,39 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "1c55047d-badc-49bb-b791-e9759577e4eb",
-        "name": "The Duke, Rebel Sentry",
-        "score": 27.3,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Legendary Creature — Human Rebel Ally",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cd9d91a8-7315-4355-af99-941f3cf7398c/normal.webp",
+        "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+        "name": "Containment Priest",
+        "score": 37,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Creature — Human Cleric",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/normal.webp",
         "colors": [
           "W"
         ],
-        "releaseYear": 2025,
-        "set": "TLE",
-        "isRecent": true
+        "releaseYear": 2014,
+        "set": "M21",
+        "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 8.7,
-      "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+8.7 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
+      "scoreDelta": 18.4,
+      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.4 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+8.7 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+18.4 pts).",
         "affectedArchetypes": [
+          "Orzhov/Mono-W Anges & Clercs",
           "Mono-W / Selesnya Humains Aggro"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLE]"
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2014)"
       },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 70.3,
+      "releaseYear": 2014,
+      "isRecent": false,
+      "rankingScore": 69,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.3
+          "points": 37
         },
         {
           "key": "archetype_match",
@@ -628,15 +629,11 @@
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": -4
         },
         {
           "key": "tribal_coherence",
           "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -1155,140 +1152,6 @@
         }
       ]
     },
-    "Heirloom Blade": {
-      "targetCard": {
-        "oracleId": "7c3a8766-e440-48c5-a561-197490efdba5",
-        "name": "Heirloom Blade",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 3,
-        "typeLine": "Artifact — Equipment",
-        "imageUrl": "https://cards.scryfall.io/normal/front/4/9/49fe8b13-3f83-4a35-aa2d-2292b96f3d3e.jpg?1783913840",
-        "frenchName": "Lame d'héritage",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/b/6/b604fa5b-32f5-441f-a879-c15b3c5da5f3.jpg?1782809594",
-        "colors": [],
-        "releaseYear": 2017,
-        "set": "LCC",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "8255a797-ddd3-4db0-a3f5-dd8f38c3b908",
-        "name": "Captain America's Shield",
-        "score": 26,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Legendary Artifact — Equipment",
-        "imageUrl": "https://cards.scryfall.io/normal/front/4/b/4b5433ac-0d36-4472-bf8b-d22f0ffd367b.jpg?1783902892",
-        "colors": [],
-        "releaseYear": 2026,
-        "set": "MSH",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 8.1,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+8.1 pts). Reste au service de Rakdos Gobelins Aggro & Burn & Mardu Vampires Aristocrates & Drain.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant la méta du cube (+8.1 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Payoff Clé d'Archétype",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 55,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Hidden Dragonslayer": {
-      "targetCard": {
-        "oracleId": "862af5c4-cb34-4bfa-a7ff-209e103defd6",
-        "name": "Hidden Dragonslayer",
-        "score": 19.3,
-        "tier": "C-",
-        "cmc": 2,
-        "typeLine": "Creature — Human Warrior",
-        "imageUrl": "https://cards.scryfall.io/normal/front/b/2/b29a3e7c-4d19-4737-9b58-deb56de26118.jpg?1783913030",
-        "frenchName": "Tueur de dragon caché",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/8/9/89efb3f6-e27c-4486-83c4-ca5b93f7ca3f.jpg?1782803983",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2015,
-        "set": "DTK",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "c867a778-97ef-4872-b890-b088b96a1281",
-        "name": "Jennifer Walters",
-        "score": 33,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Advisor Hero // Legendary Creature — Gamma Hero",
-        "imageUrl": "https://cards.scryfall.io/normal/front/6/1/61237530-ad49-469c-a952-67c92315708e.jpg?1783902978",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2026,
-        "set": "MSH",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 13.7,
-      "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+13.7 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+13.7 pts).",
-        "affectedArchetypes": [
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 76,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Inscription of Ruin": {
       "targetCard": {
         "oracleId": "760e8561-4ec6-4594-ba5d-f79cb9f25fd0",
@@ -1376,42 +1239,39 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "e49d745c-5130-4b54-bcbb-643b08528456",
-        "name": "Kytheon, Hero of Akros",
-        "score": 28,
-        "tier": "A-",
-        "cmc": 1,
+        "oracleId": "f33217cc-175f-45e8-bc69-801f41cb4495",
+        "name": "Agent Bishop, Man in Black",
+        "score": 36,
+        "tier": "A",
+        "cmc": 3,
         "typeLine": "Legendary Creature — Human Soldier",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/58c39df6-b237-40d1-bdcb-2fe5d05392a9/normal.webp",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/c/9c769202-178c-442a-a9e2-aa08b5ae5c9a.jpg?1783904129",
         "colors": [
           "W"
         ],
-        "releaseYear": 2015,
-        "set": "ORI",
         "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 9,
-      "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+9 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
+      "scoreDelta": 17,
+      "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+17 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro.",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Mono-W / Selesnya Humains Aggro (+9 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+17 pts).",
         "affectedArchetypes": [
           "Mono-W / Selesnya Humains Aggro"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans Tribal Synergy Cube",
-        "releaseContext": "Référence confirmée (2015)"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
       },
-      "releaseYear": 2015,
       "isRecent": false,
-      "benchmarkCubes": [
-        "Tribal Synergy Cube"
-      ],
-      "rankingScore": 82,
+      "rankingScore": 76,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28
+          "points": 36
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "archetype_match",
@@ -1419,78 +1279,7 @@
         },
         {
           "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Jaspera Sentinel": {
-      "targetCard": {
-        "oracleId": "e2f98813-4f39-4135-b05b-407e9eb797f6",
-        "name": "Jaspera Sentinel",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 1,
-        "typeLine": "Creature — Elf Rogue",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/a/1a68615d-9808-479d-aa80-50651246954e.jpg?1783928210",
-        "frenchName": "Sentinelle de Jaspera",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/a/d/ad6c83ce-ffcc-4bf0-a021-f0b0920e9c3b.jpg?1782892681",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2021,
-        "set": "KHM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "df317532-7d36-40fd-938f-e972749c8792",
-        "name": "Fyndhorn Elves",
-        "score": 32.5,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ec8bf526-1260-40a1-b007-10ff9340f10b/normal.webp",
-        "frenchName": "Elfes cordelliens",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 1995,
-        "set": "CMR",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 14.6,
-      "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.6 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+14.6 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "releaseContext": "Référence confirmée (1995)"
-      },
-      "releaseYear": 1995,
-      "isRecent": false,
-      "rankingScore": 69.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 32.5
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
+          "points": -4
         },
         {
           "key": "tribal_coherence",
@@ -1681,143 +1470,6 @@
         {
           "key": "mana_efficiency",
           "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Mogg War Marshal": {
-      "targetCard": {
-        "oracleId": "7b8f4879-578e-40e4-863a-41d0c32c6bdd",
-        "name": "Mogg War Marshal",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Warrior",
-        "imageUrl": "https://cards.scryfall.io/normal/front/4/e/4ebce261-3a53-48f2-a173-0d98c68aff2c.jpg?1783903460",
-        "frenchName": "Maréchal de guerre mogg",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/c/8/c8771b60-db62-4eb3-adfa-2fa365d8226c.jpg?1782832785",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2006,
-        "set": "EVG",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
-        "name": "Sokenzan Smelter",
-        "score": 30.1,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 12.2,
-      "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+12.2 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "rankingScore": 67.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.1
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 30
-        }
-      ]
-    },
-    "Nighthawk Scavenger": {
-      "targetCard": {
-        "oracleId": "379ed4ec-8f2e-448b-9ed2-a3181e2f877e",
-        "name": "Nighthawk Scavenger",
-        "score": 19.8,
-        "tier": "C-",
-        "cmc": 3,
-        "typeLine": "Creature — Vampire Rogue",
-        "imageUrl": "https://cards.scryfall.io/normal/front/4/7/47433ce9-1ac6-4359-a5e4-4ec68490cb0c.jpg?1783911927",
-        "frenchName": "Charognard faucon de nuit",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/3/d/3d502093-6bb1-4871-98f0-e3ba9fad1acc.jpg?1782798356",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2020,
-        "set": "ZNR",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
-        "name": "Salt Vampire",
-        "score": 29.8,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Vampire Shapeshifter",
-        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2026,
-        "set": "TRK",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 10,
-      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+10 pts).",
-        "affectedArchetypes": [
-          "Mardu Vampires Aristocrates & Drain",
-          "Changelins & Liant Universel (The Glue)"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 74.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
         },
         {
           "key": "tribal_coherence",
@@ -2658,6 +2310,77 @@
         }
       ]
     },
+    "Vampire Hexmage": {
+      "targetCard": {
+        "oracleId": "fcb2a95b-cef0-4b29-8b2b-538f380aff2b",
+        "name": "Vampire Hexmage",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shaman",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/7/97ec2e55-fa60-4ee1-b9c0-e6b84939697b.jpg?1783930170",
+        "frenchName": "Sortimage vampire",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/e/0/e02b2286-c193-4cad-b760-4c4f512064bf.jpg?1782888868",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2009,
+        "set": "ZEN",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "31c7453e-33b8-4eb6-abac-28cdb35fb993",
+        "name": "Salt Vampire",
+        "score": 29.8,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Vampire Shapeshifter",
+        "imageUrl": "https://cards.scryfall.io/normal/front/7/8/78faba81-01a3-489f-927e-1adaa8fe4436.jpg?1784036770",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2026,
+        "set": "TRK",
+        "isRecent": true
+      },
+      "swapType": "archetype_booster",
+      "scoreDelta": 11.9,
+      "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+11.9 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+11.9 pts).",
+        "affectedArchetypes": [
+          "Mardu Vampires Aristocrates & Drain",
+          "Changelins & Liant Universel (The Glue)"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [TRK]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 72.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "archetype_match",
+          "points": 6
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 30
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Windrider Wizard": {
       "targetCard": {
         "oracleId": "78e65286-204d-43ab-8929-b8e2191b1fce",
@@ -3060,6 +2783,69 @@
     },
     {
       "card": {
+        "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
+        "name": "Containment Priest",
+        "score": 37,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Creature — Human Cleric",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/normal.webp",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2014,
+        "set": "M21",
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_angels",
+        "titou:tribal_humans"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Dauntless Bodyguard (+18.4 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.4 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+37 pts).",
+        "affectedArchetypes": [
+          "Orzhov/Mono-W Anges & Clercs",
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2014)"
+      },
+      "releaseYear": 2014,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Dauntless Bodyguard",
+          "frenchName": "Garde du corps intrépide",
+          "score": 18.6,
+          "tier": "D+",
+          "scoreDelta": 18.4,
+          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+18.4 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro."
+        }
+      ],
+      "rankingScore": 95,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 37
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 8
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 20
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "5bd06f9e-9a42-455d-ad26-24bc04e51c7c",
         "name": "Formidable Speaker",
         "score": 34,
@@ -3144,7 +2930,7 @@
         "titou:tribal_glue"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Nighthawk Scavenger (+10 pts). Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
+      "rationale": "Proposée en remplacement poste pour poste de Vampire Hexmage (+11.9 pts). Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+11.9 pts). Reste au service de Mardu Vampires Aristocrates & Drain.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mardu Vampires Aristocrates & Drain & Changelins & Liant Universel (The Glue) (+29.8 pts).",
         "affectedArchetypes": [
@@ -3158,12 +2944,12 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Nighthawk Scavenger",
-          "frenchName": "Charognard faucon de nuit",
-          "score": 19.8,
-          "tier": "C-",
-          "scoreDelta": 10,
-          "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+10 pts). Reste au service de Mardu Vampires Aristocrates & Drain."
+          "name": "Vampire Hexmage",
+          "frenchName": "Sortimage vampire",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 11.9,
+          "reason": "Maintient la synergie Vampire tout en offrant une présence sur table et un impact considérablement supérieurs (+11.9 pts). Reste au service de Mardu Vampires Aristocrates & Drain."
         }
       ],
       "rankingScore": 93.8,
@@ -3179,71 +2965,6 @@
         {
           "key": "archetype_match",
           "points": 8
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 20
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "c867a778-97ef-4872-b890-b088b96a1281",
-        "name": "Jennifer Walters",
-        "score": 33,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Advisor Hero // Legendary Creature — Gamma Hero",
-        "imageUrl": "https://cards.scryfall.io/normal/front/6/1/61237530-ad49-469c-a952-67c92315708e.jpg?1783902978",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2026,
-        "set": "MSH",
-        "isRecent": true
-      },
-      "archetypes": [
-        "titou:tribal_humans"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Hidden Dragonslayer (+13.7 pts). Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+13.7 pts). Reste au service de Mono-W / Selesnya Humains Aggro.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+33 pts).",
-        "affectedArchetypes": [
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Hidden Dragonslayer",
-          "frenchName": "Tueur de dragon caché",
-          "score": 19.3,
-          "tier": "C-",
-          "scoreDelta": 13.7,
-          "reason": "Maintient la synergie Human tout en offrant une présence sur table et un impact considérablement supérieurs (+13.7 pts). Reste au service de Mono-W / Selesnya Humains Aggro."
-        }
-      ],
-      "rankingScore": 93,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
         },
         {
           "key": "tribal_coherence",
@@ -3324,6 +3045,64 @@
         {
           "key": "peer_benchmark",
           "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "f33217cc-175f-45e8-bc69-801f41cb4495",
+        "name": "Agent Bishop, Man in Black",
+        "score": 36,
+        "tier": "A",
+        "cmc": 3,
+        "typeLine": "Legendary Creature — Human Soldier",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/c/9c769202-178c-442a-a9e2-aa08b5ae5c9a.jpg?1783904129",
+        "colors": [
+          "W"
+        ],
+        "isRecent": false
+      },
+      "archetypes": [
+        "titou:tribal_humans"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Intrepid Adversary (+17 pts). Un mana de plus (3 vs 2), compensé par un gain d'impact net (+17 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+36 pts).",
+        "affectedArchetypes": [
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
+      },
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Intrepid Adversary",
+          "frenchName": "Adversaire intrépide",
+          "score": 19,
+          "tier": "D+",
+          "scoreDelta": 17,
+          "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+17 pts) qui justifie le décalage de curve. Reste au service de Mono-W / Selesnya Humains Aggro."
+        }
+      ],
+      "rankingScore": 90,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 36
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 20
         }
       ]
     },
@@ -3534,68 +3313,6 @@
     },
     {
       "card": {
-        "oracleId": "df317532-7d36-40fd-938f-e972749c8792",
-        "name": "Fyndhorn Elves",
-        "score": 32.5,
-        "tier": "A",
-        "cmc": 1,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ec8bf526-1260-40a1-b007-10ff9340f10b/normal.webp",
-        "frenchName": "Elfes cordelliens",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 1995,
-        "set": "CMR",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_elves"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Jaspera Sentinel (+14.6 pts). Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.6 pts). Reste au service de Golgari Elfes Ramp & Swarm.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+32.5 pts).",
-        "affectedArchetypes": [
-          "Golgari Elfes Ramp & Swarm"
-        ],
-        "strategicRole": "Accélération & Fixation de Mana",
-        "releaseContext": "Référence confirmée (1995)"
-      },
-      "releaseYear": 1995,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Jaspera Sentinel",
-          "frenchName": "Sentinelle de Jaspera",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 14.6,
-          "reason": "Maintient la synergie Elf tout en offrant une présence sur table et un impact considérablement supérieurs (+14.6 pts). Reste au service de Golgari Elfes Ramp & Swarm."
-        }
-      ],
-      "rankingScore": 86.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 32.5
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 20
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "07b28ed7-eab8-4560-9994-3befcba876d3",
         "name": "Choco-Comet",
         "score": 38,
@@ -3796,67 +3513,6 @@
         {
           "key": "peer_benchmark",
           "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
-        "name": "Sokenzan Smelter",
-        "score": 30.1,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2022,
-        "set": "NEO",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_goblins"
-      ],
-      "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Mogg War Marshal (+12.2 pts). Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Rakdos Gobelins Aggro & Burn (+30.1 pts).",
-        "affectedArchetypes": [
-          "Rakdos Gobelins Aggro & Burn"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "replacesCards": [
-        {
-          "name": "Mogg War Marshal",
-          "frenchName": "Maréchal de guerre mogg",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 12.2,
-          "reason": "Maintient la synergie Goblin tout en offrant une présence sur table et un impact considérablement supérieurs (+12.2 pts). Reste au service de Rakdos Gobelins Aggro & Burn."
-        }
-      ],
-      "rankingScore": 84.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.1
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 4
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 20
         }
       ]
     },
@@ -5215,55 +4871,6 @@
     },
     {
       "card": {
-        "oracleId": "8a76a9b9-3127-45fe-b20f-a8f643276281",
-        "name": "Containment Priest",
-        "score": 37,
-        "tier": "A",
-        "cmc": 2,
-        "typeLine": "Creature — Human Cleric",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d51bacdd-040e-45f7-9256-85f93801a10e/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2014,
-        "set": "M21",
-        "isRecent": false
-      },
-      "archetypes": [
-        "titou:tribal_angels",
-        "titou:tribal_humans"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Renforce directement les archétypes Orzhov/Mono-W Anges & Clercs et Mono-W / Selesnya Humains Aggro grâce à une excellente cohérence de tempo et d'impact.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Orzhov/Mono-W Anges & Clercs & Mono-W / Selesnya Humains Aggro (+37 pts).",
-        "affectedArchetypes": [
-          "Orzhov/Mono-W Anges & Clercs",
-          "Mono-W / Selesnya Humains Aggro"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2014)"
-      },
-      "releaseYear": 2014,
-      "isRecent": false,
-      "rankingScore": 65,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 37
-        },
-        {
-          "key": "archetype_match",
-          "points": 8
-        },
-        {
-          "key": "tribal_coherence",
-          "points": 20
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "4ec85850-f274-4c0c-9a03-0488267caa14",
         "name": "Giver of Runes",
         "score": 41,
@@ -5507,6 +5114,57 @@
     },
     {
       "card": {
+        "oracleId": "c867a778-97ef-4872-b890-b088b96a1281",
+        "name": "Jennifer Walters",
+        "score": 33,
+        "tier": "A",
+        "cmc": 2,
+        "typeLine": "Legendary Creature — Human Advisor Hero // Legendary Creature — Gamma Hero",
+        "imageUrl": "https://cards.scryfall.io/normal/front/6/1/61237530-ad49-469c-a952-67c92315708e.jpg?1783902978",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_humans"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Renforce directement les archétypes Mono-W / Selesnya Humains Aggro grâce à une excellente cohérence de tempo et d'impact.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Mono-W / Selesnya Humains Aggro (+33 pts).",
+        "affectedArchetypes": [
+          "Mono-W / Selesnya Humains Aggro"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 63,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 33
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 20
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
         "oracleId": "0452be2a-e97a-4269-a9e3-b616265ecb2e",
         "name": "Vivi Ornitier",
         "score": 33,
@@ -5652,6 +5310,57 @@
         {
           "key": "direct_replacement",
           "points": 30
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "e5152e8d-9f55-493d-a0fc-753cc72ee299",
+        "name": "Emeritus of Abundance",
+        "score": 32,
+        "tier": "A",
+        "cmc": 3,
+        "typeLine": "Creature — Elf Druid // Sorcery",
+        "imageUrl": "https://cards.scryfall.io/normal/front/a/c/ac095763-6f4e-4d4e-9c99-414646368f8d.jpg?1783903660",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2026,
+        "set": "SOS",
+        "isRecent": true
+      },
+      "archetypes": [
+        "titou:tribal_elves"
+      ],
+      "role": "engine",
+      "rationale": "Renforce directement les archétypes Golgari Elfes Ramp & Swarm grâce à une excellente cohérence de tempo et d'impact.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Golgari Elfes Ramp & Swarm (+32 pts).",
+        "affectedArchetypes": [
+          "Golgari Elfes Ramp & Swarm"
+        ],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "rankingScore": 62,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 32
+        },
+        {
+          "key": "archetype_match",
+          "points": 4
+        },
+        {
+          "key": "tribal_coherence",
+          "points": 20
         },
         {
           "key": "recent_release",
