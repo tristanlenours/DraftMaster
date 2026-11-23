@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@7",
+  "engineVersion": "cube-upgrade-advisor@8",
   "cubeKey": "cedric_cube",
   "snapshotId": "cedric_cube@2026-03-01.1",
   "generatedAt": "2026-11-21T21:38:39.517Z",
@@ -9,7 +9,7 @@
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
+      "sha256": "eb1934c0ebe648faf3bedbc24a9f96ea2c120a83606cdcd99ff11a7c4a8570a5",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,11 +49,11 @@
     "benchmarkCoveragePercentage": 88
   },
   "stats": {
-    "totalUpgrades": 131,
+    "totalUpgrades": 120,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 86,
-    "benchmarkMatchesCount": 63,
-    "recentMaybeboardCount": 39,
+    "recentUpgradesCount": 81,
+    "benchmarkMatchesCount": 61,
+    "recentMaybeboardCount": 38,
     "directReplacementMaybeboardCount": 46
   },
   "upgrades": {
@@ -140,48 +140,37 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c867a778-97ef-4872-b890-b088b96a1281",
-        "name": "Jennifer Walters",
-        "score": 33,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Human Advisor Hero // Legendary Creature — Gamma Hero",
-        "imageUrl": "https://cards.scryfall.io/normal/front/6/1/61237530-ad49-469c-a952-67c92315708e.jpg?1783902978",
+        "oracleId": "f33217cc-175f-45e8-bc69-801f41cb4495",
+        "name": "Agent Bishop, Man in Black",
+        "score": 36,
+        "tier": "A",
+        "cmc": 3,
+        "typeLine": "Legendary Creature — Human Soldier",
+        "imageUrl": "https://cards.scryfall.io/normal/front/9/c/9c769202-178c-442a-a9e2-aa08b5ae5c9a.jpg?1783904129",
         "colors": [
           "W"
         ],
-        "releaseYear": 2026,
-        "set": "MSH",
-        "isRecent": true
+        "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 13,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Boros Aggro & Equipment.",
+      "scoreDelta": 16,
+      "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+16 pts) qui justifie le décalage de curve. Reste au service de Boros Aggro & Equipment.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Selesnya Tokens & Anthems (+13 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Selesnya Tokens & Anthems (+16 pts).",
         "affectedArchetypes": [
           "Azorius Control",
           "Azorius Blink & ETB Value",
           "Selesnya Tokens & Anthems"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "Référence du format"
       },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "rankingScore": 69,
+      "isRecent": false,
+      "rankingScore": 38,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
+          "points": 36
         },
         {
           "key": "archetype_match",
@@ -189,15 +178,7 @@
         },
         {
           "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
+          "points": -4
         }
       ]
     },
@@ -703,40 +684,49 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
-        "name": "Shoreline Looter",
-        "score": 31.5,
+        "oracleId": "72a9a85d-7cfc-4b3c-82db-9d35be6c0982",
+        "name": "Bilbo, Thief in the Night",
+        "score": 31,
         "tier": "A-",
         "cmc": 2,
-        "typeLine": "Creature — Rat Rogue",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d5bf8cf0-419a-4dc9-9342-aad55c1af05a/normal.webp",
+        "typeLine": "Legendary Creature — Halfling Rogue",
+        "imageUrl": "https://cards.scryfall.io/normal/front/4/8/484c7f83-8339-4ae1-8350-68ce1f7d05a3.jpg?1783902786",
         "colors": [
           "U"
         ],
-        "releaseYear": 2024,
-        "set": "BLB",
+        "releaseYear": 2026,
+        "set": "HOB",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 13.4,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.4 pts).",
+      "scoreDelta": 12.9,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.9 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+13.4 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+12.9 pts).",
         "affectedArchetypes": [
           "Azorius Control",
           "Azorius Blink & ETB Value",
           "Dimir Reanimator"
         ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+        "strategicRole": "Enabler Majeur de Synergies",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 38.5,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 61,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 31.5
+          "points": 31
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -745,6 +735,10 @@
         {
           "key": "recent_release",
           "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -969,76 +963,6 @@
         {
           "key": "peer_benchmark",
           "points": 15
-        }
-      ]
-    },
-    "Bloodsoaked Champion": {
-      "targetCard": {
-        "oracleId": "cad09970-14c8-4d80-82fe-6c855efb0191",
-        "name": "Bloodsoaked Champion",
-        "score": 18.1,
-        "tier": "D",
-        "cmc": 1,
-        "typeLine": "Creature — Human Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/34bc9bb0-5ec1-400f-89e7-b450980a3391/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2014,
-        "set": "KTK",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e5762815-5fc3-4ae7-abee-69f27c5e4e90",
-        "name": "Cult Conscript",
-        "score": 25.5,
-        "tier": "B+",
-        "cmc": 1,
-        "typeLine": "Creature — Skeleton Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/fed77513-94ab-44e2-b9a1-30ba927cd6ee/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2022,
-        "set": "DMU",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 7.4,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+7.4 pts). Reste au service de Rakdos Sacrifice & Recursive Threats.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+7.4 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Dimir Tempo & Disruption",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "rankingScore": 49.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 25.5
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 9
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
         }
       ]
     },
@@ -1462,84 +1386,6 @@
         }
       ]
     },
-    "Chart a Course": {
-      "targetCard": {
-        "oracleId": "05878e49-93ad-4144-9c50-a0bb86126c2e",
-        "name": "Chart a Course",
-        "score": 18.9,
-        "tier": "D+",
-        "cmc": 2,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/98291778-2ec2-47e2-ac99-5f8cfbb3cf24/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2017,
-        "set": "XLN",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
-        "name": "Boomerang Basics",
-        "score": 31.2,
-        "tier": "A-",
-        "cmc": 1,
-        "typeLine": "Sorcery — Lesson",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.3,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir Reanimator.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+12.3 pts).",
-        "affectedArchetypes": [
-          "Azorius Control",
-          "Azorius Blink & ETB Value",
-          "Dimir Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "rankingScore": 69.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.2
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Coalition Relic": {
       "targetCard": {
         "oracleId": "008cb342-79f5-4df6-a6b7-0e9e22ed693f",
@@ -1555,40 +1401,51 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "4d9554de-c005-41ab-a941-39328ebff9de",
-        "name": "Relic of Legends",
-        "score": 27.8,
+        "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
+        "name": "Relic of Sauron",
+        "score": 31.4,
         "tier": "A-",
-        "cmc": 3,
+        "cmc": 4,
         "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/8/9/89691cda-e38b-4f53-bee6-4c234186e6ad.jpg?1783903214",
-        "frenchName": "Relique de légendes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/2/f/2f5fdc78-e258-4d7d-a62d-5214e73b16b2.jpg?1785265497",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
         "colors": [],
-        "releaseYear": 2022,
-        "set": "DMU",
+        "releaseYear": 2023,
+        "set": "LTC",
         "isRecent": false
       },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 19.8,
-      "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19.8 pts).",
+      "swapType": "versatile_alternative",
+      "scoreDelta": 23.4,
+      "reason": "Un mana de plus (4 vs 3), compensé par un gain d'impact net (+23.4 pts) qui justifie le décalage de curve.",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+19.8 pts).",
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+23.4 pts).",
         "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2023)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 2023,
       "isRecent": false,
-      "rankingScore": 28.8,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "rankingScore": 50.4,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 31.4
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": -4
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -1664,76 +1521,6 @@
         {
           "key": "peer_benchmark",
           "points": 15
-        }
-      ]
-    },
-    "Dark Confidant": {
-      "targetCard": {
-        "oracleId": "2068185c-1b50-47d0-aa3f-bf505d199428",
-        "name": "Dark Confidant",
-        "score": 20,
-        "tier": "C-",
-        "cmc": 2,
-        "typeLine": "Creature — Human Wizard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/6c821158-f71a-48f9-b6b4-b0e605f22bec/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2005,
-        "set": "2XM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "322f44f0-e6da-4ee0-b474-e7d5e9a461c5",
-        "name": "Morbid Opportunist",
-        "score": 33.5,
-        "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Creature — Human Rogue",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/5f0440bc-807a-4425-8707-e74f468b2ca7/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2021,
-        "set": "TDC",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 13.5,
-      "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+13.5 pts) qui justifie le décalage de curve. Reste au service de Dimir Tempo & Disruption.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+13.5 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Dimir Tempo & Disruption",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "Référence confirmée (2021)"
-      },
-      "releaseYear": 2021,
-      "isRecent": false,
-      "rankingScore": 46.5,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 33.5
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 3
-        },
-        {
-          "key": "mana_efficiency",
-          "points": -4
         }
       ]
     },
@@ -2104,6 +1891,72 @@
         }
       ]
     },
+    "Embereth Shieldbreaker": {
+      "targetCard": {
+        "oracleId": "52e439d0-a263-4d53-9ae3-fa1f8aa8293e",
+        "name": "Embereth Shieldbreaker",
+        "score": 7,
+        "tier": "F",
+        "cmc": 2,
+        "typeLine": "Creature — Human Knight",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/13b553f1-8107-42a8-841a-91adf71cff72/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2019,
+        "set": "ELD",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
+        "name": "Weftstalker Ardent",
+        "score": 30.2,
+        "tier": "A-",
+        "cmc": 3,
+        "typeLine": "Creature — Drix Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cddb48cc-8eb1-47ce-90f0-7aad1e93e2c4/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2025,
+        "set": "EOE",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 23.2,
+      "reason": "Un mana de plus (3 vs 2), compensé par un gain d'impact net (+23.2 pts) qui justifie le décalage de curve.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+23.2 pts).",
+        "affectedArchetypes": [
+          "Dimir Reanimator",
+          "Sneak Attack / Show and Tell",
+          "Rakdos Sacrifice & Recursive Threats"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
+      },
+      "releaseYear": 2025,
+      "isRecent": true,
+      "rankingScore": 40.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": -4
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
     "Endurance": {
       "targetCard": {
         "oracleId": "c85d824b-c190-4d04-ab99-918ad0e6516c",
@@ -2387,82 +2240,6 @@
         }
       ]
     },
-    "Fireblast": {
-      "targetCard": {
-        "oracleId": "9dd7f27a-e862-47d7-9158-034cf4d353b8",
-        "name": "Fireblast",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 6,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/14d6bfda-c066-4cc0-b317-3d8c7c168546/normal.webp",
-        "frenchName": "Salve de feu",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1997,
-        "set": "VIS",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "d001febc-d511-4e65-a631-91dc9415056b",
-        "name": "Pyrokinesis",
-        "score": 29,
-        "tier": "A-",
-        "cmc": 6,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/db2a5e85-6cbc-43c1-9362-4056ad017ef0/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1996,
-        "set": "ALL",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 11.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+11.1 pts). Reste au service de Boros Aggro & Equipment.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+11.1 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Sneak Attack / Show and Tell",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (1996)"
-      },
-      "releaseYear": 1996,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 59,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Fleecemane Lion": {
       "targetCard": {
         "oracleId": "e3c8cdf7-a26a-45eb-9498-99b618cfba99",
@@ -2660,76 +2437,6 @@
         {
           "key": "peer_benchmark",
           "points": 15
-        }
-      ]
-    },
-    "Frantic Search": {
-      "targetCard": {
-        "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
-        "name": "Frantic Search",
-        "score": 17,
-        "tier": "F",
-        "cmc": 3,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a4a2a4ce-a44b-480b-b1a2-94fb2514c082/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1999,
-        "set": "CMM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
-        "name": "Deduce",
-        "score": 29.6,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MKM",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.6,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.6 pts). Reste au service de Dimir Reanimator.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+12.6 pts).",
-        "affectedArchetypes": [
-          "Azorius Control",
-          "Azorius Blink & ETB Value",
-          "Dimir Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 52.6,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.6
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -3000,61 +2707,6 @@
         }
       ]
     },
-    "Gilded Lotus": {
-      "targetCard": {
-        "oracleId": "9a02a9a7-39d9-4763-85d3-747a0540b60b",
-        "name": "Gilded Lotus",
-        "score": 18.1,
-        "tier": "D",
-        "cmc": 5,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a487e208-8493-4bca-8c44-284d89c66b15/normal.webp",
-        "colors": [],
-        "releaseYear": 2003,
-        "set": "DOM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "5f7f133e-58ea-41ab-b1be-be4b400fac4c",
-        "name": "Coat of Arms",
-        "score": 30,
-        "tier": "A-",
-        "cmc": 5,
-        "typeLine": "Artifact",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/1/513d4c36-6ad4-4ee9-b161-3136eb59504f.jpg?1783936560",
-        "frenchName": "Coat of Arms",
-        "colors": [],
-        "releaseYear": 1998,
-        "set": "DDS",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 11.9,
-      "reason": "Même coût de mana (5), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11.9 pts). Reste au service de Tinker & Artifact Ramp.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+11.9 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1998)"
-      },
-      "releaseYear": 1998,
-      "isRecent": false,
-      "rankingScore": 37,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        }
-      ]
-    },
     "Glory-Bound Initiate": {
       "targetCard": {
         "oracleId": "b5582be1-6c2f-4052-80da-bf8f1913567b",
@@ -3302,45 +2954,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "f5420901-b5e6-4d54-b3e8-5f45e37f1fab",
-        "name": "Headliner Scarlett",
-        "score": 28.3,
-        "tier": "A-",
+        "oracleId": "e4d2dcbb-9910-482e-9e46-dfed2097509b",
+        "name": "Caves of Chaos Adventurer",
+        "score": 39.7,
+        "tier": "A",
         "cmc": 4,
-        "typeLine": "Legendary Creature — Human Warlock",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/be77b98a-dd79-477c-8ab2-7ebf5637a89e/normal.webp",
+        "typeLine": "Creature — Human Barbarian",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/5eb5d440-8f2c-4b21-8fdb-fd40e5710475/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2024,
-        "set": "CLU",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "CLB",
+        "isRecent": false
       },
-      "swapType": "archetype_booster",
-      "scoreDelta": 10.4,
-      "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts). Reste au service de Izzet Spells & Tempo.",
+      "swapType": "strict_upgrade",
+      "scoreDelta": 21.8,
+      "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+21.8 pts). Reste au service de Izzet Spells & Tempo.",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (4 vs 5 mana) tout en renforçant les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+10.4 pts).",
+        "summary": "Accélère le tempo de la curve (4 vs 5 mana) tout en renforçant les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+21.8 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [CLU]"
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61.3,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "rankingScore": 51.7,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28.3
+          "points": 39.7
         },
         {
           "key": "archetype_match",
@@ -3353,14 +3000,6 @@
         {
           "key": "mana_efficiency",
           "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
         }
       ]
     },
@@ -3419,80 +3058,6 @@
         {
           "key": "role_alignment",
           "points": 8
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Gravecrawler": {
-      "targetCard": {
-        "oracleId": "09ff28b1-b6c9-48e6-b12e-2f0e644f709f",
-        "name": "Gravecrawler",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 1,
-        "typeLine": "Creature — Zombie",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/48d73cb5-22ac-43df-9c4b-0c860bb80b3e/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2012,
-        "set": "DKA",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "058dae67-807e-4542-ae51-f2b1216ffaed",
-        "name": "Retrofitted Transmogrant",
-        "score": 26.9,
-        "tier": "B+",
-        "cmc": 1,
-        "typeLine": "Artifact Creature — Zombie",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/12c1b83d-710b-4680-855a-02ba1f72abf0/normal.webp",
-        "colors": [
-          "B"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 9,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9 pts). Reste au service de Rakdos Sacrifice & Recursive Threats.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Dimir Tempo & Disruption & Rakdos Sacrifice & Recursive Threats (+9 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Dimir Tempo & Disruption",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 53.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 26.9
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 6
         },
         {
           "key": "mana_efficiency",
@@ -3625,73 +3190,6 @@
         {
           "key": "mana_efficiency",
           "points": 1
-        }
-      ]
-    },
-    "Hedron Archive": {
-      "targetCard": {
-        "oracleId": "32263baa-d3f0-463f-92b3-4e9938476add",
-        "name": "Hedron Archive",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 4,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/2519149c-f8a3-413f-b7b2-cd596970be4c/normal.webp",
-        "colors": [],
-        "releaseYear": 2015,
-        "set": "BFZ",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "b3a81bb1-cbd5-41a0-8dd4-faea06593f84",
-        "name": "Relic of Sauron",
-        "score": 31.4,
-        "tier": "A-",
-        "cmc": 4,
-        "typeLine": "Artifact",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/b4d51844-52d0-47f2-939b-a5b87d11f0a5/normal.webp",
-        "colors": [],
-        "releaseYear": 2023,
-        "set": "LTC",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 13.5,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+13.5 pts). Reste au service de Tinker & Artifact Ramp.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+13.5 pts).",
-        "affectedArchetypes": [],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 61.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.4
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
         }
       ]
     },
@@ -3994,147 +3492,6 @@
         }
       ]
     },
-    "Hornet Queen": {
-      "targetCard": {
-        "oracleId": "3b1f8108-6911-49e9-8f78-f950bb58cb6c",
-        "name": "Hornet Queen",
-        "score": 18,
-        "tier": "D",
-        "cmc": 7,
-        "typeLine": "Creature — Insect",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/494f761a-dbc4-4cfa-a258-e4de46bb825e/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2011,
-        "set": "M15",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
-        "name": "Vaultborn Tyrant",
-        "score": 32,
-        "tier": "A-",
-        "cmc": 7,
-        "typeLine": "Creature — Dinosaur",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/c1f0544c-0124-497c-a8f1-5d5fb959ca39/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2024,
-        "set": "BIG",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 14,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14 pts). Reste au service de Green Ramp & Natural Order.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Haste & Stompy & Green Ramp & Natural Order & Selesnya Tokens & Anthems (+14 pts).",
-        "affectedArchetypes": [
-          "Gruul Haste & Stompy",
-          "Green Ramp & Natural Order",
-          "Selesnya Tokens & Anthems"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BIG]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 60,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 32
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
-    "Inferno Titan": {
-      "targetCard": {
-        "oracleId": "0ce47c8b-1e1f-463f-94f0-35ca00be89e6",
-        "name": "Inferno Titan",
-        "score": 19.8,
-        "tier": "D+",
-        "cmc": 6,
-        "typeLine": "Creature — Giant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/17ac2bff-f570-4955-a8d4-7e12d616dd8b/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2010,
-        "set": "PDP12",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "f2ef8bda-373d-4387-900d-0f1b6ccf72e9",
-        "name": "Trumpeting Carnosaur",
-        "score": 25.9,
-        "tier": "B+",
-        "cmc": 6,
-        "typeLine": "Creature — Dinosaur",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/35957bfb-c75f-4181-9726-19956992a6e6/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2023,
-        "set": "LCI",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 6.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+6.1 pts). Reste au service de Dimir Reanimator & Sneak Attack / Show and Tell.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+6.1 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Sneak Attack / Show and Tell",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
-      },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "rankingScore": 46.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 25.9
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        }
-      ]
-    },
     "Innocent Blood": {
       "targetCard": {
         "oracleId": "6791ec3c-c397-4087-8c8c-84d3797df415",
@@ -4218,42 +3575,48 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
-        "name": "Arcane Denial",
-        "score": 27.8,
+        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
+        "name": "Boomerang Basics",
+        "score": 31.2,
         "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
-        "frenchName": "Déni des arcanes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d066-66c7-430f-9347-9c25a4617a8d.jpg?1785262904",
+        "cmc": 1,
+        "typeLine": "Sorcery — Lesson",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 1996,
-        "set": "PLST",
-        "isRecent": false
+        "releaseYear": 2025,
+        "set": "TLA",
+        "isRecent": true
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 8.5,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8.5 pts).",
+      "scoreDelta": 11.9,
+      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts).",
       "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+8.5 pts).",
+        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+11.9 pts).",
         "affectedArchetypes": [
           "Azorius Control",
           "Azorius Blink & ETB Value",
           "Dimir Reanimator"
         ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1996)"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
       },
-      "releaseYear": 1996,
-      "isRecent": false,
-      "rankingScore": 34.8,
+      "releaseYear": 2025,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "rankingScore": 69.2,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 27.8
+          "points": 31.2
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "synergy_overlap",
@@ -4261,7 +3624,15 @@
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -4283,52 +3654,57 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "52c3fe55-74ee-44cb-b62b-dc6c5dfdc33e",
-        "name": "Detective's Phoenix",
-        "score": 25.1,
-        "tier": "B+",
-        "cmc": 3,
-        "typeLine": "Enchantment Creature — Phoenix",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/e2a01edd-dbc0-4ed4-b827-9b608290e9a1/normal.webp",
+        "oracleId": "f5420901-b5e6-4d54-b3e8-5f45e37f1fab",
+        "name": "Headliner Scarlett",
+        "score": 28.3,
+        "tier": "A-",
+        "cmc": 4,
+        "typeLine": "Legendary Creature — Human Warlock",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/be77b98a-dd79-477c-8ab2-7ebf5637a89e/normal.webp",
         "colors": [
           "R"
         ],
         "releaseYear": 2024,
-        "set": "MH3",
+        "set": "CLU",
         "isRecent": true
       },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts).",
+      "swapType": "archetype_booster",
+      "scoreDelta": 13.3,
+      "reason": "Un mana de plus (4 vs 3), compensé par un gain d'impact net (+13.3 pts) qui justifie le décalage de curve.",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+10.1 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+13.3 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [CLU]"
       },
       "releaseYear": 2024,
       "isRecent": true,
       "benchmarkCubes": [
-        "MTGO Vintage Cube"
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
       ],
-      "rankingScore": 55.1,
+      "rankingScore": 56.3,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 25.1
+          "points": 28.3
         },
         {
           "key": "role_alignment",
           "points": 8
         },
         {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
           "key": "mana_efficiency",
-          "points": 1
+          "points": -4
         },
         {
           "key": "recent_release",
@@ -4543,77 +3919,6 @@
         }
       ]
     },
-    "Kird Ape": {
-      "targetCard": {
-        "oracleId": "fbbc3acb-c917-44ff-ac6f-9dd6ebe3f4ad",
-        "name": "Kird Ape",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 1,
-        "typeLine": "Creature — Ape",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/27423c7b-d1fd-471b-9648-8ea5ed9ebaf2/normal.webp",
-        "frenchName": "Gorille beringeï",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1993,
-        "set": "DDH",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
-        "name": "Bothersome Noisemaker",
-        "score": 29.9,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Bard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+12 pts) qui justifie le décalage de curve. Reste au service de Gruul Haste & Stompy.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+12 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Sneak Attack / Show and Tell",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 45.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.9
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": -4
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Lifebane Zombie": {
       "targetCard": {
         "oracleId": "5b31ac7b-7901-484c-b59f-556284fd562c",
@@ -4686,6 +3991,68 @@
         {
           "key": "peer_benchmark",
           "points": 15
+        }
+      ]
+    },
+    "Lightning Mauler": {
+      "targetCard": {
+        "oracleId": "6c5664b1-fbb5-477e-80fd-cf2285014a10",
+        "name": "Lightning Mauler",
+        "score": 19.1,
+        "tier": "D+",
+        "cmc": 2,
+        "typeLine": "Creature — Human Berserker",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/241cc968-b93e-4fe3-a66d-7776d29aa023/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2012,
+        "set": "AVR",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
+        "name": "Sokenzan Smelter",
+        "score": 30.1,
+        "tier": "A-",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Artificer",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 11,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+11 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+11 pts).",
+        "affectedArchetypes": [
+          "Dimir Reanimator",
+          "Sneak Attack / Show and Tell",
+          "Rakdos Sacrifice & Recursive Threats"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2022)"
+      },
+      "releaseYear": 2022,
+      "isRecent": false,
+      "rankingScore": 39.1,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.1
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         }
       ]
     },
@@ -5649,40 +5016,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "0a73289f-0f0b-4316-be21-8edcbb08bd7c",
-        "name": "Anep, Vizier of Hazoret",
-        "score": 33.3,
-        "tier": "A-",
+        "oracleId": "52c3fe55-74ee-44cb-b62b-dc6c5dfdc33e",
+        "name": "Detective's Phoenix",
+        "score": 25.1,
+        "tier": "B+",
         "cmc": 3,
-        "typeLine": "Legendary Creature — Jackal Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/295658c4-7ab8-473d-abe1-0b6303b6850f/normal.webp",
+        "typeLine": "Enchantment Creature — Phoenix",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/e2a01edd-dbc0-4ed4-b827-9b608290e9a1/normal.webp",
         "colors": [
           "R"
         ],
         "releaseYear": 2024,
-        "set": "J25",
+        "set": "MH3",
         "isRecent": true
       },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 15.4,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+15.4 pts).",
+      "swapType": "versatile_alternative",
+      "scoreDelta": 7.2,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+7.2 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+15.4 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+7.2 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [J25]"
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
       },
       "releaseYear": 2024,
       "isRecent": true,
-      "rankingScore": 48.3,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "rankingScore": 55.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33.3
+          "points": 25.1
         },
         {
           "key": "role_alignment",
@@ -5695,6 +5066,10 @@
         {
           "key": "recent_release",
           "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -6059,40 +5434,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "88bb91b5-2ccd-4ce9-8cd4-e54d63c12abf",
-        "name": "Coruscation Mage",
-        "score": 25.9,
-        "tier": "B+",
+        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
+        "name": "Bothersome Noisemaker",
+        "score": 29.9,
+        "tier": "A-",
         "cmc": 2,
-        "typeLine": "Creature — Otter Wizard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/dc2c1de0-6233-469a-be72-a050b97d2c8f/normal.webp",
+        "typeLine": "Creature — Goblin Bard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2024,
-        "set": "BLB",
+        "releaseYear": 2026,
+        "set": "HOB",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 8,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8 pts).",
+      "scoreDelta": 12,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+8 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+12 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2024,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 40.9,
+      "rankingScore": 44.9,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 25.9
+          "points": 29.9
         },
         {
           "key": "role_alignment",
@@ -6413,48 +5788,64 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "be31fa46-d5ac-4c85-9c19-3f0e2b1f223b",
-        "name": "Annex Sentry",
-        "score": 33.2,
+        "oracleId": "c867a778-97ef-4872-b890-b088b96a1281",
+        "name": "Jennifer Walters",
+        "score": 33,
         "tier": "A-",
-        "cmc": 3,
-        "typeLine": "Artifact Creature — Phyrexian Cleric",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/04baad61-1b51-4602-9e33-0de4a9f34793/normal.webp",
+        "cmc": 2,
+        "typeLine": "Legendary Creature — Human Advisor Hero // Legendary Creature — Gamma Hero",
+        "imageUrl": "https://cards.scryfall.io/normal/front/6/1/61237530-ad49-469c-a952-67c92315708e.jpg?1783902978",
         "colors": [
           "W"
         ],
-        "releaseYear": 2023,
-        "set": "ONE",
-        "isRecent": false
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
       },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 14.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+14.1 pts).",
+      "swapType": "archetype_booster",
+      "scoreDelta": 13.9,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.9 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Selesnya Tokens & Anthems (+14.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Azorius Control & Azorius Blink & ETB Value & Selesnya Tokens & Anthems (+13.9 pts).",
         "affectedArchetypes": [
           "Azorius Control",
           "Azorius Blink & ETB Value",
           "Selesnya Tokens & Anthems"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2023)"
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
       },
-      "releaseYear": 2023,
-      "isRecent": false,
-      "rankingScore": 42.2,
+      "releaseYear": 2026,
+      "isRecent": true,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "rankingScore": 68,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 33.2
+          "points": 33
         },
         {
           "key": "role_alignment",
           "points": 8
         },
         {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -7135,40 +6526,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
-        "name": "Weftstalker Ardent",
-        "score": 30.2,
+        "oracleId": "0a73289f-0f0b-4316-be21-8edcbb08bd7c",
+        "name": "Anep, Vizier of Hazoret",
+        "score": 33.3,
         "tier": "A-",
         "cmc": 3,
-        "typeLine": "Creature — Drix Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cddb48cc-8eb1-47ce-90f0-7aad1e93e2c4/normal.webp",
+        "typeLine": "Legendary Creature — Jackal Warrior",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/295658c4-7ab8-473d-abe1-0b6303b6850f/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2025,
-        "set": "EOE",
+        "releaseYear": 2024,
+        "set": "J25",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 10.2,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.2 pts).",
+      "scoreDelta": 13.3,
+      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13.3 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+10.2 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+13.3 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
         "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [J25]"
       },
-      "releaseYear": 2025,
+      "releaseYear": 2024,
       "isRecent": true,
-      "rankingScore": 45.2,
+      "rankingScore": 48.3,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30.2
+          "points": 33.3
         },
         {
           "key": "role_alignment",
@@ -7671,6 +7062,72 @@
         {
           "key": "mana_efficiency",
           "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    "Stormblood Berserker": {
+      "targetCard": {
+        "oracleId": "84e56125-3fbb-4229-8aa0-8f8acff27038",
+        "name": "Stormblood Berserker",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 2,
+        "typeLine": "Creature — Human Berserker",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/8af30f24-0b2a-4d18-a8d2-2edc2687bdf6/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2011,
+        "set": "DCI",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "88bb91b5-2ccd-4ce9-8cd4-e54d63c12abf",
+        "name": "Coruscation Mage",
+        "score": 25.9,
+        "tier": "B+",
+        "cmc": 2,
+        "typeLine": "Creature — Otter Wizard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/dc2c1de0-6233-469a-be72-a050b97d2c8f/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "BLB",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 8,
+      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+8 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+8 pts).",
+        "affectedArchetypes": [
+          "Dimir Reanimator",
+          "Sneak Attack / Show and Tell",
+          "Rakdos Sacrifice & Recursive Threats"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "rankingScore": 40.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.9
+        },
+        {
+          "key": "role_alignment",
+          "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         },
         {
           "key": "recent_release",
@@ -8308,76 +7765,6 @@
         }
       ]
     },
-    "Tooth and Nail": {
-      "targetCard": {
-        "oracleId": "382b7873-e78d-473b-8346-d92d16e8f634",
-        "name": "Tooth and Nail",
-        "score": 18.6,
-        "tier": "D",
-        "cmc": 7,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/02f0067c-2d38-46bd-b52e-070c2ce424f0/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2003,
-        "set": "MRD",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "3b6fb13b-f126-4697-90a1-64b14ffcecd6",
-        "name": "Snarl Song",
-        "score": 31.1,
-        "tier": "A-",
-        "cmc": 6,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/fc4c7fa2-aebb-4636-9afd-f1010c923316/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2026,
-        "set": "SOS",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.5,
-      "reason": "Coût de mana plus agressif (6 vs 7) permettant d'accélérer le tempo et d'optimiser la curve (+12.5 pts). Reste au service de Green Ramp & Natural Order.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (6 vs 7 mana) tout en renforçant les archétypes Gruul Haste & Stompy & Green Ramp & Natural Order & Selesnya Tokens & Anthems (+12.5 pts).",
-        "affectedArchetypes": [
-          "Gruul Haste & Stompy",
-          "Green Ramp & Natural Order",
-          "Selesnya Tokens & Anthems"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [SOS]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 54.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.1
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Torrential Gearhulk": {
       "targetCard": {
         "oracleId": "a6395447-677d-4c39-8eda-2d57e527c94e",
@@ -8938,87 +8325,6 @@
         }
       ]
     },
-    "Watcher for Tomorrow": {
-      "targetCard": {
-        "oracleId": "277aafa6-4270-4d24-a888-cf9e8e635d4b",
-        "name": "Watcher for Tomorrow",
-        "score": 18.9,
-        "tier": "D+",
-        "cmc": 2,
-        "typeLine": "Creature — Human Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/1/5/15f01a3c-0a66-48da-a7d2-46260e3b721f.jpg?1783933133",
-        "frenchName": "Gardien de demain",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/4/4/44a59e7d-6ffa-450f-8777-30a3c62f5cd4.jpg?1782919820",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2019,
-        "set": "MH1",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "72a9a85d-7cfc-4b3c-82db-9d35be6c0982",
-        "name": "Bilbo, Thief in the Night",
-        "score": 31,
-        "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Halfling Rogue",
-        "imageUrl": "https://cards.scryfall.io/normal/front/4/8/484c7f83-8339-4ae1-8350-68ce1f7d05a3.jpg?1783902786",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.1,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.1 pts). Reste au service de Azorius Blink & ETB Value.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+12.1 pts).",
-        "affectedArchetypes": [
-          "Azorius Control",
-          "Azorius Blink & ETB Value",
-          "Dimir Reanimator"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "rankingScore": 67,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Winds of Abandon": {
       "targetCard": {
         "oracleId": "499a4715-6776-461b-bee4-22ed172d455e",
@@ -9191,110 +8497,48 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "e4d2dcbb-9910-482e-9e46-dfed2097509b",
-        "name": "Caves of Chaos Adventurer",
-        "score": 39.7,
-        "tier": "A",
-        "cmc": 4,
-        "typeLine": "Creature — Human Barbarian",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/5eb5d440-8f2c-4b21-8fdb-fd40e5710475/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2022,
-        "set": "CLB",
-        "isRecent": false
-      },
-      "swapType": "strict_upgrade",
-      "scoreDelta": 21.6,
-      "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+21.6 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (4 vs 5 mana) tout en renforçant les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+21.6 pts).",
-        "affectedArchetypes": [
-          "Dimir Reanimator",
-          "Sneak Attack / Show and Tell",
-          "Rakdos Sacrifice & Recursive Threats"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "rankingScore": 42.7,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 39.7
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        }
-      ]
-    },
-    "Zurgo Bellstriker": {
-      "targetCard": {
-        "oracleId": "46808926-d95b-4313-89d1-6bdfe13fcb77",
-        "name": "Zurgo Bellstriker",
-        "score": 17.9,
-        "tier": "D-",
-        "cmc": 1,
-        "typeLine": "Legendary Creature — Orc Warrior",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bbac6d75-59ab-4d7d-87ae-46875abf8cc7/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2015,
-        "set": "DTK",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "dd645241-2992-4c4e-a6a8-c2215d2340ae",
-        "name": "Sokenzan Smelter",
-        "score": 30.1,
+        "oracleId": "a34b7416-cfe3-4a1e-a8c1-a3056b747519",
+        "name": "Kiki-Jiki, Mirror Breaker",
+        "score": 27.8,
         "tier": "A-",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/758724f9-93c9-4178-ae40-3fefc75a010e/normal.webp",
+        "cmc": 5,
+        "typeLine": "Legendary Creature — Goblin Shaman",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/162018eb-5483-4fa2-9c5a-abb639eecf91/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2022,
-        "set": "NEO",
+        "releaseYear": 2004,
+        "set": "CHK",
         "isRecent": false
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 12.2,
-      "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+12.2 pts) qui justifie le décalage de curve. Reste au service de Boros Aggro & Equipment.",
+      "scoreDelta": 9.7,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+9.7 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+12.2 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+9.7 pts).",
         "affectedArchetypes": [
           "Dimir Reanimator",
           "Sneak Attack / Show and Tell",
           "Rakdos Sacrifice & Recursive Threats"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "Référence confirmée (2022)"
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "Référence confirmée (2004)"
       },
-      "releaseYear": 2022,
+      "releaseYear": 2004,
       "isRecent": false,
-      "rankingScore": 40.1,
+      "rankingScore": 36.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30.1
+          "points": 27.8
         },
         {
           "key": "role_alignment",
           "points": 8
         },
         {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
           "key": "mana_efficiency",
-          "points": -4
+          "points": 1
         }
       ]
     }
@@ -11920,7 +11164,7 @@
         "cedric:boros_aggro_equipment"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Adanto Vanguard (+13 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Boros Aggro & Equipment.",
+      "rationale": "Proposée en remplacement poste pour poste de Reidane, God of the Worthy (+13.9 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.9 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Selesnya Tokens & Anthems (+33 pts).",
         "affectedArchetypes": [
@@ -11939,11 +11183,11 @@
       ],
       "replacesCards": [
         {
-          "name": "Adanto Vanguard",
-          "score": 20,
-          "tier": "C-",
-          "scoreDelta": 13,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts). Reste au service de Boros Aggro & Equipment."
+          "name": "Reidane, God of the Worthy",
+          "score": 19.1,
+          "tier": "D+",
+          "scoreDelta": 13.9,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.9 pts)."
         }
       ],
       "rankingScore": 95,
@@ -12121,80 +11365,6 @@
     },
     {
       "card": {
-        "oracleId": "e8d0accc-b320-4c07-8a71-a09db860351e",
-        "name": "Vaultborn Tyrant",
-        "score": 32,
-        "tier": "A-",
-        "cmc": 7,
-        "typeLine": "Creature — Dinosaur",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/c1f0544c-0124-497c-a8f1-5d5fb959ca39/normal.webp",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2024,
-        "set": "BIG",
-        "isRecent": true
-      },
-      "archetypes": [
-        "cedric:gruul_stompy",
-        "cedric:simic_ramp_goodstuff",
-        "cedric:selesnya_tokens_midrange",
-        "cedric:golgari_rock_graveyard"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Hornet Queen (+14 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14 pts). Reste au service de Green Ramp & Natural Order.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Haste & Stompy & Green Ramp & Natural Order & Selesnya Tokens & Anthems (+32 pts).",
-        "affectedArchetypes": [
-          "Gruul Haste & Stompy",
-          "Green Ramp & Natural Order",
-          "Selesnya Tokens & Anthems"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BIG]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube",
-        "Vintage Cube Archive"
-      ],
-      "replacesCards": [
-        {
-          "name": "Hornet Queen",
-          "score": 18,
-          "tier": "D",
-          "scoreDelta": 14,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+14 pts). Reste au service de Green Ramp & Natural Order."
-        }
-      ],
-      "rankingScore": 94,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 32
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
         "name": "Boomerang Basics",
         "score": 31.2,
@@ -12220,7 +11390,7 @@
         "cedric:izzet_spells_tempo"
       ],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Chart a Course (+12.3 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir Reanimator.",
+      "rationale": "Proposée en remplacement poste pour poste de Into the Roil (+11.9 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+31.2 pts).",
         "affectedArchetypes": [
@@ -12239,11 +11409,11 @@
       ],
       "replacesCards": [
         {
-          "name": "Chart a Course",
-          "score": 18.9,
+          "name": "Into the Roil",
+          "score": 19.3,
           "tier": "D+",
-          "scoreDelta": 12.3,
-          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir Reanimator."
+          "scoreDelta": 11.9,
+          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+11.9 pts)."
         }
       ],
       "rankingScore": 93.2,
@@ -12370,7 +11540,7 @@
         "cedric:izzet_spells_tempo"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Watcher for Tomorrow (+12.1 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.1 pts). Reste au service de Azorius Blink & ETB Value.",
+      "rationale": "Proposée en remplacement poste pour poste de Baral, Chief of Compliance (+12.9 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.9 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Azorius Control & Azorius Blink & ETB Value & Dimir Reanimator (+31 pts).",
         "affectedArchetypes": [
@@ -12390,12 +11560,12 @@
       ],
       "replacesCards": [
         {
-          "name": "Watcher for Tomorrow",
-          "frenchName": "Gardien de demain",
-          "score": 18.9,
-          "tier": "D+",
-          "scoreDelta": 12.1,
-          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.1 pts). Reste au service de Azorius Blink & ETB Value."
+          "name": "Baral, Chief of Compliance",
+          "frenchName": "Baral, directeur de conformité",
+          "score": 18.1,
+          "tier": "D",
+          "scoreDelta": 12.9,
+          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+12.9 pts)."
         }
       ],
       "rankingScore": 93,
@@ -12656,7 +11826,7 @@
         "cedric:boros_aggro_equipment"
       ],
       "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Goblin Dark-Dwellers (+10.4 pts). Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts). Reste au service de Izzet Spells & Tempo.",
+      "rationale": "Proposée en remplacement poste pour poste de Irreverent Revelers (+13.3 pts). Un mana de plus (4 vs 3), compensé par un gain d'impact net (+13.3 pts) qui justifie le décalage de curve.",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Dimir Reanimator & Sneak Attack / Show and Tell & Rakdos Sacrifice & Recursive Threats (+28.3 pts).",
         "affectedArchetypes": [
@@ -12676,12 +11846,12 @@
       ],
       "replacesCards": [
         {
-          "name": "Goblin Dark-Dwellers",
-          "frenchName": "Gobelins sciaphiles",
-          "score": 17.9,
-          "tier": "D-",
-          "scoreDelta": 10.4,
-          "reason": "Coût de mana plus agressif (4 vs 5) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts). Reste au service de Izzet Spells & Tempo."
+          "name": "Irreverent Revelers",
+          "frenchName": "Fêtards irrévérencieux",
+          "score": 15,
+          "tier": "F",
+          "scoreDelta": 13.3,
+          "reason": "Un mana de plus (4 vs 3), compensé par un gain d'impact net (+13.3 pts) qui justifie le décalage de curve."
         }
       ],
       "rankingScore": 90.3,
@@ -12701,6 +11871,77 @@
         {
           "key": "recent_release",
           "points": 6
+        },
+        {
+          "key": "peer_benchmark",
+          "points": 14
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "bddf8f4a-3149-4dd6-a9e5-7747e7e45a1c",
+        "name": "Sylvan Safekeeper",
+        "score": 34,
+        "tier": "A-",
+        "cmc": 1,
+        "typeLine": "Creature — Human Wizard",
+        "imageUrl": "https://cards.scryfall.io/normal/front/8/3/83036e21-21ea-4324-aa07-11757f80c417.jpg?1783911211",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2002,
+        "set": "JUD",
+        "isRecent": false
+      },
+      "archetypes": [
+        "cedric:gruul_stompy",
+        "cedric:simic_ramp_goodstuff",
+        "cedric:selesnya_tokens_midrange",
+        "cedric:golgari_rock_graveyard"
+      ],
+      "role": "archetype_payoff",
+      "rationale": "Proposée en remplacement poste pour poste de Ascendant Packleader (+19 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Gruul Haste & Stompy & Green Ramp & Natural Order & Selesnya Tokens & Anthems (+34 pts).",
+        "affectedArchetypes": [
+          "Gruul Haste & Stompy",
+          "Green Ramp & Natural Order",
+          "Selesnya Tokens & Anthems"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube & Vintage Cube Archive",
+        "releaseContext": "Référence confirmée (2002)"
+      },
+      "releaseYear": 2002,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube",
+        "Vintage Cube Archive"
+      ],
+      "replacesCards": [
+        {
+          "name": "Ascendant Packleader",
+          "frenchName": "Chef de meute ascendant",
+          "score": 15,
+          "tier": "F",
+          "scoreDelta": 19,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+19 pts)."
+        }
+      ],
+      "rankingScore": 90,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 34
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
         },
         {
           "key": "peer_benchmark",

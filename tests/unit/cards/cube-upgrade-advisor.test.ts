@@ -861,6 +861,155 @@ describe("Cube Upgrade Advisor", () => {
       expect(Object.keys(upgrades)).toEqual(["Weak Filler"]);
     });
 
+    describe("support cards of the cube's archetypes", () => {
+      const nicoMeta = {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [
+          {
+            id: "nico:storm",
+            name: "Izzet Storm",
+            primaryColors: ["R"],
+            keyCards: [],
+            supportCards: ["declared-support"],
+          },
+        ],
+      };
+      const nicoSlot = (
+        oracleId: string,
+        name: string,
+        metaRole?: "support" | "neutral",
+      ): MasterCatalogCard => ({
+        ...mockTargetCard,
+        oracleId,
+        name,
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {
+          nico_candyshop: {
+            ...mockTargetTribalAnalysis,
+            cubeKey: "nico_candyshop",
+            archetypes: [],
+            ...(metaRole ? { metaRole } : {}),
+          },
+        },
+      });
+      const burn = (score: number): MasterCatalogCard => ({
+        ...mockCandidateUpgrade,
+        oracleId: `burn-${String(score)}`,
+        name: `Burn ${String(score)}`,
+        presentInCubes: [],
+        powerScore: { ...mockCandidateUpgrade.powerScore, score },
+      });
+      const declaredSupport = nicoSlot("declared-support", "Declared Support Piece");
+      const curatedSupport = nicoSlot("curated-support", "Curated Support Piece", "support");
+      const filler = nicoSlot("filler", "Plain Filler", "neutral");
+
+      it("does not cut a support card for a gain a filler slot would accept", () => {
+        // Target 14 -> candidate 26: +12, above the same-curve minimum but not decisive.
+        for (const slot of [declaredSupport, curatedSupport]) {
+          const upgrades = generateCubeUpgradeProposals(
+            "nico_candyshop",
+            [slot, burn(26)],
+            nicoMeta,
+          );
+          expect(upgrades[slot.name]).toBeUndefined();
+        }
+        const fillerUpgrades = generateCubeUpgradeProposals(
+          "nico_candyshop",
+          [filler, burn(26)],
+          nicoMeta,
+        );
+        expect(fillerUpgrades[filler.name]?.suggestedCard.name).toBe("Burn 26");
+      });
+
+      it("cuts a support card for a decisive power gain", () => {
+        // Target 14 -> candidate 30: +16.
+        for (const slot of [declaredSupport, curatedSupport]) {
+          const upgrades = generateCubeUpgradeProposals(
+            "nico_candyshop",
+            [slot, burn(30)],
+            nicoMeta,
+          );
+          expect(upgrades[slot.name]?.suggestedCard.name).toBe("Burn 30");
+        }
+      });
+    });
+
+    it("never lists a key card among the cards a maybeboard entry replaces", () => {
+      const nicoMeta = {
+        ...mockMeta,
+        cubeKey: "nico_candyshop",
+        archetypes: [
+          {
+            id: "nico:reanimator",
+            name: "Reanimator",
+            primaryColors: ["R"],
+            keyCards: ["declared-key"],
+          },
+        ],
+      };
+      const declaredKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "declared-key",
+        name: "Declared Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const curatedKey: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "curated-key",
+        name: "Curated Key Piece",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {
+          nico_candyshop: {
+            ...mockTargetTribalAnalysis,
+            cubeKey: "nico_candyshop",
+            archetypes: [],
+            metaRole: "key",
+          },
+        },
+      };
+      const filler: MasterCatalogCard = {
+        ...mockTargetCard,
+        oracleId: "filler",
+        name: "Plain Filler",
+        presentInCubes: ["nico_candyshop"],
+        cubeAnalyses: {},
+      };
+      const candidate: MasterCatalogCard = { ...mockCandidateUpgrade, presentInCubes: [] };
+      const catalog = [declaredKey, curatedKey, filler, candidate];
+      const fillerProposal = generateCubeUpgradeProposals("nico_candyshop", catalog, nicoMeta)[
+        filler.name
+      ];
+      if (!fillerProposal) throw new Error("expected a proposal for the filler slot");
+      // Upgrades handed over by a caller (or an older report) may still target key pieces.
+      const keyTargeting = Object.fromEntries(
+        [declaredKey, curatedKey].map((key) => [
+          key.name,
+          {
+            ...fillerProposal,
+            targetCard: { ...fillerProposal.targetCard, oracleId: key.oracleId, name: key.name },
+          },
+        ]),
+      );
+
+      const maybeboard = generateCubeMaybeboard(
+        "nico_candyshop",
+        catalog,
+        nicoMeta,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        { ...keyTargeting, [filler.name]: fillerProposal },
+      );
+
+      const replaced = maybeboard.flatMap((entry) =>
+        (entry.replacesCards ?? []).map((target) => target.name),
+      );
+      expect(replaced).toEqual(["Plain Filler"]);
+    });
+
     it("ignores reminder text and reads an additional mana ability as mana", () => {
       const manaDork: MasterCatalogCard = {
         ...mockTargetCard,
@@ -1496,7 +1645,7 @@ describe("Cube Upgrade Advisor", () => {
       );
 
       expect(report.schemaVersion).toBe(2);
-      expect(report.engineVersion).toBe("cube-upgrade-advisor@7");
+      expect(report.engineVersion).toBe("cube-upgrade-advisor@8");
       expect(report.snapshotId).toBe("titou_tribal@test");
       expect(report.generatedAt).toBe(mockRunContext.generatedAt);
       expect(report.sourceProvenance).toEqual({

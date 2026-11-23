@@ -118,7 +118,7 @@ export interface AdvisorRunContext {
 
 export interface CubeSuggestionsReport {
   readonly schemaVersion: 2;
-  readonly engineVersion: "cube-upgrade-advisor@7";
+  readonly engineVersion: "cube-upgrade-advisor@8";
   readonly cubeKey: string;
   readonly snapshotId: string;
   readonly generatedAt: string;
@@ -268,13 +268,39 @@ function getProtectedOracleIds(cubeMeta?: AdvisorCubeMeta): ReadonlySet<string> 
   return new Set(cubeMeta?.archetypes?.flatMap((archetype) => archetype.keyCards ?? []) ?? []);
 }
 
+function isKeyCard(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  protectedOracleIds: ReadonlySet<string>,
+): boolean {
+  return protectedOracleIds.has(card.oracleId) || card.cubeAnalyses[cubeKey]?.metaRole === "key";
+}
+
+function getSupportOracleIds(cubeMeta?: AdvisorCubeMeta): ReadonlySet<string> {
+  return new Set(cubeMeta?.archetypes?.flatMap((archetype) => archetype.supportCards ?? []) ?? []);
+}
+
+/**
+ * Support pieces of the cube's archetypes (curated Tier 1 data) are cut only for a decisive gain:
+ * like key pieces, their power score undervalues what they do for their archetype (a ritual for
+ * Storm, a looter for Reanimator), so a gain that would replace a plain filler is not enough.
+ */
+const MIN_SCORE_DELTA_SUPPORT_TARGET = 15;
+
+function isSupportCard(
+  card: MasterCatalogCard,
+  cubeKey: string,
+  supportOracleIds: ReadonlySet<string>,
+): boolean {
+  return supportOracleIds.has(card.oracleId) || card.cubeAnalyses[cubeKey]?.metaRole === "support";
+}
+
 function isWeakTarget(
   card: MasterCatalogCard,
   cubeKey: string,
   protectedOracleIds: ReadonlySet<string>,
 ): boolean {
-  if (protectedOracleIds.has(card.oracleId)) return false;
-  if (card.cubeAnalyses[cubeKey]?.metaRole === "key") return false;
+  if (isKeyCard(card, cubeKey, protectedOracleIds)) return false;
   const score = getCardScore(card);
   const tier = getCardTier(card, cubeKey);
   const fit = card.cubeAnalyses[cubeKey]?.fit;
@@ -1030,6 +1056,7 @@ export function generateCubeUpgradeProposals(
   const thresholds = computeCubeTierThresholds(cubeCards);
   const protectedOracleIds = getProtectedOracleIds(cubeMeta);
   const eligibleTargets = cubeCards.filter((c) => isWeakTarget(c, cubeKey, protectedOracleIds));
+  const supportOracleIds = getSupportOracleIds(cubeMeta);
 
   // 2. Identify candidate pool: cards in catalog NOT in this cube
   const candidatePool = catalogCards.filter((c) => !c.presentInCubes.includes(cubeKey));
@@ -1067,6 +1094,9 @@ export function generateCubeUpgradeProposals(
     const targetTribes = policy.preserveCreatureTypes
       ? getCardTribes(target, supportedCreatureTypes)
       : [];
+    const targetMinScoreDelta = isSupportCard(target, cubeKey, supportOracleIds)
+      ? MIN_SCORE_DELTA_SUPPORT_TARGET
+      : 0;
 
     for (const { cand, candLower, relInfo, benchmarks, tags } of allowedCandidates) {
       // Strict Tribal Coherence for Titou's Tribal Cube:
@@ -1105,7 +1135,7 @@ export function generateCubeUpgradeProposals(
       const scoreDelta = candScore - targetScore;
 
       // A curve shift has to be worth it: the required power gain grows with the shift.
-      if (scoreDelta < getMinimumScoreDelta(cmcDelta)) continue;
+      if (scoreDelta < Math.max(getMinimumScoreDelta(cmcDelta), targetMinScoreDelta)) continue;
 
       // Calculate the auditable composite score.
       const rankingFactors: RankingFactor[] = [{ key: "power", points: candScore }];
@@ -1278,7 +1308,17 @@ export function generateCubeMaybeboard(
       benchmarkCardsMap,
     );
 
+  // Upgrades handed over by the caller are not trusted to spare the cube's key pieces.
+  const protectedOracleIds = getProtectedOracleIds(cubeMeta);
+  const cubeCardsById = new Map(cubeCards.map((card) => [card.oracleId, card]));
   for (const up of Object.values(effectiveUpgrades)) {
+    const target = cubeCardsById.get(up.targetCard.oracleId);
+    if (
+      target
+        ? isKeyCard(target, cubeKey, protectedOracleIds)
+        : protectedOracleIds.has(up.targetCard.oracleId)
+    )
+      continue;
     const suggName = up.suggestedCard.name;
     const list = replacesByCardName.get(suggName) ?? [];
     list.push({
@@ -1564,7 +1604,7 @@ export function generateCubeSuggestionsReport(
 
   return {
     schemaVersion: 2,
-    engineVersion: "cube-upgrade-advisor@7",
+    engineVersion: "cube-upgrade-advisor@8",
     cubeKey,
     snapshotId: cubeMeta.activeSnapshotId,
     generatedAt: runContext.generatedAt,

@@ -130,6 +130,23 @@ Titou Tribal after regeneration: 39 swaps, maybeboard 50 (capped; Celestial Colo
 Tar Pit and Urza fall below the cap), with 19 tribal discoveries: 13 from Nico's cube, the rest
 from Cédric's and Titou's Peasant cubes. Nico, Cédric and Hugues keep the same cards.
 
+## Protected archetype pieces in `cube-upgrade-advisor@8` (2026-11-23)
+
+The benchmark against Nico's update showed that the advisor aims at the lowest power score of a
+color, and the score undervalues narrow archetype pieces. Key pieces were already never targeted
+since `@6`. Changes:
+
+- **Support pieces.** A card listed in an archetype's `supportCards`, or curated with
+  `metaRole: "support"`, is cut only for a gain of at least 15 points (instead of 5 to 12 by
+  curve shift). Seething Song, Frantic Search, Goblin Guide, Monastery Swiftspear or Imperial
+  Recruiter are no longer proposed for small gains.
+- **Maybeboard.** Upgrades handed over to `generateCubeMaybeboard` are filtered again, so an
+  entry can never list a key piece in `replacesCards`.
+
+After regeneration, no upgrade or maybeboard entry of any cube targets a key piece, and every
+remaining support cut gains at least 15 points. Swaps: Nico 84 → 76 (support cuts 15 → 4),
+Cédric 131 → 120, Titou Tribal 42 → 38, Hugues 36 → 32, Peasant 19 → 14.
+
 ## Known limits
 
 - The isotonic calibration saturates near 37 points, so a recent bomb is under-rated until

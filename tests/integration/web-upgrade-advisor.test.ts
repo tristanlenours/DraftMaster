@@ -65,7 +65,7 @@ describe("Cube Upgrade Advisor & AI Maybeboard Integration", () => {
         const raw = await readFile(filePath, "utf-8");
         const data = JSON.parse(raw) as CubeSuggestionsReport;
         expect(data.schemaVersion).toBe(2);
-        expect(data.engineVersion).toBe("cube-upgrade-advisor@7");
+        expect(data.engineVersion).toBe("cube-upgrade-advisor@8");
         expect(data.cubeKey).toBe(cubeKey);
         expect(data.snapshotId).toBeTruthy();
         expect(data.sourceProvenance.catalog.sha256).toMatch(/^[a-f0-9]{64}$/);

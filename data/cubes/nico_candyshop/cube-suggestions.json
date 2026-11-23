@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "engineVersion": "cube-upgrade-advisor@7",
+  "engineVersion": "cube-upgrade-advisor@8",
   "cubeKey": "nico_candyshop",
   "snapshotId": "nico_candyshop@2026-11-18.1",
   "generatedAt": "2026-11-21T21:38:39.517Z",
@@ -9,7 +9,7 @@
     "catalog": {
       "id": "data/cards/master-cards.json",
       "version": "master-catalog@1",
-      "sha256": "9aa0f83defbe905bb6f2d5f54f5a847b47203894036d9848a442748bb4802e0c",
+      "sha256": "eb1934c0ebe648faf3bedbc24a9f96ea2c120a83606cdcd99ff11a7c4a8570a5",
       "license": "Mixed upstream terms; see docs/research/card-data-audit-2026-09-06.md",
       "method": "Deterministic merge of versioned local card items and power scores"
     },
@@ -49,11 +49,11 @@
     "benchmarkCoveragePercentage": 88
   },
   "stats": {
-    "totalUpgrades": 84,
+    "totalUpgrades": 76,
     "totalMaybeboard": 50,
-    "recentUpgradesCount": 56,
-    "benchmarkMatchesCount": 10,
-    "recentMaybeboardCount": 41,
+    "recentUpgradesCount": 50,
+    "benchmarkMatchesCount": 9,
+    "recentMaybeboardCount": 36,
     "directReplacementMaybeboardCount": 48
   },
   "upgrades": {
@@ -718,78 +718,6 @@
         }
       ]
     },
-    "Carnivorous Cultivator": {
-      "targetCard": {
-        "oracleId": "db655c5a-06f6-42bc-8180-d9ca1c1d939a",
-        "name": "Carnivorous Cultivator",
-        "score": 20.1,
-        "tier": "D+",
-        "cmc": 2,
-        "typeLine": "Creature — Elf Warlock // Sorcery",
-        "imageUrl": "https://cards.scryfall.io/normal/front/7/9/79dd5c54-5ea5-47b5-8f9b-50ed57a5ea45.jpg?1789385967",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2026,
-        "set": "FRA",
-        "isRecent": true
-      },
-      "suggestedCard": {
-        "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
-        "name": "Torgal, A Fine Hound",
-        "score": 30.1,
-        "tier": "B",
-        "cmc": 2,
-        "typeLine": "Legendary Creature — Wolf",
-        "imageUrl": "https://cards.scryfall.io/normal/front/0/f/0f5725aa-42bb-4dfd-9c15-135b38b33da3.jpg?1783906578",
-        "frenchName": "Talgor, un allié de taille",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/0/c/0c0e83de-9097-4838-aa96-8c9b9dd46b41.jpg?1782771796",
-        "colors": [
-          "G"
-        ],
-        "releaseYear": 2025,
-        "set": "FIN",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10,
-      "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Gruul / Jund Lands & Dark Depths.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+10 pts).",
-        "affectedArchetypes": [
-          "Sneak Attack / Show and Tell / Flash",
-          "Gruul / Jund Lands & Dark Depths",
-          "Mono-Green Ramp & Natural Order"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 51.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.1
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Caustic Bronco": {
       "targetCard": {
         "oracleId": "165bdc68-1da0-47db-a069-978fc4c04b3f",
@@ -913,84 +841,6 @@
         {
           "key": "recent_release",
           "points": 6
-        }
-      ]
-    },
-    "Chart a Course": {
-      "targetCard": {
-        "oracleId": "05878e49-93ad-4144-9c50-a0bb86126c2e",
-        "name": "Chart a Course",
-        "score": 18.9,
-        "tier": "D",
-        "cmc": 2,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/98291778-2ec2-47e2-ac99-5f8cfbb3cf24/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2017,
-        "set": "XLN",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
-        "name": "Boomerang Basics",
-        "score": 31.2,
-        "tier": "B",
-        "cmc": 1,
-        "typeLine": "Sorcery — Lesson",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.3,
-      "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir / Grixis Reanimator.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (1 vs 2 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+12.3 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "rankingScore": 69.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.2
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
         }
       ]
     },
@@ -1527,44 +1377,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
-        "name": "Weftstalker Ardent",
-        "score": 30.2,
+        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
+        "name": "Bothersome Noisemaker",
+        "score": 29.9,
         "tier": "B",
-        "cmc": 3,
-        "typeLine": "Creature — Drix Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cddb48cc-8eb1-47ce-90f0-7aad1e93e2c4/normal.webp",
+        "cmc": 2,
+        "typeLine": "Creature — Goblin Bard",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
         "colors": [
           "R"
         ],
-        "releaseYear": 2025,
-        "set": "EOE",
+        "releaseYear": 2026,
+        "set": "HOB",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 10.1,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts).",
+      "scoreDelta": 9.8,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+9.8 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+10.1 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+9.8 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Dimir / Grixis Reanimator",
           "Sneak Attack / Show and Tell / Flash"
         ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
       },
-      "releaseYear": 2025,
+      "releaseYear": 2026,
       "isRecent": true,
-      "rankingScore": 37.2,
+      "rankingScore": 38.9,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30.2
+          "points": 29.9
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
         },
         {
           "key": "recent_release",
@@ -1715,46 +1565,50 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "f75ed312-3a23-4624-80c5-03980aa22d0b",
-        "name": "Llanowar Visionary",
-        "score": 25.7,
-        "tier": "C+",
-        "cmc": 3,
-        "typeLine": "Creature — Elf Druid",
-        "imageUrl": "https://cards.scryfall.io/normal/front/d/6/d6e23afa-7e08-4049-baf0-d4d0134ba2c8.jpg?1783930671",
-        "frenchName": "Visionnaire de Llanowar",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/4/0/40dda7d4-fcd5-4e91-bfe5-958d2495a990.jpg?1782778984",
+        "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
+        "name": "Torgal, A Fine Hound",
+        "score": 30.1,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Legendary Creature — Wolf",
+        "imageUrl": "https://cards.scryfall.io/normal/front/0/f/0f5725aa-42bb-4dfd-9c15-135b38b33da3.jpg?1783906578",
+        "frenchName": "Talgor, un allié de taille",
+        "frenchImageUrl": "https://cards.scryfall.io/normal/front/0/c/0c0e83de-9097-4838-aa96-8c9b9dd46b41.jpg?1782771796",
         "colors": [
           "G"
         ],
-        "releaseYear": 2020,
-        "set": "M21",
-        "isRecent": false
+        "releaseYear": 2025,
+        "set": "FIN",
+        "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 7,
-      "reason": "Même coût de mana (3), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+7 pts).",
+      "scoreDelta": 11.4,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.4 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+7 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+11.4 pts).",
         "affectedArchetypes": [
           "Sneak Attack / Show and Tell / Flash",
           "Gruul / Jund Lands & Dark Depths",
           "Mono-Green Ramp & Natural Order"
         ],
         "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (2020)"
+        "releaseContext": "✨ Nouveauté (2025) — Veille active [FIN]"
       },
-      "releaseYear": 2020,
-      "isRecent": false,
-      "rankingScore": 26.7,
+      "releaseYear": 2025,
+      "isRecent": true,
+      "rankingScore": 39.1,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 25.7
+          "points": 30.1
         },
         {
           "key": "mana_efficiency",
-          "points": 1
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -1905,40 +1759,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
-        "name": "Shoreline Looter",
-        "score": 31.5,
-        "tier": "B",
+        "oracleId": "e9117015-1050-44dd-a46b-e7ffe2085fae",
+        "name": "Ledger Shredder",
+        "score": 27.8,
+        "tier": "B-",
         "cmc": 2,
-        "typeLine": "Creature — Rat Rogue",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/d5bf8cf0-419a-4dc9-9342-aad55c1af05a/normal.webp",
+        "typeLine": "Creature — Bird Advisor",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/7ea4b5bc-18a4-45db-a56a-ab3f8bd2fb0d/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2024,
-        "set": "BLB",
-        "isRecent": true
+        "releaseYear": 2022,
+        "set": "SNC",
+        "isRecent": false
       },
       "swapType": "archetype_booster",
-      "scoreDelta": 12.5,
-      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.5 pts).",
+      "scoreDelta": 8.8,
+      "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+8.8 pts).",
       "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+12.5 pts).",
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+8.8 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Mono-Blue / Colorless Artifacts & Tinker",
           "Dimir / Grixis Reanimator"
         ],
         "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
+        "releaseContext": "Référence confirmée (2022)"
       },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 55.5,
+      "releaseYear": 2022,
+      "isRecent": false,
+      "benchmarkCubes": [
+        "MTGO Vintage Cube"
+      ],
+      "rankingScore": 57.8,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 31.5
+          "points": 27.8
         },
         {
           "key": "role_alignment",
@@ -1946,15 +1804,15 @@
         },
         {
           "key": "synergy_overlap",
-          "points": 9
+          "points": 6
         },
         {
           "key": "mana_efficiency",
           "points": 1
         },
         {
-          "key": "recent_release",
-          "points": 6
+          "key": "peer_benchmark",
+          "points": 15
         }
       ]
     },
@@ -2017,76 +1875,6 @@
         {
           "key": "mana_efficiency",
           "points": 1
-        }
-      ]
-    },
-    "Frantic Search": {
-      "targetCard": {
-        "oracleId": "16e015b2-f8a3-4b1a-80be-58a8f5fb5e8c",
-        "name": "Frantic Search",
-        "score": 17,
-        "tier": "D-",
-        "cmc": 3,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/a4a2a4ce-a44b-480b-b1a2-94fb2514c082/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1999,
-        "set": "CMM",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
-        "name": "Deduce",
-        "score": 29.6,
-        "tier": "B",
-        "cmc": 2,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MKM",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 12.6,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.6 pts). Reste au service de Izzet / Grixis Storm & Dimir / Grixis Reanimator.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+12.6 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 58.6,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.6
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -2379,74 +2167,6 @@
         }
       ]
     },
-    "Goblin Guide": {
-      "targetCard": {
-        "oracleId": "51d9564b-44fc-4de1-9119-09d7b4089378",
-        "name": "Goblin Guide",
-        "score": 20.8,
-        "tier": "D+",
-        "cmc": 1,
-        "typeLine": "Creature — Goblin Scout",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/c/3c0f5411-1940-410f-96ce-6f92513f753a.jpg?1783930165",
-        "frenchName": "Goblin Guide",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2009,
-        "set": "ZEN",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "213fbbdd-f1bc-4bba-9124-7b26e9a706c8",
-        "name": "Goblin Lackey",
-        "score": 35,
-        "tier": "B+",
-        "cmc": 1,
-        "typeLine": "Creature — Goblin",
-        "imageUrl": "https://cards.scryfall.io/normal/front/3/0/30104836-1e9d-4533-98f8-d5c4e6484b52.jpg?1783939274",
-        "frenchName": "Goblin Lackey",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1998,
-        "set": "V09",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 14.2,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+14.2 pts). Reste au service de Boros / Red Aggro & Initiative.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+14.2 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1998)"
-      },
-      "releaseYear": 1998,
-      "isRecent": false,
-      "rankingScore": 50,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 35
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        }
-      ]
-    },
     "Graveyard Trespasser": {
       "targetCard": {
         "oracleId": "0bbd6cad-9b6f-45a6-9f2e-d7b4853586ae",
@@ -2498,72 +2218,6 @@
         {
           "key": "power",
           "points": 32.1
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Imperial Recruiter": {
-      "targetCard": {
-        "oracleId": "4d6a1391-817a-4ddc-840d-886b138eeb3f",
-        "name": "Imperial Recruiter",
-        "score": 18.6,
-        "tier": "D",
-        "cmc": 3,
-        "typeLine": "Creature — Human Advisor",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/ce0dbf20-bb76-4f4b-960f-68bbb99bde33/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 1999,
-        "set": "MH2",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
-        "name": "Bothersome Noisemaker",
-        "score": 29.9,
-        "tier": "B",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Bard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 11.3,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.3 pts). Reste au service de Izzet / Jeskai Twin & Kiki Combo.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+11.3 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "rankingScore": 44.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.9
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
         },
         {
           "key": "mana_efficiency",
@@ -2768,6 +2422,63 @@
         {
           "key": "recent_release",
           "points": 6
+        }
+      ]
+    },
+    "Kellan, Planar Trailblazer": {
+      "targetCard": {
+        "oracleId": "e8fd428f-7521-4e6a-86b7-835f20ee3c5c",
+        "name": "Kellan, Planar Trailblazer",
+        "score": 17,
+        "tier": "D-",
+        "cmc": 1,
+        "typeLine": "Legendary Creature — Human Faerie Scout",
+        "imageUrl": "https://cards.scryfall.io/normal/front/f/4/f46a9329-7b91-441d-8653-50c1152c9120.jpg?1783909101",
+        "colors": [
+          "R"
+        ],
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "213fbbdd-f1bc-4bba-9124-7b26e9a706c8",
+        "name": "Goblin Lackey",
+        "score": 35,
+        "tier": "B+",
+        "cmc": 1,
+        "typeLine": "Creature — Goblin",
+        "imageUrl": "https://cards.scryfall.io/normal/front/3/0/30104836-1e9d-4533-98f8-d5c4e6484b52.jpg?1783939274",
+        "frenchName": "Goblin Lackey",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 1998,
+        "set": "V09",
+        "isRecent": false
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 18,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+18 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Enabler Majeur de Synergies",
+        "releaseContext": "Référence confirmée (1998)"
+      },
+      "releaseYear": 1998,
+      "isRecent": false,
+      "rankingScore": 36,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 35
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
         }
       ]
     },
@@ -3399,72 +3110,6 @@
         }
       ]
     },
-    "Monastery Swiftspear": {
-      "targetCard": {
-        "oracleId": "dafd2713-d1bc-474b-b390-d2ff20b5375e",
-        "name": "Monastery Swiftspear",
-        "score": 20.8,
-        "tier": "D+",
-        "cmc": 1,
-        "typeLine": "Creature — Human Monk",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/3c9899a8-f5b0-427f-ac87-09fc8afe0f23/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2014,
-        "set": "2X2",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "49e1e202-37bf-46ed-93d1-1adb13726039",
-        "name": "Heartfire Hero",
-        "score": 27.2,
-        "tier": "B-",
-        "cmc": 1,
-        "typeLine": "Creature — Mouse Soldier",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/48ace959-66b2-40c8-9bff-fd7ed9c99a82/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "BLB",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 6.4,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+6.4 pts). Reste au service de Boros / Red Aggro & Initiative.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+6.4 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 40.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.2
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Night's Whisper": {
       "targetCard": {
         "oracleId": "7ffae8f8-3006-4969-a339-6d30678f87ea",
@@ -3520,6 +3165,68 @@
         {
           "key": "role_alignment",
           "points": 8
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 1
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    "Orcish Lumberjack": {
+      "targetCard": {
+        "oracleId": "383e3fe4-8558-4561-8632-6eadb5d5963c",
+        "name": "Orcish Lumberjack",
+        "score": 17.9,
+        "tier": "D-",
+        "cmc": 1,
+        "typeLine": "Creature — Orc",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/21ef13e3-658c-43a3-a290-4c5dde8e8b55/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 1995,
+        "set": "ICE",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "49e1e202-37bf-46ed-93d1-1adb13726039",
+        "name": "Heartfire Hero",
+        "score": 27.2,
+        "tier": "B-",
+        "cmc": 1,
+        "typeLine": "Creature — Mouse Soldier",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/48ace959-66b2-40c8-9bff-fd7ed9c99a82/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2024,
+        "set": "BLB",
+        "isRecent": true
+      },
+      "swapType": "versatile_alternative",
+      "scoreDelta": 9.3,
+      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+9.3 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+9.3 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "rankingScore": 34.2,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.2
         },
         {
           "key": "mana_efficiency",
@@ -3983,76 +3690,6 @@
         }
       ]
     },
-    "Seething Song": {
-      "targetCard": {
-        "oracleId": "64bf8929-f5f2-4d50-8667-13b1d007bcfc",
-        "name": "Seething Song",
-        "score": 20.1,
-        "tier": "D+",
-        "cmc": 3,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9213d580-7953-455f-abbe-99d3db2705cf/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2003,
-        "set": "MRD",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "7b70696e-b09e-4bc9-8438-d31075d78c0c",
-        "name": "Glimpse the Impossible",
-        "score": 30.4,
-        "tier": "B",
-        "cmc": 3,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/133ad0dd-5b61-4c38-9264-0b0e75b95d95/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10.3,
-      "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.3 pts). Reste au service de Izzet / Grixis Storm.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+10.3 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 51.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.4
-        },
-        {
-          "key": "role_alignment",
-          "points": 8
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Smaug the Magnificent": {
       "targetCard": {
         "oracleId": "c53b7602-5e36-4900-896c-844bf6eac22e",
@@ -4426,76 +4063,6 @@
         }
       ]
     },
-    "Student of Warfare": {
-      "targetCard": {
-        "oracleId": "0bc2875b-3a5a-4885-86b9-16ab7330ac10",
-        "name": "Student of Warfare",
-        "score": 20.4,
-        "tier": "D+",
-        "cmc": 1,
-        "typeLine": "Creature — Human Knight",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/9f4df9be-324b-458a-9379-ab4aa437a6d2/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2010,
-        "set": "ROE",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "1c55047d-badc-49bb-b791-e9759577e4eb",
-        "name": "The Duke, Rebel Sentry",
-        "score": 27.3,
-        "tier": "B-",
-        "cmc": 1,
-        "typeLine": "Legendary Creature — Human Rebel Ally",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cd9d91a8-7315-4355-af99-941f3cf7398c/normal.webp",
-        "colors": [
-          "W"
-        ],
-        "releaseYear": 2025,
-        "set": "TLE",
-        "isRecent": true
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 6.9,
-      "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+6.9 pts). Reste au service de Selesnya / White +1/+1 Counters.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+6.9 pts).",
-        "affectedArchetypes": [
-          "Izzet / Jeskai Twin & Kiki Combo",
-          "Azorius Blink / Value",
-          "Boros / Red Aggro & Initiative"
-        ],
-        "strategicRole": "Pression Aggro & Présence sur Table Efficace",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLE]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "rankingScore": 43.3,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.3
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 3
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
     "Sunfall": {
       "targetCard": {
         "oracleId": "fb3f5097-0da0-458c-8508-60823567e2da",
@@ -4647,108 +4214,44 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "ab1cc360-b9de-48d9-9983-4dfe4a7d2a37",
-        "name": "Arcane Denial",
-        "score": 27.8,
-        "tier": "B-",
+        "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
+        "name": "Deduce",
+        "score": 29.6,
+        "tier": "B",
         "cmc": 2,
         "typeLine": "Instant",
-        "imageUrl": "https://cards.scryfall.io/normal/front/5/e/5eb843ef-b223-40d0-a461-54b16d188d0e.jpg?1783903242",
-        "frenchName": "Déni des arcanes",
-        "frenchImageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d066-66c7-430f-9347-9c25a4617a8d.jpg?1785262904",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1996,
-        "set": "PLST",
-        "isRecent": false
-      },
-      "swapType": "archetype_booster",
-      "scoreDelta": 9.9,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+9.9 pts).",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+9.9 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Enabler Majeur de Synergies",
-        "releaseContext": "Référence confirmée (1996)"
-      },
-      "releaseYear": 1996,
-      "isRecent": false,
-      "rankingScore": 36.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
-        },
-        {
-          "key": "synergy_overlap",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        }
-      ]
-    },
-    "Time Spiral": {
-      "targetCard": {
-        "oracleId": "cac55e46-b730-4569-b92c-a4b5922fc20c",
-        "name": "Time Spiral",
-        "score": 18,
-        "tier": "D",
-        "cmc": 6,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/f3d62dbd-63db-4ac9-950f-9852627f23f2/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1998,
-        "set": "USG",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "2550c2ae-834d-46e7-9ab4-d7bf7bfa6a78",
-        "name": "This Town Ain't Big Enough",
-        "score": 30.5,
-        "tier": "B",
-        "cmc": 5,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/bb206e27-da4d-4abe-9d8c-6d18c5f2f52a/normal.webp",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/7cbb17af-e17e-438a-ad72-0c942e6706b6/normal.webp",
         "colors": [
           "U"
         ],
         "releaseYear": 2024,
-        "set": "OTJ",
+        "set": "MKM",
         "isRecent": true
       },
       "swapType": "versatile_alternative",
-      "scoreDelta": 12.5,
-      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+12.5 pts). Reste au service de Izzet / Grixis Storm.",
+      "scoreDelta": 11.7,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.7 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+12.5 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+11.7 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Mono-Blue / Colorless Artifacts & Tinker",
           "Dimir / Grixis Reanimator"
         ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [OTJ]"
+        "strategicRole": "Générateur de Card Advantage Actif",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [MKM]"
       },
       "releaseYear": 2024,
       "isRecent": true,
-      "rankingScore": 45.5,
+      "rankingScore": 46.6,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 30.5
+          "points": 29.6
         },
         {
-          "key": "archetype_match",
-          "points": 6
+          "key": "role_alignment",
+          "points": 8
         },
         {
           "key": "mana_efficiency",
@@ -4890,76 +4393,6 @@
         }
       ]
     },
-    "Tishana's Tidebinder": {
-      "targetCard": {
-        "oracleId": "2993dc7d-723d-4a9b-94bd-4bb02a9f7243",
-        "name": "Tishana's Tidebinder",
-        "score": 17,
-        "tier": "D-",
-        "cmc": 3,
-        "typeLine": "Creature — Merfolk Wizard",
-        "imageUrl": "https://cards.scryfall.io/normal/front/9/0/907b3d1d-8c85-4707-80b5-c4d832df9846.jpg?1783913786",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2023,
-        "set": "LCI",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "e9117015-1050-44dd-a46b-e7ffe2085fae",
-        "name": "Ledger Shredder",
-        "score": 27.8,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Creature — Bird Advisor",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7ea4b5bc-18a4-45db-a56a-ab3f8bd2fb0d/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2022,
-        "set": "SNC",
-        "isRecent": false
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10.8,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.8 pts). Reste au service de Azorius Blink / Value & Dimir / Grixis Tempo & Disruption.",
-      "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+10.8 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "rankingScore": 57.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 3
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 15
-        }
-      ]
-    },
     "Touch the Spirit Realm": {
       "targetCard": {
         "oracleId": "52f0dcbd-ccf3-4525-8e55-2d38b4991834",
@@ -5040,40 +4473,40 @@
         "isRecent": false
       },
       "suggestedCard": {
-        "oracleId": "a5a05edd-2a30-414b-b766-f0651d5783f5",
-        "name": "Forecasting Fortune Teller",
-        "score": 28.8,
-        "tier": "B-",
+        "oracleId": "c15cad77-e70f-42cc-a9f5-50e1fd8c9c96",
+        "name": "Shoreline Looter",
+        "score": 31.5,
+        "tier": "B",
         "cmc": 2,
-        "typeLine": "Creature — Human Advisor Ally",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/023e7ad4-6af0-4f29-a716-27a313974227/normal.webp",
+        "typeLine": "Creature — Rat Rogue",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/d5bf8cf0-419a-4dc9-9342-aad55c1af05a/normal.webp",
         "colors": [
           "U"
         ],
-        "releaseYear": 2025,
-        "set": "TLA",
+        "releaseYear": 2024,
+        "set": "BLB",
         "isRecent": true
       },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 13.8,
-      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.8 pts).",
+      "swapType": "strict_upgrade",
+      "scoreDelta": 16.5,
+      "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+16.5 pts).",
       "metaAddedValue": {
-        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+13.8 pts).",
+        "summary": "Accélère le tempo de la curve (2 vs 3 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+16.5 pts).",
         "affectedArchetypes": [
           "Izzet / Grixis Storm",
           "Mono-Blue / Colorless Artifacts & Tinker",
           "Dimir / Grixis Reanimator"
         ],
         "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [BLB]"
       },
-      "releaseYear": 2025,
+      "releaseYear": 2024,
       "isRecent": true,
-      "rankingScore": 45.8,
+      "rankingScore": 48.5,
       "rankingFactors": [
         {
           "key": "power",
-          "points": 28.8
+          "points": 31.5
         },
         {
           "key": "role_alignment",
@@ -5082,72 +4515,6 @@
         {
           "key": "mana_efficiency",
           "points": 3
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    "Turnabout": {
-      "targetCard": {
-        "oracleId": "715d0777-4d36-463b-9102-6bb6bb00b7e9",
-        "name": "Turnabout",
-        "score": 18.1,
-        "tier": "D",
-        "cmc": 4,
-        "typeLine": "Instant",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/04cfc84b-88ae-4fb8-b568-e0635e2a194a/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 1998,
-        "set": "DMR",
-        "isRecent": false
-      },
-      "suggestedCard": {
-        "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
-        "name": "Deem Inferior",
-        "score": 28.1,
-        "tier": "B-",
-        "cmc": 4,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cc0835c7-58ca-4f16-984a-c590ce6a229a/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "swapType": "versatile_alternative",
-      "scoreDelta": 10,
-      "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Izzet / Grixis Storm.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+10 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "rankingScore": 41.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.1
-        },
-        {
-          "key": "archetype_match",
-          "points": 6
-        },
-        {
-          "key": "mana_efficiency",
-          "points": 1
         },
         {
           "key": "recent_release",
@@ -5210,6 +4577,72 @@
         {
           "key": "mana_efficiency",
           "points": 3
+        }
+      ]
+    },
+    "Upheaval": {
+      "targetCard": {
+        "oracleId": "7cafc972-a6f5-4cac-a3d3-8a3ae36ffb1e",
+        "name": "Upheaval",
+        "score": 11,
+        "tier": "F",
+        "cmc": 6,
+        "typeLine": "Sorcery",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/befe74b1-c487-42bb-a1a1-4d13f3a86ff7/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2001,
+        "set": "MH2",
+        "isRecent": false
+      },
+      "suggestedCard": {
+        "oracleId": "2550c2ae-834d-46e7-9ab4-d7bf7bfa6a78",
+        "name": "This Town Ain't Big Enough",
+        "score": 30.5,
+        "tier": "B",
+        "cmc": 5,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/bb206e27-da4d-4abe-9d8c-6d18c5f2f52a/normal.webp",
+        "colors": [
+          "U"
+        ],
+        "releaseYear": 2024,
+        "set": "OTJ",
+        "isRecent": true
+      },
+      "swapType": "strict_upgrade",
+      "scoreDelta": 19.5,
+      "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+19.5 pts).",
+      "metaAddedValue": {
+        "summary": "Accélère le tempo de la curve (5 vs 6 mana) tout en renforçant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+19.5 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Mono-Blue / Colorless Artifacts & Tinker",
+          "Dimir / Grixis Reanimator"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "✨ Nouveauté (2024) — Veille active [OTJ]"
+      },
+      "releaseYear": 2024,
+      "isRecent": true,
+      "rankingScore": 42.5,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 30.5
+        },
+        {
+          "key": "synergy_overlap",
+          "points": 3
+        },
+        {
+          "key": "mana_efficiency",
+          "points": 3
+        },
+        {
+          "key": "recent_release",
+          "points": 6
         }
       ]
     },
@@ -5707,82 +5140,6 @@
     },
     {
       "card": {
-        "oracleId": "acd881eb-f3b4-4174-9fc2-e3c7c213886b",
-        "name": "Boomerang Basics",
-        "score": 31.2,
-        "tier": "B",
-        "cmc": 1,
-        "typeLine": "Sorcery — Lesson",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/17ab958a-abc6-472e-ad6a-97c731d89c74/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:artifact_ramp",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:blink",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Chart a Course (+12.3 pts). Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir / Grixis Reanimator.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+31.2 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "replacesCards": [
-        {
-          "name": "Chart a Course",
-          "score": 18.9,
-          "tier": "D",
-          "scoreDelta": 12.3,
-          "reason": "Coût de mana plus agressif (1 vs 2) permettant d'accélérer le tempo et d'optimiser la curve (+12.3 pts). Reste au service de Dimir / Grixis Reanimator."
-        }
-      ],
-      "rankingScore": 93.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 31.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "8f968470-ce00-43a3-95f5-2e3fe987be19",
         "name": "Fell",
         "score": 39.9,
@@ -6244,78 +5601,6 @@
         {
           "key": "power",
           "points": 28.9
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "peer_benchmark",
-          "points": 14
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "e9117015-1050-44dd-a46b-e7ffe2085fae",
-        "name": "Ledger Shredder",
-        "score": 27.8,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Creature — Bird Advisor",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/7ea4b5bc-18a4-45db-a56a-ab3f8bd2fb0d/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2022,
-        "set": "SNC",
-        "isRecent": false
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:artifact_ramp",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:blink",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Tishana's Tidebinder (+10.8 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.8 pts). Reste au service de Azorius Blink / Value & Dimir / Grixis Tempo & Disruption.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+27.8 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "benchmarkPresence": "Vu dans MTGO Vintage Cube",
-        "releaseContext": "Référence confirmée (2022)"
-      },
-      "releaseYear": 2022,
-      "isRecent": false,
-      "benchmarkCubes": [
-        "MTGO Vintage Cube"
-      ],
-      "replacesCards": [
-        {
-          "name": "Tishana's Tidebinder",
-          "score": 17,
-          "tier": "D-",
-          "scoreDelta": 10.8,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+10.8 pts). Reste au service de Azorius Blink / Value & Dimir / Grixis Tempo & Disruption."
-        }
-      ],
-      "rankingScore": 83.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 27.8
         },
         {
           "key": "direct_replacement",
@@ -7016,7 +6301,7 @@
         "nico:dimir_tempo"
       ],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Faerie Mastermind (+12.5 pts). Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.5 pts).",
+      "rationale": "Proposée en remplacement poste pour poste de Trinket Mage (+16.5 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+16.5 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+31.5 pts).",
         "affectedArchetypes": [
@@ -7031,11 +6316,11 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Faerie Mastermind",
-          "score": 19,
-          "tier": "D",
-          "scoreDelta": 12.5,
-          "reason": "Moteur de card advantage et de récurrence moderne, remplaçant un effet ponctuel dépassé (+12.5 pts)."
+          "name": "Trinket Mage",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 16.5,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+16.5 pts)."
         }
       ],
       "rankingScore": 79.5,
@@ -7281,7 +6566,7 @@
         "nico:dimir_tempo"
       ],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Time Spiral (+12.5 pts). Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+12.5 pts). Reste au service de Izzet / Grixis Storm.",
+      "rationale": "Proposée en remplacement poste pour poste de Upheaval (+19.5 pts). Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+19.5 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+30.5 pts).",
         "affectedArchetypes": [
@@ -7296,11 +6581,11 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Time Spiral",
-          "score": 18,
-          "tier": "D",
-          "scoreDelta": 12.5,
-          "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+12.5 pts). Reste au service de Izzet / Grixis Storm."
+          "name": "Upheaval",
+          "score": 11,
+          "tier": "F",
+          "scoreDelta": 19.5,
+          "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+19.5 pts)."
         }
       ],
       "rankingScore": 78.5,
@@ -7308,74 +6593,6 @@
         {
           "key": "power",
           "points": 30.5
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "7b70696e-b09e-4bc9-8438-d31075d78c0c",
-        "name": "Glimpse the Impossible",
-        "score": 30.4,
-        "tier": "B",
-        "cmc": 3,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/133ad0dd-5b61-4c38-9264-0b0e75b95d95/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:lands",
-        "nico:boros_aggro",
-        "nico:dimir_tempo"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Seething Song (+10.3 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.3 pts). Reste au service de Izzet / Grixis Storm.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+30.4 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Seething Song",
-          "score": 20.1,
-          "tier": "D+",
-          "scoreDelta": 10.3,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.3 pts). Reste au service de Izzet / Grixis Storm."
-        }
-      ],
-      "rankingScore": 78.4,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.4
         },
         {
           "key": "direct_replacement",
@@ -7462,74 +6679,6 @@
     },
     {
       "card": {
-        "oracleId": "926d52a5-4db1-46ce-9567-17c28bf56ae7",
-        "name": "Weftstalker Ardent",
-        "score": 30.2,
-        "tier": "B",
-        "cmc": 3,
-        "typeLine": "Creature — Drix Artificer",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cddb48cc-8eb1-47ce-90f0-7aad1e93e2c4/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2025,
-        "set": "EOE",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:lands",
-        "nico:boros_aggro",
-        "nico:dimir_tempo"
-      ],
-      "role": "premium_interaction",
-      "rationale": "Proposée en remplacement poste pour poste de Dualcaster Mage (+10.1 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+30.2 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [EOE]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Dualcaster Mage",
-          "score": 20.1,
-          "tier": "D+",
-          "scoreDelta": 10.1,
-          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+10.1 pts)."
-        }
-      ],
-      "rankingScore": 78.2,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 30.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "9d6ab594-aea9-4f13-8802-f3794ee45425",
         "name": "Torgal, A Fine Hound",
         "score": 30.1,
@@ -7553,7 +6702,7 @@
         "nico:selesnya_counters"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Carnivorous Cultivator (+10 pts). Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Gruul / Jund Lands & Dark Depths.",
+      "rationale": "Proposée en remplacement poste pour poste de Esika, God of the Tree (+11.4 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.4 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+30.1 pts).",
         "affectedArchetypes": [
@@ -7568,11 +6717,11 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Carnivorous Cultivator",
-          "score": 20.1,
-          "tier": "D+",
-          "scoreDelta": 10,
-          "reason": "Même coût de mana (2), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Gruul / Jund Lands & Dark Depths."
+          "name": "Esika, God of the Tree",
+          "score": 18.7,
+          "tier": "D",
+          "scoreDelta": 11.4,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.4 pts)."
         }
       ],
       "rankingScore": 78.1,
@@ -7663,74 +6812,6 @@
     },
     {
       "card": {
-        "oracleId": "978e07fd-8b8c-4eab-850e-e4c0e712251e",
-        "name": "Bothersome Noisemaker",
-        "score": 29.9,
-        "tier": "B",
-        "cmc": 2,
-        "typeLine": "Creature — Goblin Bard",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cb25b11a-6bf5-4a9a-b60f-d4dcac3816d6/normal.webp",
-        "colors": [
-          "R"
-        ],
-        "releaseYear": 2026,
-        "set": "HOB",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:lands",
-        "nico:boros_aggro",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Imperial Recruiter (+11.3 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.3 pts). Reste au service de Izzet / Jeskai Twin & Kiki Combo.",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+29.9 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Dimir / Grixis Reanimator",
-          "Sneak Attack / Show and Tell / Flash"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2026) — Veille active [HOB]"
-      },
-      "releaseYear": 2026,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Imperial Recruiter",
-          "score": 18.6,
-          "tier": "D",
-          "scoreDelta": 11.3,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.3 pts). Reste au service de Izzet / Jeskai Twin & Kiki Combo."
-        }
-      ],
-      "rankingScore": 77.9,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 29.9
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
         "oracleId": "eeae4161-9f35-45df-8b3c-c55e37f49cd1",
         "name": "Deduce",
         "score": 29.6,
@@ -7755,7 +6836,7 @@
         "nico:dimir_tempo"
       ],
       "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Frantic Search (+12.6 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.6 pts). Reste au service de Izzet / Grixis Storm & Dimir / Grixis Reanimator.",
+      "rationale": "Proposée en remplacement poste pour poste de Thirst for Knowledge (+11.7 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.7 pts).",
       "metaAddedValue": {
         "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+29.6 pts).",
         "affectedArchetypes": [
@@ -7770,11 +6851,11 @@
       "isRecent": true,
       "replacesCards": [
         {
-          "name": "Frantic Search",
-          "score": 17,
+          "name": "Thirst for Knowledge",
+          "score": 17.9,
           "tier": "D-",
-          "scoreDelta": 12.6,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+12.6 pts). Reste au service de Izzet / Grixis Storm & Dimir / Grixis Reanimator."
+          "scoreDelta": 11.7,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+11.7 pts)."
         }
       ],
       "rankingScore": 77.6,
@@ -7957,7 +7038,7 @@
         "nico:dimir_tempo"
       ],
       "role": "archetype_payoff",
-      "rationale": "Proposée en remplacement poste pour poste de Goblin Guide (+14.2 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+14.2 pts). Reste au service de Boros / Red Aggro & Initiative.",
+      "rationale": "Proposée en remplacement poste pour poste de Kellan, Planar Trailblazer (+18 pts). Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18 pts).",
       "metaAddedValue": {
         "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+35 pts).",
         "affectedArchetypes": [
@@ -7972,12 +7053,11 @@
       "isRecent": false,
       "replacesCards": [
         {
-          "name": "Goblin Guide",
-          "frenchName": "Goblin Guide",
-          "score": 20.8,
-          "tier": "D+",
-          "scoreDelta": 14.2,
-          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+14.2 pts). Reste au service de Boros / Red Aggro & Initiative."
+          "name": "Kellan, Planar Trailblazer",
+          "score": 17,
+          "tier": "D-",
+          "scoreDelta": 18,
+          "reason": "Même coût de mana (1), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+18 pts)."
         }
       ],
       "rankingScore": 77,
@@ -7993,74 +7073,6 @@
         {
           "key": "archetype_match",
           "points": 12
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "a5a05edd-2a30-414b-b766-f0651d5783f5",
-        "name": "Forecasting Fortune Teller",
-        "score": 28.8,
-        "tier": "B-",
-        "cmc": 2,
-        "typeLine": "Creature — Human Advisor Ally",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/023e7ad4-6af0-4f29-a716-27a313974227/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2025,
-        "set": "TLA",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:artifact_ramp",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:blink",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Trinket Mage (+13.8 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.8 pts).",
-      "metaAddedValue": {
-        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+28.8 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Générateur de Card Advantage Actif",
-        "releaseContext": "✨ Nouveauté (2025) — Veille active [TLA]"
-      },
-      "releaseYear": 2025,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Trinket Mage",
-          "score": 15,
-          "tier": "D-",
-          "scoreDelta": 13.8,
-          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.8 pts)."
-        }
-      ],
-      "rankingScore": 76.8,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.8
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
         }
       ]
     },
@@ -8245,74 +7257,6 @@
         {
           "key": "power",
           "points": 28.2
-        },
-        {
-          "key": "direct_replacement",
-          "points": 30
-        },
-        {
-          "key": "archetype_match",
-          "points": 12
-        },
-        {
-          "key": "recent_release",
-          "points": 6
-        }
-      ]
-    },
-    {
-      "card": {
-        "oracleId": "f0bd4a29-ac13-4d4f-8479-e0e80f8d846f",
-        "name": "Deem Inferior",
-        "score": 28.1,
-        "tier": "B-",
-        "cmc": 4,
-        "typeLine": "Sorcery",
-        "imageUrl": "https://assets.cubecobra.com/cardimages/cc0835c7-58ca-4f16-984a-c590ce6a229a/normal.webp",
-        "colors": [
-          "U"
-        ],
-        "releaseYear": 2024,
-        "set": "MH3",
-        "isRecent": true
-      },
-      "archetypes": [
-        "nico:storm_combo",
-        "nico:artifact_ramp",
-        "nico:reanimator",
-        "nico:sneak_show",
-        "nico:twin_kiki",
-        "nico:blink",
-        "nico:dimir_tempo"
-      ],
-      "role": "staple",
-      "rationale": "Proposée en remplacement poste pour poste de Turnabout (+10 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Izzet / Grixis Storm.",
-      "metaAddedValue": {
-        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Mono-Blue / Colorless Artifacts & Tinker & Dimir / Grixis Reanimator (+28.1 pts).",
-        "affectedArchetypes": [
-          "Izzet / Grixis Storm",
-          "Mono-Blue / Colorless Artifacts & Tinker",
-          "Dimir / Grixis Reanimator"
-        ],
-        "strategicRole": "Menace Déterminante de Fin de Partie",
-        "releaseContext": "✨ Nouveauté (2024) — Veille active [MH3]"
-      },
-      "releaseYear": 2024,
-      "isRecent": true,
-      "replacesCards": [
-        {
-          "name": "Turnabout",
-          "score": 18.1,
-          "tier": "D",
-          "scoreDelta": 10,
-          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+10 pts). Reste au service de Izzet / Grixis Storm."
-        }
-      ],
-      "rankingScore": 76.1,
-      "rankingFactors": [
-        {
-          "key": "power",
-          "points": 28.1
         },
         {
           "key": "direct_replacement",
@@ -8773,6 +7717,426 @@
         {
           "key": "archetype_match",
           "points": 12
+        },
+        {
+          "key": "recent_release",
+          "points": 6
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "da785227-cf8a-4d44-9e7c-fc909ea868f2",
+        "name": "Prosperous Innkeeper",
+        "score": 31,
+        "tier": "B",
+        "cmc": 2,
+        "typeLine": "Creature — Halfling Citizen",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/096d3c0c-98e2-4cfc-a6e1-fddb0359c63f/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2021,
+        "set": "AFR",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:lands",
+        "nico:green_ramp",
+        "nico:selesnya_counters"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Sandstorm Salvager (+13.1 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.1 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+31 pts).",
+        "affectedArchetypes": [
+          "Sneak Attack / Show and Tell / Flash",
+          "Gruul / Jund Lands & Dark Depths",
+          "Mono-Green Ramp & Natural Order"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2021)"
+      },
+      "releaseYear": 2021,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Sandstorm Salvager",
+          "score": 17.9,
+          "tier": "D-",
+          "scoreDelta": 13.1,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.1 pts)."
+        }
+      ],
+      "rankingScore": 73,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 31
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "f46befcb-6a7f-4f5e-8634-393cbf4b3308",
+        "name": "Witchstalker Frenzy",
+        "score": 29.9,
+        "tier": "B",
+        "cmc": 4,
+        "typeLine": "Instant",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/649025a7-79d1-4d7c-b1db-d46bcf5a1ae2/normal.webp",
+        "colors": [
+          "R"
+        ],
+        "releaseYear": 2023,
+        "set": "WOE",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:sneak_show",
+        "nico:twin_kiki",
+        "nico:lands",
+        "nico:boros_aggro",
+        "nico:dimir_tempo"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Mine Collapse (+16.9 pts). Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16.9 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Sneak Attack / Show and Tell / Flash (+29.9 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Sneak Attack / Show and Tell / Flash"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2023)"
+      },
+      "releaseYear": 2023,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Mine Collapse",
+          "score": 13,
+          "tier": "F",
+          "scoreDelta": 16.9,
+          "reason": "Même coût de mana (4), mais offre une polyvalence, des statistiques et un impact de jeu nettement supérieurs (+16.9 pts)."
+        }
+      ],
+      "rankingScore": 71.9,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.9
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "2bfec482-be0d-4768-84e7-1c2c74ea1373",
+        "name": "Journey to Nowhere",
+        "score": 27.6,
+        "tier": "B-",
+        "cmc": 2,
+        "typeLine": "Enchantment",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/09cfe585-8a55-4b27-89e0-dfb6946fe1f3/normal.webp",
+        "frenchName": "Voyage vers le néant",
+        "colors": [
+          "W"
+        ],
+        "releaseYear": 2009,
+        "set": "ZEN",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:twin_kiki",
+        "nico:blink",
+        "nico:boros_aggro",
+        "nico:selesnya_counters"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Touch the Spirit Realm (+13.6 pts). Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.6 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant les archétypes Izzet / Jeskai Twin & Kiki Combo & Azorius Blink / Value & Boros / Red Aggro & Initiative (+27.6 pts).",
+        "affectedArchetypes": [
+          "Izzet / Jeskai Twin & Kiki Combo",
+          "Azorius Blink / Value",
+          "Boros / Red Aggro & Initiative"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2009)"
+      },
+      "releaseYear": 2009,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Touch the Spirit Realm",
+          "score": 14,
+          "tier": "F",
+          "scoreDelta": 13.6,
+          "reason": "Coût de mana plus agressif (2 vs 3) permettant d'accélérer le tempo et d'optimiser la curve (+13.6 pts)."
+        }
+      ],
+      "rankingScore": 69.6,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 27.6
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "8aa1bbc9-b047-4d68-93f4-728e40dafc5e",
+        "name": "Kitesail Freebooter",
+        "score": 26.8,
+        "tier": "B-",
+        "cmc": 2,
+        "typeLine": "Creature — Human Pirate",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/f62fd592-4910-417d-a500-e7029f3d119f/normal.webp",
+        "colors": [
+          "B"
+        ],
+        "releaseYear": 2017,
+        "set": "XLN",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:storm_combo",
+        "nico:reanimator",
+        "nico:lands",
+        "nico:dimir_tempo"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Tinybones, the Pickpocket (+13.8 pts). Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.8 pts) qui justifie le décalage de curve.",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Izzet / Grixis Storm & Dimir / Grixis Reanimator & Gruul / Jund Lands & Dark Depths (+26.8 pts).",
+        "affectedArchetypes": [
+          "Izzet / Grixis Storm",
+          "Dimir / Grixis Reanimator",
+          "Gruul / Jund Lands & Dark Depths"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2017)"
+      },
+      "releaseYear": 2017,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Tinybones, the Pickpocket",
+          "score": 13,
+          "tier": "F",
+          "scoreDelta": 13.8,
+          "reason": "Un mana de plus (2 vs 1), compensé par un gain d'impact net (+13.8 pts) qui justifie le décalage de curve."
+        }
+      ],
+      "rankingScore": 68.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "2bc92c16-cd1e-4c32-9102-4593d77a9a9f",
+        "name": "Kappa Tech-Wrecker",
+        "score": 26,
+        "tier": "B-",
+        "cmc": 2,
+        "typeLine": "Creature — Turtle Ninja",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/d3a7bc69-4500-4e7e-94e4-67b85597bd82/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2022,
+        "set": "NEO",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:lands",
+        "nico:green_ramp",
+        "nico:selesnya_counters"
+      ],
+      "role": "premium_interaction",
+      "rationale": "Proposée en remplacement poste pour poste de Outland Liberator (+13 pts). Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+26 pts).",
+        "affectedArchetypes": [
+          "Sneak Attack / Show and Tell / Flash",
+          "Gruul / Jund Lands & Dark Depths",
+          "Mono-Green Ramp & Natural Order"
+        ],
+        "strategicRole": "Interaction & Retrait Premium Inconditionnel",
+        "releaseContext": "Référence confirmée (2022)"
+      },
+      "releaseYear": 2022,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Outland Liberator",
+          "score": 13,
+          "tier": "F",
+          "scoreDelta": 13,
+          "reason": "Gestion beaucoup plus polyvalente, inconditionnelle et fiable pour le même coût de mana (+13 pts)."
+        }
+      ],
+      "rankingScore": 68,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 26
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "0b5d174c-7d4d-4c31-a582-8169d3bc932a",
+        "name": "Jadelight Ranger",
+        "score": 25.4,
+        "tier": "C+",
+        "cmc": 3,
+        "typeLine": "Creature — Merfolk Scout Ranger",
+        "imageUrl": "https://assets.cubecobra.com/cardimages/9fe5c719-f20d-4469-9750-fb689d5f3fc8/normal.webp",
+        "colors": [
+          "G"
+        ],
+        "releaseYear": 2018,
+        "set": "RIX",
+        "isRecent": false
+      },
+      "archetypes": [
+        "nico:sneak_show",
+        "nico:lands",
+        "nico:green_ramp",
+        "nico:selesnya_counters"
+      ],
+      "role": "staple",
+      "rationale": "Proposée en remplacement poste pour poste de Ulvenwald Oddity (+10.4 pts). Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts).",
+      "metaAddedValue": {
+        "summary": "Offre un body plus compétitif et un impact immédiat sur le board pour dynamiser les archétypes Sneak Attack / Show and Tell / Flash & Gruul / Jund Lands & Dark Depths & Mono-Green Ramp & Natural Order (+25.4 pts).",
+        "affectedArchetypes": [
+          "Sneak Attack / Show and Tell / Flash",
+          "Gruul / Jund Lands & Dark Depths",
+          "Mono-Green Ramp & Natural Order"
+        ],
+        "strategicRole": "Menace Déterminante de Fin de Partie",
+        "releaseContext": "Référence confirmée (2018)"
+      },
+      "releaseYear": 2018,
+      "isRecent": false,
+      "replacesCards": [
+        {
+          "name": "Ulvenwald Oddity",
+          "score": 15,
+          "tier": "D-",
+          "scoreDelta": 10.4,
+          "reason": "Coût de mana plus agressif (3 vs 4) permettant d'accélérer le tempo et d'optimiser la curve (+10.4 pts)."
+        }
+      ],
+      "rankingScore": 67.4,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 25.4
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
+        },
+        {
+          "key": "archetype_match",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "card": {
+        "oracleId": "0866a630-d962-4aa9-a15f-08b2947540ef",
+        "name": "Cosmic Cube",
+        "score": 29.8,
+        "tier": "B",
+        "cmc": 5,
+        "typeLine": "Artifact",
+        "imageUrl": "https://cards.scryfall.io/normal/front/d/1/d1cf1ead-fe91-4328-89ab-6d0bc9ff6cbe.jpg?1783902891",
+        "colors": [],
+        "releaseYear": 2026,
+        "set": "MSH",
+        "isRecent": true
+      },
+      "archetypes": [],
+      "role": "engine",
+      "rationale": "Proposée en remplacement poste pour poste de Coveted Jewel (+21.8 pts). Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+21.8 pts).",
+      "metaAddedValue": {
+        "summary": "Apporte une flexibilité tactique et une efficacité accrue en optimisant la méta du cube (+29.8 pts).",
+        "affectedArchetypes": [],
+        "strategicRole": "Moteur de Synergie & Récurrence Continue",
+        "releaseContext": "✨ Nouveauté (2026) — Veille active [MSH]"
+      },
+      "releaseYear": 2026,
+      "isRecent": true,
+      "replacesCards": [
+        {
+          "name": "Coveted Jewel",
+          "score": 8,
+          "tier": "F",
+          "scoreDelta": 21.8,
+          "reason": "Coût de mana plus agressif (5 vs 6) permettant d'accélérer le tempo et d'optimiser la curve (+21.8 pts)."
+        }
+      ],
+      "rankingScore": 65.8,
+      "rankingFactors": [
+        {
+          "key": "power",
+          "points": 29.8
+        },
+        {
+          "key": "direct_replacement",
+          "points": 30
         },
         {
           "key": "recent_release",
