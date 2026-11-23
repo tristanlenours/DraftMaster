@@ -5,11 +5,26 @@ import { CUBE_CONFIGS } from "./cube-config.js";
 import { parseMtgaDeckText } from "./mtga-deck-text.js";
 import {
   clearProxyRenderCache,
+  canvasToPngBytes,
   renderProxyCardDataUrl,
   renderProxyCardPngBytes,
+  resolveFrenchEngine,
   shouldUseFrenchCanvasRender,
   toProxiedImageUrl,
 } from "./proxy-renderer.js";
+import { createBleedImageUrl } from "./proxy-bleed.js";
+import {
+  checkMpcThumbnailCompatibility,
+  isMpcVariant,
+  mpcCandidateToVariant,
+  mpcImagePath,
+} from "./proxy-mpc.js";
+import {
+  getCustomPrintRecords,
+  initCustomCardsUi,
+  renderCustomRecord,
+} from "./proxy-custom-editor.js";
+import { computeCutMarks, computeSheetLayout, paginatePrintSlots } from "./proxy-print-layout.js";
 import { buildZipArchive } from "./proxy-zip.js";
 
 const OVERRIDES_STORAGE_KEY = "draftmaster_proxy_overrides_v1";
@@ -28,18 +43,24 @@ const proxyState = {
   statusFilter: "ALL",
   defaultVariant: "classic", // "classic" | "original"
   renderMode: "hybrid", // "hybrid" | "force_fr" | "raw"
+  frEngine: "retext", // "retext" (real scan, French text in place) | "frame" (DraftMaster frame)
+  exportScale: 2, // 1 = 300 DPI, 2 = 600 DPI for PNG/ZIP/print exports
   perCardVariant: new Map(), // oracleId -> "classic" | "original"
   basket: new Map(), // oracleId -> { quantity, variant }
   visibleCount: PAGE_SIZE,
   cropMarks: true,
   gapMm: 0,
   includeBackFaces: true,
+  pageFormat: "a4", // "a4" | "letter"
+  bleedMm: 0, // 0 | 1 | 2 — generated print bleed around each card
+  duplex: false, // backs on mirrored pages, aligned after a long-edge flip
   pickerCard: null,
   pickerSlot: "classic",
   pickerTab: "prints",
   pickerCandidates: [],
   pickerLoading: false,
   pickerFilter: "all",
+  mpcResults: new Map(), // `${english name}|${lang}` -> { status, candidates, error }
   isExporting: false,
 };
 
@@ -159,7 +180,8 @@ function getSourceCards() {
     return cards.filter((c) => idSet.has(c.oracleId));
   }
   return cards.filter(
-    (card) => Array.isArray(card.presentInCubes) && card.presentInCubes.includes(proxyState.sourceKey),
+    (card) =>
+      Array.isArray(card.presentInCubes) && card.presentInCubes.includes(proxyState.sourceKey),
   );
 }
 
@@ -260,8 +282,7 @@ function getOrderedBasketSelections() {
     const card = cardsByOracleId.get(oracleId);
     if (!card) continue;
     const entry = getMergedEntry(card);
-    const variantKind =
-      item.variant === "original" && entry.original ? "original" : "classic";
+    const variantKind = item.variant === "original" && entry.original ? "original" : "classic";
     const variant = variantKind === "original" ? entry.original : entry.classic;
     items.push({
       card,
@@ -288,8 +309,9 @@ function computeTotalPrintSlots(selections) {
 
 function updateBasketTray() {
   const selections = getOrderedBasketSelections();
-  const totalCards = selections.reduce((sum, s) => sum + s.quantity, 0);
-  const totalSlots = computeTotalPrintSlots(selections);
+  const customCount = getCustomPrintRecords().reduce((sum, r) => sum + r.card.quantity, 0);
+  const totalCards = selections.reduce((sum, s) => sum + s.quantity, 0) + customCount;
+  const totalSlots = computeTotalPrintSlots(selections) + customCount;
   const totalPages = totalSlots > 0 ? Math.ceil(totalSlots / 9) : 0;
 
   const countEl = document.getElementById("proxy-tray-count");
@@ -317,31 +339,36 @@ function updateBasketTray() {
 
 function renderCardTilePreview(imgEl, card, entry, variant) {
   if (!imgEl || !variant) return;
-  const renderToken = `${card.oracleId}:${variant.scryfallId}:${proxyState.renderMode}:${entry.french?.name}:${entry.french?.rulesText}`;
+  const renderToken = `${card.oracleId}:${variant.scryfallId}:${proxyState.renderMode}:${proxyState.frEngine}:${entry.french?.name}:${entry.french?.rulesText}`;
   imgEl.dataset.renderToken = renderToken;
 
-  const needsCanvas = shouldUseFrenchCanvasRender(variant, entry.french, proxyState.renderMode);
+  const needsCanvas =
+    isMpcVariant(variant) ||
+    shouldUseFrenchCanvasRender(variant, entry.french, proxyState.renderMode);
   if (!needsCanvas) {
     imgEl.src = toProxiedImageUrl(variant.largeUrl || variant.pngUrl);
-    return;
+    return Promise.resolve(null);
   }
 
   // Show raw artwork immediately as placeholder while HD French canvas renders
   imgEl.src = toProxiedImageUrl(variant.largeUrl || variant.pngUrl);
-  renderProxyCardDataUrl({
+  return renderProxyCardDataUrl({
     card,
     variant,
     french: entry.french,
     renderMode: proxyState.renderMode,
+    engine: proxyState.frEngine,
     face: "front",
   })
     .then((rendered) => {
       if (imgEl.dataset.renderToken === renderToken && rendered?.dataUrl) {
         imgEl.src = rendered.dataUrl;
       }
+      return rendered;
     })
     .catch(() => {
       // Keep raw fallback image if canvas render fails
+      return null;
     });
 }
 
@@ -383,11 +410,13 @@ function renderProxyGrid() {
     tile.className = `proxy-card-tile${isSelected ? " is-selected" : ""}`;
     tile.dataset.oracleId = card.oracleId;
 
-    const statusBadgeHtml = usesFrRender
-      ? `<span class="proxy-badge badge-proxy-fr" title="Texte français synthétisé en haute définition sur l'artwork">Proxy FR HD</span>`
-      : variant.isOfficialFrenchScan
-        ? `<span class="proxy-badge badge-official-fr" title="Scan officiel Wizards en français haute définition">Scan FR Officiel</span>`
-        : `<span class="proxy-badge badge-raw-en" title="Scan brut en anglais">Scan VO</span>`;
+    const statusBadgeHtml = isMpcVariant(variant)
+      ? `<span class="proxy-badge badge-proxy-fr" title="Rendu communautaire MPC Autofill haute définition">MPC HD</span>`
+      : usesFrRender
+        ? `<span class="proxy-badge badge-proxy-fr" title="Texte français synthétisé en haute définition sur l'artwork">Proxy FR HD</span>`
+        : variant.isOfficialFrenchScan
+          ? `<span class="proxy-badge badge-official-fr" title="Scan officiel Wizards en français haute définition">Scan FR Officiel</span>`
+          : `<span class="proxy-badge badge-raw-en" title="Scan brut en anglais">Scan VO</span>`;
 
     const treatmentBadge = variant?.treatmentLabel
       ? `<span class="proxy-badge badge-treatment">${escapeHtml(variant.treatmentLabel)}</span>`
@@ -546,6 +575,8 @@ async function downloadSingleCardPng(card, entry, kind, variant) {
       variant,
       french: entry.french,
       renderMode: proxyState.renderMode,
+      engine: proxyState.frEngine,
+      outputScale: proxyState.exportScale,
       face: "front",
     });
     const blob = new Blob([bytes], { type: "image/png" });
@@ -565,7 +596,8 @@ async function downloadSingleCardPng(card, entry, kind, variant) {
 
 async function downloadSelectedZip() {
   const selections = getOrderedBasketSelections();
-  if (selections.length === 0 || proxyState.isExporting) return;
+  const customRecords = getCustomPrintRecords();
+  if ((selections.length === 0 && customRecords.length === 0) || proxyState.isExporting) return;
 
   proxyState.isExporting = true;
   updateBasketTray();
@@ -574,7 +606,9 @@ async function downloadSelectedZip() {
 
   try {
     const entries = [];
-    const totalSlots = computeTotalPrintSlots(selections);
+    const totalSlots =
+      computeTotalPrintSlots(selections) +
+      customRecords.reduce((sum, record) => sum + record.card.quantity, 0);
     let done = 0;
 
     if (progressBar) progressBar.hidden = false;
@@ -585,6 +619,8 @@ async function downloadSelectedZip() {
         variant: sel.variant,
         french: sel.entry.french,
         renderMode: proxyState.renderMode,
+        engine: proxyState.frEngine,
+        outputScale: proxyState.exportScale,
         face: "front",
       });
       const backBytes =
@@ -594,6 +630,8 @@ async function downloadSelectedZip() {
               variant: sel.variant,
               french: sel.entry.french,
               renderMode: proxyState.renderMode,
+              engine: proxyState.frEngine,
+              outputScale: proxyState.exportScale,
               face: "back",
             })
           : null;
@@ -619,6 +657,20 @@ async function downloadSelectedZip() {
       }
     }
 
+    for (const record of customRecords) {
+      const canvas = await renderCustomRecord(record, proxyState.exportScale);
+      const bytes = await canvasToPngBytes(canvas);
+      for (let copy = 1; copy <= record.card.quantity; copy++) {
+        done += 1;
+        const copySuffix = record.card.quantity > 1 ? `-x${String(copy)}` : "";
+        entries.push({
+          name: `${String(done).padStart(3, "0")}-${record.card.id}-inedite${copySuffix}.png`,
+          data: bytes,
+        });
+      }
+      if (progressText) progressText.textContent = `Rendu HD ${done} / ${totalSlots}...`;
+    }
+
     const zipBytes = buildZipArchive(entries);
     const blob = new Blob([zipBytes], { type: "application/zip" });
     const url = URL.createObjectURL(blob);
@@ -639,13 +691,37 @@ async function downloadSelectedZip() {
   }
 }
 
+/** Keeps the browser's printed page size in sync with the chosen paper format. */
+function applyPrintPageSize(page) {
+  let styleEl = document.getElementById("proxy-print-page-style");
+  if (!styleEl) {
+    styleEl = document.createElement("style");
+    styleEl.id = "proxy-print-page-style";
+    document.head.appendChild(styleEl);
+  }
+  styleEl.textContent = `@page { size: ${page.cssSize} portrait; margin: 0; }`;
+}
+
+function buildCutMarksSvg(layout) {
+  const marks = computeCutMarks(layout);
+  const lines = marks
+    .map(
+      (mark) =>
+        `<line x1="${mark.x1}" y1="${mark.y1}" x2="${mark.x2}" y2="${mark.y2}" stroke="#000" stroke-width="0.2" />`,
+    )
+    .join("");
+  return `<svg class="proxy-sheet-cut-marks" viewBox="0 0 ${layout.page.widthMm} ${layout.page.heightMm}" width="${layout.page.widthMm}mm" height="${layout.page.heightMm}mm" aria-hidden="true">${lines}</svg>`;
+}
+
 async function openPrintSheetsPreview() {
   const selections = getOrderedBasketSelections();
-  if (selections.length === 0 || proxyState.isExporting) return;
+  const customRecords = getCustomPrintRecords();
+  if ((selections.length === 0 && customRecords.length === 0) || proxyState.isExporting) return;
 
   const modal = document.getElementById("proxy-print-modal");
   const sheetsContainer = document.getElementById("proxy-print-sheets-container");
   const summaryEl = document.getElementById("proxy-print-summary");
+  const titleEl = document.getElementById("proxy-print-modal-title");
   const progressBar = document.getElementById("proxy-export-progress");
   const progressText = document.getElementById("proxy-export-progress-text");
   if (!modal || !sheetsContainer) return;
@@ -655,8 +731,22 @@ async function openPrintSheetsPreview() {
   if (progressBar) progressBar.hidden = false;
 
   try {
+    const layout = computeSheetLayout({
+      pageFormat: proxyState.pageFormat,
+      gapMm: proxyState.gapMm,
+      bleedMm: proxyState.bleedMm,
+    });
+    if (!layout.fits) {
+      showToast(
+        `Marges de ${Math.min(layout.marginXMm, layout.marginYMm).toFixed(1)} mm : réduisez le fond perdu ou l'espacement pour une imprimante domestique.`,
+        "warning",
+      );
+    }
+
     const slots = [];
-    const totalSlots = computeTotalPrintSlots(selections);
+    const totalSlots =
+      computeTotalPrintSlots(selections) +
+      customRecords.reduce((sum, record) => sum + record.card.quantity, 0);
     let done = 0;
 
     for (const sel of selections) {
@@ -665,6 +755,8 @@ async function openPrintSheetsPreview() {
         variant: sel.variant,
         french: sel.entry.french,
         renderMode: proxyState.renderMode,
+        engine: proxyState.frEngine,
+        outputScale: proxyState.exportScale,
         face: "front",
       });
       const backRendered =
@@ -674,59 +766,102 @@ async function openPrintSheetsPreview() {
               variant: sel.variant,
               french: sel.entry.french,
               renderMode: proxyState.renderMode,
+              engine: proxyState.frEngine,
+              outputScale: proxyState.exportScale,
               face: "back",
             })
           : null;
 
+      const frontUrl = await createBleedImageUrl(frontRendered.dataUrl, layout.bleedMm).catch(
+        () => frontRendered.dataUrl,
+      );
+      const backUrl = backRendered
+        ? await createBleedImageUrl(backRendered.dataUrl, layout.bleedMm).catch(
+            () => backRendered.dataUrl,
+          )
+        : null;
+
       for (let copy = 1; copy <= sel.quantity; copy++) {
         done += 1;
         slots.push({
+          face: "front",
           label: sel.entry.french?.name || sel.card.name,
-          dataUrl: frontRendered.dataUrl,
+          url: frontUrl,
         });
-        if (backRendered) {
+        if (backUrl) {
           done += 1;
           slots.push({
+            face: "back",
             label: `${sel.entry.french?.name || sel.card.name} (Verso)`,
-            dataUrl: backRendered.dataUrl,
+            url: backUrl,
           });
         }
         if (progressText) {
-          progressText.textContent = `Préparation planches A4 : ${done} / ${totalSlots}...`;
+          progressText.textContent = `Préparation des planches : ${done} / ${totalSlots}...`;
         }
       }
     }
 
-    const totalPages = Math.ceil(slots.length / 9);
-    const gapClass = proxyState.gapMm === 2 ? "gap-2mm" : "gap-0mm";
-    const cropClass = proxyState.cropMarks ? "with-crop-marks" : "";
+    for (const record of customRecords) {
+      const canvas = await renderCustomRecord(record, proxyState.exportScale);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      const sourceUrl = blob ? URL.createObjectURL(blob) : canvas.toDataURL("image/png");
+      const url = await createBleedImageUrl(sourceUrl, layout.bleedMm).catch(() => sourceUrl);
+      for (let copy = 1; copy <= record.card.quantity; copy++) {
+        done += 1;
+        slots.push({ face: "front", label: record.card.name, url });
+      }
+      if (progressText) {
+        progressText.textContent = `Préparation des planches : ${done} / ${totalSlots}...`;
+      }
+    }
+
+    const pages = paginatePrintSlots(slots, {
+      perPage: layout.perPage,
+      columns: layout.columns,
+      duplex: proxyState.duplex && proxyState.includeBackFaces,
+    });
+    applyPrintPageSize(layout.page);
+
+    const cutMarks = proxyState.cropMarks ? buildCutMarksSvg(layout) : "";
+    const pageLabel = layout.page.label;
+    const sideLabel = (side) =>
+      side === "front"
+        ? " • Recto"
+        : side === "back"
+          ? " • Verso (retourner la feuille sur le bord long)"
+          : "";
 
     sheetsContainer.innerHTML = "";
-    for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
-      const pageSlots = slots.slice(pageIdx * 9, (pageIdx + 1) * 9);
+    pages.forEach((page, pageIdx) => {
       const sheet = document.createElement("div");
-      sheet.className = `proxy-a4-sheet ${gapClass} ${cropClass}`;
+      sheet.className = `proxy-a4-sheet proxy-sheet-${layout.page.id}`;
+      sheet.style.width = `${layout.page.widthMm}mm`;
+      sheet.style.height = `${layout.page.heightMm}mm`;
+      sheet.style.minHeight = `${layout.page.heightMm}mm`;
+      const cells = page.cells
+        .map((slot, index) => {
+          const cell = layout.cells[index];
+          if (!slot || !cell) return "";
+          return `
+            <div class="proxy-a4-cell" style="left:${cell.xMm}mm;top:${cell.yMm}mm;width:${layout.cellWidthMm}mm;height:${layout.cellHeightMm}mm">
+              <img src="${slot.url}" alt="${escapeHtml(slot.label)}" />
+            </div>`;
+        })
+        .join("");
       sheet.innerHTML = `
-        <div class="proxy-a4-grid">
-          ${pageSlots
-            .map(
-              (slot) => `
-                <div class="proxy-a4-cell">
-                  <img src="${slot.dataUrl}" alt="${escapeHtml(slot.label)}" />
-                </div>
-              `,
-            )
-            .join("")}
-        </div>
+        ${cells}
+        ${cutMarks}
         <div class="proxy-a4-page-meta">
-          DraftMaster Proxies FR • Page ${pageIdx + 1} / ${totalPages} • Format réel 63×88 mm (imprimer à 100%, sans mise à l'échelle)
+          DraftMaster Proxies FR • Page ${pageIdx + 1} / ${pages.length}${sideLabel(page.side)} • ${pageLabel} • cartes 63×88 mm${layout.bleedMm ? ` + ${layout.bleedMm} mm de fond perdu` : ""} (imprimer à 100 %, sans mise à l'échelle)
         </div>
       `;
       sheetsContainer.appendChild(sheet);
-    }
+    });
 
+    if (titleEl) titleEl.textContent = `Planches ${pageLabel} prêtes à imprimer`;
     if (summaryEl) {
-      summaryEl.textContent = `${slots.length} carte${slots.length > 1 ? "s" : ""} sur ${totalPages} page${totalPages > 1 ? "s" : ""} A4 (63×88 mm • Échelle 100%)`;
+      summaryEl.textContent = `${slots.length} carte${slots.length > 1 ? "s" : ""} sur ${pages.length} page${pages.length > 1 ? "s" : ""} ${pageLabel} (63×88 mm • Échelle 100 %${layout.bleedMm ? ` • fond perdu ${layout.bleedMm} mm` : ""}${proxyState.duplex && proxyState.includeBackFaces ? " • recto-verso" : ""})`;
     }
 
     modal.hidden = false;
@@ -763,14 +898,39 @@ function renderPickerPreview() {
 
   if (metaEl && variant) {
     const usesRender = shouldUseFrenchCanvasRender(variant, entry.french, proxyState.renderMode);
+    const engineLabel =
+      resolveFrenchEngine(variant, card, proxyState.frEngine) === "retext"
+        ? "Texte FR incrusté sur le scan"
+        : "Cadre DraftMaster FR";
     metaEl.innerHTML = `
       <span><strong>${escapeHtml(variant.treatmentLabel)}</strong> • ${escapeHtml(variant.setName)} (${escapeHtml(variant.setCode.toUpperCase())})</span>
-      <span>Illus. ${escapeHtml(variant.artist)} • ${usesRender ? "Rendu Proxy FR HD (745×1040)" : "Scan officiel FR HD"}</span>
+      <span>Illus. ${escapeHtml(variant.artist)} • ${usesRender ? engineLabel : "Scan officiel FR HD"}</span>
     `;
+  }
+  const downloadBtn = document.getElementById("proxy-picker-download-btn");
+  if (downloadBtn) {
+    downloadBtn.textContent =
+      proxyState.exportScale === 2
+        ? "⬇️ Télécharger ce PNG 600 DPI (1490×2080)"
+        : "⬇️ Télécharger ce PNG 300 DPI (745×1040)";
   }
 
   if (previewImg && variant) {
-    renderCardTilePreview(previewImg, card, entry, variant);
+    void renderCardTilePreview(previewImg, card, entry, variant).then((rendered) => {
+      if (!metaEl || !isMpcVariant(variant) || proxyState.pickerCard !== card) return;
+      const outcome =
+        rendered?.engine === "retext"
+          ? "Texte FR incrusté sur le rendu MPC"
+          : variant.isOfficialFrenchScan
+            ? "Rendu MPC déjà en français"
+            : proxyState.renderMode === "raw"
+              ? "Rendu MPC brut (VO)"
+              : "Gabarit MPC non standard : texte VO conservé";
+      metaEl.innerHTML = `
+        <span><strong>${escapeHtml(variant.treatmentLabel)}</strong> • ${escapeHtml(variant.setName)}</span>
+        <span>${escapeHtml(outcome)} • fond perdu MPC retiré</span>
+      `;
+    });
   }
 }
 
@@ -787,10 +947,22 @@ function renderPickerCandidates() {
   if (!card) return;
   const entry = getMergedEntry(card);
 
+  if (proxyState.pickerFilter === "mpc" || proxyState.pickerFilter === "mpc_fr") {
+    renderMpcCandidates(listEl, card, entry, proxyState.pickerFilter === "mpc_fr" ? "FR" : "");
+    return;
+  }
+
   const filtered = proxyState.pickerCandidates.filter((cand) => {
     if (proxyState.pickerFilter === "fr") return cand.lang === "fr";
     if (proxyState.pickerFilter === "alt") {
-      return cand.borderless || cand.fullArt || cand.frameEffects?.length > 0 || cand.setCode === "sld" || cand.setCode === "spg" || cand.setCode === "sta";
+      return (
+        cand.borderless ||
+        cand.fullArt ||
+        cand.frameEffects?.length > 0 ||
+        cand.setCode === "sld" ||
+        cand.setCode === "spg" ||
+        cand.setCode === "sta"
+      );
     }
     return true;
   });
@@ -828,6 +1000,84 @@ function renderPickerCandidates() {
       if (!btn) return;
       const slot = btn.dataset.assign;
       void applyPrintOverride(card, slot, cand);
+    });
+    listEl.appendChild(item);
+  }
+}
+
+/** Lists MPC Autofill renders for the picker card, searching (once) on demand. */
+function renderMpcCandidates(listEl, card, entry, language) {
+  const key = `${card.name}|${language}`;
+  const state = proxyState.mpcResults.get(key);
+  if (!state) {
+    proxyState.mpcResults.set(key, { status: "loading", candidates: [], error: "" });
+    const params = new URLSearchParams({ q: card.name });
+    if (language) params.set("lang", language);
+    fetch(`/api/proxy-scans/mpc/search?${params.toString()}`)
+      .then(async (res) => {
+        const body = await res.json();
+        if (!res.ok || !body.ok) throw new Error(body.error || `HTTP ${String(res.status)}`);
+        proxyState.mpcResults.set(key, { status: "ready", candidates: body.candidates, error: "" });
+      })
+      .catch((err) => {
+        proxyState.mpcResults.set(key, { status: "error", candidates: [], error: err.message });
+      })
+      .finally(() => {
+        if (proxyState.pickerCard === card) renderPickerCandidates();
+      });
+  }
+  const current = proxyState.mpcResults.get(key);
+  if (current.status === "loading") {
+    listEl.innerHTML = `<div class="proxy-picker-loading">Recherche des rendus MPC Autofill (283 bibliothèques communautaires)...</div>`;
+    return;
+  }
+  if (current.status === "error") {
+    listEl.innerHTML = `<div class="proxy-picker-loading">MPC Autofill indisponible : ${escapeHtml(current.error)}</div>`;
+    return;
+  }
+  if (current.candidates.length === 0) {
+    listEl.innerHTML = `<div class="proxy-picker-loading">Aucun rendu MPC trouvé pour « ${escapeHtml(card.name)} ».</div>`;
+    return;
+  }
+
+  listEl.innerHTML = "";
+  for (const cand of current.candidates) {
+    const variantId = `mpc:${cand.identifier}`;
+    const isClassic = entry.classic?.scryfallId === variantId;
+    const isOriginal = entry.original?.scryfallId === variantId;
+    const isFrench = cand.language === "FR";
+    const item = document.createElement("div");
+    item.className = `proxy-print-option proxy-mpc-option${isClassic ? " is-classic" : ""}${isOriginal ? " is-original" : ""}`;
+    item.innerHTML = `
+      <img src="${mpcImagePath(cand.identifier, "thumb")}" alt="${escapeHtml(cand.name)}" loading="lazy" />
+      <div class="proxy-print-option-meta">
+        <strong>${escapeHtml(cand.name)}</strong>
+        <span><span class="proxy-mpc-dpi">${String(cand.dpi)} DPI</span> • ${escapeHtml(cand.language)} • ${escapeHtml(cand.sourceName)}</span>
+        <span class="proxy-mpc-fr-status" data-state="pending">${isFrench ? "Déjà en français" : "Analyse du gabarit…"}</span>
+      </div>
+      <div class="proxy-print-option-actions">
+        <button type="button" class="proxy-mini-btn${isClassic ? " active" : ""}" data-assign="classic">
+          ${isClassic ? "✓ Classique" : "Classique"}
+        </button>
+        <button type="button" class="proxy-mini-btn${isOriginal ? " active" : ""}" data-assign="original">
+          ${isOriginal ? "✓ Originale" : "Originale"}
+        </button>
+      </div>
+    `;
+    if (!isFrench) {
+      const status = item.querySelector(".proxy-mpc-fr-status");
+      void checkMpcThumbnailCompatibility(cand.identifier).then((compatible) => {
+        if (!status) return;
+        status.dataset.state = compatible ? "ok" : "vo";
+        status.textContent = compatible
+          ? "✓ Traduction FR incrustable"
+          : "Gabarit spécial : restera en VO";
+      });
+    }
+    item.addEventListener("click", (event) => {
+      const btn = event.target.closest("button[data-assign]");
+      if (!btn) return;
+      void applyPrintOverride(card, btn.dataset.assign, mpcCandidateToVariant(cand));
     });
     listEl.appendChild(item);
   }
@@ -891,7 +1141,8 @@ function populateFrenchEditor(card) {
 
   if (nameInput) nameInput.value = entry.french?.name || card.frenchName || card.name;
   if (typeInput) typeInput.value = entry.french?.typeLine || card.typeLine || "";
-  if (rulesInput) rulesInput.value = entry.french?.rulesText || card.frenchText || card.oracleText || "";
+  if (rulesInput)
+    rulesInput.value = entry.french?.rulesText || card.frenchText || card.oracleText || "";
   if (flavorInput) flavorInput.value = entry.french?.flavorText || "";
   if (sourceBadge) {
     const labels = {
@@ -1119,6 +1370,19 @@ function bindProxyStudioEvents() {
     if (proxyState.pickerCard) renderPickerPreview();
   });
 
+  // French engine: retextured real scan vs DraftMaster frame
+  document.getElementById("proxy-fr-engine-select")?.addEventListener("change", (e) => {
+    proxyState.frEngine = e.target.value === "frame" ? "frame" : "retext";
+    renderProxyGrid();
+    if (proxyState.pickerCard) renderPickerPreview();
+  });
+
+  // Export resolution (PNG, ZIP and print sheets)
+  document.getElementById("proxy-export-dpi-select")?.addEventListener("change", (e) => {
+    proxyState.exportScale = e.target.value === "1" ? 1 : 2;
+    updateBasketTray();
+  });
+
   // Load more pagination
   document.getElementById("proxy-btn-load-more")?.addEventListener("click", () => {
     proxyState.visibleCount += PAGE_SIZE;
@@ -1130,7 +1394,9 @@ function bindProxyStudioEvents() {
     const panel = document.getElementById("proxy-deck-import-panel");
     if (panel) panel.hidden = !panel.hidden;
   });
-  document.getElementById("proxy-btn-import-apply")?.addEventListener("click", handleDeckImportSubmit);
+  document
+    .getElementById("proxy-btn-import-apply")
+    ?.addEventListener("click", handleDeckImportSubmit);
   document.getElementById("proxy-btn-import-cancel")?.addEventListener("click", () => {
     const panel = document.getElementById("proxy-deck-import-panel");
     if (panel) panel.hidden = true;
@@ -1162,6 +1428,20 @@ function bindProxyStudioEvents() {
   document.getElementById("proxy-opt-gap")?.addEventListener("change", (e) => {
     proxyState.gapMm = e.target.checked ? 2 : 0;
   });
+  document.getElementById("proxy-opt-page-format")?.addEventListener("change", (e) => {
+    proxyState.pageFormat = e.target.value === "letter" ? "letter" : "a4";
+    const printBtn = document.getElementById("proxy-btn-print-sheets");
+    if (printBtn) {
+      printBtn.textContent = `🖨️ Planches ${proxyState.pageFormat === "letter" ? "Letter" : "A4"} (PDF)`;
+    }
+  });
+  document.getElementById("proxy-opt-bleed")?.addEventListener("change", (e) => {
+    const value = Number(e.target.value);
+    proxyState.bleedMm = value === 1 || value === 2 ? value : 0;
+  });
+  document.getElementById("proxy-opt-duplex")?.addEventListener("change", (e) => {
+    proxyState.duplex = Boolean(e.target.checked);
+  });
   document.getElementById("proxy-opt-back-faces")?.addEventListener("change", (e) => {
     proxyState.includeBackFaces = Boolean(e.target.checked);
     updateBasketTray();
@@ -1176,7 +1456,9 @@ function bindProxyStudioEvents() {
   });
 
   // Print Modal actions
-  document.getElementById("proxy-print-close-btn")?.addEventListener("click", closePrintSheetsPreview);
+  document
+    .getElementById("proxy-print-close-btn")
+    ?.addEventListener("click", closePrintSheetsPreview);
   document.getElementById("proxy-print-modal")?.addEventListener("click", (e) => {
     if (e.target.id === "proxy-print-modal") closePrintSheetsPreview();
   });
@@ -1185,7 +1467,9 @@ function bindProxyStudioEvents() {
   });
 
   // Print Picker & FR Editor Modal events
-  document.getElementById("proxy-picker-close-btn")?.addEventListener("click", closeProxyPickerModal);
+  document
+    .getElementById("proxy-picker-close-btn")
+    ?.addEventListener("click", closeProxyPickerModal);
   document.getElementById("proxy-picker-modal")?.addEventListener("click", (e) => {
     if (e.target.id === "proxy-picker-modal") closeProxyPickerModal();
   });
@@ -1285,6 +1569,7 @@ export async function initProxyStudioView(preferredCubeKey = null) {
     populateSourceSelect();
     bindProxyStudioEvents();
     proxyState.initialized = true;
+    void initCustomCardsUi({ onLibraryChange: updateBasketTray, notify: showToast });
   } else if (preferredCubeKey && proxyState.sourceKey !== "DECK") {
     proxyState.sourceKey = preferredCubeKey;
     const select = document.getElementById("proxy-source-select");

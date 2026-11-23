@@ -12616,6 +12616,12 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   color: #6ee7b7;
 }
 
+.proxy-feedback-banner[data-tone="warning"] {
+  border-color: rgba(245, 158, 11, 0.6);
+  background: rgba(120, 53, 15, 0.35);
+  color: #fde68a;
+}
+
 .proxy-feedback-banner[data-tone="error"] {
   border-color: rgba(239, 68, 68, 0.5);
   background: rgba(239, 68, 68, 0.12);
@@ -13431,34 +13437,39 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
   break-after: auto;
 }
 
-.proxy-a4-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 63mm);
-  grid-auto-rows: 88mm;
-  gap: 0mm;
-}
-
-.proxy-a4-sheet.gap-2mm .proxy-a4-grid {
-  gap: 2mm;
-}
-
+/* Cells are positioned in millimetres from computeSheetLayout (proxy-print-layout.js). */
 .proxy-a4-cell {
-  width: 63mm;
-  height: 88mm;
-  position: relative;
+  position: absolute;
   overflow: hidden;
   background: #000000;
 }
 
-.proxy-a4-sheet.with-crop-marks .proxy-a4-cell {
-  outline: 0.2mm dashed rgba(0, 0, 0, 0.55);
-}
-
 .proxy-a4-cell img {
-  width: 63mm;
-  height: 88mm;
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: fill;
+}
+
+.proxy-sheet-cut-marks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.proxy-inline-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary, #cbd5e1);
+}
+
+.proxy-select.proxy-select-compact {
+  width: auto;
+  min-width: 0;
+  padding: 4px 8px;
+  font-size: 0.82rem;
 }
 
 .proxy-a4-page-meta {
@@ -13547,4 +13558,218 @@ EFFET WHAOU : REALTIME LIVE TOAST NOTIFICATIONS
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+/* ==========================================================================
+   Cartes inédites (custom proxy cards)
+   ========================================================================== */
+.proxy-studio-header-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.proxy-custom-section {
+  margin: 0 0 24px;
+  padding: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.proxy-custom-section-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  color: #fde68a;
+}
+
+.proxy-custom-section-header p {
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.proxy-custom-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.proxy-custom-tile {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.7);
+}
+
+.proxy-custom-thumb img {
+  width: 96px;
+  aspect-ratio: 63 / 88;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #0b0c0e;
+  display: block;
+}
+
+.proxy-custom-tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.proxy-custom-tile-body strong {
+  color: #f8fafc;
+  overflow-wrap: anywhere;
+}
+
+.proxy-custom-mode-badge {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  background: rgba(212, 175, 55, 0.18);
+  color: #fde68a;
+}
+
+.proxy-custom-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proxy-custom-qty input {
+  width: 64px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+}
+
+.proxy-custom-tile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.proxy-custom-preview-frame img {
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  object-fit: contain;
+}
+
+.proxy-custom-preview-meta {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 8px 0 0;
+}
+
+.proxy-custom-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 2px dashed rgba(148, 163, 184, 0.5);
+  border-radius: 12px;
+  cursor: pointer;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+}
+
+.proxy-custom-dropzone:focus-within,
+.proxy-custom-dropzone.is-dragover {
+  border-color: #d4af37;
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.proxy-custom-dropzone input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.proxy-custom-file-name {
+  color: #fde68a;
+  overflow-wrap: anywhere;
+}
+
+.proxy-custom-modes {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.proxy-custom-modes label {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.proxy-custom-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+}
+
+.proxy-custom-row.proxy-custom-row-two {
+  grid-template-columns: 2fr 1fr;
+}
+
+.proxy-custom-errors {
+  margin: 0;
+  padding: 10px 14px 10px 28px;
+  border-radius: 10px;
+  background: rgba(127, 29, 29, 0.45);
+  color: #fecaca;
+  font-size: 0.85rem;
+}
+
+.proxy-btn-danger {
+  margin-right: auto;
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.5);
+}
+
+@media (max-width: 768px) {
+  .proxy-studio-header-side {
+    align-items: stretch;
+  }
+
+  .proxy-custom-row,
+  .proxy-custom-row.proxy-custom-row-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MPC Autofill candidates in the print picker */
+.proxy-mpc-dpi {
+  font-weight: 700;
+  color: #fde68a;
+}
+
+.proxy-mpc-fr-status {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.proxy-mpc-fr-status[data-state="ok"] {
+  color: #86efac;
+}
+
+.proxy-mpc-fr-status[data-state="vo"] {
+  color: #fca5a5;
 }

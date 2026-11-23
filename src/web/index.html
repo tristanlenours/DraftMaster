@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700;800&family=Alegreya:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap"
       rel="stylesheet"
     />
     <!-- Supabase JS & Canvas Confetti pour l'effet WHAOU en direct -->
@@ -3404,7 +3404,12 @@
               (63×88 mm) ou export PNG.
             </p>
           </div>
-          <div class="proxy-studio-stats" id="proxy-studio-stats"></div>
+          <div class="proxy-studio-header-side">
+            <div class="proxy-studio-stats" id="proxy-studio-stats"></div>
+            <button type="button" class="proxy-btn-primary" id="proxy-btn-new-custom">
+              ✨ Créer une carte inédite
+            </button>
+          </div>
         </header>
 
         <div class="proxy-feedback-banner" id="proxy-studio-feedback" hidden role="status"></div>
@@ -3475,6 +3480,22 @@
               </select>
             </div>
 
+            <div class="proxy-control-group">
+              <label for="proxy-fr-engine-select">Moteur de traduction</label>
+              <select id="proxy-fr-engine-select" class="proxy-select">
+                <option value="retext">Retexturage du vrai scan (texte FR incrusté)</option>
+                <option value="frame">Cadre DraftMaster (illustration recadrée)</option>
+              </select>
+            </div>
+
+            <div class="proxy-control-group">
+              <label for="proxy-export-dpi-select">Résolution export</label>
+              <select id="proxy-export-dpi-select" class="proxy-select">
+                <option value="2">600 DPI (1490×2080)</option>
+                <option value="1">300 DPI (745×1040)</option>
+              </select>
+            </div>
+
             <div class="proxy-controls-actions">
               <button type="button" class="proxy-btn-secondary" id="proxy-btn-toggle-import">
                 📋 Importer un deck
@@ -3530,6 +3551,25 @@
               <input type="checkbox" id="proxy-opt-back-faces" checked />
               <span>Versos (DFC)</span>
             </label>
+            <label class="proxy-checkbox-label">
+              <input type="checkbox" id="proxy-opt-duplex" />
+              <span>Recto-verso aligné</span>
+            </label>
+            <label class="proxy-inline-select">
+              <span>Papier</span>
+              <select id="proxy-opt-page-format" class="proxy-select proxy-select-compact">
+                <option value="a4">A4</option>
+                <option value="letter">Letter</option>
+              </select>
+            </label>
+            <label class="proxy-inline-select">
+              <span>Fond perdu</span>
+              <select id="proxy-opt-bleed" class="proxy-select proxy-select-compact">
+                <option value="0">Aucun</option>
+                <option value="1">1 mm</option>
+                <option value="2">2 mm</option>
+              </select>
+            </label>
           </div>
 
           <div class="proxy-tray-actions">
@@ -3547,6 +3587,23 @@
             </button>
           </div>
         </div>
+
+        <!-- User-made cards (local library) -->
+        <section
+          class="proxy-custom-section"
+          id="proxy-custom-section"
+          hidden
+          aria-labelledby="proxy-custom-section-title"
+        >
+          <div class="proxy-custom-section-header">
+            <h2 id="proxy-custom-section-title">Mes cartes inédites</h2>
+            <p>
+              Enregistrées dans ce navigateur • incluses dans les planches et le ZIP selon la
+              quantité « À imprimer ».
+            </p>
+          </div>
+          <div class="proxy-custom-list" id="proxy-custom-list"></div>
+        </section>
 
         <!-- Card Scans Grid -->
         <div class="proxy-cards-grid" id="proxy-cards-grid"></div>
@@ -3616,6 +3673,8 @@
                   <option value="all">Toutes (EN &amp; FR)</option>
                   <option value="alt">Illustrations spéciales (Borderless, Showcase, Secret Lair...)</option>
                   <option value="fr">Impressions françaises officielles</option>
+                  <option value="mpc">MPC Autofill — rendus communautaires HD (jusqu'à 1200 DPI)</option>
+                  <option value="mpc_fr">MPC Autofill — rendus déjà en français</option>
                 </select>
               </div>
               <div class="proxy-picker-prints-list" id="proxy-picker-prints-list"></div>
@@ -3649,6 +3708,171 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom card ("carte inédite") editor -->
+    <div
+      class="proxy-modal-backdrop"
+      id="proxy-custom-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="proxy-custom-title"
+    >
+      <div class="proxy-picker-dialog proxy-custom-dialog">
+        <div class="proxy-picker-header">
+          <h2 id="proxy-custom-title">Créer une carte inédite</h2>
+          <button
+            type="button"
+            class="proxy-modal-close"
+            id="proxy-custom-close-btn"
+            aria-label="Fermer l'éditeur de carte"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="proxy-picker-body">
+          <div class="proxy-picker-left">
+            <div class="proxy-picker-preview-frame proxy-custom-preview-frame">
+              <img id="proxy-custom-preview" alt="Aperçu de la carte inédite" hidden />
+            </div>
+            <p class="proxy-custom-preview-meta" id="proxy-custom-preview-meta" aria-live="polite">
+              Importez un visuel pour voir l'aperçu.
+            </p>
+          </div>
+
+          <form class="proxy-fr-form proxy-custom-form" id="proxy-custom-form" novalidate>
+            <label class="proxy-custom-dropzone" id="proxy-custom-dropzone" for="proxy-custom-file">
+              <strong>Visuel HD</strong>
+              <span>
+                Glissez une image ici ou cliquez pour choisir (PNG, JPEG, WebP, AVIF • 40 Mo max)
+              </span>
+              <span class="proxy-custom-file-name" id="proxy-custom-file-name">
+                Aucun fichier choisi
+              </span>
+              <input
+                type="file"
+                id="proxy-custom-file"
+                accept="image/png,image/jpeg,image/webp,image/avif"
+              />
+            </label>
+
+            <fieldset class="proxy-custom-modes">
+              <legend>Type de visuel</legend>
+              <label>
+                <input type="radio" name="proxy-custom-mode" value="scan" checked />
+                <span>
+                  <strong>Carte complète (VO)</strong> — le texte anglais est effacé et remplacé
+                  par votre texte français (cadres modernes M15)
+                </span>
+              </label>
+              <label>
+                <input type="radio" name="proxy-custom-mode" value="art" />
+                <span>
+                  <strong>Illustration seule</strong> — la carte est composée dans le cadre
+                  DraftMaster
+                </span>
+              </label>
+            </fieldset>
+
+            <label class="proxy-checkbox-label" id="proxy-custom-bleed-row">
+              <input type="checkbox" id="proxy-custom-bleed" />
+              <span>L'image inclut un fond perdu (rendus MPC, 1/8″ autour de la carte)</span>
+            </label>
+
+            <label for="proxy-custom-name">Nom français</label>
+            <input type="text" id="proxy-custom-name" class="proxy-input" maxlength="80" required />
+
+            <div class="proxy-custom-row">
+              <div>
+                <label for="proxy-custom-mana">Coût de mana</label>
+                <input
+                  type="text"
+                  id="proxy-custom-mana"
+                  class="proxy-input"
+                  placeholder="2UU ou {2}{U}{U}"
+                />
+              </div>
+              <div>
+                <label for="proxy-custom-power">Force</label>
+                <input
+                  type="text"
+                  id="proxy-custom-power"
+                  class="proxy-input"
+                  inputmode="numeric"
+                  maxlength="4"
+                />
+              </div>
+              <div>
+                <label for="proxy-custom-toughness">Endurance</label>
+                <input
+                  type="text"
+                  id="proxy-custom-toughness"
+                  class="proxy-input"
+                  inputmode="numeric"
+                  maxlength="4"
+                />
+              </div>
+            </div>
+
+            <label for="proxy-custom-type">Ligne de type</label>
+            <input
+              type="text"
+              id="proxy-custom-type"
+              class="proxy-input"
+              maxlength="90"
+              placeholder="Créature : elfe et druide"
+              required
+            />
+
+            <label for="proxy-custom-rules">
+              Texte de règles ({T}, {W}, {2/U}… pour les symboles ; le texte entre parenthèses
+              passe en italique)
+            </label>
+            <textarea id="proxy-custom-rules" class="proxy-textarea" rows="5" maxlength="1200"></textarea>
+
+            <label for="proxy-custom-flavor">Texte d'ambiance (optionnel)</label>
+            <textarea id="proxy-custom-flavor" class="proxy-textarea" rows="2" maxlength="400"></textarea>
+
+            <div class="proxy-custom-row proxy-custom-row-two">
+              <div>
+                <label for="proxy-custom-artist">Illustrateur (cadre DraftMaster)</label>
+                <input type="text" id="proxy-custom-artist" class="proxy-input" maxlength="60" />
+              </div>
+              <div>
+                <label for="proxy-custom-quantity">À imprimer</label>
+                <input
+                  type="number"
+                  id="proxy-custom-quantity"
+                  class="proxy-input"
+                  min="0"
+                  max="20"
+                  value="1"
+                />
+              </div>
+            </div>
+
+            <ul class="proxy-custom-errors" id="proxy-custom-errors" hidden role="alert"></ul>
+
+            <div class="proxy-fr-form-actions">
+              <button
+                type="button"
+                class="proxy-btn-secondary proxy-btn-danger"
+                id="proxy-custom-delete-btn"
+                hidden
+              >
+                Supprimer
+              </button>
+              <button type="button" class="proxy-btn-secondary" id="proxy-custom-cancel-btn">
+                Annuler
+              </button>
+              <button type="submit" class="proxy-btn-primary" id="proxy-custom-save-btn">
+                💾 Enregistrer
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
