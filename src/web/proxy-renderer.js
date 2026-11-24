@@ -7,8 +7,27 @@
  *   with crisp French title, type line, rules text, vector mana symbols, and P/T or Loyalty box.
  */
 
+import { computeCardCrop, toFrenchText, toRenderCard } from "./proxy-custom-cards.js";
+import { cropMpcRender, isM15CompatibleRender, isMpcVariant } from "./proxy-mpc.js";
+import { canRetextVariant } from "./proxy-retext-core.js";
+import { renderRetextedCanvas } from "./proxy-retext.js";
+
 export const PROXY_CANVAS_WIDTH = 745;
 export const PROXY_CANVAS_HEIGHT = 1040;
+
+/**
+ * French rendering engines:
+ * - "retext": keeps the real HD scan and replaces its English text in place
+ *   (M15 frames); other layouts fall back to "frame".
+ * - "frame": synthesized DraftMaster frame around the artwork.
+ */
+export const PROXY_FR_ENGINES = Object.freeze(["retext", "frame"]);
+
+/** Tells which engine will actually draw a card for the requested preference. */
+export function resolveFrenchEngine(variant, card, preferredEngine = "retext") {
+  if (preferredEngine === "retext" && canRetextVariant(variant, card)) return "retext";
+  return "frame";
+}
 
 const FRAME_PALETTES = {
   W: {
@@ -123,14 +142,14 @@ export function isFullArtStyleVariant(variant) {
   const effects = Array.isArray(variant.frameEffects) ? variant.frameEffects : [];
   return Boolean(
     variant.borderless ||
-      variant.fullArt ||
-      variant.setCode === "sld" ||
-      variant.setCode === "slc" ||
-      variant.setCode === "spg" ||
-      effects.includes("borderless") ||
-      effects.includes("showcase") ||
-      effects.includes("fullart") ||
-      effects.includes("extendedart"),
+    variant.fullArt ||
+    variant.setCode === "sld" ||
+    variant.setCode === "slc" ||
+    variant.setCode === "spg" ||
+    effects.includes("borderless") ||
+    effects.includes("showcase") ||
+    effects.includes("fullart") ||
+    effects.includes("extendedart"),
   );
 }
 
@@ -162,20 +181,23 @@ function drawRoundedRect(ctx, x, y, w, h, r) {
 }
 
 function drawImageCover(ctx, img, dx, dy, dw, dh, focalY = 0.5) {
-  if (!img || !img.naturalWidth || !img.naturalHeight) return;
-  const srcRatio = img.naturalWidth / img.naturalHeight;
+  // Works for <img> (naturalWidth) and canvas/ImageBitmap sources (width).
+  const imgWidth = img?.naturalWidth || img?.width || 0;
+  const imgHeight = img?.naturalHeight || img?.height || 0;
+  if (!imgWidth || !imgHeight) return;
+  const srcRatio = imgWidth / imgHeight;
   const dstRatio = dw / dh;
   let sx = 0;
   let sy = 0;
-  let sw = img.naturalWidth;
-  let sh = img.naturalHeight;
+  let sw = imgWidth;
+  let sh = imgHeight;
 
   if (srcRatio > dstRatio) {
-    sw = img.naturalHeight * dstRatio;
-    sx = (img.naturalWidth - sw) / 2;
+    sw = imgHeight * dstRatio;
+    sx = (imgWidth - sw) / 2;
   } else {
-    sh = img.naturalWidth / dstRatio;
-    sy = (img.naturalHeight - sh) * focalY;
+    sh = imgWidth / dstRatio;
+    sy = (imgHeight - sh) * focalY;
   }
   ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
 }
@@ -249,7 +271,8 @@ function drawManaSymbol(ctx, symbol, cx, cy, radius) {
     ctx.fill();
   } else {
     const label = isHybrid ? clean : clean;
-    const fontSize = label.length >= 3 ? radius * 0.92 : label.length === 2 ? radius * 1.05 : radius * 1.28;
+    const fontSize =
+      label.length >= 3 ? radius * 0.92 : label.length === 2 ? radius * 1.05 : radius * 1.28;
     ctx.font = `800 ${Math.round(fontSize)}px Inter, "Segoe UI", Arial, sans-serif`;
     ctx.fillText(label, cx, cy + 1);
   }
@@ -299,8 +322,7 @@ function layoutRichLines(ctx, text, maxWidth, fontSize) {
     let currentWidth = 0;
 
     for (const token of tokens) {
-      const tokenWidth =
-        token.kind === "symbol" ? symbolWidth : ctx.measureText(token.value).width;
+      const tokenWidth = token.kind === "symbol" ? symbolWidth : ctx.measureText(token.value).width;
 
       if (token.kind === "text" && /^\s+$/.test(token.value) && currentLine.length === 0) {
         continue;
@@ -351,11 +373,15 @@ function drawFittedRulesText(ctx, rulesText, flavorText, box, inkColor) {
     }
 
     const totalLinesHeight =
-      rulesLines.reduce((acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.45) : lineHeight), 0) +
+      rulesLines.reduce(
+        (acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.45) : lineHeight),
+        0,
+      ) +
       (flavorLines.length > 0
         ? Math.round(lineHeight * 0.65) +
           flavorLines.reduce(
-            (acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.35) : Math.round(lineHeight * 0.92)),
+            (acc, line) =>
+              acc + (line.isSpacer ? Math.round(lineHeight * 0.35) : Math.round(lineHeight * 0.92)),
             0,
           )
         : 0);
@@ -370,11 +396,15 @@ function drawFittedRulesText(ctx, rulesText, flavorText, box, inkColor) {
   }
 
   const totalRenderedHeight =
-    chosenLines.reduce((acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.45) : lineHeight), 0) +
+    chosenLines.reduce(
+      (acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.45) : lineHeight),
+      0,
+    ) +
     (chosenFlavorLines.length > 0
       ? Math.round(lineHeight * 0.65) +
         chosenFlavorLines.reduce(
-          (acc, line) => acc + (line.isSpacer ? Math.round(lineHeight * 0.35) : Math.round(lineHeight * 0.92)),
+          (acc, line) =>
+            acc + (line.isSpacer ? Math.round(lineHeight * 0.35) : Math.round(lineHeight * 0.92)),
           0,
         )
       : 0);
@@ -439,7 +469,18 @@ function drawFittedRulesText(ctx, rulesText, flavorText, box, inkColor) {
   }
 }
 
-function drawFittedSingleLineText(ctx, text, x, y, maxWidth, startSize, minSize, fontWeight, fontFamily, color) {
+function drawFittedSingleLineText(
+  ctx,
+  text,
+  x,
+  y,
+  maxWidth,
+  startSize,
+  minSize,
+  fontWeight,
+  fontFamily,
+  color,
+) {
   let size = startSize;
   ctx.fillStyle = color;
   ctx.textAlign = "left";
@@ -453,7 +494,11 @@ function drawFittedSingleLineText(ctx, text, x, y, maxWidth, startSize, minSize,
 }
 
 function drawPtOrLoyaltyBadge(ctx, card, palette, isDarkOverlay) {
-  const hasPt = card.power !== undefined && card.toughness !== undefined && card.power !== "" && card.toughness !== "";
+  const hasPt =
+    card.power !== undefined &&
+    card.toughness !== undefined &&
+    card.power !== "" &&
+    card.toughness !== "";
   const hasLoyalty = card.loyalty !== undefined && card.loyalty !== "";
   if (!hasPt && !hasLoyalty) return;
 
@@ -468,11 +513,7 @@ function drawPtOrLoyaltyBadge(ctx, card, palette, isDarkOverlay) {
   ctx.shadowOffsetY = 3;
 
   drawRoundedRect(ctx, badgeX, badgeY, badgeW, badgeH, hasLoyalty ? 16 : 12);
-  ctx.fillStyle = hasLoyalty
-    ? "#181a20"
-    : isDarkOverlay
-      ? "rgba(22, 24, 30, 0.9)"
-      : palette.barBg;
+  ctx.fillStyle = hasLoyalty ? "#181a20" : isDarkOverlay ? "rgba(22, 24, 30, 0.9)" : palette.barBg;
   ctx.fill();
   ctx.shadowColor = "transparent";
   ctx.lineWidth = 3.5;
@@ -524,7 +565,12 @@ function drawClassicFramedProxy(ctx, card, variant, french, artImage, fullScanIm
   drawRoundedRect(ctx, frameX, frameY, frameW, frameH, 24);
   ctx.clip();
 
-  if (!card.isLand && colors.length === 2 && FRAME_PALETTES[colors[0]] && FRAME_PALETTES[colors[1]]) {
+  if (
+    !card.isLand &&
+    colors.length === 2 &&
+    FRAME_PALETTES[colors[0]] &&
+    FRAME_PALETTES[colors[1]]
+  ) {
     const leftP = FRAME_PALETTES[colors[0]];
     const rightP = FRAME_PALETTES[colors[1]];
     const splitGrad = ctx.createLinearGradient(frameX, 0, frameX + frameW, 0);
@@ -825,6 +871,8 @@ export async function renderProxyCardDataUrl({
   french,
   renderMode = "hybrid",
   face = "front",
+  engine = "retext",
+  outputScale = 1,
 }) {
   const effectiveVariant =
     face === "back" && variant?.backFace
@@ -842,6 +890,7 @@ export async function renderProxyCardDataUrl({
           ...card,
           name: variant.backFace.name,
           manaCost: variant.backFace.manaCost || "",
+          colors: card?.colors,
           typeLine: variant.backFace.typeLine,
           oracleText: variant.backFace.oracleText,
           power: variant.backFace.power,
@@ -867,8 +916,20 @@ export async function renderProxyCardDataUrl({
         }
       : french;
 
+  if (isMpcVariant(effectiveVariant)) {
+    return renderMpcVariant({
+      card: effectiveCard,
+      variant: effectiveVariant,
+      french: effectiveFrench,
+      renderMode,
+      outputScale,
+    });
+  }
+
   const useCanvas = shouldUseFrenchCanvasRender(effectiveVariant, effectiveFrench, renderMode);
-  const rawScanUrl = toProxiedImageUrl(effectiveVariant?.pngUrl || effectiveVariant?.largeUrl || card?.imageUrl || "");
+  const rawScanUrl = toProxiedImageUrl(
+    effectiveVariant?.pngUrl || effectiveVariant?.largeUrl || card?.imageUrl || "",
+  );
 
   if (!useCanvas) {
     return {
@@ -879,10 +940,14 @@ export async function renderProxyCardDataUrl({
     };
   }
 
+  const resolvedEngine = resolveFrenchEngine(effectiveVariant, effectiveCard, engine);
+  const scale = resolvedEngine === "retext" ? Math.max(1, Math.min(2, outputScale)) : 1;
   const cacheKey = JSON.stringify([
     effectiveVariant?.scryfallId || card?.slug,
     face,
     renderMode,
+    resolvedEngine,
+    scale,
     effectiveFrench?.name,
     effectiveFrench?.typeLine,
     effectiveFrench?.rulesText,
@@ -891,6 +956,32 @@ export async function renderProxyCardDataUrl({
 
   if (renderedDataUrlCache.has(cacheKey)) {
     return renderedDataUrlCache.get(cacheKey);
+  }
+
+  if (resolvedEngine === "retext") {
+    const scanImage = await loadCanvasImage(rawScanUrl);
+    if (scanImage?.naturalWidth) {
+      try {
+        const retextCanvas = await renderRetextedCanvas({
+          scanImage,
+          card: effectiveCard,
+          french: effectiveFrench,
+          hasFaceIcon: Boolean(variant?.backFace),
+          outputScale: scale,
+        });
+        const result = {
+          dataUrl: await canvasToUrl(retextCanvas),
+          width: retextCanvas.width,
+          height: retextCanvas.height,
+          renderedAsFrenchProxy: true,
+          engine: "retext",
+        };
+        renderedDataUrlCache.set(cacheKey, result);
+        return result;
+      } catch {
+        // Fall through to the synthesized frame (e.g. tainted canvas, decode failure).
+      }
+    }
   }
 
   const canvas = document.createElement("canvas");
@@ -908,9 +999,23 @@ export async function renderProxyCardDataUrl({
 
   if (ctx) {
     if (fullArtStyle) {
-      drawFullArtFrenchProxy(ctx, effectiveCard, effectiveVariant, effectiveFrench, fullScanImage, artImage);
+      drawFullArtFrenchProxy(
+        ctx,
+        effectiveCard,
+        effectiveVariant,
+        effectiveFrench,
+        fullScanImage,
+        artImage,
+      );
     } else {
-      drawClassicFramedProxy(ctx, effectiveCard, effectiveVariant, effectiveFrench, artImage, fullScanImage);
+      drawClassicFramedProxy(
+        ctx,
+        effectiveCard,
+        effectiveVariant,
+        effectiveFrench,
+        artImage,
+        fullScanImage,
+      );
     }
   }
 
@@ -919,9 +1024,25 @@ export async function renderProxyCardDataUrl({
     width: PROXY_CANVAS_WIDTH,
     height: PROXY_CANVAS_HEIGHT,
     renderedAsFrenchProxy: true,
+    engine: "frame",
   };
   renderedDataUrlCache.set(cacheKey, result);
   return result;
+}
+
+/**
+ * Screen-size renders stay data URLs; 600 DPI renders become blob URLs so a
+ * full print run does not hold hundreds of megabytes of base64 strings.
+ */
+function canvasToUrl(canvas) {
+  if (canvas.width <= PROXY_CANVAS_WIDTH || typeof canvas.toBlob !== "function") {
+    return Promise.resolve(canvas.toDataURL("image/png"));
+  }
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      resolve(blob ? URL.createObjectURL(blob) : canvas.toDataURL("image/png"));
+    }, "image/png");
+  });
 }
 
 /**
@@ -947,5 +1068,130 @@ export async function renderProxyCardPngBytes(params) {
 }
 
 export function clearProxyRenderCache() {
+  for (const rendered of renderedDataUrlCache.values()) {
+    if (typeof rendered?.dataUrl === "string" && rendered.dataUrl.startsWith("blob:")) {
+      URL.revokeObjectURL(rendered.dataUrl);
+    }
+  }
   renderedDataUrlCache.clear();
+}
+
+/**
+ * Renders a user-made card ("carte inédite") from its uploaded image.
+ * - mode "scan": the image is a full card visual; it is cropped to 63:88
+ *   (minus MPC bleed if flagged) and its text is replaced by the French text.
+ * - mode "art": the image is an illustration framed by the DraftMaster frame.
+ *
+ * @returns {Promise<HTMLCanvasElement>}
+ */
+export async function renderCustomCardCanvas({ customCard, image, outputScale = 1 }) {
+  const scale = Math.max(1, Math.min(2, outputScale));
+  const card = toRenderCard(customCard);
+  const french = toFrenchText(customCard);
+  const sourceWidth = image.naturalWidth || image.width;
+  const sourceHeight = image.naturalHeight || image.height;
+
+  if (customCard.mode === "scan") {
+    const crop = computeCardCrop(sourceWidth, sourceHeight, {
+      hasBleed: customCard.imageHasBleed,
+    });
+    // Normalise very large uploads (MPC 1200 DPI) to 600 DPI before erasing.
+    const maxWidth = PROXY_CANVAS_WIDTH * 2;
+    const ratio = Math.min(1, maxWidth / crop.width);
+    const cropped = document.createElement("canvas");
+    cropped.width = Math.round(crop.width * ratio);
+    cropped.height = Math.round(crop.height * ratio);
+    const cctx = cropped.getContext("2d");
+    cctx.imageSmoothingQuality = "high";
+    cctx.drawImage(
+      image,
+      crop.x,
+      crop.y,
+      crop.width,
+      crop.height,
+      0,
+      0,
+      cropped.width,
+      cropped.height,
+    );
+    return renderRetextedCanvas({
+      scanImage: cropped,
+      card,
+      french,
+      hasFaceIcon: false,
+      outputScale: scale,
+    });
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = PROXY_CANVAS_WIDTH * scale;
+  canvas.height = PROXY_CANVAS_HEIGHT * scale;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
+  ctx.imageSmoothingQuality = "high";
+  const variant = { setCode: "DM", artist: customCard.artist || "Illustration perso" };
+  drawClassicFramedProxy(ctx, card, variant, french, image, null);
+  return canvas;
+}
+
+/** Canvas -> PNG bytes for downloads and ZIP archives. */
+export async function canvasToPngBytes(canvas) {
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+  if (!blob) throw new Error("Impossible d'encoder la carte en PNG.");
+  return new Uint8Array(await blob.arrayBuffer());
+}
+
+/**
+ * MPC Autofill renders: the 1/8" bleed is always trimmed; English renders get
+ * the French text only when their template matches the M15 layout, otherwise
+ * the community render is kept as-is (VO) rather than damaged.
+ */
+async function renderMpcVariant({ card, variant, french, renderMode, outputScale }) {
+  const scale = Math.max(1, Math.min(2, outputScale));
+  const wantsFrench = renderMode !== "raw" && !variant.isOfficialFrenchScan;
+  const cacheKey = JSON.stringify([
+    variant.scryfallId,
+    "mpc",
+    scale,
+    wantsFrench,
+    wantsFrench ? french?.name : "",
+    wantsFrench ? french?.typeLine : "",
+    wantsFrench ? french?.rulesText : "",
+    wantsFrench ? french?.flavorText || "" : "",
+  ]);
+  if (renderedDataUrlCache.has(cacheKey)) return renderedDataUrlCache.get(cacheKey);
+
+  const image = await loadCanvasImage(variant.pngUrl);
+  if (!image?.naturalWidth) {
+    throw new Error("Rendu MPC indisponible (image non téléchargée).");
+  }
+  const cardArea = cropMpcRender(image, PROXY_CANVAS_WIDTH * scale);
+
+  let output = cardArea;
+  let engine = "mpc";
+  let layoutCompatible = null;
+  if (wantsFrench) {
+    layoutCompatible = isM15CompatibleRender(cardArea);
+    if (layoutCompatible) {
+      output = await renderRetextedCanvas({
+        scanImage: cardArea,
+        card,
+        french,
+        hasFaceIcon: false,
+        outputScale: scale,
+      });
+      engine = "retext";
+    }
+  }
+
+  const result = {
+    dataUrl: await canvasToUrl(output),
+    width: output.width,
+    height: output.height,
+    renderedAsFrenchProxy: engine === "retext",
+    engine,
+    layoutCompatible,
+  };
+  renderedDataUrlCache.set(cacheKey, result);
+  return result;
 }

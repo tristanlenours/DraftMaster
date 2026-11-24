@@ -28,6 +28,8 @@ export interface CreateRequestHandlerOptions {
   readonly proxyScansCatalogPath?: string;
   readonly proxyScansImageCacheDir?: string;
   readonly proxyScansFetch?: typeof fetch;
+  /** Folder of optional user-supplied proxy card fonts (defaults to data/fonts/). */
+  readonly proxyScansFontsDir?: string;
 }
 
 export function createRequestHandler(options?: CreateRequestHandlerOptions): RequestListener;

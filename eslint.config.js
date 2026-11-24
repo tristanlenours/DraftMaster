@@ -4,6 +4,7 @@ export default tseslint.config(
   {
     ignores: [
       ".agents/**",
+      ".claude/**",
       ".specify/**",
       ".scratch/**",
       "agent/**",
